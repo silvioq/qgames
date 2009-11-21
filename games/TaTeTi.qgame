@@ -1,0 +1,57 @@
+# El gametype es el nombre de juego que usaremos!
+gametype:    TaTeTi
+
+# Cada color se define aparte o no
+color:       blanco      negro 
+
+# Board se puede definir como una lista de dimensiones.
+# Tambien podria estar en blanco y comenzar con las definiciones
+# de casillero de una.
+board:       "a b c" "1 2 3"
+
+# Directions tiene el nombre de la direccion. Opcionalmente podria
+# tener n numeros que hace la representacion 'n' dimensional.
+directions:  n  0  1 
+directions:  e  1  0 
+directions:  ne 1  1 
+directions:  no 1 -1 
+
+# Aca hay una sola pieza!
+piece:       gema
+drop:
+             juega if !ocupado?
+
+
+ending:
+             parar if !ocupado_propio?
+             n
+             parar if !ocupado_propio?
+             n
+             gana if ocupado_propio?
+
+ending:
+             parar if !ocupado_propio?
+             e
+             parar if !ocupado_propio?
+             e
+             gana if ocupado_propio?
+
+ending:
+             parar if !ocupado_propio?
+             ne
+             parar if !ocupado_propio?
+             ne
+             gana if ocupado_propio?
+
+ending:
+             parar if !ocupado_propio?
+             no
+             parar if !ocupado_propio?
+             no
+             gana if ocupado_propio?
+
+ending:
+             empata if ahogado?
+
+start:       gema   blanco   5
+start:       gema   negro    5
