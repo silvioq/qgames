@@ -30,8 +30,8 @@ typedef   struct   StrTipojuego {
 }  Tipojuego;
 
 
-Tipojuego*  tipojuego_new( char* nombre );
 
+Tipojuego*  tipojuego_new( char* nombre );
 void        tipojuego_add_casillero( Tipojuego* tj, char* casillero );
 void        tipojuego_add_direccion( Tipojuego* tj, char* direccion );
 void        tipojuego_add_direccion_rel( Tipojuego* tj, char* direccion, ... );
