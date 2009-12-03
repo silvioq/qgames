@@ -1,0 +1,3 @@
+[submodule "qcode"]
+	path = qcode
+	url = git://github.com/silvioq/qcode.git
