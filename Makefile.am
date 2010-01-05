@@ -1,1 +1,2 @@
-SUBDIRS = common include src
+# SUBDIRS = common include src
+SUBDIRS = common src

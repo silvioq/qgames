@@ -1,10 +1,19 @@
 %{
 
+#include  <stdio.h>
 #include  <stdarg.h>
+#include  <string.h>
 #include  <errno.h>
+#include  "qgames.h"
 #include  "qgames_analyzer.h"
 
-int  qgz_verbose  = 0;
+int    qgz_verbose  = 0;
+str_param*  qgz_param_list  = NULL;
+int    qgz_param_count = 0;
+void  add_parameter( int  type, long param );
+
+#define  MAX_PARAMS   32
+
 #define YYSTYPE long
 #define YYDEBUG 1
 
@@ -32,33 +41,140 @@ void  qgzprintf( char* format, ... ){
 
 %}
 
-%token    TOK_NUMBER  TOK_WORD   TOK_STRING
-%token    TOK_LABEL
+%token    TOK_NUMBER  TOK_WORD        TOK_STRING
+%token    TOK_SEPARATOR
+
+
+%token    TOK_BOARD
+%token    TOK_COLOR
+%token    TOK_DIRECTION
+%token    TOK_DROP
+%token    TOK_ENDING
+%token    TOK_PIECE
+%token    TOK_GAMETYPE  
+%token    TOK_START
+
+%token    TOK_SEPCODE
+
+%token    TOK_AHOGADO
+%token    TOK_EMPATA
+%token    TOK_GANA
+%token    TOK_JUEGA
+%token    TOK_IF
+%token    TOK_OCUPADO
+%token    TOK_OCUPADOPROPIO
+%token    TOK_PARA
+%token    TOK_PIERDE
+
 
 %start    game_definition
 
 %%
-/*
 word_or_string:
          TOK_WORD   { $$ = $1; } | 
          TOK_STRING { $$ = $1; } ;
-*/
 
-parameter:
-    TOK_NUMBER  |
-    TOK_WORD    |
-    TOK_STRING  ;
+word_or_string_list:
+        word_or_string  |  word_or_string_list  word_or_string ;
 
-parameter_list:
-    parameter   | parameter_list   parameter;
+number_list:
+        TOK_NUMBER  |   number_list  TOK_NUMBER ;
 
+/* --------------------------------------------------------------------------- */
+instexpr_ahogado:
+    TOK_AHOGADO;
+
+instexpr_ocupado:
+    TOK_OCUPADO         |
+    TOK_OCUPADOPROPIO   |
+    TOK_OCUPADO  word_or_string ;
+
+instexpr:
+    '!' instexpr  |
+    '(' instexpr ')' |
+    instexpr_ocupado |
+    instexpr_ahogado ;
+
+/* --------------------------------------------------------------------------- */
+instaction_final:
+    TOK_EMPATA |
+    TOK_GANA   |
+    TOK_PIERDE ;
+
+instaction_juega:
+    TOK_JUEGA   ;
+
+instaction_para:
+    TOK_PARA   ;
+
+instaction:
+    instaction_juega |
+    instaction_final |
+    instaction_para  |
+    TOK_WORD    ; /* una direccion podria ser */
+
+/* --------------------------------------------------------------------------- */
+instcode:
+    instaction   |
+    instaction   TOK_IF  instexpr |
+    ;
+
+code_list:
+    instcode |
+    code_list  TOK_SEPCODE  instcode;
+
+/* --------------------------------------------------------------------------- */
+
+
+
+
+instruction_board:
+    TOK_BOARD        word_or_string_list;
+
+instruction_color:
+    TOK_COLOR        word_or_string_list;
+
+instruction_direction:
+    TOK_DIRECTION    word_or_string  number_list;
+
+instruction_drop_prelude:
+    TOK_DROP   |
+    TOK_DROP   word_or_string  |
+    TOK_DROP   word_or_string  word_or_string  ;
+
+instruction_drop:
+    instruction_drop_prelude  TOK_SEPARATOR { change_to_code_mode(); }  code_list;
+
+instruction_ending:
+    TOK_ENDING  TOK_SEPARATOR  { change_to_code_mode(); }  code_list;
+
+instruction_gametype:
+    TOK_GAMETYPE     word_or_string;
+
+instruction_piece:
+    TOK_PIECE        word_or_string;
+
+instruction_start:
+    TOK_START        word_or_string  word_or_string  TOK_NUMBER  |
+    TOK_START        word_or_string  word_or_string  word_or_string_list ;
 
 instruction:
-    TOK_LABEL   parameter_list;
+    instruction_board      |
+    instruction_color      |
+    instruction_direction  |
+    instruction_drop       |
+    instruction_ending     |
+    instruction_gametype   |
+    instruction_piece      |
+    instruction_start      |
+                           ;
+    
+    
 
 
 instruction_list:
-    instruction | instruction_list instruction;
+    instruction  | 
+    instruction_list  TOK_SEPARATOR  instruction;
 
 
 game_definition:
@@ -88,7 +204,8 @@ int   qgz_parse( FILE* f, char* filename, int flags ){
     } else {
         ff = fopen( filename, "r" );
         if( !ff ){
-            qgzprintf( "Error %d (%s) al abrir \"%s\"\n", errno, strerror( errno ), filename );
+            char* xx = strerror( errno );
+            qgzprintf( "Error %d (%s) al abrir \"%s\"\n", errno, xx, filename );
             return  0;
         } else {
             qgzin = ff;
@@ -104,3 +221,36 @@ int   qgz_parse( FILE* f, char* filename, int flags ){
     if( qgz_verbose )printf( "Total analizado: %d lineas\n", qgzlineno );
     return 1;
 }
+
+
+
+
+/*
+ * Agrega un parametro
+ * */
+void  add_parameter( int  type, long param ){
+  if( !qgz_param_list ){
+    qgz_param_list = ALLOC( sizeof( str_param  ) * MAX_PARAMS );
+  }
+  if( qgz_param_count + 1 >= MAX_PARAMS ) {
+      yyerror( "Cantidad maxima de parametros alcanzado" );
+      return;
+  }
+  switch( type ){
+      case TOK_NUMBER:
+          qgzprintf( "Parametro N: %d", param );
+          break;
+      case TOK_STRING:
+          qgzprintf( "Parametro C: %s", ((char*)param) );
+          break;
+      default:
+          yyerror( "Tipo parametro incorrecto" );
+          return;
+  }
+  qgz_param_list[qgz_param_count].par = param;
+  qgz_param_list[qgz_param_count].typ = type;
+  qgz_param_count ++;
+}
+
+
+
