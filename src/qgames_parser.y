@@ -183,7 +183,7 @@ instruction_gametype:
     };
 
 instruction_piece:
-    TOK_PIECE        word_or_string;
+    TOK_PIECE        word_or_string  { CHECK_TIPOJUEGO; tipojuego_add_tipopieza( tipojuego, ((char*)$2) ); };
 
 instruction_start:
     TOK_START        word_or_string  word_or_string  TOK_NUMBER  |

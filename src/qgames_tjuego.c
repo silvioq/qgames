@@ -151,3 +151,20 @@ void       tipojuego_add_direccion_arr( Tipojuego* tj, char* direccion, int* dir
     }
     tipojuego_genera_vinculos( tj, dir );
 }
+
+/*
+ * Esta funcion crea una nueva pieza
+ * */
+int         tipojuego_add_tipopieza( Tipojuego* tj, char* tpieza    ){
+
+    if( tipojuego_get_simbolo( tj, tpieza ) ){
+        printf( "Tipo pieza %s existente (File %s - linea %d)\n", tpieza, __FILE__, __LINE__ );
+        exit( EXIT_FAILURE );
+    }
+    if( !tj->tipo_piezas )  tj->tipo_piezas = list_nueva( NULL );
+    Tipopieza* pie = tipopieza_new( tj, tpieza );
+    list_agrega( tj->tipo_piezas, pie );
+    SIM_ADD( tj, SIM_TIPOPIEZA, tpieza, pie );
+    return tj->simbolos->entradas - 1;
+
+}

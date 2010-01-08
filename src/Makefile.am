@@ -3,7 +3,8 @@ bin_PROGRAMS = qgames
 qgames_SOURCES = qgames.c qgames_parser.y  qgames_scanner.l ../common/list.c  \
 								qgames_tjuego.c  \
 								tipojuego.c  tipojuego.h  \
-								tablero.c  casillero.c  vinculo.c  direccion.c
+								tablero.c  casillero.c  vinculo.c  direccion.c   \
+								tipopieza.c
 
 
 # qasm_LDADD = $(top_builddir)/src/libqcode.la

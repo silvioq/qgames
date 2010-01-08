@@ -19,7 +19,7 @@ typedef   struct   StrTipojuego {
     _list*       secuencias;
     int          secuencia_repeat;
     _list*       colores;
-    _list*       piezas;
+    _list*       tipo_piezas;
     char*        nombre;
     Posicion*    inicial;
 } _Tipojuego;
@@ -51,6 +51,16 @@ typedef   struct   StrVinculo {
     Casillero* destino;
 } Vinculo;
 
+typedef   struct   StrTipopieza {
+    char*       nombre;
+    Tipojuego*  tipojuego;
+    int         att_count;
+    _list*      att_nombres;
+    _list*      att_default;
+} Tipopieza;
+
+
+
 /* Funciones de acceso a datos de tipojuego */
 Casillero*  tipojuego_get_casillero_by_num( Tipojuego* tj, int nro );
 Casillero*  tipojuego_get_casillero_by_relpos( Tipojuego* tj, int tablero, int dims[MAXDIMS] );
@@ -81,5 +91,7 @@ Direccion* direccion_new( char* dir );
 Vinculo*   vinculo_new( Casillero* ori, Direccion* dir, Casillero* des );
 void       tipojuego_genera_vinculos( Tipojuego* tj, Direccion* dir );
 
+/* Tipos de pieza */
+Tipopieza*  tipopieza_new( Tipojuego* tj, char* nombre );
 
 #endif

@@ -1561,6 +1561,11 @@ yyreduce:
     }
     break;
 
+  case 44:
+#line 186 "qgames_parser.y"
+    { CHECK_TIPOJUEGO; tipojuego_add_tipopieza( tipojuego, ((char*)(yyvsp[(2) - (2)])) ); }
+    break;
+
   case 46:
 #line 190 "qgames_parser.y"
     { init_parameters(); }
@@ -1568,7 +1573,7 @@ yyreduce:
 
 
 /* Line 1267 of yacc.c.  */
-#line 1572 "qgames_parser.c"
+#line 1577 "qgames_parser.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
