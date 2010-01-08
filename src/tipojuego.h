@@ -9,8 +9,11 @@
 #define  TIPOJUEGO_H  1
 
 typedef   struct   StrTipojuego {
-    st_table*    simbolos;
-    struct StrTablero*     tablero;
+    _list*       simbolos;
+    _list*       tableros;
+    _list*       casilleros;
+    _list*       direcciones;
+    int          tablero_actual;
     _list*       tipos_movimiento;
     _list*       notacion;
     _list*       secuencias;
@@ -18,83 +21,65 @@ typedef   struct   StrTipojuego {
     _list*       colores;
     _list*       piezas;
     char*        nombre;
-    st_table*    descripciones;
-    struct StrPosicion*    inicial;
+    Posicion*    inicial;
+} _Tipojuego;
 
-    // Todo lo que continua tiene que ver con el codigo y su
-    // generación.
-    QCode*       code;
-    int          lblgen;
-    int          lblpos;
-    int          lblfin;
-}  Tipojuego;
+typedef   struct   StrTablero {
+    Tipojuego*   tipojuego;
+    int          numero;
+
+    // Cantidad de dimensiones que tiene el tablero
+    int          dimc;          
+    _list*       dimensiones;
+} Tablero  ;
+
+typedef   struct   StrCasillero {
+    char*       nombre;
+    int         tablero;
+    int         posicion[MAXDIMS];
+    _list*      vinculos;
+} Casillero;
+
+typedef   struct   StrDireccion {
+    char*        nombre;
+    int          mov_relativo[MAXDIMS];
+}  Direccion;
+
+typedef   struct   StrVinculo {
+    Casillero* origen;
+    Direccion* direccion;
+    Casillero* destino;
+} Vinculo;
+
+/* Funciones de acceso a datos de tipojuego */
+Casillero*  tipojuego_get_casillero_by_num( Tipojuego* tj, int nro );
+Casillero*  tipojuego_get_casillero_by_relpos( Tipojuego* tj, int tablero, int dims[MAXDIMS] );
+
+/* Funciones de manejo de tablero */
+Tablero*   tablero_new( Tipojuego* tj, int numero );
+void       tablero_genera_dimensiones( Tablero* tab, int dimc, char** dimv );
 
 
 
-Tipojuego*  tipojuego_new( char* nombre );
-void        tipojuego_add_casillero( Tipojuego* tj, char* casillero );
-void        tipojuego_add_direccion( Tipojuego* tj, char* direccion );
-void        tipojuego_add_direccion_rel( Tipojuego* tj, char* direccion, ... );
-void        tipojuego_add_direccion_arr( Tipojuego* tj, char* direccion, int* dirv );
-void        tipojuego_add_link     ( Tipojuego* tj, char* cas_ori, char* dir, char* cas_des );
-void        tipojuego_add_color    ( Tipojuego* tj, char* color );
-void        tipojuego_add_tipo_mov ( Tipojuego* tj, char* tipo_mov );
-void        tipojuego_add_tipopieza( Tipojuego* tj, char* tpieza    );
-void        tipojuego_add_zona     ( Tipojuego* tj, char* zona      );
-void        tipojuego_add_cas_to_zona( Tipojuego* tj, char* cas, char* color, char* zona );
-void        tipojuego_add_simetria ( Tipojuego* tj, char* color, char* dir1, char* dir2 );
+/* Funciones de manejo de direcciones */
+Casillero* casillero_new( char* cas, int tablero );
+void       casillero_free( Casillero* cas );
+void       casillero_add_vinculo( Casillero* ori, Direccion* dir, Casillero* des );
+void       casillero_kill_vinculo( Casillero* ori,Direccion* dir, Casillero* des );
+Vinculo*   casillero_busca_vinculo_origen( Casillero* ori, Direccion* dir );
+Vinculo*   casillero_busca_vinculo_destino( Casillero* des, Direccion* dir );
+int        casillero_posicion_establecida( Casillero* cas );
 
-Regla*      tipojuego_add_regla      ( Tipojuego* tj, char* tpieza, int tregla, char* tmov );
+int        casillero_check_dims( Casillero* cas, int max_dims, int pos[MAXDIMS] );
 
-void        tipojuego_kill_casillero( Tipojuego* tj, char* casillero );
-
-void        tipojuego_create_piece( Tipojuego* tj, char* tpieza, char* cas, char* color, int cantidad );
-void        tipojuego_create_piece_enpozo( Tipojuego* tj, char* tpieza, char* color, int cantidad );
+Casillero* casillero_aplica_direccion( Casillero* cas, Direccion* dir );
 
 
-Simbolo*    tipojuego_get_simbolo( Tipojuego* tj, char* sim );
+Direccion* direccion_new( char* dir );
+
+/* Tema vinculos */
+Vinculo*   vinculo_new( Casillero* ori, Direccion* dir, Casillero* des );
+void       tipojuego_genera_vinculos( Tipojuego* tj, Direccion* dir );
 
 
-static inline int  tipojuego_get_tipo_simbolo(Tipojuego* tj, char* sim){ 
-    Simbolo *s;
-    s = tipojuego_get_simbolo( tj, sim );
-    return ( s ? ( s->tipo ) : -1 ) ;
-}
-
-static inline int tipojuego_es_casillero(Tipojuego* tj, char* cas){
-    int t = tipojuego_get_tipo_simbolo(tj,cas);
-    return ( t == SIM_CASILLERO ) ;
-}
-
-/*
- * Distintas formas de obtener algun dato
- * */
-
-#define   NOT_FOUND   -1
-struct StrCasillero*    tipojuego_get_casillero( Tipojuego* tj, char* cas );
-struct StrDireccion*    tipojuego_get_direccion( Tipojuego* tj, char* dir );
-struct StrTipopieza*    tipojuego_get_tipopieza( Tipojuego* tj, char* tpieza );
-struct StrZona*         tipojuego_get_zona     ( Tipojuego* tj, char* zona );
-int           tipojuego_get_color    ( Tipojuego* tj, char* color );
-int           tipojuego_get_tipomov  ( Tipojuego* tj, char* tipomov );
-
-/* Esta es la definicion auxiliar de secuencia
- * El color tiene el puntero a color ...
- * El color_def tiene el entero dentro del array de colores,
- * el cual, inicialmente, se pone en -1
- * El tipomov tiene el puntero al tipo de movimiento, 
- * el cual puede estar en nulo.
- * El tipomov_def tiene el entero dentro del array de tipos
- * de movimiento, el cual, inicialmente, se pone en -1
- * */
-
-typedef  struct   StrSecuencia {
-    char*       color;
-    int         color_def;
-    char*       tipomov;
-    int         tipomov_def;
-}  Secuencia;
-
-void        tipojuego_add_secuencia( Tipojuego* tj, char* color, char* tipomov );
-void        tipojuego_add_secrepeat( Tipojuego* tj );
 #endif

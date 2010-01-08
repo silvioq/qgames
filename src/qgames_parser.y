@@ -11,6 +11,7 @@ int    qgz_verbose  = 0;
 str_param*  qgz_param_list  = NULL;
 int    qgz_param_count = 0;
 void  add_parameter( int  type, long param );
+void  init_parameters( );
 
 #define  MAX_PARAMS   32
 
@@ -20,6 +21,9 @@ void  add_parameter( int  type, long param );
 extern  int  qgzlineno;
 extern FILE* qgzin;
 
+Tipojuego*   tipojuego;
+#define  CHECK_TIPOJUEGO   \
+    if( !tipojuego ){ yyerror( "gametype no definido aun" ); YYERROR; }
 
 void yyerror(const char *str) { 
     fprintf(stderr,"error: %s (linea: %d)\n",str, qgzlineno); 
@@ -74,11 +78,14 @@ word_or_string:
          TOK_WORD   { $$ = $1; } | 
          TOK_STRING { $$ = $1; } ;
 
+
 word_or_string_list:
-        word_or_string  |  word_or_string_list  word_or_string ;
+        word_or_string                      { add_parameter( TOK_STRING, $1 ); }    |  
+        word_or_string_list  word_or_string { add_parameter( TOK_STRING, $2 ); }    ;
 
 number_list:
-        TOK_NUMBER  |   number_list  TOK_NUMBER ;
+        TOK_NUMBER                         { add_parameter( TOK_NUMBER, $1 ); } |   
+        number_list  TOK_NUMBER            { add_parameter( TOK_NUMBER, $2 ); };
 
 /* --------------------------------------------------------------------------- */
 instexpr_ahogado:
@@ -129,13 +136,30 @@ code_list:
 
 
 instruction_board:
-    TOK_BOARD        word_or_string_list;
+    TOK_BOARD      { CHECK_TIPOJUEGO; 
+                     init_parameters(); }  
+    word_or_string_list
+                   {
+                     char*  dims[MAX_PARAMS]; int i;
+                     for( i = 0; i < qgz_param_count; i ++ ){
+                        dims[i] = ((char*)qgz_param_list[i].par);
+                      }
+                     tipojuego_genera_dimensiones( tipojuego, qgz_param_count, dims );
+                   };
 
 instruction_color:
-    TOK_COLOR        word_or_string_list;
+    TOK_COLOR      { init_parameters(); }  word_or_string_list;
 
 instruction_direction:
-    TOK_DIRECTION    word_or_string  number_list;
+    TOK_DIRECTION    word_or_string { CHECK_TIPOJUEGO; init_parameters(); } number_list 
+                    {
+                      int  dirs[MAX_PARAMS]; int i; 
+                      tipojuego_add_direccion( tipojuego, ((char*)$2) );
+                      for( i = 0; i < qgz_param_count; i ++ ){
+                          dirs[i] = qgz_param_list[i].par;
+                      }
+                      tipojuego_add_direccion_arr( tipojuego, ((char*)$2), dirs );
+                    };
 
 instruction_drop_prelude:
     TOK_DROP   |
@@ -149,14 +173,21 @@ instruction_ending:
     TOK_ENDING  TOK_SEPARATOR  { change_to_code_mode(); }  code_list;
 
 instruction_gametype:
-    TOK_GAMETYPE     word_or_string;
+    TOK_GAMETYPE     word_or_string { 
+        if( tipojuego ){
+            yyerror( "Ya fue definido el tipo juego" );
+            YYERROR;
+        } else {
+            tipojuego = tipojuego_new( ((char*)$2) );
+        }
+    };
 
 instruction_piece:
     TOK_PIECE        word_or_string;
 
 instruction_start:
     TOK_START        word_or_string  word_or_string  TOK_NUMBER  |
-    TOK_START        word_or_string  word_or_string  word_or_string_list ;
+    TOK_START        word_or_string  word_or_string { init_parameters(); } word_or_string_list ;
 
 instruction:
     instruction_board      |
@@ -212,6 +243,8 @@ int   qgz_parse( FILE* f, char* filename, int flags ){
         }
     }
 
+    tipojuego = NULL;
+
     if( qgzparse() ){
         puts( "Salimos por error!" );
         if( ff ) fclose( ff );
@@ -251,6 +284,8 @@ void  add_parameter( int  type, long param ){
   qgz_param_list[qgz_param_count].typ = type;
   qgz_param_count ++;
 }
+
+void  init_parameters(){ qgz_param_count = 0; }
 
 
 

@@ -55,7 +55,7 @@ start\:         { return TOK_START;     }
 
 <INITIAL,code>{WORD}  { 
                   qgzlval = (long)strdup(yytext); 
-                  ((char*)(long)qgzlval)[yyleng - 1] = 0;
+                  ((char*)(long)qgzlval)[yyleng] = 0;
                   return  TOK_WORD; 
                 }
 

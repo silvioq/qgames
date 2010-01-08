@@ -17,12 +17,13 @@
 #define   MAXDIMS   16
 
 
-typedef   struct  Tipojuego  Tipojuego;
+typedef   struct  StrTipojuego  Tipojuego;
+typedef   struct  StrPosicion   Posicion;
 
 
 Tipojuego*  tipojuego_new( char* nombre );
 int         tipojuego_add_tablero  ( Tipojuego* tj );
-int         tipojuego_genera_dimensiones( Tipojuego* tj, int tablero, int dimc, char** dimv );
+int         tipojuego_genera_dimensiones( Tipojuego* tj, int dimc, char** dimv );
 int         tipojuego_add_casillero( Tipojuego* tj, char* casillero );
 int         tipojuego_add_direccion( Tipojuego* tj, char* direccion );
 void        tipojuego_add_direccion_rel( Tipojuego* tj, char* direccion, ... );

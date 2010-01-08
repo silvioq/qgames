@@ -1042,7 +1042,7 @@ YY_RULE_SETUP
 #line 56 "qgames_scanner.l"
 { 
                   qgzlval = (long)strdup(qgztext); 
-                  ((char*)(long)qgzlval)[qgzleng - 1] = 0;
+                  ((char*)(long)qgzlval)[qgzleng] = 0;
                   return  TOK_WORD; 
                 }
 	YY_BREAK

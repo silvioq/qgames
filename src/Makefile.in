@@ -45,7 +45,9 @@ am__installdirs = "$(DESTDIR)$(bindir)"
 binPROGRAMS_INSTALL = $(INSTALL_PROGRAM)
 PROGRAMS = $(bin_PROGRAMS)
 am_qgames_OBJECTS = qgames.$(OBJEXT) qgames_parser.$(OBJEXT) \
-	qgames_scanner.$(OBJEXT)
+	qgames_scanner.$(OBJEXT) list.$(OBJEXT) \
+	qgames_tjuego.$(OBJEXT) tipojuego.$(OBJEXT) tablero.$(OBJEXT) \
+	casillero.$(OBJEXT) vinculo.$(OBJEXT) direccion.$(OBJEXT)
 qgames_OBJECTS = $(am_qgames_OBJECTS)
 qgames_LDADD = $(LDADD)
 DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
@@ -150,7 +152,11 @@ sysconfdir = @sysconfdir@
 target_alias = @target_alias@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-qgames_SOURCES = qgames.c qgames_parser.y  qgames_scanner.l
+qgames_SOURCES = qgames.c qgames_parser.y  qgames_scanner.l ../common/list.c  \
+								qgames_tjuego.c  \
+								tipojuego.c  tipojuego.h  \
+								tablero.c  casillero.c  vinculo.c  direccion.c
+
 AM_YFLAGS = -d -v -p qgz
 AM_LFLAGS = --prefix qgz -o lex.yy.c
 AM_CFLAGS = -I$(top_srcdir)/include -I$(top_srcdir)/common
@@ -225,9 +231,16 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/casillero.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/direccion.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/list.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/qgames.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/qgames_parser.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/qgames_scanner.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/qgames_tjuego.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/tablero.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/tipojuego.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/vinculo.Po@am__quote@
 
 .c.o:
 @am__fastdepCC_TRUE@	$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
@@ -242,6 +255,20 @@ distclean-compile:
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(COMPILE) -c `$(CYGPATH_W) '$<'`
+
+list.o: ../common/list.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT list.o -MD -MP -MF $(DEPDIR)/list.Tpo -c -o list.o `test -f '../common/list.c' || echo '$(srcdir)/'`../common/list.c
+@am__fastdepCC_TRUE@	mv -f $(DEPDIR)/list.Tpo $(DEPDIR)/list.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='../common/list.c' object='list.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o list.o `test -f '../common/list.c' || echo '$(srcdir)/'`../common/list.c
+
+list.obj: ../common/list.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT list.obj -MD -MP -MF $(DEPDIR)/list.Tpo -c -o list.obj `if test -f '../common/list.c'; then $(CYGPATH_W) '../common/list.c'; else $(CYGPATH_W) '$(srcdir)/../common/list.c'; fi`
+@am__fastdepCC_TRUE@	mv -f $(DEPDIR)/list.Tpo $(DEPDIR)/list.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='../common/list.c' object='list.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o list.obj `if test -f '../common/list.c'; then $(CYGPATH_W) '../common/list.c'; else $(CYGPATH_W) '$(srcdir)/../common/list.c'; fi`
 
 .l.c:
 	$(am__skiplex) $(SHELL) $(YLWRAP) $< $(LEX_OUTPUT_ROOT).c $@ -- $(LEXCOMPILE)
@@ -427,6 +454,7 @@ uninstall-am: uninstall-binPROGRAMS
 	maintainer-clean-generic mostlyclean mostlyclean-compile \
 	mostlyclean-generic pdf pdf-am ps ps-am tags uninstall \
 	uninstall-am uninstall-binPROGRAMS
+
 
 # qasm_LDADD = $(top_builddir)/src/libqcode.la
 # qasm_DEPENDENCIES = $(top_builddir)/src/libqcode.la

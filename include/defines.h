@@ -6,7 +6,6 @@
 */
 
 #ifndef  DEFINES_H
-#define  HAVE_STDLIB_H 1
 
 #define   ALLOC(n)   malloc(n)
 #define   FREE(p)    free(p)
