@@ -50,7 +50,7 @@ am_qgames_OBJECTS = qgames.$(OBJEXT) qgames_parser.$(OBJEXT) \
 	qgames_scanner.$(OBJEXT) list.$(OBJEXT) \
 	qgames_tjuego.$(OBJEXT) tipojuego.$(OBJEXT) tablero.$(OBJEXT) \
 	casillero.$(OBJEXT) vinculo.$(OBJEXT) direccion.$(OBJEXT) \
-	tipopieza.$(OBJEXT)
+	tipopieza.$(OBJEXT) pieza.$(OBJEXT)
 qgames_OBJECTS = $(am_qgames_OBJECTS)
 DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
@@ -194,7 +194,8 @@ qgames_SOURCES = qgames.c qgames_parser.y  qgames_scanner.l ../common/list.c  \
 								qgames_tjuego.c  \
 								tipojuego.c  tipojuego.h  \
 								tablero.c  casillero.c  vinculo.c  direccion.c   \
-								tipopieza.c
+								tipopieza.c   \
+								pieza.c
 
 qgames_DEPENDENCIES = $(top_builddir)/qcode/src/libqcode.la
 qgames_LDADD = $(top_builddir)/qcode/src/libqcode.la
@@ -282,6 +283,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/casillero.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/direccion.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/list.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pieza.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/qgames.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/qgames_parser.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/qgames_scanner.Po@am__quote@

@@ -55,6 +55,7 @@ void  qgzprintf( char* format, ... ){
 %token    TOK_SEPARATOR
 
 
+%token    TOK_ATTR
 %token    TOK_BOARD
 %token    TOK_COLOR
 %token    TOK_DIRECTION
@@ -62,7 +63,11 @@ void  qgzprintf( char* format, ... ){
 %token    TOK_ENDING
 %token    TOK_PIECE
 %token    TOK_GAMETYPE  
+%token    TOK_MOVE
+%token    TOK_MOVETYPE
+%token    TOK_SYMMETRY
 %token    TOK_START
+%token    TOK_ZONE
 
 %token    TOK_SEPCODE
 
@@ -145,13 +150,24 @@ code_list:
 
 
 
-
-
-
 /* --------------------------------------------------------------------------- */
 /* A partir de aqui van las instrucciones generales del tipo de juego          */
 /* --------------------------------------------------------------------------- */
-
+instruction_attr:
+    TOK_ATTR     word_or_string  word_or_string
+                   {  CHECK_TIPOJUEGO ;
+                      CHECK_LAST_PIEZA;
+                      int  def = 0;
+                      if( strcasecmp( ((char*)$3), "false" ) == 0 ){
+                          def = 0;
+                      } else if( strcasecmp( ((char*)$3), "true" ) == 0 ){
+                          def = 1;
+                      } else {
+                          def = atoi( ((char*)$3) );
+                      }
+                      tipojuego_add_tpieza_att( tipojuego, last_pieza, ((char*)$2), def );
+                    }
+                 ;
 
 
 
@@ -168,7 +184,14 @@ instruction_board:
                    };
 
 instruction_color:
-    TOK_COLOR      { init_parameters(); }  word_or_string_list;
+    TOK_COLOR      { CHECK_TIPOJUEGO; init_parameters(); }  word_or_string_list
+                   { int i;
+                     for( i = 0; i < qgz_param_count; i ++ ){
+                       char* col = ((char*)qgz_param_list[i].par);
+                       tipojuego_add_color( tipojuego, col );
+                     }
+                   }
+                   ;
 
 instruction_direction:
     TOK_DIRECTION    word_or_string { CHECK_TIPOJUEGO; init_parameters(); } number_list 
@@ -194,6 +217,22 @@ instruction_drop:
         tipojuego_start_code( tipojuego, DROP, last_pieza, last_tmov );
     }  code_list;
 
+
+instruction_move_prelude:
+    TOK_MOVE   |
+    TOK_MOVE   word_or_string  ;
+
+
+instruction_move:
+    instruction_move_prelude  TOK_SEPARATOR {
+        CHECK_TIPOJUEGO; 
+        CHECK_LAST_PIEZA;
+        change_to_code_mode(); 
+        tipojuego_start_code( tipojuego, MOVE, last_pieza, last_tmov );
+    }  code_list;
+
+
+
 instruction_ending:
     TOK_ENDING  TOK_SEPARATOR  { change_to_code_mode(); }  code_list;
 
@@ -207,6 +246,12 @@ instruction_gametype:
         }
     };
 
+instruction_movetype:
+    TOK_MOVETYPE     word_or_string {
+        CHECK_TIPOJUEGO;
+        tipojuego_add_tipo_mov( tipojuego, ((char*)$2) );
+    }
+
 instruction_piece:
     TOK_PIECE        word_or_string  { 
         CHECK_TIPOJUEGO; 
@@ -219,15 +264,26 @@ instruction_start:
     TOK_START        word_or_string  word_or_string  TOK_NUMBER  |
     TOK_START        word_or_string  word_or_string { init_parameters(); } word_or_string_list ;
 
+instruction_sym:
+    TOK_SYMMETRY     word_or_string  word_or_string  word_or_string ;
+
+instruction_zone:
+    TOK_ZONE         word_or_string  word_or_string { init_parameters(); } word_or_string_list ;
+
 instruction:
+    instruction_attr       |
     instruction_board      |
     instruction_color      |
     instruction_direction  |
     instruction_drop       |
     instruction_ending     |
     instruction_gametype   |
+    instruction_move       |
+    instruction_movetype   |
     instruction_piece      |
     instruction_start      |
+    instruction_sym        |
+    instruction_zone       |
                            ;
     
     

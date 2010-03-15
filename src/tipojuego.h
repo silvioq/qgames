@@ -19,10 +19,11 @@ typedef   struct   StrTipojuego {
     _list*       notacion;
     _list*       secuencias;
     int          secuencia_repeat;
-    _list*       colores;
+    int          colores;
     _list*       tipo_piezas;
     char*        nombre;
     Posicion*    inicial;
+    int          tipomovs;         // Cantidad de tipos de movimiento
 
     _list*       labels;
     QCode*       qcode;

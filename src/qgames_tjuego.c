@@ -169,7 +169,51 @@ int         tipojuego_add_tipopieza( Tipojuego* tj, char* tpieza    ){
 
 }
 
+/* 
+ * Agrega un atributo para el tipo de pieza pasado como parametro.
+ * */
+int         tipojuego_add_tpieza_att( Tipojuego* tj, char* tpieza, char* att, int default_value ){
 
+    Tipopieza* tp;
+    tp = tipojuego_get_simbolo( tj, tpieza );
+    if( !tp ){
+        printf( "Tipo pieza %s inexistente (File %s - linea %d)\n", tpieza, __FILE__, __LINE__ );
+        exit( EXIT_FAILURE );
+    }
+
+    if( !tp->att_nombres ){
+        tp->att_nombres = list_nueva( NULL );
+        tp->att_default = list_nueva( NULL );
+    }
+    list_agrega( tp->att_nombres, strdup(att) );
+    list_agrega( tp->att_default, (void*)(long)default_value );
+    return  default_value;
+}
+
+/*
+ * Esta funcion crea una nuevo tipo de juego
+ *
+ * */
+int         tipojuego_add_tipo_mov( Tipojuego* tj, char* tmov  ){
+    if( tipojuego_get_simbolo( tj, tmov ) ){
+        printf( "Tipo movimiento %s existente (File %s - linea %d)\n", tmov, __FILE__, __LINE__ );
+        exit( EXIT_FAILURE );
+    }
+    tj->tipomovs ++;
+    SIM_ADD( tj, SIM_TIPOMOV, tmov, (void*)(long)(tj->tipomovs)   );
+    return tj->tipomovs;
+}
+
+int         tipojuego_add_color    ( Tipojuego* tj, char* color ){
+    if( tipojuego_get_simbolo( tj, color ) ){
+        printf( "Color %s existente (File %s - linea %d)\n", color, __FILE__, __LINE__ );
+        exit( EXIT_FAILURE );
+    }
+    tj->colores ++;
+    SIM_ADD( tj, SIM_COLOR, color, (void*)(long)(tj->colores)   );
+    return tj->colores;
+
+}
 
 /*
  * Esta funcion agrega una nueva entrada de codigo, y va armando la lista
@@ -200,6 +244,7 @@ int         tipojuego_start_code(  Tipojuego* tj, char drop_mov, char* tipopieza
   }
   tpieza = (Tipopieza*) sp->data;
 
+  // A ver el tipo de juego
   if( tipomov ){
     sm   = tipojuego_get_simbolo( tj, tipomov );
     if( !sm ){
@@ -210,7 +255,7 @@ int         tipojuego_start_code(  Tipojuego* tj, char drop_mov, char* tipopieza
       printf( "%s no es tipo movimiento (File %s - linea %d\n", tipomov, __FILE__, __LINE__ );
       exit( EXIT_FAILURE );
     }
-    tmov = (int) sm->data;
+    tmov = (int)(long)sm->data;
   } else {
     tmov = 0;
   }

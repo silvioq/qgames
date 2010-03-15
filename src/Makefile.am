@@ -4,7 +4,8 @@ qgames_SOURCES = qgames.c qgames_parser.y  qgames_scanner.l ../common/list.c  \
 								qgames_tjuego.c  \
 								tipojuego.c  tipojuego.h  \
 								tablero.c  casillero.c  vinculo.c  direccion.c   \
-								tipopieza.c
+								tipopieza.c   \
+								pieza.c
 
 qgames_DEPENDENCIES = $(top_builddir)/qcode/src/libqcode.la
 qgames_LDADD = $(top_builddir)/qcode/src/libqcode.la

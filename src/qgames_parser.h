@@ -43,24 +43,29 @@
      TOK_WORD = 259,
      TOK_STRING = 260,
      TOK_SEPARATOR = 261,
-     TOK_BOARD = 262,
-     TOK_COLOR = 263,
-     TOK_DIRECTION = 264,
-     TOK_DROP = 265,
-     TOK_ENDING = 266,
-     TOK_PIECE = 267,
-     TOK_GAMETYPE = 268,
-     TOK_START = 269,
-     TOK_SEPCODE = 270,
-     TOK_AHOGADO = 271,
-     TOK_EMPATA = 272,
-     TOK_GANA = 273,
-     TOK_JUEGA = 274,
-     TOK_IF = 275,
-     TOK_OCUPADO = 276,
-     TOK_OCUPADOPROPIO = 277,
-     TOK_PARA = 278,
-     TOK_PIERDE = 279
+     TOK_ATTR = 262,
+     TOK_BOARD = 263,
+     TOK_COLOR = 264,
+     TOK_DIRECTION = 265,
+     TOK_DROP = 266,
+     TOK_ENDING = 267,
+     TOK_PIECE = 268,
+     TOK_GAMETYPE = 269,
+     TOK_MOVE = 270,
+     TOK_MOVETYPE = 271,
+     TOK_SYMMETRY = 272,
+     TOK_START = 273,
+     TOK_ZONE = 274,
+     TOK_SEPCODE = 275,
+     TOK_AHOGADO = 276,
+     TOK_EMPATA = 277,
+     TOK_GANA = 278,
+     TOK_JUEGA = 279,
+     TOK_IF = 280,
+     TOK_OCUPADO = 281,
+     TOK_OCUPADOPROPIO = 282,
+     TOK_PARA = 283,
+     TOK_PIERDE = 284
    };
 #endif
 /* Tokens.  */
@@ -68,24 +73,29 @@
 #define TOK_WORD 259
 #define TOK_STRING 260
 #define TOK_SEPARATOR 261
-#define TOK_BOARD 262
-#define TOK_COLOR 263
-#define TOK_DIRECTION 264
-#define TOK_DROP 265
-#define TOK_ENDING 266
-#define TOK_PIECE 267
-#define TOK_GAMETYPE 268
-#define TOK_START 269
-#define TOK_SEPCODE 270
-#define TOK_AHOGADO 271
-#define TOK_EMPATA 272
-#define TOK_GANA 273
-#define TOK_JUEGA 274
-#define TOK_IF 275
-#define TOK_OCUPADO 276
-#define TOK_OCUPADOPROPIO 277
-#define TOK_PARA 278
-#define TOK_PIERDE 279
+#define TOK_ATTR 262
+#define TOK_BOARD 263
+#define TOK_COLOR 264
+#define TOK_DIRECTION 265
+#define TOK_DROP 266
+#define TOK_ENDING 267
+#define TOK_PIECE 268
+#define TOK_GAMETYPE 269
+#define TOK_MOVE 270
+#define TOK_MOVETYPE 271
+#define TOK_SYMMETRY 272
+#define TOK_START 273
+#define TOK_ZONE 274
+#define TOK_SEPCODE 275
+#define TOK_AHOGADO 276
+#define TOK_EMPATA 277
+#define TOK_GANA 278
+#define TOK_JUEGA 279
+#define TOK_IF 280
+#define TOK_OCUPADO 281
+#define TOK_OCUPADOPROPIO 282
+#define TOK_PARA 283
+#define TOK_PIERDE 284
 
 
 

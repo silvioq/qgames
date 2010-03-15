@@ -19,6 +19,7 @@
 
 typedef   struct  StrTipojuego  Tipojuego;
 typedef   struct  StrPosicion   Posicion;
+typedef   struct  StrPartida    Partida;
 
 
 Tipojuego*  tipojuego_new( char* nombre );
@@ -32,6 +33,7 @@ int         tipojuego_add_link     ( Tipojuego* tj, char* cas_ori, char* dir, ch
 int         tipojuego_add_color    ( Tipojuego* tj, char* color );
 int         tipojuego_add_tipo_mov ( Tipojuego* tj, char* tipo_mov );
 int         tipojuego_add_tipopieza( Tipojuego* tj, char* tpieza    );
+int         tipojuego_add_tpieza_att( Tipojuego* tj, char* tpieza, char* att, int default_value );
 int         tipojuego_add_zona     ( Tipojuego* tj, char* zona      );
 void        tipojuego_add_cas_to_zona( Tipojuego* tj, char* cas, char* color, char* zona );
 void        tipojuego_add_simetria ( Tipojuego* tj, char* color, char* dir1, char* dir2 );
@@ -55,6 +57,13 @@ int         tipojuego_get_tipomov  ( Tipojuego* tj, char* tipomov );
 #define   MOVE  'M'
 
 int         tipojuego_start_code(  Tipojuego* tj, char drop_mov, char* tipopieza, char* tipomov );
+
+
+/*
+ * A partir de aca, comenzamos con la partida
+ * */
+Partida*    tipojuego_create_partida( Tipojuego* tj );
+
 
 
 
