@@ -8,13 +8,14 @@
 #ifndef  TIPOJUEGO_H
 #define  TIPOJUEGO_H  1
 
+#include  <qcode.h>
+
 typedef   struct   StrTipojuego {
     _list*       simbolos;
     _list*       tableros;
     _list*       casilleros;
     _list*       direcciones;
     int          tablero_actual;
-    _list*       tipos_movimiento;
     _list*       notacion;
     _list*       secuencias;
     int          secuencia_repeat;
@@ -22,6 +23,9 @@ typedef   struct   StrTipojuego {
     _list*       tipo_piezas;
     char*        nombre;
     Posicion*    inicial;
+
+    _list*       labels;
+    QCode*       qcode;
 } _Tipojuego;
 
 typedef   struct   StrTablero {
@@ -58,6 +62,13 @@ typedef   struct   StrTipopieza {
     _list*      att_nombres;
     _list*      att_default;
 } Tipopieza;
+
+typedef   struct  StrEntradaCod {
+    Tipopieza*  tpieza;
+    int         tmov;
+    char        drop_mov;
+    int         label;
+} EntradaCod;
 
 
 

@@ -21,9 +21,15 @@ void  init_parameters( );
 extern  int  qgzlineno;
 extern FILE* qgzin;
 
-Tipojuego*   tipojuego;
+Tipojuego*   tipojuego  = NULL;
+char*        last_pieza = NULL;
+char*        last_tmov  = NULL;
+
+
 #define  CHECK_TIPOJUEGO   \
     if( !tipojuego ){ yyerror( "gametype no definido aun" ); YYERROR; }
+#define  CHECK_LAST_PIEZA   \
+    if( !last_pieza ){ yyerror( "pieza no definida" ); YYERROR; }
 
 void yyerror(const char *str) { 
     fprintf(stderr,"error: %s (linea: %d)\n",str, qgzlineno); 
@@ -88,6 +94,9 @@ number_list:
         number_list  TOK_NUMBER            { add_parameter( TOK_NUMBER, $2 ); };
 
 /* --------------------------------------------------------------------------- */
+/* A partir de aqui van las instrucciones de acciones por piezas y por final
+   de partida */
+/* --------------------------------------------------------------------------- */
 instexpr_ahogado:
     TOK_AHOGADO;
 
@@ -130,6 +139,17 @@ code_list:
     instcode |
     code_list  TOK_SEPCODE  instcode;
 
+
+
+
+
+
+
+
+
+
+/* --------------------------------------------------------------------------- */
+/* A partir de aqui van las instrucciones generales del tipo de juego          */
 /* --------------------------------------------------------------------------- */
 
 
@@ -167,7 +187,12 @@ instruction_drop_prelude:
     TOK_DROP   word_or_string  word_or_string  ;
 
 instruction_drop:
-    instruction_drop_prelude  TOK_SEPARATOR { change_to_code_mode(); }  code_list;
+    instruction_drop_prelude  TOK_SEPARATOR { 
+        CHECK_TIPOJUEGO; 
+        CHECK_LAST_PIEZA;
+        change_to_code_mode(); 
+        tipojuego_start_code( tipojuego, DROP, last_pieza, last_tmov );
+    }  code_list;
 
 instruction_ending:
     TOK_ENDING  TOK_SEPARATOR  { change_to_code_mode(); }  code_list;
@@ -183,7 +208,12 @@ instruction_gametype:
     };
 
 instruction_piece:
-    TOK_PIECE        word_or_string  { CHECK_TIPOJUEGO; tipojuego_add_tipopieza( tipojuego, ((char*)$2) ); };
+    TOK_PIECE        word_or_string  { 
+        CHECK_TIPOJUEGO; 
+        tipojuego_add_tipopieza( tipojuego, ((char*)$2) ); 
+        if( last_pieza ) free( last_pieza );
+        last_pieza = strdup( ((char*)$2) );
+    };
 
 instruction_start:
     TOK_START        word_or_string  word_or_string  TOK_NUMBER  |
@@ -214,6 +244,19 @@ game_definition:
 
 
 %%
+
+/*
+ *
+ * 
+ * 
+ */
+
+
+
+
+
+
+
 
 
 

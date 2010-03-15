@@ -168,3 +168,63 @@ int         tipojuego_add_tipopieza( Tipojuego* tj, char* tpieza    ){
     return tj->simbolos->entradas - 1;
 
 }
+
+
+
+/*
+ * Esta funcion agrega una nueva entrada de codigo, y va armando la lista
+ * de etiquetas
+ * */
+
+int         tipojuego_start_code(  Tipojuego* tj, char drop_mov, char* tipopieza, char* tipomov ){
+
+  Simbolo* sp;
+  Simbolo* sm;
+
+  Tipopieza*  tpieza;
+  int  tmov;
+  EntradaCod* cod ;
+
+  if( !tj->qcode ){
+    tj->qcode = qcode_new();
+  }
+
+  sp = tipojuego_get_simbolo( tj, tipopieza );
+  if( !tpieza ){
+    printf( "Tipo pieza %s inexistente (File %s - linea %d\n", tipopieza, __FILE__, __LINE__ );
+    exit( EXIT_FAILURE );
+  }
+  if( sp->tipo != SIM_TIPOPIEZA ){
+    printf( "%s no es tipo pieza (File %s - linea %d\n", tipopieza, __FILE__, __LINE__ );
+    exit( EXIT_FAILURE );
+  }
+  tpieza = (Tipopieza*) sp->data;
+
+  if( tipomov ){
+    sm   = tipojuego_get_simbolo( tj, tipomov );
+    if( !sm ){
+      printf( "Tipo movimiento %s inexistente (File %s - linea %d\n", tipomov, __FILE__, __LINE__ );
+      exit( EXIT_FAILURE );
+    }
+    if( sp->tipo != SIM_TIPOMOV ){
+      printf( "%s no es tipo movimiento (File %s - linea %d\n", tipomov, __FILE__, __LINE__ );
+      exit( EXIT_FAILURE );
+    }
+    tmov = (int) sm->data;
+  } else {
+    tmov = 0;
+  }
+  
+
+  if( !tj->labels ) tj->labels = list_nueva( NULL );
+  cod = ALLOC( sizeof( EntradaCod ) );
+  memset( cod, sizeof( EntradaCod ), 0 );
+  cod->tpieza = tpieza;
+  cod->tmov   = tmov;
+  cod->drop_mov = drop_mov;
+  cod->label  = qcode_crlab( tj->qcode, unnamed_label );
+  list_agrega( tj->labels, cod );
+
+  return  tj->labels->entradas - 1;
+}
+

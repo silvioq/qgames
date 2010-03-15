@@ -49,4 +49,13 @@ int         tipojuego_get_color    ( Tipojuego* tj, char* color );
 int         tipojuego_get_tipomov  ( Tipojuego* tj, char* tipomov );
 
 #define   CASILLERO_POZO   ((Casillero*)PIEZA_ENPOZO)
+
+
+#define   DROP  'D'
+#define   MOVE  'M'
+
+int         tipojuego_start_code(  Tipojuego* tj, char drop_mov, char* tipopieza, char* tipomov );
+
+
+
 #endif

@@ -150,9 +150,15 @@ void  init_parameters( );
 extern  int  qgzlineno;
 extern FILE* qgzin;
 
-Tipojuego*   tipojuego;
+Tipojuego*   tipojuego  = NULL;
+char*        last_pieza = NULL;
+char*        last_tmov  = NULL;
+
+
 #define  CHECK_TIPOJUEGO   \
     if( !tipojuego ){ yyerror( "gametype no definido aun" ); YYERROR; }
+#define  CHECK_LAST_PIEZA   \
+    if( !last_pieza ){ yyerror( "pieza no definida" ); YYERROR; }
 
 void yyerror(const char *str) { 
     fprintf(stderr,"error: %s (linea: %d)\n",str, qgzlineno); 
@@ -205,7 +211,7 @@ typedef int YYSTYPE;
 
 
 /* Line 216 of yacc.c.  */
-#line 209 "qgames_parser.c"
+#line 215 "qgames_parser.c"
 
 #ifdef short
 # undef short
@@ -507,12 +513,12 @@ static const yytype_int8 yyrhs[] =
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    78,    78,    79,    83,    84,    87,    88,    92,    95,
-      96,    97,   100,   101,   102,   103,   107,   108,   109,   112,
-     115,   118,   119,   120,   121,   125,   126,   126,   130,   131,
-     139,   139,   151,   151,   154,   154,   165,   166,   167,   170,
-     170,   173,   173,   176,   186,   189,   190,   190,   193,   194,
-     195,   196,   197,   198,   199,   200,   200,   207,   208,   212
+       0,    84,    84,    85,    89,    90,    93,    94,   101,   104,
+     105,   106,   109,   110,   111,   112,   116,   117,   118,   121,
+     124,   127,   128,   129,   130,   134,   135,   135,   139,   140,
+     159,   159,   171,   171,   174,   174,   185,   186,   187,   190,
+     190,   198,   198,   201,   211,   219,   220,   220,   223,   224,
+     225,   226,   227,   228,   229,   230,   230,   237,   238,   242
 };
 #endif
 
@@ -1471,43 +1477,43 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 78 "qgames_parser.y"
+#line 84 "qgames_parser.y"
     { (yyval) = (yyvsp[(1) - (1)]); }
     break;
 
   case 3:
-#line 79 "qgames_parser.y"
+#line 85 "qgames_parser.y"
     { (yyval) = (yyvsp[(1) - (1)]); }
     break;
 
   case 4:
-#line 83 "qgames_parser.y"
+#line 89 "qgames_parser.y"
     { add_parameter( TOK_STRING, (yyvsp[(1) - (1)]) ); }
     break;
 
   case 5:
-#line 84 "qgames_parser.y"
+#line 90 "qgames_parser.y"
     { add_parameter( TOK_STRING, (yyvsp[(2) - (2)]) ); }
     break;
 
   case 6:
-#line 87 "qgames_parser.y"
+#line 93 "qgames_parser.y"
     { add_parameter( TOK_NUMBER, (yyvsp[(1) - (1)]) ); }
     break;
 
   case 7:
-#line 88 "qgames_parser.y"
+#line 94 "qgames_parser.y"
     { add_parameter( TOK_NUMBER, (yyvsp[(2) - (2)]) ); }
     break;
 
   case 30:
-#line 139 "qgames_parser.y"
+#line 159 "qgames_parser.y"
     { CHECK_TIPOJUEGO; 
                      init_parameters(); }
     break;
 
   case 31:
-#line 142 "qgames_parser.y"
+#line 162 "qgames_parser.y"
     {
                      char*  dims[MAX_PARAMS]; int i;
                      for( i = 0; i < qgz_param_count; i ++ ){
@@ -1518,17 +1524,17 @@ yyreduce:
     break;
 
   case 32:
-#line 151 "qgames_parser.y"
+#line 171 "qgames_parser.y"
     { init_parameters(); }
     break;
 
   case 34:
-#line 154 "qgames_parser.y"
+#line 174 "qgames_parser.y"
     { CHECK_TIPOJUEGO; init_parameters(); }
     break;
 
   case 35:
-#line 155 "qgames_parser.y"
+#line 175 "qgames_parser.y"
     {
                       int  dirs[MAX_PARAMS]; int i; 
                       tipojuego_add_direccion( tipojuego, ((char*)(yyvsp[(2) - (4)])) );
@@ -1540,17 +1546,22 @@ yyreduce:
     break;
 
   case 39:
-#line 170 "qgames_parser.y"
-    { change_to_code_mode(); }
+#line 190 "qgames_parser.y"
+    { 
+        CHECK_TIPOJUEGO; 
+        CHECK_LAST_PIEZA;
+        change_to_code_mode(); 
+        tipojuego_start_code( tipojuego, DROP, last_pieza, last_tmov );
+    }
     break;
 
   case 41:
-#line 173 "qgames_parser.y"
+#line 198 "qgames_parser.y"
     { change_to_code_mode(); }
     break;
 
   case 43:
-#line 176 "qgames_parser.y"
+#line 201 "qgames_parser.y"
     { 
         if( tipojuego ){
             yyerror( "Ya fue definido el tipo juego" );
@@ -1562,18 +1573,23 @@ yyreduce:
     break;
 
   case 44:
-#line 186 "qgames_parser.y"
-    { CHECK_TIPOJUEGO; tipojuego_add_tipopieza( tipojuego, ((char*)(yyvsp[(2) - (2)])) ); }
+#line 211 "qgames_parser.y"
+    { 
+        CHECK_TIPOJUEGO; 
+        tipojuego_add_tipopieza( tipojuego, ((char*)(yyvsp[(2) - (2)])) ); 
+        if( last_pieza ) free( last_pieza );
+        last_pieza = strdup( ((char*)(yyvsp[(2) - (2)])) );
+    }
     break;
 
   case 46:
-#line 190 "qgames_parser.y"
+#line 220 "qgames_parser.y"
     { init_parameters(); }
     break;
 
 
 /* Line 1267 of yacc.c.  */
-#line 1577 "qgames_parser.c"
+#line 1593 "qgames_parser.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -1787,7 +1803,20 @@ yyreturn:
 }
 
 
-#line 216 "qgames_parser.y"
+#line 246 "qgames_parser.y"
+
+
+/*
+ *
+ * 
+ * 
+ */
+
+
+
+
+
+
 
 
 

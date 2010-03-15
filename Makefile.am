@@ -1,2 +1,2 @@
 # SUBDIRS = common include src
-SUBDIRS = src
+SUBDIRS = qcode src
