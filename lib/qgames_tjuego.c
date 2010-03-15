@@ -15,6 +15,8 @@
 #include  "list.h"
 #include  "simbolos.h"
 #include  "tipojuego.h"
+#include  "pieza.h"
+#include  "posicion.h"
 
 int  simbolo_id = 0;
 
@@ -55,6 +57,7 @@ Tipojuego*   tipojuego_new( char* nombre ){
     tj->simbolos = list_nueva( (_list_freefunc)free_simbolo );
 
     tj->nombre  = strdup( nombre );
+    tj->inicial = posicion_new( tj );
     SIM_ADD( tj, SIM_TIPOJUEGO, tj->nombre, tj );
 
     return tj;
@@ -175,12 +178,19 @@ int         tipojuego_add_tipopieza( Tipojuego* tj, char* tpieza    ){
 int         tipojuego_add_tpieza_att( Tipojuego* tj, char* tpieza, char* att, int default_value ){
 
     Tipopieza* tp;
-    tp = tipojuego_get_simbolo( tj, tpieza );
-    if( !tp ){
+    Simbolo*  sp;
+    sp = tipojuego_get_simbolo( tj, tpieza );
+    if( !sp ){
         printf( "Tipo pieza %s inexistente (File %s - linea %d)\n", tpieza, __FILE__, __LINE__ );
         exit( EXIT_FAILURE );
     }
 
+    if( sp->tipo != SIM_TIPOPIEZA ){
+        printf( "%s no es pieza (File %s - linea %d)\n", tpieza, __FILE__, __LINE__ );
+        exit( EXIT_FAILURE );
+    }
+
+    tp = (Tipopieza*) sp->data;
     if( !tp->att_nombres ){
         tp->att_nombres = list_nueva( NULL );
         tp->att_default = list_nueva( NULL );

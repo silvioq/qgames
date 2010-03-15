@@ -103,7 +103,7 @@ number_list:
    de partida */
 /* --------------------------------------------------------------------------- */
 instexpr_ahogado:
-    TOK_AHOGADO;
+    TOK_AHOGADO ;
 
 instexpr_ocupado:
     TOK_OCUPADO         |

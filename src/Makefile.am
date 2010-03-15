@@ -1,14 +1,10 @@
 bin_PROGRAMS = qgames
 
-qgames_SOURCES = qgames.c qgames_parser.y  qgames_scanner.l ../common/list.c  \
-								qgames_tjuego.c  \
-								tipojuego.c  tipojuego.h  \
-								tablero.c  casillero.c  vinculo.c  direccion.c   \
-								tipopieza.c   \
-								pieza.c
+qgames_SOURCES = qgames.c qgames_parser.y  qgames_scanner.l ../common/list.c  
 
-qgames_DEPENDENCIES = $(top_builddir)/qcode/src/libqcode.la
-qgames_LDADD = $(top_builddir)/qcode/src/libqcode.la
+qgames_DEPENDENCIES = $(top_builddir)/qcode/src/libqcode.la $(top_builddir)/lib/libqgames.a
+qgames_LDADD = $(top_builddir)/lib/libqgames.a \
+							 $(top_builddir)/qcode/src/libqcode.la
 
 qgames_scanner.l: qgames_parser.c qgames_parser.h
 qgames.c: qgames_parser.c qgames_parser.h qgames_scanner.c qgames_analyzer.h

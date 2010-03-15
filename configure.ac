@@ -16,6 +16,7 @@ AC_CONFIG_FILES(
   [Makefile
    qcode/Makefile
    qcode/src/Makefile
+   lib/Makefile
    src/Makefile
    ])
 

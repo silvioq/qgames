@@ -17,27 +17,17 @@
 #include  "simbolos.h"
 #include  "tipojuego.h"
 #include  "pieza.h"
+#include  "posicion.h"
 
 /*
- * Crea una pieza nueva
+ * Una posicion nueva!
  * */
 
-Pieza*   pieza_new( Tipopieza* tpieza, Casillero* cas, int color ){
-  Pieza *p;
-  p = (Pieza*)ALLOC( sizeof( Pieza ) );
-  memset( p, sizeof( Pieza ), 0 );
-  p->tpieza = tpieza;
-  p->casillero = cas;
-  p->color     = color;
-  return p;
+Posicion*   posicion_new( Tipojuego* tpieza ){
+  Posicion* pos;
+  pos = ALLOC( sizeof( Posicion ) );
+  memset( pos, 0, sizeof( Posicion ) );
+  return  pos;
+
 }
 
-/*
- * Para borrar una pieza, hay que ser prolijos
- * */
-void   pieza_free( Pieza* p ){
-  if( p->atributos ){
-      list_free( p->atributos );
-  }
-  free( p );
-}

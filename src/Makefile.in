@@ -47,10 +47,7 @@ am__installdirs = "$(DESTDIR)$(bindir)"
 binPROGRAMS_INSTALL = $(INSTALL_PROGRAM)
 PROGRAMS = $(bin_PROGRAMS)
 am_qgames_OBJECTS = qgames.$(OBJEXT) qgames_parser.$(OBJEXT) \
-	qgames_scanner.$(OBJEXT) list.$(OBJEXT) \
-	qgames_tjuego.$(OBJEXT) tipojuego.$(OBJEXT) tablero.$(OBJEXT) \
-	casillero.$(OBJEXT) vinculo.$(OBJEXT) direccion.$(OBJEXT) \
-	tipopieza.$(OBJEXT) pieza.$(OBJEXT)
+	qgames_scanner.$(OBJEXT) list.$(OBJEXT)
 qgames_OBJECTS = $(am_qgames_OBJECTS)
 DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
@@ -190,15 +187,11 @@ sysconfdir = @sysconfdir@
 target_alias = @target_alias@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-qgames_SOURCES = qgames.c qgames_parser.y  qgames_scanner.l ../common/list.c  \
-								qgames_tjuego.c  \
-								tipojuego.c  tipojuego.h  \
-								tablero.c  casillero.c  vinculo.c  direccion.c   \
-								tipopieza.c   \
-								pieza.c
+qgames_SOURCES = qgames.c qgames_parser.y  qgames_scanner.l ../common/list.c  
+qgames_DEPENDENCIES = $(top_builddir)/qcode/src/libqcode.la $(top_builddir)/lib/libqgames.a
+qgames_LDADD = $(top_builddir)/lib/libqgames.a \
+							 $(top_builddir)/qcode/src/libqcode.la
 
-qgames_DEPENDENCIES = $(top_builddir)/qcode/src/libqcode.la
-qgames_LDADD = $(top_builddir)/qcode/src/libqcode.la
 AM_YFLAGS = -d -v -p qgz
 AM_LFLAGS = --prefix qgz -o lex.yy.c
 AM_CFLAGS = -I$(top_srcdir)/include -I$(top_srcdir)/common -I$(top_srcdir)/qcode/src
@@ -280,18 +273,10 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/casillero.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/direccion.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/list.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pieza.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/qgames.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/qgames_parser.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/qgames_scanner.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/qgames_tjuego.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/tablero.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/tipojuego.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/tipopieza.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/vinculo.Po@am__quote@
 
 .c.o:
 @am__fastdepCC_TRUE@	$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
