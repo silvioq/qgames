@@ -18,8 +18,8 @@ AM_LFLAGS = --prefix qgz -o lex.yy.c
 AM_CFLAGS = -I$(top_srcdir)/include -I$(top_srcdir)/common -I$(top_srcdir)/qcode/src
 
 
-# TESTS_ENVIRONMENT = $(builddir)/qasm -vr
-# TESTS = test/*.qasm
+TESTS_ENVIRONMENT = $(srcdir)/qgames 
+TESTS = $(top_builddir)/games/*.qgame
 # 
 # EXTRA_DIST = test/*.qasm
 # 

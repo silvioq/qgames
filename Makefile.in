@@ -188,6 +188,7 @@ top_srcdir = @top_srcdir@
 
 # SUBDIRS = common include src
 SUBDIRS = qcode src
+EXTRA_DIST = $(top_buildir)/games/*.qgame
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-recursive
 
