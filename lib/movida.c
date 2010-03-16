@@ -18,6 +18,7 @@
 #include  "movida.h"
 #include  "posicion.h"
 
+// -----------------------------------------------------------------
 
 Movida*   movida_new( Posicion* pos ){
   Movida* m;
@@ -58,4 +59,25 @@ void  movida_accion_captura( Movida* mov, Pieza* p ) {
     if( !mov->acciones ) mov->acciones = list_nueva( NULL );
     list_agrega( mov->acciones, acc );
 }
+
+
+/*
+ * Limpia todo lo que tiene la movida, que no es mucho, por 
+ * cierto
+ * */
+void  movida_free( Movida* mov ){
+    if( mov->acciones ){
+        int i;
+        for( i = 0; i < mov->acciones->entradas; i ++ ){
+            // La accion se puede borrar tranquilamente
+            free( mov->acciones->data[i] );
+        }
+        list_free( mov->acciones );
+    }
+    free( mov );
+}
+
+/*
+ * Limpiada de accion
+ * */
 

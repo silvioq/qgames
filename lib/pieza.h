@@ -13,11 +13,14 @@ typedef  struct  StrPieza {
     Casillero*  casillero;
     int         color;
     _list*      atributos;
+    int         hash_calculado;
+    char        hash[16];
 } Pieza;
 
 
 Pieza*   pieza_new( Tipopieza* tpieza, Casillero* cas, int color );
 int      pieza_equal( Pieza* p1, Pieza* p2 );
+char*    pieza_hash( Pieza* p1 );
 
 
 #endif

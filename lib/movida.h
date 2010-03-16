@@ -43,4 +43,6 @@ Movida*   movida_new( Posicion* pos );
 void  movida_accion_mueve  ( Movida* mov, Pieza* p, Casillero* destino );
 void  movida_accion_captura( Movida* mov, Pieza* p );
 
+void  movida_free( Movida* mov );
+
 #endif

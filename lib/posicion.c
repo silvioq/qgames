@@ -17,7 +17,31 @@
 #include  "simbolos.h"
 #include  "tipojuego.h"
 #include  "pieza.h"
+#include  "movida.h"
 #include  "posicion.h"
+
+/* ---------------------------------------------------------------------------------------- */
+void  posicion_free_movidas( Posicion* pos );
+
+
+
+
+
+
+/* ---------------------------------------------------------------------------------------- */
+/* ---------------------------------------------------------------------------------------- */
+void  posicion_free_movidas( Posicion* pos ){
+    if( pos->movidas ){
+        int  i;
+        for( i = 0; i < pos->movidas->entradas; i ++ ){
+            Movida* mov = (Movida*)pos->movidas->data[i];
+            movida_free( mov );
+        }
+        list_free( pos->movidas );
+        pos->movidas = NULL;
+    }
+}
+
 
 /*
  * Una posicion nueva!
@@ -61,12 +85,38 @@ void        posicion_add_pieza( Posicion* pos, Pieza* pie ){
 
 int        posicion_analiza_movidas( Posicion* pos, int tipoanalisis, int color, int tipomov, Pieza* pieza ){
 
-  // 1. chequeo de parametros
-  assert( color > 0 );
-  assert( ( tipoanalisis == ANALISIS_MOVIDA ) || 
-          ( tipoanalisis == ANALISIS_PRIMER_MOVIDA ) ||
-          ( tipoanalisis == ANALISIS_ATAQUE ) );
+    // 1. chequeo de parametros
+    assert( color > 0 );
+    assert( ( tipoanalisis == ANALISIS_MOVIDA ) || 
+            ( tipoanalisis == ANALISIS_PRIMER_MOVIDA ) ||
+            ( tipoanalisis == ANALISIS_ATAQUE ) );
+
+    // 2. Limpiamos las movidas
+    posicion_free_movidas( pos );
+
+    // 3. Vamos por las piezas en pozo.
+    if( !pieza ){
+        int  i;
+        Pieza* piezas_arr[1024];
+        int    piezas_cnt = 0;
+        for( i = 0; i < pos->piezas->entradas; i ++ ){
+            Pieza* pp = (Pieza*) pos->piezas->data[i];
+            int j; int existe = 0;
+            for( j = 0; j < piezas_cnt; j ++ ){
+                if( pieza_equal( pp, piezas_arr[j] ) ){
+                    existe = 1;
+                    break;
+                }
+            }
+            if( existe ) continue;
+            piezas_arr[piezas_cnt] = pp; piezas_cnt ++;
+            int  r;
+            for( r = 0; r < pp->tpieza->rules->entradas; r ++ ){
+            }
+        }
+    }
+      
 
 
-  return 0;
+    return 0;
 }
