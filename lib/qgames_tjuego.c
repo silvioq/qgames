@@ -316,8 +316,8 @@ int         tipojuego_start_code(  Tipojuego* tj, char tiporegla, char* tipopiez
   cod->tmov   = tmov;
   cod->tregla = tiporegla;
   label ++;
-  cod->label  = qcode_crlab( tj->qcode, label );
-  cod->pc     = qcode_label_getpc( tj->qcode, label );
+  cod->label  = qcode_crlab( tj->qcode, unnamed_label );
+  cod->pc     = qcode_label_getpc( tj->qcode, cod->label );
 
   if( tpieza ){
     if( !tpieza->rules ) tpieza->rules = list_nueva( NULL );
@@ -331,3 +331,6 @@ int         tipojuego_start_code(  Tipojuego* tj, char tiporegla, char* tipopiez
 
 }
 
+void*       tipojuego_get_code( Tipojuego* tj ){
+    return (void*)tj->qcode;
+}

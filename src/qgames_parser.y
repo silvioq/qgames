@@ -6,6 +6,7 @@
 #include  <errno.h>
 #include  "qgames.h"
 #include  "qgames_analyzer.h"
+#include  "qcode.h"
 
 int    qgz_verbose  = 0;
 str_param*  qgz_param_list  = NULL;
@@ -30,6 +31,8 @@ char*        last_tmov  = NULL;
     if( !tipojuego ){ yyerror( "gametype no definido aun" ); YYERROR; }
 #define  CHECK_LAST_PIEZA   \
     if( !last_pieza ){ yyerror( "pieza no definida" ); YYERROR; }
+
+#define  QCODE   ((QCode*)(tipojuego_get_code(tipojuego)))
 
 void yyerror(const char *str) { 
     fprintf(stderr,"error: %s (linea: %d)\n",str, qgzlineno); 
@@ -106,7 +109,13 @@ instexpr_ahogado:
     TOK_AHOGADO ;
 
 instexpr_ocupado:
-    TOK_OCUPADO         |
+    TOK_OCUPADO         {
+                          qcode_op( QCODE, QCSTI, 16, 0 );
+                          qcode_op( QCODE, QCPOP, 16, 0 );
+                          qcode_op( QCODE, QCPOP, 16, 0 );
+                          qcode_op( QCODE, QCPOP,  3, 0 );
+                          qcode_opnlab( QCODE, QCCLX, "ocupado" );
+    } |
     TOK_OCUPADOPROPIO   |
     TOK_OCUPADO  word_or_string ;
 

@@ -46,7 +46,11 @@ long  code_wrapper_juega( QCodeVM* vm ){
 
 
 void  code_initialize( QCode** qcode ){
-    qcode = qcode_new();
+    QCode*  q;
+    q = qcode_new();
+    qcode_xcrlab( q, "ocupado", (qcode_extfunc)code_wrapper_ocupado );
+    qcode_xcrlab( q, "juega",   (qcode_extfunc)code_wrapper_juega );
+    *qcode = q;
 }
 
 /* Sensacional! el más simple ejecutor de las reglas */
