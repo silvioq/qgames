@@ -264,15 +264,16 @@ void        tipojuego_add_pieza( Tipojuego* tj, char* tpieza, char* casillero, c
  * */
 int         tipojuego_start_code(  Tipojuego* tj, char tiporegla, char* tipopieza, char* tipomov ){
 
+  static int  label = 0;
   Simbolo* sp;
   Simbolo* sm;
 
   Tipopieza*  tpieza;
   int  tmov;
-  Rules* cod ;
+  Rule* cod ;
 
   if( !tj->qcode ){
-    tj->qcode = qcode_new();
+    code_initialize( &tj->qcode );
   }
 
   assert( ( tiporegla == DROP ) || ( tiporegla == MOVE ) || ( tiporegla == END ) );
@@ -309,12 +310,14 @@ int         tipojuego_start_code(  Tipojuego* tj, char tiporegla, char* tipopiez
     tmov = 0;
   }
   
-  cod = ALLOC( sizeof( Rules ) );
-  memset( cod, sizeof( Rules ), 0 );
+  cod = ALLOC( sizeof( Rule ) );
+  memset( cod, sizeof( Rule ), 0 );
   cod->tpieza = tpieza;
   cod->tmov   = tmov;
   cod->tregla = tiporegla;
-  cod->label  = qcode_crlab( tj->qcode, unnamed_label );
+  label ++;
+  cod->label  = qcode_crlab( tj->qcode, label );
+  cod->pc     = qcode_label_getpc( tj->qcode, label );
 
   if( tpieza ){
     if( !tpieza->rules ) tpieza->rules = list_nueva( NULL );

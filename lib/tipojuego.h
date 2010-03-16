@@ -65,12 +65,13 @@ typedef   struct   StrTipopieza {
     _list*      rules;
 } Tipopieza;
 
-typedef   struct  StrRules {
+typedef   struct  StrRule {
     Tipopieza*  tpieza;
     int         tmov;
     char        tregla;
     int         label;
-} Rules;
+    int         pc;
+} Rule;
 
 
 
@@ -109,5 +110,10 @@ void       tipojuego_genera_vinculos( Tipojuego* tj, Direccion* dir );
 
 /* Tipos de pieza */
 Tipopieza*  tipopieza_new( Tipojuego* tj, char* nombre );
+
+
+/* Temas de codigo */
+void  code_initialize( QCode** qcode );
+
 
 #endif
