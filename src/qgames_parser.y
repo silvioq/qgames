@@ -261,8 +261,20 @@ instruction_piece:
     };
 
 instruction_start:
-    TOK_START        word_or_string  word_or_string  TOK_NUMBER  |
-    TOK_START        word_or_string  word_or_string { init_parameters(); } word_or_string_list ;
+    TOK_START        word_or_string  word_or_string  TOK_NUMBER {
+        CHECK_TIPOJUEGO;
+        int i;
+        for( i = 0; i < $4; i ++ ){
+          tipojuego_add_pieza( tipojuego, ((char*)$2), CASILLERO_POZO, ((char*)$3) );
+        }
+    } |
+    TOK_START        word_or_string  word_or_string { init_parameters(); } word_or_string_list  {
+        CHECK_TIPOJUEGO;
+        int i;
+        for( i = 0; i < qgz_param_count; i ++ ){
+          tipojuego_add_pieza( tipojuego, ((char*)$2), (char*)qgz_param_list[i].par, ((char*)$3) );
+        }
+    } ;
 
 instruction_sym:
     TOK_SYMMETRY     word_or_string  word_or_string  word_or_string ;

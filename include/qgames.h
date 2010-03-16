@@ -40,9 +40,13 @@ void        tipojuego_add_simetria ( Tipojuego* tj, char* color, char* dir1, cha
 
 void        tipojuego_kill_casillero( Tipojuego* tj, char* casillero );
 
+#define     POZO     -1
+#define     CAPTURA  -2
+#define     CASILLERO_POZO  (char*)POZO
+void        tipojuego_add_pieza( Tipojuego* tj, char* tpieza, char* casillero, char* color );
+
 
 #define   NOT_FOUND   -1
-
 int         tipojuego_get_casillero( Tipojuego* tj, char* cas );
 int         tipojuego_get_direccion( Tipojuego* tj, char* dir );
 int         tipojuego_get_tipopieza( Tipojuego* tj, char* tpieza );
@@ -50,13 +54,12 @@ int         tipojuego_get_zona     ( Tipojuego* tj, char* zona );
 int         tipojuego_get_color    ( Tipojuego* tj, char* color );
 int         tipojuego_get_tipomov  ( Tipojuego* tj, char* tipomov );
 
-#define   CASILLERO_POZO   ((Casillero*)PIEZA_ENPOZO)
-
 
 #define   DROP  'D'
 #define   MOVE  'M'
+#define   END   'E'
 
-int         tipojuego_start_code(  Tipojuego* tj, char drop_mov, char* tipopieza, char* tipomov );
+int         tipojuego_start_code(  Tipojuego* tj, char tiporegla, char* tipopieza, char* tipomov );
 
 
 /*

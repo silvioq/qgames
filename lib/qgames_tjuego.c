@@ -185,10 +185,7 @@ int         tipojuego_add_tpieza_att( Tipojuego* tj, char* tpieza, char* att, in
         exit( EXIT_FAILURE );
     }
 
-    if( sp->tipo != SIM_TIPOPIEZA ){
-        printf( "%s no es pieza (File %s - linea %d)\n", tpieza, __FILE__, __LINE__ );
-        exit( EXIT_FAILURE );
-    }
+    assert( sp->tipo == SIM_TIPOPIEZA );
 
     tp = (Tipopieza*) sp->data;
     if( !tp->att_nombres ){
@@ -226,33 +223,75 @@ int         tipojuego_add_color    ( Tipojuego* tj, char* color ){
 }
 
 /*
+ * El agregado de piezas. 
+ * Esta funcion agrega una pieza a la posicion original.
+ *
+ * */
+void        tipojuego_add_pieza( Tipojuego* tj, char* tpieza, char* casillero, char* color ){
+
+
+  Simbolo* s;
+  Tipopieza*  tp;
+  Casillero*  cas;
+  int         col;
+  Pieza*      p;
+
+  assert( s = tipojuego_get_simbolo( tj, tpieza ) );
+  assert( s->tipo == SIM_TIPOPIEZA );
+  tp = (Tipopieza*) s->data;
+
+  if( casillero == CASILLERO_POZO ){
+    cas = ENPOZO;
+  } else {
+    assert( s = tipojuego_get_simbolo( tj, casillero ) );
+    assert( s->tipo == SIM_CASILLERO );
+    cas = (Casillero*) s->data;
+  }
+  
+  assert( s = tipojuego_get_simbolo( tj, color ) );
+  assert( s->tipo == SIM_COLOR );
+  col = (int)(long)s->data;
+  
+  p = pieza_new( tp, cas, col );
+  posicion_add_pieza( tj->inicial, p );
+}
+
+
+/*
  * Esta funcion agrega una nueva entrada de codigo, y va armando la lista
  * de etiquetas
+ * El retorno de la funcion es la etiqueta para el codificador
  * */
-
-int         tipojuego_start_code(  Tipojuego* tj, char drop_mov, char* tipopieza, char* tipomov ){
+int         tipojuego_start_code(  Tipojuego* tj, char tiporegla, char* tipopieza, char* tipomov ){
 
   Simbolo* sp;
   Simbolo* sm;
 
   Tipopieza*  tpieza;
   int  tmov;
-  EntradaCod* cod ;
+  Rules* cod ;
 
   if( !tj->qcode ){
     tj->qcode = qcode_new();
   }
 
-  sp = tipojuego_get_simbolo( tj, tipopieza );
-  if( !tpieza ){
-    printf( "Tipo pieza %s inexistente (File %s - linea %d\n", tipopieza, __FILE__, __LINE__ );
-    exit( EXIT_FAILURE );
-  }
-  if( sp->tipo != SIM_TIPOPIEZA ){
-    printf( "%s no es tipo pieza (File %s - linea %d\n", tipopieza, __FILE__, __LINE__ );
-    exit( EXIT_FAILURE );
-  }
-  tpieza = (Tipopieza*) sp->data;
+  assert( ( tiporegla == DROP ) || ( tiporegla == MOVE ) || ( tiporegla == END ) );
+  assert( ( tiporegla == END  ) || tipopieza );
+  assert( ( tiporegla != END  ) || ( !tipopieza ) );
+  assert( ( tiporegla != END  ) || ( !tipomov ) );
+
+  if( tipopieza ){
+    sp = tipojuego_get_simbolo( tj, tipopieza );
+    if( !sp ){
+      printf( "Tipo pieza %s inexistente (File %s - linea %d\n", tipopieza, __FILE__, __LINE__ );
+      exit( EXIT_FAILURE );
+    }
+    if( sp->tipo != SIM_TIPOPIEZA ){
+      printf( "%s no es tipo pieza (File %s - linea %d\n", tipopieza, __FILE__, __LINE__ );
+      exit( EXIT_FAILURE );
+    }
+    tpieza = (Tipopieza*) sp->data;
+  } else tpieza = NULL;
 
   // A ver el tipo de juego
   if( tipomov ){
@@ -270,16 +309,22 @@ int         tipojuego_start_code(  Tipojuego* tj, char drop_mov, char* tipopieza
     tmov = 0;
   }
   
-
-  if( !tj->labels ) tj->labels = list_nueva( NULL );
-  cod = ALLOC( sizeof( EntradaCod ) );
-  memset( cod, sizeof( EntradaCod ), 0 );
+  cod = ALLOC( sizeof( Rules ) );
+  memset( cod, sizeof( Rules ), 0 );
   cod->tpieza = tpieza;
   cod->tmov   = tmov;
-  cod->drop_mov = drop_mov;
+  cod->tregla = tiporegla;
   cod->label  = qcode_crlab( tj->qcode, unnamed_label );
-  list_agrega( tj->labels, cod );
 
-  return  tj->labels->entradas - 1;
+  if( tpieza ){
+    if( !tpieza->rules ) tpieza->rules = list_nueva( NULL );
+    list_agrega( tpieza->rules, cod );
+  } else {
+    if( !tj->rules ) tj->rules = list_nueva( NULL );
+    list_agrega( tj->rules, cod );
+  }
+  return cod->label;
+    
+
 }
 

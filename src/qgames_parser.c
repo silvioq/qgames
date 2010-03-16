@@ -535,9 +535,9 @@ static const yytype_uint16 yyrline[] =
      129,   132,   133,   134,   135,   139,   140,   140,   144,   145,
      157,   175,   175,   187,   187,   197,   197,   208,   209,   210,
      213,   213,   222,   223,   227,   227,   237,   237,   240,   250,
-     256,   264,   265,   265,   268,   271,   271,   274,   275,   276,
-     277,   278,   279,   280,   281,   282,   283,   284,   285,   286,
-     286,   293,   294,   298
+     256,   264,   271,   271,   280,   283,   283,   286,   287,   288,
+     289,   290,   291,   292,   293,   294,   295,   296,   297,   298,
+     298,   305,   306,   310
 };
 #endif
 
@@ -1669,19 +1669,41 @@ yyreduce:
     }
     break;
 
+  case 51:
+#line 264 "qgames_parser.y"
+    {
+        CHECK_TIPOJUEGO;
+        int i;
+        for( i = 0; i < (yyvsp[(4) - (4)]); i ++ ){
+          tipojuego_add_pieza( tipojuego, ((char*)(yyvsp[(2) - (4)])), CASILLERO_POZO, ((char*)(yyvsp[(3) - (4)])) );
+        }
+    }
+    break;
+
   case 52:
-#line 265 "qgames_parser.y"
+#line 271 "qgames_parser.y"
     { init_parameters(); }
     break;
 
-  case 55:
+  case 53:
 #line 271 "qgames_parser.y"
+    {
+        CHECK_TIPOJUEGO;
+        int i;
+        for( i = 0; i < qgz_param_count; i ++ ){
+          tipojuego_add_pieza( tipojuego, ((char*)(yyvsp[(2) - (5)])), (char*)qgz_param_list[i].par, ((char*)(yyvsp[(3) - (5)])) );
+        }
+    }
+    break;
+
+  case 55:
+#line 283 "qgames_parser.y"
     { init_parameters(); }
     break;
 
 
 /* Line 1267 of yacc.c.  */
-#line 1685 "qgames_parser.c"
+#line 1707 "qgames_parser.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -1895,7 +1917,7 @@ yyreturn:
 }
 
 
-#line 302 "qgames_parser.y"
+#line 314 "qgames_parser.y"
 
 
 /*

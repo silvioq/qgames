@@ -20,12 +20,12 @@ typedef   struct   StrTipojuego {
     _list*       secuencias;
     int          secuencia_repeat;
     int          colores;
+    int          tipomovs;         // Cantidad de tipos de movimiento
     _list*       tipo_piezas;
     char*        nombre;
     Posicion*    inicial;
-    int          tipomovs;         // Cantidad de tipos de movimiento
 
-    _list*       labels;
+    _list*       rules;
     QCode*       qcode;
 } _Tipojuego;
 
@@ -62,14 +62,15 @@ typedef   struct   StrTipopieza {
     int         att_count;
     _list*      att_nombres;
     _list*      att_default;
+    _list*      rules;
 } Tipopieza;
 
-typedef   struct  StrEntradaCod {
+typedef   struct  StrRules {
     Tipopieza*  tpieza;
     int         tmov;
-    char        drop_mov;
+    char        tregla;
     int         label;
-} EntradaCod;
+} Rules;
 
 
 
@@ -84,6 +85,9 @@ void       tablero_genera_dimensiones( Tablero* tab, int dimc, char** dimv );
 
 
 /* Funciones de manejo de direcciones */
+#define    ENPOZO     ((Casillero*)POZO)
+#define    ENCAPTURA  ((Casillero*)CAPTURA)
+
 Casillero* casillero_new( char* cas, int tablero );
 void       casillero_free( Casillero* cas );
 void       casillero_add_vinculo( Casillero* ori, Direccion* dir, Casillero* des );

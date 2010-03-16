@@ -20,6 +20,14 @@ Posicion*   posicion_new( Tipojuego* tpieza );
 void        posicion_add_pieza( Posicion* pos, Pieza* pie );
 Posicion*   posicion_dup( Posicion* pos );
 
+#define    SIN_ANALISIS              0
+#define    ANALISIS_MOVIDA           1
+#define    ANALISIS_FINAL            2
+#define    ANALISIS_PRIMER_MOVIDA    3
+#define    ANALISIS_ATAQUE           4
 
+int        posicion_analiza_movidas( Posicion* pos, int tipoanalisis, int color, int tipomov, Pieza* pieza );
+int        posicion_analiza_final( Posicion* pos );
+int        posicion_movidas_posibles( Posicion* pos );
 
 #endif

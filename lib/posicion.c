@@ -28,6 +28,45 @@ Posicion*   posicion_new( Tipojuego* tpieza ){
   pos = ALLOC( sizeof( Posicion ) );
   memset( pos, 0, sizeof( Posicion ) );
   return  pos;
-
 }
 
+/*
+ * Esta funcion es muy simple, pero es fundamental.
+ * Solo agrega una pieza a la posicion.
+ * */
+
+void        posicion_add_pieza( Posicion* pos, Pieza* pie ){
+  if( !pos->piezas ) pos->piezas = list_nueva( NULL );
+  list_agrega( pos->piezas, pie );
+}
+
+/*
+ * Aca se viene el analisis de movidas. Esta funcion realiza el siguiente trabajo.
+ * 1. Chequea los parametros, de tal forma que no entre basura
+ * 2. Limpia las movidas que se encuentren en la posicion
+ * 3. Verifica las piezas en el pozo e intenta una movida por cada tipo de pieza
+ *    distinta que se halle en el pozo
+ * 4. Verifica pieza por pieza en el tablero e intenta una movida por cada una
+ *    de ellas
+ *
+ * Parametros:
+ *   - tipo de analisis
+ *   - color
+ *   - tipo de movimiento: No obligatorio, solo se analizaran las reglas asociadas a ese tipo
+ *   - pieza: No obligatorio, solo se analizaran las reglas asociadas a esa piea
+ *
+ * Retorna:
+ *   cantidad de movidas encontradas
+ **/
+
+int        posicion_analiza_movidas( Posicion* pos, int tipoanalisis, int color, int tipomov, Pieza* pieza ){
+
+  // 1. chequeo de parametros
+  assert( color > 0 );
+  assert( ( tipoanalisis == ANALISIS_MOVIDA ) || 
+          ( tipoanalisis == ANALISIS_PRIMER_MOVIDA ) ||
+          ( tipoanalisis == ANALISIS_ATAQUE ) );
+
+
+  return 0;
+}

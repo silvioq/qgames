@@ -4,7 +4,7 @@ libqgames_a_SOURCES = ../common/list.c  \
 								qgames_tjuego.c  \
 								tipojuego.c  tipojuego.h  \
 								tablero.c  casillero.c  vinculo.c  direccion.c   tipopieza.c   \
-								pieza.c   posicion.c  posicion.h
+								pieza.c  movida.c   posicion.c  posicion.h
 
 AM_CFLAGS = -I$(top_srcdir)/include -I$(top_srcdir)/common -I$(top_srcdir)/qcode/src
 
