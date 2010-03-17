@@ -1,0 +1,20 @@
+
+Este documento intenta describir las instrucciones del lenguaje qgames para el codigo.
+
+Hay dos tipos de instrucciones. Las de definicion del juego y las de las reglas.
+
+== Definicion del juego
+
+
+
+== Reglas
+
+- Funciones:
+ocupado   (casillero = null, color = cualquiera)
+
+
+- Acciones
+jugar     (casillero = null, con captura = no)
+
+
+

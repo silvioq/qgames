@@ -54,6 +54,9 @@ int         tipojuego_get_zona     ( Tipojuego* tj, char* zona );
 int         tipojuego_get_color    ( Tipojuego* tj, char* color );
 int         tipojuego_get_tipomov  ( Tipojuego* tj, char* tipomov );
 
+/*
+ * Toda esta parte es para definir el codigo
+ * */
 
 #define   DROP  'D'
 #define   MOVE  'M'
@@ -61,6 +64,8 @@ int         tipojuego_get_tipomov  ( Tipojuego* tj, char* tipomov );
 
 int         tipojuego_start_code(  Tipojuego* tj, char tiporegla, char* tipopieza, char* tipomov );
 void*       tipojuego_get_code( Tipojuego* tj );
+
+// int         tipojuego_code_
 
 
 /*
