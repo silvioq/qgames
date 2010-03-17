@@ -12,7 +12,7 @@ typedef   struct  StrSimbolo{
     int     tipo;
     int     id;
     char*   nombre;
-    void*   data;
+    int     ref;
 }  Simbolo;
 
 
@@ -26,12 +26,12 @@ typedef   struct  StrSimbolo{
 
 extern   int simbolo_id;
 
-static inline Simbolo* simbolo_new( int tipo, char* nombre, void* data ){
+static inline Simbolo* simbolo_new( int tipo, char* nombre, int ref ){
     Simbolo* s = (Simbolo*) ALLOC( sizeof( Simbolo ) );
     s->tipo = tipo; 
     s->nombre = nombre;
     s->id   = ++simbolo_id;
-    s->data = data;
+    s->ref  = ref;
     return  s;
 }
 

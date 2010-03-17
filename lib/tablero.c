@@ -70,7 +70,7 @@ void       tablero_genera_dimensiones( Tablero* tab, int dimc, char** dimv ){
         // Creo el casillero ...
         // printf( "Estoy creando casillero %s\n", cas );
         int sim = tipojuego_add_casillero( tab->tipojuego, cas );
-        casillero = (Casillero*)tipojuego_get_casillero_by_num( tab->tipojuego, sim );
+        casillero = (Casillero*)tab->tipojuego->casilleros->data[sim];
         for( j = 0; j < dimc; j ++ )
             casillero->posicion[j] = dimint[j];
 

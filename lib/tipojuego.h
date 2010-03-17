@@ -74,6 +74,17 @@ typedef   struct  StrRule {
 } Rule;
 
 
+#define  GETCASILLERO(tj,nom)  ({ \
+    int ret = tipojuego_get_casillero(tj,nom); \
+    assert( ret != NOT_FOUND ); \
+    ret; \
+  })
+
+#define  GETCOLOR(tj,nom)  ({ \
+    int ret = tipojuego_get_color(tj,nom); \
+    assert( ret != NOT_FOUND ); \
+    ret; \
+  })
 
 /* Funciones de acceso a datos de tipojuego */
 Casillero*  tipojuego_get_casillero_by_num( Tipojuego* tj, int nro );

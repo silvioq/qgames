@@ -34,12 +34,15 @@ _list*  list_nueva( _list_freefunc free_func ){
 /*
  * Agrega un nuevo elemento
  * */
-void    list_agrega( _list* lista, void* data ){
+int    list_agrega( _list* lista, void* data ){
+    int  ret;
     if( lista->entradas == lista->tamanio ){
         lista->tamanio += DEFAULT_ALLOC;
         assert( lista->data = LIST_REALLOC( lista->data, lista->tamanio * sizeof(void*) ) );
     }
+    ret = lista->entradas;
     lista->data[lista->entradas++] = data;
+    return  ret;
 }
 
 /*

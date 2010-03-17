@@ -25,7 +25,7 @@ typedef  struct  _str_list{
 
 
 _list*  list_nueva( _list_freefunc free_func );
-void    list_agrega( _list* lista, void* data );
+int     list_agrega( _list* lista, void* data );
 void    list_quita( _list* lista, int entrada );
 void*   list_pop( _list*  lista );
 void    list_free( _list* );

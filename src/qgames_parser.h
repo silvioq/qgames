@@ -63,9 +63,10 @@
      TOK_JUEGA = 279,
      TOK_IF = 280,
      TOK_OCUPADO = 281,
-     TOK_OCUPADOPROPIO = 282,
-     TOK_PARA = 283,
-     TOK_PIERDE = 284
+     TOK_OCUPADOENEMIGO = 282,
+     TOK_OCUPADOPROPIO = 283,
+     TOK_PARA = 284,
+     TOK_PIERDE = 285
    };
 #endif
 /* Tokens.  */
@@ -93,9 +94,10 @@
 #define TOK_JUEGA 279
 #define TOK_IF 280
 #define TOK_OCUPADO 281
-#define TOK_OCUPADOPROPIO 282
-#define TOK_PARA 283
-#define TOK_PIERDE 284
+#define TOK_OCUPADOENEMIGO 282
+#define TOK_OCUPADOPROPIO 283
+#define TOK_PARA 284
+#define TOK_PIERDE 285
 
 
 

@@ -22,10 +22,6 @@ typedef  struct  StrAnalizador {
 }  Analizador;
 
 
-#define   ENEMIGO       -1
-#define   PROPIO        -2
-#define   CUALQUIERA    0
-
 int    analizador_juega  ( Analizador* z, Casillero* cas, int con_captura );
 
 /*

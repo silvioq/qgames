@@ -31,8 +31,8 @@ char*        last_tmov  = NULL;
     if( !tipojuego ){ yyerror( "gametype no definido aun" ); YYERROR; }
 #define  CHECK_LAST_PIEZA   \
     if( !last_pieza ){ yyerror( "pieza no definida" ); YYERROR; }
-
-#define  QCODE   ((QCode*)(tipojuego_get_code(tipojuego)))
+#define  NOT_IMPLEMENTED   \
+    { yyerror( "Funcion no implementada" ); YYERROR; }
 
 void yyerror(const char *str) { 
     fprintf(stderr,"error: %s (linea: %d)\n",str, qgzlineno); 
@@ -80,6 +80,7 @@ void  qgzprintf( char* format, ... ){
 %token    TOK_JUEGA
 %token    TOK_IF
 %token    TOK_OCUPADO
+%token    TOK_OCUPADOENEMIGO
 %token    TOK_OCUPADOPROPIO
 %token    TOK_PARA
 %token    TOK_PIERDE
@@ -106,18 +107,33 @@ number_list:
    de partida */
 /* --------------------------------------------------------------------------- */
 instexpr_ahogado:
-    TOK_AHOGADO ;
+    TOK_AHOGADO { NOT_IMPLEMENTED };
 
 instexpr_ocupado:
     TOK_OCUPADO         {
-                          qcode_op( QCODE, QCSTI, 16, 0 );
-                          qcode_op( QCODE, QCPOP, 16, 0 );
-                          qcode_op( QCODE, QCPOP, 16, 0 );
-                          qcode_op( QCODE, QCPOP,  3, 0 );
-                          qcode_opnlab( QCODE, QCCLX, "ocupado" );
+        CHECK_TIPOJUEGO;
+        tipojuego_code_ocupado( tipojuego, NULL, CUALQUIERA, NULL );
     } |
-    TOK_OCUPADOPROPIO   |
-    TOK_OCUPADO  word_or_string ;
+    TOK_OCUPADOPROPIO   {
+        CHECK_TIPOJUEGO;
+        tipojuego_code_ocupado( tipojuego, NULL, PROPIO, NULL );
+    } |
+    TOK_OCUPADOENEMIGO   {
+        CHECK_TIPOJUEGO;
+        tipojuego_code_ocupado( tipojuego, NULL, ENEMIGO, NULL );
+    } |
+    TOK_OCUPADO  word_or_string {
+        char* nombre = (char*)$2;
+        CHECK_TIPOJUEGO;
+        if( tipojuego_get_casillero( tipojuego, nombre ) != NOT_FOUND ){
+             tipojuego_code_ocupado( tipojuego, nombre, CUALQUIERA, NULL );
+        } else if( tipojuego_get_color( tipojuego, nombre ) != NOT_FOUND ){
+             tipojuego_code_ocupado( tipojuego, NULL, CUALQUIERA, nombre );
+        } else {
+            yyerror( "Ocupado?" );
+            YYERROR;
+        }
+    };
 
 instexpr:
     '!' instexpr  |
@@ -127,26 +143,29 @@ instexpr:
 
 /* --------------------------------------------------------------------------- */
 instaction_final:
-    TOK_EMPATA |
-    TOK_GANA   |
-    TOK_PIERDE ;
+    TOK_EMPATA {  NOT_IMPLEMENTED; }|
+    TOK_GANA   {  NOT_IMPLEMENTED; } |
+    TOK_PIERDE {  NOT_IMPLEMENTED; };
 
 instaction_juega:
-    TOK_JUEGA   ;
+    TOK_JUEGA   {
+        CHECK_TIPOJUEGO;
+        tipojuego_code_juega( tipojuego, NULL, 0 );
+    }
 
 instaction_para:
-    TOK_PARA   ;
+    TOK_PARA   {  NOT_IMPLEMENTED; } ;
 
 instaction:
     instaction_juega |
     instaction_final |
     instaction_para  |
-    TOK_WORD    ; /* una direccion podria ser */
+    TOK_WORD    {  NOT_IMPLEMENTED } ; /* una direccion podria ser */
 
 /* --------------------------------------------------------------------------- */
 instcode:
     instaction   |
-    instaction   TOK_IF  instexpr |
+    instaction   TOK_IF  instexpr  |
     ;
 
 code_list:
@@ -228,8 +247,8 @@ instruction_drop:
 
 
 instruction_move_prelude:
-    TOK_MOVE   |
-    TOK_MOVE   word_or_string  ;
+    TOK_MOVE                   { NOT_IMPLEMENTED  } |
+    TOK_MOVE   word_or_string  { NOT_IMPLEMENTED  } ;
 
 
 instruction_move:
@@ -286,10 +305,10 @@ instruction_start:
     } ;
 
 instruction_sym:
-    TOK_SYMMETRY     word_or_string  word_or_string  word_or_string ;
+    TOK_SYMMETRY     word_or_string  word_or_string  word_or_string { NOT_IMPLEMENTED } ;
 
 instruction_zone:
-    TOK_ZONE         word_or_string  word_or_string { init_parameters(); } word_or_string_list ;
+    TOK_ZONE         word_or_string  word_or_string { init_parameters(); } word_or_string_list { NOT_IMPLEMENTED } ;
 
 instruction:
     instruction_attr       |

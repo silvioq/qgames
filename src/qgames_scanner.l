@@ -66,7 +66,8 @@ define\:        { define_created = 0; BEGIN(define_head);   }
 <code>juega      { return TOK_JUEGA;     }
 <code>if         { return TOK_IF;        }
 <code>ocupado\?? { return TOK_OCUPADO;   }
-<code>ocupado\_propio\?? { return TOK_OCUPADOPROPIO;   }
+<code>ocupado\_enemigo\?? { return TOK_OCUPADOENEMIGO;   }
+<code>ocupado\_propio\??  { return TOK_OCUPADOPROPIO;   }
 <code>parar?     { return  TOK_PARA;     }
 <code>pierde     { return  TOK_PIERDE;   }
 

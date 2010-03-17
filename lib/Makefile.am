@@ -1,7 +1,7 @@
 lib_LIBRARIES = libqgames.a
 
 libqgames_a_SOURCES = ../common/list.c  ../common/md5.c \
-								qgames_tjuego.c   qgame_code.c  \
+								qgames_tjuego.c   qgames_code.c  qcode_interfaz.c \
 								tipojuego.c  tipojuego.h  \
 								tablero.c  casillero.c  vinculo.c  direccion.c   tipopieza.c   \
 								pieza.c  movida.c   posicion.c  posicion.h  \

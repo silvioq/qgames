@@ -20,8 +20,8 @@
 
 int  simbolo_id = 0;
 
-#define   SIM_ADD(tj,tipo,nom,data)  \
-  list_agrega(tj->simbolos, simbolo_new( tipo, strdup(nom), data ) );
+#define   SIM_ADD(tj,tipo,nom,ref)  \
+  list_agrega(tj->simbolos, simbolo_new( tipo, strdup(nom), ref ) );
 
 
 #define  TABLERO_ACTUAL(tjuego) ((Tablero*)(tjuego->tableros->data[tjuego->tablero_actual - 1]))
@@ -58,7 +58,7 @@ Tipojuego*   tipojuego_new( char* nombre ){
 
     tj->nombre  = strdup( nombre );
     tj->inicial = posicion_new( tj );
-    SIM_ADD( tj, SIM_TIPOJUEGO, tj->nombre, tj );
+    SIM_ADD( tj, SIM_TIPOJUEGO, tj->nombre, 0 );  
 
     return tj;
 
@@ -92,9 +92,9 @@ int         tipojuego_add_casillero( Tipojuego* tj, char* casillero ){
     }
     if( !tj->casilleros )  tj->casilleros = list_nueva( NULL );
     Casillero*  cas = casillero_new( casillero, tj->tablero_actual );
-    list_agrega( tj->casilleros, cas );
-    SIM_ADD( tj, SIM_CASILLERO, casillero, cas );
-    return tj->simbolos->entradas - 1;
+    int ref = list_agrega( tj->casilleros, cas );
+    SIM_ADD( tj, SIM_CASILLERO, casillero, ref );
+    return ref;
 }
 
 /*
@@ -108,8 +108,8 @@ int         tipojuego_add_direccion( Tipojuego* tj, char* direccion ){
     }
     if( !tj->direcciones )  tj->direcciones = list_nueva( NULL );
     Direccion* dir = direccion_new( direccion );
-    list_agrega( tj->direcciones, dir );
-    SIM_ADD( tj, SIM_DIRECCION, dir->nombre, dir );
+    int ref = list_agrega( tj->direcciones, dir );
+    SIM_ADD( tj, SIM_DIRECCION, dir->nombre, ref );
     return tj->simbolos->entradas - 1;
 }
 
@@ -125,7 +125,7 @@ void       tipojuego_add_direccion_rel( Tipojuego* tj, char* direccion, ... ){
 
     assert( sym = tipojuego_get_simbolo( tj, direccion ) );
     assert( SIM_DIRECCION == sym->tipo );
-    dir = (Direccion*)sym->data;
+    dir = (Direccion*)tj->direcciones->data[sym->ref];
 
     va_start( args, direccion );
     for( i = 0; i < TABLERO_ACTUAL(tj)->dimc; i ++ ){
@@ -147,7 +147,7 @@ void       tipojuego_add_direccion_arr( Tipojuego* tj, char* direccion, int* dir
 
     assert( sym = tipojuego_get_simbolo( tj, direccion ) );
     assert( SIM_DIRECCION == sym->tipo );
-    dir = (Direccion*)sym->data;
+    dir = (Direccion*)tj->direcciones->data[sym->ref];
 
     for( i = 0; i < TABLERO_ACTUAL(tj)->dimc; i ++ ){
         dir->mov_relativo[i] = dirv[i];
@@ -166,8 +166,8 @@ int         tipojuego_add_tipopieza( Tipojuego* tj, char* tpieza    ){
     }
     if( !tj->tipo_piezas )  tj->tipo_piezas = list_nueva( NULL );
     Tipopieza* pie = tipopieza_new( tj, tpieza );
-    list_agrega( tj->tipo_piezas, pie );
-    SIM_ADD( tj, SIM_TIPOPIEZA, tpieza, pie );
+    int ref = list_agrega( tj->tipo_piezas, pie );
+    SIM_ADD( tj, SIM_TIPOPIEZA, tpieza, ref );
     return tj->simbolos->entradas - 1;
 
 }
@@ -187,7 +187,7 @@ int         tipojuego_add_tpieza_att( Tipojuego* tj, char* tpieza, char* att, in
 
     assert( sp->tipo == SIM_TIPOPIEZA );
 
-    tp = (Tipopieza*) sp->data;
+    tp = (Tipopieza*) tj->tipo_piezas->data[sp->ref];
     if( !tp->att_nombres ){
         tp->att_nombres = list_nueva( NULL );
         tp->att_default = list_nueva( NULL );
@@ -207,7 +207,7 @@ int         tipojuego_add_tipo_mov( Tipojuego* tj, char* tmov  ){
         exit( EXIT_FAILURE );
     }
     tj->tipomovs ++;
-    SIM_ADD( tj, SIM_TIPOMOV, tmov, (void*)(long)(tj->tipomovs)   );
+    SIM_ADD( tj, SIM_TIPOMOV, tmov, tj->tipomovs );
     return tj->tipomovs;
 }
 
@@ -217,7 +217,7 @@ int         tipojuego_add_color    ( Tipojuego* tj, char* color ){
         exit( EXIT_FAILURE );
     }
     tj->colores ++;
-    SIM_ADD( tj, SIM_COLOR, color, (void*)(long)(tj->colores)   );
+    SIM_ADD( tj, SIM_COLOR, color, tj->colores );
     return tj->colores;
 
 }
@@ -238,23 +238,72 @@ void        tipojuego_add_pieza( Tipojuego* tj, char* tpieza, char* casillero, c
 
   assert( s = tipojuego_get_simbolo( tj, tpieza ) );
   assert( s->tipo == SIM_TIPOPIEZA );
-  tp = (Tipopieza*) s->data;
+  tp = (Tipopieza*) tj->tipo_piezas->data[s->ref];
 
   if( casillero == CASILLERO_POZO ){
     cas = ENPOZO;
   } else {
     assert( s = tipojuego_get_simbolo( tj, casillero ) );
     assert( s->tipo == SIM_CASILLERO );
-    cas = (Casillero*) s->data;
+    cas = (Casillero*) tj->casilleros->data[s->ref];
   }
   
   assert( s = tipojuego_get_simbolo( tj, color ) );
   assert( s->tipo == SIM_COLOR );
-  col = (int)(long)s->data;
+  col = s->ref;
   
   p = pieza_new( tp, cas, col );
   posicion_add_pieza( tj->inicial, p );
 }
+
+
+int         tipojuego_get_casillero( Tipojuego* tj, char* cas ){
+    Simbolo*  sym;
+    sym = tipojuego_get_simbolo( tj, cas );
+    if( !sym ) return NOT_FOUND;
+    if( sym->tipo != SIM_CASILLERO ) return NOT_FOUND;
+    return  sym->ref;
+}
+
+int         tipojuego_get_direccion( Tipojuego* tj, char* dir ){
+    Simbolo*  sym;
+    sym = tipojuego_get_simbolo( tj, dir );
+    if( !sym ) return NOT_FOUND;
+    if( sym->tipo != SIM_DIRECCION ) return NOT_FOUND;
+    return  sym->ref;
+}
+
+int         tipojuego_get_tipopieza( Tipojuego* tj, char* tpieza ){
+    Simbolo*  sym;
+    sym = tipojuego_get_simbolo( tj, tpieza );
+    if( !sym ) return NOT_FOUND;
+    if( sym->tipo != SIM_TIPOPIEZA ) return NOT_FOUND;
+    return  sym->ref;
+}
+
+int         tipojuego_get_zona     ( Tipojuego* tj, char* zona ){
+    Simbolo*  sym;
+    sym = tipojuego_get_simbolo( tj, zona );
+    if( !sym ) return NOT_FOUND;
+    if( sym->tipo != SIM_ZONA ) return NOT_FOUND;
+    return  sym->ref;
+}
+int         tipojuego_get_color    ( Tipojuego* tj, char* color ){
+    Simbolo*  sym;
+    sym = tipojuego_get_simbolo( tj, color );
+    if( !sym ) return NOT_FOUND;
+    if( sym->tipo != SIM_COLOR ) return NOT_FOUND;
+    return  sym->ref;
+}
+int         tipojuego_get_tipomov  ( Tipojuego* tj, char* tipomov ){
+    Simbolo*  sym;
+    sym = tipojuego_get_simbolo( tj, tipomov );
+    if( !sym ) return NOT_FOUND;
+    if( sym->tipo != SIM_TIPOMOV ) return NOT_FOUND;
+    return  sym->ref;
+}
+
+
 
 
 /*
@@ -291,7 +340,7 @@ int         tipojuego_start_code(  Tipojuego* tj, char tiporegla, char* tipopiez
       printf( "%s no es tipo pieza (File %s - linea %d\n", tipopieza, __FILE__, __LINE__ );
       exit( EXIT_FAILURE );
     }
-    tpieza = (Tipopieza*) sp->data;
+    tpieza = (Tipopieza*)tj->tipo_piezas->data[sp->ref];
   } else tpieza = NULL;
 
   // A ver el tipo de juego
@@ -305,7 +354,7 @@ int         tipojuego_start_code(  Tipojuego* tj, char tiporegla, char* tipopiez
       printf( "%s no es tipo movimiento (File %s - linea %d\n", tipomov, __FILE__, __LINE__ );
       exit( EXIT_FAILURE );
     }
-    tmov = (int)(long)sm->data;
+    tmov = sm->ref;
   } else {
     tmov = 0;
   }
@@ -317,6 +366,7 @@ int         tipojuego_start_code(  Tipojuego* tj, char tiporegla, char* tipopiez
   cod->tregla = tiporegla;
   label ++;
   cod->label  = qcode_crlab( tj->qcode, unnamed_label );
+  qcode_label( tj->qcode, cod->label );
   cod->pc     = qcode_label_getpc( tj->qcode, cod->label );
 
   if( tpieza ){

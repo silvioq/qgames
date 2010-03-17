@@ -13,13 +13,6 @@
 #include  "list.h"
 #include  "tipojuego.h"
 
-Casillero* tipojuego_get_casillero_by_num( Tipojuego* tj, int nro ){
-    Simbolo* sym;
-    assert( tj->simbolos->entradas > nro );
-    sym = tj->simbolos->data[nro];
-    assert( sym->tipo == SIM_CASILLERO );
-    return  (Casillero*)sym->data;
-}
 
 /*
  * Dado un arreglo de posiciones relativas en un tablero,
@@ -68,3 +61,8 @@ void    tipojuego_genera_vinculos( Tipojuego* tj, Direccion* dir ){
     }
 
 }
+
+
+
+
+

@@ -21,12 +21,14 @@
 #include  "posicion.h"
 #include  "analizador.h"
 
+
+
 /*
  * En esta parte del codigo, se definiran los "wrappers" entre el codigo máquina generado
  * y el tema del analizador
  * Para la implementacion a traves de esta linda máquina virtual que es la QCode, utilizaremos
  * la R3, donde dejaremos el puntero al analizador, el cual sera pasado como parametro
- * cada vez 
+ * cada vez que se use
  * */
 long  code_wrapper_ocupado( QCodeVM* vm ){
     Analizador* z = (Analizador*)qcode_pop( vm );
@@ -58,5 +60,7 @@ int    code_execute_rule( Posicion* pos, Rule* regla, Pieza* pie, Casillero* cas
 
 
 }
+
+
 
 

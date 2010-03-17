@@ -65,7 +65,13 @@ int         tipojuego_get_tipomov  ( Tipojuego* tj, char* tipomov );
 int         tipojuego_start_code(  Tipojuego* tj, char tiporegla, char* tipopieza, char* tipomov );
 void*       tipojuego_get_code( Tipojuego* tj );
 
-// int         tipojuego_code_
+#define   ENEMIGO       -1
+#define   PROPIO        -2
+#define   CUALQUIERA     0
+void        tipojuego_code_start_condblock( Tipojuego* tj );
+void        tipojuego_code_end_condblock( Tipojuego* tj );
+void        tipojuego_code_ocupado( Tipojuego* tj, char* casillero, int owner, char* color );
+void        tipojuego_code_juega  ( Tipojuego* tj, char* casillero, int captura );
 
 
 /*

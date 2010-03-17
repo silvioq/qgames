@@ -8,6 +8,7 @@
 #ifndef  DEFINES_H
 
 #define   ALLOC(n)   malloc(n)
+#define   REALLOC(p,s)   realloc(p,s)
 #define   FREE(p)    free(p)
 
 
