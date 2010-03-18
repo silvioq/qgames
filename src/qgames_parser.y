@@ -77,12 +77,12 @@ void  qgzprintf( char* format, ... ){
 %token    TOK_AHOGADO
 %token    TOK_EMPATA
 %token    TOK_GANA
-%token    TOK_JUEGA
+%token    TOK_JUEGA     TOK_JUEGA_SI
 %token    TOK_IF
 %token    TOK_OCUPADO
 %token    TOK_OCUPADOENEMIGO
 %token    TOK_OCUPADOPROPIO
-%token    TOK_PARA
+%token    TOK_PARA      TOK_PARA_SI
 %token    TOK_PIERDE
 
 
@@ -151,10 +151,19 @@ instaction_juega:
     TOK_JUEGA   {
         CHECK_TIPOJUEGO;
         tipojuego_code_juega( tipojuego, NULL, 0 );
-    }
+    }  | 
+    TOK_JUEGA_SI   instexpr {
+        CHECK_TIPOJUEGO;
+        tipojuego_code_start_condblock( tipojuego );
+        tipojuego_code_juega( tipojuego, NULL, 0 );
+        tipojuego_code_end_condblock( tipojuego );
+    };
+        
+      
 
 instaction_para:
-    TOK_PARA   {  NOT_IMPLEMENTED; } ;
+    TOK_PARA   {  NOT_IMPLEMENTED; } |
+    TOK_PARA_SI {  NOT_IMPLEMENTED; };
 
 instaction:
     instaction_juega |
@@ -164,8 +173,8 @@ instaction:
 
 /* --------------------------------------------------------------------------- */
 instcode:
-    instaction   |
-    instaction   TOK_IF  instexpr  |
+    instaction   /* |
+    instaction   TOK_IF  instexpr*/  |
     ;
 
 code_list:

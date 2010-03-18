@@ -45,8 +45,8 @@ void     push_label_stack( long label ){
 
 long    pop_label_stack( ){
     assert( label_stack_point > 0 );
-    long label = label_stack_data[label_stack_point];
     label_stack_point --;
+    long label = label_stack_data[label_stack_point];
     return  label;
 }
 

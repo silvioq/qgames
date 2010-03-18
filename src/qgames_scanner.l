@@ -60,16 +60,18 @@ zone\:          { return TOK_ZONE;      }
 define\:        { define_created = 0; BEGIN(define_head);   }
 
 
-<code>ahogado\?? { return TOK_AHOGADO;   }
-<code>empata     { return TOK_EMPATA;    }
-<code>gana       { return TOK_GANA;      }
-<code>juega      { return TOK_JUEGA;     }
-<code>if         { return TOK_IF;        }
-<code>ocupado\?? { return TOK_OCUPADO;   }
+<code>ahogado\??          { return TOK_AHOGADO;   }
+<code>empata              { return TOK_EMPATA;    }
+<code>gana                { return TOK_GANA;      }
+<code>juega               { return TOK_JUEGA;     } 
+<code>juega\-si           { return TOK_JUEGA_SI;  }
+<code>if                  { return TOK_IF;        }
+<code>ocupado\??          { return TOK_OCUPADO;   }
 <code>ocupado\_enemigo\?? { return TOK_OCUPADOENEMIGO;   }
 <code>ocupado\_propio\??  { return TOK_OCUPADOPROPIO;   }
-<code>parar?     { return  TOK_PARA;     }
-<code>pierde     { return  TOK_PIERDE;   }
+<code>parar?              { return  TOK_PARA;        }
+<code>parar?\-si          { return  TOK_PARA_SI;     }
+<code>pierde              { return  TOK_PIERDE;      }
 
 
 <INITIAL,code>\-?[0-9]+  { 

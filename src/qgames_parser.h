@@ -61,12 +61,14 @@
      TOK_EMPATA = 277,
      TOK_GANA = 278,
      TOK_JUEGA = 279,
-     TOK_IF = 280,
-     TOK_OCUPADO = 281,
-     TOK_OCUPADOENEMIGO = 282,
-     TOK_OCUPADOPROPIO = 283,
-     TOK_PARA = 284,
-     TOK_PIERDE = 285
+     TOK_JUEGA_SI = 280,
+     TOK_IF = 281,
+     TOK_OCUPADO = 282,
+     TOK_OCUPADOENEMIGO = 283,
+     TOK_OCUPADOPROPIO = 284,
+     TOK_PARA = 285,
+     TOK_PARA_SI = 286,
+     TOK_PIERDE = 287
    };
 #endif
 /* Tokens.  */
@@ -92,12 +94,14 @@
 #define TOK_EMPATA 277
 #define TOK_GANA 278
 #define TOK_JUEGA 279
-#define TOK_IF 280
-#define TOK_OCUPADO 281
-#define TOK_OCUPADOENEMIGO 282
-#define TOK_OCUPADOPROPIO 283
-#define TOK_PARA 284
-#define TOK_PIERDE 285
+#define TOK_JUEGA_SI 280
+#define TOK_IF 281
+#define TOK_OCUPADO 282
+#define TOK_OCUPADOENEMIGO 283
+#define TOK_OCUPADOPROPIO 284
+#define TOK_PARA 285
+#define TOK_PARA_SI 286
+#define TOK_PIERDE 287
 
 
 
