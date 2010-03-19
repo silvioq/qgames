@@ -75,15 +75,15 @@ void  qgzprintf( char* format, ... ){
 %token    TOK_SEPCODE
 
 %token    TOK_AHOGADO
-%token    TOK_EMPATA
-%token    TOK_GANA
+%token    TOK_EMPATA    TOK_EMPATA_SI
+%token    TOK_GANA      TOK_GANA_SI
 %token    TOK_JUEGA     TOK_JUEGA_SI
 %token    TOK_IF
 %token    TOK_OCUPADO
 %token    TOK_OCUPADOENEMIGO
 %token    TOK_OCUPADOPROPIO
 %token    TOK_PARA      TOK_PARA_SI
-%token    TOK_PIERDE
+%token    TOK_PIERDE    TOK_PIERDE_SI
 
 
 %start    game_definition
@@ -107,7 +107,14 @@ number_list:
    de partida */
 /* --------------------------------------------------------------------------- */
 instexpr_ahogado:
-    TOK_AHOGADO { NOT_IMPLEMENTED };
+    TOK_AHOGADO { 
+            CHECK_TIPOJUEGO;
+            tipojuego_code_ahogado( tipojuego, NULL );
+    } | 
+    TOK_AHOGADO  word_or_string {
+            CHECK_TIPOJUEGO;
+            tipojuego_code_ahogado( tipojuego, (char*)$2 );
+    };
 
 instexpr_ocupado:
     TOK_OCUPADO         {
@@ -143,33 +150,85 @@ instexpr:
 
 /* --------------------------------------------------------------------------- */
 instaction_final:
-    TOK_EMPATA {  NOT_IMPLEMENTED; }|
-    TOK_GANA   {  NOT_IMPLEMENTED; } |
-    TOK_PIERDE {  NOT_IMPLEMENTED; };
+    TOK_EMPATA    {  
+            CHECK_TIPOJUEGO;
+            tipojuego_code_final( tipojuego, NULL, EMPATA );
+    } |
+    TOK_EMPATA_SI instexpr {  
+            CHECK_TIPOJUEGO;
+            tipojuego_code_start_condblock( tipojuego );
+            tipojuego_code_final( tipojuego, NULL, EMPATA );
+            tipojuego_code_end_condblock( tipojuego );
+    } |
+    TOK_GANA      {  
+            CHECK_TIPOJUEGO;
+            tipojuego_code_final( tipojuego, NULL, GANA );
+    } |
+    TOK_GANA_SI   instexpr  {  
+            CHECK_TIPOJUEGO;
+            tipojuego_code_start_condblock( tipojuego );
+            tipojuego_code_final( tipojuego, NULL, GANA );
+            tipojuego_code_end_condblock( tipojuego );
+    } |
+    TOK_PIERDE    {  
+            CHECK_TIPOJUEGO;
+            tipojuego_code_final( tipojuego, NULL, PIERDE );
+    } |
+    TOK_PIERDE_SI   instexpr  {  
+            CHECK_TIPOJUEGO;
+            tipojuego_code_start_condblock( tipojuego );
+            tipojuego_code_final( tipojuego, NULL, PIERDE );
+            tipojuego_code_end_condblock( tipojuego );
+     } |
 
 instaction_juega:
     TOK_JUEGA   {
-        CHECK_TIPOJUEGO;
-        tipojuego_code_juega( tipojuego, NULL, 0 );
+            CHECK_TIPOJUEGO;
+            tipojuego_code_juega( tipojuego, NULL, 0 );
     }  | 
     TOK_JUEGA_SI   instexpr {
-        CHECK_TIPOJUEGO;
-        tipojuego_code_start_condblock( tipojuego );
-        tipojuego_code_juega( tipojuego, NULL, 0 );
-        tipojuego_code_end_condblock( tipojuego );
+            CHECK_TIPOJUEGO;
+            tipojuego_code_start_condblock( tipojuego );
+            tipojuego_code_juega( tipojuego, NULL, 0 );
+            tipojuego_code_end_condblock( tipojuego );
     };
-        
-      
+ 
 
 instaction_para:
-    TOK_PARA   {  NOT_IMPLEMENTED; } |
-    TOK_PARA_SI {  NOT_IMPLEMENTED; };
+    TOK_PARA   {  
+            CHECK_TIPOJUEGO;
+            tipojuego_code_para( tipojuego );
+    } |
+    TOK_PARA_SI instexpr { 
+            CHECK_TIPOJUEGO;
+            tipojuego_code_start_condblock( tipojuego );
+            tipojuego_code_para( tipojuego );
+            tipojuego_code_end_condblock( tipojuego );
+    };
 
 instaction:
     instaction_juega |
     instaction_final |
     instaction_para  |
-    TOK_WORD    {  NOT_IMPLEMENTED } ; /* una direccion podria ser */
+    TOK_WORD    {   
+            int  algo;
+            CHECK_TIPOJUEGO;
+            /* una direccion podria ser */
+            algo = tipojuego_get_direccion( tipojuego, (char*)$1 );
+            if( algo != NOT_FOUND ){
+                tipojuego_code_direccion( tipojuego, (char*)$1 );
+            } else {
+                algo = tipojuego_get_casillero( tipojuego, (char*)$1 );
+                if( algo != NOT_FOUND ){
+                    tipojuego_code_casillero( tipojuego, (char*)$1 );
+                } else {
+                    qgzprintf( "%s no es nada", (char*)$1 );
+                    yyerror( "Comando no reconocido" );
+                    YYERROR;
+                }
+            }
+
+    } ; 
 
 /* --------------------------------------------------------------------------- */
 instcode:

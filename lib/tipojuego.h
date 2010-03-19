@@ -80,6 +80,12 @@ typedef   struct  StrRule {
     ret; \
   })
 
+#define  GETDIRECCION(tj,nom)  ({ \
+    int ret = tipojuego_get_direccion(tj,nom); \
+    assert( ret != NOT_FOUND ); \
+    ret; \
+  })
+
 #define  GETCOLOR(tj,nom)  ({ \
     int ret = tipojuego_get_color(tj,nom); \
     assert( ret != NOT_FOUND ); \

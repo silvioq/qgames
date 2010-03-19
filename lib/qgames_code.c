@@ -77,7 +77,7 @@ void        tipojuego_code_ocupado( Tipojuego* tj, char* casillero, int owner, c
     if( casillero ){
         cas = GETCASILLERO(tj, casillero );
     } else {
-        cas = NULL;
+        cas = -1;
     }
     qcode_op( tj->qcode, QCSTI, 16, own );      // t16 = own
     qcode_op( tj->qcode, QCPOP, 16, 0 );        // POP t16
@@ -87,12 +87,24 @@ void        tipojuego_code_ocupado( Tipojuego* tj, char* casillero, int owner, c
     qcode_opnlab( tj->qcode, QCCLX, "ocupado" );
 }
 
+void        tipojuego_code_ahogado( Tipojuego* tj, char* color ){
+    int  col;
+    if( color ){
+        col = GETCOLOR( tj, color );
+    } else
+       col = -1;
+    qcode_op( tj->qcode, QCSTI, 16, col );      // t16 = col
+    qcode_op( tj->qcode, QCPOP, 16, 0 );        // POP t16
+    qcode_op( tj->qcode, QCPOP,  3, 0 );        // POP r3
+    qcode_opnlab( tj->qcode, QCCLX, "ahogado" );
+}
+
 void        tipojuego_code_juega  ( Tipojuego* tj, char* casillero, int captura ){
     long cas;
     if( casillero ){
         cas = GETCASILLERO(tj, casillero );
     } else {
-        cas = NULL;
+        cas = -1;
     }
 
     qcode_op( tj->qcode, QCSTI, 16, captura );  // t16 = captura
@@ -103,3 +115,43 @@ void        tipojuego_code_juega  ( Tipojuego* tj, char* casillero, int captura 
     qcode_opnlab( tj->qcode, QCCLX, "juega" );
 }
 
+void        tipojuego_code_para  ( Tipojuego* tj ){
+    qcode_op( tj->qcode, QCRET,  0, 0 );        // RET
+}
+
+void        tipojuego_code_casillero( Tipojuego* tj, char* casillero ){
+    long cas;
+    assert( casillero );
+    cas = GETCASILLERO(tj, casillero );
+    qcode_op( tj->qcode, QCSTI, 16, cas );      // t16 = cas     
+    qcode_op( tj->qcode, QCPOP, 16, 0 );        // POP t16
+    qcode_op( tj->qcode, QCPOP,  3, 0 );        // POP r3
+    qcode_opnlab( tj->qcode, QCCLX, "casillero" );
+}
+    
+void        tipojuego_code_direccion( Tipojuego* tj, char* direccion ){
+    long dir;
+    assert( direccion );
+    dir = GETDIRECCION(tj, direccion );
+    qcode_op( tj->qcode, QCSTI, 16, dir );      // t16 = dir     
+    qcode_op( tj->qcode, QCPOP, 16, 0 );        // POP t16
+    qcode_op( tj->qcode, QCPOP,  3, 0 );        // POP r3
+    qcode_opnlab( tj->qcode, QCCLX, "direccion" );
+}
+
+void        tipojuego_code_final  ( Tipojuego* tj, char* color, int resultado ){
+    int  col;
+    if( color ){
+        col = GETCOLOR( tj, color );
+    } else
+       col = -1;
+
+    qcode_op( tj->qcode, QCSTI, 16, resultado );// t16 = resultado
+    qcode_op( tj->qcode, QCPOP, 16, 0 );        // POP t16
+    qcode_op( tj->qcode, QCSTI, 16, col );      // t16 = col
+    qcode_op( tj->qcode, QCPOP, 16, 0 );        // POP t16
+    qcode_op( tj->qcode, QCPOP,  3, 0 );        // POP r3
+    qcode_opnlab( tj->qcode, QCCLX, "final" );
+
+
+}

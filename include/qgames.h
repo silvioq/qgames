@@ -70,8 +70,17 @@ void*       tipojuego_get_code( Tipojuego* tj );
 #define   CUALQUIERA     0
 void        tipojuego_code_start_condblock( Tipojuego* tj );
 void        tipojuego_code_end_condblock( Tipojuego* tj );
+void        tipojuego_code_direccion( Tipojuego* tj, char* direccion );
+void        tipojuego_code_casillero( Tipojuego* tj, char* casillero );
 void        tipojuego_code_ocupado( Tipojuego* tj, char* casillero, int owner, char* color );
+void        tipojuego_code_ahogado( Tipojuego* tj, char* color );
 void        tipojuego_code_juega  ( Tipojuego* tj, char* casillero, int captura );
+void        tipojuego_code_para   ( Tipojuego* tj );
+
+#define   GANA      1
+#define   PIERDE    2
+#define   EMPATA    3
+void        tipojuego_code_final  ( Tipojuego* tj, char* color, int resultado );
 
 
 /*

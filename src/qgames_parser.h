@@ -59,16 +59,19 @@
      TOK_SEPCODE = 275,
      TOK_AHOGADO = 276,
      TOK_EMPATA = 277,
-     TOK_GANA = 278,
-     TOK_JUEGA = 279,
-     TOK_JUEGA_SI = 280,
-     TOK_IF = 281,
-     TOK_OCUPADO = 282,
-     TOK_OCUPADOENEMIGO = 283,
-     TOK_OCUPADOPROPIO = 284,
-     TOK_PARA = 285,
-     TOK_PARA_SI = 286,
-     TOK_PIERDE = 287
+     TOK_EMPATA_SI = 278,
+     TOK_GANA = 279,
+     TOK_GANA_SI = 280,
+     TOK_JUEGA = 281,
+     TOK_JUEGA_SI = 282,
+     TOK_IF = 283,
+     TOK_OCUPADO = 284,
+     TOK_OCUPADOENEMIGO = 285,
+     TOK_OCUPADOPROPIO = 286,
+     TOK_PARA = 287,
+     TOK_PARA_SI = 288,
+     TOK_PIERDE = 289,
+     TOK_PIERDE_SI = 290
    };
 #endif
 /* Tokens.  */
@@ -92,16 +95,19 @@
 #define TOK_SEPCODE 275
 #define TOK_AHOGADO 276
 #define TOK_EMPATA 277
-#define TOK_GANA 278
-#define TOK_JUEGA 279
-#define TOK_JUEGA_SI 280
-#define TOK_IF 281
-#define TOK_OCUPADO 282
-#define TOK_OCUPADOENEMIGO 283
-#define TOK_OCUPADOPROPIO 284
-#define TOK_PARA 285
-#define TOK_PARA_SI 286
-#define TOK_PIERDE 287
+#define TOK_EMPATA_SI 278
+#define TOK_GANA 279
+#define TOK_GANA_SI 280
+#define TOK_JUEGA 281
+#define TOK_JUEGA_SI 282
+#define TOK_IF 283
+#define TOK_OCUPADO 284
+#define TOK_OCUPADOENEMIGO 285
+#define TOK_OCUPADOPROPIO 286
+#define TOK_PARA 287
+#define TOK_PARA_SI 288
+#define TOK_PIERDE 289
+#define TOK_PIERDE_SI 290
 
 
 
