@@ -83,7 +83,7 @@ void        posicion_add_pieza( Posicion* pos, Pieza* pie ){
  *   cantidad de movidas encontradas
  **/
 
-int        posicion_analiza_movidas( Posicion* pos, int tipoanalisis, int color, int tipomov, Pieza* pieza ){
+int        posicion_analiza_movidas( Posicion* pos, char tipoanalisis, int color, int tipomov, Pieza* pieza ){
 
     // 1. chequeo de parametros
     assert( color > 0 );
@@ -110,8 +110,14 @@ int        posicion_analiza_movidas( Posicion* pos, int tipoanalisis, int color,
             }
             if( existe ) continue;
             piezas_arr[piezas_cnt] = pp; piezas_cnt ++;
+            int  c;
             int  r;
-            for( r = 0; r < pp->tpieza->rules->entradas; r ++ ){
+            for( c = 0; c < pos->tjuego->casilleros->entradas; c ++ ){
+                Casillero* cas = (Casillero*) pos->tjuego->casilleros->data[c];
+                for( r = 0; r < pp->tpieza->rules->entradas; r ++ ){
+//                 analizador_evalua_movidas( pos, pp, 
+// _list*   analizador_evalua_movidas( Posicion* pos, Pieza* pieza, Casillero* cas, char tipoanalisis, int tipomovida, int color );
+                }
             }
         }
     }

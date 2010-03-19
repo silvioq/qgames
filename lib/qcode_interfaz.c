@@ -31,7 +31,7 @@
     ret; })
 
 #define  ZGETDIRECCION(z,d) ({ \
-    Casillero* ret = NULL; \
+    Direccion* ret = NULL; \
     int val = d; \
     if( val != -1 ){         \
       ret = (Direccion*)  z->pos->tjuego->direcciones->data[val]; \
@@ -84,7 +84,7 @@ void  code_initialize( QCode** qcode ){
 
 
 /* Sensacional! el más simple ejecutor de las reglas */
-int    code_execute_rule( Posicion* pos, Rule* regla, Pieza* pie, Casillero* cas, int  tmov, int color, int tanalisis ){
+int    code_execute_rule( Posicion* pos, Regla* regla, Pieza* pie, Casillero* cas, int  tmov, int color, int tanalisis ){
 
 
 }

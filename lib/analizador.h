@@ -16,16 +16,16 @@ typedef  struct  StrAnalizador {
     Posicion*  pos;
     Pieza*     pieza;
     Casillero* cas;
-    int        tipo_analisis;
     int        tipo_movida;
     int        color;
     _list*     movidas;
-    int        status;
+    char       tipo_analisis;
+    char       status;
 }  Analizador;
 
 
-_list*   analizador_evalua_movidas( Posicion* pos, Pieza* pieza, Casillero* cas, int tipoanalisis, int tipomovida, int color );
-_list*   analizador_evalua_final  ( Posicion* pos, int color );
+_list*   analizador_evalua_movidas( Regla* regla, Posicion* pos, Pieza* pieza, Casillero* cas, char tipoanalisis, int tipomovida, int color );
+_list*   analizador_evalua_final  ( Regla* regla, Posicion* pos, int color );
 
 
 #define   STATUS_NORMAL       0

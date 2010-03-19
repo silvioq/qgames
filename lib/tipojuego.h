@@ -65,13 +65,13 @@ typedef   struct   StrTipopieza {
     _list*      rules;
 } Tipopieza;
 
-typedef   struct  StrRule {
+typedef   struct  StrRegla {
     Tipopieza*  tpieza;
     int         tmov;
     char        tregla;
     int         label;
     int         pc;
-} Rule;
+} Regla;
 
 
 #define  GETCASILLERO(tj,nom)  ({ \
