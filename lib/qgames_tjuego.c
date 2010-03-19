@@ -377,10 +377,12 @@ int         tipojuego_start_code(  Tipojuego* tj, char tiporegla, char* tipopiez
     list_agrega( tj->rules, cod );
   }
   return cod->label;
-    
 
 }
 
+
+
+/*
 void*       tipojuego_get_code( Tipojuego* tj ){
     return (void*)tj->qcode;
-}
+}*/

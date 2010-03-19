@@ -11,6 +11,7 @@
 
 
 
+
 typedef  struct  StrAnalizador {
     Posicion*  pos;
     Pieza*     pieza;
@@ -19,7 +20,18 @@ typedef  struct  StrAnalizador {
     int        tipo_movida;
     int        color;
     _list*     movidas;
+    int        status;
 }  Analizador;
+
+
+_list*   analizador_evalua_movidas( Posicion* pos, Pieza* pieza, Casillero* cas, int tipoanalisis, int tipomovida, int color );
+_list*   analizador_evalua_final  ( Posicion* pos, int color );
+
+
+#define   STATUS_NORMAL       0
+#define   STATUS_OUTOFBOARD   1
+#define   STATUS_STOP         2
+
 
 
 int    analizador_juega  ( Analizador* z, Casillero* cas, int con_captura );
@@ -32,6 +44,13 @@ int    analizador_juega  ( Analizador* z, Casillero* cas, int con_captura );
  *
  *  */
 int    analizador_ocupado( Analizador* z, Casillero* cas, int owner );
+
+
+/*
+ * Cambia el puntero al lugar indicado
+ */ 
+int    analizador_casillero( Analizador* z, Casillero* cas );
+int    analizador_direccion( Analizador* z, Direccion* dir );
 
 
 #endif

@@ -63,6 +63,7 @@ int         tipojuego_get_tipomov  ( Tipojuego* tj, char* tipomov );
 #define   END   'E'
 
 int         tipojuego_start_code(  Tipojuego* tj, char tiporegla, char* tipopieza, char* tipomov );
+#define     tipojuego_start_codeend(tj) tipojuego_start_code( tj, END, NULL, NULL )
 void*       tipojuego_get_code( Tipojuego* tj );
 
 #define   ENEMIGO       -1

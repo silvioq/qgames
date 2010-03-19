@@ -22,6 +22,21 @@
 #include  "analizador.h"
 
 
+#define  ZGETCASILLERO(z,c) ({ \
+    Casillero* ret = NULL; \
+    int val = c; \
+    if( val != -1 ){         \
+      ret = (Casillero*)  z->pos->tjuego->casilleros->data[val]; \
+    } \
+    ret; })
+
+#define  ZGETDIRECCION(z,d) ({ \
+    Casillero* ret = NULL; \
+    int val = d; \
+    if( val != -1 ){         \
+      ret = (Direccion*)  z->pos->tjuego->direcciones->data[val]; \
+    } \
+    ret; })
 
 /*
  * En esta parte del codigo, se definiran los "wrappers" entre el codigo máquina generado
@@ -40,20 +55,33 @@ long  code_wrapper_ocupado( QCodeVM* vm ){
 
 long  code_wrapper_juega( QCodeVM* vm ){
     Analizador* z = (Analizador*)qcode_pop( vm );
-    Casillero*  c = (Casillero*)qcode_pop( vm );
+    Casillero*  c = ZGETCASILLERO( z, qcode_pop( vm ) );
     int  captura  = (int)qcode_pop(vm);
-    analizador_juega( z, c, captura );
-    return 0;
+    return (long)analizador_juega( z, c, captura );
 }
 
+long  code_wrapper_casillero( QCodeVM* vm ){
+    Analizador* z = (Analizador*)qcode_pop( vm );
+    Casillero*  c = ZGETCASILLERO( z, qcode_pop( vm ) );
+    return (long)analizador_casillero( z, c );
+}
+    
+long  code_wrapper_direccion( QCodeVM* vm ){
+    Analizador* z = (Analizador*)qcode_pop( vm );
+    Direccion*  d = ZGETDIRECCION( z, qcode_pop( vm ) );
+    return (long)analizador_direccion( z, d );
+}
 
 void  code_initialize( QCode** qcode ){
     QCode*  q;
     q = qcode_new();
-    qcode_xcrlab( q, "ocupado", (qcode_extfunc)code_wrapper_ocupado );
-    qcode_xcrlab( q, "juega",   (qcode_extfunc)code_wrapper_juega );
+    qcode_xcrlab( q, "ocupado",   (qcode_extfunc)code_wrapper_ocupado );
+    qcode_xcrlab( q, "juega",     (qcode_extfunc)code_wrapper_juega );
+    qcode_xcrlab( q, "casillero", (qcode_extfunc)code_wrapper_casillero );
+    qcode_xcrlab( q, "direccion", (qcode_extfunc)code_wrapper_direccion );
     *qcode = q;
 }
+
 
 /* Sensacional! el más simple ejecutor de las reglas */
 int    code_execute_rule( Posicion* pos, Rule* regla, Pieza* pie, Casillero* cas, int  tmov, int color, int tanalisis ){

@@ -25,7 +25,7 @@ typedef   struct   StrTipojuego {
     char*        nombre;
     Posicion*    inicial;
 
-    _list*       rules;
+    _list*       rules;           // Aca van los finales
     QCode*       qcode;
 } _Tipojuego;
 
@@ -105,6 +105,7 @@ void       tablero_genera_dimensiones( Tablero* tab, int dimc, char** dimv );
 /* Funciones de manejo de direcciones */
 #define    ENPOZO     ((Casillero*)POZO)
 #define    ENCAPTURA  ((Casillero*)CAPTURA)
+#define    OUTOFBOARD ((Casillero*)0)
 
 Casillero* casillero_new( char* cas, int tablero );
 void       casillero_free( Casillero* cas );

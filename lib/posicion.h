@@ -13,6 +13,7 @@ typedef  struct  StrPosicion {
     _list*      piezas;
     _list*      movidas;
     Posicion*   pos_anterior;
+    int         retultado;
 } _Posicion;
 
 

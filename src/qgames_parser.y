@@ -330,7 +330,11 @@ instruction_move:
 
 
 instruction_ending:
-    TOK_ENDING  TOK_SEPARATOR  { change_to_code_mode(); }  code_list;
+    TOK_ENDING  TOK_SEPARATOR  { 
+            CHECK_TIPOJUEGO; 
+            change_to_code_mode(); 
+            tipojuego_start_codeend( tipojuego );
+    }  code_list;
 
 instruction_gametype:
     TOK_GAMETYPE     word_or_string { 

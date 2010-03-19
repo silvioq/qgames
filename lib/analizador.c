@@ -22,6 +22,7 @@
 #include  "analizador.h"
 
 
+#define  CHECK_STATUS     assert( z->status == STATUS_NORMAL );
 
 /*
  * Devuelve uno o cero, si se encuentra ocupado el casillero pasado como parametro
@@ -33,7 +34,8 @@
 
 int    analizador_ocupado( Analizador* z, Casillero* cas, int owner ){
     Casillero*  ccc = ( cas ? cas : z->cas );
-    
+   
+    CHECK_STATUS ;
     int i;
     for( i = 0; i < z->pos->piezas->entradas; i ++ ){
         Pieza* pp = (Pieza*)z->pos->piezas->data[i];
@@ -47,13 +49,14 @@ int    analizador_ocupado( Analizador* z, Casillero* cas, int owner ){
             } else if( pp->color == owner ) return 1;
         }
     }
-    return 0;
+    return STATUS_NORMAL;
 
 }
 
 
 
 int    analizador_juega  ( Analizador* z, Casillero* cas, int con_captura ){
+    CHECK_STATUS ;
     if( !z->movidas ) z->movidas = list_nueva( NULL );
     Movida* mov = movida_new( z->pos );
     movida_accion_mueve( mov, z->pieza, cas );
@@ -67,5 +70,31 @@ int    analizador_juega  ( Analizador* z, Casillero* cas, int con_captura ){
             }
         }
     }
-    return  z->movidas->entradas;
+    return  STATUS_NORMAL;
 }
+
+
+
+int   analizador_direccion( Analizador* z, Direccion* dir ){
+
+    Vinculo* v;
+    CHECK_STATUS;
+    v = casillero_busca_vinculo_origen( z->cas, dir );
+    if( !v ){
+        z->status = STATUS_OUTOFBOARD;
+        z->cas    = OUTOFBOARD;
+        return STATUS_OUTOFBOARD;
+    }
+
+    z->cas = v->destino;
+    return  STATUS_NORMAL;
+}
+
+
+int   analizador_casillero( Analizador* z, Casillero* cas ){
+    CHECK_STATUS;
+  
+    z->cas = cas;
+    return  STATUS_NORMAL;
+}
+
