@@ -1,4 +1,4 @@
-AC_INIT([qgames], [2.4])
+AC_INIT([qgames], [2.4.0])
 AM_INIT_AUTOMAKE
 AC_PROG_CC
 AC_PROG_YACC
