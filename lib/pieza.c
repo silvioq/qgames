@@ -64,7 +64,7 @@ char*   pieza_hash( Pieza* p ){
     if( p->atributos ){
         int i;
         for( i = 0; i < p->atributos->entradas; i ++ ){
-            md5_append( &md5, & (p->atributos->data[i] ), sizeof( int ) );
+            md5_append( &md5, (void*)(& (p->atributos->data[i] )), sizeof( int ) );
         }
     }
     md5_finish( &md5, p->hash );
