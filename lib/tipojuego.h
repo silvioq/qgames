@@ -132,6 +132,7 @@ Tipopieza*  tipopieza_new( Tipojuego* tj, char* nombre );
 
 /* Temas de codigo */
 void  code_initialize( QCode** qcode );
+int   code_execute_rule( void* z, int pc );
 
 
 #endif

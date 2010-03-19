@@ -24,6 +24,22 @@
 
 #define  CHECK_STATUS     assert( z->status == STATUS_NORMAL );
 
+_list*   analizador_evalua_movidas( Regla* regla, Posicion* pos, Pieza* pieza, Casillero* cas, char tipoanalisis, int tipomovida, int color ){
+
+    Analizador* z = (Analizador*)ALLOC( sizeof( Analizador ) );
+    memset( z, 0, sizeof( Analizador ) );
+    z->pos = pos;
+    z->pieza = pieza;
+    z->cas   = cas;
+    z->color = color;
+    z->tipo_analisis = tipoanalisis;
+    z->tipo_movida   = tipomovida;
+
+    code_execute_rule( z, regla->pc );
+
+    return z->movidas;
+
+}
 /*
  * Devuelve uno o cero, si se encuentra ocupado el casillero pasado como parametro
  * Detalle:

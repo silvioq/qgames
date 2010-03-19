@@ -18,12 +18,13 @@
 #include  "tipojuego.h"
 #include  "pieza.h"
 #include  "movida.h"
+#include  "analizador.h"
 #include  "posicion.h"
 
 /* ---------------------------------------------------------------------------------------- */
-void  posicion_free_movidas( Posicion* pos );
-
-
+void        posicion_free_movidas( Posicion* pos );
+void        posicion_add_movida( Posicion* pos, Movida* mov );
+void        posicion_add_movidas( Posicion* pos, _list* movs );
 
 
 
@@ -39,6 +40,19 @@ void  posicion_free_movidas( Posicion* pos ){
         }
         list_free( pos->movidas );
         pos->movidas = NULL;
+    }
+}
+
+void  posicion_add_movida( Posicion* pos, Movida* mov ){
+    if( !pos->movidas ) pos->movidas = list_nueva( NULL );
+    list_agrega( pos->movidas, mov );
+}
+
+void  posicion_add_movidas( Posicion* pos, _list* movs ){
+    int i;
+    for( i = 0; i < movs->entradas; i ++ ){
+        Movida* m = (Movida*) movs->data[i];
+        posicion_add_movida( pos, m );
     }
 }
 
@@ -118,7 +132,11 @@ int        posicion_analiza_movidas( Posicion* pos, char tipoanalisis, int color
                     Posicion* newpos = posicion_dup( pos );
                     Regla*  regla = (Regla*) pp->tpieza->rules->data[r];
                     _list*  movs;
-                    // movs = analizador_evalua_movidas( regla, pos, pp, cas, tipoanalisis, tipomov, color );
+                    movs =  analizador_evalua_movidas( regla, pos, pp, cas, tipoanalisis, tipomov, color );
+                    if( movs ){
+                        if( tipoanalisis == ANALISIS_PRIMER_MOVIDA ) return 1;
+                        posicion_add_movidas( pos, movs );
+                    }
                 }
             }
         }

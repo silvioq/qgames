@@ -72,6 +72,12 @@ long  code_wrapper_direccion( QCodeVM* vm ){
     return (long)analizador_direccion( z, d );
 }
 
+Analizador* zgeneral;
+long  code_wrapper_initz( QCodeVM* vm ){
+    return  (long)zgeneral;
+}
+
+
 void  code_initialize( QCode** qcode ){
     QCode*  q;
     q = qcode_new();
@@ -79,14 +85,31 @@ void  code_initialize( QCode** qcode ){
     qcode_xcrlab( q, "juega",     (qcode_extfunc)code_wrapper_juega );
     qcode_xcrlab( q, "casillero", (qcode_extfunc)code_wrapper_casillero );
     qcode_xcrlab( q, "direccion", (qcode_extfunc)code_wrapper_direccion );
+
+    /* El primer codigo que meto es el tema del analizador */
+    int label = qcode_xcrlab( q, "initz", (qcode_extfunc)code_wrapper_initz );
+    qcode_oplab( q, QCCLX, label );
+    qcode_op   ( q, QCSTO, 3, 0 ) ;   // STO R3, R0
+    qcode_op   ( q, QCRET, 0, 0 );    // RET
+
+
     *qcode = q;
 }
 
 
 /* Sensacional! el más simple ejecutor de las reglas */
-int    code_execute_rule( Posicion* pos, Regla* regla, Pieza* pie, Casillero* cas, int  tmov, int color, int tanalisis ){
-
-
+int    code_execute_rule( void* z, int pc ){
+    zgeneral = (Analizador*)z;
+    long  ret;
+    QCode* q = ((Analizador*)z)->pos->tjuego->qcode;
+    qcode_run( q, &ret );
+    int r = qcode_runargs( q, &ret, pc, 0, NULL );
+    if( r == 0 ) return 0;
+    printf( "-----------------------------------------\n" );
+    printf( "Error de ejecucion %d\n", r );
+    printf( "-----------------------------------------\n" );
+    return 1;
+    
 }
 
 

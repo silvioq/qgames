@@ -47,7 +47,7 @@ int    analizador_ocupado( Analizador* z, Casillero* cas, int owner );
 
 
 /*
- * Cambia el puntero al lugar indicado
+ * Cambia el puntero al lugar indicado (casillero o direccion)
  */ 
 int    analizador_casillero( Analizador* z, Casillero* cas );
 int    analizador_direccion( Analizador* z, Direccion* dir );
