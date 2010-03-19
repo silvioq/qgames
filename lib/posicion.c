@@ -115,8 +115,10 @@ int        posicion_analiza_movidas( Posicion* pos, char tipoanalisis, int color
             for( c = 0; c < pos->tjuego->casilleros->entradas; c ++ ){
                 Casillero* cas = (Casillero*) pos->tjuego->casilleros->data[c];
                 for( r = 0; r < pp->tpieza->rules->entradas; r ++ ){
-//                 analizador_evalua_movidas( pos, pp, 
-// _list*   analizador_evalua_movidas( Posicion* pos, Pieza* pieza, Casillero* cas, char tipoanalisis, int tipomovida, int color );
+                    Posicion* newpos = posicion_dup( pos );
+                    Regla*  regla = (Regla*) pp->tpieza->rules->data[r];
+                    _list*  movs;
+                    // movs = analizador_evalua_movidas( regla, pos, pp, cas, tipoanalisis, tipomov, color );
                 }
             }
         }
@@ -125,4 +127,23 @@ int        posicion_analiza_movidas( Posicion* pos, char tipoanalisis, int color
 
 
     return 0;
+}
+
+
+/*
+ * La duplicacion de la posicion es algo que hacemos todo el tiempo
+ * la idea es generar una nueva posicion con todo listo como para
+ * hacer otro analisis o lo que sea.
+ * */
+
+Posicion*   posicion_dup( Posicion* pos ){
+    Posicion* pnew = posicion_new( pos->tjuego );
+    pnew->pos_anterior = pos->pos_anterior;
+    int p;
+    for( p = 0; p < pos->piezas->entradas; p ++ ){
+        Pieza* pie = (Pieza*)pos->piezas->data[p];
+        Pieza* pienew = pieza_dup( pie );
+        posicion_add_pieza( pnew, pienew );
+    }
+    
 }

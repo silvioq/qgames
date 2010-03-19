@@ -76,3 +76,26 @@ int     pieza_equal( Pieza* p1, Pieza* p2 ){
     return( strncmp( pieza_hash( p1 ), pieza_hash( p2 ), 16 ) == 0 );
 }
 
+/*
+ * El duplicado de la pieza hace una pieza exactamente igual ... pero nueva!
+ * */
+
+Pieza*   pieza_dup( Pieza* pieza ){
+    Pieza *p;
+    p = (Pieza*)ALLOC( sizeof( Pieza ) );
+    memset( p, 0, sizeof( Pieza ) );
+    p->tpieza    = pieza->tpieza;
+    p->casillero = pieza->casillero;
+    p->color     = pieza->color;
+    memcpy( p->hash,  pieza->hash, 16 );
+    p->hash_calculado = p->hash_calculado;
+
+    if( pieza->atributos ){
+        p->atributos = list_nueva( NULL );
+        int i;
+        for( i = 0; i < pieza->atributos->entradas; i ++ ){
+            list_agrega( p->atributos, pieza->atributos->data[i] );
+        }
+    }
+    return p;
+}
