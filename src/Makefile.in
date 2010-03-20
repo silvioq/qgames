@@ -34,8 +34,7 @@ build_triplet = @build@
 host_triplet = @host@
 bin_PROGRAMS = qgames$(EXEEXT)
 subdir = src
-DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in \
-	qgames_parser.c qgames_parser.h qgames_scanner.c
+DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
@@ -46,8 +45,7 @@ CONFIG_CLEAN_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 binPROGRAMS_INSTALL = $(INSTALL_PROGRAM)
 PROGRAMS = $(bin_PROGRAMS)
-am_qgames_OBJECTS = qgames.$(OBJEXT) qgames_parser.$(OBJEXT) \
-	qgames_scanner.$(OBJEXT) list.$(OBJEXT)
+am_qgames_OBJECTS = qgames.$(OBJEXT) list.$(OBJEXT)
 qgames_OBJECTS = $(am_qgames_OBJECTS)
 DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
@@ -61,13 +59,6 @@ CCLD = $(CC)
 LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
 	--mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) \
 	$(LDFLAGS) -o $@
-LEXCOMPILE = $(LEX) $(LFLAGS) $(AM_LFLAGS)
-LTLEXCOMPILE = $(LIBTOOL) $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
-	--mode=compile $(LEX) $(LFLAGS) $(AM_LFLAGS)
-YLWRAP = $(top_srcdir)/ylwrap
-YACCCOMPILE = $(YACC) $(YFLAGS) $(AM_YFLAGS)
-LTYACCCOMPILE = $(LIBTOOL) $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
-	--mode=compile $(YACC) $(YFLAGS) $(AM_YFLAGS)
 SOURCES = $(qgames_SOURCES)
 DIST_SOURCES = $(qgames_SOURCES)
 ETAGS = etags
@@ -187,20 +178,23 @@ sysconfdir = @sysconfdir@
 target_alias = @target_alias@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-qgames_SOURCES = qgames.c qgames_parser.y  qgames_scanner.l ../common/list.c  
-qgames_DEPENDENCIES = $(top_builddir)/qcode/src/libqcode.la $(top_builddir)/lib/libqgames.a
-qgames_LDADD = $(top_builddir)/lib/libqgames.a \
-							 $(top_builddir)/qcode/src/libqcode.la
 
-AM_YFLAGS = -d -v -p qgz
-AM_LFLAGS = --prefix qgz -o lex.yy.c
+# qgames_SOURCES = qgames.c qgames_parser.y  qgames_scanner.l ../common/list.c  
+qgames_SOURCES = qgames.c ../common/list.c  
+qgames_DEPENDENCIES = $(top_builddir)/qcode/src/libqcode.la $(top_builddir)/lib/libqgames.a \
+										$(top_builddir)/parser/libqgames-parser.a
+
+qgames_LDADD = $(top_builddir)/parser/libqgames-parser.a \
+                    $(top_builddir)/lib/libqgames.a \
+                    $(top_builddir)/qcode/src/libqcode.la
+
 AM_CFLAGS = -I$(top_srcdir)/include -I$(top_srcdir)/common -I$(top_srcdir)/qcode/src
 TESTS_ENVIRONMENT = $(srcdir)/qgames 
 TESTS = $(top_builddir)/games/*.qgame
 all: all-am
 
 .SUFFIXES:
-.SUFFIXES: .c .l .lo .o .obj .y
+.SUFFIXES: .c .lo .o .obj
 $(srcdir)/Makefile.in:  $(srcdir)/Makefile.am  $(am__configure_deps)
 	@for dep in $?; do \
 	  case '$(am__configure_deps)' in \
@@ -258,11 +252,6 @@ clean-binPROGRAMS:
 	  echo " rm -f $$p $$f"; \
 	  rm -f $$p $$f ; \
 	done
-qgames_parser.h: qgames_parser.c
-	@if test ! -f $@; then \
-	  rm -f qgames_parser.c; \
-	  $(MAKE) $(AM_MAKEFLAGS) qgames_parser.c; \
-	else :; fi
 qgames$(EXEEXT): $(qgames_OBJECTS) $(qgames_DEPENDENCIES) 
 	@rm -f qgames$(EXEEXT)
 	$(LINK) $(qgames_OBJECTS) $(qgames_LDADD) $(LIBS)
@@ -275,8 +264,6 @@ distclean-compile:
 
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/list.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/qgames.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/qgames_parser.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/qgames_scanner.Po@am__quote@
 
 .c.o:
 @am__fastdepCC_TRUE@	$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
@@ -312,12 +299,6 @@ list.obj: ../common/list.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='../common/list.c' object='list.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o list.obj `if test -f '../common/list.c'; then $(CYGPATH_W) '../common/list.c'; else $(CYGPATH_W) '$(srcdir)/../common/list.c'; fi`
-
-.l.c:
-	$(am__skiplex) $(SHELL) $(YLWRAP) $< $(LEX_OUTPUT_ROOT).c $@ -- $(LEXCOMPILE)
-
-.y.c:
-	$(am__skipyacc) $(SHELL) $(YLWRAP) $< y.tab.c $@ y.tab.h $*.h y.output $*.output -- $(YACCCOMPILE)
 
 mostlyclean-libtool:
 	-rm -f *.lo
@@ -503,9 +484,6 @@ distclean-generic:
 maintainer-clean-generic:
 	@echo "This command is intended for maintainers to use"
 	@echo "it deletes files that may require special tools to rebuild."
-	-rm -f qgames_parser.c
-	-rm -f qgames_parser.h
-	-rm -f qgames_scanner.c
 clean: clean-am
 
 clean-am: clean-binPROGRAMS clean-generic clean-libtool mostlyclean-am
@@ -580,12 +558,6 @@ uninstall-am: uninstall-binPROGRAMS
 	mostlyclean-generic mostlyclean-libtool pdf pdf-am ps ps-am \
 	tags uninstall uninstall-am uninstall-binPROGRAMS
 
-
-qgames_scanner.l: qgames_parser.c qgames_parser.h
-qgames.c: qgames_parser.c qgames_parser.h qgames_scanner.c qgames_analyzer.h
-# 
-# EXTRA_DIST = test/*.qasm
-# 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:
