@@ -21,6 +21,9 @@
 #include  "posicion.h"
 #include  "notacion.h"
 
+char     notacion_default[] =  { NOTACION_ORIGEN, NOTACION_MARCA_IFORIGEN, NOTACION_DESTINO, 0 };
+char     notacion_repetida[] = { NOTACION_ORIGEN, NOTACION_MARCA_IFORIGEN, NOTACION_DESTINO, 0 };
+
 char*   notacion_resolver_tmov( Notacion* nott, int tmov );
 char*   notacion_resolver_tpieza( Notacion* nott, Tipopieza* tpieza );
 char*   notacion_resolver_mov( Notacion* nott, Movida* mov, char* def );
@@ -43,7 +46,18 @@ typedef struct StrNotacionData {
 } NotacionData;
 
 
-char*   notacion_resolver_movidas( Tipojuego* tjuego, _list* movs, char* prefix ){
+void    notacion_resolver_movidas( Tipojuego* tjuego, _list* movs, char* prefix ){
+    char* def = ( tjuego->notacion && tjuego->notacion->notacion ? 
+                    tjuego->notacion->notacion : notacion_default );
+    char* rep = ( tjuego->notacion && tjuego->notacion->repeticion ? 
+                    tjuego->notacion->repeticion : notacion_repetida );
+    Movida* mmm;
+
+    list_inicio( movs );
+    while( mmm = list_siguiente( movs ) ){
+        if( mmm->notacion ) continue;
+        mmm->notacion = notacion_resolver_mov( tjuego->notacion, mmm, def );
+    }
 
 
 }
@@ -62,7 +76,7 @@ char*   notacion_resolver_tmov( Notacion* nott, int tmov ){
 }
 
 char*   notacion_resolver_tpieza( Notacion* nott, Tipopieza* tpieza){
-    if( nott->notacion_tpiezas && tpieza ){
+    if( nott && nott->notacion_tpiezas && tpieza ){
         int i;
         for( i = 0; i < nott->notacion_tpiezas->entradas; i ++ ){
             NotacionData* dat = (NotacionData*) nott->notacion_tpiezas->data[i];

@@ -10,7 +10,7 @@
 
 
 
-char*   notacion_resolver_movidas( Tipojuego* tjuego, _list* movs, char* prefix );
+void    notacion_resolver_movidas( Tipojuego* tjuego, _list* movs, char* prefix );
 
 
 #endif

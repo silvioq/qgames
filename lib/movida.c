@@ -77,7 +77,66 @@ void  movida_free( Movida* mov ){
     free( mov );
 }
 
+
+
+
 /*
- * Limpiada de accion
+ * Devuelve el casillero de origen de la movida, de acuerdo al analisis
+ * las acciones que la conforman. 
  * */
+Casillero*   movida_casillero_origen( Movida* mov ){
+    Pieza*  pieza = movida_pieza( mov );
+    return( pieza ? pieza->casillero : NULL );
+}
+
+
+/*
+ * Devuelve el casillero de destino de la movida, de acuerdo al analisis
+ * las acciones que la conforman. De paso, se actualiza el elemento
+ * destino de la estructura, para posteriores usos
+ * */
+Casillero*   movida_casillero_destino( Movida* mov ){
+    Accion* acc;
+    if( mov->destino ) return mov->destino;
+    if( !mov->acciones ) return NULL;
+    list_inicio( mov->acciones );
+    while( acc = (Accion*)list_siguiente( mov->acciones ) ){
+        if( acc->destino ){
+            mov->destino = acc->destino;
+            return acc->destino;
+        }
+    }
+    return  NULL;
+}
+
+/*
+ * Devuelve la pieza primaria de la movida, de acuerdo al analisis
+ * las acciones que la conforman. De paso, se actualiza el elemento
+ * pieza de la estructura, para posteriores usos
+ * */
+Pieza*       movida_pieza( Movida* mov ){
+    Accion* acc;
+    if( mov->pieza ) return mov->pieza;
+    if( !mov->acciones ) return NULL;
+    list_inicio( mov->acciones );
+    while( acc = (Accion*)list_siguiente( mov->acciones ) ){
+        if( acc->pieza ){
+            mov->pieza = acc->pieza;
+            return acc->pieza;
+        }
+    }
+    return  NULL;
+}
+
+
+
+int          movida_es_captura( Movida* mov ){
+    Accion* acc;
+    if( !mov->acciones ) return 0;
+    list_inicio( mov->acciones );
+    while( acc = (Accion*)list_siguiente( mov->acciones ) ){
+        if( acc->tipo == ACCION_CAPTURA ) return 1;
+    }
+    return  0;
+}
 
