@@ -25,6 +25,9 @@ typedef   struct   StrTipojuego {
     int          tipomovs;         // Cantidad de tipos de movimiento
     _list*       tipo_piezas;
     char*        nombre;
+    _list*       simetrias;
+    int          zonas;
+    _list*       defzonas;
     Posicion*    inicial;
 
     _list*       rules;           // Aca van los finales
@@ -85,6 +88,19 @@ typedef   struct  StrNotacion{
 } _Notacion;
 
 
+typedef  struct  StrSimetria{
+    int          color;
+    Direccion*   dir1;
+    Direccion*   dir2;
+}  Simetria;
+
+typedef  struct  StrZonadef{
+    int         zona;
+    int         color;
+    Casillero*  cas;
+} Zonadef;
+
+
 
 #define  GETCASILLERO(tj,nom)  ({ \
     int ret = tipojuego_get_casillero(tj,nom); \
@@ -100,6 +116,12 @@ typedef   struct  StrNotacion{
 
 #define  GETCOLOR(tj,nom)  ({ \
     int ret = tipojuego_get_color(tj,nom); \
+    assert( ret != NOT_FOUND ); \
+    ret; \
+  })
+
+#define  GETZONA(tj,nom)  ({ \
+    int ret = tipojuego_get_zona(tj,nom); \
     assert( ret != NOT_FOUND ); \
     ret; \
   })

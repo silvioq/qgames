@@ -15,6 +15,7 @@ ocupado   (casillero = null, color = cualquiera)
 
 - Acciones
 jugar     (casillero = null, con captura = no)
+para
 
 
 

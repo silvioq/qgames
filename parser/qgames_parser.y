@@ -389,10 +389,28 @@ instruction_start:
     } ;
 
 instruction_sym:
-    TOK_SYMMETRY     word_or_string  word_or_string  word_or_string { NOT_IMPLEMENTED } ;
+    TOK_SYMMETRY     word_or_string  word_or_string  word_or_string { 
+        CHECK_TIPOJUEGO;
+        tipojuego_add_simetria( tipojuego, (char*)$2, (char*)$3, (char*)$4 );
+    } ;
 
 instruction_zone:
-    TOK_ZONE         word_or_string  word_or_string { init_parameters(); } word_or_string_list { NOT_IMPLEMENTED } ;
+    TOK_ZONE         word_or_string  word_or_string { init_parameters(); } word_or_string_list { 
+            CHECK_TIPOJUEGO;
+            char* color = (char*)$3;
+            char* zona  = (char*)$2;
+            if( tipojuego_get_zona( tipojuego, zona ) == NOT_FOUND ){
+                qgzprintf( "Nueva zona %s para %s", zona, color );
+                tipojuego_add_zona( tipojuego, zona );
+            } else {
+                qgzprintf( "Define zona %s para %s", zona, color );
+            }
+
+            int i;
+            for( i = 0; i < qgz_param_count; i ++ ){
+                tipojuego_add_cas_to_zona( tipojuego, (char*)qgz_param_list[i].par, color, zona );
+            }
+    } ;
 
 instruction:
     instruction_attr       |

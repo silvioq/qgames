@@ -113,6 +113,7 @@ int         tipojuego_add_direccion( Tipojuego* tj, char* direccion ){
     return tj->simbolos->entradas - 1;
 }
 
+
 /* 
  * Agrega las direcciones relativas a una dirección cualquiera
  * */
@@ -153,6 +154,36 @@ void       tipojuego_add_direccion_arr( Tipojuego* tj, char* direccion, int* dir
         dir->mov_relativo[i] = dirv[i];
     }
     tipojuego_genera_vinculos( tj, dir );
+}
+
+/*
+ * Agrega una zona a las zonas existentes
+ * Sale con error si ya existe
+ * */
+int         tipojuego_add_zona( Tipojuego* tj, char* zona ){
+    if( tipojuego_get_simbolo( tj, zona ) ){
+        printf( "Zona %s existente (File %s - linea %d)\n", zona, __FILE__, __LINE__ );
+        exit( EXIT_FAILURE );
+    }
+    tj->zonas ++;
+    SIM_ADD( tj, SIM_ZONA, zona, tj->zonas );
+    return tj->zonas;
+}
+
+/*
+ * Esta funcion tiene que agregar un casillero a la zona.
+ * */
+
+void        tipojuego_add_cas_to_zona( Tipojuego* tj, char* cas, char* color, char* zona ){
+    int  zzz = GETZONA( tj, zona );
+    int  ccc = GETCOLOR( tj, color );
+    int  cass = GETCASILLERO( tj, cas );
+    Zonadef* zdef = ALLOC( sizeof( Zonadef ) );
+    zdef->color = ccc;
+    zdef->zona  = zzz;
+    zdef->cas   = tj->casilleros->data[cass];
+    if( !tj->defzonas ) tj->defzonas = list_nueva( NULL );
+    list_agrega( tj->defzonas, zdef );
 }
 
 /*
@@ -288,6 +319,7 @@ int         tipojuego_get_zona     ( Tipojuego* tj, char* zona ){
     if( sym->tipo != SIM_ZONA ) return NOT_FOUND;
     return  sym->ref;
 }
+
 int         tipojuego_get_color    ( Tipojuego* tj, char* color ){
     Simbolo*  sym;
     sym = tipojuego_get_simbolo( tj, color );
@@ -303,6 +335,23 @@ int         tipojuego_get_tipomov  ( Tipojuego* tj, char* tipomov ){
     return  sym->ref;
 }
 
+
+/*
+ * La simetria
+ * */
+void        tipojuego_add_simetria( Tipojuego*  tj, char* color, char* d1, char* d2 ){
+    int  col = GETCOLOR( tj, color );
+    int  dd1 = GETDIRECCION( tj, d1 );
+    int  dd2 = GETDIRECCION( tj, d2 );
+
+    Simetria*  sim = ALLOC( sizeof( Simetria ) );
+    sim->color = col;
+    sim->dir1  = tj->direcciones->data[dd1];
+    sim->dir2  = tj->direcciones->data[dd2];
+    
+    if( !tj->simetrias ) tj->simetrias = list_nueva( NULL );
+    list_agrega( tj->simetrias, sim );
+}
 
 
 

@@ -567,9 +567,9 @@ static const yytype_uint16 yyrline[] =
      223,   224,   225,   247,   248,   252,   253,   265,   283,   283,
      295,   295,   305,   305,   316,   317,   318,   321,   321,   330,
      331,   335,   335,   345,   345,   352,   362,   368,   376,   383,
-     383,   392,   395,   395,   398,   399,   400,   401,   402,   403,
-     404,   405,   406,   407,   408,   409,   410,   410,   417,   418,
-     422
+     383,   392,   398,   398,   416,   417,   418,   419,   420,   421,
+     422,   423,   424,   425,   426,   427,   428,   428,   435,   436,
+     440
 };
 #endif
 
@@ -1922,22 +1922,40 @@ yyreduce:
 
   case 61:
 #line 392 "qgames_parser.y"
-    { NOT_IMPLEMENTED }
+    { 
+        CHECK_TIPOJUEGO;
+        tipojuego_add_simetria( tipojuego, (char*)(yyvsp[(2) - (4)]), (char*)(yyvsp[(3) - (4)]), (char*)(yyvsp[(4) - (4)]) );
+    }
     break;
 
   case 62:
-#line 395 "qgames_parser.y"
+#line 398 "qgames_parser.y"
     { init_parameters(); }
     break;
 
   case 63:
-#line 395 "qgames_parser.y"
-    { NOT_IMPLEMENTED }
+#line 398 "qgames_parser.y"
+    { 
+            CHECK_TIPOJUEGO;
+            char* color = (char*)(yyvsp[(3) - (5)]);
+            char* zona  = (char*)(yyvsp[(2) - (5)]);
+            if( tipojuego_get_zona( tipojuego, zona ) == NOT_FOUND ){
+                qgzprintf( "Nueva zona %s para %s", zona, color );
+                tipojuego_add_zona( tipojuego, zona );
+            } else {
+                qgzprintf( "Define zona %s para %s", zona, color );
+            }
+
+            int i;
+            for( i = 0; i < qgz_param_count; i ++ ){
+                tipojuego_add_cas_to_zona( tipojuego, (char*)qgz_param_list[i].par, color, zona );
+            }
+    }
     break;
 
 
 /* Line 1267 of yacc.c.  */
-#line 1941 "qgames_parser.c"
+#line 1959 "qgames_parser.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -2151,7 +2169,7 @@ yyreturn:
 }
 
 
-#line 426 "qgames_parser.y"
+#line 444 "qgames_parser.y"
 
 
 /*
