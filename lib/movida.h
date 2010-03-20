@@ -11,16 +11,18 @@
 typedef  struct  StrMovida {
     _list*      acciones;
     Posicion*   pos;
+    char*       notacion;
+    int         tmov;
 } Movida;
 
 typedef struct StrAccion{
-  int         tipo;
-  Pieza*      pieza;
-  Casillero*  destino;
-  int         color;
-  Tipopieza*  tipo_pieza;
-  char*       att_key;
-  int         att_val;
+    int         tipo;
+    Pieza*      pieza;
+    Casillero*  destino;
+    int         color;
+    Tipopieza*  tipo_pieza;
+    char*       att_key;
+    int         att_val;
 }  Accion;
 
 
@@ -33,7 +35,6 @@ typedef struct StrAccion{
 #define   ACCION_DESTRUYE        5
 #define   ACCION_ASIGNA_ATT      6
 #define   ACCION_INFORMACION     7
-#define   ACCION_NOTACION        8
 #define   ACCION_CONT_MOVIENDO   9
 #define   ACCION_PASAR          10
 

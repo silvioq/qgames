@@ -54,6 +54,25 @@ int         tipojuego_get_zona     ( Tipojuego* tj, char* zona );
 int         tipojuego_get_color    ( Tipojuego* tj, char* color );
 int         tipojuego_get_tipomov  ( Tipojuego* tj, char* tipomov );
 
+
+/* 
+ * Aca viene toda la parte de notacion
+ * */
+#define  NOTACION_ORIGEN            'o'
+#define  NOTACION_MARCA             '-'
+#define  NOTACION_CAPTURA           'x'
+#define  NOTACION_DESTINO           'd'
+#define  NOTACION_PIEZA             'p'
+#define  NOTACION_MARCA_IFORIGEN    '?'
+#define  NOTACION_SPACE             's'
+
+void   tipojuego_add_notacion_def( Tipojuego* tj, char elemento );
+void   tipojuego_add_notacion_rep( Tipojuego* tj, char elemento );
+void   tipojuego_add_notacion_tmov( Tipojuego* tj, char* tmov, char* notacion );
+void   tipojuego_add_notacion_tpieza( Tipojuego* tj, char* tpieza, char* abbr );
+
+
+
 /*
  * Toda esta parte es para definir el codigo
  * */

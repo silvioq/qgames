@@ -86,6 +86,7 @@ void        posicion_add_pieza( Posicion* pos, Pieza* pie ){
  *    distinta que se halle en el pozo
  * 4. Verifica pieza por pieza en el tablero e intenta una movida por cada una
  *    de ellas
+ * 5. Si se paso una pieza como parametro, ejecuta eso.
  *
  * Parametros:
  *   - tipo de analisis
@@ -98,6 +99,8 @@ void        posicion_add_pieza( Posicion* pos, Pieza* pie ){
  **/
 
 int        posicion_analiza_movidas( Posicion* pos, char tipoanalisis, int color, int tipomov, Pieza* pieza ){
+
+    int cantidad = 0;
 
     // 1. chequeo de parametros
     assert( color > 0 );
@@ -115,6 +118,7 @@ int        posicion_analiza_movidas( Posicion* pos, char tipoanalisis, int color
         int    piezas_cnt = 0;
         for( i = 0; i < pos->piezas->entradas; i ++ ){
             Pieza* pp = (Pieza*) pos->piezas->data[i];
+            if( pp->casillero != ENPOZO ) continue;
             int j; int existe = 0;
             for( j = 0; j < piezas_cnt; j ++ ){
                 if( pieza_equal( pp, piezas_arr[j] ) ){
@@ -125,26 +129,75 @@ int        posicion_analiza_movidas( Posicion* pos, char tipoanalisis, int color
             if( existe ) continue;
             piezas_arr[piezas_cnt] = pp; piezas_cnt ++;
             int  c;
-            int  r;
             for( c = 0; c < pos->tjuego->casilleros->entradas; c ++ ){
                 Casillero* cas = (Casillero*) pos->tjuego->casilleros->data[c];
+                
+                int  r;
                 for( r = 0; r < pp->tpieza->rules->entradas; r ++ ){
                     Posicion* newpos = posicion_dup( pos );
                     Regla*  regla = (Regla*) pp->tpieza->rules->data[r];
+                    if( tipomov && tipomov == regla->tmov ) continue;
                     _list*  movs;
-                    movs =  analizador_evalua_movidas( regla, pos, pp, cas, tipoanalisis, tipomov, color );
+                    movs =  analizador_evalua_movidas( regla, pos, pp, cas, tipoanalisis, 
+                                    regla->tmov, color );
                     if( movs ){
                         if( tipoanalisis == ANALISIS_PRIMER_MOVIDA ) return 1;
                         posicion_add_movidas( pos, movs );
+                        cantidad += movs->entradas;
                     }
                 }
             }
         }
     }
-      
+
+    // 4. Vamos por las piezas en el tablero
+    if( !pieza ){
+        int i;
+        for( i = 0; i < pos->piezas->entradas; i ++ ){
+            Pieza* pp = (Pieza*) pos->piezas->data[i];
+            int  r;
+            if( pp->casillero == ENPOZO ) continue;
+            if( pp->casillero == ENCAPTURA ) continue;
+            for( r = 0; r < pp->tpieza->rules->entradas; r ++ ){
+                Posicion* newpos = posicion_dup( pos );
+                Regla*  regla = (Regla*) pp->tpieza->rules->data[r];
+                if( tipomov && tipomov == regla->tmov ) continue;
+                _list*  movs;
+                movs =  analizador_evalua_movidas( regla, pos, pp, pp->casillero, tipoanalisis, 
+                                regla->tmov, color );
+                if( movs ){
+                    if( tipoanalisis == ANALISIS_PRIMER_MOVIDA ) return 1;
+                    posicion_add_movidas( pos, movs );
+                    cantidad += movs->entradas;
+                }
+            }
+        }
+    }
+
+    // 5. Esta es con la pieza pasada como parametro
+    if( pieza  ){
+        Pieza* pp = pieza;
+        int  r;
+        if( pp->casillero != ENPOZO && pp->casillero != ENCAPTURA ){
+            for( r = 0; r < pp->tpieza->rules->entradas; r ++ ){
+                Posicion* newpos = posicion_dup( pos );
+                Regla*  regla = (Regla*) pp->tpieza->rules->data[r];
+                if( tipomov && tipomov == regla->tmov ) continue;
+                _list*  movs;
+                movs =  analizador_evalua_movidas( regla, pos, pp, pp->casillero, tipoanalisis, 
+                                regla->tmov, color );
+                if( movs ){
+                    if( tipoanalisis == ANALISIS_PRIMER_MOVIDA ) return 1;
+                    posicion_add_movidas( pos, movs );
+                    cantidad += movs->entradas;
+                }
+            }
+        }
+    }
 
 
-    return 0;
+
+    return cantidad;
 }
 
 

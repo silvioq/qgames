@@ -10,13 +10,15 @@
 
 #include  <qcode.h>
 
+typedef   struct   StrNotacion  Notacion;
+
 typedef   struct   StrTipojuego {
     _list*       simbolos;
     _list*       tableros;
     _list*       casilleros;
     _list*       direcciones;
     int          tablero_actual;
-    _list*       notacion;
+    Notacion*    notacion;
     _list*       secuencias;
     int          secuencia_repeat;
     int          colores;
@@ -74,6 +76,16 @@ typedef   struct  StrRegla {
 } Regla;
 
 
+typedef   struct  StrNotacion{
+    Tipojuego*   tjuego;
+    char*        notacion;
+    char*        repeticion;
+    _list*       notacion_tpiezas;
+    _list*       notacion_tmovs;
+} _Notacion;
+
+
+
 #define  GETCASILLERO(tj,nom)  ({ \
     int ret = tipojuego_get_casillero(tj,nom); \
     assert( ret != NOT_FOUND ); \
@@ -106,6 +118,8 @@ void       tablero_genera_dimensiones( Tablero* tab, int dimc, char** dimv );
 #define    ENPOZO     ((Casillero*)POZO)
 #define    ENCAPTURA  ((Casillero*)CAPTURA)
 #define    OUTOFBOARD ((Casillero*)0)
+
+#define    CASILLERO_VALIDO(cas) ( cas != ENPOZO && cas != ENCAPTURA && cas != OUTOFBOARD )
 
 Casillero* casillero_new( char* cas, int tablero );
 void       casillero_free( Casillero* cas );
