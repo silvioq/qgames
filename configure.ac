@@ -19,6 +19,7 @@ AC_CONFIG_FILES(
    lib/Makefile
    parser/Makefile
    src/Makefile
+   test/Makefile
    ])
 
 

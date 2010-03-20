@@ -3,12 +3,24 @@
 #include  <stdio.h>
 #include  <stdarg.h>
 #include  <string.h>
+#include  <stdlib.h>
 #include  <errno.h>
-#include  "qgames.h"
-#include  "qgames_analyzer.h"
+#include  <qgames.h>
+#include  <qgames_analyzer.h>
 #include  "qcode.h"
 
+
+
+
+
+typedef  struct StrParam {
+  int   typ;
+  long  par;
+} str_param;
+
+
 int    qgz_verbose  = 0;
+
 str_param*  qgz_param_list  = NULL;
 int    qgz_param_count = 0;
 void  add_parameter( int  type, long param );
@@ -428,7 +440,6 @@ game_definition:
 
 
 
-
 int   qgz_parse( FILE* f, char* filename, int flags ){
 
     FILE* ff;
@@ -498,5 +509,23 @@ void  add_parameter( int  type, long param ){
 
 void  init_parameters(){ qgz_param_count = 0; }
 
+/*
+ * Estos son los analizadores. Ojo, son no reentrantes ... deberia 
+ * yo manejar algun tipo de semaforo!
+ * */
+Tipojuego*  qgz_parse_filename( char* filename, int flags ){
+    int  ret;
+    ret = qgz_parse( NULL, filename, flags );
+    return( ret ? tipojuego : NULL );
+}
 
+Tipojuego*  qgz_parse_file    ( FILE* file, int flags ){
+    int  ret;
+    ret = qgz_parse( file, NULL, flags );
+    return( ret ? tipojuego : NULL );
+}
+Tipojuego*  qgz_parse_string  ( char* string, int flags ){
+    fprintf( stderr, "qgz_parse_string no implementado\n" );
+    exit( EXIT_FAILURE );
+}
 

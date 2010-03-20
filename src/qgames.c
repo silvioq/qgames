@@ -10,7 +10,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
-#include "../parser/qgames_analyzer.h"
+#include  <qgames.h>
+#include  <qgames_analyzer.h>
 
 void usage(char* prg){
 

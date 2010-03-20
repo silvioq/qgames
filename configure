@@ -20805,7 +20805,7 @@ else
 fi
 
 
-ac_config_files="$ac_config_files Makefile qcode/Makefile qcode/src/Makefile lib/Makefile parser/Makefile src/Makefile"
+ac_config_files="$ac_config_files Makefile qcode/Makefile qcode/src/Makefile lib/Makefile parser/Makefile src/Makefile test/Makefile"
 
 
 
@@ -21415,6 +21415,7 @@ do
     "lib/Makefile") CONFIG_FILES="$CONFIG_FILES lib/Makefile" ;;
     "parser/Makefile") CONFIG_FILES="$CONFIG_FILES parser/Makefile" ;;
     "src/Makefile") CONFIG_FILES="$CONFIG_FILES src/Makefile" ;;
+    "test/Makefile") CONFIG_FILES="$CONFIG_FILES test/Makefile" ;;
 
   *) { { echo "$as_me:$LINENO: error: invalid argument: $ac_config_target" >&5
 echo "$as_me: error: invalid argument: $ac_config_target" >&2;}

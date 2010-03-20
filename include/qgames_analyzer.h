@@ -14,10 +14,12 @@
 
 
 // 
-typedef  struct StrParam {
-  int   typ;
-  long  par;
-} str_param;
+//
+/*
+*/
 
+Tipojuego*  qgz_parse_filename( char* filename, int flags );
+Tipojuego*  qgz_parse_file    ( FILE* file, int flags );
+Tipojuego*  qgz_parse_string  ( char* string, int flags );
 
 #endif
