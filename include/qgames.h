@@ -97,6 +97,7 @@ void        tipojuego_code_ahogado( Tipojuego* tj, char* color );
 void        tipojuego_code_juega  ( Tipojuego* tj, char* casillero, int captura );
 void        tipojuego_code_para   ( Tipojuego* tj );
 
+#define   ENJUEGO   0
 #define   GANA      1
 #define   PIERDE    2
 #define   EMPATA    3
@@ -107,6 +108,7 @@ void        tipojuego_code_final  ( Tipojuego* tj, char* color, int resultado );
  * A partir de aca, comenzamos con la partida
  * */
 Partida*    tipojuego_create_partida( Tipojuego* tj );
+void        partida_movidas_posibles_ascii( Partida* par );
 
 
 
