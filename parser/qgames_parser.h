@@ -53,25 +53,27 @@
      TOK_GAMETYPE = 269,
      TOK_MOVE = 270,
      TOK_MOVETYPE = 271,
-     TOK_SYMMETRY = 272,
-     TOK_START = 273,
-     TOK_ZONE = 274,
-     TOK_SEPCODE = 275,
-     TOK_AHOGADO = 276,
-     TOK_EMPATA = 277,
-     TOK_EMPATA_SI = 278,
-     TOK_GANA = 279,
-     TOK_GANA_SI = 280,
-     TOK_JUEGA = 281,
-     TOK_JUEGA_SI = 282,
-     TOK_IF = 283,
-     TOK_OCUPADO = 284,
-     TOK_OCUPADOENEMIGO = 285,
-     TOK_OCUPADOPROPIO = 286,
-     TOK_PARA = 287,
-     TOK_PARA_SI = 288,
-     TOK_PIERDE = 289,
-     TOK_PIERDE_SI = 290
+     TOK_REPEAT = 272,
+     TOK_SEQUENCE = 273,
+     TOK_START = 274,
+     TOK_SYMMETRY = 275,
+     TOK_ZONE = 276,
+     TOK_SEPCODE = 277,
+     TOK_AHOGADO = 278,
+     TOK_EMPATA = 279,
+     TOK_EMPATA_SI = 280,
+     TOK_GANA = 281,
+     TOK_GANA_SI = 282,
+     TOK_JUEGA = 283,
+     TOK_JUEGA_SI = 284,
+     TOK_IF = 285,
+     TOK_OCUPADO = 286,
+     TOK_OCUPADOENEMIGO = 287,
+     TOK_OCUPADOPROPIO = 288,
+     TOK_PARA = 289,
+     TOK_PARA_SI = 290,
+     TOK_PIERDE = 291,
+     TOK_PIERDE_SI = 292
    };
 #endif
 /* Tokens.  */
@@ -89,25 +91,27 @@
 #define TOK_GAMETYPE 269
 #define TOK_MOVE 270
 #define TOK_MOVETYPE 271
-#define TOK_SYMMETRY 272
-#define TOK_START 273
-#define TOK_ZONE 274
-#define TOK_SEPCODE 275
-#define TOK_AHOGADO 276
-#define TOK_EMPATA 277
-#define TOK_EMPATA_SI 278
-#define TOK_GANA 279
-#define TOK_GANA_SI 280
-#define TOK_JUEGA 281
-#define TOK_JUEGA_SI 282
-#define TOK_IF 283
-#define TOK_OCUPADO 284
-#define TOK_OCUPADOENEMIGO 285
-#define TOK_OCUPADOPROPIO 286
-#define TOK_PARA 287
-#define TOK_PARA_SI 288
-#define TOK_PIERDE 289
-#define TOK_PIERDE_SI 290
+#define TOK_REPEAT 272
+#define TOK_SEQUENCE 273
+#define TOK_START 274
+#define TOK_SYMMETRY 275
+#define TOK_ZONE 276
+#define TOK_SEPCODE 277
+#define TOK_AHOGADO 278
+#define TOK_EMPATA 279
+#define TOK_EMPATA_SI 280
+#define TOK_GANA 281
+#define TOK_GANA_SI 282
+#define TOK_JUEGA 283
+#define TOK_JUEGA_SI 284
+#define TOK_IF 285
+#define TOK_OCUPADO 286
+#define TOK_OCUPADOENEMIGO 287
+#define TOK_OCUPADOPROPIO 288
+#define TOK_PARA 289
+#define TOK_PARA_SI 290
+#define TOK_PIERDE 291
+#define TOK_PIERDE_SI 292
 
 
 

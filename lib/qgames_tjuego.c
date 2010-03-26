@@ -354,6 +354,26 @@ void        tipojuego_add_simetria( Tipojuego*  tj, char* color, char* d1, char*
 }
 
 
+/*
+ * Vamos armando la secuencia de jugadas 
+ * */
+void        tipojuego_add_secuencia( Tipojuego* tj, char* color, char* tipomov ){
+    int  col = GETCOLOR( tj, color );
+    int  tmov = ( tipomov ? GETTIPOMOV( tj, tipomov ) : 0 );
+
+    Secuencia* seq = ALLOC( sizeof( Secuencia ) );
+    seq->color = color;
+    seq->tmov  = tmov;
+
+    if( !tj->secuencias ) tj->secuencias = list_nueva( NULL );
+    list_agrega( tj->secuencias, seq );
+}
+
+void        tipojuego_add_secuencia_rep( Tipojuego* tj ){
+    assert( tj->secuencias );
+    tj->secuencia_repeat = tj->secuencias->entradas;
+}
+
 
 /*
  * Esta funcion agrega una nueva entrada de codigo, y va armando la lista

@@ -80,8 +80,10 @@ void  qgzprintf( char* format, ... ){
 %token    TOK_GAMETYPE  
 %token    TOK_MOVE
 %token    TOK_MOVETYPE
-%token    TOK_SYMMETRY
+%token    TOK_REPEAT
+%token    TOK_SEQUENCE
 %token    TOK_START
+%token    TOK_SYMMETRY
 %token    TOK_ZONE
 
 %token    TOK_SEPCODE
@@ -388,10 +390,38 @@ instruction_start:
         }
     } ;
 
+instruction_sequence_list:
+    word_or_string_list   {
+        CHECK_TIPOJUEGO;
+        int  i;
+        for( i = 0; i < qgz_param_count; i ++ ){
+            char* val1 =  (char*)qgz_param_list[i].par;
+            int  color = tipojuego_get_color( tipojuego, val1 );
+            if( color && i < qgz_param_count - 1 ){
+                char* val2 = (char*)qgz_param_list[i+1].par;
+                int  tmov = tipojuego_get_tipomov( tipojuego, val2 );
+                if( tmov ){
+                    tipojuego_add_secuencia( tipojuego, val1, val2 );
+                    i ++;
+                } else {
+                    tipojuego_add_secuencia( tipojuego, val1, NULL );
+                }
+            } else tipojuego_add_secuencia( tipojuego, val1, NULL );
+        } 
+    };
+
+instruction_sequence:
+    TOK_SEQUENCE  instruction_sequence_list |
+    TOK_SEQUENCE  instruction_sequence_list  TOK_REPEAT {
+        tipojuego_add_secuencia_rep( tipojuego );
+    }
+    instruction_sequence_list;
+
+
 instruction_sym:
     TOK_SYMMETRY     word_or_string  word_or_string  word_or_string { 
         CHECK_TIPOJUEGO;
-        tipojuego_add_simetria( tipojuego, (char*)$2, (char*)$3, (char*)$4 );
+        tipojuego_add_simetria( tipojuego, ((char*)$2), (char*)$3, (char*)$4 );
     } ;
 
 instruction_zone:
@@ -423,6 +453,7 @@ instruction:
     instruction_move       |
     instruction_movetype   |
     instruction_piece      |
+    instruction_sequence   |
     instruction_start      |
     instruction_sym        |
     instruction_zone       |

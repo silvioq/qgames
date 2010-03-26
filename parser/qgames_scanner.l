@@ -52,8 +52,10 @@ gametype\:      { return TOK_GAMETYPE;  }
 move\:          { return TOK_MOVE;      }
 movetype\:      { return TOK_MOVETYPE;  }
 piece\:         { return TOK_PIECE;     }
-start\:         { return TOK_START;     }
+repeat          { return TOK_REPEAT;    }
+sequence\:      { return TOK_SEQUENCE;  }
 symmetry\:      { return TOK_SYMMETRY;  }
+start\:         { return TOK_START;     }
 zone\:          { return TOK_ZONE;      }
 
 

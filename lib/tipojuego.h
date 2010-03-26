@@ -78,7 +78,6 @@ typedef   struct  StrRegla {
     int         pc;
 } Regla;
 
-
 typedef   struct  StrNotacion{
     Tipojuego*   tjuego;
     char*        notacion;
@@ -87,12 +86,16 @@ typedef   struct  StrNotacion{
     _list*       notacion_tmovs;
 } _Notacion;
 
-
 typedef  struct  StrSimetria{
     int          color;
     Direccion*   dir1;
     Direccion*   dir2;
 }  Simetria;
+
+typedef  struct  StrSecuencia{
+    int         color;
+    int         tmov;
+}  Secuencia;
 
 typedef  struct  StrZonadef{
     int         zona;
@@ -116,6 +119,12 @@ typedef  struct  StrZonadef{
 
 #define  GETCOLOR(tj,nom)  ({ \
     int ret = tipojuego_get_color(tj,nom); \
+    assert( ret != NOT_FOUND ); \
+    ret; \
+  })
+
+#define  GETTIPOMOV(tj,nom)  ({ \
+    int ret = tipojuego_get_tipomov(tj,nom); \
     assert( ret != NOT_FOUND ); \
     ret; \
   })
