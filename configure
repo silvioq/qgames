@@ -20805,6 +20805,12 @@ else
 fi
 
 
+
+cat >>confdefs.h <<\_ACEOF
+#define QGAMES_SERVERNAME "qgames.com.ar"
+_ACEOF
+
+
 ac_config_files="$ac_config_files Makefile qcode/Makefile qcode/src/Makefile lib/Makefile parser/Makefile src/Makefile test/Makefile"
 
 

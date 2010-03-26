@@ -12,6 +12,8 @@ AC_CONFIG_SUBDIRS([qcode])
 
 AM_CONDITIONAL([QASM], [0])
 
+AC_DEFINE([QGAMES_SERVERNAME],["qgames.com.ar"], ["Nombre del servidor a usar"])
+
 AC_CONFIG_FILES(
   [Makefile
    qcode/Makefile
