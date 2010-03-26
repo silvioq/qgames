@@ -57,7 +57,7 @@ typedef  struct  StrPartida {
     Pieza*      pieza_continua;
 
     /* La posicion actual. */
-    Posicion*   posicion;
+    Posicion*   pos;
 
     /*
      * Secuencia ... contiene el numero en el arreglo de secuencias que
