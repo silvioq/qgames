@@ -216,7 +216,7 @@ Posicion*   posicion_dup( Posicion* pos ){
         Pieza* pienew = pieza_dup( pie );
         posicion_add_pieza( pnew, pienew );
     }
-    
+    return  pnew;
 }
 
 /*
