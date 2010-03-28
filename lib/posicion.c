@@ -22,7 +22,6 @@
 #include  "posicion.h"
 
 /* ---------------------------------------------------------------------------------------- */
-void        posicion_free_movidas( Posicion* pos );
 void        posicion_add_movida( Posicion* pos, Movida* mov );
 void        posicion_add_movidas( Posicion* pos, _list* movs );
 
@@ -61,10 +60,11 @@ void  posicion_add_movidas( Posicion* pos, _list* movs ){
  * Una posicion nueva!
  * */
 
-Posicion*   posicion_new( Tipojuego* tpieza ){
+Posicion*   posicion_new( Tipojuego* tj ){
   Posicion* pos;
   pos = ALLOC( sizeof( Posicion ) );
   memset( pos, 0, sizeof( Posicion ) );
+  pos->tjuego = tj;
   return  pos;
 }
 
@@ -76,6 +76,7 @@ Posicion*   posicion_new( Tipojuego* tpieza ){
 void        posicion_add_pieza( Posicion* pos, Pieza* pie ){
   if( !pos->piezas ) pos->piezas = list_nueva( NULL );
   list_agrega( pos->piezas, pie );
+  pie->number = pos->piezas->entradas - 1;
 }
 
 /*

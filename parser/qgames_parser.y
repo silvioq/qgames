@@ -157,7 +157,10 @@ instexpr_ocupado:
     };
 
 instexpr:
-    '!' instexpr  |
+    '!' instexpr    {
+                CHECK_TIPOJUEGO;
+                tipojuego_code_op_not( tipojuego );
+    } |
     '(' instexpr ')' |
     instexpr_ocupado |
     instexpr_ahogado ;
@@ -325,7 +328,9 @@ instruction_drop:
         CHECK_LAST_PIEZA;
         change_to_code_mode(); 
         tipojuego_start_code( tipojuego, DROP, last_pieza, last_tmov );
-    }  code_list;
+    }  code_list {
+        tipojuego_end_code( tipojuego ) ;
+    };
 
 
 instruction_move_prelude:
@@ -348,7 +353,9 @@ instruction_ending:
             CHECK_TIPOJUEGO; 
             change_to_code_mode(); 
             tipojuego_start_codeend( tipojuego );
-    }  code_list;
+    }  code_list {
+        tipojuego_end_code( tipojuego ) ;
+    };
 
 instruction_gametype:
     TOK_GAMETYPE     word_or_string { 

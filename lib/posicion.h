@@ -16,7 +16,7 @@ typedef  struct  StrPosicion {
 } _Posicion;
 
 
-Posicion*   posicion_new( Tipojuego* tpieza );
+Posicion*   posicion_new( Tipojuego* tjuego );
 void        posicion_add_pieza( Posicion* pos, Pieza* pie );
 Posicion*   posicion_dup( Posicion* pos );
 
@@ -31,5 +31,6 @@ int        posicion_analiza_final( Posicion* pos );
 int        posicion_movidas_posibles( Posicion* pos );
 
 void       posicion_mueve_pieza( Posicion* pos, Pieza* pieza, Casillero* destino );
+void       posicion_free_movidas( Posicion* pos );
 
 #endif

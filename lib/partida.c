@@ -141,20 +141,21 @@ Movida*     partida_ultimo_movimiento( Partida* par ){
  * Hace un movimiento, de acuerdo a la lista de movidas posibles.
  * */
 int       partida_mover         ( Partida* par, int mov ){
-    if( !PARTIDAMOVCALC(par) ) partida_movidas_posibles( par );
+    if( !PARTIDAMOVCALC(par) ) partida_analizar_movidas( par );
     if( mov >= par->pos->movidas->entradas ) return 0;
     return partida_mover_mov( par, (Movida*)par->pos->movidas->data[mov] );
 }
 
 
 int       partida_mover_notacion( Partida* par, char* mov ){
-    if( !PARTIDAMOVCALC(par) ) partida_movidas_posibles( par );
+    if( !PARTIDAMOVCALC(par) ) partida_analizar_movidas( par );
     int i;
     for( i = 0; i < par->pos->movidas->entradas; i ++ ){
         Movida* mmm = (Movida*)par->pos->movidas->data[i];
         if( strcmp( mov, mmm->notacion ) == 0 ) 
             return  partida_mover_mov( par, mmm );
     }
+    printf( "(cuidado) %s:%d No encuentro la movida %s\n", __FILE__, __LINE__, mov );
     return 0;
 }
 
@@ -169,7 +170,9 @@ int   partida_mover_mov( Partida* par, Movida* mov ){
     if( !par->movimientos ) par->movimientos = list_nueva( NULL );
     list_agrega( par->movimientos, movida_dup( mov ) );
 
-    movida_ejecuta( mov );
+    posicion_free_movidas( par->pos );
+    par->pos = movida_ejecuta( mov );
+    
 
     return 1;
 }

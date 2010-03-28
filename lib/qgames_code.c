@@ -21,6 +21,7 @@
 #include  "posicion.h"
 #include  "analizador.h"
 
+#if 0
 #define   RET_IF_STATUS  \
       {    \
           int  labcont = qcode_crlab( tj->qcode, unnamed_label );\
@@ -28,7 +29,9 @@
           qcode_op( tj->qcode, QCRET, 0, 0 );\
           qcode_label( tj->qcode, labcont );\
       }
-
+#else
+#define  RET_IF_STATUS
+#endif
 /*
  * Estas tres variables me permitiran trabajar con un stack de etiquetas
  * y generar los bloques
@@ -59,6 +62,16 @@ long    pop_label_stack( ){
 }
 
 /*
+ * Operador NOT
+ * */
+void        tipojuego_code_op_not( Tipojuego* tj ){
+    assert( tj );
+    qcode_op( tj->qcode, QCSTO, 1, 0 ); 
+    qcode_op( tj->qcode, QCSTI, 2, 0 ); 
+    // qcode_opnlab( tj->qcode, QCCLX, "dump" );
+    qcode_op( tj->qcode, QCEQU, 1, 2 );    // EQU r1 , r2
+}
+/*
  * Esta funcion abre un block condicional
  * */
 void        tipojuego_code_start_condblock( Tipojuego* tj ){
@@ -88,10 +101,10 @@ void        tipojuego_code_ocupado( Tipojuego* tj, char* casillero, int owner, c
         cas = -1;
     }
     qcode_op( tj->qcode, QCSTI, 16, own );      // t16 = own
-    qcode_op( tj->qcode, QCPOP, 16, 0 );        // POP t16
-    qcode_op( tj->qcode, QCPOP, 16, cas );      // t16 = cas     
-    qcode_op( tj->qcode, QCPOP, 16, 0 );        // POP t16
-    qcode_op( tj->qcode, QCPOP,  3, 0 );        // POP r3
+    qcode_op( tj->qcode, QCPSH, 16, 0 );        // PSH t16
+    qcode_op( tj->qcode, QCSTI, 16, cas );      // t16 = cas     
+    qcode_op( tj->qcode, QCPSH, 16, 0 );        // PSH t16
+    qcode_op( tj->qcode, QCPSH,  3, 0 );        // PSH r3
     qcode_opnlab( tj->qcode, QCCLX, "ocupado" );
     RET_IF_STATUS;                              // Retorna si el valor es distinto de cero
 }
@@ -103,8 +116,8 @@ void        tipojuego_code_ahogado( Tipojuego* tj, char* color ){
     } else
        col = -1;
     qcode_op( tj->qcode, QCSTI, 16, col );      // t16 = col
-    qcode_op( tj->qcode, QCPOP, 16, 0 );        // POP t16
-    qcode_op( tj->qcode, QCPOP,  3, 0 );        // POP r3
+    qcode_op( tj->qcode, QCPSH, 16, 0 );        // PSH t16
+    qcode_op( tj->qcode, QCPSH,  3, 0 );        // PSH r3
     qcode_opnlab( tj->qcode, QCCLX, "ahogado" );
     RET_IF_STATUS;                              // Retorna si el valor es distinto de cero
 }
@@ -118,10 +131,10 @@ void        tipojuego_code_juega  ( Tipojuego* tj, char* casillero, int captura 
     }
 
     qcode_op( tj->qcode, QCSTI, 16, captura );  // t16 = captura
-    qcode_op( tj->qcode, QCPOP, 16, 0 );        // POP t16
+    qcode_op( tj->qcode, QCPSH, 16, 0 );        // PSH t16
     qcode_op( tj->qcode, QCSTI, 16, cas );      // t16 = cas     
-    qcode_op( tj->qcode, QCPOP, 16, 0 );        // POP t16
-    qcode_op( tj->qcode, QCPOP,  3, 0 );        // POP r3
+    qcode_op( tj->qcode, QCPSH, 16, 0 );        // PSH t16
+    qcode_op( tj->qcode, QCPSH,  3, 0 );        // PSH r3
     qcode_opnlab( tj->qcode, QCCLX, "juega" );
     RET_IF_STATUS;                              // Retorna si el valor es distinto de cero
 }
@@ -135,8 +148,8 @@ void        tipojuego_code_casillero( Tipojuego* tj, char* casillero ){
     assert( casillero );
     cas = GETCASILLERO(tj, casillero );
     qcode_op( tj->qcode, QCSTI, 16, cas );      // t16 = cas     
-    qcode_op( tj->qcode, QCPOP, 16, 0 );        // POP t16
-    qcode_op( tj->qcode, QCPOP,  3, 0 );        // POP r3
+    qcode_op( tj->qcode, QCPSH, 16, 0 );        // PSH t16
+    qcode_op( tj->qcode, QCPSH,  3, 0 );        // PSH r3
     qcode_opnlab( tj->qcode, QCCLX, "casillero" );
     RET_IF_STATUS;                              // Retorna si el valor es distinto de cero
 }
@@ -146,8 +159,8 @@ void        tipojuego_code_direccion( Tipojuego* tj, char* direccion ){
     assert( direccion );
     dir = GETDIRECCION(tj, direccion );
     qcode_op( tj->qcode, QCSTI, 16, dir );      // t16 = dir     
-    qcode_op( tj->qcode, QCPOP, 16, 0 );        // POP t16
-    qcode_op( tj->qcode, QCPOP,  3, 0 );        // POP r3
+    qcode_op( tj->qcode, QCPSH, 16, 0 );        // PSH t16
+    qcode_op( tj->qcode, QCPSH,  3, 0 );        // PSH r3
     qcode_opnlab( tj->qcode, QCCLX, "direccion" );
     RET_IF_STATUS;                              // Retorna si el valor es distinto de cero
 }
@@ -160,10 +173,10 @@ void        tipojuego_code_final  ( Tipojuego* tj, char* color, int resultado ){
        col = -1;
 
     qcode_op( tj->qcode, QCSTI, 16, resultado );// t16 = resultado
-    qcode_op( tj->qcode, QCPOP, 16, 0 );        // POP t16
+    qcode_op( tj->qcode, QCPSH, 16, 0 );        // PSH t16
     qcode_op( tj->qcode, QCSTI, 16, col );      // t16 = col
-    qcode_op( tj->qcode, QCPOP, 16, 0 );        // POP t16
-    qcode_op( tj->qcode, QCPOP,  3, 0 );        // POP r3
+    qcode_op( tj->qcode, QCPSH, 16, 0 );        // PSH t16
+    qcode_op( tj->qcode, QCPSH,  3, 0 );        // PSH r3
     qcode_opnlab( tj->qcode, QCCLX, "final" );
     RET_IF_STATUS;                              // Retorna si el valor es distinto de cero
 

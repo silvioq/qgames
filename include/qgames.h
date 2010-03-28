@@ -85,6 +85,7 @@ void   tipojuego_add_notacion_tpieza( Tipojuego* tj, char* tpieza, char* abbr );
 
 int         tipojuego_start_code(  Tipojuego* tj, char tiporegla, char* tipopieza, char* tipomov );
 #define     tipojuego_start_codeend(tj) tipojuego_start_code( tj, END, NULL, NULL )
+void        tipojuego_end_code( Tipojuego* tj );
 void*       tipojuego_get_code( Tipojuego* tj );
 
 #define   ENEMIGO       -1
@@ -92,6 +93,7 @@ void*       tipojuego_get_code( Tipojuego* tj );
 #define   CUALQUIERA     0
 void        tipojuego_code_start_condblock( Tipojuego* tj );
 void        tipojuego_code_end_condblock( Tipojuego* tj );
+void        tipojuego_code_op_not( Tipojuego* tj );
 void        tipojuego_code_direccion( Tipojuego* tj, char* direccion );
 void        tipojuego_code_casillero( Tipojuego* tj, char* casillero );
 void        tipojuego_code_ocupado( Tipojuego* tj, char* casillero, int owner, char* color );
@@ -110,7 +112,10 @@ void        tipojuego_code_final  ( Tipojuego* tj, char* color, int resultado );
  * A partir de aca, comenzamos con la partida
  * */
 Partida*    tipojuego_create_partida( Tipojuego* tj );
+
 void        partida_movidas_posibles_ascii( Partida* par );
+int         partida_mover         ( Partida* par, int mov );
+int         partida_mover_notacion( Partida* par, char* mov );
 
 
 

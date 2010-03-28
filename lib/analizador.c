@@ -65,7 +65,7 @@ int    analizador_ocupado( Analizador* z, Casillero* cas, int owner ){
             } else if( pp->color == owner ) return 1;
         }
     }
-    return STATUS_NORMAL;
+    return 0;
 
 }
 
@@ -75,7 +75,7 @@ int    analizador_juega  ( Analizador* z, Casillero* cas, int con_captura ){
     CHECK_STATUS ;
     if( !z->movidas ) z->movidas = list_nueva( NULL );
     Movida* mov = movida_new( z->pos );
-    movida_accion_mueve( mov, z->pieza, cas );
+    movida_accion_mueve( mov, z->pieza, ( cas ? cas : z->cas ) );
     list_agrega( z->movidas, mov );
     if( con_captura ){
         int i;

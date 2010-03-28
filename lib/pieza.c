@@ -87,6 +87,7 @@ Pieza*   pieza_dup( Pieza* pieza ){
     p->tpieza    = pieza->tpieza;
     p->casillero = pieza->casillero;
     p->color     = pieza->color;
+    p->number    = pieza->number;
     memcpy( p->hash,  pieza->hash, 16 );
     p->hash_calculado = p->hash_calculado;
 

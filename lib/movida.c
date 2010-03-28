@@ -41,10 +41,10 @@ static inline Accion*   accion_new(){
  *
  * */
 void  movida_accion_mueve  ( Movida* mov, Pieza* p, Casillero* destino ){
-    Accion* acc = accion_new();
-    acc->tipo = ACCION_MUEVE;
-    acc->pieza = p;
-    acc->destino = destino;
+    Accion* acc       = accion_new();
+    acc->tipo         = ACCION_MUEVE;
+    acc->pieza_number = p->number;
+    acc->destino      = destino;
     if( !mov->acciones ) mov->acciones = list_nueva( NULL );
     list_agrega( mov->acciones, acc );
 }
@@ -55,7 +55,7 @@ void  movida_accion_mueve  ( Movida* mov, Pieza* p, Casillero* destino ){
 void  movida_accion_captura( Movida* mov, Pieza* p ) {
     Accion* acc = accion_new();
     acc->tipo = ACCION_CAPTURA;
-    acc->pieza = p;
+    acc->pieza_number = p->number;
     if( !mov->acciones ) mov->acciones = list_nueva( NULL );
     list_agrega( mov->acciones, acc );
 }
@@ -109,10 +109,10 @@ Posicion*  movida_ejecuta( Movida* mov ){
         Accion* acc = (Accion*) mov->acciones->data[i];
         switch( acc->tipo ){
             case ACCION_MUEVE:
-                posicion_mueve_pieza( pos, acc->pieza, acc->destino );
+                posicion_mueve_pieza( pos, (Pieza*)pos->piezas->data[acc->pieza_number], acc->destino );
                 break;
             case ACCION_CAPTURA:
-                posicion_mueve_pieza( pos, acc->pieza, ENCAPTURA );
+                posicion_mueve_pieza( pos, (Pieza*)pos->piezas->data[acc->pieza_number], ENCAPTURA );
                 break;
             default:
                 assert( !"Accion no implementada" );
@@ -163,10 +163,12 @@ Pieza*       movida_pieza( Movida* mov ){
     if( !mov->acciones ) return NULL;
     list_inicio( mov->acciones );
     while( acc = (Accion*)list_siguiente( mov->acciones ) ){
-        if( acc->pieza ){
-            mov->pieza = acc->pieza;
-            return acc->pieza;
+        switch( acc->tipo ){
+            case  ACCION_MUEVE:
+                mov->pieza = (Pieza*) mov->pos->piezas->data[acc->pieza_number];
+                return  mov->pieza;
         }
+            
     }
     return  NULL;
 }

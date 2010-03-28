@@ -17,6 +17,7 @@
 
 int  main(int argc, char** argv) {
     Tipojuego* tateti;
+    Partida*   partida;
     char *filename = "../games/TaTeTi.qgame";
     assert( tateti = qgz_parse_filename( filename, 0 ) );
     printf( "." );
@@ -37,6 +38,9 @@ int  main(int argc, char** argv) {
     assert( tipojuego_get_color( tateti, "blanco" ) == 1 );
     assert( tipojuego_get_color( tateti, "negro" )  == 2 ) ;
     printf( "." );
+
+    assert( partida = tipojuego_create_partida( tateti ) );
+    assert( partida_mover_notacion( partida, "c1" ) ); 
 
     printf( "\n" );
     return  EXIT_SUCCESS;

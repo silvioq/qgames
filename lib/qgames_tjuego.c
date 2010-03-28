@@ -17,6 +17,8 @@
 #include  "tipojuego.h"
 #include  "pieza.h"
 #include  "posicion.h"
+#include  "movida.h"
+#include  "partida.h"
 
 int  simbolo_id = 0;
 
@@ -284,6 +286,7 @@ void        tipojuego_add_pieza( Tipojuego* tj, char* tpieza, char* casillero, c
   col = s->ref;
   
   p = pieza_new( tp, cas, col );
+  assert( tj->inicial->tjuego );
   posicion_add_pieza( tj->inicial, p );
 }
 
@@ -361,8 +364,8 @@ void        tipojuego_add_secuencia( Tipojuego* tj, char* color, char* tipomov )
     int  col = GETCOLOR( tj, color );
     int  tmov = ( tipomov ? GETTIPOMOV( tj, tipomov ) : 0 );
 
-    Secuencia* seq = ALLOC( sizeof( Secuencia ) );
-    seq->color = color;
+    Secuencia* seq = (Secuencia*) ALLOC( sizeof( Secuencia ) );
+    seq->color = col;
     seq->tmov  = tmov;
 
     if( !tj->secuencias ) tj->secuencias = list_nueva( NULL );
@@ -445,11 +448,23 @@ int         tipojuego_start_code(  Tipojuego* tj, char tiporegla, char* tipopiez
     if( !tj->rules ) tj->rules = list_nueva( NULL );
     list_agrega( tj->rules, cod );
   }
+  qcode_opnlab( tj->qcode, QCCLX, "initz" );
+  qcode_op( tj->qcode, QCSTO, 3, 0 );
+
   return cod->label;
 
 }
 
 
+void        tipojuego_end_code( Tipojuego* tj ){
+    qcode_op( tj->qcode, QCRET, 0 , 0 );
+}
+
+
+
+Partida*   tipojuego_create_partida( Tipojuego* tj ){
+   return  partida_new( tj );
+}
 
 /*
 void*       tipojuego_get_code( Tipojuego* tj ){

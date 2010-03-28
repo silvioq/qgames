@@ -47,7 +47,8 @@
  * */
 long  code_wrapper_ocupado( QCodeVM* vm ){
     Analizador* z = (Analizador*)qcode_pop( vm );
-    Casillero*  c = (Casillero*)qcode_pop( vm );
+    assert( z );
+    Casillero*  c = ZGETCASILLERO( z, qcode_pop( vm ) );
     int  owner    = (int)qcode_pop(vm);
     return (long)analizador_ocupado( z, c, owner );
 }
@@ -72,9 +73,18 @@ long  code_wrapper_direccion( QCodeVM* vm ){
     return (long)analizador_direccion( z, d );
 }
 
+long  code_wrapper_ahogado( QCodeVM* vm ){
+    Analizador* z = (Analizador*)qcode_pop( vm );
+    return 0;
+}
+
 Analizador* zgeneral;
 long  code_wrapper_initz( QCodeVM* vm ){
     return  (long)zgeneral;
+}
+long  code_wrapper_dump( QCodeVM* vm ){
+    printf( "Dump!\n" );
+    return  vm->r[0];
 }
 
 
@@ -85,13 +95,15 @@ void  code_initialize( QCode** qcode ){
     qcode_xcrlab( q, "juega",     (qcode_extfunc)code_wrapper_juega );
     qcode_xcrlab( q, "casillero", (qcode_extfunc)code_wrapper_casillero );
     qcode_xcrlab( q, "direccion", (qcode_extfunc)code_wrapper_direccion );
+    qcode_xcrlab( q, "ahogado"  , (qcode_extfunc)code_wrapper_ahogado );
+    qcode_xcrlab( q, "final"    , (qcode_extfunc)code_wrapper_ahogado );
+    qcode_xcrlab( q, "dump"     , (qcode_extfunc)code_wrapper_dump );
 
     /* El primer codigo que meto es el tema del analizador */
     int label = qcode_xcrlab( q, "initz", (qcode_extfunc)code_wrapper_initz );
     qcode_oplab( q, QCCLX, label );
     qcode_op   ( q, QCSTO, 3, 0 ) ;   // STO R3, R0
     qcode_op   ( q, QCRET, 0, 0 );    // RET
-
 
     *qcode = q;
 }
@@ -102,7 +114,7 @@ int    code_execute_rule( void* z, int pc ){
     zgeneral = (Analizador*)z;
     long  ret;
     QCode* q = ((Analizador*)z)->pos->tjuego->qcode;
-    qcode_run( q, &ret );
+    q->flags |= QCODE_FLAG_DEBUG;
     int r = qcode_runargs( q, &ret, pc, 0, NULL );
     if( r == 0 ) return 0;
     printf( "-----------------------------------------\n" );

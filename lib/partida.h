@@ -105,8 +105,6 @@ void      partida_free( Partida* par );
 
 int       partida_analizar_movidas( Partida* par );
 int       partida_analizar_finales( Partida* par );
-int       partida_mover         ( Partida* par, int mov );
-int       partida_mover_notacion( Partida* par, char* mov );
 
 Movida*   partida_ultimo_movimiento( Partida* par );
 

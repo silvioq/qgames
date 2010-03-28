@@ -13,6 +13,7 @@ typedef  struct  StrPieza {
     Casillero*  casillero;
     int         color;
     _list*      atributos;
+    int         number;
     int         hash_calculado;
     char        hash[16];
 } Pieza;
