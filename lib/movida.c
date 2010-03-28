@@ -74,9 +74,52 @@ void  movida_free( Movida* mov ){
         }
         list_free( mov->acciones );
     }
+    if( mov->notacion ) free( mov->notacion );
     free( mov );
 }
 
+/*
+ * Esta funcion duplica la movida, con todas sus acciones 
+ * */
+
+Movida*   movida_dup( Movida* mov ){
+    Movida*  movnew = movida_new( mov->pos );
+    if( mov->notacion ) movnew->notacion = strdup( mov->notacion );
+    int i;
+    movnew->tmov     = mov->tmov;
+    movnew->continua = mov->continua;
+    movnew->acciones = list_nueva( NULL );
+
+    for( i = 0; i < mov->acciones->entradas; i ++ ){
+        Accion* accnew = accion_new();
+        memcpy( accnew, mov->acciones->data[i], sizeof( Accion ) );
+        list_agrega( movnew->acciones, accnew );
+    }
+
+    return movnew;
+    
+}
+
+
+Posicion*  movida_ejecuta( Movida* mov ){
+    //
+    Posicion*  pos = posicion_dup( mov->pos );
+    int i;
+    for( i = 0; i < mov->acciones->entradas; i ++ ){
+        Accion* acc = (Accion*) mov->acciones->data[i];
+        switch( acc->tipo ){
+            case ACCION_MUEVE:
+                posicion_mueve_pieza( pos, acc->pieza, acc->destino );
+                break;
+            case ACCION_CAPTURA:
+                posicion_mueve_pieza( pos, acc->pieza, ENCAPTURA );
+                break;
+            default:
+                assert( !"Accion no implementada" );
+        }
+    }
+    return pos;
+}
 
 
 

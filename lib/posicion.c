@@ -218,3 +218,11 @@ Posicion*   posicion_dup( Posicion* pos ){
     }
     
 }
+
+/*
+ * Vamos a cambiar de lugar una pieza
+ * */
+void       posicion_mueve_pieza( Posicion* pos, Pieza* pieza, Casillero* destino ){
+    int i;
+    pieza->casillero = destino;
+}

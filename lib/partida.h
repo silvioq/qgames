@@ -15,21 +15,33 @@
 
 
 #define   PARTIDAESTADO(p)   (p->flags&0x3)
+
+
+/* 
+ * Esta bandera indica si hay un ganador o es tablas
+ * */
+#define   ESTABLAS            0x4
+#define   PARTIDATABLAS      (p->flags&ESTABLAS)
+
+
 /*
  * La bandera de continuacion es para determinar si el proximo movimiento
  * que se realizara es una continuacion de un movimiento primario .
  * Es el tipico caso de la captura en las damas. 
  * Si es cero, se trata del movimiento primario.
  * */
-#define   CONTINUACION        0x4
+#define   CONTINUACION        0x8
 #define   PARTIDACONT(p)     (p->flags&CONTINUACION)
 
 /*
  * La bandera de movidas calculadas determina si las movidas de la posicion
  * han sido calculadas o no 
  * */
-#define   MOVCALC             0x8
+#define   MOVCALC             0x10
 #define   PARTIDAMOVCALC(p)   (p->flags&MOVCALC)
+
+
+
 
 
 /*
@@ -79,7 +91,7 @@ typedef  struct  StrPartida {
     time_t      final;
 
     /* Esta es la lista de movidas de la partida */
-    _list*      movidas;
+    _list*      movimientos;
     
 } _Partida;
 
@@ -89,11 +101,14 @@ typedef  struct  StrPartida {
  * espere durante mucho tiempo ... aqui esta! 
  * */
 Partida*  partida_new( Tipojuego* tjuego );
+void      partida_free( Partida* par );
 
-
-int       partida_calcular_movidas( Partida* par );
+int       partida_analizar_movidas( Partida* par );
+int       partida_analizar_finales( Partida* par );
 int       partida_mover         ( Partida* par, int mov );
 int       partida_mover_notacion( Partida* par, char* mov );
+
+Movida*   partida_ultimo_movimiento( Partida* par );
 
 
 #endif

@@ -13,12 +13,13 @@ typedef  struct  StrMovida {
     Posicion*   pos;
     char*       notacion;
     int         tmov;
+    int         continua;
     Pieza*      pieza;        // Solo como auxiliar, no usar directamente, para eso esta movida_pieza
     Casillero*  destino;      // Solo como auxiliar, no usar directamente, para eso esta movida_destino
 } Movida;
 
 typedef struct StrAccion{
-    int         tipo;
+    char        tipo;
     Pieza*      pieza;
     Casillero*  destino;
     int         color;
@@ -37,15 +38,18 @@ typedef struct StrAccion{
 #define   ACCION_DESTRUYE        5
 #define   ACCION_ASIGNA_ATT      6
 #define   ACCION_INFORMACION     7
-#define   ACCION_CONT_MOVIENDO   9
 #define   ACCION_PASAR          10
 
 
 Movida*   movida_new( Posicion* pos );
+Movida*   movida_dup( Movida* mov );
 
 void  movida_accion_mueve  ( Movida* mov, Pieza* p, Casillero* destino );
 void  movida_accion_captura( Movida* mov, Pieza* p );
 void  movida_free( Movida* mov );
+
+Posicion*    movida_ejecuta( Movida* mov );
+
 
 
 Casillero*   movida_casillero_origen( Movida* mov );

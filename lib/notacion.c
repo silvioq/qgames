@@ -56,7 +56,14 @@ void    notacion_resolver_movidas( Tipojuego* tjuego, _list* movs, char* prefix 
     list_inicio( movs );
     while( mmm = list_siguiente( movs ) ){
         if( mmm->notacion ) continue;
-        mmm->notacion = notacion_resolver_mov( tjuego->notacion, mmm, def );
+        char*  nom = notacion_resolver_mov( tjuego->notacion, mmm, def );
+        if( prefix ){
+            char* data = ALLOC( strlen( nom ) + strlen( prefix ) + 3 );
+            sprintf( data, "%s-%s", prefix, nom );
+            free( nom );
+            nom = data;
+        }
+        mmm->notacion = nom;
     }
 
 

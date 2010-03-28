@@ -30,4 +30,6 @@ int        posicion_analiza_movidas( Posicion* pos, char tipoanalisis, int color
 int        posicion_analiza_final( Posicion* pos );
 int        posicion_movidas_posibles( Posicion* pos );
 
+void       posicion_mueve_pieza( Posicion* pos, Pieza* pieza, Casillero* destino );
+
 #endif
