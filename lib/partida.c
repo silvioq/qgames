@@ -30,13 +30,14 @@ void    secuencia_actual   ( Partida* par, int* color, int* tmov ){
     if( par->tjuego->secuencias ){
         assert( par->secuencia < par->tjuego->secuencias->entradas );
         seq = (Secuencia*)par->tjuego->secuencias->data[par->secuencia];
-        *color = seq->color;
-        *tmov  = seq->tmov ;
+        if( color ) *color = seq->color;
+        if( tmov  ) *tmov  = seq->tmov ;
     } else {
-        *color = par->secuencia + 1;
-        *tmov  = 0;
+        if( color ) *color = par->secuencia + 1;
+        if( tmov  ) *tmov  = 0;
     }
 }
+
 
 void    secuencia_siguiente( Partida* par, int* color, int* tmov ){
     par->secuencia ++;
@@ -52,6 +53,19 @@ void    secuencia_siguiente( Partida* par, int* color, int* tmov ){
     secuencia_actual( par, color, tmov );
 }
 
+
+void    secuencia_anterior( Partida* par ){
+    par->secuencia --;
+    if( par->tjuego->secuencias ){
+        if( par->secuencia < 0 ){
+            par->secuencia = par->tjuego->secuencias->entradas - 1;
+        }
+    } else {
+        if( par->secuencia < 0 ){
+            par->secuencia = par->tjuego->colores - 1;
+        }
+    }
+}
 
 
 Partida*  partida_new( Tipojuego* tjuego ){
@@ -97,9 +111,10 @@ Partida*  partida_new( Tipojuego* tjuego ){
  * */
 int       partida_analizar_movidas( Partida* par ){
     if( PARTIDAMOVCALC(par) ) return  par->pos->movidas->entradas;
-    clock_t  inicio = clock();
+    clock_t  inicio;
     clock_t  final ;
     double   elapsed;
+    inicio = clock();
 
     par->flags |= ANALIZANDO;
 
@@ -120,7 +135,7 @@ int       partida_analizar_movidas( Partida* par ){
 
     final   =  clock();
     elapsed = ((double) (final - inicio)) / CLOCKS_PER_SEC;
-    printf( "Total: %.6f\n", elapsed );
+    printf( "Total: %.6f (%d %d %d)\n", elapsed, final, inicio, CLOCKS_PER_SEC );
 
     return  par->pos->movidas->entradas;
 }
@@ -164,16 +179,58 @@ int       partida_mover_notacion( Partida* par, char* mov ){
  * */
 
 int   partida_mover_mov( Partida* par, Movida* mov ){
+    Posicion* parnew;
     if( PARTIDACONT( par ) ){
         assert( !"Hace falta agregar las movidas continuadas a la lista de movimientos anterior" );
     }
     if( !par->movimientos ) par->movimientos = list_nueva( NULL );
     list_agrega( par->movimientos, movida_dup( mov ) );
 
+    parnew = movida_ejecuta( mov );
     posicion_free_movidas( par->pos );
-    par->pos = movida_ejecuta( mov );
+    par->pos = parnew;
+
+    // TODO: Tema finales
+    int  color_actual = par->color;
+    int  color_sig ;
+    secuencia_siguiente( par, &color_sig, NULL );
+    secuencia_anterior( par );
+    posicion_analiza_final( par->pos, color_actual, color_sig );
     
 
     return 1;
 }
 
+/*
+ * Contador de cantidad de piezas, muy útil a la hora
+ * de hacer pruebas
+ * */
+int         partida_count_piezas  ( Partida* par, char* casillero ){
+    Casillero* cas;
+    int count = 0;
+    if( !casillero ){
+        cas = NULL;
+    } else if( casillero == CASILLERO_POZO ){
+        cas = ENPOZO;
+    } else if ( casillero == CASILLERO_CAPTURA ){
+        cas = ENCAPTURA;
+    } else {
+        int ret = GETCASILLERO( par->tjuego, casillero );
+        cas = (Casillero*) par->tjuego->casilleros->data[ret];
+    }
+
+    int i;
+    for( i = 0; i < par->pos->piezas->entradas; i ++ ){
+         Pieza* pie = (Pieza*) par->pos->piezas->data[i];
+         if( pie ){
+              if( !cas ){
+                  count ++;
+              } else if( cas == pie->casillero ){
+                  count ++;
+              }
+         }
+    }
+
+    return  count;
+
+}

@@ -114,7 +114,7 @@ int    code_execute_rule( void* z, int pc ){
     zgeneral = (Analizador*)z;
     long  ret;
     QCode* q = ((Analizador*)z)->pos->tjuego->qcode;
-    q->flags |= QCODE_FLAG_DEBUG;
+    // q->flags |= QCODE_FLAG_DEBUG;
     int r = qcode_runargs( q, &ret, pc, 0, NULL );
     if( r == 0 ) return 0;
     printf( "-----------------------------------------\n" );

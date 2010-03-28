@@ -203,6 +203,21 @@ int        posicion_analiza_movidas( Posicion* pos, char tipoanalisis, int color
 
 
 /*
+ * Funcion de analisis de finales.
+ * De acuerdo a las condiciones establecidas en el final,
+ * se analizará pieza por pieza o casillero por casillero
+ * Para tateti, es necesario analizar pieza por pieza y verificar
+ * que se cumpla la secuencia como corresponda
+ * */
+
+int        posicion_analiza_final( Posicion* pos, int  color_actual, int color_sig ){
+
+
+    return 0;
+}
+
+
+/*
  * La duplicacion de la posicion es algo que hacemos todo el tiempo
  * la idea es generar una nueva posicion con todo listo como para
  * hacer otro analisis o lo que sea.

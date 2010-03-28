@@ -92,6 +92,9 @@ typedef  struct  StrPartida {
 
     /* Esta es la lista de movidas de la partida */
     _list*      movimientos;
+
+    /* Este es el color ganador! */
+    int         color_ganador;
     
 } _Partida;
 

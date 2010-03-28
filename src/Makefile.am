@@ -14,3 +14,4 @@ AM_CFLAGS = -I$(top_srcdir)/include -I$(top_srcdir)/common -I$(top_srcdir)/qcode
 
 TESTS_ENVIRONMENT = $(srcdir)/qgames 
 TESTS = $(top_builddir)/games/*.qgame
+XFAIL_TESTS =  $(top_builddir)/games/Ajedrez.qgame
