@@ -210,7 +210,39 @@ int        posicion_analiza_movidas( Posicion* pos, char tipoanalisis, int color
  * que se cumpla la secuencia como corresponda
  * */
 
-int        posicion_analiza_final( Posicion* pos, int  color_actual, int color_sig ){
+int        posicion_analiza_final( Posicion* pos, int  color_actual, int color_sig, char** resultado ){
+    
+    int  i;
+    for( i = 0; i < pos->tjuego->rules->entradas; i ++ ){
+        Regla*  rule = pos->tjuego->rules->data[i];
+        int analizado = 0;
+        if( rule->tregla != END ) continue;
+        // analizamos casillero por casillero!
+        if( rule->flags & RULEFLAG_DIRECCION ){
+            analizado = 1;
+            int  c;
+            for( c = 0; c < pos->tjuego->casilleros->entradas ; c ++ ){
+                Casillero* cas = (Casillero*)pos->tjuego->casilleros->data[c];
+                int res = analizador_evalua_final( rule, pos, NULL, cas, color_actual, color_sig, resultado );
+                if( res == FINAL_EMPATE || res > 0 ) return res;
+            }
+        }
+        if( rule->flags & RULEFLAG_PIEZAS ){
+            analizado = 1;
+            int p;
+            for( p = 0; p < pos->piezas->entradas; p ++ ){
+                Pieza* pieza = (Pieza*)pos->piezas->data[i];
+                if( pieza->color != color_actual ) continue;
+                int res = analizador_evalua_final( rule, pos, pieza, pieza->casillero, color_actual, color_sig, resultado );
+                if( res == FINAL_EMPATE || res > 0 ) return res;
+            }
+        }
+        if( !analizado ){
+            int res = analizador_evalua_final( rule, pos, NULL, NULL, color_actual, color_sig, resultado );
+            if( res == FINAL_EMPATE || res > 0 ) return res;
+        }
+    }
+
 
 
     return 0;

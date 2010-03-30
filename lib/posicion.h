@@ -27,7 +27,7 @@ Posicion*   posicion_dup( Posicion* pos );
 #define    ANALISIS_ATAQUE           4
 
 int        posicion_analiza_movidas( Posicion* pos, char tipoanalisis, int color, int tipomov, Pieza* pieza );
-int        posicion_analiza_final( Posicion* pos, int  color_actual, int color_sig );
+int        posicion_analiza_final( Posicion* pos,  int  color_actual, int color_sig, char** resultado );
 int        posicion_movidas_posibles( Posicion* pos );
 
 void       posicion_mueve_pieza( Posicion* pos, Pieza* pieza, Casillero* destino );

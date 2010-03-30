@@ -49,6 +49,8 @@ int  main(int argc, char** argv) {
     assert( 1 == partida_count_piezas( partida, "c1" ) );
     assert( 0 == partida_count_piezas( partida, "b1" ) );
 
+    assert( partida_final( partida, NULL ) == FINAL_ENJUEGO );
+
     printf( "." );
     printf( "\n" );
     return  EXIT_SUCCESS;

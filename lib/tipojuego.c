@@ -63,6 +63,34 @@ void    tipojuego_genera_vinculos( Tipojuego* tj, Direccion* dir ){
 }
 
 
+/*
+ *
+ * Devuelve el nombre del color pasado como parametro,
+ * accediendo a la tabla de simbolos 
+ *
+ * */
 
+char*       tipojuego_get_colorname( Tipojuego* tj, int color ){
+    int i;
+    assert( tj->simbolos );
+    for( i = 0; i < tj->simbolos->entradas; i ++ ){
+        volatile Simbolo* sym;
+        sym = tj->simbolos->data[i];
+        if( sym->tipo != SIM_COLOR ) continue;
+        if( sym->ref  == color ) return sym->nombre;
+    }
+    char color_no_encontrado[15];
+    sprintf( color_no_encontrado, "%d ???", color );
+    return  color_no_encontrado;
+}
+
+int      tipojuego_get_coloroponente( Tipojuego* tj, int color ){
+    int i;
+    for( i = 1; i <= tj->colores; i ++ ){
+        if( i != color ) return i;
+    }
+    assert( !"Color no encontrado" );
+    return 0;
+}
 
 

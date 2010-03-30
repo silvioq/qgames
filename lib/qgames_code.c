@@ -21,7 +21,7 @@
 #include  "posicion.h"
 #include  "analizador.h"
 
-#if 0
+#if 1
 #define   RET_IF_STATUS  \
       {    \
           int  labcont = qcode_crlab( tj->qcode, unnamed_label );\
@@ -61,8 +61,21 @@ long    pop_label_stack( ){
     return  label;
 }
 
+
 /*
+ * Devuelve la regla actual, que en realidad, no es ni más ni
+ * menos que la última de la lista
+ * */
+Regla*  code_regla_actual( Tipojuego* tj ){ 
+    if( !tj->rules ) return NULL;
+    if( tj->rules->entradas == 0 ) return NULL;
+    return (Regla*)(tj->rules->data[tj->rules->entradas - 1]);
+}
+
+/*
+ *
  * Operador NOT
+ *
  * */
 void        tipojuego_code_op_not( Tipojuego* tj ){
     assert( tj );
@@ -106,7 +119,8 @@ void        tipojuego_code_ocupado( Tipojuego* tj, char* casillero, int owner, c
     qcode_op( tj->qcode, QCPSH, 16, 0 );        // PSH t16
     qcode_op( tj->qcode, QCPSH,  3, 0 );        // PSH r3
     qcode_opnlab( tj->qcode, QCCLX, "ocupado" );
-    RET_IF_STATUS;                              // Retorna si el valor es distinto de cero
+    // FIXME: Hay que controlar posibles estados erroneos
+    // RET_IF_STATUS;                              // Retorna si el valor es distinto de cero
 }
 
 void        tipojuego_code_ahogado( Tipojuego* tj, char* color ){
@@ -119,7 +133,8 @@ void        tipojuego_code_ahogado( Tipojuego* tj, char* color ){
     qcode_op( tj->qcode, QCPSH, 16, 0 );        // PSH t16
     qcode_op( tj->qcode, QCPSH,  3, 0 );        // PSH r3
     qcode_opnlab( tj->qcode, QCCLX, "ahogado" );
-    RET_IF_STATUS;                              // Retorna si el valor es distinto de cero
+    // FIXME: Hay que controlar posibles estados erroneos
+    // RET_IF_STATUS;                              // Retorna si el valor es distinto de cero
 }
 
 void        tipojuego_code_juega  ( Tipojuego* tj, char* casillero, int captura ){
@@ -156,8 +171,12 @@ void        tipojuego_code_casillero( Tipojuego* tj, char* casillero ){
     
 void        tipojuego_code_direccion( Tipojuego* tj, char* direccion ){
     long dir;
+    Regla*  rule = code_regla_actual( tj );
+    assert( rule );
     assert( direccion );
     dir = GETDIRECCION(tj, direccion );
+    rule->flags |= RULEFLAG_DIRECCION;
+
     qcode_op( tj->qcode, QCSTI, 16, dir );      // t16 = dir     
     qcode_op( tj->qcode, QCPSH, 16, 0 );        // PSH t16
     qcode_op( tj->qcode, QCPSH,  3, 0 );        // PSH r3

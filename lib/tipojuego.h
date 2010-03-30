@@ -68,12 +68,19 @@ typedef   struct   StrTipopieza {
     _list*      att_nombres;
     _list*      att_default;
     _list*      rules;
+    int         flags;
 } Tipopieza;
+
+// 
+#define  RULEFLAG_DIRECCION   0x1
+#define  RULEFLAG_PIEZAS      0x2
+#define  RULEFLAG_JAQUEMATE   0x4
 
 typedef   struct  StrRegla {
     Tipopieza*  tpieza;
     int         tmov;
     char        tregla;
+    int         flags;    // Flags para las reglas de finales. 
     int         label;
     int         pc;
 } Regla;
@@ -138,6 +145,8 @@ typedef  struct  StrZonadef{
 /* Funciones de acceso a datos de tipojuego */
 Casillero*  tipojuego_get_casillero_by_num( Tipojuego* tj, int nro );
 Casillero*  tipojuego_get_casillero_by_relpos( Tipojuego* tj, int tablero, int dims[MAXDIMS] );
+char*       tipojuego_get_colorname( Tipojuego* tj, int color );
+int         tipojuego_get_coloroponente( Tipojuego* tj, int color );
 
 /* Funciones de manejo de tablero */
 Tablero*   tablero_new( Tipojuego* tj, int numero );
@@ -178,6 +187,7 @@ Tipopieza*  tipopieza_new( Tipojuego* tj, char* nombre );
 /* Temas de codigo */
 void  code_initialize( QCode** qcode );
 int   code_execute_rule( void* z, int pc );
+Regla*  code_regla_actual( Tipojuego* tj );
 
 
 #endif

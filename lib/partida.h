@@ -21,7 +21,7 @@
  * Esta bandera indica si hay un ganador o es tablas
  * */
 #define   ESTABLAS            0x4
-#define   PARTIDATABLAS      (p->flags&ESTABLAS)
+#define   PARTIDATABLAS(p)   (p->flags&ESTABLAS)
 
 
 /*
@@ -95,6 +95,7 @@ typedef  struct  StrPartida {
 
     /* Este es el color ganador! */
     int         color_ganador;
+    char*       resultado_desc;
     
 } _Partida;
 

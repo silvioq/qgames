@@ -18,19 +18,29 @@ typedef  struct  StrAnalizador {
     Casillero* cas;
     int        tipo_movida;
     int        color;
+    int        color_siguiente;
     _list*     movidas;
     char       tipo_analisis;
     char       status;
+
+    char*      resultado;         // Para el analisis del final, este elemento contiene la descripcion del resultado
+    int        color_ganador;     // Color que gano! 0 es tablas!
 }  Analizador;
 
 
 _list*   analizador_evalua_movidas( Regla* regla, Posicion* pos, Pieza* pieza, Casillero* cas, char tipoanalisis, int tipomovida, int color );
-_list*   analizador_evalua_final  ( Regla* regla, Posicion* pos, int color );
+
+/* Los valores posibles que retorna, son los especificados en qgames.h ...
+ * #define   FINAL_EMPATE   0
+ * #define   FINAL_ENJUEGO  -1
+ * */
+int      analizador_evalua_final  ( Regla* regla, Posicion* pos, Pieza* pieza, Casillero* cas, int color, int color_siguiente, char** resultado );
 
 
 #define   STATUS_NORMAL       0
 #define   STATUS_OUTOFBOARD   1
 #define   STATUS_STOP         2
+#define   STATUS_EOG          4
 
 
 
@@ -53,4 +63,5 @@ int    analizador_casillero( Analizador* z, Casillero* cas );
 int    analizador_direccion( Analizador* z, Direccion* dir );
 
 
+int   analizador_final( Analizador* z, int color, int res );
 #endif

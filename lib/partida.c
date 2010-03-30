@@ -195,7 +195,8 @@ int   partida_mover_mov( Partida* par, Movida* mov ){
     int  color_sig ;
     secuencia_siguiente( par, &color_sig, NULL );
     secuencia_anterior( par );
-    posicion_analiza_final( par->pos, color_actual, color_sig );
+    char* resultado;
+    posicion_analiza_final( par->pos, color_actual, color_sig, resultado );
     
 
     return 1;
@@ -234,3 +235,26 @@ int         partida_count_piezas  ( Partida* par, char* casillero ){
     return  count;
 
 }
+
+
+
+/*
+ * Devuelve el final de la partida ... en el caso
+ * que haya terminado
+ * */
+
+int         partida_final         ( Partida* par, char** resultado ){
+    if( resultado ){
+      *resultado = par->resultado_desc;
+    }
+    if( PARTIDAESTADO(par) == TERMINADA ){
+        if( PARTIDATABLAS(par) ){
+            return  FINAL_EMPATE;
+        } else {
+            return  par->color_ganador;
+        }
+    } else return  FINAL_ENJUEGO;
+    
+
+}
+

@@ -118,6 +118,11 @@ void        partida_movidas_posibles_ascii( Partida* par );
 int         partida_mover         ( Partida* par, int mov );
 int         partida_mover_notacion( Partida* par, char* mov );
 
+
+#define   FINAL_EMPATE   0
+#define   FINAL_ENJUEGO  -1
+int         partida_final         ( Partida* par, char** resultado );
+
 int         partida_count_piezas  ( Partida* par, char* casillero );
 
 

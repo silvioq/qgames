@@ -432,7 +432,7 @@ int         tipojuego_start_code(  Tipojuego* tj, char tiporegla, char* tipopiez
   }
   
   cod = ALLOC( sizeof( Regla ) );
-  memset( cod, sizeof( Regla ), 0 );
+  memset( cod, 0, sizeof( Regla ) );
   cod->tpieza = tpieza;
   cod->tmov   = tmov;
   cod->tregla = tiporegla;
