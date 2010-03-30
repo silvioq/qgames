@@ -242,10 +242,8 @@ int        posicion_analiza_final( Posicion* pos, int  color_actual, int color_s
             if( res == FINAL_EMPATE || res > 0 ) return res;
         }
     }
+    return  FINAL_ENJUEGO;
 
-
-
-    return 0;
 }
 
 

@@ -46,10 +46,24 @@ int  main(int argc, char** argv) {
     assert( 0 == partida_count_piezas( partida, "c1" ) );
     assert( 0 == partida_count_piezas( partida, "b1" ) );
     assert( partida_mover_notacion( partida, "c1" ) ); 
+    printf( "Muevo en c1\n" );
     assert( 1 == partida_count_piezas( partida, "c1" ) );
     assert( 0 == partida_count_piezas( partida, "b1" ) );
 
     assert( partida_final( partida, NULL ) == FINAL_ENJUEGO );
+    assert( partida_mover_notacion( partida, "c1" ) == 0 ); 
+    printf( "Muevo en b1\n" );
+    assert( partida_mover_notacion( partida, "b1" )  ); 
+    assert( partida_final( partida, NULL ) == FINAL_ENJUEGO );
+    printf( "Muevo en c2\n" );
+    assert( partida_mover_notacion( partida, "c2" )  ); 
+    assert( partida_final( partida, NULL ) == FINAL_ENJUEGO );
+    assert( partida_mover_notacion( partida, "b2" )  ); 
+    assert( partida_final( partida, NULL ) == FINAL_ENJUEGO );
+    printf( "Muevo en c3\n" );
+    assert( partida_mover_notacion( partida, "c3" )  ); 
+    assert( partida_final( partida, NULL ) != FINAL_ENJUEGO );
+    assert( partida_final( partida, NULL ) == 1 );
 
     printf( "." );
     printf( "\n" );

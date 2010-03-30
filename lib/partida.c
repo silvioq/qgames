@@ -180,6 +180,7 @@ int       partida_mover_notacion( Partida* par, char* mov ){
 
 int   partida_mover_mov( Partida* par, Movida* mov ){
     Posicion* parnew;
+    int  ret;
     if( PARTIDACONT( par ) ){
         assert( !"Hace falta agregar las movidas continuadas a la lista de movimientos anterior" );
     }
@@ -196,9 +197,18 @@ int   partida_mover_mov( Partida* par, Movida* mov ){
     secuencia_siguiente( par, &color_sig, NULL );
     secuencia_anterior( par );
     char* resultado;
-    posicion_analiza_final( par->pos, color_actual, color_sig, resultado );
-    
-
+    ret = posicion_analiza_final( par->pos, color_actual, color_sig, &resultado );
+    if( ret == FINAL_EMPATE ){
+        par->resultado = resultado;
+        par->flags    |= ESTABLAS;
+        par->flags    &= (~ANALIZANDO );
+        par->flags    |= TERMINADA;
+    } else if ( ret > 0 ){
+        par->resultado = resultado;
+        par->color_ganador = ret;
+        par->flags    &= (~ANALIZANDO );
+        par->flags    |= TERMINADA;
+    }
     return 1;
 }
 
@@ -245,7 +255,7 @@ int         partida_count_piezas  ( Partida* par, char* casillero ){
 
 int         partida_final         ( Partida* par, char** resultado ){
     if( resultado ){
-      *resultado = par->resultado_desc;
+      *resultado = par->resultado;
     }
     if( PARTIDAESTADO(par) == TERMINADA ){
         if( PARTIDATABLAS(par) ){

@@ -60,6 +60,8 @@ int      analizador_evalua_final  ( Regla* regla, Posicion* pos, Pieza* pieza, C
     assert( regla->tregla == END );
     code_execute_rule( z, regla->pc );
 
+    printf( "Fin del analisis de final status = %d\n", z->status );
+
     if( z->status == STATUS_EOG ){
         if( resultado ) *resultado = z->resultado;
         if( z->resultado ) free( z->resultado );
@@ -83,6 +85,7 @@ int    analizador_ocupado( Analizador* z, Casillero* cas, int owner ){
     Casillero*  ccc = ( cas ? cas : z->cas );
    
     CHECK_STATUS ;
+    if( CASILLERO_VALIDO(ccc) )  printf( "Pregunta por ocupado al casillero %s owner = %d", ccc->nombre, owner );
     int i;
     for( i = 0; i < z->pos->piezas->entradas; i ++ ){
         Pieza* pp = (Pieza*)z->pos->piezas->data[i];
@@ -90,12 +93,13 @@ int    analizador_ocupado( Analizador* z, Casillero* cas, int owner ){
             if( owner == CUALQUIERA ){
                 return  1;
             } else if( owner == PROPIO ){
-                if( z->color == pp->color ) return 1;
+                if( z->color == pp->color ){ printf( " ... ocupado\n" ); return 1; }
             } else if( owner == ENEMIGO ) {
-                if( z->color != pp->color ) return 1;
-            } else if( pp->color == owner ) return 1;
+                if( z->color != pp->color ) { printf( " ... ocupado\n" );return 1; }
+            } else if( pp->color == owner ){ printf( " ... ocupado\n" ); return 1; }
         }
     }
+    printf( " ... no ocupado\n" );
     return 0;
 
 }
@@ -150,6 +154,8 @@ int   analizador_casillero( Analizador* z, Casillero* cas ){
 int   analizador_final( Analizador* z, int color, int res ){
     CHECK_STATUS;
     CHECK_END_CODE;
+
+    printf( "Se llama al final color %d, resultado %d\n", color, res );
 
     switch( res ){
         case EMPATA:

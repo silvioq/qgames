@@ -95,7 +95,7 @@ typedef  struct  StrPartida {
 
     /* Este es el color ganador! */
     int         color_ganador;
-    char*       resultado_desc;
+    char*       resultado;
     
 } _Partida;
 
