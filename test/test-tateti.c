@@ -14,6 +14,8 @@
 #include <qgames.h>
 #include <qgames_analyzer.h>
 
+#include "log.h"
+
 
 int  main(int argc, char** argv) {
     Tipojuego* tateti;
@@ -21,6 +23,9 @@ int  main(int argc, char** argv) {
     int  count = 0;
     char *filename = "../games/TaTeTi.qgame";
     assert( tateti = qgz_parse_filename( filename, 0 ) );
+
+    loglevel = 4;
+
     printf( "." );
 
     assert( tipojuego_get_casillero( tateti, "a4" ) == NOT_FOUND );

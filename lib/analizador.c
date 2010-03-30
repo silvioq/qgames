@@ -21,6 +21,7 @@
 #include  "posicion.h"
 #include  "analizador.h"
 
+#include  "log.h"
 
 #define  CHECK_STATUS     assert( z->status == STATUS_NORMAL );
 #define  CHECK_END_CODE   assert( z->tipo_analisis == ANALISIS_FINAL );
@@ -60,12 +61,13 @@ int      analizador_evalua_final  ( Regla* regla, Posicion* pos, Pieza* pieza, C
     assert( regla->tregla == END );
     code_execute_rule( z, regla->pc );
 
-    printf( "Fin del analisis de final status = %d\n", z->status );
+    LOGPRINT( 5, "Fin del analisis de final status = %d", z->status );
 
     if( z->status == STATUS_EOG ){
         if( resultado ) *resultado = z->resultado;
-        if( z->resultado ) free( z->resultado );
         ret =  z->color_ganador ? z->color_ganador : FINAL_EMPATE;
+        LOGPRINT( 4, "Fin de partida detectado %d => %s", ret, z->resultado );
+        if( z->resultado ) free( z->resultado );
     }       
     else ret =  FINAL_ENJUEGO;
     free( z );
@@ -85,7 +87,7 @@ int    analizador_ocupado( Analizador* z, Casillero* cas, int owner ){
     Casillero*  ccc = ( cas ? cas : z->cas );
    
     CHECK_STATUS ;
-    if( CASILLERO_VALIDO(ccc) )  printf( "Pregunta por ocupado al casillero %s owner = %d", ccc->nombre, owner );
+    if( CASILLERO_VALIDO(ccc) )  LOGPRINT( 5, "Pregunta por ocupado al casillero %s owner = %d", ccc->nombre, owner );
     int i;
     for( i = 0; i < z->pos->piezas->entradas; i ++ ){
         Pieza* pp = (Pieza*)z->pos->piezas->data[i];
@@ -93,13 +95,13 @@ int    analizador_ocupado( Analizador* z, Casillero* cas, int owner ){
             if( owner == CUALQUIERA ){
                 return  1;
             } else if( owner == PROPIO ){
-                if( z->color == pp->color ){ printf( " ... ocupado\n" ); return 1; }
+                if( z->color == pp->color ){ LOGPRINT( 5, " ... ocupado %d", 1 ); return 1; }
             } else if( owner == ENEMIGO ) {
-                if( z->color != pp->color ) { printf( " ... ocupado\n" );return 1; }
-            } else if( pp->color == owner ){ printf( " ... ocupado\n" ); return 1; }
+                if( z->color != pp->color ){ LOGPRINT( 5, " ... ocupado %d", 1 );return 1; }
+            } else if( pp->color == owner ){ LOGPRINT( 5, " ... ocupado %d", 1 ); return 1; }
         }
     }
-    printf( " ... no ocupado\n" );
+    LOGPRINT( 5, " ... no ocupado %d", 1 );
     return 0;
 
 }
@@ -155,7 +157,7 @@ int   analizador_final( Analizador* z, int color, int res ){
     CHECK_STATUS;
     CHECK_END_CODE;
 
-    printf( "Se llama al final color %d, resultado %d\n", color, res );
+    LOGPRINT( 5, "Se llama al final color %d, resultado %d", color, res );
 
     switch( res ){
         case EMPATA:

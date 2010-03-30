@@ -19,6 +19,8 @@
 #include "movida.h"
 #include "partida.h"
 
+#include "log.h"
+
 int   partida_mover_mov( Partida* par, Movida* mov );
 
 /* 
@@ -135,7 +137,7 @@ int       partida_analizar_movidas( Partida* par ){
 
     final   =  clock();
     elapsed = ((double) (final - inicio)) / CLOCKS_PER_SEC;
-    printf( "Total: %.6f (%d %d %d)\n", elapsed, final, inicio, CLOCKS_PER_SEC );
+    LOGPRINT( 5, "Total: %.6f (%d %d %d)", elapsed, final, inicio, CLOCKS_PER_SEC );
 
     return  par->pos->movidas->entradas;
 }
@@ -170,7 +172,7 @@ int       partida_mover_notacion( Partida* par, char* mov ){
         if( strcmp( mov, mmm->notacion ) == 0 ) 
             return  partida_mover_mov( par, mmm );
     }
-    printf( "(cuidado) %s:%d No encuentro la movida %s\n", __FILE__, __LINE__, mov );
+    LOGPRINT( 3, "%s:%d No encuentro la movida %s\n", __FILE__, __LINE__, mov );
     return 0;
 }
 
@@ -191,7 +193,6 @@ int   partida_mover_mov( Partida* par, Movida* mov ){
     posicion_free_movidas( par->pos );
     par->pos = parnew;
 
-    // TODO: Tema finales
     int  color_actual = par->color;
     int  color_sig ;
     secuencia_siguiente( par, &color_sig, NULL );
