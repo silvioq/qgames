@@ -34,7 +34,8 @@ build_triplet = @build@
 host_triplet = @host@
 subdir = parser
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in \
-	qgames_parser.c qgames_parser.h qgames_scanner.c
+	libpgn_parser_a-pgn_scanner.c qgames_parser.c qgames_parser.h \
+	qgames_scanner.c
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
@@ -52,6 +53,10 @@ am__installdirs = "$(DESTDIR)$(libdir)"
 libLIBRARIES_INSTALL = $(INSTALL_DATA)
 LIBRARIES = $(lib_LIBRARIES)
 ARFLAGS = cru
+libpgn_parser_a_AR = $(AR) $(ARFLAGS)
+libpgn_parser_a_LIBADD =
+am_libpgn_parser_a_OBJECTS = libpgn_parser_a-pgn_scanner.$(OBJEXT)
+libpgn_parser_a_OBJECTS = $(am_libpgn_parser_a_OBJECTS)
 libqgames_parser_a_AR = $(AR) $(ARFLAGS)
 libqgames_parser_a_LIBADD =
 am_libqgames_parser_a_OBJECTS = qgames_parser.$(OBJEXT) \
@@ -76,8 +81,9 @@ YLWRAP = $(top_srcdir)/ylwrap
 YACCCOMPILE = $(YACC) $(YFLAGS) $(AM_YFLAGS)
 LTYACCCOMPILE = $(LIBTOOL) $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
 	--mode=compile $(YACC) $(YFLAGS) $(AM_YFLAGS)
-SOURCES = $(libqgames_parser_a_SOURCES)
-DIST_SOURCES = $(libqgames_parser_a_SOURCES)
+SOURCES = $(libpgn_parser_a_SOURCES) $(libqgames_parser_a_SOURCES)
+DIST_SOURCES = $(libpgn_parser_a_SOURCES) \
+	$(libqgames_parser_a_SOURCES)
 ETAGS = etags
 CTAGS = ctags
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
@@ -195,11 +201,13 @@ sysconfdir = @sysconfdir@
 target_alias = @target_alias@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-lib_LIBRARIES = libqgames-parser.a
+lib_LIBRARIES = libqgames-parser.a libpgn-parser.a
 libqgames_parser_a_SOURCES = qgames_parser.y qgames_parser.h qgames_scanner.h qgames_scanner.l
+libpgn_parser_a_SOURCES = pgn_scanner.l
 AM_YFLAGS = -d -v -p qgz
 AM_LFLAGS = --prefix qgz -o lex.yy.c
 AM_CFLAGS = -I$(top_srcdir)/include -I$(top_srcdir)/common -I$(top_srcdir)/qcode/src
+libpgn_parser_a_LFLAGS = --prefix pgn -o lex.yy.c
 all: all-am
 
 .SUFFIXES:
@@ -262,6 +270,10 @@ uninstall-libLIBRARIES:
 
 clean-libLIBRARIES:
 	-test -z "$(lib_LIBRARIES)" || rm -f $(lib_LIBRARIES)
+libpgn-parser.a: $(libpgn_parser_a_OBJECTS) $(libpgn_parser_a_DEPENDENCIES) 
+	-rm -f libpgn-parser.a
+	$(libpgn_parser_a_AR) libpgn-parser.a $(libpgn_parser_a_OBJECTS) $(libpgn_parser_a_LIBADD)
+	$(RANLIB) libpgn-parser.a
 qgames_parser.h: qgames_parser.c
 	@if test ! -f $@; then \
 	  rm -f qgames_parser.c; \
@@ -278,6 +290,7 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libpgn_parser_a-pgn_scanner.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/qgames_parser.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/qgames_scanner.Po@am__quote@
 
@@ -304,6 +317,10 @@ distclean-compile:
 
 .l.c:
 	$(am__skiplex) $(SHELL) $(YLWRAP) $< $(LEX_OUTPUT_ROOT).c $@ -- $(LEXCOMPILE)
+
+libpgn_parser_a-pgn_scanner.c: pgn_scanner.l
+	$(am__skiplex) \
+	$(SHELL) $(YLWRAP) `test -f 'pgn_scanner.l' || echo '$(srcdir)/'`pgn_scanner.l $(LEX_OUTPUT_ROOT).c libpgn_parser_a-pgn_scanner.c -- $(LEX) $(LFLAGS) $(libpgn_parser_a_LFLAGS)
 
 .y.c:
 	$(am__skipyacc) $(SHELL) $(YLWRAP) $< y.tab.c $@ y.tab.h $*.h y.output $*.output -- $(YACCCOMPILE)
@@ -418,6 +435,7 @@ distclean-generic:
 maintainer-clean-generic:
 	@echo "This command is intended for maintainers to use"
 	@echo "it deletes files that may require special tools to rebuild."
+	-rm -f libpgn_parser_a-pgn_scanner.c
 	-rm -f qgames_parser.c
 	-rm -f qgames_parser.h
 	-rm -f qgames_scanner.c
