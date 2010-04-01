@@ -19,6 +19,7 @@ typedef  struct  StrPosicion {
 Posicion*   posicion_new( Tipojuego* tjuego );
 void        posicion_add_pieza( Posicion* pos, Pieza* pie );
 Posicion*   posicion_dup( Posicion* pos );
+void        posicion_free( Posicion* pos );
 
 #define    SIN_ANALISIS              0
 #define    ANALISIS_MOVIDA           1

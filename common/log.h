@@ -26,7 +26,7 @@ extern   int    loglevel;
 #define  LOGPRINT( level, fmt, ... )  \
     if( level <= loglevel ){ \
         if( !logfile ) logfile = stdout; \
-        fprintf( logfile, "LEV%02d: " fmt "\n", level, __VA_ARGS__ ); \
+        fprintf( logfile, "Lev %02d: %s:%d " fmt "\n", level, __FILE__, __LINE__, __VA_ARGS__ ); \
     }
 
 #endif

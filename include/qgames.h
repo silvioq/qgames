@@ -117,6 +117,7 @@ Partida*    tipojuego_create_partida( Tipojuego* tj );
 void        partida_movidas_posibles_ascii( Partida* par );
 int         partida_mover         ( Partida* par, int mov );
 int         partida_mover_notacion( Partida* par, char* mov );
+int         partida_mover_pgn     ( Partida* par, char* pgn );
 
 
 #define   FINAL_EMPATE   0

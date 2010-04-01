@@ -8,7 +8,9 @@
 
 #include  <assert.h>
 #include  <stdlib.h>
+#include  <string.h>
 #include  <qgames.h>
+
 #include  "simbolos.h"
 #include  "list.h"
 #include  "tipojuego.h"
@@ -72,6 +74,7 @@ void    tipojuego_genera_vinculos( Tipojuego* tj, Direccion* dir ){
 
 char*       tipojuego_get_colorname( Tipojuego* tj, int color ){
     int i;
+    char color_no_encontrado[15];
     assert( tj->simbolos );
     for( i = 0; i < tj->simbolos->entradas; i ++ ){
         volatile Simbolo* sym;
@@ -79,7 +82,6 @@ char*       tipojuego_get_colorname( Tipojuego* tj, int color ){
         if( sym->tipo != SIM_COLOR ) continue;
         if( sym->ref  == color ) return sym->nombre;
     }
-    char color_no_encontrado[15];
     sprintf( color_no_encontrado, "%d ???", color );
     return  color_no_encontrado;
 }

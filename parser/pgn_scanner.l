@@ -1,17 +1,16 @@
 %{
 
+/*
+  This software is provided 'as-is', without any express or implied
+  warranty.  In no event will the authors be held liable for any damages
+  arising from the use of this software.
+  Silvio Quadri 2010.
+*/
+
 #include <stdio.h>
 #include "defines.h"
+#include "pgn_scanner.h"
 
-/*
-   1. Event: the name of the tournament or match event.
-   2. Site: the location of the event. This is in "City, Region COUNTRY" format, where COUNTRY is the 3-letter International Olympic Committee code for the country. An example is "New York City, NY USA".
-   3. Date: the starting date of the game, in YYYY.MM.DD form. "??" are used for unknown values.
-   4. Round: the playing round ordinal of the game within the event.
-   5. White: the player of the white pieces, in "last name, first name" format.
-   6. Black: the player of the black pieces, same format as White.
-   7. Result: the result of the game. This can only have four possible values: "1-0" (White won), "0-1" (Black won), "1/2-1/2" (Draw), or "*" (other, e.g., the game is ongoing).
-*/
 
 char* pgntag_event = NULL;
 char* pgntag_site = NULL;
@@ -20,23 +19,7 @@ char* pgntag_round = NULL;
 char* pgntag_white = NULL;
 char* pgntag_black = NULL;
 char* pgntag_result = NULL;
-
-/*
-    * Annotator: The person providing notes to the game.
-    * PlyCount: String value denoting total number of half-moves played.
-    * TimeControl: "40/7200:3600" (moves per seconds: sudden death seconds)
-    * Time: Time the game started, in "HH:MM:SS" format, in local clock time.
-    * Termination: Gives more details about the termination of the game. It may be "abandoned", "adjudication" (result determined by third-party adjudication), "death", "emergency", "normal", "rules infraction", "time forfeit", or "unterminated".
-    * Mode: "OTB" (over-the-board) "ICS" (Internet Chess Server)
-    * FEN: The initial position of the chess board, in Forsyth-Edwards Notation. This is used to record partial games (starting at some initial position). It is also necessary for chess variants such as Fischer random chess, where the initial position is not always the same as traditional chess. If a FEN tag is used, a separate tag pair "SetUp" must also appear and have its value set to "1".
-*/
-
 char* pgntag_fen = NULL;
-
-/*
-    Many chess variants can be recorded using PGN, provided the names of the pieces can be limited to one character, usually a letter and not a number. They are typically noted with a tag named "Variant" giving the name of the rules. The term "Variation" must be avoided, as that refers to the name of an opening variation. Note that traditional chess programs can only handle, at most, a few variants. Forsyth-Edwards Notation (FEN) is used to record the starting position for variants (such as Chess960) which have initial positions other than the orthodox chess initial position.
-
-*/
 
 char* pgntag_variant = NULL;
 
@@ -54,34 +37,46 @@ char* pgnerror = NULL;
 char*   extracttag(char*);
 void    addmove(char*);
 
+int     pgnwrap(void){ return 1; }
+
 %}
 
 %option batch
 %option case-insensitive
 
-TAGDEF  \"[^\"]*\"
-SPACES  [:space:]+
-MOVENUMBER   [:digit:]+\.
-MOVE         [:alnum:]+
+TAGDEF       \"[^\"]*\"
+SPACES       [ ]+
+MOVENUMBER   [0-9]+\.
+MOVE         [0-9a-z\-\+\/]+
+DOTS         \.{2,3}
 
 %%
-.       { if( yytext[0] == '\n' ){
-            pgnlineno ++; pgncolno = 1;
-          } else { pgncolno ++; }
-          REJECT;
-        }
 
-\[event{SPACES}{TAGDEF}\]      {  pgntag_event   = extracttag( yytext ); }
-\[result{SPACES}{TAGDEF}\]     {  pgntag_result  = extracttag( yytext ); }
-\[variant{SPACES}{TAGDEF}\]    {  pgntag_variant = extracttag( yytext ); }
+\[black{SPACES}{TAGDEF}\]      {  pgntag_black   = extracttag( yytext ); pgncolno += yyleng; }
+\[date{SPACES}{TAGDEF}\]       {  pgntag_date    = extracttag( yytext ); pgncolno += yyleng; }
+\[event{SPACES}{TAGDEF}\]      {  pgntag_event   = extracttag( yytext ); pgncolno += yyleng; }
+\[fen{SPACES}{TAGDEF}\]        {  pgntag_fen     = extracttag( yytext ); pgncolno += yyleng; }
+\[result{SPACES}{TAGDEF}\]     {  pgntag_result  = extracttag( yytext ); pgncolno += yyleng; }
+\[round{SPACES}{TAGDEF}\]      {  pgntag_round   = extracttag( yytext ); pgncolno += yyleng; }
+\[site{SPACES}{TAGDEF}\]       {  pgntag_site    = extracttag( yytext ); pgncolno += yyleng; }
+\[variant{SPACES}{TAGDEF}\]    {  pgntag_variant = extracttag( yytext ); pgncolno += yyleng; }
+\[white{SPACES}{TAGDEF}\]      {  pgntag_white   = extracttag( yytext ); pgncolno += yyleng; }
+\[[a-z]+{SPACES}{TAGDEF}\]     {  printf( "Tag no reconocido en %d\n", pgnlineno );  pgncolno += yyleng ; }
 
-MOVENUMBER                     /* Por ahora ignoro los numeros de movidas */
-MOVE                           {  addmove( yytext ); }
+{MOVENUMBER}                     { /* Por ahora ignoro los numeros de movidas */ pgncolno += yyleng; }
+{MOVE}                           addmove( yytext ); pgncolno += yyleng ;
+{DOTS}                           pgncolno += yyleng ;
 
-[ \t\r\n]+                     /* ignore whitespace */
+[ \t\r]+                       { /* ignore whitespace */ pgncolno += yyleng ; }
+\{[^\}]*\}                     /* ignore comments */ pgncolno += yyleng;
+;[^\n]*\n                      /* ignore comments */ pgncolno += yyleng;
+
+\n                             { pgncolno = 1; pgnlineno ++; }
+
+
 .                              {
                                   pgnerror = ALLOC( 256 );
-                                  sprintf( pgnerror, "Caracter no reconocido Linea: %d, Col: %d", pgnlineno, pgncolno );
+                                  sprintf( pgnerror, "Caracter no reconocido (%c) Linea: %d, Col: %d", yytext[0], pgnlineno, pgncolno );
                                   yyterminate();
                                };
 
@@ -93,7 +88,7 @@ char*  extracttag(char* line){
     char*  endquote = strchr( initquote, '"' );
     endquote --;
 
-    int  len = endquote - initquote;
+    int  len = endquote - initquote + 1;
     char* ret = ALLOC( len + 1 );
     strncpy( ret, initquote, len );
     ret[len] = 0;
@@ -112,15 +107,15 @@ void    addmove(char* move){
         pgnmoves = REALLOC( pgnmoves, pgnmvchalloc );
     }
 
-    strcat( pgnmoves + pgnmvchcount, " " );
+    if( pgnmvchcount ){ 
+        strcat( pgnmoves + pgnmvchcount, " " ); 
+        len ++; 
+    }
     strcat( pgnmoves + pgnmvchcount, move );
-    pgnmvchcount += len + 1;
+    pgnmvchcount += len;
 }
 
 
-void   initpgn( ){
-    freepgn( );
-}
 
 
 #define  FREEVARIABLE(var) if( var ){ free( var ); var = NULL; }
@@ -141,3 +136,19 @@ void   freepgn( ){
     pgnmvchcount = 0;
     pgnmvchalloc = 0;
 }
+
+
+void   initpgn( ){
+    freepgn( );
+    pgnlineno = 1;
+    pgncolno  = 0;
+}
+
+int   pgnscan(char* scan){
+    initpgn();
+    YY_BUFFER_STATE buf = yy_scan_string( scan );
+    yy_switch_to_buffer( buf );
+    int ret = yylex();
+    return pgnerror ? 0 : 1;
+}
+

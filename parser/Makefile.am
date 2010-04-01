@@ -1,4 +1,5 @@
 lib_LIBRARIES = libqgames-parser.a libpgn-parser.a
+check_PROGRAMS = test-pgn
 
 libqgames_parser_a_SOURCES = qgames_parser.y qgames_parser.h qgames_scanner.h qgames_scanner.l
 libpgn_parser_a_SOURCES = pgn_scanner.l
@@ -8,3 +9,10 @@ AM_LFLAGS = --prefix qgz -o lex.yy.c
 AM_CFLAGS = -I$(top_srcdir)/include -I$(top_srcdir)/common -I$(top_srcdir)/qcode/src
 
 libpgn_parser_a_LFLAGS = --prefix pgn -o lex.yy.c
+
+
+test_pgn_SOURCES = test-pgn.c
+test_pgn_DEPENDENCIES = $(srcdir)/libpgn-parser.a
+test_pgn_LDADD =        $(srcdir)/libpgn-parser.a
+
+TESTS = $(check_PROGRAMS)

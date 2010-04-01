@@ -24,7 +24,7 @@ int  main(int argc, char** argv) {
     char *filename = "../games/TaTeTi.qgame";
     assert( tateti = qgz_parse_filename( filename, 0 ) );
 
-    loglevel = 4;
+    loglevel = 3;
 
     printf( "." );
 

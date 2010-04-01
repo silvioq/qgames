@@ -68,6 +68,18 @@ Posicion*   posicion_new( Tipojuego* tj ){
   return  pos;
 }
 
+void      posicion_free( Posicion* pos ){
+    posicion_free_movidas( pos );
+    if( pos->piezas ){
+        int i;
+        for( i = 0; i < pos->piezas->entradas; i ++ ){
+            Pieza* pieza = pos->piezas->data[i];
+            pieza_free( pieza );
+        }
+        list_free( pos->piezas );
+    }
+}
+
 /*
  * Esta funcion es muy simple, pero es fundamental.
  * Solo agrega una pieza a la posicion.

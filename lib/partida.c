@@ -172,8 +172,17 @@ int       partida_mover_notacion( Partida* par, char* mov ){
         if( strcmp( mov, mmm->notacion ) == 0 ) 
             return  partida_mover_mov( par, mmm );
     }
-    LOGPRINT( 3, "%s:%d No encuentro la movida %s\n", __FILE__, __LINE__, mov );
+    LOGPRINT( 3, "No encuentro la movida %s", mov );
     return 0;
+}
+
+
+/* 
+ * Esta funcion parsea la entrada como si fuera un archivo pgn
+ * y ejecuta los movimientos establecidos
+ * */
+int         partida_mover_pgn     ( Partida* par, char* pgn ){
+    int = pgnscan( pgn );
 }
 
 /*

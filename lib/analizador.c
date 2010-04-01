@@ -153,6 +153,26 @@ int   analizador_casillero( Analizador* z, Casillero* cas ){
 }
 
 
+/*
+ * El analisis de ahogado es muy simple. 
+ * Tomo el proximo color (en el caso que haya alguno, armo una 
+ * nueva posicion e intento mover ... si hay alguna movida
+ * entonces NO es ahogado!
+ * */
+int   analizador_ahogado( Analizador* z ){
+    Posicion* pos = posicion_dup( z->pos );
+    int i;
+    assert( z->color_siguiente );
+    LOGPRINT( 5, "Llamando a posicion_analiza_movidas, para obtener ahogado con color %d", z->color_siguiente );
+    i = posicion_analiza_movidas( pos, ANALISIS_PRIMER_MOVIDA, z->color_siguiente, 0, NULL );
+    posicion_free( pos );
+    return i > 0 ? 1 : 0;
+
+}
+
+
+
+
 int   analizador_final( Analizador* z, int color, int res ){
     CHECK_STATUS;
     CHECK_END_CODE;
