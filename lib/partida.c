@@ -182,7 +182,7 @@ int       partida_mover_notacion( Partida* par, char* mov ){
  * y ejecuta los movimientos establecidos
  * */
 int         partida_mover_pgn     ( Partida* par, char* pgn ){
-    int = pgnscan( pgn );
+    int i = pgnscan( pgn );
 }
 
 /*
