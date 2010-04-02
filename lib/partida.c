@@ -166,7 +166,7 @@ int       partida_analizar_movidas( Partida* par ){
 
     final   =  clock();
     elapsed = ((double) (final - inicio)) / CLOCKS_PER_SEC;
-    LOGPRINT( 5, "Total: %.6f (%d %d %d)", elapsed, final, inicio, CLOCKS_PER_SEC );
+    LOGPRINT( 5, "Total: %.6f", elapsed );
 
     return  par->pos->movidas->entradas;
 }

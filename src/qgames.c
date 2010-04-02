@@ -6,10 +6,11 @@
  *
  * */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
+#include  <stdio.h>
+#include  <stdlib.h>
+#include  <string.h>
+#include  <unistd.h>
+#include  <time.h>
 #include  <qgames.h>
 #include  <qgames_analyzer.h>
 #include  "log.h"
@@ -23,7 +24,7 @@ void usage(char* prg){
    
 }
 
-int   check_game(int flags){
+int   check_game(char* pgnfile, int flags){
     Tipojuego* tj;
     Partida* par;
     int  ret;
@@ -32,6 +33,7 @@ int   check_game(int flags){
     int  abandonado = 0;
     int  esperado = 0;
     int  result;
+    clock_t  inicio, final;
 
     if( !pgntag_variant ){
         printf( "No definida la variante\n" );
@@ -52,8 +54,12 @@ int   check_game(int flags){
         abandonado = 1;
     }  
 
+    inicio = clock();
     par = tipojuego_create_partida( tj );
     ret = partida_mover_serie( par, pgnmoves );
+    final = clock();
+    LOGPRINT( 5, "Total %s: %.6f", pgnfile, ((double) (final - inicio)) / CLOCKS_PER_SEC );
+
     if( !ret ){
         LOGPRINT( 2, "Error al analizar partida %s", pgnmoves );
         partida_free( par );
@@ -124,7 +130,7 @@ int  main(int argc, char** argv) {
         if( !ret ){
             ret = qgz_parse( stdin, "-", flags );
         } else {
-            ret = check_game( flags );
+            ret = check_game( "-", flags );
         }
     } else {
         char* filename = argv[optind];
@@ -133,7 +139,7 @@ int  main(int argc, char** argv) {
         if( !ret ){
             ret = qgz_parse( NULL, filename, flags );
         } else {
-            ret = check_game( flags );
+            ret = check_game( filename, flags );
         }
     }
 
