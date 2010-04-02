@@ -15,6 +15,7 @@
 
 
 #define   PARTIDAESTADO(p)   (p->flags&0x3)
+#define   PARTIDATERMINADA(p) (PARTIDAESTADO(p)==TERMINADA)
 
 
 /* 
@@ -105,7 +106,6 @@ typedef  struct  StrPartida {
  * espere durante mucho tiempo ... aqui esta! 
  * */
 Partida*  partida_new( Tipojuego* tjuego );
-void      partida_free( Partida* par );
 
 int       partida_analizar_movidas( Partida* par );
 int       partida_analizar_finales( Partida* par );

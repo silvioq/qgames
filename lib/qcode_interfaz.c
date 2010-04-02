@@ -78,8 +78,7 @@ long  code_wrapper_direccion( QCodeVM* vm ){
 
 long  code_wrapper_ahogado( QCodeVM* vm ){
     Analizador* z = (Analizador*)qcode_pop( vm );
-    analizador_ahogado( z );
-    return 0;
+    return (long)analizador_ahogado( z );
 }
 
 

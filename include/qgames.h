@@ -123,8 +123,10 @@ int         partida_mover_pgn     ( Partida* par, char* pgn );
 #define   FINAL_EMPATE   0
 #define   FINAL_ENJUEGO  -1
 int         partida_final         ( Partida* par, char** resultado );
+void        partida_free( Partida* par );
 
 int         partida_count_piezas  ( Partida* par, char* casillero );
+void        partida_tablero_ascii ( Partida* par );
 
 
 

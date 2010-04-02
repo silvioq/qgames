@@ -1987,6 +1987,7 @@ char*  extracttag(char* line){
 void    addmove(char* move){
     if( !pgnmoves ){ 
         pgnmoves = ALLOC( 32 ); 
+        pgnmoves[0] = 0;
         pgnmvchcount = 0;
         pgnmvchalloc = 32;
      }

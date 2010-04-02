@@ -21,6 +21,8 @@
 #include  "analizador.h"
 #include  "posicion.h"
 
+#include  "log.h"
+
 /* ---------------------------------------------------------------------------------------- */
 void        posicion_add_movida( Posicion* pos, Movida* mov );
 void        posicion_add_movidas( Posicion* pos, _list* movs );
@@ -115,6 +117,9 @@ int        posicion_analiza_movidas( Posicion* pos, char tipoanalisis, int color
 
     int cantidad = 0;
 
+    LOGPRINT( 6, "Ingreso a analisis movidas tipoanalisis = %d, color = %d, tipomov = %d", 
+        tipoanalisis, color, tipomov )
+
     // 1. chequeo de parametros
     assert( color > 0 );
     assert( ( tipoanalisis == ANALISIS_MOVIDA ) || 
@@ -132,6 +137,7 @@ int        posicion_analiza_movidas( Posicion* pos, char tipoanalisis, int color
         for( i = 0; i < pos->piezas->entradas; i ++ ){
             Pieza* pp = (Pieza*) pos->piezas->data[i];
             if( pp->casillero != ENPOZO ) continue;
+            if( pp->color != color ) continue;
             int j; int existe = 0;
             for( j = 0; j < piezas_cnt; j ++ ){
                 if( pieza_equal( pp, piezas_arr[j] ) ){
@@ -171,6 +177,7 @@ int        posicion_analiza_movidas( Posicion* pos, char tipoanalisis, int color
             int  r;
             if( pp->casillero == ENPOZO ) continue;
             if( pp->casillero == ENCAPTURA ) continue;
+            if( pp->color != color ) continue;
             for( r = 0; r < pp->tpieza->rules->entradas; r ++ ){
                 Posicion* newpos = posicion_dup( pos );
                 Regla*  regla = (Regla*) pp->tpieza->rules->data[r];

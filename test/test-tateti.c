@@ -24,7 +24,7 @@ int  main(int argc, char** argv) {
     char *filename = "../games/TaTeTi.qgame";
     assert( tateti = qgz_parse_filename( filename, 0 ) );
 
-    loglevel = 3;
+    loglevel = 5;
 
     printf( "." );
 
@@ -70,7 +70,20 @@ int  main(int argc, char** argv) {
     assert( partida_final( partida, NULL ) != FINAL_ENJUEGO );
     assert( partida_final( partida, NULL ) == 1 );
 
+    partida_free( partida );
     printf( "." );
+
+    char* ahogado = "1. b2 c1 2. b1 b3 3. c3 a1 4. a2 c2 5. a3";
+    assert( partida = tipojuego_create_partida( tateti ) );
+    assert( partida_mover_pgn( partida, ahogado ) );
+    partida_tablero_ascii( partida );
+    printf( "." );
+    printf( "Partida final= %d\n", partida_final( partida, NULL ) );
+    assert( partida_final( partida, NULL ) == FINAL_EMPATE );
+    partida_free( partida );
+    
+
+
     printf( "\n" );
     return  EXIT_SUCCESS;
 }

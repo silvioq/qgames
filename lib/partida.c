@@ -18,6 +18,7 @@
 #include "posicion.h"
 #include "movida.h"
 #include "partida.h"
+#include "../parser/pgn_scanner.h"
 
 #include "log.h"
 
@@ -52,7 +53,7 @@ void    secuencia_siguiente( Partida* par, int* color, int* tmov ){
             par->secuencia = 0;
         }
     }
-    secuencia_actual( par, color, tmov );
+    if( color || tmov ) secuencia_actual( par, color, tmov );
 }
 
 
@@ -82,17 +83,23 @@ Partida*  partida_new( Tipojuego* tjuego ){
     // Calculo el id
     {
         char  aux[256];
+        char  aux2[16];
         static  int xxx = 100;
         int  mod = xxx % 8;
         char*  id = ALLOC( 256 );
+        int  di;
         xxx += 7;
         md5_state_t  md5;
         md5_init( &md5 );
+
         sprintf( aux, "%d-%d-%d", (long)par->inicio, (long)clock(), xxx );
         md5_append( &md5, aux, strlen( aux ) );
         md5_append( &md5, (void*)(&xxx), sizeof( int ) );
-        md5_finish( &md5, aux );
-        memcpy( id, aux + mod, 8 );
+        md5_finish( &md5, aux2 );
+        for( di = mod; di < mod + 6; di ++ )
+	        sprintf(aux + di * 2, "%02x", aux2[di]);
+        LOGPRINT( 6, "mod es = %d %s", mod, aux );
+        memcpy( id, aux, 8 );
         id[8] = '@';
         id[9] = 0;
         strcat( id, QGAMES_SERVERNAME );
@@ -101,6 +108,24 @@ Partida*  partida_new( Tipojuego* tjuego ){
 
 
     return  par;    
+}
+
+/*
+ * Vamos a liberar todo lo que hay
+ * */
+
+void  partida_free( Partida* par ){
+    if( par->pos ) posicion_free( par->pos );
+    if( par->id ) free( par->id );
+    if( par->movimientos ){
+        int  i;
+        for( i = 0; i < par->movimientos->entradas; i ++ ){
+            Movida* mm = (Movida*) par->movimientos->data[i];
+            movida_free( mm );
+        }
+        list_free( par->movimientos );
+    }
+    free( par );
 }
 
 
@@ -112,6 +137,10 @@ Partida*  partida_new( Tipojuego* tjuego ){
  * notaciones
  * */
 int       partida_analizar_movidas( Partida* par ){
+    if( PARTIDATERMINADA(par)){
+        LOGPRINT(2,"Partida %s terminada", par->id );
+        return 0;
+    }
     if( PARTIDAMOVCALC(par) ) return  par->pos->movidas->entradas;
     clock_t  inicio;
     clock_t  final ;
@@ -158,6 +187,10 @@ Movida*     partida_ultimo_movimiento( Partida* par ){
  * Hace un movimiento, de acuerdo a la lista de movidas posibles.
  * */
 int       partida_mover         ( Partida* par, int mov ){
+    if( PARTIDATERMINADA(par)){
+        LOGPRINT(2,"Partida %s terminada", par->id );
+        return 0;
+    }
     if( !PARTIDAMOVCALC(par) ) partida_analizar_movidas( par );
     if( mov >= par->pos->movidas->entradas ) return 0;
     return partida_mover_mov( par, (Movida*)par->pos->movidas->data[mov] );
@@ -165,6 +198,10 @@ int       partida_mover         ( Partida* par, int mov ){
 
 
 int       partida_mover_notacion( Partida* par, char* mov ){
+    if( PARTIDATERMINADA(par)){
+        LOGPRINT(2,"Partida %s terminada", par->id );
+        return 0;
+    }
     if( !PARTIDAMOVCALC(par) ) partida_analizar_movidas( par );
     int i;
     for( i = 0; i < par->pos->movidas->entradas; i ++ ){
@@ -182,7 +219,31 @@ int       partida_mover_notacion( Partida* par, char* mov ){
  * y ejecuta los movimientos establecidos
  * */
 int         partida_mover_pgn     ( Partida* par, char* pgn ){
+    if( PARTIDATERMINADA(par)){
+        LOGPRINT(2,"Partida %s terminada", par->id );
+        return 0;
+    }
     int i = pgnscan( pgn );
+    if( !i ){
+        LOGPRINT( 2, "Error al analizar PGN: %s", pgnerror );
+        return 0;
+    }
+    char*  movetemp = pgnmoves;
+    int    nromov = 0;
+    char*  movepoint = movetemp;
+    while( 1 ) {
+        int  i  = 0;
+        char   move[256];
+        while( movepoint[i] && movepoint[i] != ' ' ){
+            move[i] = movepoint[i];
+            i ++;
+        }
+        move[i] = 0;
+        if( !partida_mover_notacion( par, move ) ) return 0;
+        if( PARTIDATERMINADA(par) ) return 1;
+        if( movepoint[i] == 0 ) return 1;
+        movepoint += i + 1;
+    }
 }
 
 /*
@@ -218,6 +279,8 @@ int   partida_mover_mov( Partida* par, Movida* mov ){
         par->color_ganador = ret;
         par->flags    &= (~ANALIZANDO );
         par->flags    |= TERMINADA;
+    } else {
+        secuencia_siguiente( par, &(par->color), &(par->tmov) );
     }
     return 1;
 }
@@ -257,6 +320,18 @@ int         partida_count_piezas  ( Partida* par, char* casillero ){
 }
 
 
+void        partida_tablero_ascii ( Partida* par ){
+    int i;
+    printf( "Partida: %s (%s)\n", par->id, par->tjuego->nombre );
+    for( i = 0; i < par->pos->piezas->entradas; i ++ ){
+        Pieza* pie = (Pieza*) par->pos->piezas->data[i];
+        if( CASILLERO_VALIDO( pie->casillero ) ){
+            printf( "%s %s en %s\n", pie->tpieza->nombre,
+                tipojuego_get_colorname( par->tjuego, pie->color ),
+                pie->casillero->nombre );
+        }
+    }
+}
 
 /*
  * Devuelve el final de la partida ... en el caso

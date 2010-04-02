@@ -61,7 +61,7 @@ int      analizador_evalua_final  ( Regla* regla, Posicion* pos, Pieza* pieza, C
     assert( regla->tregla == END );
     code_execute_rule( z, regla->pc );
 
-    LOGPRINT( 5, "Fin del analisis de final status = %d", z->status );
+    LOGPRINT( 6, "Fin del analisis de final status = %d", z->status );
 
     if( z->status == STATUS_EOG ){
         if( resultado ) *resultado = z->resultado;
@@ -87,7 +87,7 @@ int    analizador_ocupado( Analizador* z, Casillero* cas, int owner ){
     Casillero*  ccc = ( cas ? cas : z->cas );
    
     CHECK_STATUS ;
-    if( CASILLERO_VALIDO(ccc) )  LOGPRINT( 5, "Pregunta por ocupado al casillero %s owner = %d", ccc->nombre, owner );
+    if( CASILLERO_VALIDO(ccc) )  LOGPRINT( 6, "Pregunta por ocupado al casillero %s owner = %d", ccc->nombre, owner );
     int i;
     for( i = 0; i < z->pos->piezas->entradas; i ++ ){
         Pieza* pp = (Pieza*)z->pos->piezas->data[i];
@@ -95,13 +95,13 @@ int    analizador_ocupado( Analizador* z, Casillero* cas, int owner ){
             if( owner == CUALQUIERA ){
                 return  1;
             } else if( owner == PROPIO ){
-                if( z->color == pp->color ){ LOGPRINT( 5, " ... ocupado %d", 1 ); return 1; }
+                if( z->color == pp->color ){ LOGPRINT( 6, " ... ocupado %d", 1 ); return 1; }
             } else if( owner == ENEMIGO ) {
-                if( z->color != pp->color ){ LOGPRINT( 5, " ... ocupado %d", 1 );return 1; }
-            } else if( pp->color == owner ){ LOGPRINT( 5, " ... ocupado %d", 1 ); return 1; }
+                if( z->color != pp->color ){ LOGPRINT( 6, " ... ocupado %d", 1 );return 1; }
+            } else if( pp->color == owner ){ LOGPRINT( 6, " ... ocupado %d", 1 ); return 1; }
         }
     }
-    LOGPRINT( 5, " ... no ocupado %d", 1 );
+    LOGPRINT( 6, " ... no ocupado %d", 1 );
     return 0;
 
 }
@@ -163,10 +163,10 @@ int   analizador_ahogado( Analizador* z ){
     Posicion* pos = posicion_dup( z->pos );
     int i;
     assert( z->color_siguiente );
-    LOGPRINT( 5, "Llamando a posicion_analiza_movidas, para obtener ahogado con color %d", z->color_siguiente );
     i = posicion_analiza_movidas( pos, ANALISIS_PRIMER_MOVIDA, z->color_siguiente, 0, NULL );
+    LOGPRINT( 6, "Llamando a posicion_analiza_movidas, para obtener ahogado con color %d resultado %d", z->color_siguiente, i );
     posicion_free( pos );
-    return i > 0 ? 1 : 0;
+    return i > 0 ? 0 : 1;
 
 }
 
@@ -177,7 +177,7 @@ int   analizador_final( Analizador* z, int color, int res ){
     CHECK_STATUS;
     CHECK_END_CODE;
 
-    LOGPRINT( 5, "Se llama al final color %d, resultado %d", color, res );
+    LOGPRINT( 6, "Se llama al final color %d, resultado %d", color, res );
 
     switch( res ){
         case EMPATA:
