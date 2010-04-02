@@ -31,7 +31,7 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
-check_PROGRAMS = test-tateti$(EXEEXT)
+check_PROGRAMS = test-tateti$(EXEEXT) test-gomoku$(EXEEXT)
 subdir = test
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
@@ -41,6 +41,8 @@ am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 mkinstalldirs = $(install_sh) -d
 CONFIG_HEADER = $(top_builddir)/config.h
 CONFIG_CLEAN_FILES =
+am_test_gomoku_OBJECTS = test-gomoku.$(OBJEXT)
+test_gomoku_OBJECTS = $(am_test_gomoku_OBJECTS)
 am_test_tateti_OBJECTS = test-tateti.$(OBJEXT)
 test_tateti_OBJECTS = $(am_test_tateti_OBJECTS)
 DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
@@ -55,8 +57,8 @@ CCLD = $(CC)
 LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
 	--mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) \
 	$(LDFLAGS) -o $@
-SOURCES = $(test_tateti_SOURCES)
-DIST_SOURCES = $(test_tateti_SOURCES)
+SOURCES = $(test_gomoku_SOURCES) $(test_tateti_SOURCES)
+DIST_SOURCES = $(test_gomoku_SOURCES) $(test_tateti_SOURCES)
 ETAGS = etags
 CTAGS = ctags
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
@@ -175,15 +177,17 @@ target_alias = @target_alias@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 test_tateti_SOURCES = test-tateti.c
-test_tateti_DEPENDENCIES = $(top_builddir)/qcode/src/libqcode.la $(top_builddir)/lib/libqgames.a \
-										$(top_builddir)/parser/libqgames-parser.a $(top_builddir)/parser/libpgn-parser.a
-
-test_tateti_LDADD = \
+test_gomoku_SOURCES = test-gomoku.c
+DEPENDENCIES = \
 										$(top_builddir)/parser/libqgames-parser.a \
                     $(top_builddir)/lib/libqgames.a \
 									  $(top_builddir)/parser/libpgn-parser.a \
                     $(top_builddir)/qcode/src/libqcode.la
 
+test_tateti_DEPENDENCIES = $(DEPENDENCIES)
+test_tateti_LDADD = $(DEPENDENCIES)
+test_gomoku_DEPENDENCIES = $(DEPENDENCIES)
+test_gomoku_LDADD = $(DEPENDENCIES)
 AM_CFLAGS = -I$(top_srcdir)/include -I$(top_srcdir)/common -I$(top_srcdir)/qcode/src
 TESTS = $(check_PROGRAMS)
 all: all-am
@@ -226,6 +230,9 @@ clean-checkPROGRAMS:
 	  echo " rm -f $$p $$f"; \
 	  rm -f $$p $$f ; \
 	done
+test-gomoku$(EXEEXT): $(test_gomoku_OBJECTS) $(test_gomoku_DEPENDENCIES) 
+	@rm -f test-gomoku$(EXEEXT)
+	$(LINK) $(test_gomoku_OBJECTS) $(test_gomoku_LDADD) $(LIBS)
 test-tateti$(EXEEXT): $(test_tateti_OBJECTS) $(test_tateti_DEPENDENCIES) 
 	@rm -f test-tateti$(EXEEXT)
 	$(LINK) $(test_tateti_OBJECTS) $(test_tateti_LDADD) $(LIBS)
@@ -236,6 +243,7 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-gomoku.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-tateti.Po@am__quote@
 
 .c.o:
