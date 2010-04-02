@@ -19,6 +19,7 @@ char* pgntag_round = NULL;
 char* pgntag_white = NULL;
 char* pgntag_black = NULL;
 char* pgntag_result = NULL;
+char* pgntag_termination = NULL;
 char* pgntag_fen = NULL;
 
 char* pgntag_variant = NULL;
@@ -63,6 +64,7 @@ RESULT       ({DRAW}|{BWIN}|{WWIN})
 \[result{SPACES}{TAGDEF}\]     {  pgntag_result  = extracttag( yytext ); pgncolno += yyleng; }
 \[round{SPACES}{TAGDEF}\]      {  pgntag_round   = extracttag( yytext ); pgncolno += yyleng; }
 \[site{SPACES}{TAGDEF}\]       {  pgntag_site    = extracttag( yytext ); pgncolno += yyleng; }
+\[termination{SPACES}{TAGDEF}\] {  pgntag_termination = extracttag( yytext ); pgncolno += yyleng; }
 \[variant{SPACES}{TAGDEF}\]    {  pgntag_variant = extracttag( yytext ); pgncolno += yyleng; }
 \[white{SPACES}{TAGDEF}\]      {  pgntag_white   = extracttag( yytext ); pgncolno += yyleng; }
 \[[a-z]+{SPACES}{TAGDEF}\]     {  printf( "Tag no reconocido en %d\n", pgnlineno );  pgncolno += yyleng ; }
@@ -137,6 +139,7 @@ void   freepgn( ){
     FREEVARIABLE( pgntag_result )
     FREEVARIABLE( pgntag_fen )
     FREEVARIABLE( pgntag_variant )
+    FREEVARIABLE( pgntag_termination )
     FREEVARIABLE( pgnmoves )
     FREEVARIABLE( pgnerror )
     pgnmvchcount = 0;
@@ -150,7 +153,7 @@ void   initpgn( ){
     pgncolno  = 0;
 }
 
-int   pgnscan(char* scan){
+int   pgnscan_string(char* scan){
     initpgn();
     YY_BUFFER_STATE buf = yy_scan_string( scan );
     yy_switch_to_buffer( buf );
@@ -158,3 +161,18 @@ int   pgnscan(char* scan){
     return pgnerror ? 0 : 1;
 }
 
+int   pgnscan_file(FILE* file){
+    initpgn();
+    yyin = file;
+    int ret = yylex();
+    return pgnerror ? 0 : 1 ;
+}
+
+int   pgnscan_fname(char* fname){
+    initpgn();
+    yyin = fopen( fname, "r" ) ;
+    if( !yyin ) return;
+    int ret = yylex();
+    fclose( yyin );
+    return pgnerror ? 0 : 1 ;
+}

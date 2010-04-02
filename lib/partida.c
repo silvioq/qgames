@@ -223,14 +223,17 @@ int         partida_mover_pgn     ( Partida* par, char* pgn ){
         LOGPRINT(2,"Partida %s terminada", par->id );
         return 0;
     }
-    int i = pgnscan( pgn );
+    int i = pgnscan_string( pgn );
     if( !i ){
         LOGPRINT( 2, "Error al analizar PGN: %s", pgnerror );
         return 0;
     }
-    char*  movetemp = pgnmoves;
-    int    nromov = 0;
-    char*  movepoint = movetemp;
+    return  partida_mover_serie( par, pgnmoves );
+}
+
+
+int         partida_mover_serie ( Partida* par, char* serie ){
+    char*  movepoint = serie;
     while( 1 ) {
         int  i  = 0;
         char   move[256];

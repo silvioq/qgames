@@ -47,6 +47,7 @@ extern  char* pgntag_result;
            the same as traditional chess. If a FEN tag is used, a separate 
            tag pair "SetUp" must also appear and have its value set to "1".
 */
+extern  char* pgntag_termination;
 
 extern  char* pgntag_fen;
 
@@ -69,6 +70,8 @@ extern  char* pgnmoves;
 
 extern  char* pgnerror;
 
-
-int   pgnscan(char* scan);
+#include  <stdio.h>
+int   pgnscan_string(char* scan);
+int   pgnscan_file(FILE* file);
+int   pgnscan_fname(char* fname);
 

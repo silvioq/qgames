@@ -1,0 +1,13 @@
+[Event "Casual Internet Game"]
+[Site "http://www.opengames.com.ar"]
+[Date "2010.03.15"]
+[Round "-"]
+[White "Buddy"]
+[Black "Silvio"]
+[Variant "Gomoku"]
+[Result "1-0"]
+[Termination "abandoned"]
+
+1. g7 h8 2. i5 h6 3. h7 f7 4. k7 i7 5. j6 h4 
+6. k10 k9 7. j8 j9 8. i9 l6 9. h10 g11 10. f9 g8 
+11. i11 i10 12. h9 h11 13. g9 

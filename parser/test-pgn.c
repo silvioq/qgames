@@ -30,7 +30,7 @@ char* fischer_spassky =
 
 
 int  main(int argc, char**argv){
-    int i = pgnscan( fischer_spassky );
+    int i = pgnscan_string( fischer_spassky );
     if( !i ){
         printf( "Error: %s\n", pgnerror );
     }
