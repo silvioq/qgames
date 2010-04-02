@@ -64,10 +64,10 @@ int      analizador_evalua_final  ( Regla* regla, Posicion* pos, Pieza* pieza, C
     LOGPRINT( 6, "Fin del analisis de final status = %d", z->status );
 
     if( z->status == STATUS_EOG ){
-        if( resultado ) *resultado = z->resultado;
+        if( resultado ) *resultado = strdup( z->resultado );
         ret =  z->color_ganador ? z->color_ganador : FINAL_EMPATE;
         LOGPRINT( 4, "Fin de partida detectado %d => %s", ret, z->resultado );
-        if( z->resultado ) free( z->resultado );
+        if( z->resultado ) free( z->resultado ); 
     }       
     else ret =  FINAL_ENJUEGO;
     free( z );
