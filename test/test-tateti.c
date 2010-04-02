@@ -73,16 +73,20 @@ int  main(int argc, char** argv) {
     partida_free( partida );
     printf( "." );
 
-    char* ahogado = "1. b2 c1 2. b1 b3 3. c3 a1 4. a2 c2 5. a3";
+    char* ahogado = "1. b2 c1 2. b1 b3 3. c3 a1 4. a2 c2 5. a3 1/2-1/2";
     assert( partida = tipojuego_create_partida( tateti ) );
     assert( partida_mover_pgn( partida, ahogado ) );
-    partida_tablero_ascii( partida );
     printf( "." );
-    printf( "Partida final= %d\n", partida_final( partida, NULL ) );
     assert( partida_final( partida, NULL ) == FINAL_EMPATE );
     partida_free( partida );
     
 
+    char* blancas = "1. b2 b1 2. a3 c1 3. a1 c3 4. a2 1-0";
+    assert( partida = tipojuego_create_partida( tateti ) );
+    assert( partida_mover_pgn( partida, blancas ) );
+    printf( "." );
+    assert( partida_final( partida, NULL ) == 1 );
+    partida_free( partida );
 
     printf( "\n" );
     return  EXIT_SUCCESS;

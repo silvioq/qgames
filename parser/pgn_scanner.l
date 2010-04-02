@@ -49,6 +49,10 @@ SPACES       [ ]+
 MOVENUMBER   [0-9]+\.
 MOVE         [0-9a-z\-\+\/]+
 DOTS         \.{2,3}
+WWIN         1\-0
+BWIN         0\-1
+DRAW         1\/2\-1\/2
+RESULT       ({DRAW}|{BWIN}|{WWIN})
 
 %%
 
@@ -64,6 +68,7 @@ DOTS         \.{2,3}
 \[[a-z]+{SPACES}{TAGDEF}\]     {  printf( "Tag no reconocido en %d\n", pgnlineno );  pgncolno += yyleng ; }
 
 {MOVENUMBER}                     { /* Por ahora ignoro los numeros de movidas */ pgncolno += yyleng; }
+{RESULT}                         pgncolno += yyleng;
 {MOVE}                           addmove( yytext ); pgncolno += yyleng ;
 {DOTS}                           pgncolno += yyleng ;
 
