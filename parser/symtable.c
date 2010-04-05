@@ -97,12 +97,13 @@ int        symtable_resolve( symtable* sym, char* name, int argc, char** argv, c
 
     strcpy( ret, def->def );
 
-    for( i = 0; i < argc && i < def->argc; i ++ ){
+    for( i = 0; i < def->argc; i ++ ){
         // Por cada elemento pasado como parametro, hay que reemplazar.
         // OPTIMIZE: Tabla de reemplazos seria algo que lo haría más rapido
         char * str, *strpoint;
+        char* reempl = ( i < argc ? argv[i] : "" );
         int  len_from = strlen( def->argv[i] );
-        int  len_to   = strlen( argv[i] );
+        int  len_to   = strlen( reempl );
         strpoint = ret;
         while( str = strstr( strpoint, def->argv[i] ) ){
             // En str tengo el puntero de lo que quiero reemplazar
@@ -124,7 +125,7 @@ int        symtable_resolve( symtable* sym, char* name, int argc, char** argv, c
                     memmove( str + len_to, str + len_from, total );
                     // printf( "str: %s len_from %d len_to %d\n", str, len_from, len_to );
                 }
-                strncpy( str, argv[i], len_to );
+                strncpy( str, reempl, len_to );
                 strpoint = str + len_to;
             }
         }

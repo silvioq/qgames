@@ -27,24 +27,25 @@ int  main(int argc, char**argv){
 
     assert( !symtable_resolve( sym, "xsxx", 0, NULL, NULL ) );
     assert( symtable_resolve( sym, "def1", 0, NULL, &ret ) );
-    assert( strcmp( ret, def1 ) == 0 );
+    assert( strcmp( ret, "; " ) == 0 );
     free( ret );
 
     assert( symtable_resolve( sym, "def1", 1, pp1, &ret ) );
     // printf( "1. %s\n", ret );
-    assert( strcmp( ret, "no; direccion_2" ) == 0 );
+    assert( strcmp( ret, "no; " ) == 0 );
     free( ret );
 
     assert( symtable_resolve( sym, "def1", 2, pp1, &ret ) );
     assert( strcmp( ret, "no; ne" ) == 0 );
 
     assert( symtable_resolve( sym, "def2", 0, pp1, &ret ) );
-    assert( strcmp( ret, def2 ) == 0 );
+    assert( strcmp( ret, "while(  ) do algo" ) == 0 );
     free( ret );
 
     assert( symtable_resolve( sym, "def2", 1, pp1, &ret ) );
     assert( strcmp( ret, "while( no ) do algo" ) == 0 );
     free( ret );
+    symtable_free( sym );
 
     return EXIT_SUCCESS;
 
