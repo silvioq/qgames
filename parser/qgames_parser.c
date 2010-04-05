@@ -1843,6 +1843,16 @@ yyreduce:
                     }
     break;
 
+  case 45:
+#line 322 "qgames_parser.y"
+    { NOT_IMPLEMENTED; }
+    break;
+
+  case 46:
+#line 323 "qgames_parser.y"
+    { NOT_IMPLEMENTED; }
+    break;
+
   case 47:
 #line 326 "qgames_parser.y"
     { 
@@ -1860,14 +1870,9 @@ yyreduce:
     }
     break;
 
-  case 49:
-#line 337 "qgames_parser.y"
-    { NOT_IMPLEMENTED  }
-    break;
-
   case 50:
 #line 338 "qgames_parser.y"
-    { NOT_IMPLEMENTED  }
+    { NOT_IMPLEMENTED; }
     break;
 
   case 51:
@@ -2017,7 +2022,7 @@ yyreduce:
 
 
 /* Line 1267 of yacc.c.  */
-#line 2021 "qgames_parser.c"
+#line 2026 "qgames_parser.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -2275,7 +2280,7 @@ int   qgz_parse( FILE* f, char* filename, int flags ){
     }
 
     tipojuego = NULL;
-    inicializar_defines();
+    init_scanner();
 
     if( qgzparse() ){
         puts( "Salimos por error!" );

@@ -1,28 +1,42 @@
 %{
 
 #include <stdio.h>
+#include "symtable.h"
 #include "qgames_parser.h"
 #include "qgames.h"
 
+/*
+ * Crea una definicion (para substitucion)
+ * */
 void   create_define( char* d );
-void   add_parameter_to_def( char* p );
+void   generate_define( );
+int    add_parameter_to_def( char* p );
+void   init_scanner();
 int    defined( char* d );
-int    define_created;
-int    define_head;
+int    switch_to_define( );
 
-_list*  defines = NULL;
-typedef  struct {
-    char*   name;
-    char*   def ;
-    char**  params;
-}  define_def;
+symtable*  symt = NULL;
+char*  defactual = NULL;
+#define  MAXPARMS  16
+char*  defparms[MAXPARMS];
+char*  define_body;
+int    define_created;
+int    define_bodyc = 0;
+int    parmcount = 0;
+int    totalparm;
+
+#define  MAXBUFFSTACK  16
+YY_BUFFER_STATE  buffers[MAXBUFFSTACK];
+int        line_buffer[MAXBUFFSTACK];
+int        sp_buffer = 0;
+
 
 %}
 
 %option batch
 %option yylineno
 %option case-sensitive
-%x      string    code  define  define_head
+%x      string    code  define  define_head   params
 
 WORD      ([a-zA-Z\?][a-zA-Z0-9\-\_]*\??)
 
@@ -38,13 +52,14 @@ WORD      ([a-zA-Z\?][a-zA-Z0-9\-\_]*\??)
 
 
 <code>^{WORD}\:   { BEGIN(INITIAL); yyless(0); return  TOK_SEPARATOR; }
-<define>^{WORD}\: { BEGIN(INITIAL); yyless(0); return  TOK_SEPARATOR; }
-<define>\n        ;
-<define>.         ;
+<define>^{WORD}\: { generate_define(); BEGIN(INITIAL); yyless(0); return  TOK_SEPARATOR; }
+<define>.|\n      { define_body[define_bodyc++] = yytext[0]; }
 
 <define_head>{WORD} { if( !define_created) 
                           create_define( yytext );
-                      else add_parameter_to_def( yytext );
+                      else{
+                          if( !add_parameter_to_def( yytext ) ) yyterminate();
+                      }
                     } ;
 <define_head>\n     { BEGIN(define); }
 <define_head>.
@@ -66,8 +81,19 @@ symmetry\:      { return TOK_SYMMETRY;  }
 start\:         { return TOK_START;     }
 zone\:          { return TOK_ZONE;      }
 
-
 define\:        { define_created = 0; BEGIN(define_head);   }
+
+<params>\"[^\"]*\"        { if( !add_parameter_to_def( yytext ) ) yyterminate();
+                            if( parmcount == totalparm ){
+                                if( ! switch_to_define( )) yyterminate();
+                            }
+                          }
+<params>[^ \n\r,;]+       { if( !add_parameter_to_def( yytext ) ) yyterminate();
+                            if( parmcount == totalparm ){
+                                if( ! switch_to_define( ) )yyterminate();
+                            }
+                          }
+<params>.                 // No hago nada!
 
 
 <code>ahogado\??          { return TOK_AHOGADO;   }
@@ -107,7 +133,16 @@ define\:        { define_created = 0; BEGIN(define_head);   }
 <code>\n        { return  TOK_SEPCODE; }
 <code>\;        { return  TOK_SEPCODE; }
 <code>{WORD}    {
-                  if( defined( yytext ) ){
+                  int  argc = ( symt ? symtable_argc( symt, yytext ) : -1 );
+                  if( argc == 0 ){
+                      parmcount = 0;
+                      defactual = strdup( yytext );
+                      switch_to_define( );
+                  } else if( argc >= 0 ){
+                      parmcount = 0;
+                      totalparm = argc;
+                      defactual = strdup( yytext );
+                      BEGIN(params);
                   } else {
                       qgzlval = (long)strdup(yytext); 
                       ((char*)(long)qgzlval)[yyleng] = 0;
@@ -116,31 +151,90 @@ define\:        { define_created = 0; BEGIN(define_head);   }
                 }
 <code>.         { return (int) yytext[0]; }
 
-
-.               
+.
 
 
 %%
+
+
+void   init_scanner(){
+    if( symt ){
+        symtable_free( symt );
+        symt = NULL;
+    }
+    define_created = 0;
+    parmcount = 0;
+    sp_buffer = 0;
+   
+}
 
 void   change_to_code_mode(){
     BEGIN(code);
 }
 
 int    defined( char* d ){
-    return  0;
-}
-
-void   inicializar_defines(){
-    if( defines ) {
-        free( defines );
-    }
+    if( !symt ) return 0;
+    return  symtable_search( symt, d );
 }
 
 
 void   create_define( char* d ){
     define_created = 1;    
+    defactual     = strdup( d );
+    define_body   = ALLOC( 1024 );
+    define_body[0] = 0;
+    define_bodyc  = 0;
+    parmcount     = 0;
 }
 
-void   add_parameter_to_def( char* p ){
-
+int    add_parameter_to_def( char* p ){
+    defparms[parmcount++] = strdup( p );   
+    if( parmcount >= MAXPARMS ){ 
+        qgzerror( "Se alcanzo el maximo de parametros admitidos" );
+        return 0;
+    }
+    return 1;
 }
+
+
+void   generate_define( ){
+    int i;
+    if( !symt ) symt = symtable_init( );
+    define_body[define_bodyc] = 0;
+    symtable_adddef( symt, defactual    , parmcount, defparms, define_body );
+    free( define_body );
+    free( defactual );
+    for( i = 0 ; i < parmcount; i ++ ){ free( defparms[i] ); }
+}
+
+
+int    switch_to_define( ){
+    if( !symt ){
+        qgzerror( "Error resolviendo symt" );
+        return 0;
+    }
+
+    if( sp_buffer + 1 >= MAXBUFFSTACK ){
+        qgzerror( "Maximo alcanzado en stack buffer de defines" );
+        return 0;
+    }
+
+    char*  data; 
+    int i;
+    if (!symtable_resolve( symt, defactual, parmcount, defparms, &data ) ){
+        qgzerror( "Error resolviendo define" );
+        return 0;
+    }
+
+    for( i = 0; i < parmcount ; i ++ ){
+        free( defparms[i] );
+    }
+    free( defactual );
+
+       
+    // buffers[sp_buffer] = yybuffer
+    qgzerror( "No implementado switch to define" );
+    return 0;
+    
+}
+

@@ -85,6 +85,14 @@ int        symtable_adddef( symtable* sym, char* name, int argc, char** argv, ch
     return 1;
 }
 
+int        symtable_exists( symtable* sym, char* name ){
+    return   symtable_search( sym, name ) ? 1 : 0;
+}
+int        symtable_argc  ( symtable* sym, char* name ){
+    symdef* sd =  symtable_search( sym, name );
+    if( !sd ) return -1;
+    return  sd->argc;
+}
 
 int        symtable_resolve( symtable* sym, char* name, int argc, char** argv, char** result ){
 

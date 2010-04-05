@@ -61,7 +61,7 @@ libpgn_parser_a_OBJECTS = $(am_libpgn_parser_a_OBJECTS)
 libqgames_parser_a_AR = $(AR) $(ARFLAGS)
 libqgames_parser_a_LIBADD =
 am_libqgames_parser_a_OBJECTS = qgames_parser.$(OBJEXT) \
-	qgames_scanner.$(OBJEXT)
+	qgames_scanner.$(OBJEXT) symtable.$(OBJEXT)
 libqgames_parser_a_OBJECTS = $(am_libqgames_parser_a_OBJECTS)
 am_test_pgn_OBJECTS = test-pgn.$(OBJEXT)
 test_pgn_OBJECTS = $(am_test_pgn_OBJECTS)
@@ -211,7 +211,7 @@ target_alias = @target_alias@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 lib_LIBRARIES = libqgames-parser.a libpgn-parser.a
-libqgames_parser_a_SOURCES = qgames_parser.y qgames_parser.h qgames_scanner.h qgames_scanner.l
+libqgames_parser_a_SOURCES = qgames_parser.y qgames_parser.h qgames_scanner.h qgames_scanner.l symtable.c
 libpgn_parser_a_SOURCES = pgn_scanner.l
 AM_YFLAGS = -d -v -p qgz
 AM_LFLAGS = --prefix qgz -o lex.yy.c

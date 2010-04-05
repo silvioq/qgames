@@ -319,8 +319,8 @@ instruction_direction:
 
 instruction_drop_prelude:
     TOK_DROP   |
-    TOK_DROP   word_or_string  |
-    TOK_DROP   word_or_string  word_or_string  ;
+    TOK_DROP   word_or_string { NOT_IMPLEMENTED; } |
+    TOK_DROP   word_or_string  word_or_string { NOT_IMPLEMENTED; } ;
 
 instruction_drop:
     instruction_drop_prelude  TOK_SEPARATOR { 
@@ -334,8 +334,8 @@ instruction_drop:
 
 
 instruction_move_prelude:
-    TOK_MOVE                   { NOT_IMPLEMENTED  } |
-    TOK_MOVE   word_or_string  { NOT_IMPLEMENTED  } ;
+    TOK_MOVE                    |
+    TOK_MOVE   word_or_string  { NOT_IMPLEMENTED; } ;
 
 
 instruction_move:
@@ -522,7 +522,7 @@ int   qgz_parse( FILE* f, char* filename, int flags ){
     }
 
     tipojuego = NULL;
-    inicializar_defines();
+    init_scanner();
 
     if( qgzparse() ){
         puts( "Salimos por error!" );

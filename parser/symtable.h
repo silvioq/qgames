@@ -16,6 +16,9 @@ int        symtable_addsym( symtable* sym, char* name );
 int        symtable_adddef( symtable* sym, char* name, int argc, char** argv, char* def );
 int        symtable_delsym( symtable* sym, char* name );
 
+int        symtable_exists( symtable* sym, char* name );
+int        symtable_argc  ( symtable* sym, char* name );
+
 int        symtable_resolve( symtable* sym, char* name, int argc, char** argv, char** result );
 
 
