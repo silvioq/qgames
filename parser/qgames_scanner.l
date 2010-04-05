@@ -6,8 +6,16 @@
 
 void   create_define( char* d );
 void   add_parameter_to_def( char* p );
+int    defined( char* d );
 int    define_created;
 int    define_head;
+
+_list*  defines = NULL;
+typedef  struct {
+    char*   name;
+    char*   def ;
+    char**  params;
+}  define_def;
 
 %}
 
@@ -84,7 +92,7 @@ define\:        { define_created = 0; BEGIN(define_head);   }
                   return TOK_NUMBER;
                 }
 
-<INITIAL,code>{WORD}  { 
+<INITIAL>{WORD} { 
                   qgzlval = (long)strdup(yytext); 
                   ((char*)(long)qgzlval)[yyleng] = 0;
                   return  TOK_WORD; 
@@ -98,7 +106,16 @@ define\:        { define_created = 0; BEGIN(define_head);   }
 
 <code>\n        { return  TOK_SEPCODE; }
 <code>\;        { return  TOK_SEPCODE; }
+<code>{WORD}    {
+                  if( defined( yytext ) ){
+                  } else {
+                      qgzlval = (long)strdup(yytext); 
+                      ((char*)(long)qgzlval)[yyleng] = 0;
+                      return  TOK_WORD; 
+                  }
+                }
 <code>.         { return (int) yytext[0]; }
+
 
 .               
 
@@ -107,6 +124,16 @@ define\:        { define_created = 0; BEGIN(define_head);   }
 
 void   change_to_code_mode(){
     BEGIN(code);
+}
+
+int    defined( char* d ){
+    return  0;
+}
+
+void   inicializar_defines(){
+    if( defines ) {
+        free( defines );
+    }
 }
 
 

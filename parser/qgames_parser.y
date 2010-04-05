@@ -522,6 +522,7 @@ int   qgz_parse( FILE* f, char* filename, int flags ){
     }
 
     tipojuego = NULL;
+    inicializar_defines();
 
     if( qgzparse() ){
         puts( "Salimos por error!" );

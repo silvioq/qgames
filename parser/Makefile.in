@@ -32,7 +32,7 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
-check_PROGRAMS = test-pgn$(EXEEXT)
+check_PROGRAMS = test-pgn$(EXEEXT) test-symtable$(EXEEXT)
 subdir = parser
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in \
 	libpgn_parser_a-pgn_scanner.c qgames_parser.c qgames_parser.h \
@@ -65,6 +65,10 @@ am_libqgames_parser_a_OBJECTS = qgames_parser.$(OBJEXT) \
 libqgames_parser_a_OBJECTS = $(am_libqgames_parser_a_OBJECTS)
 am_test_pgn_OBJECTS = test-pgn.$(OBJEXT)
 test_pgn_OBJECTS = $(am_test_pgn_OBJECTS)
+am_test_symtable_OBJECTS = test-symtable.$(OBJEXT) symtable.$(OBJEXT) \
+	list.$(OBJEXT)
+test_symtable_OBJECTS = $(am_test_symtable_OBJECTS)
+test_symtable_LDADD = $(LDADD)
 DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__depfiles_maybe = depfiles
@@ -85,9 +89,10 @@ YACCCOMPILE = $(YACC) $(YFLAGS) $(AM_YFLAGS)
 LTYACCCOMPILE = $(LIBTOOL) $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
 	--mode=compile $(YACC) $(YFLAGS) $(AM_YFLAGS)
 SOURCES = $(libpgn_parser_a_SOURCES) $(libqgames_parser_a_SOURCES) \
-	$(test_pgn_SOURCES)
+	$(test_pgn_SOURCES) $(test_symtable_SOURCES)
 DIST_SOURCES = $(libpgn_parser_a_SOURCES) \
-	$(libqgames_parser_a_SOURCES) $(test_pgn_SOURCES)
+	$(libqgames_parser_a_SOURCES) $(test_pgn_SOURCES) \
+	$(test_symtable_SOURCES)
 ETAGS = etags
 CTAGS = ctags
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
@@ -215,6 +220,7 @@ libpgn_parser_a_LFLAGS = --prefix pgn -o lex.yy.c
 test_pgn_SOURCES = test-pgn.c
 test_pgn_DEPENDENCIES = $(srcdir)/libpgn-parser.a
 test_pgn_LDADD = $(srcdir)/libpgn-parser.a
+test_symtable_SOURCES = test-symtable.c symtable.c symtable.h ../common/list.c
 TESTS = $(check_PROGRAMS)
 all: all-am
 
@@ -301,6 +307,9 @@ clean-checkPROGRAMS:
 test-pgn$(EXEEXT): $(test_pgn_OBJECTS) $(test_pgn_DEPENDENCIES) 
 	@rm -f test-pgn$(EXEEXT)
 	$(LINK) $(test_pgn_OBJECTS) $(test_pgn_LDADD) $(LIBS)
+test-symtable$(EXEEXT): $(test_symtable_OBJECTS) $(test_symtable_DEPENDENCIES) 
+	@rm -f test-symtable$(EXEEXT)
+	$(LINK) $(test_symtable_OBJECTS) $(test_symtable_LDADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
@@ -309,9 +318,12 @@ distclean-compile:
 	-rm -f *.tab.c
 
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libpgn_parser_a-pgn_scanner.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/list.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/qgames_parser.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/qgames_scanner.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/symtable.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-pgn.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-symtable.Po@am__quote@
 
 .c.o:
 @am__fastdepCC_TRUE@	$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
@@ -333,6 +345,20 @@ distclean-compile:
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='$<' object='$@' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(LTCOMPILE) -c -o $@ $<
+
+list.o: ../common/list.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT list.o -MD -MP -MF $(DEPDIR)/list.Tpo -c -o list.o `test -f '../common/list.c' || echo '$(srcdir)/'`../common/list.c
+@am__fastdepCC_TRUE@	mv -f $(DEPDIR)/list.Tpo $(DEPDIR)/list.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='../common/list.c' object='list.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o list.o `test -f '../common/list.c' || echo '$(srcdir)/'`../common/list.c
+
+list.obj: ../common/list.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT list.obj -MD -MP -MF $(DEPDIR)/list.Tpo -c -o list.obj `if test -f '../common/list.c'; then $(CYGPATH_W) '../common/list.c'; else $(CYGPATH_W) '$(srcdir)/../common/list.c'; fi`
+@am__fastdepCC_TRUE@	mv -f $(DEPDIR)/list.Tpo $(DEPDIR)/list.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='../common/list.c' object='list.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o list.obj `if test -f '../common/list.c'; then $(CYGPATH_W) '../common/list.c'; else $(CYGPATH_W) '$(srcdir)/../common/list.c'; fi`
 
 .l.c:
 	$(am__skiplex) $(SHELL) $(YLWRAP) $< $(LEX_OUTPUT_ROOT).c $@ -- $(LEXCOMPILE)
