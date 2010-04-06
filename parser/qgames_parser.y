@@ -102,6 +102,7 @@ void  qgzprintf( char* format, ... ){
 %token    TOK_AND       TOK_OR          TOK_NOT
 %token    TOK_EMPATA    TOK_EMPATA_SI
 %token    TOK_ENTABLERO
+%token    TOK_ENZONA   
 %token    TOK_GANA      TOK_GANA_SI
 %token    TOK_JUEGA     TOK_JUEGA_SI
 %token    TOK_IF
@@ -150,6 +151,12 @@ instexpr_entablero:
             tipojuego_code_entablero( tipojuego );
     };
 
+instexpr_enzona:
+    TOK_ENZONA   word_or_string {
+            CHECK_TIPOJUEGO;
+            tipojuego_code_enzona( tipojuego, (char*)$2 );
+    };
+
 instexpr_ocupado:
     TOK_OCUPADO         {
         CHECK_TIPOJUEGO;
@@ -185,6 +192,7 @@ instexpr:
     instexpr TOK_AND instexpr  { NOT_IMPLEMENTED; } |
     instexpr TOK_OR  instexpr  { NOT_IMPLEMENTED; } |
     instexpr_entablero |
+    instexpr_enzona  |
     instexpr_ocupado |
     instexpr_ahogado |
     TOK_WORD        {    

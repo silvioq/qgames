@@ -163,6 +163,15 @@ void        tipojuego_code_ahogado( Tipojuego* tj, char* color ){
     // RET_IF_STATUS;                              // Retorna si el valor es distinto de cero
 }
 
+void        tipojuego_code_enzona ( Tipojuego* tj, char* zona ){
+    int  za;
+    za = GETZONA(tj, zona);
+    qcode_op( tj->qcode, QCSTI, 16, za );       // t16 = za
+    qcode_op( tj->qcode, QCPSH, 16, 0 );        // PSH t16
+    qcode_op( tj->qcode, QCPSH,  3, 0 );        // PSH r3
+    qcode_opnlab( tj->qcode, QCCLX, "enzona" );
+    
+}
 
 void        tipojuego_code_entablero( Tipojuego* tj ){
     qcode_op( tj->qcode, QCPSH,  3, 0 );        // PSH r3

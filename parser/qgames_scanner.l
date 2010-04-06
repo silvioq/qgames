@@ -108,6 +108,7 @@ define\:        { define_created = 0; BEGIN(define_head);   }
 <code>empata              { return TOK_EMPATA;    }
 <code>empata\-si          { return TOK_EMPATA_SI; }
 <code>en(\-|\_)tablero\?? { return TOK_ENTABLERO;   }
+<code>en(\-|\_)zona\??    { return TOK_ENZONA;    }
 <code>end                 { return TOK_END;       }
 <code>gana                { return TOK_GANA;      }
 <code>gana\-si            { return TOK_GANA_SI;   }
@@ -117,6 +118,8 @@ define\:        { define_created = 0; BEGIN(define_head);   }
 <code>ocupado\??          { return TOK_OCUPADO;   }
 <code>ocupado\_enemigo\?? { return TOK_OCUPADOENEMIGO;   }
 <code>ocupado\_propio\??  { return TOK_OCUPADOPROPIO;   }
+<code>ocupado\-enemigo\?? { return TOK_OCUPADOENEMIGO;   }
+<code>ocupado\-propio\??  { return TOK_OCUPADOPROPIO;   }
 <code>parar?              { return  TOK_PARA;        }
 <code>parar?\-si          { return  TOK_PARA_SI;     }
 <code>pierde              { return  TOK_PIERDE;      }

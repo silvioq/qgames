@@ -87,6 +87,11 @@ long  code_wrapper_entablero( QCodeVM* vm ){
     return (long)analizador_entablero( z );
 }
 
+long  code_wrapper_enzona( QCodeVM* vm ){
+    Analizador* z = (Analizador*)qcode_pop( vm );
+    int    zon = qcode_pop( vm );
+    return (long)analizador_enzona( z, zon, PROPIO );
+}
 
 long  code_wrapper_final( QCodeVM* vm ){
     Analizador* z = (Analizador*)qcode_pop( vm );
@@ -118,6 +123,7 @@ void  code_initialize( QCode** qcode ){
     qcode_xcrlab( q, "direccion", (qcode_extfunc)code_wrapper_direccion );
     qcode_xcrlab( q, "ahogado"  , (qcode_extfunc)code_wrapper_ahogado );
     qcode_xcrlab( q, "entablero", (qcode_extfunc)code_wrapper_entablero );
+    qcode_xcrlab( q, "enzona",    (qcode_extfunc)code_wrapper_enzona );
     qcode_xcrlab( q, "final"    , (qcode_extfunc)code_wrapper_final );
     qcode_xcrlab( q, "dump"     , (qcode_extfunc)code_wrapper_dump );
 

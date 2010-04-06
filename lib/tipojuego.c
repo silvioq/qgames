@@ -66,6 +66,16 @@ void    tipojuego_genera_vinculos( Tipojuego* tj, Direccion* dir ){
 }
 
 
+int         tipojuego_casillero_en_zona( Tipojuego* tj, Casillero* cas, int zona, int color ){
+    int i;
+    if( !tj->defzonas ) return 0;
+    for( i = 0; i < tj->defzonas->entradas; i ++ ){
+        Zonadef*  zonadef = tj->defzonas->data[i];
+        if( zonadef->zona == zona && zonadef->color == color && zonadef->cas == cas ) return 1;
+    }
+    return 0;
+}
+
 /*
  *
  * Devuelve el nombre del color pasado como parametro,

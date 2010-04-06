@@ -110,6 +110,23 @@ int    analizador_entablero( Analizador* z ){
     return( CASILLERO_VALIDO(z->cas) );
 }
 
+/*
+ * Esta funcion revisa si en la zona especificada, se encuentra alguna pieza
+ * del color pasado como parametro.
+ * color: Dueño. Puede ser ENEMIGO, PROPIO, CUALQUIERA o un color
+ * */
+int    analizador_enzona( Analizador* z, int zona, int color ){
+    CHECK_STATUS;
+    int  i;
+    for( i = 0; z->pos->piezas->entradas; i ++ ){
+        Pieza* ppp = (Pieza*)z->pos->piezas->data[i];
+        if( !CASILLERO_VALIDO(ppp->casillero ) ) continue;
+        if(  tipojuego_casillero_en_zona( z->pos->tjuego, ppp->casillero, zona, ( color == PROPIO ? color : z->color ) ) ) return 1;
+    }
+    return 0;
+}
+
+
 int    analizador_juega  ( Analizador* z, Casillero* cas, int con_captura ){
     CHECK_STATUS ;
     if( !z->movidas ) z->movidas = list_nueva( NULL );

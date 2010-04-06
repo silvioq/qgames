@@ -150,6 +150,8 @@ Casillero*  tipojuego_get_casillero_by_relpos( Tipojuego* tj, int tablero, int d
 char*       tipojuego_get_colorname( Tipojuego* tj, int color );
 int         tipojuego_get_coloroponente( Tipojuego* tj, int color );
 
+int         tipojuego_casillero_en_zona( Tipojuego* tj, Casillero* cas, int zona, int color );
+
 /* Funciones de manejo de tablero */
 Tablero*   tablero_new( Tipojuego* tj, int numero );
 void       tablero_genera_dimensiones( Tablero* tab, int dimc, char** dimv );
