@@ -99,7 +99,9 @@ void  qgzprintf( char* format, ... ){
 %token    TOK_SEPCODE
 
 %token    TOK_AHOGADO
+%token    TOK_AND       TOK_OR          TOK_NOT
 %token    TOK_EMPATA    TOK_EMPATA_SI
+%token    TOK_ENTABLERO
 %token    TOK_GANA      TOK_GANA_SI
 %token    TOK_JUEGA     TOK_JUEGA_SI
 %token    TOK_IF
@@ -108,6 +110,8 @@ void  qgzprintf( char* format, ... ){
 %token    TOK_OCUPADOPROPIO
 %token    TOK_PARA      TOK_PARA_SI
 %token    TOK_PIERDE    TOK_PIERDE_SI
+
+%token    TOK_WHILE     TOK_DO   TOK_END
 
 
 %start    game_definition
@@ -140,6 +144,12 @@ instexpr_ahogado:
             tipojuego_code_ahogado( tipojuego, (char*)$2 );
     };
 
+instexpr_entablero:
+    TOK_ENTABLERO {
+            CHECK_TIPOJUEGO;
+            tipojuego_code_entablero( tipojuego );
+    };
+
 instexpr_ocupado:
     TOK_OCUPADO         {
         CHECK_TIPOJUEGO;
@@ -167,13 +177,34 @@ instexpr_ocupado:
     };
 
 instexpr:
-    '!' instexpr    {
+    TOK_NOT   instexpr    {
                 CHECK_TIPOJUEGO;
                 tipojuego_code_op_not( tipojuego );
     } |
     '(' instexpr ')' |
+    instexpr TOK_AND instexpr  { NOT_IMPLEMENTED; } |
+    instexpr TOK_OR  instexpr  { NOT_IMPLEMENTED; } |
+    instexpr_entablero |
     instexpr_ocupado |
-    instexpr_ahogado ;
+    instexpr_ahogado |
+    TOK_WORD        {    
+            int  algo;
+            CHECK_TIPOJUEGO;
+            /* una direccion podria ser */
+            algo = tipojuego_get_direccion( tipojuego, (char*)$1 );
+            if( algo != NOT_FOUND ){
+                qgzprintf( "Direccion %s no esperada", (char*)$1 );
+            } else {
+                algo = tipojuego_get_casillero( tipojuego, (char*)$1 );
+                if( algo != NOT_FOUND ){
+                    qgzprintf( "Casillero %s no esperado", (char*)$1 );
+                } else {
+                    qgzprintf( "%s no es nada", (char*)$1 );
+                    yyerror( "Comando no reconocido" );
+                    YYERROR;
+                }
+            }
+    };
 
 /* --------------------------------------------------------------------------- */
 instaction_final:
@@ -233,14 +264,33 @@ instaction_para:
             tipojuego_code_end_condblock( tipojuego );
     };
 
+/* ------------------------------------------------------ */
+/* Instrucciones de control de flujo del programa         */
+/* ------------------------------------------------------ */
+instaction_while:
+    TOK_WHILE  {
+            CHECK_TIPOJUEGO;
+            tipojuego_code_start_block( tipojuego );
+    } instexpr TOK_DO {
+            tipojuego_code_start_condblock( tipojuego );
+    }  code_list TOK_END {
+            tipojuego_code_else_condblock( tipojuego );
+            tipojuego_code_break_block( tipojuego );
+            tipojuego_code_end_condblock( tipojuego );
+            tipojuego_code_end_block( tipojuego );
+    }
+    
+
 instaction:
     instaction_juega |
     instaction_final |
     instaction_para  |
+    instaction_while |
     TOK_WORD    {   
             int  algo;
             CHECK_TIPOJUEGO;
             /* una direccion podria ser */
+            // qgzprintf( "Reconociendo %s", (char*)$1 );
             algo = tipojuego_get_direccion( tipojuego, (char*)$1 );
             if( algo != NOT_FOUND ){
                 tipojuego_code_direccion( tipojuego, (char*)$1 );

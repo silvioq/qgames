@@ -61,6 +61,12 @@ long    pop_label_stack( ){
     return  label;
 }
 
+long    get_label_stack( ){
+    assert( label_stack_point > 0 );
+    long label = label_stack_data[label_stack_point-1];
+    return  label;
+}
+
 
 
 /*
@@ -84,10 +90,39 @@ void        tipojuego_code_start_condblock( Tipojuego* tj ){
     qcode_oplab( tj->qcode, QCJPZ, label );
 }
 
+void        tipojuego_code_else_condblock( Tipojuego* tj ){
+    long  label = pop_label_stack( );                          // esta tiene el final de la condicion positiva
+    long  label_end = qcode_crlab( tj->qcode, unnamed_label ); // Esta tiene el final del bloque
+    qcode_oplab( tj->qcode, QCJMP, label_end );                // Lo primero que hago es mandar el PC al final del bloque
+    qcode_label( tj->qcode, label );                           // Aca va a caer el PC cuando la condicion de negativa.
+}
+
 void        tipojuego_code_end_condblock( Tipojuego* tj ){
+    tipojuego_code_end_block(tj);
+}
+
+/*
+ * Esta funcion abre un bloque de codigo, del cual se 
+ * puede salir en cualquier momento!
+ * */
+void        tipojuego_code_start_block( Tipojuego* tj ){
+    long  label = qcode_crlab( tj->qcode, unnamed_label );
+    push_label_stack( label );
+}
+/*
+ * Este es el final del bloque
+ * */
+void        tipojuego_code_end_block( Tipojuego* tj ){
     long  label = pop_label_stack( );
     qcode_label( tj->qcode, label );
 }
+
+void        tipojuego_code_break_block( Tipojuego* tj ){
+    long  label = get_label_stack( );
+    qcode_oplab( tj->qcode, QCJMP, label );
+}
+
+void        tipojuego_code_continue_block( Tipojuego* tj );
 
 void        tipojuego_code_ocupado( Tipojuego* tj, char* casillero, int owner, char* color ){
     int  own = CUALQUIERA;
@@ -124,6 +159,14 @@ void        tipojuego_code_ahogado( Tipojuego* tj, char* color ){
     qcode_op( tj->qcode, QCPSH, 16, 0 );        // PSH t16
     qcode_op( tj->qcode, QCPSH,  3, 0 );        // PSH r3
     qcode_opnlab( tj->qcode, QCCLX, "ahogado" );
+    // FIXME: Hay que controlar posibles estados erroneos
+    // RET_IF_STATUS;                              // Retorna si el valor es distinto de cero
+}
+
+
+void        tipojuego_code_entablero( Tipojuego* tj ){
+    qcode_op( tj->qcode, QCPSH,  3, 0 );        // PSH r3
+    qcode_opnlab( tj->qcode, QCCLX, "entablero" );
     // FIXME: Hay que controlar posibles estados erroneos
     // RET_IF_STATUS;                              // Retorna si el valor es distinto de cero
 }

@@ -95,20 +95,27 @@
      TOK_ZONE = 276,
      TOK_SEPCODE = 277,
      TOK_AHOGADO = 278,
-     TOK_EMPATA = 279,
-     TOK_EMPATA_SI = 280,
-     TOK_GANA = 281,
-     TOK_GANA_SI = 282,
-     TOK_JUEGA = 283,
-     TOK_JUEGA_SI = 284,
-     TOK_IF = 285,
-     TOK_OCUPADO = 286,
-     TOK_OCUPADOENEMIGO = 287,
-     TOK_OCUPADOPROPIO = 288,
-     TOK_PARA = 289,
-     TOK_PARA_SI = 290,
-     TOK_PIERDE = 291,
-     TOK_PIERDE_SI = 292
+     TOK_AND = 279,
+     TOK_OR = 280,
+     TOK_NOT = 281,
+     TOK_EMPATA = 282,
+     TOK_EMPATA_SI = 283,
+     TOK_ENTABLERO = 284,
+     TOK_GANA = 285,
+     TOK_GANA_SI = 286,
+     TOK_JUEGA = 287,
+     TOK_JUEGA_SI = 288,
+     TOK_IF = 289,
+     TOK_OCUPADO = 290,
+     TOK_OCUPADOENEMIGO = 291,
+     TOK_OCUPADOPROPIO = 292,
+     TOK_PARA = 293,
+     TOK_PARA_SI = 294,
+     TOK_PIERDE = 295,
+     TOK_PIERDE_SI = 296,
+     TOK_WHILE = 297,
+     TOK_DO = 298,
+     TOK_END = 299
    };
 #endif
 /* Tokens.  */
@@ -133,20 +140,27 @@
 #define TOK_ZONE 276
 #define TOK_SEPCODE 277
 #define TOK_AHOGADO 278
-#define TOK_EMPATA 279
-#define TOK_EMPATA_SI 280
-#define TOK_GANA 281
-#define TOK_GANA_SI 282
-#define TOK_JUEGA 283
-#define TOK_JUEGA_SI 284
-#define TOK_IF 285
-#define TOK_OCUPADO 286
-#define TOK_OCUPADOENEMIGO 287
-#define TOK_OCUPADOPROPIO 288
-#define TOK_PARA 289
-#define TOK_PARA_SI 290
-#define TOK_PIERDE 291
-#define TOK_PIERDE_SI 292
+#define TOK_AND 279
+#define TOK_OR 280
+#define TOK_NOT 281
+#define TOK_EMPATA 282
+#define TOK_EMPATA_SI 283
+#define TOK_ENTABLERO 284
+#define TOK_GANA 285
+#define TOK_GANA_SI 286
+#define TOK_JUEGA 287
+#define TOK_JUEGA_SI 288
+#define TOK_IF 289
+#define TOK_OCUPADO 290
+#define TOK_OCUPADOENEMIGO 291
+#define TOK_OCUPADOPROPIO 292
+#define TOK_PARA 293
+#define TOK_PARA_SI 294
+#define TOK_PIERDE 295
+#define TOK_PIERDE_SI 296
+#define TOK_WHILE 297
+#define TOK_DO 298
+#define TOK_END 299
 
 
 
@@ -262,7 +276,7 @@ typedef int YYSTYPE;
 
 
 /* Line 216 of yacc.c.  */
-#line 266 "qgames_parser.c"
+#line 280 "qgames_parser.c"
 
 #ifdef short
 # undef short
@@ -477,20 +491,20 @@ union yyalloc
 /* YYFINAL -- State number of the termination state.  */
 #define YYFINAL  55
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   112
+#define YYLAST   138
 
 /* YYNTOKENS -- Number of terminals.  */
-#define YYNTOKENS  41
+#define YYNTOKENS  47
 /* YYNNTS -- Number of nonterminals.  */
-#define YYNNTS  42
+#define YYNNTS  46
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  85
+#define YYNRULES  94
 /* YYNRULES -- Number of states.  */
-#define YYNSTATES  120
+#define YYNSTATES  135
 
 /* YYTRANSLATE(YYLEX) -- Bison symbol number corresponding to YYLEX.  */
 #define YYUNDEFTOK  2
-#define YYMAXUTOK   292
+#define YYMAXUTOK   299
 
 #define YYTRANSLATE(YYX)						\
   ((unsigned int) (YYX) <= YYMAXUTOK ? yytranslate[YYX] : YYUNDEFTOK)
@@ -501,8 +515,8 @@ static const yytype_uint8 yytranslate[] =
        0,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,    38,     2,     2,     2,     2,     2,     2,
-      39,    40,     2,     2,     2,     2,     2,     2,     2,     2,
+       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+      45,    46,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
@@ -527,7 +541,7 @@ static const yytype_uint8 yytranslate[] =
        5,     6,     7,     8,     9,    10,    11,    12,    13,    14,
       15,    16,    17,    18,    19,    20,    21,    22,    23,    24,
       25,    26,    27,    28,    29,    30,    31,    32,    33,    34,
-      35,    36,    37
+      35,    36,    37,    38,    39,    40,    41,    42,    43,    44
 };
 
 #if YYDEBUG
@@ -536,55 +550,60 @@ static const yytype_uint8 yytranslate[] =
 static const yytype_uint8 yyprhs[] =
 {
        0,     0,     3,     5,     7,     9,    12,    14,    17,    19,
-      22,    24,    26,    28,    31,    34,    38,    40,    42,    44,
-      47,    49,    52,    54,    57,    58,    60,    63,    65,    68,
-      70,    72,    74,    76,    78,    79,    81,    85,    89,    90,
-      94,    95,    99,   100,   105,   107,   110,   114,   115,   120,
-     122,   125,   126,   131,   132,   137,   140,   143,   146,   151,
-     152,   158,   160,   163,   164,   170,   175,   176,   182,   184,
-     186,   188,   190,   192,   194,   196,   198,   200,   202,   204,
-     206,   208,   210,   211,   213,   217
+      22,    24,    26,    28,    30,    33,    36,    40,    44,    48,
+      50,    52,    54,    56,    58,    61,    63,    66,    68,    71,
+      72,    74,    77,    79,    82,    83,    84,    92,    94,    96,
+      98,   100,   102,   104,   105,   107,   111,   115,   116,   120,
+     121,   125,   126,   131,   133,   136,   140,   141,   146,   148,
+     151,   152,   157,   158,   163,   166,   169,   172,   177,   178,
+     184,   186,   189,   190,   196,   201,   202,   208,   210,   212,
+     214,   216,   218,   220,   222,   224,   226,   228,   230,   232,
+     234,   236,   237,   239,   243
 };
 
 /* YYRHS -- A `-1'-separated list of the rules' RHS.  */
 static const yytype_int8 yyrhs[] =
 {
-      82,     0,    -1,     4,    -1,     5,    -1,    42,    -1,    43,
-      42,    -1,     3,    -1,    44,     3,    -1,    23,    -1,    23,
-      42,    -1,    31,    -1,    33,    -1,    32,    -1,    31,    42,
-      -1,    38,    47,    -1,    39,    47,    40,    -1,    46,    -1,
-      45,    -1,    24,    -1,    25,    47,    -1,    26,    -1,    27,
-      47,    -1,    36,    -1,    37,    47,    -1,    -1,    28,    -1,
-      29,    47,    -1,    34,    -1,    35,    47,    -1,    49,    -1,
-      48,    -1,    50,    -1,     4,    -1,    51,    -1,    -1,    52,
-      -1,    53,    22,    52,    -1,     7,    42,    42,    -1,    -1,
-       8,    56,    43,    -1,    -1,     9,    58,    43,    -1,    -1,
-      10,    42,    60,    44,    -1,    11,    -1,    11,    42,    -1,
-      11,    42,    42,    -1,    -1,    61,     6,    63,    53,    -1,
-      15,    -1,    15,    42,    -1,    -1,    64,     6,    66,    53,
-      -1,    -1,    12,     6,    68,    53,    -1,    14,    42,    -1,
-      16,    42,    -1,    13,    42,    -1,    19,    42,    42,     3,
-      -1,    -1,    19,    42,    42,    73,    43,    -1,    43,    -1,
-      18,    74,    -1,    -1,    18,    74,    17,    76,    74,    -1,
-      20,    42,    42,    42,    -1,    -1,    21,    42,    42,    79,
-      43,    -1,    54,    -1,    55,    -1,    57,    -1,    59,    -1,
-      62,    -1,    67,    -1,    69,    -1,    65,    -1,    70,    -1,
-      71,    -1,    75,    -1,    72,    -1,    77,    -1,    78,    -1,
-      -1,    80,    -1,    81,     6,    80,    -1,    81,    -1
+      92,     0,    -1,     4,    -1,     5,    -1,    48,    -1,    49,
+      48,    -1,     3,    -1,    50,     3,    -1,    23,    -1,    23,
+      48,    -1,    29,    -1,    35,    -1,    37,    -1,    36,    -1,
+      35,    48,    -1,    26,    54,    -1,    45,    54,    46,    -1,
+      54,    24,    54,    -1,    54,    25,    54,    -1,    52,    -1,
+      53,    -1,    51,    -1,     4,    -1,    27,    -1,    28,    54,
+      -1,    30,    -1,    31,    54,    -1,    40,    -1,    41,    54,
+      -1,    -1,    32,    -1,    33,    54,    -1,    38,    -1,    39,
+      54,    -1,    -1,    -1,    42,    59,    54,    43,    60,    63,
+      44,    -1,    56,    -1,    55,    -1,    57,    -1,    58,    -1,
+       4,    -1,    61,    -1,    -1,    62,    -1,    63,    22,    62,
+      -1,     7,    48,    48,    -1,    -1,     8,    66,    49,    -1,
+      -1,     9,    68,    49,    -1,    -1,    10,    48,    70,    50,
+      -1,    11,    -1,    11,    48,    -1,    11,    48,    48,    -1,
+      -1,    71,     6,    73,    63,    -1,    15,    -1,    15,    48,
+      -1,    -1,    74,     6,    76,    63,    -1,    -1,    12,     6,
+      78,    63,    -1,    14,    48,    -1,    16,    48,    -1,    13,
+      48,    -1,    19,    48,    48,     3,    -1,    -1,    19,    48,
+      48,    83,    49,    -1,    49,    -1,    18,    84,    -1,    -1,
+      18,    84,    17,    86,    84,    -1,    20,    48,    48,    48,
+      -1,    -1,    21,    48,    48,    89,    49,    -1,    64,    -1,
+      65,    -1,    67,    -1,    69,    -1,    72,    -1,    77,    -1,
+      79,    -1,    75,    -1,    80,    -1,    81,    -1,    85,    -1,
+      82,    -1,    87,    -1,    88,    -1,    -1,    90,    -1,    91,
+       6,    90,    -1,    91,    -1
 };
 
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint16 yyrline[] =
 {
-       0,   117,   117,   118,   122,   123,   126,   127,   134,   138,
-     144,   148,   152,   156,   170,   174,   175,   176,   180,   184,
-     190,   194,   200,   204,   209,   212,   216,   225,   229,   237,
-     238,   239,   240,   262,   263,   267,   268,   280,   298,   298,
-     310,   310,   320,   320,   331,   332,   333,   336,   336,   347,
-     348,   352,   352,   362,   362,   371,   381,   387,   395,   402,
-     402,   411,   431,   432,   432,   439,   445,   445,   463,   464,
-     465,   466,   467,   468,   469,   470,   471,   472,   473,   474,
-     475,   476,   476,   483,   484,   488
+       0,   121,   121,   122,   126,   127,   130,   131,   138,   142,
+     148,   154,   158,   162,   166,   180,   184,   185,   186,   187,
+     188,   189,   190,   211,   215,   221,   225,   231,   235,   240,
+     243,   247,   256,   260,   271,   274,   271,   285,   286,   287,
+     288,   289,   312,   313,   317,   318,   330,   348,   348,   360,
+     360,   370,   370,   381,   382,   383,   386,   386,   397,   398,
+     402,   402,   412,   412,   421,   431,   437,   445,   452,   452,
+     461,   481,   482,   482,   489,   495,   495,   513,   514,   515,
+     516,   517,   518,   519,   520,   521,   522,   523,   524,   525,
+     526,   526,   533,   534,   538
 };
 #endif
 
@@ -597,21 +616,23 @@ static const char *const yytname[] =
   "TOK_SEPARATOR", "TOK_ATTR", "TOK_BOARD", "TOK_COLOR", "TOK_DIRECTION",
   "TOK_DROP", "TOK_ENDING", "TOK_PIECE", "TOK_GAMETYPE", "TOK_MOVE",
   "TOK_MOVETYPE", "TOK_REPEAT", "TOK_SEQUENCE", "TOK_START",
-  "TOK_SYMMETRY", "TOK_ZONE", "TOK_SEPCODE", "TOK_AHOGADO", "TOK_EMPATA",
-  "TOK_EMPATA_SI", "TOK_GANA", "TOK_GANA_SI", "TOK_JUEGA", "TOK_JUEGA_SI",
-  "TOK_IF", "TOK_OCUPADO", "TOK_OCUPADOENEMIGO", "TOK_OCUPADOPROPIO",
-  "TOK_PARA", "TOK_PARA_SI", "TOK_PIERDE", "TOK_PIERDE_SI", "'!'", "'('",
-  "')'", "$accept", "word_or_string", "word_or_string_list", "number_list",
-  "instexpr_ahogado", "instexpr_ocupado", "instexpr", "instaction_final",
-  "instaction_juega", "instaction_para", "instaction", "instcode",
-  "code_list", "instruction_attr", "instruction_board", "@1",
-  "instruction_color", "@2", "instruction_direction", "@3",
-  "instruction_drop_prelude", "instruction_drop", "@4",
-  "instruction_move_prelude", "instruction_move", "@5",
-  "instruction_ending", "@6", "instruction_gametype",
-  "instruction_movetype", "instruction_piece", "instruction_start", "@7",
-  "instruction_sequence_list", "instruction_sequence", "@8",
-  "instruction_sym", "instruction_zone", "@9", "instruction",
+  "TOK_SYMMETRY", "TOK_ZONE", "TOK_SEPCODE", "TOK_AHOGADO", "TOK_AND",
+  "TOK_OR", "TOK_NOT", "TOK_EMPATA", "TOK_EMPATA_SI", "TOK_ENTABLERO",
+  "TOK_GANA", "TOK_GANA_SI", "TOK_JUEGA", "TOK_JUEGA_SI", "TOK_IF",
+  "TOK_OCUPADO", "TOK_OCUPADOENEMIGO", "TOK_OCUPADOPROPIO", "TOK_PARA",
+  "TOK_PARA_SI", "TOK_PIERDE", "TOK_PIERDE_SI", "TOK_WHILE", "TOK_DO",
+  "TOK_END", "'('", "')'", "$accept", "word_or_string",
+  "word_or_string_list", "number_list", "instexpr_ahogado",
+  "instexpr_entablero", "instexpr_ocupado", "instexpr", "instaction_final",
+  "instaction_juega", "instaction_para", "instaction_while", "@1", "@2",
+  "instaction", "instcode", "code_list", "instruction_attr",
+  "instruction_board", "@3", "instruction_color", "@4",
+  "instruction_direction", "@5", "instruction_drop_prelude",
+  "instruction_drop", "@6", "instruction_move_prelude", "instruction_move",
+  "@7", "instruction_ending", "@8", "instruction_gametype",
+  "instruction_movetype", "instruction_piece", "instruction_start", "@9",
+  "instruction_sequence_list", "instruction_sequence", "@10",
+  "instruction_sym", "instruction_zone", "@11", "instruction",
   "instruction_list", "game_definition", 0
 };
 #endif
@@ -624,37 +645,39 @@ static const yytype_uint16 yytoknum[] =
        0,   256,   257,   258,   259,   260,   261,   262,   263,   264,
      265,   266,   267,   268,   269,   270,   271,   272,   273,   274,
      275,   276,   277,   278,   279,   280,   281,   282,   283,   284,
-     285,   286,   287,   288,   289,   290,   291,   292,    33,    40,
-      41
+     285,   286,   287,   288,   289,   290,   291,   292,   293,   294,
+     295,   296,   297,   298,   299,    40,    41
 };
 # endif
 
 /* YYR1[YYN] -- Symbol number of symbol that rule YYN derives.  */
 static const yytype_uint8 yyr1[] =
 {
-       0,    41,    42,    42,    43,    43,    44,    44,    45,    45,
-      46,    46,    46,    46,    47,    47,    47,    47,    48,    48,
-      48,    48,    48,    48,    48,    49,    49,    50,    50,    51,
-      51,    51,    51,    52,    52,    53,    53,    54,    56,    55,
-      58,    57,    60,    59,    61,    61,    61,    63,    62,    64,
-      64,    66,    65,    68,    67,    69,    70,    71,    72,    73,
-      72,    74,    75,    76,    75,    77,    79,    78,    80,    80,
-      80,    80,    80,    80,    80,    80,    80,    80,    80,    80,
-      80,    80,    80,    81,    81,    82
+       0,    47,    48,    48,    49,    49,    50,    50,    51,    51,
+      52,    53,    53,    53,    53,    54,    54,    54,    54,    54,
+      54,    54,    54,    55,    55,    55,    55,    55,    55,    55,
+      56,    56,    57,    57,    59,    60,    58,    61,    61,    61,
+      61,    61,    62,    62,    63,    63,    64,    66,    65,    68,
+      67,    70,    69,    71,    71,    71,    73,    72,    74,    74,
+      76,    75,    78,    77,    79,    80,    81,    82,    83,    82,
+      84,    85,    86,    85,    87,    89,    88,    90,    90,    90,
+      90,    90,    90,    90,    90,    90,    90,    90,    90,    90,
+      90,    90,    91,    91,    92
 };
 
 /* YYR2[YYN] -- Number of symbols composing right hand side of rule YYN.  */
 static const yytype_uint8 yyr2[] =
 {
        0,     2,     1,     1,     1,     2,     1,     2,     1,     2,
-       1,     1,     1,     2,     2,     3,     1,     1,     1,     2,
-       1,     2,     1,     2,     0,     1,     2,     1,     2,     1,
-       1,     1,     1,     1,     0,     1,     3,     3,     0,     3,
-       0,     3,     0,     4,     1,     2,     3,     0,     4,     1,
-       2,     0,     4,     0,     4,     2,     2,     2,     4,     0,
-       5,     1,     2,     0,     5,     4,     0,     5,     1,     1,
+       1,     1,     1,     1,     2,     2,     3,     3,     3,     1,
+       1,     1,     1,     1,     2,     1,     2,     1,     2,     0,
+       1,     2,     1,     2,     0,     0,     7,     1,     1,     1,
+       1,     1,     1,     0,     1,     3,     3,     0,     3,     0,
+       3,     0,     4,     1,     2,     3,     0,     4,     1,     2,
+       0,     4,     0,     4,     2,     2,     2,     4,     0,     5,
+       1,     2,     0,     5,     4,     0,     5,     1,     1,     1,
        1,     1,     1,     1,     1,     1,     1,     1,     1,     1,
-       1,     1,     0,     1,     3,     1
+       1,     0,     1,     3,     1
 };
 
 /* YYDEFACT[STATE-NAME] -- Default rule to reduce with in state
@@ -662,57 +685,61 @@ static const yytype_uint8 yyr2[] =
    means the default is an error.  */
 static const yytype_uint8 yydefact[] =
 {
-      82,     0,    38,    40,     0,    44,     0,     0,     0,    49,
-       0,     0,     0,     0,     0,    68,    69,    70,    71,     0,
-      72,     0,    75,    73,    74,    76,    77,    79,    78,    80,
-      81,    83,    85,     0,     2,     3,     0,     0,     0,    42,
-      45,    53,    57,    55,    50,    56,     4,    61,    62,     0,
-       0,     0,    47,    51,    82,     1,    37,    39,    41,     0,
-      46,    24,     5,    63,    59,     0,    66,    24,    24,    84,
-       6,    43,    32,    18,     0,    20,     0,    25,     0,    27,
-       0,    22,     0,    30,    29,    31,    33,    35,    54,     0,
-      58,     0,    65,     0,    48,    52,     7,     8,    10,    12,
-      11,     0,     0,    17,    16,    19,    21,    26,    28,    23,
-      24,    64,    60,    67,     9,    13,    14,     0,    36,    15
+      91,     0,    47,    49,     0,    53,     0,     0,     0,    58,
+       0,     0,     0,     0,     0,    77,    78,    79,    80,     0,
+      81,     0,    84,    82,    83,    85,    86,    88,    87,    89,
+      90,    92,    94,     0,     2,     3,     0,     0,     0,    51,
+      54,    62,    66,    64,    59,    65,     4,    70,    71,     0,
+       0,     0,    56,    60,    91,     1,    46,    48,    50,     0,
+      55,    29,     5,    72,    68,     0,    75,    29,    29,    93,
+       6,    52,    41,    23,     0,    25,     0,    30,     0,    32,
+       0,    27,     0,    34,    38,    37,    39,    40,    42,    44,
+      63,     0,    67,     0,    74,     0,    57,    61,     7,    22,
+       8,     0,    10,    11,    13,    12,     0,    21,    19,    20,
+      24,    26,    31,    33,    28,     0,    29,    73,    69,    76,
+       9,    15,    14,     0,     0,     0,     0,    45,    16,    17,
+      18,    35,    29,     0,    36
 };
 
 /* YYDEFGOTO[NTERM-NUM].  */
-static const yytype_int8 yydefgoto[] =
+static const yytype_int16 yydefgoto[] =
 {
-      -1,    46,    47,    71,   103,   104,   105,    83,    84,    85,
-      86,    87,    88,    15,    16,    37,    17,    38,    18,    59,
-      19,    20,    67,    21,    22,    68,    23,    61,    24,    25,
-      26,    27,    91,    48,    28,    89,    29,    30,    93,    31,
-      32,    33
+      -1,    46,    47,    71,   107,   108,   109,   110,    84,    85,
+      86,    87,   115,   132,    88,    89,    90,    15,    16,    37,
+      17,    38,    18,    59,    19,    20,    67,    21,    22,    68,
+      23,    61,    24,    25,    26,    27,    93,    48,    28,    91,
+      29,    30,    95,    31,    32,    33
 };
 
 /* YYPACT[STATE-NUM] -- Index in YYTABLE of the portion describing
    STATE-NUM.  */
-#define YYPACT_NINF -67
+#define YYPACT_NINF -76
 static const yytype_int8 yypact[] =
 {
-      64,    12,   -67,   -67,    12,    12,    -4,    12,    12,    12,
-      12,    12,    12,    12,    12,   -67,   -67,   -67,   -67,     4,
-     -67,    14,   -67,   -67,   -67,   -67,   -67,   -67,   -67,   -67,
-     -67,   -67,    21,     5,   -67,   -67,    12,    12,    12,   -67,
-      12,   -67,   -67,   -67,   -67,   -67,   -67,    12,    11,    12,
-      12,    12,   -67,   -67,    64,   -67,   -67,    12,    12,    26,
-     -67,    -3,   -67,   -67,    27,    12,   -67,    -3,    -3,   -67,
-     -67,    34,   -67,   -67,    20,   -67,    20,   -67,    20,   -67,
-      20,   -67,    20,   -67,   -67,   -67,   -67,   -67,    19,    12,
-     -67,    12,   -67,    12,    19,    19,   -67,    12,    12,   -67,
-     -67,    20,    20,   -67,   -67,   -67,   -67,   -67,   -67,   -67,
-      -3,   -67,    12,    12,   -67,   -67,   -67,     7,   -67,   -67
+     117,    16,   -76,   -76,    16,    16,     4,    16,    16,    16,
+      16,    16,    16,    16,    16,   -76,   -76,   -76,   -76,    18,
+     -76,    19,   -76,   -76,   -76,   -76,   -76,   -76,   -76,   -76,
+     -76,   -76,    20,    29,   -76,   -76,    16,    16,    16,   -76,
+      16,   -76,   -76,   -76,   -76,   -76,   -76,    16,    14,    16,
+      16,    16,   -76,   -76,   117,   -76,   -76,    16,    16,    30,
+     -76,    81,   -76,   -76,    33,    16,   -76,    81,    81,   -76,
+     -76,    37,   -76,   -76,    55,   -76,    55,   -76,    55,   -76,
+      55,   -76,    55,   -76,   -76,   -76,   -76,   -76,   -76,   -76,
+      21,    16,   -76,    16,   -76,    16,    21,    21,   -76,   -76,
+      16,    55,   -76,    16,   -76,   -76,    55,   -76,   -76,   -76,
+      -2,    -2,    -2,    -2,    -2,    55,    81,   -76,    16,    16,
+     -76,    -2,   -76,    -8,    55,    55,    -6,   -76,   -76,    -2,
+      -2,   -76,    81,   -17,   -76
 };
 
 /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-     -67,    -1,   -23,   -67,   -67,   -67,   -40,   -67,   -67,   -67,
-     -67,   -66,   -49,   -67,   -67,   -67,   -67,   -67,   -67,   -67,
-     -67,   -67,   -67,   -67,   -67,   -67,   -67,   -67,   -67,   -67,
-     -67,   -67,   -67,   -44,   -67,   -67,   -67,   -67,   -67,     0,
-     -67,   -67
+     -76,    -1,   -23,   -76,   -76,   -76,   -76,   -48,   -76,   -76,
+     -76,   -76,   -76,   -76,   -76,   -75,   -66,   -76,   -76,   -76,
+     -76,   -76,   -76,   -76,   -76,   -76,   -76,   -76,   -76,   -76,
+     -76,   -76,   -76,   -76,   -76,   -76,   -76,   -49,   -76,   -76,
+     -76,   -76,   -76,   -10,   -76,   -76
 };
 
 /* YYTABLE[YYPACT[STATE-NUM]].  What to do in state STATE-NUM.  If
@@ -722,34 +749,38 @@ static const yytype_int8 yypgoto[] =
 #define YYTABLE_NINF -1
 static const yytype_uint8 yytable[] =
 {
-      36,    72,    41,    39,    40,    55,    42,    43,    44,    45,
-      52,    49,    50,    51,    57,    58,    34,    35,    94,    95,
-      53,    73,    74,    75,    76,    77,    78,    54,    63,    70,
-      90,    79,    80,    81,    82,    56,   106,    96,   107,    60,
-     108,   110,   109,    97,   118,   111,    62,   119,    64,    65,
-      66,    98,    99,   100,    69,     0,    62,    62,   101,   102,
-       0,   116,   117,     0,    92,     0,     0,     0,   112,     0,
-     113,     1,     2,     3,     4,     5,     6,     7,     8,     9,
-      10,     0,    11,    12,    13,    14,     0,     0,     0,     0,
-       0,     0,     0,     0,     0,     0,   114,   115,     0,     0,
-       0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
-       0,    62,    62
+      36,    96,    97,    39,    40,   116,    42,    43,    44,    45,
+      41,    49,    50,    51,    57,    58,   124,   125,   124,   125,
+      34,    35,   124,   125,    52,    53,    54,   134,   111,    55,
+     112,    63,   113,    70,   114,    56,    92,   131,   128,    60,
+      98,   127,   117,   116,    69,     0,    62,     0,    64,    65,
+      66,     0,     0,   121,     0,     0,    62,    62,   123,    99,
+       0,     0,     0,     0,    94,     0,   133,   126,     0,     0,
+     118,     0,   119,     0,     0,     0,   129,   130,   100,     0,
+       0,   101,     0,     0,   102,    72,     0,     0,     0,     0,
+     103,   104,   105,     0,     0,     0,     0,     0,     0,   120,
+     106,     0,   122,     0,     0,     0,     0,     0,    73,    74,
+       0,    75,    76,    77,    78,     0,     0,    62,    62,    79,
+      80,    81,    82,    83,     1,     2,     3,     4,     5,     6,
+       7,     8,     9,    10,     0,    11,    12,    13,    14
 };
 
-static const yytype_int8 yycheck[] =
+static const yytype_int16 yycheck[] =
 {
-       1,     4,     6,     4,     5,     0,     7,     8,     9,    10,
-       6,    12,    13,    14,    37,    38,     4,     5,    67,    68,
-       6,    24,    25,    26,    27,    28,    29,     6,    17,     3,
-       3,    34,    35,    36,    37,    36,    76,     3,    78,    40,
-      80,    22,    82,    23,   110,    89,    47,    40,    49,    50,
-      51,    31,    32,    33,    54,    -1,    57,    58,    38,    39,
-      -1,   101,   102,    -1,    65,    -1,    -1,    -1,    91,    -1,
-      93,     7,     8,     9,    10,    11,    12,    13,    14,    15,
-      16,    -1,    18,    19,    20,    21,    -1,    -1,    -1,    -1,
-      -1,    -1,    -1,    -1,    -1,    -1,    97,    98,    -1,    -1,
-      -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,
-      -1,   112,   113
+       1,    67,    68,     4,     5,    22,     7,     8,     9,    10,
+       6,    12,    13,    14,    37,    38,    24,    25,    24,    25,
+       4,     5,    24,    25,     6,     6,     6,    44,    76,     0,
+      78,    17,    80,     3,    82,    36,     3,    43,    46,    40,
+       3,   116,    91,    22,    54,    -1,    47,    -1,    49,    50,
+      51,    -1,    -1,   101,    -1,    -1,    57,    58,   106,     4,
+      -1,    -1,    -1,    -1,    65,    -1,   132,   115,    -1,    -1,
+      93,    -1,    95,    -1,    -1,    -1,   124,   125,    23,    -1,
+      -1,    26,    -1,    -1,    29,     4,    -1,    -1,    -1,    -1,
+      35,    36,    37,    -1,    -1,    -1,    -1,    -1,    -1,   100,
+      45,    -1,   103,    -1,    -1,    -1,    -1,    -1,    27,    28,
+      -1,    30,    31,    32,    33,    -1,    -1,   118,   119,    38,
+      39,    40,    41,    42,     7,     8,     9,    10,    11,    12,
+      13,    14,    15,    16,    -1,    18,    19,    20,    21
 };
 
 /* YYSTOS[STATE-NUM] -- The (internal number of the) accessing
@@ -757,17 +788,19 @@ static const yytype_int8 yycheck[] =
 static const yytype_uint8 yystos[] =
 {
        0,     7,     8,     9,    10,    11,    12,    13,    14,    15,
-      16,    18,    19,    20,    21,    54,    55,    57,    59,    61,
-      62,    64,    65,    67,    69,    70,    71,    72,    75,    77,
-      78,    80,    81,    82,     4,     5,    42,    56,    58,    42,
-      42,     6,    42,    42,    42,    42,    42,    43,    74,    42,
-      42,    42,     6,     6,     6,     0,    42,    43,    43,    60,
-      42,    68,    42,    17,    42,    42,    42,    63,    66,    80,
-       3,    44,     4,    24,    25,    26,    27,    28,    29,    34,
-      35,    36,    37,    48,    49,    50,    51,    52,    53,    76,
-       3,    73,    42,    79,    53,    53,     3,    23,    31,    32,
-      33,    38,    39,    45,    46,    47,    47,    47,    47,    47,
-      22,    74,    43,    43,    42,    42,    47,    47,    52,    40
+      16,    18,    19,    20,    21,    64,    65,    67,    69,    71,
+      72,    74,    75,    77,    79,    80,    81,    82,    85,    87,
+      88,    90,    91,    92,     4,     5,    48,    66,    68,    48,
+      48,     6,    48,    48,    48,    48,    48,    49,    84,    48,
+      48,    48,     6,     6,     6,     0,    48,    49,    49,    70,
+      48,    78,    48,    17,    48,    48,    48,    73,    76,    90,
+       3,    50,     4,    27,    28,    30,    31,    32,    33,    38,
+      39,    40,    41,    42,    55,    56,    57,    58,    61,    62,
+      63,    86,     3,    83,    48,    89,    63,    63,     3,     4,
+      23,    26,    29,    35,    36,    37,    45,    51,    52,    53,
+      54,    54,    54,    54,    54,    59,    22,    84,    49,    49,
+      48,    54,    48,    54,    24,    25,    54,    62,    46,    54,
+      54,    43,    60,    63,    44
 };
 
 #define yyerrok		(yyerrstatus = 0)
@@ -1582,37 +1615,37 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 117 "qgames_parser.y"
+#line 121 "qgames_parser.y"
     { (yyval) = (yyvsp[(1) - (1)]); }
     break;
 
   case 3:
-#line 118 "qgames_parser.y"
+#line 122 "qgames_parser.y"
     { (yyval) = (yyvsp[(1) - (1)]); }
     break;
 
   case 4:
-#line 122 "qgames_parser.y"
+#line 126 "qgames_parser.y"
     { add_parameter( TOK_STRING, (yyvsp[(1) - (1)]) ); }
     break;
 
   case 5:
-#line 123 "qgames_parser.y"
+#line 127 "qgames_parser.y"
     { add_parameter( TOK_STRING, (yyvsp[(2) - (2)]) ); }
     break;
 
   case 6:
-#line 126 "qgames_parser.y"
+#line 130 "qgames_parser.y"
     { add_parameter( TOK_NUMBER, (yyvsp[(1) - (1)]) ); }
     break;
 
   case 7:
-#line 127 "qgames_parser.y"
+#line 131 "qgames_parser.y"
     { add_parameter( TOK_NUMBER, (yyvsp[(2) - (2)]) ); }
     break;
 
   case 8:
-#line 134 "qgames_parser.y"
+#line 138 "qgames_parser.y"
     { 
             CHECK_TIPOJUEGO;
             tipojuego_code_ahogado( tipojuego, NULL );
@@ -1620,7 +1653,7 @@ yyreduce:
     break;
 
   case 9:
-#line 138 "qgames_parser.y"
+#line 142 "qgames_parser.y"
     {
             CHECK_TIPOJUEGO;
             tipojuego_code_ahogado( tipojuego, (char*)(yyvsp[(2) - (2)]) );
@@ -1628,31 +1661,39 @@ yyreduce:
     break;
 
   case 10:
-#line 144 "qgames_parser.y"
+#line 148 "qgames_parser.y"
+    {
+            CHECK_TIPOJUEGO;
+            tipojuego_code_entablero( tipojuego );
+    }
+    break;
+
+  case 11:
+#line 154 "qgames_parser.y"
     {
         CHECK_TIPOJUEGO;
         tipojuego_code_ocupado( tipojuego, NULL, CUALQUIERA, NULL );
     }
     break;
 
-  case 11:
-#line 148 "qgames_parser.y"
+  case 12:
+#line 158 "qgames_parser.y"
     {
         CHECK_TIPOJUEGO;
         tipojuego_code_ocupado( tipojuego, NULL, PROPIO, NULL );
     }
     break;
 
-  case 12:
-#line 152 "qgames_parser.y"
+  case 13:
+#line 162 "qgames_parser.y"
     {
         CHECK_TIPOJUEGO;
         tipojuego_code_ocupado( tipojuego, NULL, ENEMIGO, NULL );
     }
     break;
 
-  case 13:
-#line 156 "qgames_parser.y"
+  case 14:
+#line 166 "qgames_parser.y"
     {
         char* nombre = (char*)(yyvsp[(2) - (2)]);
         CHECK_TIPOJUEGO;
@@ -1667,60 +1708,92 @@ yyreduce:
     }
     break;
 
-  case 14:
-#line 170 "qgames_parser.y"
+  case 15:
+#line 180 "qgames_parser.y"
     {
                 CHECK_TIPOJUEGO;
                 tipojuego_code_op_not( tipojuego );
     }
     break;
 
+  case 17:
+#line 185 "qgames_parser.y"
+    { NOT_IMPLEMENTED; }
+    break;
+
   case 18:
-#line 180 "qgames_parser.y"
-    {  
-            CHECK_TIPOJUEGO;
-            tipojuego_code_final( tipojuego, NULL, EMPATA );
-    }
-    break;
-
-  case 19:
-#line 184 "qgames_parser.y"
-    {  
-            CHECK_TIPOJUEGO;
-            tipojuego_code_start_condblock( tipojuego );
-            tipojuego_code_final( tipojuego, NULL, EMPATA );
-            tipojuego_code_end_condblock( tipojuego );
-    }
-    break;
-
-  case 20:
-#line 190 "qgames_parser.y"
-    {  
-            CHECK_TIPOJUEGO;
-            tipojuego_code_final( tipojuego, NULL, GANA );
-    }
-    break;
-
-  case 21:
-#line 194 "qgames_parser.y"
-    {  
-            CHECK_TIPOJUEGO;
-            tipojuego_code_start_condblock( tipojuego );
-            tipojuego_code_final( tipojuego, NULL, GANA );
-            tipojuego_code_end_condblock( tipojuego );
-    }
+#line 186 "qgames_parser.y"
+    { NOT_IMPLEMENTED; }
     break;
 
   case 22:
-#line 200 "qgames_parser.y"
+#line 190 "qgames_parser.y"
+    {    
+            int  algo;
+            CHECK_TIPOJUEGO;
+            /* una direccion podria ser */
+            algo = tipojuego_get_direccion( tipojuego, (char*)(yyvsp[(1) - (1)]) );
+            if( algo != NOT_FOUND ){
+                qgzprintf( "Direccion %s no esperada", (char*)(yyvsp[(1) - (1)]) );
+            } else {
+                algo = tipojuego_get_casillero( tipojuego, (char*)(yyvsp[(1) - (1)]) );
+                if( algo != NOT_FOUND ){
+                    qgzprintf( "Casillero %s no esperado", (char*)(yyvsp[(1) - (1)]) );
+                } else {
+                    qgzprintf( "%s no es nada", (char*)(yyvsp[(1) - (1)]) );
+                    yyerror( "Comando no reconocido" );
+                    YYERROR;
+                }
+            }
+    }
+    break;
+
+  case 23:
+#line 211 "qgames_parser.y"
+    {  
+            CHECK_TIPOJUEGO;
+            tipojuego_code_final( tipojuego, NULL, EMPATA );
+    }
+    break;
+
+  case 24:
+#line 215 "qgames_parser.y"
+    {  
+            CHECK_TIPOJUEGO;
+            tipojuego_code_start_condblock( tipojuego );
+            tipojuego_code_final( tipojuego, NULL, EMPATA );
+            tipojuego_code_end_condblock( tipojuego );
+    }
+    break;
+
+  case 25:
+#line 221 "qgames_parser.y"
+    {  
+            CHECK_TIPOJUEGO;
+            tipojuego_code_final( tipojuego, NULL, GANA );
+    }
+    break;
+
+  case 26:
+#line 225 "qgames_parser.y"
+    {  
+            CHECK_TIPOJUEGO;
+            tipojuego_code_start_condblock( tipojuego );
+            tipojuego_code_final( tipojuego, NULL, GANA );
+            tipojuego_code_end_condblock( tipojuego );
+    }
+    break;
+
+  case 27:
+#line 231 "qgames_parser.y"
     {  
             CHECK_TIPOJUEGO;
             tipojuego_code_final( tipojuego, NULL, PIERDE );
     }
     break;
 
-  case 23:
-#line 204 "qgames_parser.y"
+  case 28:
+#line 235 "qgames_parser.y"
     {  
             CHECK_TIPOJUEGO;
             tipojuego_code_start_condblock( tipojuego );
@@ -1729,16 +1802,16 @@ yyreduce:
      }
     break;
 
-  case 25:
-#line 212 "qgames_parser.y"
+  case 30:
+#line 243 "qgames_parser.y"
     {
             CHECK_TIPOJUEGO;
             tipojuego_code_juega( tipojuego, NULL, 0 );
     }
     break;
 
-  case 26:
-#line 216 "qgames_parser.y"
+  case 31:
+#line 247 "qgames_parser.y"
     {
             CHECK_TIPOJUEGO;
             tipojuego_code_start_condblock( tipojuego );
@@ -1747,16 +1820,16 @@ yyreduce:
     }
     break;
 
-  case 27:
-#line 225 "qgames_parser.y"
+  case 32:
+#line 256 "qgames_parser.y"
     {  
             CHECK_TIPOJUEGO;
             tipojuego_code_para( tipojuego );
     }
     break;
 
-  case 28:
-#line 229 "qgames_parser.y"
+  case 33:
+#line 260 "qgames_parser.y"
     { 
             CHECK_TIPOJUEGO;
             tipojuego_code_start_condblock( tipojuego );
@@ -1765,12 +1838,38 @@ yyreduce:
     }
     break;
 
-  case 32:
-#line 240 "qgames_parser.y"
+  case 34:
+#line 271 "qgames_parser.y"
+    {
+            CHECK_TIPOJUEGO;
+            tipojuego_code_start_block( tipojuego );
+    }
+    break;
+
+  case 35:
+#line 274 "qgames_parser.y"
+    {
+            tipojuego_code_start_condblock( tipojuego );
+    }
+    break;
+
+  case 36:
+#line 276 "qgames_parser.y"
+    {
+            tipojuego_code_else_condblock( tipojuego );
+            tipojuego_code_break_block( tipojuego );
+            tipojuego_code_end_condblock( tipojuego );
+            tipojuego_code_end_block( tipojuego );
+    }
+    break;
+
+  case 41:
+#line 289 "qgames_parser.y"
     {   
             int  algo;
             CHECK_TIPOJUEGO;
             /* una direccion podria ser */
+            // qgzprintf( "Reconociendo %s", (char*)$1 );
             algo = tipojuego_get_direccion( tipojuego, (char*)(yyvsp[(1) - (1)]) );
             if( algo != NOT_FOUND ){
                 tipojuego_code_direccion( tipojuego, (char*)(yyvsp[(1) - (1)]) );
@@ -1788,8 +1887,8 @@ yyreduce:
     }
     break;
 
-  case 37:
-#line 281 "qgames_parser.y"
+  case 46:
+#line 331 "qgames_parser.y"
     {  CHECK_TIPOJUEGO ;
                       CHECK_LAST_PIEZA;
                       int  def = 0;
@@ -1804,14 +1903,14 @@ yyreduce:
                     }
     break;
 
-  case 38:
-#line 298 "qgames_parser.y"
+  case 47:
+#line 348 "qgames_parser.y"
     { CHECK_TIPOJUEGO; 
                      init_parameters(); }
     break;
 
-  case 39:
-#line 301 "qgames_parser.y"
+  case 48:
+#line 351 "qgames_parser.y"
     {
                      char*  dims[MAX_PARAMS]; int i;
                      for( i = 0; i < qgz_param_count; i ++ ){
@@ -1821,13 +1920,13 @@ yyreduce:
                    }
     break;
 
-  case 40:
-#line 310 "qgames_parser.y"
+  case 49:
+#line 360 "qgames_parser.y"
     { CHECK_TIPOJUEGO; init_parameters(); }
     break;
 
-  case 41:
-#line 311 "qgames_parser.y"
+  case 50:
+#line 361 "qgames_parser.y"
     { int i;
                      for( i = 0; i < qgz_param_count; i ++ ){
                        char* col = ((char*)qgz_param_list[i].par);
@@ -1836,13 +1935,13 @@ yyreduce:
                    }
     break;
 
-  case 42:
-#line 320 "qgames_parser.y"
+  case 51:
+#line 370 "qgames_parser.y"
     { CHECK_TIPOJUEGO; init_parameters(); }
     break;
 
-  case 43:
-#line 321 "qgames_parser.y"
+  case 52:
+#line 371 "qgames_parser.y"
     {
                       int  dirs[MAX_PARAMS]; int i; 
                       tipojuego_add_direccion( tipojuego, ((char*)(yyvsp[(2) - (4)])) );
@@ -1853,18 +1952,18 @@ yyreduce:
                     }
     break;
 
-  case 45:
-#line 332 "qgames_parser.y"
+  case 54:
+#line 382 "qgames_parser.y"
     { NOT_IMPLEMENTED; }
     break;
 
-  case 46:
-#line 333 "qgames_parser.y"
+  case 55:
+#line 383 "qgames_parser.y"
     { NOT_IMPLEMENTED; }
     break;
 
-  case 47:
-#line 336 "qgames_parser.y"
+  case 56:
+#line 386 "qgames_parser.y"
     { 
         CHECK_TIPOJUEGO; 
         CHECK_LAST_PIEZA;
@@ -1873,20 +1972,20 @@ yyreduce:
     }
     break;
 
-  case 48:
-#line 341 "qgames_parser.y"
+  case 57:
+#line 391 "qgames_parser.y"
     {
         tipojuego_end_code( tipojuego ) ;
     }
     break;
 
-  case 50:
-#line 348 "qgames_parser.y"
+  case 59:
+#line 398 "qgames_parser.y"
     { NOT_IMPLEMENTED; }
     break;
 
-  case 51:
-#line 352 "qgames_parser.y"
+  case 60:
+#line 402 "qgames_parser.y"
     {
         CHECK_TIPOJUEGO; 
         CHECK_LAST_PIEZA;
@@ -1895,8 +1994,8 @@ yyreduce:
     }
     break;
 
-  case 53:
-#line 362 "qgames_parser.y"
+  case 62:
+#line 412 "qgames_parser.y"
     { 
             CHECK_TIPOJUEGO; 
             change_to_code_mode(); 
@@ -1904,15 +2003,15 @@ yyreduce:
     }
     break;
 
-  case 54:
-#line 366 "qgames_parser.y"
+  case 63:
+#line 416 "qgames_parser.y"
     {
         tipojuego_end_code( tipojuego ) ;
     }
     break;
 
-  case 55:
-#line 371 "qgames_parser.y"
+  case 64:
+#line 421 "qgames_parser.y"
     { 
         if( tipojuego ){
             yyerror( "Ya fue definido el tipo juego" );
@@ -1923,16 +2022,16 @@ yyreduce:
     }
     break;
 
-  case 56:
-#line 381 "qgames_parser.y"
+  case 65:
+#line 431 "qgames_parser.y"
     {
         CHECK_TIPOJUEGO;
         tipojuego_add_tipo_mov( tipojuego, ((char*)(yyvsp[(2) - (2)])) );
     }
     break;
 
-  case 57:
-#line 387 "qgames_parser.y"
+  case 66:
+#line 437 "qgames_parser.y"
     { 
         CHECK_TIPOJUEGO; 
         tipojuego_add_tipopieza( tipojuego, ((char*)(yyvsp[(2) - (2)])) ); 
@@ -1941,8 +2040,8 @@ yyreduce:
     }
     break;
 
-  case 58:
-#line 395 "qgames_parser.y"
+  case 67:
+#line 445 "qgames_parser.y"
     {
         CHECK_TIPOJUEGO;
         int i;
@@ -1952,13 +2051,13 @@ yyreduce:
     }
     break;
 
-  case 59:
-#line 402 "qgames_parser.y"
+  case 68:
+#line 452 "qgames_parser.y"
     { init_parameters(); }
     break;
 
-  case 60:
-#line 402 "qgames_parser.y"
+  case 69:
+#line 452 "qgames_parser.y"
     {
         CHECK_TIPOJUEGO;
         int i;
@@ -1968,8 +2067,8 @@ yyreduce:
     }
     break;
 
-  case 61:
-#line 411 "qgames_parser.y"
+  case 70:
+#line 461 "qgames_parser.y"
     {
         CHECK_TIPOJUEGO;
         int  i;
@@ -1990,28 +2089,28 @@ yyreduce:
     }
     break;
 
-  case 63:
-#line 432 "qgames_parser.y"
+  case 72:
+#line 482 "qgames_parser.y"
     {
         tipojuego_add_secuencia_rep( tipojuego );
     }
     break;
 
-  case 65:
-#line 439 "qgames_parser.y"
+  case 74:
+#line 489 "qgames_parser.y"
     { 
         CHECK_TIPOJUEGO;
         tipojuego_add_simetria( tipojuego, ((char*)(yyvsp[(2) - (4)])), (char*)(yyvsp[(3) - (4)]), (char*)(yyvsp[(4) - (4)]) );
     }
     break;
 
-  case 66:
-#line 445 "qgames_parser.y"
+  case 75:
+#line 495 "qgames_parser.y"
     { init_parameters(); }
     break;
 
-  case 67:
-#line 445 "qgames_parser.y"
+  case 76:
+#line 495 "qgames_parser.y"
     { 
             CHECK_TIPOJUEGO;
             char* color = (char*)(yyvsp[(3) - (5)]);
@@ -2032,7 +2131,7 @@ yyreduce:
 
 
 /* Line 1267 of yacc.c.  */
-#line 2036 "qgames_parser.c"
+#line 2135 "qgames_parser.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -2246,7 +2345,7 @@ yyreturn:
 }
 
 
-#line 492 "qgames_parser.y"
+#line 542 "qgames_parser.y"
 
 
 /*

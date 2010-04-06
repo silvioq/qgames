@@ -106,7 +106,9 @@ int    analizador_ocupado( Analizador* z, Casillero* cas, int owner ){
 
 }
 
-
+int    analizador_entablero( Analizador* z ){
+    return( CASILLERO_VALIDO(z->cas) );
+}
 
 int    analizador_juega  ( Analizador* z, Casillero* cas, int con_captura ){
     CHECK_STATUS ;

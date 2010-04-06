@@ -100,8 +100,15 @@ define\:        { define_created = 0; BEGIN(define_head);   }
 
 
 <code>ahogado\??          { return TOK_AHOGADO;   }
+<code>and                 { return TOK_AND;       }
+<code>&&                  { return TOK_AND;       }
+<code>\!                  { return TOK_NOT;       }
+<code>not                 { return TOK_NOT;       }
+<code>do                  { return TOK_DO;        }
 <code>empata              { return TOK_EMPATA;    }
 <code>empata\-si          { return TOK_EMPATA_SI; }
+<code>en(\-|\_)tablero\?? { return TOK_ENTABLERO;   }
+<code>end                 { return TOK_END;       }
 <code>gana                { return TOK_GANA;      }
 <code>gana\-si            { return TOK_GANA_SI;   }
 <code>juega               { return TOK_JUEGA;     } 
@@ -114,6 +121,7 @@ define\:        { define_created = 0; BEGIN(define_head);   }
 <code>parar?\-si          { return  TOK_PARA_SI;     }
 <code>pierde              { return  TOK_PIERDE;      }
 <code>pierde\-si          { return  TOK_PIERDE_SI;   }
+<code>while               { return  TOK_WHILE;       }
 
 
 <INITIAL,code>\-?[0-9]+  { 
@@ -124,6 +132,7 @@ define\:        { define_created = 0; BEGIN(define_head);   }
 <INITIAL>{WORD} { 
                   qgzlval = (long)strdup(yytext); 
                   ((char*)(long)qgzlval)[yyleng] = 0;
+                  qgzprintf( "WORD: %s", (char*)(long)qgzlval  );
                   return  TOK_WORD; 
                 }
 
@@ -256,7 +265,7 @@ int    switch_to_define( ){
     free( defactual );
 
     yy_scan_string( data );
-    BEGIN(INITIAL);
+    BEGIN(code);
 
     return 1;
     

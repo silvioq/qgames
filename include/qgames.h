@@ -93,7 +93,13 @@ void*       tipojuego_get_code( Tipojuego* tj );
 #define   PROPIO        -2
 #define   CUALQUIERA     0
 void        tipojuego_code_start_condblock( Tipojuego* tj );
+void        tipojuego_code_else_condblock( Tipojuego* tj );
 void        tipojuego_code_end_condblock( Tipojuego* tj );
+void        tipojuego_code_start_block( Tipojuego* tj );
+void        tipojuego_code_end_block( Tipojuego* tj );
+void        tipojuego_code_break_block( Tipojuego* tj );
+void        tipojuego_code_continue_block( Tipojuego* tj );
+
 void        tipojuego_code_op_not( Tipojuego* tj );
 void        tipojuego_code_direccion( Tipojuego* tj, char* direccion );
 void        tipojuego_code_casillero( Tipojuego* tj, char* casillero );

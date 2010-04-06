@@ -63,6 +63,7 @@ int    analizador_casillero( Analizador* z, Casillero* cas );
 int    analizador_direccion( Analizador* z, Direccion* dir );
 
 int    analizador_ahogado( Analizador* z );
+int    analizador_entablero( Analizador* z );
 
 
 int   analizador_final( Analizador* z, int color, int res );
