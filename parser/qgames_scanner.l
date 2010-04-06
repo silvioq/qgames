@@ -15,6 +15,7 @@ void   init_scanner();
 int    defined( char* d );
 int    switch_to_define( );
 
+
 symtable*  symt = NULL;
 char*  defactual = NULL;
 #define  MAXPARMS  16
@@ -28,6 +29,8 @@ int    totalparm;
 #define  MAXBUFFSTACK  16
 YY_BUFFER_STATE  buffers[MAXBUFFSTACK];
 int        line_buffer[MAXBUFFSTACK];
+char*      newdata_buffer[MAXBUFFSTACK];
+char*      defname_buffer[MAXBUFFSTACK];
 int        sp_buffer = 0;
 
 
@@ -88,7 +91,7 @@ define\:        { define_created = 0; BEGIN(define_head);   }
                                 if( ! switch_to_define( )) yyterminate();
                             }
                           }
-<params>[^ \n\r,;]+       { if( !add_parameter_to_def( yytext ) ) yyterminate();
+<params>[^ \n\r,]+        { if( !add_parameter_to_def( yytext ) ) yyterminate();
                             if( parmcount == totalparm ){
                                 if( ! switch_to_define( ) )yyterminate();
                             }
@@ -150,6 +153,18 @@ define\:        { define_created = 0; BEGIN(define_head);   }
                   }
                 }
 <code>.         { return (int) yytext[0]; }
+
+<<EOF>>         { if( sp_buffer == 0 ){
+                      yyterminate();
+                  } else {  
+                      sp_buffer --;
+                      if( newdata_buffer[sp_buffer] ) free( newdata_buffer[sp_buffer] );
+                      if( defname_buffer[sp_buffer] ) free( defname_buffer[sp_buffer] );
+                      yy_delete_buffer( YY_CURRENT_BUFFER );
+                      yy_switch_to_buffer( buffers[sp_buffer] );
+                      yylineno = line_buffer[sp_buffer] ;
+                  }
+                }
 
 .
 
@@ -226,15 +241,31 @@ int    switch_to_define( ){
         return 0;
     }
 
+       
+    // buffers[sp_buffer] = yybuffer
+    buffers[sp_buffer] = YY_CURRENT_BUFFER;
+    line_buffer[sp_buffer] = yylineno;
+    yylineno = 1;
+    newdata_buffer[sp_buffer] = data;
+    defname_buffer[sp_buffer] = strdup( defactual );
+    sp_buffer ++;
+
     for( i = 0; i < parmcount ; i ++ ){
         free( defparms[i] );
     }
     free( defactual );
 
-       
-    // buffers[sp_buffer] = yybuffer
-    qgzerror( "No implementado switch to define" );
-    return 0;
+    yy_scan_string( data );
+    BEGIN(INITIAL);
+
+    return 1;
     
 }
+
+
+char*  defname_actual( ){
+    if( sp_buffer == 0 ) return NULL;
+    return( defname_buffer[sp_buffer-1] );
+}
+
 

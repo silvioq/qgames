@@ -38,6 +38,7 @@ Tipojuego*   tipojuego  = NULL;
 char*        last_pieza = NULL;
 char*        last_tmov  = NULL;
 
+char*  defname_actual( );
 
 #define  CHECK_TIPOJUEGO   \
     if( !tipojuego ){ yyerror( "gametype no definido aun" ); YYERROR; }
@@ -47,7 +48,12 @@ char*        last_tmov  = NULL;
     { yyerror( "Funcion no implementada" ); YYERROR; }
 
 void yyerror(const char *str) { 
-    fprintf(stderr,"error: %s (linea: %d)\n",str, qgzlineno); 
+    char  * define = defname_actual(  );
+    if( define ){ 
+        fprintf(stderr,"error: %s (linea: %d - %s)\n",str, qgzlineno, define); 
+    } else {
+        fprintf(stderr,"error: %s (linea: %d)\n",str, qgzlineno); 
+    }
 }
 
 int qgzwrap() { return 1; } 
@@ -56,8 +62,12 @@ int qgzwrap() { return 1; }
 void  qgzprintf( char* format, ... ){
   if( !qgz_verbose ) return;
   va_list  a;
+  char* define;
   va_start( a, format );
-  printf( "%.4d: ", qgzlineno );
+  printf( "%.4d", qgzlineno );
+  define = defname_actual( );
+  if( define ) printf( "(%s)", define );
+  printf( " :" );
   vprintf( format, a );
   printf( "\n" );
   va_end( a );

@@ -444,9 +444,11 @@ int         tipojuego_start_code(  Tipojuego* tj, char tiporegla, char* tipopiez
   if( tpieza ){
     if( !tpieza->rules ) tpieza->rules = list_nueva( NULL );
     list_agrega( tpieza->rules, cod );
-  } else {
+    tj->regla_actual = cod;
+  } else { 
     if( !tj->rules ) tj->rules = list_nueva( NULL );
     list_agrega( tj->rules, cod );
+    tj->regla_actual = cod;
   }
   qcode_opnlab( tj->qcode, QCCLX, "initz" );
   qcode_op( tj->qcode, QCSTO, 3, 0 );

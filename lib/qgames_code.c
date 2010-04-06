@@ -62,15 +62,6 @@ long    pop_label_stack( ){
 }
 
 
-/*
- * Devuelve la regla actual, que en realidad, no es ni más ni
- * menos que la última de la lista
- * */
-Regla*  code_regla_actual( Tipojuego* tj ){ 
-    if( !tj->rules ) return NULL;
-    if( tj->rules->entradas == 0 ) return NULL;
-    return (Regla*)(tj->rules->data[tj->rules->entradas - 1]);
-}
 
 /*
  *
@@ -171,7 +162,7 @@ void        tipojuego_code_casillero( Tipojuego* tj, char* casillero ){
     
 void        tipojuego_code_direccion( Tipojuego* tj, char* direccion ){
     long dir;
-    Regla*  rule = code_regla_actual( tj );
+    Regla* rule = tj->regla_actual;
     assert( rule );
     assert( direccion );
     dir = GETDIRECCION(tj, direccion );

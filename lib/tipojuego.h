@@ -11,6 +11,7 @@
 #include  <qcode.h>
 
 typedef   struct   StrNotacion  Notacion;
+typedef   struct   StrRegla     Regla;
 
 typedef   struct   StrTipojuego {
     _list*       simbolos;
@@ -31,6 +32,7 @@ typedef   struct   StrTipojuego {
     Posicion*    inicial;
 
     _list*       rules;           // Aca van los finales
+    Regla*       regla_actual;
     QCode*       qcode;
 } _Tipojuego;
 
@@ -83,7 +85,7 @@ typedef   struct  StrRegla {
     int         flags;    // Flags para las reglas de finales. 
     int         label;
     int         pc;
-} Regla;
+} _Regla;
 
 typedef   struct  StrNotacion{
     Tipojuego*   tjuego;
