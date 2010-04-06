@@ -412,7 +412,9 @@ instruction_move:
         CHECK_LAST_PIEZA;
         change_to_code_mode(); 
         tipojuego_start_code( tipojuego, MOVE, last_pieza, last_tmov );
-    }  code_list;
+    }  code_list {
+        tipojuego_end_code( tipojuego ) ;
+    };
 
 
 
@@ -422,7 +424,7 @@ instruction_ending:
             change_to_code_mode(); 
             tipojuego_start_codeend( tipojuego );
     }  code_list {
-        tipojuego_end_code( tipojuego ) ;
+            tipojuego_end_code( tipojuego ) ;
     };
 
 instruction_gametype:

@@ -18,13 +18,42 @@
 
 void usage(char* prg){
 
-   puts( "Uso:" );
-   printf( "  %s [-d] [-v] [-c] [filename.qgame | filename.pgn]\n", prg );
-   exit( EXIT_FAILURE );
+    puts( "Uso:" );
+    printf( "  %s [-d] [-i] [-v] [-c] [filename.qgame | filename.pgn]\n", prg );
+    printf( "  -i: Interactivo (requiere archivo de definiciones de juego)\n" );
+    exit( EXIT_FAILURE );
    
 }
 
-int   check_game(char* pgnfile, int flags){
+
+
+
+void  jugar_partida(Partida* par){
+
+    while( 1 ){
+        partida_tablero_ascii( par );
+        partida_movidas_posibles_ascii( par );
+        return;
+    }
+};
+
+
+Partida*  procesar_partida( Tipojuego* tj, char* m, char* filename ){
+    clock_t  inicio, final;
+    int ret;
+    inicio = clock();
+    Partida* par = tipojuego_create_partida( tj );
+    if( !m ) return  par;
+    ret = partida_mover_serie( par, m );
+    final = clock();
+    LOGPRINT( 5, "Total %s: %.6f", filename, ((double) (final - inicio)) / CLOCKS_PER_SEC );
+    if( !ret ){ partida_free( par ); return NULL ; }
+    return  par;
+}
+
+
+
+Partida*  check_game(char* pgnfile, int flags){
     Tipojuego* tj;
     Partida* par;
     int  ret;
@@ -33,7 +62,6 @@ int   check_game(char* pgnfile, int flags){
     int  abandonado = 0;
     int  esperado = 0;
     int  result;
-    clock_t  inicio, final;
 
     if( !pgntag_variant ){
         printf( "No definida la variante\n" );
@@ -43,7 +71,7 @@ int   check_game(char* pgnfile, int flags){
     tj = qgz_parse_filename( filename, flags );
     if( !tj ){
         LOGPRINT( 2, "Error al analizar %s", filename );
-        return 0;
+        return NULL;
     }
     LOGPRINT( 5, "Analisis de tipojuego completo %s", pgntag_variant );
     if( pgntag_result ){
@@ -54,17 +82,13 @@ int   check_game(char* pgnfile, int flags){
         abandonado = 1;
     }  
 
-    inicio = clock();
-    par = tipojuego_create_partida( tj );
-    ret = partida_mover_serie( par, pgnmoves );
-    final = clock();
-    LOGPRINT( 5, "Total %s: %.6f", pgnfile, ((double) (final - inicio)) / CLOCKS_PER_SEC );
+    par =  procesar_partida( tj, pgnmoves, pgnfile );
 
-    if( !ret ){
+    if( !par ){
         LOGPRINT( 2, "Error al analizar partida %s", pgnmoves );
-        partida_free( par );
         return 0;
     }
+    ret = 1;
 
     if( !pgntag_result ){
         esperado = FINAL_ENJUEGO;
@@ -96,9 +120,12 @@ int   check_game(char* pgnfile, int flags){
         LOGPRINT( 5, "Resultado: %s", (res ? res : "En juego" ) );
         ret = 1;
     }
-        
-    partida_free( par );
-    return ret;
+       
+    if( ret ) return par;
+    else { 
+        partida_free( par );
+        return NULL;
+    }
     
 }
 
@@ -107,8 +134,11 @@ int  main(int argc, char** argv) {
     int  opt = 0, ret;
     int  flags = 0;
     loglevel = 3;
+    int  interactivo = 0;
+    Partida*  par = NULL;
+    Tipojuego* tj = NULL;
 
-    while(( opt = getopt( argc, argv, "cdhv" )) != -1 ){
+    while(( opt = getopt( argc, argv, "cdhiv" )) != -1 ){
         switch(opt){
             case 'd':
                 flags |= QGZ_DEBUG;
@@ -119,6 +149,9 @@ int  main(int argc, char** argv) {
                 break;
             case 'c':
                 break;
+            case 'i':
+                interactivo = 1;
+                break;
             default:
                 usage(argv[0]);
         }
@@ -126,22 +159,34 @@ int  main(int argc, char** argv) {
 
 
     if( optind == argc ){
+        if( interactivo ) usage(argv[0]);
         ret = pgnscan_file( stdin );
         if( !ret ){
             ret = qgz_parse( stdin, "-", flags );
         } else {
-            ret = check_game( "-", flags );
+            par = check_game( "-", flags );
+            if( par ) ret = 1; else ret = 0;
         }
     } else {
         char* filename = argv[optind];
         if( flags & QGZ_VERBOSE ) printf( "Abriendo %s\n", filename );
         ret = pgnscan_fname( filename );
         if( !ret ){
-            ret = qgz_parse( NULL, filename, flags );
+            tj = qgz_parse_filename( filename, flags );
+            ret = tj ? 1 : 0;
         } else {
-            ret = check_game( filename, flags );
+            par = check_game( filename, flags );
+            if( par ) ret = 1; else ret = 0;
         }
     }
+
+    if( ret && interactivo && par ){
+        jugar_partida(par);
+    } else if ( ret && interactivo && tj ){
+        par = tipojuego_create_partida( tj );
+        jugar_partida(par);
+    }
+    if( par )    partida_free( par );
 
     if( ret ) return EXIT_SUCCESS; else return EXIT_FAILURE;
 }

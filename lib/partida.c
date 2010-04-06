@@ -336,6 +336,21 @@ void        partida_tablero_ascii ( Partida* par ){
     }
 }
 
+void        partida_movidas_posibles_ascii( Partida* par ){
+    int cant, i;
+    if( PARTIDATERMINADA(par) ){
+        printf( "Partida terminada %s\n", par->resultado );
+        return;
+    }
+    cant = partida_analizar_movidas( par );
+    for( i = 0; i < cant; i ++ ){
+        Movida* mov = (Movida*) par->pos->movidas->data[i];
+        if( ( i % 4 == 0 ) && i > 0 ){ printf( "\n" ); };
+        printf( "%2d) %-16s", i, mov->notacion );
+    }
+    printf( "\n" );
+}
+
 /*
  * Devuelve el final de la partida ... en el caso
  * que haya terminado

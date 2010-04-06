@@ -118,12 +118,17 @@ int    analizador_entablero( Analizador* z ){
 int    analizador_enzona( Analizador* z, int zona, int color ){
     CHECK_STATUS;
     int  i;
-    LOGPRINT( 5, "Entre a analizador_enzona, para revisar %d piezas", z->pos->piezas->entradas );
+    int  colorcheck = ( color == PROPIO ? z->color : color );
     for( i = 0; i < z->pos->piezas->entradas; i ++ ){
         Pieza* ppp = (Pieza*)z->pos->piezas->data[i];
         if( !CASILLERO_VALIDO(ppp->casillero ) ) continue;
-        if(  tipojuego_casillero_en_zona( z->pos->tjuego, ppp->casillero, zona, ( color == PROPIO ? color : z->color ) ) ) return 1;
+        if( ppp->color != colorcheck ) continue;
+        if(  tipojuego_casillero_en_zona( z->pos->tjuego, ppp->casillero, zona, colorcheck ) ){
+            LOGPRINT( 5, "En zona acertó! zona=%d color=%d cas=%s", zona, colorcheck, ppp->casillero->nombre );
+            return 1;
+        }
     }
+    LOGPRINT( 5, "Zona salio por cero %d", zona );
     return 0;
 }
 
@@ -186,6 +191,7 @@ int   analizador_ahogado( Analizador* z ){
     i = posicion_analiza_movidas( pos, ANALISIS_PRIMER_MOVIDA, z->color_siguiente, 0, NULL );
     LOGPRINT( 6, "Llamando a posicion_analiza_movidas, para obtener ahogado con color %d resultado %d", z->color_siguiente, i );
     posicion_free( pos );
+    if( i == 0 ) LOGPRINT( 5, "Dio ahogado controlando en color %d", z->color_siguiente );
     return i > 0 ? 0 : 1;
 
 }
