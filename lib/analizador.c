@@ -118,7 +118,8 @@ int    analizador_entablero( Analizador* z ){
 int    analizador_enzona( Analizador* z, int zona, int color ){
     CHECK_STATUS;
     int  i;
-    for( i = 0; z->pos->piezas->entradas; i ++ ){
+    LOGPRINT( 5, "Entre a analizador_enzona, para revisar %d piezas", z->pos->piezas->entradas );
+    for( i = 0; i < z->pos->piezas->entradas; i ++ ){
         Pieza* ppp = (Pieza*)z->pos->piezas->data[i];
         if( !CASILLERO_VALIDO(ppp->casillero ) ) continue;
         if(  tipojuego_casillero_en_zona( z->pos->tjuego, ppp->casillero, zona, ( color == PROPIO ? color : z->color ) ) ) return 1;
