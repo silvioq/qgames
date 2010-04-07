@@ -25,16 +25,66 @@ void usage(char* prg){
    
 }
 
+int isnumeric(char *str)
+{
+  while(*str)
+  {
+    if(!isdigit(*str))
+      return 0;
+    str++;
+  }
+
+  return 1;
+}
+
+
+#if(HAVE_READLINE_H)
+
+static char * getline (const char *prompt)
+{
+  static char *buf = NULL;        /* Always allocated and freed
+                                   from inside this function.  */
+  if(buf) free(buf);
+
+  buf = (char *) readline ((char *) prompt);
+  if (buf && *buf) add_history (buf);
+  return buf;
+}
+
+#else
+static char * getline (const char *prompt)
+{
+  static char *buf = NULL;        /* Always allocated and freed
+                                   from inside this function.  */
+  if(!buf) buf = ALLOC( 1024 );
+  printf( prompt );
+  gets(buf);
+  return buf;
+}
+#endif
 
 
 
 void  jugar_partida(Partida* par){
 
+    partida_tablero_ascii( par );
+    partida_movidas_posibles_ascii( par );
     while( 1 ){
+        char* line;
+        line = getline( "# " );
+        if( isnumeric( line ) ){
+            if( !partida_mover_mov( par, atol( line ) ) ){
+                printf( "No se puede mover %d\n", atol( line ) );
+                continue;
+            }
+        } else {
+            if( !partida_mover_notacion( par, line ) ){
+                printf( "No se puede mover %s\n", line );
+                continue;
+            }
+        }
         partida_tablero_ascii( par );
-        // loglevel = 6;
         partida_movidas_posibles_ascii( par );
-        return;
     }
 };
 

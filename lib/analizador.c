@@ -138,8 +138,9 @@ int    analizador_enzona( Analizador* z, int zona, int color ){
     return 0;
 }
 
-
+#ifndef OUTOFBOARD_ISERROR
 #define  OUTOFBOARD_ISERROR 0
+#endif
 
 int    analizador_juega  ( Analizador* z, Casillero* cas, int con_captura ){
     CHECK_STATUS ;

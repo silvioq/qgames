@@ -876,9 +876,9 @@ F77
 FFLAGS
 ac_ct_F77
 LIBTOOL
-subdirs
 QASM_TRUE
 QASM_FALSE
+subdirs
 LIBOBJS
 LTLIBOBJS'
 ac_subst_files=''
@@ -20793,9 +20793,6 @@ fi
 
                         # or AC_PROG_CXX
 
-subdirs="$subdirs qcode"
-
-
  if 0; then
   QASM_TRUE=
   QASM_FALSE='#'
@@ -20803,6 +20800,14 @@ else
   QASM_TRUE='#'
   QASM_FALSE=
 fi
+
+subdirs="$subdirs qcode"
+
+
+# AC_CHECK_LIB(readline,readline)
+# if test x"${ac_cv_lib_readline_readline}" = xno; then
+  # AC_MSG_ERROR(libreadline not found)
+# fi
 
 
 
@@ -21634,9 +21639,9 @@ F77!$F77$ac_delim
 FFLAGS!$FFLAGS$ac_delim
 ac_ct_F77!$ac_ct_F77$ac_delim
 LIBTOOL!$LIBTOOL$ac_delim
-subdirs!$subdirs$ac_delim
 QASM_TRUE!$QASM_TRUE$ac_delim
 QASM_FALSE!$QASM_FALSE$ac_delim
+subdirs!$subdirs$ac_delim
 LIBOBJS!$LIBOBJS$ac_delim
 LTLIBOBJS!$LTLIBOBJS$ac_delim
 _ACEOF
