@@ -100,6 +100,7 @@ void  qgzprintf( char* format, ... ){
 
 %token    TOK_AHOGADO
 %token    TOK_AND       TOK_OR          TOK_NOT
+%token    TOK_CASILLERO_INICIAL
 %token    TOK_EMPATA    TOK_EMPATA_SI
 %token    TOK_ENTABLERO
 %token    TOK_ENZONA   
@@ -250,12 +251,12 @@ instaction_final:
 instaction_juega:
     TOK_JUEGA   {
             CHECK_TIPOJUEGO;
-            tipojuego_code_juega( tipojuego, NULL, 0 );
+            tipojuego_code_juega( tipojuego, NULL, 1 );
     }  | 
     TOK_JUEGA_SI   instexpr {
             CHECK_TIPOJUEGO;
             tipojuego_code_start_condblock( tipojuego );
-            tipojuego_code_juega( tipojuego, NULL, 0 );
+            tipojuego_code_juega( tipojuego, NULL, 1 );
             tipojuego_code_end_condblock( tipojuego );
     };
  
@@ -292,6 +293,10 @@ instaction_while:
 instaction:
     instaction_juega |
     instaction_final |
+    TOK_CASILLERO_INICIAL { 
+            CHECK_TIPOJUEGO;
+            tipojuego_code_casillero( tipojuego, NULL );
+    } |
     instaction_para  |
     instaction_while |
     TOK_WORD    {   

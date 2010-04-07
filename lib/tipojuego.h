@@ -170,8 +170,8 @@ Casillero* casillero_new( char* cas, int tablero );
 void       casillero_free( Casillero* cas );
 void       casillero_add_vinculo( Casillero* ori, Direccion* dir, Casillero* des );
 void       casillero_kill_vinculo( Casillero* ori,Direccion* dir, Casillero* des );
-Vinculo*   casillero_busca_vinculo_origen( Casillero* ori, Direccion* dir );
-Vinculo*   casillero_busca_vinculo_destino( Casillero* des, Direccion* dir );
+Vinculo*   casillero_busca_vinculo_pororigen( Casillero* ori, Direccion* dir );
+Vinculo*   casillero_busca_vinculo_pordestino( Casillero* des, Direccion* dir );
 int        casillero_posicion_establecida( Casillero* cas );
 
 int        casillero_check_dims( Casillero* cas, int max_dims, int pos[MAXDIMS] );

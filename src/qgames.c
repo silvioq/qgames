@@ -32,6 +32,7 @@ void  jugar_partida(Partida* par){
 
     while( 1 ){
         partida_tablero_ascii( par );
+        // loglevel = 6;
         partida_movidas_posibles_ascii( par );
         return;
     }

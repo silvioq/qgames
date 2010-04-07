@@ -203,8 +203,11 @@ void        tipojuego_code_para  ( Tipojuego* tj ){
 
 void        tipojuego_code_casillero( Tipojuego* tj, char* casillero ){
     long cas;
-    assert( casillero );
-    cas = GETCASILLERO(tj, casillero );
+    if( casillero ){
+        cas = GETCASILLERO(tj, casillero );
+    } else {
+        cas = -1;
+    }
     qcode_op( tj->qcode, QCSTI, 16, cas );      // t16 = cas     
     qcode_op( tj->qcode, QCPSH, 16, 0 );        // PSH t16
     qcode_op( tj->qcode, QCPSH,  3, 0 );        // PSH r3

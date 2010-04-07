@@ -159,9 +159,9 @@ int       partida_analizar_movidas( Partida* par ){
 
     if( PARTIDACONT( par ) ){
         Movida* mov = partida_ultimo_movimiento( par );
-        notacion_resolver_movidas( par->tjuego, par->pos->movidas, mov->notacion );
+        if( par->pos->movidas ) notacion_resolver_movidas( par->tjuego, par->pos->movidas, mov->notacion );
     } else {
-        notacion_resolver_movidas( par->tjuego, par->pos->movidas, NULL );
+        if( par->pos->movidas ) notacion_resolver_movidas( par->tjuego, par->pos->movidas, NULL );
     }
 
     final   =  clock();

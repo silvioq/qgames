@@ -103,10 +103,10 @@ void   casillero_add_vinculo( Casillero* ori, Direccion* dir, Casillero* des ){
     Vinculo* search;
 
     // Lo busco en la lista
-    search = casillero_busca_vinculo_origen( ori, dir );
+    search = casillero_busca_vinculo_pororigen( ori, dir );
     assert( !search );
 
-    search = casillero_busca_vinculo_destino( des, dir );
+    search = casillero_busca_vinculo_pordestino( des, dir );
     assert( !search );
 
     // Listo, lo puedo agregar en ambas listas 
@@ -144,10 +144,10 @@ Vinculo*   casillero_busca_vinculo( Casillero* cas, Direccion* dir, char orides 
  * La busqueda de un vinculo existente es algo que no puede faltar
  *
  * */
-Vinculo*   casillero_busca_vinculo_origen( Casillero* ori, Direccion* dir ){
+Vinculo*   casillero_busca_vinculo_pororigen( Casillero* ori, Direccion* dir ){
     return  casillero_busca_vinculo( ori, dir, 'O' );
 }
-Vinculo*   casillero_busca_vinculo_destino( Casillero* des, Direccion* dir ){
+Vinculo*   casillero_busca_vinculo_pordestino( Casillero* des, Direccion* dir ){
     return  casillero_busca_vinculo( des, dir, 'D' );
 }
 

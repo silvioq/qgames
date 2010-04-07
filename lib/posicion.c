@@ -178,11 +178,15 @@ int        posicion_analiza_movidas( Posicion* pos, char tipoanalisis, int color
             if( pp->casillero == ENPOZO ) continue;
             if( pp->casillero == ENCAPTURA ) continue;
             if( pp->color != color ) continue;
+            LOGPRINT( 6, "Analizando reglas para pieza %s en %s (%s)", 
+                  pp->tpieza->nombre, pp->casillero->nombre, 
+                  tipojuego_get_colorname( pos->tjuego, color ) );
             for( r = 0; r < pp->tpieza->rules->entradas; r ++ ){
                 Posicion* newpos = posicion_dup( pos );
                 Regla*  regla = (Regla*) pp->tpieza->rules->data[r];
                 if( tipomov && tipomov == regla->tmov ) continue;
                 _list*  movs;
+                LOGPRINT( 6, "Regla %d", r );
                 movs =  analizador_evalua_movidas( regla, pos, pp, pp->casillero, tipoanalisis, 
                                 regla->tmov, color );
                 if( movs ){

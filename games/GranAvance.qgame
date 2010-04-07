@@ -14,8 +14,8 @@ board:       "a b c d e f g h"  "1 2 3 4 5 6 7 8"
 # tener n numeros que hace la representacion 'n' dimensional.
 directions:  n  0  1 
 directions:  s  0 -1 
-directions:  e  0  1 
-directions:  o  0 -1 
+directions:  e  1  0 
+directions:  o -1  0
 
 # Simetria ... un color y dos direcciones.
 # Para el blanco, el norte es el norte abosulto del tablero, sin 
@@ -31,16 +31,14 @@ zone:       coronacion  negro   a1  b1  c1  d1  e1  f1  g1  h1
 # Aca hay una sola pieza!
 piece:       peon
 move:
-            n
-            juega-si  !ocupado?
-
-move:       
             n; e
-            juega-si   ocupado-enemigo?
+            juega-si  !ocupado-propio?
+            casillero_inicial;  n
+            juega-si  !ocupado?
+            casillero_inicial;  n; o
+            juega-si  !ocupado-propio?
+            
 
-move:       
-            n; o
-            juega-si   ocupado-enemigo?
 
 ending:
              gana-si   en-zona?  coronacion

@@ -34,6 +34,7 @@ _list*   analizador_evalua_movidas( Regla* regla, Posicion* pos, Pieza* pieza, C
     z->pos = pos;
     z->pieza = pieza;
     z->cas   = cas;
+    z->cas_ori = cas;
     z->color = color;
     z->tipo_analisis = tipoanalisis;
     z->tipo_movida   = tipomovida;
@@ -53,6 +54,7 @@ int      analizador_evalua_final  ( Regla* regla, Posicion* pos, Pieza* pieza, C
     memset( z, 0, sizeof( Analizador ) );
     z->pos = pos;
     z->cas   = cas;
+    z->cas_ori = cas;
     z->pieza = pieza;
     z->color = color;
     z->color_siguiente = color_siguiente;
@@ -87,7 +89,11 @@ int    analizador_ocupado( Analizador* z, Casillero* cas, int owner ){
     Casillero*  ccc = ( cas ? cas : z->cas );
    
     CHECK_STATUS ;
-    if( CASILLERO_VALIDO(ccc) )  LOGPRINT( 6, "Pregunta por ocupado al casillero %s owner = %d", ccc->nombre, owner );
+    if( CASILLERO_VALIDO(ccc) ){
+        LOGPRINT( 6, "Pregunta por ocupado al casillero %s owner = %d", ccc->nombre, owner );
+    } else {
+        return 0;
+    }
     int i;
     for( i = 0; i < z->pos->piezas->entradas; i ++ ){
         Pieza* pp = (Pieza*)z->pos->piezas->data[i];
@@ -124,26 +130,32 @@ int    analizador_enzona( Analizador* z, int zona, int color ){
         if( !CASILLERO_VALIDO(ppp->casillero ) ) continue;
         if( ppp->color != colorcheck ) continue;
         if(  tipojuego_casillero_en_zona( z->pos->tjuego, ppp->casillero, zona, colorcheck ) ){
-            LOGPRINT( 5, "En zona acertó! zona=%d color=%d cas=%s", zona, colorcheck, ppp->casillero->nombre );
+            LOGPRINT( 6, "En zona acertó! zona=%d color=%d cas=%s", zona, colorcheck, ppp->casillero->nombre );
             return 1;
         }
     }
-    LOGPRINT( 5, "Zona salio por cero %d", zona );
+    LOGPRINT( 6, "Zona salio por cero %d", zona );
     return 0;
 }
 
 
+#define  OUTOFBOARD_ISERROR 0
+
 int    analizador_juega  ( Analizador* z, Casillero* cas, int con_captura ){
     CHECK_STATUS ;
+    Casillero* ccc = ( cas ? cas : z->cas );
+#if(OUTOFBOARD_ISERROR)
+    if( !CASILLERO_VALIDO( ccc ) ) return STATUS_OUTOFBOARD;
+#endif
     if( !z->movidas ) z->movidas = list_nueva( NULL );
     Movida* mov = movida_new( z->pos );
-    movida_accion_mueve( mov, z->pieza, ( cas ? cas : z->cas ) );
+    movida_accion_mueve( mov, z->pieza, ccc );
     list_agrega( z->movidas, mov );
     if( con_captura ){
         int i;
         for( i = 0; i < z->pos->piezas->entradas; i ++ ){
             Pieza* pp = (Pieza*)z->pos->piezas->data[i];
-            if( pp->casillero == cas && pp != z->pieza ){
+            if( pp->casillero == ccc){
                 movida_accion_captura( mov, pp );
             }
         }
@@ -158,15 +170,27 @@ int   analizador_direccion( Analizador* z, Direccion* dir ){
     Vinculo* v;
     Direccion* dir2;
     CHECK_STATUS;
-    assert( CASILLERO_VALIDO( z->cas ) );
+#if  OUTOFBOARD_ISERROR
+    if( !CASILLERO_VALIDO( z->cas ) ) return STATUS_OUTOFBOARD;
+#else
+    if( !CASILLERO_VALIDO( z->cas ) ) return STATUS_NORMAL;
+#endif
     dir2 = tipojuego_dir_by_sym( z->pos->tjuego, dir, z->color );
-    v = casillero_busca_vinculo_origen( z->cas, dir2 );
+    v = casillero_busca_vinculo_pororigen( z->cas, dir2 );
     if( !v ){
+        LOGPRINT( 6, "Estoy en %s moviendome hacia %s ... me voy del tablero", z->cas->nombre, dir2->nombre );
+#if  OUTOFBOARD_ISERROR
         z->status = STATUS_OUTOFBOARD;
         z->cas    = OUTOFBOARD;
         return STATUS_OUTOFBOARD;
+#else
+        z->cas    = OUTOFBOARD;
+        return STATUS_NORMAL;
+#endif
     }
 
+    LOGPRINT( 6, "Estoy en %s moviendome hacia %s ... mi destino es %s", 
+              z->cas->nombre, dir2->nombre, v->destino->nombre );
     z->cas = v->destino;
     return  STATUS_NORMAL;
 }
@@ -175,7 +199,10 @@ int   analizador_direccion( Analizador* z, Direccion* dir ){
 int   analizador_casillero( Analizador* z, Casillero* cas ){
     CHECK_STATUS;
   
-    z->cas = cas;
+    z->cas = cas ? cas : z->cas_ori;
+    LOGPRINT( 6, "Estoy en %s moviendome hacia %s%s", z->cas->nombre, 
+            cas ? cas : z->cas_ori, 
+            cas ? ""  : " (original)" );
     return  STATUS_NORMAL;
 }
 
@@ -193,7 +220,7 @@ int   analizador_ahogado( Analizador* z ){
     i = posicion_analiza_movidas( pos, ANALISIS_PRIMER_MOVIDA, z->color_siguiente, 0, NULL );
     LOGPRINT( 6, "Llamando a posicion_analiza_movidas, para obtener ahogado con color %d resultado %d", z->color_siguiente, i );
     posicion_free( pos );
-    if( i == 0 ) LOGPRINT( 5, "Dio ahogado controlando en color %d", z->color_siguiente );
+    if( i == 0 ) LOGPRINT( 6, "Dio ahogado controlando en color %d", z->color_siguiente );
     return i > 0 ? 0 : 1;
 
 }

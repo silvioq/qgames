@@ -104,6 +104,8 @@ define\:        { define_created = 0; BEGIN(define_head);   }
 <code>&&                  { return TOK_AND;       }
 <code>\!                  { return TOK_NOT;       }
 <code>not                 { return TOK_NOT;       }
+
+<code>casillero(\-|\_)inicial  { return  TOK_CASILLERO_INICIAL; }
 <code>do                  { return TOK_DO;        }
 <code>empata              { return TOK_EMPATA;    }
 <code>empata\-si          { return TOK_EMPATA_SI; }
