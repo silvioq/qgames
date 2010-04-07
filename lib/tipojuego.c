@@ -77,6 +77,20 @@ int         tipojuego_casillero_en_zona( Tipojuego* tj, Casillero* cas, int zona
 }
 
 /*
+ * Esta funcion devuelve la dirección correcta teniendo en cuenta el desdoble por 
+ * simetria del color pasado como parámetro
+ * */
+Direccion*  tipojuego_dir_by_sym( Tipojuego* tj, Direccion* dir, int color ){
+    if( !tj->simetrias ) return dir;
+    Simetria* sss;
+    list_inicio( tj->simetrias );
+    while( sss = (Simetria*) list_siguiente(tj->simetrias) ){
+        if( color == sss->color && dir == sss->dir1 ) return sss->dir2;
+    }
+    return dir;
+}
+
+/*
  *
  * Devuelve el nombre del color pasado como parametro,
  * accediendo a la tabla de simbolos 

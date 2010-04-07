@@ -156,9 +156,11 @@ int    analizador_juega  ( Analizador* z, Casillero* cas, int con_captura ){
 int   analizador_direccion( Analizador* z, Direccion* dir ){
 
     Vinculo* v;
+    Direccion* dir2;
     CHECK_STATUS;
     assert( CASILLERO_VALIDO( z->cas ) );
-    v = casillero_busca_vinculo_origen( z->cas, dir );
+    dir2 = tipojuego_dir_by_sym( z->pos->tjuego, dir, z->color );
+    v = casillero_busca_vinculo_origen( z->cas, dir2 );
     if( !v ){
         z->status = STATUS_OUTOFBOARD;
         z->cas    = OUTOFBOARD;
