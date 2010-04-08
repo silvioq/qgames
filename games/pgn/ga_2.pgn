@@ -1,0 +1,44 @@
+[Variant "GranAvance"]
+[Result "1-0"]
+[Termination "abandoned"]
+
+1.  e2-e3   d7-d6
+2.  f1-e2   e7-e6
+3.  e2-d3   f7-f6
+4.  d1-e2   b7-b6
+5.  d2-c3   c8-b7
+6.  c3-c4   b7-c6
+7.  e1-d2   a8-b7
+8.  d2-c3   a7-a6
+9.  c2-b3   d6-c5
+10.   a2-a3   e6-d5
+11.   g2-f3   e8-e7
+12.   g1-g2   d8-d7
+13.   c1-c2   e7-d6
+14.   h2-g3   g7-g6
+15.   h1-h2   d7-e6
+16.   g3-f4   f8-f7
+17.   g2-g3   g8-g7
+18.   a1-a2   g6-g5
+19.   a3-b4   c5xb4
+20.   c3xb4   g7-h6
+21.   h2-h3   g5xf4
+22.   g3xf4   h8-g7
+23.   f2-g3   g7-g6
+24.   c2-c3   d5xc4
+25.   b3xc4   b6-b5
+26.   b2-b3   b7-b6
+27.   a2-a3   b8-b7
+28.   b1-c2   b5xc4
+29.   b3xc4   c6-b5
+30.   c2-b3   b5xc4
+31.   d3xc4   b7-c6
+32.   e2-d3   f6-f5
+33.   e3-e4   f5xe4
+34.   f3xe4   c6-b5
+35.   a3-a4   b5xa4
+36.   b3xa4   g6-f5
+37.   b4-b5   a6xb5
+38.   c4xb5   f5xe4
+39.   d3xe4   d6-d5
+40.   b5-a6   

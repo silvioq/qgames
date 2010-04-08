@@ -147,6 +147,8 @@ int    analizador_juega  ( Analizador* z, Casillero* cas, int con_captura ){
     Casillero* ccc = ( cas ? cas : z->cas );
 #if(OUTOFBOARD_ISERROR)
     if( !CASILLERO_VALIDO( ccc ) ) return STATUS_OUTOFBOARD;
+#else
+    if( !CASILLERO_VALIDO( ccc ) ) return STATUS_NORMAL;
 #endif
     if( !z->movidas ) z->movidas = list_nueva( NULL );
     Movida* mov = movida_new( z->pos );

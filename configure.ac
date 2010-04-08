@@ -8,10 +8,11 @@ AC_CONFIG_SRCDIR([configure.ac])
 AC_CONFIG_HEADERS([config.h])     # not even really needed
 AC_PROG_CC                        # or AC_PROG_CXX
 
+AC_CHECK_LIB(readline,readline)
+
 AM_CONDITIONAL([QASM], [0])
 AC_CONFIG_SUBDIRS([qcode])
 
-# AC_CHECK_LIB(readline,readline)
 # if test x"${ac_cv_lib_readline_readline}" = xno; then
   # AC_MSG_ERROR(libreadline not found)
 # fi

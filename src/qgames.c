@@ -11,6 +11,7 @@
 #include  <string.h>
 #include  <unistd.h>
 #include  <time.h>
+#include  <config.h>
 #include  <qgames.h>
 #include  <qgames_analyzer.h>
 #include  "log.h"
@@ -38,7 +39,7 @@ int isnumeric(char *str)
 }
 
 
-#if(HAVE_READLINE_H)
+#if(HAVE_LIBREADLINE)
 
 static char * getline (const char *prompt)
 {
@@ -56,9 +57,11 @@ static char * getline (const char *prompt)
 {
   static char *buf = NULL;        /* Always allocated and freed
                                    from inside this function.  */
+  int count;
   if(!buf) buf = ALLOC( 1024 );
   printf( prompt );
-  gets(buf);
+  fgets(buf, 1024, stdin);
+  buf[strlen(buf)-1] = 0;
   return buf;
 }
 #endif
@@ -73,7 +76,7 @@ void  jugar_partida(Partida* par){
         char* line;
         line = getline( "# " );
         if( isnumeric( line ) ){
-            if( !partida_mover_mov( par, atol( line ) ) ){
+            if( !partida_mover( par, atol( line ) ) ){
                 printf( "No se puede mover %d\n", atol( line ) );
                 continue;
             }
