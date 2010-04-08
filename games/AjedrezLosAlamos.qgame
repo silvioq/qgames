@@ -1,0 +1,194 @@
+# El gametype es el nombre de juego que usaremos!
+#
+# El ajedrez Los Alamos es un ajedrez reducido creado
+# especialmente para procesos computacionales, o sea
+# para programas de computadora que todavia no tienen
+# la capacidad completa de jugar ajedrez ... ni que
+# decirlo, viene al pelo para probar el qgames
+#
+# Segun la Wikipedia:
+# El ajedrez Los Álamos es una variante del ajedrez que se 
+# juega en un tablero de 6×6 casillas y sin alfiles. Fue 
+# el primer juego similar al ajedrez que un programa 
+# informático pudo jugar. El programa fue desarrollado 
+# en el Laboratorio Nacional Los Álamos por Paul Stein y 
+# Mark Wells, para el ordenador MANIAC I en 1956. La 
+# reducción del tamaño del tablero y del número de piezas 
+# en relación al ajedrez estándar se debió a la limitada 
+# capacidad de los ordenadores de la época.
+gametype:    AjedrezLosAlamos
+
+# Cada color se define aparte o no
+color:       blanco 
+color:       negro 
+
+# Board se puede definir como una lista de dimensiones.
+# Tambien podria estar en blanco y comenzar con las definiciones
+# de casillero de una.
+board:       "a b c d e f" "1 2 3 4 5 6"
+
+# Directions tiene el nombre de la direccion. Opcionalmente podria
+# tener n numeros que hace la representacion 'n' dimensional.
+directions:  n  0  1 
+directions:  s  0 -1 
+directions:  e  1  0  
+directions:  o -1  0 
+
+# Simetria ... un color y dos direcciones
+symmetry:    negro   s    n
+symmetry:    negro   n    s
+
+# Zona. Tiene el nombre de zona (obligatorio), luego
+# cero, uno o mas colores, indicando a que colores aplica y finalmente
+# una lista de casilleros.
+zone:        coronacion  blanco  a6  b6  c6  d6  e6  f6
+zone:        coronacion  negro   a1  b1  c1  d1  e1  f1
+
+# Toda esta parte tiene que ver con
+# las definiciones para hacer mas facil 
+# la generacion de los miniprogramas
+# de movimiento
+#
+# El primer define
+# 
+define:      movida_derecho direccion 
+             direccion
+             while en_tablero? && !ocupado_propio?  do
+                juega
+                parar-if ocupado_enemigo?
+                direccion
+             end
+
+define:     movida_caballo direccion
+            direccion
+            parar-if !en_tablero?
+            juega-if !ocupado_propio?
+
+define:     movida_rey direccion
+            direccion
+            parar if !en_tablero?
+            parar if ocupado_propio?
+            parar if atacado_enemigo?
+            asigna_atributo 'ya_movido', true
+            juega
+
+# Listo, ahora si ... se vienen las definiciones de piezas
+#
+piece:      torre
+move:       
+            movida_derecho n
+move:       
+            movida_derecho s
+move:       
+            movida_derecho e
+move:       
+            movida_derecho o
+
+
+piece:      dama
+move:       
+            movida_derecho "n"
+move:       
+            movida_derecho "s"
+move:       
+            movida_derecho "o"
+move:       
+            movida_derecho "e"
+move:       
+            movida_derecho "n; e"
+move:       
+            movida_derecho "s; e"
+move:       
+            movida_derecho "s; o"
+move:       
+            movida_derecho "n; o"
+
+piece:      caballo
+move:       caballo
+            movida_caballo 'n; n; e'
+move:       caballo
+            movida_caballo 'n; n; o'
+move:       caballo
+            movida_caballo 's; s; e'
+move:       caballo
+            movida_caballo 's; s; o'
+move:       caballo
+            movida_caballo 'e; e; s'
+move:       caballo
+            movida_caballo 'o; o; s'
+move:       caballo
+            movida_caballo 'e; e; n'
+move:       caballo
+            movida_caballo 'o; o; n' 
+
+piece:      "peon"
+# Movida para adelante
+move:       
+            n
+            parar if !en_tablero?
+            parar if ocupado? 
+            transforma 'caballo', 'torre', 'dama' if en_zona? 'coronacion'
+            juega
+
+# Captura del peon
+move:
+            n; e; 
+            if ocupado_enemigo? 
+              transforma 'caballo', 'torre', 'dama' if en_zona? 'coronacion'
+              juega
+            end
+            casillero_inicial; n; o;
+            if ocupado_enemigo? 
+              transforma 'caballo', 'torre', 'dama' if en_zona? coronacion
+              juega
+            end
+
+
+piece:      rey            
+move:
+            movida_rey "n" 
+            movida_rey "s"
+            movida_rey "e"
+            movida_rey "o"
+            movida_rey "n; e;"
+            movida_rey "n; o;"
+            movida_rey "s; o;"
+            movida_rey "s; e;"
+
+# Listo con la definicion de piezas ... mas cosas
+#
+# Se vienen los finales. Son tambien distintos mini programas!
+ending:    
+            gana if jaquemate? "rey"
+ending:     
+            empata if ahogado?
+ending:
+            empata if repite_posicion? 3 
+ending:
+            empata if cantidad_piezas? 2
+            parar  if !cantidad_piezas? 3
+            empata if cantidad_piezas? caballo 1
+
+sequence:   blanco negro
+start:      torre    blanco  a1  f1
+start:      torre    negro   a6  f6
+start:      caballo  blanco  b1  e1
+start:      caballo  negro   b6  e6
+start:      dama     blanco  c1
+start:      dama     negro   c6
+start:      rey      blanco  d1
+start:      rey      negro   d6
+start:      peon     blanco  a2  b2  c2  d2  e2  f2
+start:      peon     negro   a5  b5  c5  d5  e5  f5
+  
+
+notation:   rey     K
+notation:   dama    Q
+notation:   torre   R
+notation:   caballo N
+notation:   peon    ""
+notation:   marca_captura   x
+notation:   marca_movida   "-"
+notation:   default   nombre_pieza  marca_captura      casillero_destino
+notation:   onrepeat  nombre_pieza  casillero_origen   marca              casillero_destino
+
