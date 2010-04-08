@@ -1,0 +1,13 @@
+[Event "Casual Internet Game"]
+[Site "http://www.opengames.com.ar"]
+[Date "2009.09.15"]
+[Round "-"]
+[White "Rubén"]
+[Black "Fabio"]
+[Result "0-1"]
+[Variant "Gomoku"]
+[Termination "abandoned"]
+
+1. g7 h8 2. g8 g9 3. h10 h9 4. i7 i9 5. f9 h7 
+6. i8 j9 7. k9 j8 8. j10 i10 9. k8 k7 10. l8 m7 
+11. f10 f8 
