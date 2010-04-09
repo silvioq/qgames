@@ -57,7 +57,7 @@ SPACES    [ ]+
                     }
 <string>\"          { BEGIN(string_ret); }
 
-<INITIAL,code>\'    { string_ret = YYSTATE; BEGIN(string2); printf( "Iniciando comillas simples\n" ); }
+<INITIAL,code>\'    { string_ret = YYSTATE; BEGIN(string2);  }
 <string2>[^\']*     { qgzlval = (long)strdup(yytext); 
                       return TOK_STRING;
                     }

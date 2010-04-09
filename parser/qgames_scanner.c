@@ -1246,7 +1246,7 @@ YY_RULE_SETUP
 case 4:
 YY_RULE_SETUP
 #line 60 "qgames_scanner.l"
-{ string_ret = YYSTATE; BEGIN(string2); printf( "Iniciando comillas simples\n" ); }
+{ string_ret = YYSTATE; BEGIN(string2);  }
 	YY_BREAK
 case 5:
 /* rule 5 can match eol */

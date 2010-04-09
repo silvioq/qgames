@@ -135,13 +135,13 @@ move:
 # Captura del peon
 move:
             n; e; 
-            if ocupado_enemigo? 
-              transforma 'caballo', 'torre', 'dama' if en_zona? 'coronacion'
+            if ocupado_enemigo? && en_zona? 'coronacion'
+              transforma 'caballo', 'torre', 'dama' 
               juega
             end
             casillero_inicial; n; o;
-            if ocupado_enemigo? 
-              transforma 'caballo', 'torre', 'dama' if en_zona? coronacion
+            if ocupado_enemigo? && en_zona? coronacion
+              transforma 'caballo', 'torre', 'dama' 
               juega
             end
 

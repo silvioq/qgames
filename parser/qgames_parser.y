@@ -130,7 +130,8 @@ word_or_string:
 
 word_or_string_list:
         word_or_string                      { add_parameter( TOK_STRING, $1 ); }    |  
-        word_or_string_list  word_or_string { add_parameter( TOK_STRING, $2 ); }    ;
+        word_or_string_list  word_or_string { add_parameter( TOK_STRING, $2 ); }    |
+        word_or_string_list ','  word_or_string { add_parameter( TOK_STRING, $2 ); }    ;
 
 number_list:
         TOK_NUMBER                         { add_parameter( TOK_NUMBER, $1 ); } |   
@@ -272,16 +273,17 @@ instaction_movs:
                     int    i;
                     char*  color = NULL;
                     for( i = 0; i < qgz_param_count; i ++ ){
-                        int x;
-                        if( x = tipojuego_get_color( tipojuego, qgz_param_list[i].str ) ){
+                        int x = tipojuego_get_color( tipojuego, qgz_param_list[i].str );
+                        if( x != NOT_FOUND ){
                             color = qgz_param_list[i].str;
                             break;
                         }
                     }
                     for( i = 0; i < qgz_param_count; i ++ ){
-                        if( tipojuego_get_tipopieza( tipojuego, qgz_param_list[i].str ) ){
+                        if( NOT_FOUND != tipojuego_get_tipopieza( tipojuego, qgz_param_list[i].str ) ){
+                            qgzprintf( "Se va a transformar a %s %s", qgz_param_list[i].str, color );
                             tipojuego_code_transforma( tipojuego, NOCOLOR, color, qgz_param_list[i].str );
-                        } else if ( !tipojuego_get_color( tipojuego, qgz_param_list[i].str ) ){
+                        } else if ( NOT_FOUND != tipojuego_get_color( tipojuego, qgz_param_list[i].str ) ){
                             qgzprintf( "Parametro incorrecto en transforma: %s", qgz_param_list[i].str ); 
                             yyerror( "Error de parametros en transforma, debe ser color o tipo de pieza" );
                         }
