@@ -15,7 +15,10 @@
 
 typedef  struct StrParam {
   int   typ;
-  long  par;
+  union {
+      long  par;
+      char* str;
+ };
 } str_param;
 
 
@@ -112,6 +115,7 @@ void  qgzprintf( char* format, ... ){
 %token    TOK_OCUPADOPROPIO
 %token    TOK_PARA      TOK_PARA_SI
 %token    TOK_PIERDE    TOK_PIERDE_SI
+%token    TOK_TRANSFORMA
 
 %token    TOK_WHILE     TOK_DO   TOK_END
 
@@ -184,14 +188,23 @@ instexpr_ocupado:
         }
     };
 
-instexpr:
+instexpr_logical:
     TOK_NOT   instexpr    {
                 CHECK_TIPOJUEGO;
                 tipojuego_code_op_not( tipojuego );
     } |
+    instexpr TOK_AND    {
+                CHECK_TIPOJUEGO;
+                tipojuego_code_start_condblock( tipojuego );
+    } instexpr  { 
+                tipojuego_code_end_condblock( tipojuego );
+    } |
+    instexpr TOK_OR  instexpr  { NOT_IMPLEMENTED; } 
+    ;
+
+instexpr:
     '(' instexpr ')' |
-    instexpr TOK_AND instexpr  { NOT_IMPLEMENTED; } |
-    instexpr TOK_OR  instexpr  { NOT_IMPLEMENTED; } |
+    instexpr_logical |
     instexpr_entablero |
     instexpr_enzona  |
     instexpr_ocupado |
@@ -246,7 +259,34 @@ instaction_final:
             tipojuego_code_start_condblock( tipojuego );
             tipojuego_code_final( tipojuego, NULL, PIERDE );
             tipojuego_code_end_condblock( tipojuego );
-     } |
+     } ;
+
+  
+
+instaction_movs:
+    TOK_CASILLERO_INICIAL { 
+            CHECK_TIPOJUEGO;
+            tipojuego_code_casillero( tipojuego, NULL );
+    } |
+    TOK_TRANSFORMA  {  CHECK_TIPOJUEGO; init_parameters(); }  word_or_string_list {
+                    int    i;
+                    char*  color = NULL;
+                    for( i = 0; i < qgz_param_count; i ++ ){
+                        int x;
+                        if( x = tipojuego_get_color( tipojuego, qgz_param_list[i].str ) ){
+                            color = qgz_param_list[i].str;
+                            break;
+                        }
+                    }
+                    for( i = 0; i < qgz_param_count; i ++ ){
+                        if( tipojuego_get_tipopieza( tipojuego, qgz_param_list[i].str ) ){
+                            tipojuego_code_transforma( tipojuego, NOCOLOR, color, qgz_param_list[i].str );
+                        } else if ( !tipojuego_get_color( tipojuego, qgz_param_list[i].str ) ){
+                            qgzprintf( "Parametro incorrecto en transforma: %s", qgz_param_list[i].str ); 
+                            yyerror( "Error de parametros en transforma, debe ser color o tipo de pieza" );
+                        }
+                    }
+    };
 
 instaction_juega:
     TOK_JUEGA   {
@@ -276,6 +316,14 @@ instaction_para:
 /* ------------------------------------------------------ */
 /* Instrucciones de control de flujo del programa         */
 /* ------------------------------------------------------ */
+instaction_if:
+    TOK_IF   instexpr {
+            CHECK_TIPOJUEGO;
+            tipojuego_code_start_condblock( tipojuego );
+    } code_list {
+            tipojuego_code_end_condblock( tipojuego );
+    } TOK_END ;
+
 instaction_while:
     TOK_WHILE  {
             CHECK_TIPOJUEGO;
@@ -287,16 +335,14 @@ instaction_while:
             tipojuego_code_break_block( tipojuego );
             tipojuego_code_end_condblock( tipojuego );
             tipojuego_code_end_block( tipojuego );
-    }
+    };
     
 
 instaction:
     instaction_juega |
     instaction_final |
-    TOK_CASILLERO_INICIAL { 
-            CHECK_TIPOJUEGO;
-            tipojuego_code_casillero( tipojuego, NULL );
-    } |
+    instaction_if    |
+    instaction_movs  |
     instaction_para  |
     instaction_while |
     TOK_WORD    {   
@@ -322,8 +368,7 @@ instaction:
 
 /* --------------------------------------------------------------------------- */
 instcode:
-    instaction   /* |
-    instaction   TOK_IF  instexpr*/  |
+    instaction | 
     ;
 
 code_list:

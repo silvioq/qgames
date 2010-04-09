@@ -93,6 +93,7 @@ void        tipojuego_code_start_condblock( Tipojuego* tj ){
 void        tipojuego_code_else_condblock( Tipojuego* tj ){
     long  label = pop_label_stack( );                          // esta tiene el final de la condicion positiva
     long  label_end = qcode_crlab( tj->qcode, unnamed_label ); // Esta tiene el final del bloque
+    push_label_stack( label_end );
     qcode_oplab( tj->qcode, QCJMP, label_end );                // Lo primero que hago es mandar el PC al final del bloque
     qcode_label( tj->qcode, label );                           // Aca va a caer el PC cuando la condicion de negativa.
 }
@@ -178,6 +179,33 @@ void        tipojuego_code_entablero( Tipojuego* tj ){
     qcode_opnlab( tj->qcode, QCCLX, "entablero" );
     // FIXME: Hay que controlar posibles estados erroneos
     // RET_IF_STATUS;                              // Retorna si el valor es distinto de cero
+}
+
+
+void        tipojuego_code_transforma( Tipojuego* tj, int owner, char* color, char* tpieza  ){
+    int  own = NOCOLOR;
+    int  tp ;
+
+    assert( owner == PROPIO || owner == ENEMIGO || owner == NOCOLOR );
+
+    if( owner == NOCOLOR && color ){
+        own = GETCOLOR(tj, color );
+    } else if( owner != NOCOLOR ){
+        own = owner;
+    }
+
+    if( tpieza ){
+        tp = GETTIPOPIEZA(tj, tpieza );
+    } else {
+        tp = -1;
+    }
+    qcode_op( tj->qcode, QCSTI, 16, own );      // t16 = own
+    qcode_op( tj->qcode, QCPSH, 16, 0 );        // PSH t16
+    qcode_op( tj->qcode, QCSTI, 16, tp  );      // t16 = tp 
+    qcode_op( tj->qcode, QCPSH, 16, 0 );        // PSH t16
+    qcode_op( tj->qcode, QCPSH,  3, 0 );        // PSH r3
+    qcode_opnlab( tj->qcode, QCCLX, "transforma" );
+    RET_IF_STATUS;                              // Retorna si el valor es distinto de cero
 }
 
 void        tipojuego_code_juega  ( Tipojuego* tj, char* casillero, int captura ){

@@ -92,6 +92,7 @@ void*       tipojuego_get_code( Tipojuego* tj );
 #define   ENEMIGO       -1
 #define   PROPIO        -2
 #define   CUALQUIERA     0
+#define   NOCOLOR        0
 void        tipojuego_code_start_condblock( Tipojuego* tj );
 void        tipojuego_code_else_condblock( Tipojuego* tj );
 void        tipojuego_code_end_condblock( Tipojuego* tj );
@@ -108,6 +109,7 @@ void        tipojuego_code_ahogado( Tipojuego* tj, char* color );
 void        tipojuego_code_entablero( Tipojuego* tj );
 void        tipojuego_code_enzona ( Tipojuego* tj, char* zona );
 void        tipojuego_code_juega  ( Tipojuego* tj, char* casillero, int captura );
+void        tipojuego_code_transforma( Tipojuego* tj, int owner, char* color, char* tpieza );
 void        tipojuego_code_para   ( Tipojuego* tj );
 
 #define   ENJUEGO   0

@@ -55,19 +55,19 @@ define:      movida_derecho direccion
              direccion
              while en_tablero? && !ocupado_propio?  do
                 juega
-                parar-if ocupado_enemigo?
+                parar-si ocupado_enemigo?
                 direccion
              end
 
 define:     movida_caballo direccion
             direccion
-            parar-if !en_tablero?
-            juega-if !ocupado_propio?
+            parar-si !en_tablero?
+            juega-si !ocupado_propio?
 
 define:     movida_rey direccion
             direccion
-            parar if !en_tablero?
-            parar if ocupado_propio?
+            parar-si !en_tablero?
+            parar-si ocupado_propio?
             parar if atacado_enemigo?
             asigna_atributo 'ya_movido', true
             juega
@@ -104,30 +104,32 @@ move:
             movida_derecho "n; o"
 
 piece:      caballo
-move:       caballo
+move:       
             movida_caballo 'n; n; e'
-move:       caballo
+move:       
             movida_caballo 'n; n; o'
-move:       caballo
+move:       
             movida_caballo 's; s; e'
-move:       caballo
+move:       
             movida_caballo 's; s; o'
-move:       caballo
+move:       
             movida_caballo 'e; e; s'
-move:       caballo
+move:       
             movida_caballo 'o; o; s'
-move:       caballo
+move:       
             movida_caballo 'e; e; n'
-move:       caballo
+move:       
             movida_caballo 'o; o; n' 
 
 piece:      "peon"
 # Movida para adelante
 move:       
-            n
-            parar if !en_tablero?
-            parar if ocupado? 
-            transforma 'caballo', 'torre', 'dama' if en_zona? 'coronacion'
+            n; 
+            parar-si !en_tablero?
+            parar-si ocupado? 
+            if en_zona? 'coronacion'
+                transforma 'caballo', 'torre', 'dama'
+            end
             juega
 
 # Captura del peon

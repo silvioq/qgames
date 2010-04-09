@@ -126,6 +126,13 @@ typedef  struct  StrZonadef{
     ret; \
   })
 
+#define  GETTIPOPIEZA(tj,nom)  ({ \
+    int ret = tipojuego_get_tipopieza(tj,nom); \
+    assert( ret != NOT_FOUND ); \
+    ret; \
+  })
+
+
 #define  GETCOLOR(tj,nom)  ({ \
     int ret = tipojuego_get_color(tj,nom); \
     assert( ret != NOT_FOUND ); \

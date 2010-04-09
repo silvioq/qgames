@@ -80,9 +80,10 @@
      TOK_PARA_SI = 296,
      TOK_PIERDE = 297,
      TOK_PIERDE_SI = 298,
-     TOK_WHILE = 299,
-     TOK_DO = 300,
-     TOK_END = 301
+     TOK_TRANSFORMA = 299,
+     TOK_WHILE = 300,
+     TOK_DO = 301,
+     TOK_END = 302
    };
 #endif
 /* Tokens.  */
@@ -127,9 +128,10 @@
 #define TOK_PARA_SI 296
 #define TOK_PIERDE 297
 #define TOK_PIERDE_SI 298
-#define TOK_WHILE 299
-#define TOK_DO 300
-#define TOK_END 301
+#define TOK_TRANSFORMA 299
+#define TOK_WHILE 300
+#define TOK_DO 301
+#define TOK_END 302
 
 
 

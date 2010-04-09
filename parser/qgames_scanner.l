@@ -33,30 +33,40 @@ char*      newdata_buffer[MAXBUFFSTACK];
 char*      defname_buffer[MAXBUFFSTACK];
 int        sp_buffer = 0;
 
+char       string_ret ; // donde retorna
+
+
 
 %}
 
 %option batch
 %option yylineno
 %option case-sensitive
-%x      string    code  define  define_head   params
+%x      string  string2   code  define  define_head   params
 
 WORD      ([a-zA-Z\?][a-zA-Z0-9\-\_]*\??)
+SPACES    [ ]+
 
 %%
 
 
 
-\"              { BEGIN(string); }
-<string>[^\"]*  { qgzlval = (long)strdup(yytext); 
-                  return TOK_STRING;
-                }
-<string>\"      { BEGIN(INITIAL); }
+<INITIAL,code>\"    { string_ret = YYSTATE; BEGIN(string); }
+<string>[^\"]*      { qgzlval = (long)strdup(yytext); 
+                      return TOK_STRING;
+                    }
+<string>\"          { BEGIN(string_ret); }
+
+<INITIAL,code>\'    { string_ret = YYSTATE; BEGIN(string2); printf( "Iniciando comillas simples\n" ); }
+<string2>[^\']*     { qgzlval = (long)strdup(yytext); 
+                      return TOK_STRING;
+                    }
+<string2>\'         { BEGIN(string_ret); }
 
 
-<code>^{WORD}\:   { BEGIN(INITIAL); yyless(0); return  TOK_SEPARATOR; }
-<define>^{WORD}\: { generate_define(); BEGIN(INITIAL); yyless(0); return  TOK_SEPARATOR; }
-<define>.|\n      { define_body[define_bodyc++] = yytext[0]; }
+<code>^{WORD}\:     { BEGIN(INITIAL); yyless(0); return  TOK_SEPARATOR; }
+<define>^{WORD}\:   { generate_define(); BEGIN(INITIAL); yyless(0); return  TOK_SEPARATOR; }
+<define>.|\n        { define_body[define_bodyc++] = yytext[0]; }
 
 <define_head>{WORD} { if( !define_created) 
                           create_define( yytext );
@@ -86,10 +96,25 @@ zone\:          { return TOK_ZONE;      }
 
 define\:        { define_created = 0; BEGIN(define_head);   }
 
-<params>\"[^\"]*\"        { if( !add_parameter_to_def( yytext ) ) yyterminate();
+<params>\'[^\']*\'        { 
+                            char* str = strdup( ((char*)yytext) + 1 );
+                            str[yyleng - 2] = 0;
+                            
+                            if( !add_parameter_to_def( str ) ) yyterminate();
                             if( parmcount == totalparm ){
                                 if( ! switch_to_define( )) yyterminate();
                             }
+                            free( str );
+                          }
+<params>\"[^\"]*\"        { 
+                            char* str = strdup( ((char*)yytext) + 1 );
+                            str[yyleng - 2] = 0;
+                            
+                            if( !add_parameter_to_def( str ) ) yyterminate();
+                            if( parmcount == totalparm ){
+                                if( ! switch_to_define( )) yyterminate();
+                            }
+                            free( str );
                           }
 <params>[^ \n\r,]+        { if( !add_parameter_to_def( yytext ) ) yyterminate();
                             if( parmcount == totalparm ){
@@ -126,6 +151,7 @@ define\:        { define_created = 0; BEGIN(define_head);   }
 <code>parar?\-si          { return  TOK_PARA_SI;     }
 <code>pierde              { return  TOK_PIERDE;      }
 <code>pierde\-si          { return  TOK_PIERDE_SI;   }
+<code>transformar?        { return  TOK_TRANSFORMA;  }
 <code>while               { return  TOK_WHILE;       }
 
 
@@ -176,7 +202,7 @@ define\:        { define_created = 0; BEGIN(define_head);   }
                       if( defname_buffer[sp_buffer] ) free( defname_buffer[sp_buffer] );
                       yy_delete_buffer( YY_CURRENT_BUFFER );
                       yy_switch_to_buffer( buffers[sp_buffer] );
-                      yylineno = line_buffer[sp_buffer] ;
+                      yylineno = line_buffer[sp_buffer]  ;
                   }
                 }
 
