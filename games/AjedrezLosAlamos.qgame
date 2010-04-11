@@ -68,8 +68,7 @@ define:     movida_rey direccion
             direccion
             parar-si !en_tablero?
             parar-si ocupado_propio?
-            parar if atacado_enemigo?
-            asigna_atributo 'ya_movido', true
+            parar-si atacado_enemigo?
             juega
 
 # Listo, ahora si ... se vienen las definiciones de piezas
@@ -160,16 +159,16 @@ move:
 # Listo con la definicion de piezas ... mas cosas
 #
 # Se vienen los finales. Son tambien distintos mini programas!
-ending:    
-            gana if jaquemate? "rey"
 ending:     
-            empata if ahogado?
+            empata-si ahogado?
+ending:    
+            gana-si jaquemate? "rey"
 ending:
-            empata if repite_posicion? 3 
+            empata-si repite_posicion? 3 
 ending:
-            empata if cantidad_piezas? 2
-            parar  if !cantidad_piezas? 3
-            empata if cantidad_piezas? caballo 1
+            empata-si cantidad_piezas? 2
+            parar-si  !cantidad_piezas? 3
+            empata-si cantidad_piezas? caballo 1
 
 sequence:   blanco negro
 start:      torre    blanco  a1  f1

@@ -78,6 +78,34 @@ int      analizador_evalua_final  ( Regla* regla, Posicion* pos, Pieza* pieza, C
 }
 
 /*
+ * Devuelve uno o cero, dependiendo si el casillero pasado como parametro
+ * esta siendo atacado por el "enemigo" (o sea, todos los colores que no 
+ * son el actual).
+ * Para ello se ejecutan las movidas posibles por el adversario.
+ * */
+int    analizador_atacado( Analizador* z, Casillero* cas ){
+    Casillero* ccc = cas ? cas : z->cas;
+    int i;
+    Posicion* pos;
+    CHECK_STATUS ;
+    if( !CASILLERO_VALIDO(ccc) ) return 0;
+    for( i = 1; i <= z->pos->tjuego->colores; i ++ ){
+        pos = posicion_dup( z->pos );
+        Movida* mov;
+        if( z->color == i ) continue;
+        posicion_analiza_movidas( pos, ANALISIS_ATAQUE, i, 0, NULL );
+        list_inicio( pos->movidas );
+        while( mov = (Movida*) list_siguiente( pos->movidas ) ){
+            if( movida_casillero_destino( mov ) == ccc ){
+                posicion_free( pos );
+                return 1;
+            }
+        }
+    }
+    return 0;
+}
+
+/*
  * Devuelve uno o cero, si se encuentra ocupado el casillero pasado como parametro
  * Detalle:
  *  cas  : Casillero. Si es nulo, toma el casillero actual

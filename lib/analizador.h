@@ -63,6 +63,7 @@ int    analizador_ocupado( Analizador* z, Casillero* cas, int owner );
 int    analizador_casillero( Analizador* z, Casillero* cas );
 int    analizador_direccion( Analizador* z, Direccion* dir );
 
+int    analizador_atacado( Analizador* z, Casillero* cas );
 int    analizador_ahogado( Analizador* z );
 int    analizador_entablero( Analizador* z );
 int    analizador_enzona( Analizador* z, int zona, int color );

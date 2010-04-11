@@ -102,12 +102,14 @@ void  qgzprintf( char* format, ... ){
 %token    TOK_SEPCODE
 
 %token    TOK_AHOGADO
+%token    TOK_ATACADO_ENEMIGO
 %token    TOK_AND       TOK_OR          TOK_NOT
 %token    TOK_CASILLERO_INICIAL
 %token    TOK_EMPATA    TOK_EMPATA_SI
 %token    TOK_ENTABLERO
 %token    TOK_ENZONA   
 %token    TOK_GANA      TOK_GANA_SI
+%token    TOK_JAQUEMATE
 %token    TOK_JUEGA     TOK_JUEGA_SI
 %token    TOK_IF
 %token    TOK_OCUPADO
@@ -151,6 +153,12 @@ instexpr_ahogado:
             tipojuego_code_ahogado( tipojuego, (char*)$2 );
     };
 
+instexpr_atacado:
+    TOK_ATACADO_ENEMIGO {
+            CHECK_TIPOJUEGO;
+
+    };
+
 instexpr_entablero:
     TOK_ENTABLERO {
             CHECK_TIPOJUEGO;
@@ -162,6 +170,18 @@ instexpr_enzona:
             CHECK_TIPOJUEGO;
             tipojuego_code_enzona( tipojuego, (char*)$2 );
     };
+
+instexpr_jaquemate:
+    TOK_JAQUEMATE  word_or_string {
+            CHECK_TIPOJUEGO;
+            if( NOT_FOUND != tipojuego_get_tipopieza( tipojuego, ((char*)$2) ) ){
+                NOT_IMPLEMENTED;
+            } else {
+                qgzprintf( "%s debe ser un tipo de pieza", ((char*)$2) );
+                yyerror( "Debe ser un tipo de pieza" );
+            }
+    };
+
 
 instexpr_ocupado:
     TOK_OCUPADO         {
@@ -206,10 +226,12 @@ instexpr_logical:
 instexpr:
     '(' instexpr ')' |
     instexpr_logical |
+    instexpr_ahogado |
+    instexpr_atacado |
     instexpr_entablero |
     instexpr_enzona  |
+    instexpr_jaquemate |
     instexpr_ocupado |
-    instexpr_ahogado |
     TOK_WORD        {    
             int  algo;
             CHECK_TIPOJUEGO;

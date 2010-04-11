@@ -124,24 +124,23 @@ define\:        { define_created = 0; BEGIN(define_head);   }
 <params>.                 // No hago nada!
 
 
-<code>ahogado\??          { return TOK_AHOGADO;   }
 <code>and                 { return TOK_AND;       }
 <code>&&                  { return TOK_AND;       }
 <code>\!                  { return TOK_NOT;       }
 <code>not                 { return TOK_NOT;       }
 
-<code>casillero(\-|\_)inicial  { return  TOK_CASILLERO_INICIAL; }
-<code>do                  { return TOK_DO;        }
+<code>ahogado\??                  { return  TOK_AHOGADO;   }
+<code>atacado(\-|\_)enemigo\??   { return  TOK_ATACADO_ENEMIGO; }
+<code>casillero(\-|\_)inicial     { return  TOK_CASILLERO_INICIAL; }
 <code>empata              { return TOK_EMPATA;    }
 <code>empata\-si          { return TOK_EMPATA_SI; }
 <code>en(\-|\_)tablero\?? { return TOK_ENTABLERO;   }
 <code>en(\-|\_)zona\??    { return TOK_ENZONA;    }
-<code>end                 { return TOK_END;       }
 <code>gana                { return TOK_GANA;      }
 <code>gana\-si            { return TOK_GANA_SI;   }
+<code>jaquemate\??        { return TOK_JAQUEMATE; }
 <code>juega               { return TOK_JUEGA;     } 
 <code>juega\-si           { return TOK_JUEGA_SI;  }
-<code>if                  { return TOK_IF;        }
 <code>ocupado\??          { return TOK_OCUPADO;   }
 <code>ocupado\_enemigo\?? { return TOK_OCUPADOENEMIGO;   }
 <code>ocupado\_propio\??  { return TOK_OCUPADOPROPIO;   }
@@ -152,6 +151,10 @@ define\:        { define_created = 0; BEGIN(define_head);   }
 <code>pierde              { return  TOK_PIERDE;      }
 <code>pierde\-si          { return  TOK_PIERDE_SI;   }
 <code>transformar?        { return  TOK_TRANSFORMA;  }
+
+<code>do                  { return TOK_DO;        }
+<code>if                  { return TOK_IF;        }
+<code>end                 { return TOK_END;       }
 <code>while               { return  TOK_WHILE;       }
 
 

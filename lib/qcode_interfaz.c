@@ -76,6 +76,12 @@ long  code_wrapper_direccion( QCodeVM* vm ){
     return (long)analizador_direccion( z, d );
 }
 
+long  code_wrapper_atacado( QCodeVM* vm ){
+    Analizador* z = (Analizador*)qcode_pop( vm );
+    Casillero*  c = ZGETCASILLERO( z, qcode_pop( vm ) );
+    return (long)analizador_atacado( z, c );
+}
+
 long  code_wrapper_ahogado( QCodeVM* vm ){
     Analizador* z = (Analizador*)qcode_pop( vm );
     int  color    = (int)qcode_pop(vm);
@@ -117,6 +123,7 @@ long  code_wrapper_dump( QCodeVM* vm ){
 void  code_initialize( QCode** qcode ){
     QCode*  q;
     q = qcode_new();
+    qcode_xcrlab( q, "atacado",   (qcode_extfunc)code_wrapper_atacado );
     qcode_xcrlab( q, "ocupado",   (qcode_extfunc)code_wrapper_ocupado );
     qcode_xcrlab( q, "juega",     (qcode_extfunc)code_wrapper_juega );
     qcode_xcrlab( q, "casillero", (qcode_extfunc)code_wrapper_casillero );
