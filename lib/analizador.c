@@ -94,7 +94,7 @@ int    analizador_atacado( Analizador* z, Casillero* cas ){
         if( z->color == i ) continue;
         pos = posicion_dup( z->pos );
         Movida* mov;
-        LOGPRINT( 5, "Inico de analisis para color %d en %s", i, ccc->nombre );
+        LOGPRINT( 6, "Inico de analisis para color %d en %s", i, ccc->nombre );
         posicion_analiza_movidas( pos, ANALISIS_ATAQUE, i, 0, NULL );
         list_inicio( pos->movidas );
         while( mov = (Movida*) list_siguiente( pos->movidas ) ){

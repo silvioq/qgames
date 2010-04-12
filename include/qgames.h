@@ -59,6 +59,8 @@ int         tipojuego_get_tipomov  ( Tipojuego* tj, char* tipomov );
 
 
 int         tipojuego_get_dimensiones( Tipojuego* tj );
+int         tipojuego_get_dimlen( Tipojuego* tj, int dim );
+int         tipojuego_get_casillero_bycell( Tipojuego* tj, char** casillero, int pos[MAXDIMS] );
 
 
 /* 
@@ -75,7 +77,7 @@ int         tipojuego_get_dimensiones( Tipojuego* tj );
 void   tipojuego_add_notacion_def( Tipojuego* tj, char elemento );
 void   tipojuego_add_notacion_rep( Tipojuego* tj, char elemento );
 void   tipojuego_add_notacion_tmov( Tipojuego* tj, char* tmov, char* notacion );
-void   tipojuego_add_notacion_tpieza( Tipojuego* tj, char* tpieza, char* abbr );
+void   tipojuego_add_notacion_tpieza( Tipojuego* tj, char* tpieza, char* color, char* abbr );
 
 
 

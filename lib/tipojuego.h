@@ -97,6 +97,7 @@ typedef   struct  StrNotacion{
 
 typedef struct StrNotacionData {
     long valor;
+    int  color;
     char* notacion;
 } NotacionData;
 

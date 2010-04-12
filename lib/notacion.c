@@ -25,7 +25,7 @@ char     notacion_default[] =  { NOTACION_ORIGEN, NOTACION_MARCA_IFORIGEN, NOTAC
 char     notacion_repetida[] = { NOTACION_ORIGEN, NOTACION_MARCA_IFORIGEN, NOTACION_DESTINO, 0 };
 
 char*   notacion_resolver_tmov( Notacion* nott, int tmov );
-char*   notacion_resolver_tpieza( Notacion* nott, Tipopieza* tpieza );
+char*   notacion_resolver_tpieza( Notacion* nott, int color, Tipopieza* tpieza );
 char*   notacion_resolver_mov( Notacion* nott, Movida* mov, char* def );
 
 /*
@@ -78,12 +78,13 @@ char*   notacion_resolver_tmov( Notacion* nott, int tmov ){
     return NULL;
 }
 
-char*   notacion_resolver_tpieza( Notacion* nott, Tipopieza* tpieza){
+char*   notacion_resolver_tpieza( Notacion* nott, int color, Tipopieza* tpieza){
     if( nott && nott->notacion_tpiezas && tpieza ){
         int i;
         for( i = 0; i < nott->notacion_tpiezas->entradas; i ++ ){
             NotacionData* dat = (NotacionData*) nott->notacion_tpiezas->data[i];
-            if( dat->valor == (long)tpieza) return dat->notacion;
+            if( dat->valor == (long)tpieza &&
+              ( (!dat->color) || dat->color == color ) ) return dat->notacion;
         }
     }
     return NULL;
@@ -133,7 +134,7 @@ char*   notacion_resolver_mov( Notacion* nott, Movida* mov, char* def ){
             case  NOTACION_PIEZA:
                 pieza = movida_pieza( mov );
                 if( pieza ){
-                    char* p = notacion_resolver_tpieza( nott, pieza->tpieza );
+                    char* p = notacion_resolver_tpieza( nott, pieza->color, pieza->tpieza );
                     if( !p ) p = pieza->tpieza->nombre;
                     if( p && p[0] == 0 && movida_es_captura( mov ) ){
                         origen = movida_casillero_origen( mov );

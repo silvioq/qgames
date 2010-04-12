@@ -346,6 +346,16 @@ int         tipojuego_get_dimensiones( Tipojuego* tj ){
     return  TABLERO_ACTUAL(tj)->dimc;
 }
 
+int         tipojuego_get_casillero_bycell( Tipojuego* tj, char** casillero, int pos[MAXDIMS] ){
+    Casillero* cas = tipojuego_get_casillero_by_relpos( tj, tj->tablero_actual, pos );
+    if( !cas ) return 0;
+    if( casillero ){
+        *casillero = cas->nombre;
+    }
+    return 1;
+}
+    
+    
 
 /*
  * La simetria
@@ -401,10 +411,12 @@ void        tipojuego_add_secuencia_rep( Tipojuego* tj ){
  * La primera definicion de la notacion es la abreviatura del tipo 
  * de pieza
  * */
-void   tipojuego_add_notacion_tpieza( Tipojuego* tj, char* tpieza, char* abbr ){
+void   tipojuego_add_notacion_tpieza( Tipojuego* tj, char* tpieza, char* color, char* abbr ){
     int  tp = GETTIPOPIEZA( tj, tpieza );
+    int  col = ( color ? tipojuego_get_color( tj, color ) : 0 );
     NotacionData* not_data = ALLOC( sizeof( NotacionData ) );
     not_data->valor = (long)(tj->tipo_piezas->data[tp]);
+    not_data->color = col;
     not_data->notacion = abbr;
     INIT_NOTACION(tj);
     if( !tj->notacion->notacion_tpiezas ) tj->notacion->notacion_tpiezas = list_nueva( NULL );

@@ -580,14 +580,38 @@ instruction_notation:
     TOK_NOTATION    word_or_string      word_or_string  { 
         CHECK_TIPOJUEGO;
         if( NOT_FOUND != tipojuego_get_tipopieza( tipojuego, (char*)$2 ) ){
-            tipojuego_add_notacion_tpieza( tipojuego, (char*)$2, (char*)$3 ) ;
+            tipojuego_add_notacion_tpieza( tipojuego, (char*)$2, NULL, (char*)$3 ) ;
         } else if ( NOT_FOUND != tipojuego_get_tipomov( tipojuego, (char*)$2 ) ){
             tipojuego_add_notacion_tmov( tipojuego, (char*)$2, (char*)$3 ) ;
         } else {
             qgzprintf( "%s debe ser un tipo de pieza o un tipo de movimiento", (char*)$2 );
             yyerror( "Notacion mal formada" );
+            YYERROR;
         }
      } |
+    TOK_NOTATION    word_or_string      word_or_string  word_or_string { 
+        CHECK_TIPOJUEGO;
+        char* tpieza; char* color; char* abbr;
+        if( NOT_FOUND != tipojuego_get_tipopieza( tipojuego, (char*)$2 ) ){
+            tpieza = (char*)$2;
+        } else {
+            qgzprintf( "%s debe ser un tipo de pieza" );
+            yyerror( "Notacion mal formada (tipo de pieza incorrecta)" );
+            YYERROR;
+        }
+        if( NOT_FOUND != tipojuego_get_color( tipojuego, (char*)$3 ) ){
+            color = (char*)$3;
+            abbr  = (char*)$4;
+        } else if ( NOT_FOUND != tipojuego_get_color( tipojuego, (char*)$4 ) ){
+            color = (char*)$4;
+            abbr  = (char*)$3;
+        } else {
+            qgzprintf( "%s debe ser un color",  (char*)$3 );
+            yyerror( "Notacion mal formada (color incorrecto)" );
+            YYERROR;
+        } 
+        tipojuego_add_notacion_tpieza( tipojuego, tpieza, color, abbr ) ;
+    } |
     TOK_NOTATION    TOK_MARK            word_or_string  { NOT_IMPLEMENTED_WARN("notacion: mark"); } |
     TOK_NOTATION    TOK_CAPTURED_MARK   word_or_string  { NOT_IMPLEMENTED_WARN("notacion: captured_mark"); } |
     TOK_NOTATION    TOK_DEFAULT         instruction_notation_def  |
