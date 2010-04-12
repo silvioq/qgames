@@ -103,7 +103,7 @@ Direccion*  tipojuego_dir_by_sym( Tipojuego* tj, Direccion* dir, int color ){
 
 char*       tipojuego_get_colorname( Tipojuego* tj, int color ){
     int i;
-    char color_no_encontrado[15];
+    static char color_no_encontrado[15];
     assert( tj->simbolos );
     for( i = 0; i < tj->simbolos->entradas; i ++ ){
         volatile Simbolo* sym;

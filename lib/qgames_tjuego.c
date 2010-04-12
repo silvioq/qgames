@@ -339,6 +339,13 @@ int         tipojuego_get_tipomov  ( Tipojuego* tj, char* tipomov ){
     return  sym->ref;
 }
 
+/*
+ * Devuelve la cantidad de dimensiones que tiene el tablero actual
+ * */
+int         tipojuego_get_dimensiones( Tipojuego* tj ){
+    return  TABLERO_ACTUAL(tj)->dimc;
+}
+
 
 /*
  * La simetria

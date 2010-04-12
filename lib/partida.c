@@ -336,6 +336,37 @@ void        partida_tablero_ascii ( Partida* par ){
     }
 }
 
+/*
+ * Devuelve la cantidad de entradas que tiene el tablero
+ * */
+int         partida_tablero_count ( Partida* par ){
+    int ret, i;
+    ret = 0;
+    for( i = 0; i < par->pos->piezas->entradas; i ++ ){
+        Pieza* pie = (Pieza*) par->pos->piezas->data[i];
+        if( CASILLERO_VALIDO( pie->casillero ) ) ret ++;
+    }
+    return ret;
+}
+
+
+int         partida_tablero_data  ( Partida* par, int num, char** casillero, char** pieza, char** color ){
+    int i; int cont ;
+    for( i = 0; i < par->pos->piezas->entradas; i ++ ){
+        Pieza* pie = (Pieza*) par->pos->piezas->data[i];
+        if( CASILLERO_VALIDO( pie->casillero ) ){
+            if( cont == num ){
+                if( casillero ) *casillero = pie->casillero->nombre;
+                if( pieza )     *pieza     = pie->tpieza->nombre;
+                if( color )     *color     = tipojuego_get_colorname( par->tjuego, pie->color );
+                return 1;
+            } else cont ++;
+        }
+    }
+    return 0;
+}
+
+
 void        partida_movidas_posibles_ascii( Partida* par ){
     int cant, i;
     if( PARTIDATERMINADA(par) ){
@@ -349,6 +380,32 @@ void        partida_movidas_posibles_ascii( Partida* par ){
         printf( "%2d) %-16s", i, mov->notacion );
     }
     printf( "\n" );
+}
+
+/* 
+ * Devuelve el dato de notacion de la partida pasada como parametro
+ * */
+int         partida_movidas_data  ( Partida* par, int num, char** notacion ){
+    if( PARTIDATERMINADA(par) ){ 
+        return 0;
+    }
+    int cant = partida_analizar_movidas( par );
+    if( num >= cant ) return 0;
+    if( notacion ){
+        Movida* mov = (Movida*) par->pos->movidas->data[num];
+        *notacion = mov->notacion;
+    }
+    return 1;
+}
+
+/*
+ * Devuelve la cantidad de movidas que hay generadas
+ * */
+int         partida_movidas_count ( Partida* par ){
+    if( PARTIDATERMINADA(par) ){ 
+        return 0;
+    }
+    return partida_analizar_movidas( par );
 }
 
 /*
