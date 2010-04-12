@@ -149,7 +149,7 @@ int    analizador_entablero( Analizador* z ){
  * del color pasado como parametro.
  * color: Dueño. Puede ser ENEMIGO, PROPIO, CUALQUIERA o un color
  * */
-int    analizador_enzona( Analizador* z, int zona, int color ){
+int    analizador_enzona( Analizador* z, int zona, int color, Tipopieza* tpieza ){
     CHECK_STATUS;
     int  i;
     int  colorcheck = ( color == PROPIO ? z->color : color );

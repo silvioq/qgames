@@ -95,6 +95,11 @@ typedef   struct  StrNotacion{
     _list*       notacion_tmovs;
 } _Notacion;
 
+typedef struct StrNotacionData {
+    long valor;
+    char* notacion;
+} NotacionData;
+
 typedef  struct  StrSimetria{
     int          color;
     Direccion*   dir1;

@@ -164,9 +164,12 @@ void        tipojuego_code_ahogado( Tipojuego* tj, char* color ){
     // RET_IF_STATUS;                              // Retorna si el valor es distinto de cero
 }
 
-void        tipojuego_code_enzona ( Tipojuego* tj, char* zona ){
-    int  za;
+void        tipojuego_code_enzona ( Tipojuego* tj, char* zona, char* tpieza ){
+    int  za, tp;
     za = GETZONA(tj, zona);
+    tp = ( tpieza ? GETTIPOPIEZA( tj, tpieza ) : - 1 );
+    qcode_op( tj->qcode, QCSTI, 16, tp );       // t16 = tp
+    qcode_op( tj->qcode, QCPSH, 16, 0 );        // PSH t16
     qcode_op( tj->qcode, QCSTI, 16, za );       // t16 = za
     qcode_op( tj->qcode, QCPSH, 16, 0 );        // PSH t16
     qcode_op( tj->qcode, QCPSH,  3, 0 );        // PSH r3

@@ -19,6 +19,7 @@
 #include  "posicion.h"
 #include  "movida.h"
 #include  "partida.h"
+#include  "log.h"
 
 int  simbolo_id = 0;
 
@@ -361,6 +362,7 @@ void        tipojuego_add_simetria( Tipojuego*  tj, char* color, char* d1, char*
  * Vamos armando la secuencia de jugadas 
  * */
 void        tipojuego_add_secuencia( Tipojuego* tj, char* color, char* tipomov ){
+    LOGPRINT( 5, "Color a agregar es %s", color );
     int  col = GETCOLOR( tj, color );
     int  tmov = ( tipomov ? GETTIPOMOV( tj, tipomov ) : 0 );
 
@@ -375,6 +377,67 @@ void        tipojuego_add_secuencia( Tipojuego* tj, char* color, char* tipomov )
 void        tipojuego_add_secuencia_rep( Tipojuego* tj ){
     assert( tj->secuencias );
     tj->secuencia_repeat = tj->secuencias->entradas;
+}
+
+/*
+ *
+ * Esta es la parte de definicion de notaciones
+ * 
+ * */
+#define  INIT_NOTACION( tj ) \
+    if( !tj->notacion ) { \
+        tj->notacion = ALLOC( sizeof( Notacion ) );\
+        memset( tj->notacion, 0, sizeof( Notacion ) ); \
+    }
+
+/*
+ * La primera definicion de la notacion es la abreviatura del tipo 
+ * de pieza
+ * */
+void   tipojuego_add_notacion_tpieza( Tipojuego* tj, char* tpieza, char* abbr ){
+    int  tp = GETTIPOPIEZA( tj, tpieza );
+    NotacionData* not_data = ALLOC( sizeof( NotacionData ) );
+    not_data->valor = tp;
+    not_data->notacion = abbr;
+    INIT_NOTACION(tj);
+    if( !tj->notacion->notacion_tpiezas ) tj->notacion->notacion_tpiezas = list_nueva( NULL );
+    list_agrega( tj->notacion->notacion_tpiezas , not_data );
+}
+
+void   tipojuego_add_notacion_tmov( Tipojuego* tj, char* tmov, char* notacion ){
+    int  tm = GETTIPOMOV( tj, tmov );
+    NotacionData* not_data = ALLOC( sizeof( NotacionData ) );
+    not_data->valor = tm;
+    not_data->notacion = notacion;
+    INIT_NOTACION(tj);
+    if( !tj->notacion->notacion_tmovs ) tj->notacion->notacion_tmovs = list_nueva( NULL );
+    list_agrega( tj->notacion->notacion_tmovs , not_data );
+}
+
+void   tipojuego_add_notacion_def( Tipojuego* tj, char elemento ){
+    INIT_NOTACION(tj);
+    if( !tj->notacion->notacion ){  
+        tj->notacion->notacion = ALLOC(128);
+        tj->notacion->notacion[0] = elemento;
+        tj->notacion->notacion[1] = 0;
+    } else {
+        int  len = strlen(tj->notacion->notacion );
+        tj->notacion->notacion[len] = elemento;
+        tj->notacion->notacion[len+1] = 0;
+    }
+}
+
+void   tipojuego_add_notacion_rep( Tipojuego* tj, char elemento ){
+    INIT_NOTACION(tj);
+    if( !tj->notacion->repeticion ){  
+        tj->notacion->repeticion = ALLOC(128);
+        tj->notacion->repeticion[0] = elemento;
+        tj->notacion->repeticion[1] = 0;
+    } else {
+        int  len = strlen(tj->notacion->repeticion );
+        tj->notacion->repeticion[len] = elemento;
+        tj->notacion->repeticion[len+1] = 0;
+    }
 }
 
 

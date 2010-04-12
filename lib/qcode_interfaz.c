@@ -38,6 +38,14 @@
     } \
     ret; })
 
+#define  ZGETTIPOPIEZA(z,d) ({ \
+    Tipopieza* ret = NULL; \
+    int val = d; \
+    if( val != -1 ){         \
+      ret = (Tipopieza*)  z->pos->tjuego->tipo_piezas->data[val]; \
+    } \
+    ret; })
+
 /*
  * En esta parte del codigo, se definiran los "wrappers" entre el codigo máquina generado
  * y el tema del analizador
@@ -96,7 +104,8 @@ long  code_wrapper_entablero( QCodeVM* vm ){
 long  code_wrapper_enzona( QCodeVM* vm ){
     Analizador* z = (Analizador*)qcode_pop( vm );
     int    zon = qcode_pop( vm );
-    return (long)analizador_enzona( z, zon, PROPIO );
+    Tipopieza* p = ZGETTIPOPIEZA( z, qcode_pop( vm ) );
+    return (long)analizador_enzona( z, zon, PROPIO, p );
 }
 
 long  code_wrapper_final( QCodeVM* vm ){

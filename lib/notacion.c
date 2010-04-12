@@ -40,10 +40,6 @@ char*   notacion_resolver_mov( Notacion* nott, Movida* mov, char* def );
  * nombre ... para ello se determina una opcion de repeticion
  * */
 
-typedef struct StrNotacionData {
-    long valor;
-    char* notacion;
-} NotacionData;
 
 
 void    notacion_resolver_movidas( Tipojuego* tjuego, _list* movs, char* prefix ){

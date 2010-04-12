@@ -47,8 +47,12 @@ char*  defname_actual( );
     if( !tipojuego ){ yyerror( "gametype no definido aun" ); YYERROR; }
 #define  CHECK_LAST_PIEZA   \
     if( !last_pieza ){ yyerror( "pieza no definida" ); YYERROR; }
+
 #define  NOT_IMPLEMENTED   \
     { yyerror( "Funcion no implementada" ); YYERROR; }
+
+#define  NOT_IMPLEMENTED_WARN(f) \
+    { yyerror( "Aviso: funcion " f " no implementada" ); }
 
 void yyerror(const char *str) { 
     char  * define = defname_actual(  );
@@ -85,18 +89,26 @@ void  qgzprintf( char* format, ... ){
 
 %token    TOK_ATTR
 %token    TOK_BOARD
+%token    TOK_CAPTURED_MARK
 %token    TOK_COLOR
+%token    TOK_DEFAULT
 %token    TOK_DIRECTION
 %token    TOK_DROP
 %token    TOK_ENDING
-%token    TOK_PIECE
 %token    TOK_GAMETYPE  
+%token    TOK_MARK
 %token    TOK_MOVE
 %token    TOK_MOVETYPE
+%token    TOK_NOTATION
+%token    TOK_ONREPEAT
+%token    TOK_ORIGIN
+%token    TOK_PIECE
+%token    TOK_PIECE_NAME
 %token    TOK_REPEAT
 %token    TOK_SEQUENCE
 %token    TOK_START
 %token    TOK_SYMMETRY
+%token    TOK_TARGET
 %token    TOK_ZONE
 
 %token    TOK_SEPCODE
@@ -166,10 +178,39 @@ instexpr_entablero:
     };
 
 instexpr_enzona:
+    TOK_ENZONA   word_or_string   word_or_string {  
+            CHECK_TIPOJUEGO;
+            char*  zona = NULL;
+            char*  tpieza = NULL;
+            if( NOT_FOUND != tipojuego_get_tipopieza( tipojuego, ((char*)$2) ) ){
+                tpieza = ((char*)$2);
+            } else if( NOT_FOUND != tipojuego_get_zona( tipojuego, ((char*)$2) ) ) {
+                zona  = ((char*)$2);
+            } else {
+                qgzprintf( "%s debe ser un tipo de pieza o una zona", ((char*)$2 ) );
+                yyerror( "Instruccion enzona mal formada" );
+            }
+
+            if( tpieza && ( NOT_FOUND != tipojuego_get_zona( tipojuego, ((char*)$3)  ) ) ){
+                zona  = ((char*)$3);
+            } 
+            if( zona && ( NOT_FOUND != tipojuego_get_tipopieza( tipojuego, ((char*)$3) ) ) ){
+                tpieza = ((char*)$3);
+            }
+            if( !zona || !tpieza ){
+                yyerror( "Instruccion enzona mal formada" );
+            }
+            tipojuego_code_enzona( tipojuego, zona, tpieza );
+    } |
     TOK_ENZONA   word_or_string {
             CHECK_TIPOJUEGO;
-            tipojuego_code_enzona( tipojuego, (char*)$2 );
-    };
+            if( NOT_FOUND != tipojuego_get_zona( tipojuego, ((char*)$2) ) ) {
+                tipojuego_code_enzona( tipojuego, (char*)$2, NULL );
+            } else { 
+                qgzprintf( "%s debe ser una zona", ((char*)$2 ) );
+                yyerror( "Instruccion enzona mal formada" );
+            }
+    } ; 
 
 instexpr_jaquemate:
     TOK_JAQUEMATE  word_or_string {
@@ -517,6 +558,42 @@ instruction_movetype:
         tipojuego_add_tipo_mov( tipojuego, ((char*)$2) );
     }
 
+instruction_notation_element:
+    TOK_PIECE_NAME        { $$ =  NOTACION_PIEZA; }   |
+    TOK_ORIGIN            { $$ =  NOTACION_ORIGEN; }  |
+    TOK_TARGET            { $$ =  NOTACION_DESTINO; } |
+    TOK_MARK              { $$ =  NOTACION_MARCA ; }  |
+    TOK_CAPTURED_MARK     { $$ =  NOTACION_CAPTURA; } ;
+
+instruction_notation_rep:
+    instruction_notation_element  {  tipojuego_add_notacion_rep( tipojuego, $1 ); } |
+    instruction_notation_rep  instruction_notation_element |
+    instruction_notation_rep ','  instruction_notation_element ;
+
+instruction_notation_def:
+    instruction_notation_element  {  tipojuego_add_notacion_def( tipojuego, $1 ); } |
+    instruction_notation_def      instruction_notation_element |
+    instruction_notation_def ','  instruction_notation_element ;
+
+
+instruction_notation:
+    TOK_NOTATION    word_or_string      word_or_string  { 
+        CHECK_TIPOJUEGO;
+        if( NOT_FOUND != tipojuego_get_tipopieza( tipojuego, (char*)$2 ) ){
+            tipojuego_add_notacion_tpieza( tipojuego, (char*)$2, (char*)$3 ) ;
+        } else if ( NOT_FOUND != tipojuego_get_tipomov( tipojuego, (char*)$2 ) ){
+            tipojuego_add_notacion_tmov( tipojuego, (char*)$2, (char*)$3 ) ;
+        } else {
+            qgzprintf( "%s debe ser un tipo de pieza o un tipo de movimiento", (char*)$2 );
+            yyerror( "Notacion mal formada" );
+        }
+     } |
+    TOK_NOTATION    TOK_MARK            word_or_string  { NOT_IMPLEMENTED_WARN("notacion: mark"); } |
+    TOK_NOTATION    TOK_CAPTURED_MARK   word_or_string  { NOT_IMPLEMENTED_WARN("notacion: captured_mark"); } |
+    TOK_NOTATION    TOK_DEFAULT         instruction_notation_def  |
+    TOK_NOTATION    TOK_ONREPEAT        instruction_notation_rep  ;
+
+
 instruction_piece:
     TOK_PIECE        word_or_string  { 
         CHECK_TIPOJUEGO; 
@@ -551,7 +628,7 @@ instruction_sequence_list:
             if( color && i < qgz_param_count - 1 ){
                 char* val2 = (char*)qgz_param_list[i+1].par;
                 int  tmov = tipojuego_get_tipomov( tipojuego, val2 );
-                if( tmov ){
+                if( tmov != NOT_FOUND ){
                     tipojuego_add_secuencia( tipojuego, val1, val2 );
                     i ++;
                 } else {
@@ -561,9 +638,12 @@ instruction_sequence_list:
         } 
     };
 
+instruction_sequence_prelude:
+    TOK_SEQUENCE { init_parameters(); }  instruction_sequence_list;
+
 instruction_sequence:
-    TOK_SEQUENCE  instruction_sequence_list |
-    TOK_SEQUENCE  instruction_sequence_list  TOK_REPEAT {
+    instruction_sequence_prelude |
+    instruction_sequence_prelude  TOK_REPEAT {
         tipojuego_add_secuencia_rep( tipojuego );
     }
     instruction_sequence_list;
@@ -603,6 +683,7 @@ instruction:
     instruction_gametype   |
     instruction_move       |
     instruction_movetype   |
+    instruction_notation   |
     instruction_piece      |
     instruction_sequence   |
     instruction_start      |

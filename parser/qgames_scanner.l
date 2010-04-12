@@ -51,17 +51,25 @@ SPACES    [ ]+
 
 
 
-<INITIAL,code>\"    { string_ret = YYSTATE; BEGIN(string); }
+<INITIAL,code>\"    { string_ret = YYSTATE; BEGIN(string); qgzlval = 0; }
 <string>[^\"]*      { qgzlval = (long)strdup(yytext); 
                       return TOK_STRING;
                     }
-<string>\"          { BEGIN(string_ret); }
+<string>\"          { BEGIN(string_ret); 
+                      if( !qgzlval ){ 
+                          qgzlval = (long)strdup(""); 
+                          return TOK_STRING; }  
+                    }
 
-<INITIAL,code>\'    { string_ret = YYSTATE; BEGIN(string2);  }
+<INITIAL,code>\'    { string_ret = YYSTATE; BEGIN(string2); qgzlval = 0;  }
 <string2>[^\']*     { qgzlval = (long)strdup(yytext); 
                       return TOK_STRING;
                     }
-<string2>\'         { BEGIN(string_ret); }
+<string2>\'         { BEGIN(string_ret); 
+                      if( !qgzlval ){ 
+                          qgzlval = (long)strdup(""); 
+                          return TOK_STRING; }  
+                    }
 
 
 <code>^{WORD}\:     { BEGIN(INITIAL); yyless(0); return  TOK_SEPARATOR; }
@@ -80,18 +88,26 @@ SPACES    [ ]+
 
 attribute\:     { return TOK_ATTR;      }
 board\:         { return TOK_BOARD ;    }
+captured_mark   { return TOK_CAPTURED_MARK; }
 color\:         { return TOK_COLOR;     }
+default         { return TOK_DEFAULT;   }
 directions?\:   { return TOK_DIRECTION; }
 drop\:          { return TOK_DROP;      }
 ending\:        { return TOK_ENDING;    }
 gametype\:      { return TOK_GAMETYPE;  }
+mark            { return TOK_MARK;      }
 move\:          { return TOK_MOVE;      }
 movetype\:      { return TOK_MOVETYPE;  }
+notation\:      { return TOK_NOTATION;  }
+origin          { return TOK_ORIGIN;    }
+onrepeat        { return TOK_ONREPEAT;  }
 piece\:         { return TOK_PIECE;     }
+piece_name      { return TOK_PIECE_NAME; }
 repeat          { return TOK_REPEAT;    }
 sequence\:      { return TOK_SEQUENCE;  }
 symmetry\:      { return TOK_SYMMETRY;  }
 start\:         { return TOK_START;     }
+target          { return TOK_TARGET;    }
 zone\:          { return TOK_ZONE;      }
 
 define\:        { define_created = 0; BEGIN(define_head);   }
