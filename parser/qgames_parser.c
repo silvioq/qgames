@@ -1774,7 +1774,7 @@ yyreduce:
 #line 169 "qgames_parser.y"
     {
             CHECK_TIPOJUEGO;
-
+            tipojuego_code_atacado( tipojuego, NULL );
     }
     break;
 

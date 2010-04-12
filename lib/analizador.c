@@ -87,12 +87,14 @@ int    analizador_atacado( Analizador* z, Casillero* cas ){
     Casillero* ccc = cas ? cas : z->cas;
     int i;
     Posicion* pos;
+    if( z->tipo_analisis == ANALISIS_ATAQUE ) return 0;
     CHECK_STATUS ;
     if( !CASILLERO_VALIDO(ccc) ) return 0;
     for( i = 1; i <= z->pos->tjuego->colores; i ++ ){
+        if( z->color == i ) continue;
         pos = posicion_dup( z->pos );
         Movida* mov;
-        if( z->color == i ) continue;
+        LOGPRINT( 5, "Inico de analisis para color %d en %s", i, ccc->nombre );
         posicion_analiza_movidas( pos, ANALISIS_ATAQUE, i, 0, NULL );
         list_inicio( pos->movidas );
         while( mov = (Movida*) list_siguiente( pos->movidas ) ){

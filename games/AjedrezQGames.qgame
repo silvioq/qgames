@@ -63,17 +63,25 @@ move:
             n; e; 
             juega-si ocupado-enemigo?
             casillero_inicial
+            n; o; 
             juega-si ocupado-enemigo?
 
 piece:      rey            
 move:
             movida_rey "n" 
+move:
             movida_rey "s"
+move:
             movida_rey "e"
+move:
             movida_rey "o"
+move:
             movida_rey "n; e;"
+move:
             movida_rey "n; o;"
+move:
             movida_rey "s; o;"
+move:
             movida_rey "s; e;"
 
 # Listo con la definicion de piezas ... mas cosas

@@ -168,7 +168,7 @@ instexpr_ahogado:
 instexpr_atacado:
     TOK_ATACADO_ENEMIGO {
             CHECK_TIPOJUEGO;
-
+            tipojuego_code_atacado( tipojuego, NULL );
     };
 
 instexpr_entablero:
