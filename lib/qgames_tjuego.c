@@ -397,7 +397,7 @@ void        tipojuego_add_secuencia_rep( Tipojuego* tj ){
 void   tipojuego_add_notacion_tpieza( Tipojuego* tj, char* tpieza, char* abbr ){
     int  tp = GETTIPOPIEZA( tj, tpieza );
     NotacionData* not_data = ALLOC( sizeof( NotacionData ) );
-    not_data->valor = tp;
+    not_data->valor = (long)(tj->tipo_piezas->data[tp]);
     not_data->notacion = abbr;
     INIT_NOTACION(tj);
     if( !tj->notacion->notacion_tpiezas ) tj->notacion->notacion_tpiezas = list_nueva( NULL );

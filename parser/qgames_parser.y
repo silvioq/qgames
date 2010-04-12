@@ -571,9 +571,9 @@ instruction_notation_rep:
     instruction_notation_rep ','  instruction_notation_element ;
 
 instruction_notation_def:
-    instruction_notation_element  {  tipojuego_add_notacion_def( tipojuego, $1 ); } |
-    instruction_notation_def      instruction_notation_element |
-    instruction_notation_def ','  instruction_notation_element ;
+    instruction_notation_element                                 {  tipojuego_add_notacion_def( tipojuego, $1 ); } |
+    instruction_notation_def      instruction_notation_element   {  tipojuego_add_notacion_def( tipojuego, $2 ); } |
+    instruction_notation_def ','  instruction_notation_element   {  tipojuego_add_notacion_def( tipojuego, $3 ); };
 
 
 instruction_notation:

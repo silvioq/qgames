@@ -72,7 +72,7 @@ char*   notacion_resolver_tmov( Notacion* nott, int tmov ){
         int i;
         for( i = 0; i < nott->notacion_tmovs->entradas; i ++ ){
             NotacionData* dat = (NotacionData*) nott->notacion_tmovs->data[i];
-            if( dat->valor == tmov ) return nott->notacion ;
+            if( dat->valor == tmov ) return dat->notacion ;
         }
     }
     return NULL;
@@ -83,7 +83,7 @@ char*   notacion_resolver_tpieza( Notacion* nott, Tipopieza* tpieza){
         int i;
         for( i = 0; i < nott->notacion_tpiezas->entradas; i ++ ){
             NotacionData* dat = (NotacionData*) nott->notacion_tpiezas->data[i];
-            if( dat->valor == (long)tpieza) return nott->notacion;
+            if( dat->valor == (long)tpieza) return dat->notacion;
         }
     }
     return NULL;
@@ -135,7 +135,14 @@ char*   notacion_resolver_mov( Notacion* nott, Movida* mov, char* def ){
                 if( pieza ){
                     char* p = notacion_resolver_tpieza( nott, pieza->tpieza );
                     if( !p ) p = pieza->tpieza->nombre;
-                    strcat( ret, p );
+                    if( p && p[0] == 0 && movida_es_captura( mov ) ){
+                        origen = movida_casillero_origen( mov );
+                        if( CASILLERO_VALIDO( origen ) ){
+                            int len = strlen( ret );
+                            ret[len] = origen->nombre[0];
+                            ret[len+1] = 0;
+                        }
+                    } else strcat( ret, p );
                 }
                 break;
             case  NOTACION_SPACE:
