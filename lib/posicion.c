@@ -153,7 +153,6 @@ int        posicion_analiza_movidas( Posicion* pos, char tipoanalisis, int color
                 
                 int  r;
                 for( r = 0; r < pp->tpieza->rules->entradas; r ++ ){
-                    Posicion* newpos = posicion_dup( pos );
                     Regla*  regla = (Regla*) pp->tpieza->rules->data[r];
                     if( tipomov && tipomov == regla->tmov ) continue;
                     _list*  movs;
@@ -182,7 +181,6 @@ int        posicion_analiza_movidas( Posicion* pos, char tipoanalisis, int color
                   pp->tpieza->nombre, pp->casillero->nombre, 
                   tipojuego_get_colorname( pos->tjuego, color ) );
             for( r = 0; r < pp->tpieza->rules->entradas; r ++ ){
-                Posicion* newpos = posicion_dup( pos );
                 Regla*  regla = (Regla*) pp->tpieza->rules->data[r];
                 if( tipomov && tipomov == regla->tmov ) continue;
                 _list*  movs;
@@ -204,7 +202,6 @@ int        posicion_analiza_movidas( Posicion* pos, char tipoanalisis, int color
         int  r;
         if( pp->casillero != ENPOZO && pp->casillero != ENCAPTURA ){
             for( r = 0; r < pp->tpieza->rules->entradas; r ++ ){
-                Posicion* newpos = posicion_dup( pos );
                 Regla*  regla = (Regla*) pp->tpieza->rules->data[r];
                 if( tipomov && tipomov == regla->tmov ) continue;
                 _list*  movs;
