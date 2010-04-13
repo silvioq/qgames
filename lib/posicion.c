@@ -53,6 +53,7 @@ void  posicion_add_movidas( Posicion* pos, _list* movs ){
     int i;
     for( i = 0; i < movs->entradas; i ++ ){
         Movida* m = (Movida*) movs->data[i];
+        m->pos = pos;
         posicion_add_movida( pos, m );
     }
 }
@@ -80,6 +81,12 @@ void      posicion_free( Posicion* pos ){
         }
         list_free( pos->piezas );
     }
+}
+
+
+Pieza*     posicion_get_pieza( Posicion* pos, Pieza* pieza ){
+    if( !pos->piezas ) return  NULL;
+    return (Pieza*)pos->piezas->data[pieza->number];
 }
 
 /*
@@ -154,6 +161,7 @@ int        posicion_analiza_movidas( Posicion* pos, char tipoanalisis, int color
                 int  r;
                 for( r = 0; r < pp->tpieza->rules->entradas; r ++ ){
                     Regla*  regla = (Regla*) pp->tpieza->rules->data[r];
+                    if( regla->tregla != DROP ) continue;
                     if( tipomov && tipomov == regla->tmov ) continue;
                     _list*  movs;
                     movs =  analizador_evalua_movidas( regla, pos, pp, cas, tipoanalisis, 
@@ -182,6 +190,7 @@ int        posicion_analiza_movidas( Posicion* pos, char tipoanalisis, int color
                   tipojuego_get_colorname( pos->tjuego, color ) );
             for( r = 0; r < pp->tpieza->rules->entradas; r ++ ){
                 Regla*  regla = (Regla*) pp->tpieza->rules->data[r];
+                if( regla->tregla != MOVE ) continue;
                 if( tipomov && tipomov == regla->tmov ) continue;
                 _list*  movs;
                 LOGPRINT( 6, "Regla %d", r );
@@ -203,6 +212,7 @@ int        posicion_analiza_movidas( Posicion* pos, char tipoanalisis, int color
         if( pp->casillero != ENPOZO && pp->casillero != ENCAPTURA ){
             for( r = 0; r < pp->tpieza->rules->entradas; r ++ ){
                 Regla*  regla = (Regla*) pp->tpieza->rules->data[r];
+                if( regla->tregla != MOVE ) continue;
                 if( tipomov && tipomov == regla->tmov ) continue;
                 _list*  movs;
                 movs =  analizador_evalua_movidas( regla, pos, pp, pp->casillero, tipoanalisis, 

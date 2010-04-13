@@ -31,17 +31,24 @@ _list*   analizador_evalua_movidas( Regla* regla, Posicion* pos, Pieza* pieza, C
     Analizador* z = (Analizador*)ALLOC( sizeof( Analizador ) );
     _list* movidas ;
     memset( z, 0, sizeof( Analizador ) );
-    z->pos = pos;
-    z->pieza = pieza;
-    z->cas   = cas;
+    z->pos     = posicion_dup(pos);
+    z->pieza   = posicion_get_pieza(z->pos,pieza);
+    z->cas     = cas;
     z->cas_ori = cas;
-    z->color = color;
+    z->color   = color;
     z->tipo_analisis = tipoanalisis;
     z->tipo_movida   = tipomovida;
+    LOGPRINT( 6, "Inicio analisis pieza %s casillero %p %s", 
+          z->pieza->tpieza->nombre, 
+          z->cas_ori, ( !CASILLERO_VALIDO(z->cas_ori) ? "(no)" : z->cas_ori->nombre ) );
 
     code_execute_rule( z, regla->pc );
     movidas = z->movidas;
+    
+    posicion_free( z->pos );
     free( z );
+
+    LOGPRINT( 6, "Movidas %p", movidas );
 
     return movidas;
 
@@ -52,8 +59,8 @@ int      analizador_evalua_final  ( Regla* regla, Posicion* pos, Pieza* pieza, C
     Analizador* z = (Analizador*)ALLOC( sizeof( Analizador ) );
     int  ret;
     memset( z, 0, sizeof( Analizador ) );
-    z->pos = pos;
-    z->cas   = cas;
+    z->pos     = pos;
+    z->cas     = cas;
     z->cas_ori = cas;
     z->pieza = pieza;
     z->color = color;
@@ -127,6 +134,7 @@ int    analizador_ocupado( Analizador* z, Casillero* cas, int owner ){
     int i;
     for( i = 0; i < z->pos->piezas->entradas; i ++ ){
         Pieza* pp = (Pieza*)z->pos->piezas->data[i];
+        if( pp == z->pieza ) continue;
         if( pp->casillero == ccc ){
             if( owner == CUALQUIERA ){
                 return  1;
@@ -183,11 +191,13 @@ int    analizador_juega  ( Analizador* z, Casillero* cas, int con_captura ){
     if( !z->movidas ) z->movidas = list_nueva( NULL );
     Movida* mov = movida_new( z->pos );
     movida_accion_mueve( mov, z->pieza, ccc );
+    LOGPRINT( 6, "Juega %s en %s captura = %d", z->pieza->tpieza->nombre, ccc->nombre, con_captura );
     list_agrega( z->movidas, mov );
     if( con_captura ){
         int i;
         for( i = 0; i < z->pos->piezas->entradas; i ++ ){
             Pieza* pp = (Pieza*)z->pos->piezas->data[i];
+            if( pp == z->pieza ) continue;
             if( pp->casillero == ccc){
                 movida_accion_captura( mov, pp );
             }
@@ -225,6 +235,7 @@ int   analizador_direccion( Analizador* z, Direccion* dir ){
     LOGPRINT( 6, "Estoy en %s moviendome hacia %s ... mi destino es %s", 
               z->cas->nombre, dir2->nombre, v->destino->nombre );
     z->cas = v->destino;
+    if( z->pieza ) posicion_mueve_pieza( z->pos, z->pieza, z->cas );
     return  STATUS_NORMAL;
 }
 
@@ -232,10 +243,12 @@ int   analizador_direccion( Analizador* z, Direccion* dir ){
 int   analizador_casillero( Analizador* z, Casillero* cas ){
     CHECK_STATUS;
   
+    LOGPRINT( 6, "Estoy en %s moviendome hacia %s%s", 
+            (CASILLERO_VALIDO(z->cas) ? z->cas->nombre : "?" ), 
+            (cas ? cas : z->cas_ori->nombre ),  
+            (cas ? ""  : " (original)" ) );
     z->cas = cas ? cas : z->cas_ori;
-    LOGPRINT( 6, "Estoy en %s moviendome hacia %s%s", z->cas->nombre, 
-            cas ? cas : z->cas_ori, 
-            cas ? ""  : " (original)" );
+    if( z->pieza && CASILLERO_VALIDO( z->cas ) ) posicion_mueve_pieza( z->pos, z->pieza, z->cas );
     return  STATUS_NORMAL;
 }
 

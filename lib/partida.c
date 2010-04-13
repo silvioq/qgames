@@ -167,7 +167,7 @@ int       partida_analizar_movidas( Partida* par ){
     final   =  clock();
     elapsed = ((double) (final - inicio)) / CLOCKS_PER_SEC;
     LOGPRINT( 5, "Total: %.6f", elapsed );
-
+    par->flags |= MOVCALC;
     return  par->pos->movidas->entradas;
 }
 
@@ -265,6 +265,7 @@ int   partida_mover_mov( Partida* par, Movida* mov ){
     parnew = movida_ejecuta( mov );
     posicion_free_movidas( par->pos );
     par->pos = parnew;
+    par->flags &= ~MOVCALC;
 
     int  color_actual = par->color;
     int  color_sig ;

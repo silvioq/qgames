@@ -32,6 +32,7 @@ int        posicion_analiza_final( Posicion* pos,  int  color_actual, int color_
 int        posicion_movidas_posibles( Posicion* pos );
 
 void       posicion_mueve_pieza( Posicion* pos, Pieza* pieza, Casillero* destino );
+Pieza*     posicion_get_pieza( Posicion* pos, Pieza* pieza );
 void       posicion_free_movidas( Posicion* pos );
 
 #endif
