@@ -54,7 +54,6 @@ void  inicializar_pantalla(){
  * */
     initscr();
 
-    nonl();         /* tell curses not to do NL->CR/NL on output */
     cbreak();       /* take input chars one at a time, no wait for \n */
     noecho();
     keypad(stdscr, TRUE); 
@@ -180,7 +179,6 @@ char*  seleccionar_menu( Partida* par, int linea, int col ){
             case KEY_PPAGE:
                 menu_driver(menu, REQ_SCR_UPAGE);
                 break;
-            case KEY_F(2):
             case 10:
                 selected = current_item(menu);
                 break;
@@ -201,7 +199,7 @@ char*  seleccionar_menu( Partida* par, int linea, int col ){
     free_menu( menu );
     endwin();
 
-    return 0;
+    return ret;
 }
 
 
