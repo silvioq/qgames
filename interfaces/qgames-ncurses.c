@@ -19,9 +19,12 @@
 #include  "../parser/pgn_scanner.h"
 
 #include  <ncurses.h>
+#include  <menu.h>
 
 int rows, cols;
 Tipojuego* tj = NULL;
+static int  tablero_h = 0;
+static int  tablero_w = 0;
 
 void usage(char* prg){
 
@@ -79,8 +82,6 @@ void borrar_win(WINDOW *local_win)
 
 
 void  imprimir_tablero( Partida* par, int linea ){
-    static int  tablero_h = 0;
-    static int  tablero_w = 0;
     static WINDOW*  tablerito = NULL;
 
     int dim[MAXDIMS];
@@ -125,14 +126,97 @@ void  imprimir_tablero( Partida* par, int linea ){
 }
 
 
+char*  seleccionar_menu( Partida* par, int linea, int col ){
+
+    ITEM ** items;
+    MENU*   menu;
+    WINDOW* menuwin;
+    int cant = partida_movidas_count( par );
+    int i;
+    char* ret;
+
+    items = ALLOC( sizeof( ITEM ) * ( cant + 1 ) );
+    for( i = 0; i < cant; i ++ ){
+        char* notacion;
+        assert( partida_movidas_data( par, i, &notacion ) );
+        items[i] = new_item( strdup( notacion ), NULL );
+    }
+    items[i] = NULL;
+    menu = new_menu( items );
+
+    menuwin = newwin( 15, 30, linea, col );
+    set_menu_win( menu, menuwin );
+    set_menu_sub( menu, derwin( menuwin, 13, 28, 1, 1 ) );
+    set_menu_format( menu, 13, 3 );
+    menu_opts_off( menu, O_SHOWDESC );
+    box( menuwin, 0, 0 );
+    keypad(menuwin, TRUE);
+
+    post_menu( menu );
+
+    ITEM* selected = NULL;
+
+    while(!selected){
+        wrefresh( menuwin );
+        switch( getch() ){
+            case  27:
+                selected = (ITEM*)-1;
+                break;
+            case KEY_DOWN:
+                menu_driver(menu, REQ_DOWN_ITEM);
+                break;
+            case KEY_UP:
+                menu_driver(menu, REQ_UP_ITEM);
+                break;
+            case KEY_LEFT:
+                menu_driver(menu, REQ_LEFT_ITEM);
+                break;
+            case KEY_RIGHT:
+                menu_driver(menu, REQ_RIGHT_ITEM);
+                break;
+            case KEY_NPAGE:
+                menu_driver(menu, REQ_SCR_DPAGE);
+                break;
+            case KEY_PPAGE:
+                menu_driver(menu, REQ_SCR_UPAGE);
+                break;
+            case KEY_F(2):
+            case 10:
+                selected = current_item(menu);
+                break;
+        }
+    }
+
+    if( selected != (ITEM*)-1 ){
+        ret = strdup( item_name(selected ) );
+    } else {
+        ret = NULL;
+    }
+
+    for( i = 0; i < cant; i ++ ){
+        free( item_name(items[i]) );
+        free( items[i] );
+    }
+    unpost_menu( menu );
+    free_menu( menu );
+    endwin();
+
+    return 0;
+}
+
+
 
 void  jugar_partida(Partida* par){
 
     inicializar_pantalla();
     imprimir_tablero( par, 0 );
     int  ch;
+    char* xx;
 
-    while((ch = getch()) != 27 ){
+    while(xx = seleccionar_menu(par,10,10)){
+        partida_mover_notacion( par, xx );
+        free( xx );
+        imprimir_tablero( par, 0 );
         
     }
 /*    
