@@ -355,6 +355,15 @@ int         tipojuego_get_casillero_bycell( Tipojuego* tj, char** casillero, int
     return 1;
 }
     
+int         tipojuego_get_cell_bycasillero( Tipojuego* tj, char* casillero,  int** pos){
+    int  ccc = tipojuego_get_casillero( tj, casillero );
+    if( ccc == NOT_FOUND ) return 0;
+    Casillero* cas = (Casillero*)( tj->casilleros->data[ccc] );
+    if( pos ){
+        *pos = cas->posicion;
+    }
+    return 1;
+}
     
 
 /*

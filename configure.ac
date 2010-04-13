@@ -9,6 +9,7 @@ AC_CONFIG_HEADERS([config.h])     # not even really needed
 AC_PROG_CC                        # or AC_PROG_CXX
 
 AC_CHECK_LIB(readline,readline)
+AC_CHECK_LIB(ncurses,ncurses)
 
 AM_CONDITIONAL([QASM], [0])
 AC_CONFIG_SUBDIRS([qcode])
@@ -27,6 +28,7 @@ AC_CONFIG_FILES(
    lib/Makefile
    parser/Makefile
    src/Makefile
+   interfaces/Makefile
    test/Makefile
    ])
 

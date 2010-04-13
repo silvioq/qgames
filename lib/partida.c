@@ -351,7 +351,7 @@ int         partida_tablero_count ( Partida* par ){
 
 
 int         partida_tablero_data  ( Partida* par, int num, char** casillero, char** pieza, char** color ){
-    int i; int cont ;
+    int i; int cont = 0;
     for( i = 0; i < par->pos->piezas->entradas; i ++ ){
         Pieza* pie = (Pieza*) par->pos->piezas->data[i];
         if( CASILLERO_VALIDO( pie->casillero ) ){
