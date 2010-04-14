@@ -45,10 +45,14 @@ _list*   analizador_evalua_movidas( Regla* regla, Posicion* pos, Pieza* pieza, C
     code_execute_rule( z, regla->pc );
     movidas = z->movidas;
     
+    LOGPRINT( 6, "Fin analisis pieza casillero %p %s Movidas %p", 
+          z->pieza->tpieza->nombre, 
+          z->cas_ori, ( !CASILLERO_VALIDO(z->cas_ori) ? "(no)" : z->cas_ori->nombre ), 
+          movidas );
+
     posicion_free( z->pos );
     free( z );
 
-    LOGPRINT( 6, "Movidas %p", movidas );
 
     return movidas;
 
@@ -174,8 +178,9 @@ int    analizador_enzona( Analizador* z, int zona, int color, Tipopieza* tpieza 
         Pieza* ppp = (Pieza*)z->pos->piezas->data[i];
         if( !CASILLERO_VALIDO(ppp->casillero ) ) continue;
         if( ppp->color != colorcheck ) continue;
+        if( tpieza && ppp->tpieza != tpieza ) continue;
         if(  tipojuego_casillero_en_zona( z->pos->tjuego, ppp->casillero, zona, colorcheck ) ){
-            LOGPRINT( 6, "En zona acertó! zona=%d color=%d cas=%s", zona, colorcheck, ppp->casillero->nombre );
+            LOGPRINT( 6, "En zona acertó! zona=%d color=%d cas=%s tpieza=%p", zona, colorcheck, ppp->casillero->nombre, tpieza );
             return 1;
         }
     }

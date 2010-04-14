@@ -76,10 +76,23 @@ int  main(int argc, char** argv) {
     // En c3 hay un peon
     assert( !partida_mover_notacion( partida, "Kc3" ) );
 
+    printf( "." );
     char* prueba2 = " 1. c3 bxc3 2. dxc3 dxc3 3. e3 cxb2 4. Kxb2 Kb4 5. a3";
     assert( partida = tipojuego_create_partida( aje ) );
     assert( partida_mover_pgn( partida, prueba2 ) );
     assert( !partida_mover_notacion( partida, "Kxa3" ) );
+    assert( partida_final( partida, NULL ) == FINAL_ENJUEGO );
+
+    printf( "." );
+    char* prueba3 = "1. c3 bxc3 2. dxc3 dxc3 3. bxc3 a3 4. Kd2 Kd5 5. Ke3 Kc5 6. Kxe4 Kb5"; // 7. Kd5";
+    assert( partida = tipojuego_create_partida( aje ) );
+    assert( partida_mover_pgn( partida, prueba3 ) );
+    assert( partida_final( partida, NULL ) == FINAL_ENJUEGO );
+    assert( partida_movidas_count( partida ) > 0 );
+    loglevel = 5;
+    assert( partida_mover_notacion( partida, "Kd5" ) );
+    assert( partida_final( partida, NULL ) == FINAL_ENJUEGO );
+    
 
 
     printf( "\n" );
