@@ -120,8 +120,8 @@ int  main(int argc, char** argv) {
     printf( "." );
 
     assert( partida = tipojuego_create_partida( gomoku ) );
-    assert( count = partida_count_piezas( partida, NULL ) );
-    assert( count == partida_count_piezas( partida, CASILLERO_POZO ) );
+    assert( 0 == partida_count_piezas( partida, NULL ) );
+    assert( 99 * 2 == partida_count_piezas( partida, CASILLERO_POZO ) );
     assert( 0 == partida_count_piezas( partida, "c1" ) );
     assert( 0 == partida_count_piezas( partida, "b1" ) );
     assert( partida_mover_notacion( partida, "c1" ) ); 

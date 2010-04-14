@@ -312,7 +312,7 @@ int         partida_count_piezas  ( Partida* par, char* casillero ){
          Pieza* pie = (Pieza*) par->pos->piezas->data[i];
          if( pie ){
               if( !cas ){
-                  count ++;
+                  if(CASILLERO_VALIDO(pie->casillero)) count ++;
               } else if( cas == pie->casillero ){
                   count ++;
               }

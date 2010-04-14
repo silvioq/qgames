@@ -1,7 +1,8 @@
 
-check_PROGRAMS = test-tateti test-gomoku
+check_PROGRAMS = test-tateti test-gomoku test-ajedrezq
 test_tateti_SOURCES = test-tateti.c
 test_gomoku_SOURCES = test-gomoku.c
+test_ajedrezq_SOURCES = test-ajedrezq.c
 
 DEPENDENCIES = \
 										$(top_builddir)/parser/libqgames-parser.a \
@@ -11,6 +12,9 @@ DEPENDENCIES = \
 
 test_tateti_DEPENDENCIES = $(DEPENDENCIES)
 test_tateti_LDADD        = $(DEPENDENCIES)
+
+test_ajedrezq_DEPENDENCIES = $(DEPENDENCIES)
+test_ajedrezq_LDADD      = $(DEPENDENCIES)
 
 test_gomoku_DEPENDENCIES = $(DEPENDENCIES)
 test_gomoku_LDADD        = $(DEPENDENCIES)
