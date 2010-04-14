@@ -67,13 +67,16 @@ void  inicializar_pantalla(){
 
 
 void  finalizar_pantalla( ){
+    clear();
+    refresh();
     endwin();
 }
 
 
 void borrar_win(WINDOW *local_win)
 {
-        wborder(local_win, ' ', ' ', ' ',' ',' ',' ',' ',' ');
+        // wborder(local_win, ' ', ' ', ' ',' ',' ',' ',' ',' ');
+        wclear( local_win );
         wrefresh(local_win);
         delwin(local_win);
 }
@@ -133,6 +136,7 @@ char*  seleccionar_menu( Partida* par, int linea, int col ){
     int cant = partida_movidas_count( par );
     int i;
     char* ret;
+    int  srow, scol;
 
     items = ALLOC( sizeof( ITEM ) * ( cant + 1 ) );
     for( i = 0; i < cant; i ++ ){
@@ -142,11 +146,13 @@ char*  seleccionar_menu( Partida* par, int linea, int col ){
     }
     items[i] = NULL;
     menu = new_menu( items );
-
-    menuwin = newwin( 15, 30, linea, col );
-    set_menu_win( menu, menuwin );
-    set_menu_sub( menu, derwin( menuwin, 13, 28, 1, 1 ) );
     set_menu_format( menu, 13, 3 );
+
+    scale_menu( menu, &srow, &scol );
+
+    menuwin = newwin( srow + 2, scol + 2, linea, col );
+    set_menu_win( menu, menuwin );
+    set_menu_sub( menu, derwin( menuwin, srow, scol, 1, 1 ) );
     menu_opts_off( menu, O_SHOWDESC );
     box( menuwin, 0, 0 );
     keypad(menuwin, TRUE);
@@ -197,7 +203,7 @@ char*  seleccionar_menu( Partida* par, int linea, int col ){
     }
     unpost_menu( menu );
     free_menu( menu );
-    endwin();
+    borrar_win( menuwin );
 
     return ret;
 }
@@ -210,12 +216,25 @@ void  jugar_partida(Partida* par){
     imprimir_tablero( par, 0 );
     int  ch;
     char* xx;
+    char* res = NULL;
 
     while(xx = seleccionar_menu(par,10,10)){
         partida_mover_notacion( par, xx );
-        free( xx );
-        imprimir_tablero( par, 0 );
         
+        free( xx );
+        if( partida_final( par, &res ) != FINAL_ENJUEGO ) break;
+        imprimir_tablero( par, 0 );
+    }
+
+    if( res ){
+        int len = strlen( res );
+        WINDOW* w = newwin( 3 , len + 2, LINES / 2 - 1, ( COLS - len ) / 2 - 1 );
+        box( w, 0, 0 );
+        mvwprintw( w, 1, 1, res );
+        wrefresh( w );
+        while( getch() != 27 ){
+        }
+        borrar_win( w );
     }
 /*    
     while( 1 ){
