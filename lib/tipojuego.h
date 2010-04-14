@@ -166,9 +166,13 @@ int         tipojuego_get_coloroponente( Tipojuego* tj, int color );
 int         tipojuego_casillero_en_zona( Tipojuego* tj, Casillero* cas, int zona, int color );
 Direccion*  tipojuego_dir_by_sym( Tipojuego*, Direccion* dir, int color );
 
+#define     TIPOJUEGO_CAPTURAIMPLICITA(tj) 1
+
 /* Funciones de manejo de tablero */
 Tablero*   tablero_new( Tipojuego* tj, int numero );
 void       tablero_genera_dimensiones( Tablero* tab, int dimc, char** dimv );
+
+
 
 
 

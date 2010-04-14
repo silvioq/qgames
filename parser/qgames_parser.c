@@ -2021,7 +2021,7 @@ yyreduce:
 #line 357 "qgames_parser.y"
     {
             CHECK_TIPOJUEGO;
-            tipojuego_code_juega( tipojuego, NULL, 1 );
+            tipojuego_code_juega( tipojuego, NULL, 0 );
     }
     break;
 
@@ -2030,7 +2030,7 @@ yyreduce:
     {
             CHECK_TIPOJUEGO;
             tipojuego_code_start_condblock( tipojuego );
-            tipojuego_code_juega( tipojuego, NULL, 1 );
+            tipojuego_code_juega( tipojuego, NULL, 0 );
             tipojuego_code_end_condblock( tipojuego );
     }
     break;

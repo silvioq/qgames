@@ -255,6 +255,8 @@ void  jugar_partida(Partida* par){
         partida_movidas_posibles_ascii( par );
     } */
     finalizar_pantalla();
+    printf( partida_pgn( par ) );
+    printf( "\n" );
 };
 
 

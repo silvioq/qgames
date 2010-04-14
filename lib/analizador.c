@@ -92,14 +92,20 @@ int      analizador_evalua_final  ( Regla* regla, Posicion* pos, Pieza* pieza, C
  * */
 int    analizador_atacado( Analizador* z, Casillero* cas ){
     Casillero* ccc = cas ? cas : z->cas;
+    Pieza *p;
     int i;
-    Posicion* pos;
     if( z->tipo_analisis == ANALISIS_ATAQUE ) return 0;
     CHECK_STATUS ;
     if( !CASILLERO_VALIDO(ccc) ) return 0;
+    Posicion* pos = posicion_dup( z->pos );
+    if( TIPOJUEGO_CAPTURAIMPLICITA(z->pos->tjuego ) ){
+        list_inicio( pos->piezas );
+        while( p = (Pieza*)list_siguiente(pos->piezas) ){
+            if( p->number != z->pieza->number && p->casillero == ccc ) p->casillero = OUTOFBOARD ;
+        }
+    }
     for( i = 1; i <= z->pos->tjuego->colores; i ++ ){
         if( z->color == i ) continue;
-        pos = posicion_dup( z->pos );
         Movida* mov;
         LOGPRINT( 6, "Inico de analisis para color %d en %s", i, ccc->nombre );
         posicion_analiza_movidas( pos, ANALISIS_ATAQUE, i, 0, NULL );
@@ -111,6 +117,7 @@ int    analizador_atacado( Analizador* z, Casillero* cas ){
             }
         }
     }
+    posicion_free( pos );
     return 0;
 }
 
@@ -193,7 +200,7 @@ int    analizador_juega  ( Analizador* z, Casillero* cas, int con_captura ){
     movida_accion_mueve( mov, z->pieza, ccc );
     LOGPRINT( 6, "Juega %s en %s captura = %d", z->pieza->tpieza->nombre, ccc->nombre, con_captura );
     list_agrega( z->movidas, mov );
-    if( con_captura ){
+    if( TIPOJUEGO_CAPTURAIMPLICITA(z->pos->tj) || con_captura ){
         int i;
         for( i = 0; i < z->pos->piezas->entradas; i ++ ){
             Pieza* pp = (Pieza*)z->pos->piezas->data[i];
@@ -245,7 +252,7 @@ int   analizador_casillero( Analizador* z, Casillero* cas ){
   
     LOGPRINT( 6, "Estoy en %s moviendome hacia %s%s", 
             (CASILLERO_VALIDO(z->cas) ? z->cas->nombre : "?" ), 
-            (cas ? cas : z->cas_ori->nombre ),  
+            (cas ? cas->nombre : z->cas_ori->nombre ),  
             (cas ? ""  : " (original)" ) );
     z->cas = cas ? cas : z->cas_ori;
     if( z->pieza && CASILLERO_VALIDO( z->cas ) ) posicion_mueve_pieza( z->pos, z->pieza, z->cas );

@@ -151,6 +151,8 @@ void        partida_tablero_ascii ( Partida* par );
 int         partida_tablero_count ( Partida* par );
 int         partida_tablero_data  ( Partida* par, int num, char** casillero, char** pieza, char** color );
 
+char*       partida_pgn( Partida* par ); // free luego!
+
 
 
 

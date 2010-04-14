@@ -184,6 +184,99 @@ Movida*     partida_ultimo_movimiento( Partida* par ){
 }
 
 /*
+ * Devuelve un PGN con lo que haya en la partida
+ * */
+
+char*       partida_pgn( Partida* par ){
+    int  alloc = ( par->movimientos ? par->movimientos->entradas : 0 ) * 10 + 32 ;
+    int  count = 0;
+    char* ret = ALLOC( alloc ); int point;
+    // Primero, variante
+    char* var = "[Variant \"%s\"]\n";
+    char* res = "[Result \"%s\"]\n";
+    char* res_enj = "*", * res_10 = "1-0", *res_01 = "0-1", *res_emp = "1/2-1/2" ;
+    char* rr;
+    
+    count += strlen( par->tjuego->nombre ) + strlen( var ) - 2;
+    sprintf( ret, var, par->tjuego->nombre );
+
+    if( PARTIDATERMINADA(par) ){
+        if( PARTIDATABLAS(par) ){
+            rr = res_emp;
+        } else if( par->color_ganador == 1 ){
+            rr = res_10;
+        } else rr = res_01;
+    } rr = res_enj;
+
+    point = count;
+    count += strlen( res ) + strlen( rr ) - 2;
+    if( count > alloc ){
+        alloc += alloc - count + 32;
+        ret = REALLOC( ret, alloc );
+    }
+   
+    sprintf(ret + point, res, rr );
+
+    count += 1;
+    strcat( ret + point, "\n" );
+
+    // Ahora las jugadas
+    if( par->movimientos ){
+        int  move = 0; int blancas = 1;
+        int  line = 0;
+        list_inicio( par->movimientos );
+        Movida* mov;
+        while( mov = (Movida*)list_siguiente(par->movimientos) ){
+            point = count;
+            if( blancas ){
+                move ++;
+                char mm[10];
+                if( move == 1 ){
+                    sprintf( mm, "%d.", move );
+                } else sprintf( mm, " %d.", move );
+                count += strlen( mm );
+                line += strlen( mm );
+                if( count > alloc ){
+                    alloc += alloc - count + 32;
+                    ret = REALLOC( ret, alloc );
+                }
+                strcat( ret + point, mm );
+                point = count;
+                blancas = 0;
+            } else blancas = 1;
+
+            count += strlen( mov->notacion ) + 1;
+            line  += strlen( mov->notacion ) + 1;
+            if( count > alloc ){
+                alloc += alloc - count + 32;
+                ret = REALLOC( ret, alloc );
+            }
+            sprintf( ret + point, " %s", mov->notacion );
+            if( line > 72 ){
+                count += 1;
+                line  = 0;
+                strcat( ret + point, "\n" );
+            }
+        }
+    }
+    
+    point = count;
+    count += strlen( rr ) + 1 ;
+    if( count > alloc ){
+        alloc += alloc - count + 32;
+        ret = REALLOC( ret, alloc );
+    }
+    strcat( ret + point, " " );
+    strcat( ret + point, rr );
+
+    return  ret;
+
+
+}
+
+
+
+/*
  * Hace un movimiento, de acuerdo a la lista de movidas posibles.
  * */
 int       partida_mover         ( Partida* par, int mov ){

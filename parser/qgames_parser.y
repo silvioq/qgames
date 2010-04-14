@@ -356,12 +356,12 @@ instaction_movs:
 instaction_juega:
     TOK_JUEGA   {
             CHECK_TIPOJUEGO;
-            tipojuego_code_juega( tipojuego, NULL, 1 );
+            tipojuego_code_juega( tipojuego, NULL, 0 );
     }  | 
     TOK_JUEGA_SI   instexpr {
             CHECK_TIPOJUEGO;
             tipojuego_code_start_condblock( tipojuego );
-            tipojuego_code_juega( tipojuego, NULL, 1 );
+            tipojuego_code_juega( tipojuego, NULL, 0 );
             tipojuego_code_end_condblock( tipojuego );
     };
  
