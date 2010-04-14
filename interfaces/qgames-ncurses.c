@@ -83,7 +83,7 @@ void borrar_win(WINDOW *local_win)
 
 
 
-void  imprimir_tablero( Partida* par, int linea ){
+int  imprimir_tablero( Partida* par, int linea ){
     static WINDOW*  tablerito = NULL;
 
     int dim[MAXDIMS];
@@ -119,11 +119,11 @@ void  imprimir_tablero( Partida* par, int linea ){
         } else {
             wattroff( tablerito, A_BOLD );
         }
-        mvwaddch( tablerito, linea + tablero_h - dim[1], dim[0] + 1, pieza[0] );
+        mvwaddch( tablerito, tablero_h - dim[1], dim[0] + 1, pieza[0] );
         pie ++;
     }
     wrefresh( tablerito );
-    
+    return  tablero_w; 
 
 }
 
@@ -213,17 +213,17 @@ char*  seleccionar_menu( Partida* par, int linea, int col ){
 void  jugar_partida(Partida* par){
 
     inicializar_pantalla();
-    imprimir_tablero( par, 0 );
+    int w = imprimir_tablero( par, 1 );
     int  ch;
     char* xx;
     char* res = NULL;
 
-    while(xx = seleccionar_menu(par,10,10)){
+    while(xx = seleccionar_menu(par,1,w + 3)){
         partida_mover_notacion( par, xx );
         
         free( xx );
         if( partida_final( par, &res ) != FINAL_ENJUEGO ) break;
-        imprimir_tablero( par, 0 );
+        imprimir_tablero( par, 1 );
     }
 
     if( res ){
