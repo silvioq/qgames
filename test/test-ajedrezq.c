@@ -89,11 +89,15 @@ int  main(int argc, char** argv) {
     assert( partida_mover_pgn( partida, prueba3 ) );
     assert( partida_final( partida, NULL ) == FINAL_ENJUEGO );
     assert( partida_movidas_count( partida ) > 0 );
-    loglevel = 5;
     assert( partida_mover_notacion( partida, "Kd5" ) );
     assert( partida_final( partida, NULL ) == FINAL_ENJUEGO );
-    
 
+    printf( "." );
+    char* prueba4 = "1. c3 bxc3 2. Kc2 cxd2 3. Kxd2 Kb4 4. a3 Kb3 5. Kc1 Ka2 6. Kd2 Kxb2 7. e3 "
+                    "dxe3 8. Kxe3 Kxa3 9. Kxe4 Kb4 10. Ke5 a3 11. Kd4 a2 12. Ke4 a1 ";
+    assert( partida = tipojuego_create_partida( aje ) );
+    assert( partida_mover_pgn( partida, prueba4 ) );
+    assert( partida_final( partida, NULL ) == 2 ); // gana el negro
 
     printf( "\n" );
     return  EXIT_SUCCESS;

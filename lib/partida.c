@@ -206,7 +206,8 @@ char*       partida_pgn( Partida* par ){
         } else if( par->color_ganador == 1 ){
             rr = res_10;
         } else rr = res_01;
-    } rr = res_enj;
+    }  else 
+      rr = res_enj;
 
     point = count;
     count += strlen( res ) + strlen( rr ) - 2;
@@ -369,13 +370,16 @@ int   partida_mover_mov( Partida* par, Movida* mov ){
     if( ret == FINAL_EMPATE ){
         par->resultado = resultado;
         par->flags    |= ESTABLAS;
-        par->flags    &= (~ANALIZANDO );
+        par->flags    &= ~ANALIZANDO;
         par->flags    |= TERMINADA;
     } else if ( ret > 0 ){
         par->resultado = resultado;
         par->color_ganador = ret;
-        par->flags    &= (~ANALIZANDO );
+        // LOGPRINT( 2, "flags es %d", par->flags );
+        par->flags    &= ~ANALIZANDO;
+        // LOGPRINT( 2, "flags es %d", par->flags );
         par->flags    |= TERMINADA;
+        // LOGPRINT( 2, "flags es %d", par->flags );
     } else {
         secuencia_siguiente( par, &(par->color), &(par->tmov) );
     }
