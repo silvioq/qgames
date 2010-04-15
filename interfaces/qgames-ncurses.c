@@ -18,6 +18,7 @@
 #include  "log.h"
 #include  "../parser/pgn_scanner.h"
 
+#include  <locale.h>
 #include  <ncurses.h>
 #include  <menu.h>
 
@@ -51,6 +52,7 @@ void  inicializar_pantalla(){
 /*
  *----------------------------------
  * */
+    setlocale( LC_ALL, "" );
     initscr();
 
     cbreak();       /* take input chars one at a time, no wait for \n */

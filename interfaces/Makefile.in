@@ -79,6 +79,7 @@ CCDEPMODE = @CCDEPMODE@
 CFLAGS = @CFLAGS@
 CPP = @CPP@
 CPPFLAGS = @CPPFLAGS@
+CURSES_LIBS = @CURSES_LIBS@
 CXX = @CXX@
 CXXCPP = @CXXCPP@
 CXXDEPMODE = @CXXDEPMODE@
@@ -182,7 +183,7 @@ target_alias = @target_alias@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 qgames_ncurses_SOURCES = qgames-ncurses.c ../common/list.c  
-qgames_ncurses_LDFLAGS = -lncurses -lmenu
+qgames_ncurses_LDFLAGS = -lmenu @CURSES_LIBS@
 qgames_ncurses_DEPENDENCIES = $(top_builddir)/qcode/src/libqcode.la $(top_builddir)/lib/libqgames.a \
 										$(top_builddir)/parser/libqgames-parser.a $(top_builddir)/parser/libpgn-parser.a
 

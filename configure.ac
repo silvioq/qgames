@@ -9,10 +9,22 @@ AC_CONFIG_HEADERS([config.h])     # not even really needed
 AC_PROG_CC                        # or AC_PROG_CXX
 
 AC_CHECK_LIB(readline,readline)
-AC_CHECK_LIB(ncurses,ncurses)
+AC_CHECK_LIB(ncurses,initscr,[CURSES_LIBS="-lncurses"])
+AC_CHECK_LIB(ncursesw,initscr,[CURSES_LIBS="-lncursesw"])
+AC_CHECK_HEADERS([ncurses.h])
+AC_SUBST([CURSES_LIBS])
 
 AM_CONDITIONAL([QASM], [0])
 AC_CONFIG_SUBDIRS([qcode])
+
+# 
+# if test x"${ac_cv_lib_ncursesw_ncursesw}" = xyes; then
+#    CURSES_LIBS="-lncursesw"
+# else
+#    if test x"${ac_cv_lib_ncurses_ncurses}" = xyes; then
+#       CURSES_LIBS="-lncurses"
+#    fi
+# fi
 
 # if test x"${ac_cv_lib_readline_readline}" = xno; then
   # AC_MSG_ERROR(libreadline not found)
