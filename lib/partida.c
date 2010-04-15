@@ -11,7 +11,10 @@
 #include <assert.h>
 #include <md5.h>
 #include <time.h>
+#include <sys/time.h>
 #include <qgames.h>
+
+
 #include "config.h"
 #include "tipojuego.h"
 #include "pieza.h"
@@ -83,8 +86,8 @@ Partida*  partida_new( Tipojuego* tjuego ){
     // Calculo el id
     {
         char  aux[256];
-        char  aux2[16];
-        static  int xxx = 100;
+        unsigned char  aux2[16];
+        static  int xxx = 100; int seeded = 0;
         int  mod = xxx % 8;
         char*  id = ALLOC( 256 );
         int  di;
@@ -92,16 +95,23 @@ Partida*  partida_new( Tipojuego* tjuego ){
         md5_state_t  md5;
         md5_init( &md5 );
 
-        sprintf( aux, "%d-%d-%d", (long)par->inicio, (long)clock(), xxx );
+        if( !seeded ){
+            struct timeval tv;
+            gettimeofday (&tv, NULL);
+            srandom( tv.tv_sec * tv.tv_usec );
+            seeded = 1;
+        }
+        sprintf( aux, "%d-%d-%d", random(), (long)clock(), xxx );
         md5_append( &md5, aux, strlen( aux ) );
         md5_append( &md5, (void*)(&xxx), sizeof( int ) );
         md5_finish( &md5, aux2 );
-        for( di = mod; di < mod + 6; di ++ )
-	        sprintf(aux + di * 2, "%02x", aux2[di]);
-        LOGPRINT( 6, "mod es = %d %s", mod, aux );
-        memcpy( id, aux, 8 );
-        id[8] = '@';
-        id[9] = 0;
+        // LOGPRINT( 2, "md5 = %s", aux2 );
+        for( di = mod; di < mod + 6; di ++ ){
+	        sprintf(aux + ( di - mod ) * 2, "%02x", aux2[di]);
+        }
+        memcpy( id, aux, 12 );
+        id[12] = '@';
+        id[13] = 0;
         strcat( id, QGAMES_SERVERNAME );
         par->id = id ;
     }
@@ -187,6 +197,14 @@ Movida*     partida_ultimo_movimiento( Partida* par ){
  * Devuelve un PGN con lo que haya en la partida
  * */
 
+#define  STREXPAND(str,alloc,count)  \
+    if( count > alloc ){ \
+        alloc = count + 32;\
+        str = REALLOC( ret, alloc );\
+    }
+
+
+
 char*       partida_pgn( Partida* par ){
     int  alloc = ( par->movimientos ? par->movimientos->entradas : 0 ) * 10 + 32 ;
     int  count = 0;
@@ -194,11 +212,18 @@ char*       partida_pgn( Partida* par ){
     // Primero, variante
     char* var = "[Variant \"%s\"]\n";
     char* res = "[Result \"%s\"]\n";
+    char* event = "[Event \"Casual Game\"]\n[Annotator \"%s\"]\n";
     char* res_enj = "*", * res_10 = "1-0", *res_01 = "0-1", *res_emp = "1/2-1/2" ;
     char* rr;
+
+    count = strlen( event ) -2 + strlen( par->id ) ;
+    STREXPAND(ret,alloc,count);
+    sprintf( ret, event, par->id );
+    point = count;
     
     count += strlen( par->tjuego->nombre ) + strlen( var ) - 2;
-    sprintf( ret, var, par->tjuego->nombre );
+    STREXPAND(ret,alloc,count);
+    sprintf( ret + point, var, par->tjuego->nombre );
 
     if( PARTIDATERMINADA(par) ){
         if( PARTIDATABLAS(par) ){
@@ -211,10 +236,7 @@ char*       partida_pgn( Partida* par ){
 
     point = count;
     count += strlen( res ) + strlen( rr ) - 2;
-    if( count > alloc ){
-        alloc += alloc - count + 32;
-        ret = REALLOC( ret, alloc );
-    }
+    STREXPAND(ret,alloc,count);
    
     sprintf(ret + point, res, rr );
 
@@ -237,22 +259,16 @@ char*       partida_pgn( Partida* par ){
                 } else sprintf( mm, " %d.", move );
                 count += strlen( mm );
                 line += strlen( mm );
-                if( count > alloc ){
-                    alloc += alloc - count + 32;
-                    ret = REALLOC( ret, alloc );
-                }
+                STREXPAND(ret,alloc,count);
                 strcat( ret + point, mm );
                 point = count;
                 blancas = 0;
             } else blancas = 1;
 
-            count += strlen( mov->notacion ) + 1;
+            count += strlen( mov->notacion ) + ( line == 0 ? 0 : 1 );
+            STREXPAND(ret,alloc,count);
+            sprintf( ret + point, ( line == 0 ? "%s" : " %s" ), mov->notacion );
             line  += strlen( mov->notacion ) + 1;
-            if( count > alloc ){
-                alloc += alloc - count + 32;
-                ret = REALLOC( ret, alloc );
-            }
-            sprintf( ret + point, " %s", mov->notacion );
             if( line > 72 ){
                 count += 1;
                 line  = 0;
@@ -263,10 +279,7 @@ char*       partida_pgn( Partida* par ){
     
     point = count;
     count += strlen( rr ) + 1 ;
-    if( count > alloc ){
-        alloc += alloc - count + 32;
-        ret = REALLOC( ret, alloc );
-    }
+    STREXPAND(ret,alloc,count);
     strcat( ret + point, " " );
     strcat( ret + point, rr );
 

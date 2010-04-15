@@ -20,6 +20,7 @@ char* pgntag_white = NULL;
 char* pgntag_black = NULL;
 char* pgntag_result = NULL;
 char* pgntag_termination = NULL;
+char* pgntag_annotator = NULL;
 char* pgntag_fen = NULL;
 
 char* pgntag_variant = NULL;
@@ -57,6 +58,7 @@ RESULT       ({DRAW}|{BWIN}|{WWIN})
 
 %%
 
+\[annotator{SPACES}{TAGDEF}\]  {  pgntag_annotator = extracttag( yytext ); pgncolno += yyleng; }
 \[black{SPACES}{TAGDEF}\]      {  pgntag_black   = extracttag( yytext ); pgncolno += yyleng; }
 \[date{SPACES}{TAGDEF}\]       {  pgntag_date    = extracttag( yytext ); pgncolno += yyleng; }
 \[event{SPACES}{TAGDEF}\]      {  pgntag_event   = extracttag( yytext ); pgncolno += yyleng; }

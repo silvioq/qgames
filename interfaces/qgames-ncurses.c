@@ -21,7 +21,6 @@
 #include  <ncurses.h>
 #include  <menu.h>
 
-int rows, cols;
 Tipojuego* tj = NULL;
 static int  tablero_h = 0;
 static int  tablero_w = 0;
@@ -59,7 +58,6 @@ void  inicializar_pantalla(){
     keypad(stdscr, TRUE); 
     curs_set( 0 );
 
-    getmaxyx(stdscr, rows, cols );
     refresh();
     
  

@@ -48,6 +48,7 @@ extern  char* pgntag_result;
            tag pair "SetUp" must also appear and have its value set to "1".
 */
 extern  char* pgntag_termination;
+extern  char* pgntag_annotator;
 
 extern  char* pgntag_fen;
 
