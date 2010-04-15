@@ -67,7 +67,26 @@ long    get_label_stack( ){
     return  label;
 }
 
+/*
+ *
+ * Operador False
+ *
+ * */
+void        tipojuego_code_op_false( Tipojuego* tj ){
+    qcode_op( tj->qcode, QCSTI, 0, 0 ); 
+}
 
+/*
+ *
+ * Operador EQual
+ *
+ * */
+void        tipojuego_code_op_equal( Tipojuego* tj, long val ){
+    assert( tj );
+    qcode_op( tj->qcode, QCSTI, 2, val ); 
+    // qcode_opnlab( tj->qcode, QCCLX, "dump" );
+    qcode_op( tj->qcode, QCEQU, 0, 2 );    // EQU r0 , r2
+}
 
 /*
  *

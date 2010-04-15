@@ -108,6 +108,9 @@ void        tipojuego_code_break_block( Tipojuego* tj );
 void        tipojuego_code_continue_block( Tipojuego* tj );
 
 void        tipojuego_code_op_not( Tipojuego* tj );
+void        tipojuego_code_op_equal( Tipojuego* tj, long val );
+void        tipojuego_code_op_false( Tipojuego* tj );
+
 void        tipojuego_code_atacado( Tipojuego* tj, char* casillero );
 void        tipojuego_code_direccion( Tipojuego* tj, char* direccion );
 void        tipojuego_code_casillero( Tipojuego* tj, char* casillero );

@@ -141,12 +141,15 @@ define\:        { define_created = 0; BEGIN(define_head);   }
 
 
 <code>and                 { return TOK_AND;       }
+<code>\=\=                { return TOK_DEQUAL;    }
+<code>\=                  { return TOK_EQUAL;     }
 <code>&&                  { return TOK_AND;       }
 <code>\!                  { return TOK_NOT;       }
 <code>not                 { return TOK_NOT;       }
 
 <code>ahogado\??                  { return  TOK_AHOGADO;   }
-<code>atacado(\-|\_)enemigo\??   { return  TOK_ATACADO_ENEMIGO; }
+<code>atacado(\-|\_)enemigo\??    { return  TOK_ATACADO_ENEMIGO; }
+<code>cantidad(\-|\_)piezas       { return  TOK_CANTIDAD_PIEZAS; }
 <code>casillero(\-|\_)inicial     { return  TOK_CASILLERO_INICIAL; }
 <code>empata              { return TOK_EMPATA;    }
 <code>empata\-si          { return TOK_EMPATA_SI; }

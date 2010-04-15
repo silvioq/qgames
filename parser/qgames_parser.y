@@ -90,6 +90,7 @@ void  qgzprintf( char* format, ... ){
 %token    TOK_ATTR
 %token    TOK_BOARD
 %token    TOK_CAPTURED_MARK
+%token    TOK_CANTIDAD_PIEZAS
 %token    TOK_COLOR
 %token    TOK_DEFAULT
 %token    TOK_DIRECTION
@@ -115,7 +116,6 @@ void  qgzprintf( char* format, ... ){
 
 %token    TOK_AHOGADO
 %token    TOK_ATACADO_ENEMIGO
-%token    TOK_AND       TOK_OR          TOK_NOT
 %token    TOK_CASILLERO_INICIAL
 %token    TOK_EMPATA    TOK_EMPATA_SI
 %token    TOK_ENTABLERO
@@ -131,6 +131,8 @@ void  qgzprintf( char* format, ... ){
 %token    TOK_PIERDE    TOK_PIERDE_SI
 %token    TOK_TRANSFORMA
 
+%token    TOK_AND       TOK_OR          TOK_NOT
+%token    TOK_EQUAL     TOK_DEQUAL
 %token    TOK_WHILE     TOK_DO   TOK_END
 
 
@@ -170,6 +172,15 @@ instexpr_atacado:
             CHECK_TIPOJUEGO;
             tipojuego_code_atacado( tipojuego, NULL );
     };
+
+cantidad_piezas_preludio:
+    TOK_CANTIDAD_PIEZAS  { init_parameters(); };
+
+
+instexpr_cantidad_piezas:
+    cantidad_piezas_preludio  word_or_string_list  { NOT_IMPLEMENTED_WARN("cantidad-piezas"); tipojuego_code_op_false(tipojuego); } |
+    cantidad_piezas_preludio                       { NOT_IMPLEMENTED_WARN("cantidad-piezas"); tipojuego_code_op_false(tipojuego); };
+    
 
 instexpr_entablero:
     TOK_ENTABLERO {
@@ -250,6 +261,8 @@ instexpr_ocupado:
         }
     };
 
+es_igual_a:  TOK_EQUAL | TOK_DEQUAL;
+
 instexpr_logical:
     TOK_NOT   instexpr    {
                 CHECK_TIPOJUEGO;
@@ -262,6 +275,15 @@ instexpr_logical:
                 tipojuego_code_end_condblock( tipojuego );
     } |
     instexpr TOK_OR  instexpr  { NOT_IMPLEMENTED; } 
+      |
+    instexpr es_igual_a  TOK_NUMBER {
+                CHECK_TIPOJUEGO;
+                tipojuego_code_op_equal( tipojuego, $3 );
+    } | 
+    TOK_NUMBER es_igual_a  instexpr {
+                CHECK_TIPOJUEGO;
+                tipojuego_code_op_equal( tipojuego, $1 );
+    }   
     ;
 
 instexpr:
@@ -269,6 +291,7 @@ instexpr:
     instexpr_logical |
     instexpr_ahogado |
     instexpr_atacado |
+    instexpr_cantidad_piezas |
     instexpr_entablero |
     instexpr_enzona  |
     instexpr_jaquemate |
