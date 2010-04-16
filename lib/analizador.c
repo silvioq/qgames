@@ -304,6 +304,11 @@ int   analizador_casillero( Analizador* z, Casillero* cas ){
     return  STATUS_NORMAL;
 }
 
+int    analizador_jaquemate( Analizador* z, Tipopieza* tpieza ){
+    if( !analizador_ahogado( z ) ) return 0;
+    if( posicion_en_jaque( z->pos ) ) return 1;
+    return 0;
+}
 
 /*
  * El analisis de ahogado es muy simple. 

@@ -26,6 +26,7 @@
 /* ---------------------------------------------------------------------------------------- */
 void        posicion_add_movida( Posicion* pos, Movida* mov );
 void        posicion_add_movidas( Posicion* pos, _list* movs );
+int         posicion_en_jaque( Posicion* pos, Movida* mov, int color );
 
 
 
@@ -90,6 +91,26 @@ Pieza*     posicion_get_pieza( Posicion* pos, Pieza* pieza ){
 }
 
 /*
+ * Recorro las movidas que tengo e intento descartarlas por
+ * posibles jaques a las piezas que se le puede hacer 
+ * jaquemate
+ * */
+void        posicion_descartar_por_jaques( Posicion* pos, int color ){
+    if( !TJJAQUEMATE(pos->tjuego) ) return;
+    if( !pos->movidas ) return ;
+    int i;
+    for( i = 0; i < pos->movidas->entradas; i ++ ){
+        Movida* mov = (Movida*) pos->movidas->data[i];
+        if( posicion_en_jaque( pos, mov, color ) ){
+            list_quita( pos->movidas, i );
+            movida_free( mov );
+            i --;
+        }
+    }
+}
+
+
+/*
  * Esta funcion es muy simple, pero es fundamental.
  * Solo agrega una pieza a la posicion.
  * */
@@ -99,6 +120,43 @@ void        posicion_add_pieza( Posicion* pos, Pieza* pie ){
   list_agrega( pos->piezas, pie );
   pie->number = pos->piezas->entradas - 1;
 }
+
+/*
+ * Esta funcion devuelve 1, si, una vez ejecutada la movida, 
+ * alguna de las piezas afectadas queda en jaque.
+ * */
+int         posicion_en_jaque( Posicion* pos, Movida* mov, int color ){
+    if( !TJJAQUEMATE(pos->tjuego) ) return 0;
+    Posicion* pos2 = posicion_dup( pos );
+    Pieza* pieza;
+    Movida* movnew = movida_dup( mov );
+    movnew->pos = pos2;
+    movida_ejecuta( movnew );
+    list_inicio( pos2->piezas );
+    while( pieza = (Pieza*)list_siguiente( pos->piezas ) ){
+        if( !pieza ) continue;
+        if( !TJJAQUEMATE(pieza->tpieza) ) continue;
+        if( !CASILLERO_VALIDO(pieza->casillero)) continue;
+        int i;
+        for( i = 1; i <= pos2->tjuego->colores; i ++ ){
+            if( color == i ) continue;
+            Movida* mov2;
+            LOGPRINT( 6, "Inico de analisis para color %d en %s", i, pieza->casillero->nombre );
+            posicion_analiza_movidas( pos2, ANALISIS_ATAQUE, i, 0, NULL );
+            list_inicio( pos2->movidas );
+            while( mov2 = (Movida*) list_siguiente( pos->movidas ) ){
+                if( movida_casillero_destino( mov2 ) == pieza->casillero ){
+                    posicion_free( pos2 );
+                    return 1;
+                }
+            }
+        }
+    }
+    posicion_free( pos2 );
+    return 0;
+
+}
+
 
 /*
  * Aca se viene el analisis de movidas. Esta funcion realiza el siguiente trabajo.
@@ -167,6 +225,7 @@ int        posicion_analiza_movidas( Posicion* pos, char tipoanalisis, int color
                     movs =  analizador_evalua_movidas( regla, pos, pp, cas, tipoanalisis, 
                                     regla->tmov, color );
                     if( movs ){
+                        if( tipoanalisis != ANALISIS_ATAQUE ) posicion_descartar_por_jaques( pos, color ) ;
                         if( tipoanalisis == ANALISIS_PRIMER_MOVIDA ) return 1;
                         posicion_add_movidas( pos, movs );
                         cantidad += movs->entradas;
@@ -197,6 +256,7 @@ int        posicion_analiza_movidas( Posicion* pos, char tipoanalisis, int color
                 movs =  analizador_evalua_movidas( regla, pos, pp, pp->casillero, tipoanalisis, 
                                 regla->tmov, color );
                 if( movs ){
+                    if( tipoanalisis != ANALISIS_ATAQUE ) posicion_descartar_por_jaques( pos, color ) ;
                     if( tipoanalisis == ANALISIS_PRIMER_MOVIDA ) return 1;
                     posicion_add_movidas( pos, movs );
                     cantidad += movs->entradas;
@@ -218,6 +278,7 @@ int        posicion_analiza_movidas( Posicion* pos, char tipoanalisis, int color
                 movs =  analizador_evalua_movidas( regla, pos, pp, pp->casillero, tipoanalisis, 
                                 regla->tmov, color );
                 if( movs ){
+                    if( tipoanalisis != ANALISIS_ATAQUE ) posicion_descartar_por_jaques( pos, color ) ;
                     if( tipoanalisis == ANALISIS_PRIMER_MOVIDA ) return 1;
                     posicion_add_movidas( pos, movs );
                     cantidad += movs->entradas;

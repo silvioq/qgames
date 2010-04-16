@@ -161,14 +161,14 @@ move:
 # Se vienen los finales. Son tambien distintos mini programas!
 ending:     
             empata-si ahogado?
-ending:    
+ending:
             gana-si jaquemate? "rey"
 ending:
             empata-si repite_posicion? 3 
 ending:
             empata-si cantidad_piezas? 2
             parar-si  !cantidad_piezas? 3
-            empata-si cantidad_piezas? caballo 1
+            empata-si cantidad_piezas caballo = 1
 
 sequence:   blanco negro
 start:      torre    blanco  a1  f1
@@ -188,8 +188,8 @@ notation:   dama    Q
 notation:   torre   R
 notation:   caballo N
 notation:   peon    ""
-notation:   marca_captura   x
-notation:   marca_movida   "-"
-notation:   default   nombre_pieza  marca_captura      casillero_destino
-notation:   onrepeat  nombre_pieza  casillero_origen   marca              casillero_destino
+notation:   captured_mark   x
+notation:   mark   "-"
+notation:   default   piecename  captured-mark      target
+notation:   onrepeat  piecename  origin             mark           target
 

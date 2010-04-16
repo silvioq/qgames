@@ -68,6 +68,7 @@ int    analizador_cuenta_piezas( Analizador* z, Casillero* cas, int owner, Tipop
 int    analizador_ahogado( Analizador* z );
 int    analizador_entablero( Analizador* z );
 int    analizador_enzona( Analizador* z, int zona, int color, Tipopieza* tpieza );
+int    analizador_jaquemate( Analizador* z, Tipopieza* tpieza );
 
 
 int   analizador_final( Analizador* z, int color, int res );

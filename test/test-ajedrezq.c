@@ -23,6 +23,22 @@
 #include "log.h"
 
 Tipojuego* aje;
+Tipojuego* losalamos;
+
+int   los_alamos(){
+
+    Partida*   partida;
+    char* notacion;
+    char *filename = "../games/AjedrezLosAlamos.qgame";
+
+    printf( "." );
+    assert( losalamos = qgz_parse_filename( filename, 0 ) );
+    assert( partida = tipojuego_create_partida( losalamos ) );
+    assert( partida_mover_notacion( partida, "e3" ) );
+
+}
+
+
 
 
 int  main(int argc, char** argv) {
@@ -100,5 +116,8 @@ int  main(int argc, char** argv) {
     assert( partida_final( partida, NULL ) == 2 ); // gana el negro
 
     printf( "\n" );
+
+    los_alamos() ;
+
     return  EXIT_SUCCESS;
 }

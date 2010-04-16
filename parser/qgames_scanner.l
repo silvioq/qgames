@@ -46,6 +46,7 @@ char       string_ret ; // donde retorna
 
 WORD      ([a-zA-Z\?][a-zA-Z0-9\-\_]*\??)
 SPACES    [ ]+
+BAR       (\_|\-)?
 
 %%
 
@@ -88,7 +89,7 @@ SPACES    [ ]+
 
 attribute\:     { return TOK_ATTR;      }
 board\:         { return TOK_BOARD ;    }
-captured_mark   { return TOK_CAPTURED_MARK; }
+captured{BAR}mark { return TOK_CAPTURED_MARK; }
 color\:         { return TOK_COLOR;     }
 default         { return TOK_DEFAULT;   }
 directions?\:   { return TOK_DIRECTION; }
@@ -102,7 +103,7 @@ notation\:      { return TOK_NOTATION;  }
 origin          { return TOK_ORIGIN;    }
 onrepeat        { return TOK_ONREPEAT;  }
 piece\:         { return TOK_PIECE;     }
-piece_name      { return TOK_PIECE_NAME; }
+piece{BAR}name  { return TOK_PIECE_NAME; }
 repeat          { return TOK_REPEAT;    }
 sequence\:      { return TOK_SEQUENCE;  }
 symmetry\:      { return TOK_SYMMETRY;  }
@@ -148,30 +149,31 @@ define\:        { define_created = 0; BEGIN(define_head);   }
 <code>not                 { return TOK_NOT;       }
 
 <code>ahogado\??                  { return  TOK_AHOGADO;   }
-<code>atacado(\-|\_)enemigo\??    { return  TOK_ATACADO_ENEMIGO; }
-<code>cantidad(\-|\_)piezas                       { return  TOK_CANTIDAD_PIEZAS; }
-<code>cantidad(\-|\_)piezas(\-|\_)propi(a|o)s?    { return  TOK_CANTIDAD_PIEZAS_PROPIAS; }
-<code>cantidad(\-|\_)piezas(\-|\_)enemig(a|o)s?   { return  TOK_CANTIDAD_PIEZAS_ENEMIGAS; }
-<code>casillero(\-|\_)inicial     { return  TOK_CASILLERO_INICIAL; }
-<code>empata              { return TOK_EMPATA;    }
-<code>empata\-si          { return TOK_EMPATA_SI; }
-<code>en(\-|\_)tablero\?? { return TOK_ENTABLERO;   }
-<code>en(\-|\_)zona\??    { return TOK_ENZONA;    }
-<code>gana                { return TOK_GANA;      }
-<code>gana\-si            { return TOK_GANA_SI;   }
-<code>jaquemate\??        { return TOK_JAQUEMATE; }
-<code>juega               { return TOK_JUEGA;     } 
-<code>juega\-si           { return TOK_JUEGA_SI;  }
-<code>ocupado\??          { return TOK_OCUPADO;   }
-<code>ocupado\_enemigo\?? { return TOK_OCUPADOENEMIGO;   }
-<code>ocupado\_propio\??  { return TOK_OCUPADOPROPIO;   }
-<code>ocupado\-enemigo\?? { return TOK_OCUPADOENEMIGO;   }
-<code>ocupado\-propio\??  { return TOK_OCUPADOPROPIO;   }
-<code>parar?              { return  TOK_PARA;        }
-<code>parar?\-si          { return  TOK_PARA_SI;     }
-<code>pierde              { return  TOK_PIERDE;      }
-<code>pierde\-si          { return  TOK_PIERDE_SI;   }
-<code>transformar?        { return  TOK_TRANSFORMA;  }
+<code>atacado{BAR}enemigo\??      { return  TOK_ATACADO_ENEMIGO; }
+<code>cantidad{BAR}piezas\??                  { return  TOK_CANTIDAD_PIEZAS; }
+<code>cantidad{BAR}piezas{BAR}propi(a|o)s?    { return  TOK_CANTIDAD_PIEZAS_PROPIAS; }
+<code>cantidad{BAR}piezas{BAR}enemig(a|o)s?   { return  TOK_CANTIDAD_PIEZAS_ENEMIGAS; }
+<code>casillero{BAR}inicial     { return  TOK_CASILLERO_INICIAL; }
+<code>empata                 { return TOK_EMPATA;    }
+<code>empata\-si             { return TOK_EMPATA_SI; }
+<code>en{BAR}tablero\??      { return TOK_ENTABLERO; }
+<code>en{BAR}zona\??         { return TOK_ENZONA;    }
+<code>gana                   { return TOK_GANA;      }
+<code>gana{BAR}si            { return TOK_GANA_SI;   }
+<code>jaquemate\??           { return TOK_JAQUEMATE; }
+<code>juega                  { return TOK_JUEGA;     } 
+<code>juega{BAR}si           { return TOK_JUEGA_SI;  }
+<code>ocupado\??             { return TOK_OCUPADO;   }
+<code>ocupado{BAR}enemigo\?? { return TOK_OCUPADOENEMIGO;   }
+<code>ocupado{BAR}propio\??  { return TOK_OCUPADOPROPIO;   }
+<code>ocupado{BAR}enemigo\?? { return TOK_OCUPADOENEMIGO;   }
+<code>ocupado{BAR}propio\??  { return TOK_OCUPADOPROPIO;   }
+<code>parar?                 { return  TOK_PARA;        }
+<code>parar?{BAR}si          { return  TOK_PARA_SI;     }
+<code>pierde                 { return  TOK_PIERDE;      }
+<code>pierde{BAR}si          { return  TOK_PIERDE_SI;   }
+<code>transformar?           { return  TOK_TRANSFORMA;  }
+<code>repite{BAR}posicion\?? { return  TOK_REPITEPOS; }
 
 <code>do                  { return TOK_DO;        }
 <code>if                  { return TOK_IF;        }

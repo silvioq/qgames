@@ -62,6 +62,15 @@ long  code_wrapper_ocupado( QCodeVM* vm ){
     return (long)analizador_ocupado( z, c, owner );
 }
 
+long  code_wrapper_transforma( QCodeVM* vm ){
+    Analizador* z = (Analizador*)qcode_pop( vm );
+    int  owner    = (int)qcode_pop(vm);
+    Tipopieza*  t = ZGETTIPOPIEZA( z, qcode_pop( vm ) );
+    if( (long)t == -1 ) t = NULL;
+    return 0;
+}
+
+
 long  code_wrapper_cuentapiezas( QCodeVM* vm ){
     Analizador* z = (Analizador*)qcode_pop( vm );
     Casillero*  c = ZGETCASILLERO( z, qcode_pop( vm ) );
@@ -111,6 +120,11 @@ long  code_wrapper_entablero( QCodeVM* vm ){
     return (long)analizador_entablero( z );
 }
 
+long  code_wrapper_jaquemate( QCodeVM* vm ){
+    Analizador* z = (Analizador*)qcode_pop( vm );
+    Tipopieza* p = ZGETTIPOPIEZA( z, qcode_pop( vm ) );
+    return (long)analizador_jaquemate( z, p );
+}
 long  code_wrapper_enzona( QCodeVM* vm ){
     Analizador* z = (Analizador*)qcode_pop( vm );
     int    zon = qcode_pop( vm );
@@ -145,6 +159,7 @@ void  code_initialize( QCode** qcode ){
     qcode_xcrlab( q, "atacado",   (qcode_extfunc)code_wrapper_atacado );
     qcode_xcrlab( q, "cuentapiezas", (qcode_extfunc)code_wrapper_cuentapiezas );
     qcode_xcrlab( q, "ocupado",   (qcode_extfunc)code_wrapper_ocupado );
+    qcode_xcrlab( q, "jaquemate", (qcode_extfunc)code_wrapper_jaquemate );
     qcode_xcrlab( q, "juega",     (qcode_extfunc)code_wrapper_juega );
     qcode_xcrlab( q, "casillero", (qcode_extfunc)code_wrapper_casillero );
     qcode_xcrlab( q, "direccion", (qcode_extfunc)code_wrapper_direccion );
@@ -152,6 +167,7 @@ void  code_initialize( QCode** qcode ){
     qcode_xcrlab( q, "entablero", (qcode_extfunc)code_wrapper_entablero );
     qcode_xcrlab( q, "enzona",    (qcode_extfunc)code_wrapper_enzona );
     qcode_xcrlab( q, "final"    , (qcode_extfunc)code_wrapper_final );
+    qcode_xcrlab( q, "transforma",(qcode_extfunc)code_wrapper_transforma );
     qcode_xcrlab( q, "dump"     , (qcode_extfunc)code_wrapper_dump );
 
     /* El primer codigo que meto es el tema del analizador */

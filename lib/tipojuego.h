@@ -13,6 +13,10 @@
 typedef   struct   StrNotacion  Notacion;
 typedef   struct   StrRegla     Regla;
 
+#define   JAQUEMATE    0x1
+#define   TJJAQUEMATE(tj)  (tj->flags & JAQUEMATE)
+
+
 typedef   struct   StrTipojuego {
     _list*       simbolos;
     _list*       tableros;
@@ -30,6 +34,7 @@ typedef   struct   StrTipojuego {
     int          zonas;
     _list*       defzonas;
     Posicion*    inicial;
+    char         flags;
 
     _list*       rules;           // Aca van los finales
     Regla*       regla_actual;
@@ -63,6 +68,8 @@ typedef   struct   StrVinculo {
     Casillero* destino;
 } Vinculo;
 
+
+
 typedef   struct   StrTipopieza {
     char*       nombre;
     Tipojuego*  tipojuego;
@@ -70,13 +77,13 @@ typedef   struct   StrTipopieza {
     _list*      att_nombres;
     _list*      att_default;
     _list*      rules;
-    int         flags;
+    char        flags;
 } Tipopieza;
 
-// 
-#define  RULEFLAG_DIRECCION   0x1
+//
+#define  RULEFLAG_JAQUEMATE   JAQUEMATE
 #define  RULEFLAG_PIEZAS      0x2
-#define  RULEFLAG_JAQUEMATE   0x4
+#define  RULEFLAG_DIRECCION   0x4
 
 typedef   struct  StrRegla {
     Tipopieza*  tpieza;

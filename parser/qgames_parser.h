@@ -91,14 +91,15 @@
      TOK_PIERDE = 307,
      TOK_PIERDE_SI = 308,
      TOK_TRANSFORMA = 309,
-     TOK_AND = 310,
-     TOK_OR = 311,
-     TOK_NOT = 312,
-     TOK_EQUAL = 313,
-     TOK_DEQUAL = 314,
-     TOK_WHILE = 315,
-     TOK_DO = 316,
-     TOK_END = 317
+     TOK_REPITEPOS = 310,
+     TOK_AND = 311,
+     TOK_OR = 312,
+     TOK_NOT = 313,
+     TOK_EQUAL = 314,
+     TOK_DEQUAL = 315,
+     TOK_WHILE = 316,
+     TOK_DO = 317,
+     TOK_END = 318
    };
 #endif
 /* Tokens.  */
@@ -154,14 +155,15 @@
 #define TOK_PIERDE 307
 #define TOK_PIERDE_SI 308
 #define TOK_TRANSFORMA 309
-#define TOK_AND 310
-#define TOK_OR 311
-#define TOK_NOT 312
-#define TOK_EQUAL 313
-#define TOK_DEQUAL 314
-#define TOK_WHILE 315
-#define TOK_DO 316
-#define TOK_END 317
+#define TOK_REPITEPOS 310
+#define TOK_AND 311
+#define TOK_OR 312
+#define TOK_NOT 313
+#define TOK_EQUAL 314
+#define TOK_DEQUAL 315
+#define TOK_WHILE 316
+#define TOK_DO 317
+#define TOK_END 318
 
 
 

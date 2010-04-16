@@ -130,6 +130,7 @@ void  qgzprintf( char* format, ... ){
 %token    TOK_PARA      TOK_PARA_SI
 %token    TOK_PIERDE    TOK_PIERDE_SI
 %token    TOK_TRANSFORMA
+%token    TOK_REPITEPOS
 
 %token    TOK_AND       TOK_OR          TOK_NOT
 %token    TOK_EQUAL     TOK_DEQUAL
@@ -213,6 +214,10 @@ instexpr_cantidad_piezas:
             }
             tipojuego_code_cuenta_piezas( tipojuego, cas, $1, color, tpieza );
     } |
+    cantidad_piezas_preludio  TOK_NUMBER  {
+            tipojuego_code_cuenta_piezas( tipojuego, NULL, $1, NULL, NULL );
+            tipojuego_code_op_equal( tipojuego, $2 );
+    } |
     cantidad_piezas_preludio                       { 
             tipojuego_code_cuenta_piezas( tipojuego, NULL, $1, NULL, NULL );
     };
@@ -263,7 +268,7 @@ instexpr_jaquemate:
     TOK_JAQUEMATE  word_or_string {
             CHECK_TIPOJUEGO;
             if( NOT_FOUND != tipojuego_get_tipopieza( tipojuego, ((char*)$2) ) ){
-                NOT_IMPLEMENTED;
+                tipojuego_code_jaquemate( tipojuego, ((char*)$2) );
             } else {
                 qgzprintf( "%s debe ser un tipo de pieza", ((char*)$2) );
                 yyerror( "Debe ser un tipo de pieza" );
@@ -296,6 +301,16 @@ instexpr_ocupado:
             YYERROR;
         }
     };
+
+
+instexpr_repitepos:
+    TOK_REPITEPOS   TOK_NUMBER  {
+        CHECK_TIPOJUEGO;
+        tipojuego_code_op_false( tipojuego );
+        NOT_IMPLEMENTED_WARN( "repite-posicion" );
+    }  
+
+
 
 es_igual_a:  TOK_EQUAL | TOK_DEQUAL;
 
@@ -332,6 +347,7 @@ instexpr:
     instexpr_enzona  |
     instexpr_jaquemate |
     instexpr_ocupado |
+    instexpr_repitepos |
     TOK_WORD        {    
             int  algo;
             CHECK_TIPOJUEGO;

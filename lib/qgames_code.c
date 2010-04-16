@@ -243,6 +243,18 @@ void        tipojuego_code_entablero( Tipojuego* tj ){
     // RET_IF_STATUS;                              // Retorna si el valor es distinto de cero
 }
 
+void        tipojuego_code_jaquemate( Tipojuego* tj, char* tpieza  ){
+    assert( tj );
+    tj->flags |= JAQUEMATE;
+    tj->regla_actual->flags |= JAQUEMATE;
+    int tp = GETTIPOPIEZA(tj, tpieza );
+    ((Tipopieza*)(tj->tipo_piezas->data[tp]))->flags |= JAQUEMATE;
+    qcode_op( tj->qcode, QCSTI, 1, tp  );      // r1  = tp 
+    qcode_op( tj->qcode, QCPSH, 1, 0 );        // PSH r1
+    qcode_op( tj->qcode, QCPSH, 3, 0 );        // PSH r3
+    qcode_opnlab( tj->qcode, QCCLX, "jaquemate" );
+}
+
 
 void        tipojuego_code_transforma( Tipojuego* tj, int owner, char* color, char* tpieza  ){
     int  own = NOCOLOR;
