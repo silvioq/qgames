@@ -90,7 +90,7 @@ void  qgzprintf( char* format, ... ){
 %token    TOK_ATTR
 %token    TOK_BOARD
 %token    TOK_CAPTURED_MARK
-%token    TOK_CANTIDAD_PIEZAS
+%token    TOK_CANTIDAD_PIEZAS   TOK_CANTIDAD_PIEZAS_PROPIAS  TOK_CANTIDAD_PIEZAS_ENEMIGAS
 %token    TOK_COLOR
 %token    TOK_DEFAULT
 %token    TOK_DIRECTION
@@ -174,12 +174,48 @@ instexpr_atacado:
     };
 
 cantidad_piezas_preludio:
-    TOK_CANTIDAD_PIEZAS  { init_parameters(); };
+    TOK_CANTIDAD_PIEZAS  { 
+            CHECK_TIPOJUEGO;
+            $$ = CUALQUIERA;
+            init_parameters(); 
+    } | 
+    TOK_CANTIDAD_PIEZAS_PROPIAS  { 
+            CHECK_TIPOJUEGO;
+            $$ = PROPIO;
+            init_parameters(); 
+    } |
+    TOK_CANTIDAD_PIEZAS_ENEMIGAS  { 
+            CHECK_TIPOJUEGO;
+            $$ = ENEMIGO;
+            init_parameters(); 
+    } ;
+    
 
 
 instexpr_cantidad_piezas:
-    cantidad_piezas_preludio  word_or_string_list  { NOT_IMPLEMENTED_WARN("cantidad-piezas"); tipojuego_code_op_false(tipojuego); } |
-    cantidad_piezas_preludio                       { NOT_IMPLEMENTED_WARN("cantidad-piezas"); tipojuego_code_op_false(tipojuego); };
+    cantidad_piezas_preludio  word_or_string_list  { 
+            int i;
+            char* cas = NULL; char* color = NULL; char *tpieza = NULL;
+            for( i = 0; i < qgz_param_count; i ++ ){
+                if( NOT_FOUND != tipojuego_get_color( tipojuego, qgz_param_list[i].str ) ){
+                    if( color ){ yyerror( "Color definido mas de una vez en cuentapiezas" ); YYERROR; }
+                    color = qgz_param_list[i].str ;
+                } else if( NOT_FOUND != tipojuego_get_casillero( tipojuego,  qgz_param_list[i].str ) ){
+                    if( cas ) { yyerror( "Casillero definido mas de una vez en cuentapiezas" ); YYERROR; }
+                    cas = qgz_param_list[i].str ;
+                } else if( NOT_FOUND != tipojuego_get_tipopieza( tipojuego, qgz_param_list[i].str ) ){
+                    if( tpieza ){ yyerror( "Tipo de pieza definida mas de una vez en cuentapiezas" ); YYERROR; }
+                    tpieza = qgz_param_list[i].str;
+                } else {
+                    qgzprintf( "Elemento no reconocido %s", qgz_param_list[i].str );
+                    yyerror( "Elemento no reconocido en cuentapiezas" ); YYERROR;
+                }
+            }
+            tipojuego_code_cuenta_piezas( tipojuego, cas, $1, color, tpieza );
+    } |
+    cantidad_piezas_preludio                       { 
+            tipojuego_code_cuenta_piezas( tipojuego, NULL, $1, NULL, NULL );
+    };
     
 
 instexpr_entablero:

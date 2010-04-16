@@ -89,7 +89,7 @@ move:
 # Se vienen los finales. Son tambien distintos mini programas!
 ending:     
             empata-si ahogado?
-            # empata-si cantidad-piezas 'peon' = 0
+            empata-si cantidad-piezas 'peon' = 0
 
 ending:    
             gana-si   en-zona?  peon coronacion

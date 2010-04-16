@@ -62,6 +62,16 @@ long  code_wrapper_ocupado( QCodeVM* vm ){
     return (long)analizador_ocupado( z, c, owner );
 }
 
+long  code_wrapper_cuentapiezas( QCodeVM* vm ){
+    Analizador* z = (Analizador*)qcode_pop( vm );
+    Casillero*  c = ZGETCASILLERO( z, qcode_pop( vm ) );
+    if( (long)c == -1 ) c = NULL;
+    int  color    = (int)qcode_pop(vm);
+    Tipopieza*  t = ZGETTIPOPIEZA( z, qcode_pop( vm ) );
+    if( (long)t == -1 ) t = NULL;
+    return (long)analizador_cuenta_piezas( z, c, color, t );
+}
+
 
 long  code_wrapper_juega( QCodeVM* vm ){
     Analizador* z = (Analizador*)qcode_pop( vm );
@@ -133,6 +143,7 @@ void  code_initialize( QCode** qcode ){
     QCode*  q;
     q = qcode_new();
     qcode_xcrlab( q, "atacado",   (qcode_extfunc)code_wrapper_atacado );
+    qcode_xcrlab( q, "cuentapiezas", (qcode_extfunc)code_wrapper_cuentapiezas );
     qcode_xcrlab( q, "ocupado",   (qcode_extfunc)code_wrapper_ocupado );
     qcode_xcrlab( q, "juega",     (qcode_extfunc)code_wrapper_juega );
     qcode_xcrlab( q, "casillero", (qcode_extfunc)code_wrapper_casillero );

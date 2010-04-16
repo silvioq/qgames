@@ -126,6 +126,46 @@ int    analizador_atacado( Analizador* z, Casillero* cas ){
 }
 
 /*
+ * El cuenta piezas, funcion fundamental para saber cuantas piezas
+ * hay de un determinado tipo ... je je!
+ * Los parametros son el casillero donde buscar, el color que buscar
+ * (puede ser PROPIO, ENEMIGO, CUALQUIERA o un color determinado)
+ * y un tipo de pieza específico 
+ * */
+
+int    analizador_cuenta_piezas( Analizador* z, Casillero* cas, int owner, Tipopieza* tpieza ){
+
+    Pieza* p;
+    int  total = 0;
+    LOGPRINT( 6, "Pregunta por cuentapiezas al casillero %s owner = %d tipo pieza %s", 
+            ( cas ? cas->nombre : "Sin casillero" ),
+            owner, 
+            ( tpieza ? tpieza->nombre : "Sin tpieza" ) );              
+    list_inicio( z->pos->piezas );
+    while( p = (Pieza*) list_siguiente( z->pos->piezas ) ){
+        // Controlo si me pasaron el casillero
+        if( cas && cas != p->casillero ) continue;
+        if( (!cas) && !CASILLERO_VALIDO( p->casillero ) ) continue;
+        // Controlo si me pasaron el tipo de pieza
+        if( tpieza  && tpieza != p->tpieza ) continue;
+        // Controlo el tema del color
+        if( owner != CUALQUIERA ){
+            if( owner == PROPIO && p->color != z->color ) continue;
+            if( owner == ENEMIGO && p->color == z->color ) continue;
+            if( owner >  0 && p->color != owner ) continue;
+        }
+        total ++;
+    }
+    LOGPRINT( 6, "Devuelve %d", total );
+
+    return total;
+
+
+}
+
+
+
+/*
  * Devuelve uno o cero, si se encuentra ocupado el casillero pasado como parametro
  * Detalle:
  *  cas  : Casillero. Si es nulo, toma el casillero actual

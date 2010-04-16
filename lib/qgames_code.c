@@ -83,9 +83,9 @@ void        tipojuego_code_op_false( Tipojuego* tj ){
  * */
 void        tipojuego_code_op_equal( Tipojuego* tj, long val ){
     assert( tj );
+    qcode_op( tj->qcode, QCSTO, 1, 0 ) ;   // r1 = r0 ; r0 hay que salvarlo, tras cada operacion, cambia
     qcode_op( tj->qcode, QCSTI, 2, val ); 
-    // qcode_opnlab( tj->qcode, QCCLX, "dump" );
-    qcode_op( tj->qcode, QCEQU, 0, 2 );    // EQU r0 , r2
+    qcode_op( tj->qcode, QCEQU, 1, 2 );    // EQU r1 , r2
 }
 
 /*
@@ -143,6 +143,31 @@ void        tipojuego_code_break_block( Tipojuego* tj ){
 }
 
 void        tipojuego_code_continue_block( Tipojuego* tj );
+
+
+void        tipojuego_code_cuenta_piezas( Tipojuego* tj, char* casillero, int owner, char* color, char* tpieza ){
+    assert( tj );
+    int   own = CUALQUIERA;
+    long  cas;
+    long  tp;
+
+    cas = ( casillero ? GETCASILLERO(tj,casillero) : -1 );
+    tp  = ( tpieza    ? GETTIPOPIEZA(tj,tpieza)    : -1 );
+    if( owner == CUALQUIERA && color ){
+        own = GETCOLOR(tj, color );
+    } else if( owner != CUALQUIERA ){
+        own = owner;
+    }
+
+    qcode_op( tj->qcode, QCSTI, 1, tp  );       // r1 = tp 
+    qcode_op( tj->qcode, QCPSH, 1, 0   );       // PSH r1
+    qcode_op( tj->qcode, QCSTI, 1, own );       // r1 = own
+    qcode_op( tj->qcode, QCPSH, 1, 0   );       // PSH r1
+    qcode_op( tj->qcode, QCSTI, 1, cas );       // r1 = cas
+    qcode_op( tj->qcode, QCPSH, 1, 0   );       // PSH r1
+    qcode_op( tj->qcode, QCPSH, 3, 0   );       // PSH r3 ; analizado
+    qcode_opnlab( tj->qcode, QCCLX, "cuentapiezas" );
+}
 
 void        tipojuego_code_ocupado( Tipojuego* tj, char* casillero, int owner, char* color ){
     int  own = CUALQUIERA;

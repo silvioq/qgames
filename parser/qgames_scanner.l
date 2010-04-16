@@ -149,7 +149,9 @@ define\:        { define_created = 0; BEGIN(define_head);   }
 
 <code>ahogado\??                  { return  TOK_AHOGADO;   }
 <code>atacado(\-|\_)enemigo\??    { return  TOK_ATACADO_ENEMIGO; }
-<code>cantidad(\-|\_)piezas       { return  TOK_CANTIDAD_PIEZAS; }
+<code>cantidad(\-|\_)piezas                       { return  TOK_CANTIDAD_PIEZAS; }
+<code>cantidad(\-|\_)piezas(\-|\_)propi(a|o)s?    { return  TOK_CANTIDAD_PIEZAS_PROPIAS; }
+<code>cantidad(\-|\_)piezas(\-|\_)enemig(a|o)s?   { return  TOK_CANTIDAD_PIEZAS_ENEMIGAS; }
 <code>casillero(\-|\_)inicial     { return  TOK_CASILLERO_INICIAL; }
 <code>empata              { return TOK_EMPATA;    }
 <code>empata\-si          { return TOK_EMPATA_SI; }

@@ -114,6 +114,7 @@ void        tipojuego_code_op_false( Tipojuego* tj );
 void        tipojuego_code_atacado( Tipojuego* tj, char* casillero );
 void        tipojuego_code_direccion( Tipojuego* tj, char* direccion );
 void        tipojuego_code_casillero( Tipojuego* tj, char* casillero );
+void        tipojuego_code_cuenta_piezas( Tipojuego* tj, char* casillero, int owner, char* color, char* tpieza );
 void        tipojuego_code_ocupado( Tipojuego* tj, char* casillero, int owner, char* color );
 void        tipojuego_code_ahogado( Tipojuego* tj, char* color );
 void        tipojuego_code_entablero( Tipojuego* tj );

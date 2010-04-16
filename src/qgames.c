@@ -226,6 +226,7 @@ int  main(int argc, char** argv) {
         if( flags & QGZ_VERBOSE ) printf( "Abriendo %s\n", filename );
         ret = pgnscan_fname( filename );
         if( !ret ){
+            if( flags & QGZ_VERBOSE ) printf( "Salio por error en pgn %s\n", pgnerror );
             tj = qgz_parse_filename( filename, flags );
             ret = tj ? 1 : 0;
         } else {
