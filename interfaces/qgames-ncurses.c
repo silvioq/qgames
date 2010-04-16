@@ -25,6 +25,7 @@
 Tipojuego* tj = NULL;
 static int  tablero_h = 0;
 static int  tablero_w = 0;
+int  tiene_colores = 0;
 
 void usage(char* prg){
 
@@ -55,10 +56,17 @@ void  inicializar_pantalla(){
     setlocale( LC_ALL, "" );
     initscr();
 
+    if( has_colors() ){
+        start_color();
+        assume_default_colors(COLOR_WHITE, COLOR_BLUE);
+        tiene_colores = 1;
+    } else tiene_colores = 0;
+
     cbreak();       /* take input chars one at a time, no wait for \n */
     noecho();
     keypad(stdscr, TRUE); 
     curs_set( 0 );
+
 
     refresh();
     
