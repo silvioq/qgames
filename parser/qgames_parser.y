@@ -426,6 +426,7 @@ instaction_movs:
                             yyerror( "Error de parametros en transforma, debe ser color o tipo de pieza" );
                         }
                     }
+                    NOT_IMPLEMENTED_WARN( "transforma" );
     };
 
 instaction_juega:

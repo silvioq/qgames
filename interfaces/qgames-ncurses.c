@@ -230,8 +230,8 @@ void  jugar_partida(Partida* par){
         partida_mover_notacion( par, xx );
         
         free( xx );
-        if( partida_final( par, &res ) != FINAL_ENJUEGO ) break;
         imprimir_tablero( par, 1 );
+        if( partida_final( par, &res ) != FINAL_ENJUEGO ) break;
     }
 
     if( res ){
