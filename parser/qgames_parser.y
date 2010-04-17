@@ -467,14 +467,15 @@ instaction_if:
 instaction_while:
     TOK_WHILE  {
             CHECK_TIPOJUEGO;
-            tipojuego_code_start_block( tipojuego );
+            $$ = tipojuego_code_start_block( tipojuego );
     } instexpr TOK_DO {
             tipojuego_code_start_condblock( tipojuego );
     }  code_list TOK_END {
+            tipojuego_code_continue_block( tipojuego, $2 );
             tipojuego_code_else_condblock( tipojuego );
-            tipojuego_code_break_block( tipojuego );
+            tipojuego_code_break_block( tipojuego, $2 );
             tipojuego_code_end_condblock( tipojuego );
-            tipojuego_code_end_block( tipojuego );
+            tipojuego_code_end_block( tipojuego, $2 );
     };
     
 

@@ -118,31 +118,45 @@ void        tipojuego_code_else_condblock( Tipojuego* tj ){
 }
 
 void        tipojuego_code_end_condblock( Tipojuego* tj ){
-    tipojuego_code_end_block(tj);
+    long  label_inicio = pop_label_stack( );   // Esta es la etiqueta de inicio
+    qcode_label( tj->qcode, label_inicio );
+    
 }
+
+struct codeBlock{
+    long  label_start;
+    long  label_end ;
+};
 
 /*
  * Esta funcion abre un bloque de codigo, del cual se 
  * puede salir en cualquier momento!
  * */
-void        tipojuego_code_start_block( Tipojuego* tj ){
-    long  label = qcode_crlab( tj->qcode, unnamed_label );
-    push_label_stack( label );
+long        tipojuego_code_start_block( Tipojuego* tj ){
+    struct  codeBlock* cb = ALLOC( sizeof( struct codeBlock ) );
+    cb->label_start = qcode_crlab( tj->qcode, unnamed_label );
+    cb->label_end   = qcode_crlab( tj->qcode, unnamed_label );
+    qcode_label( tj->qcode, cb->label_start );
+    return (long)(void*)cb;
 }
 /*
  * Este es el final del bloque
  * */
-void        tipojuego_code_end_block( Tipojuego* tj ){
-    long  label = pop_label_stack( );
-    qcode_label( tj->qcode, label );
+void        tipojuego_code_end_block( Tipojuego* tj, long block ){
+    struct  codeBlock* cb = (struct codeBlock*)block;
+    free(cb);
+    qcode_label( tj->qcode, cb->label_end );
 }
 
-void        tipojuego_code_break_block( Tipojuego* tj ){
-    long  label = get_label_stack( );
-    qcode_oplab( tj->qcode, QCJMP, label );
+void        tipojuego_code_break_block( Tipojuego* tj, long block ){
+    struct  codeBlock* cb = (struct codeBlock*)block;
+    qcode_oplab( tj->qcode, QCJMP, cb->label_end );
 }
 
-void        tipojuego_code_continue_block( Tipojuego* tj );
+void        tipojuego_code_continue_block( Tipojuego* tj, long block ){
+    struct  codeBlock* cb = (struct codeBlock*)block;
+    qcode_oplab( tj->qcode, QCJMP, cb->label_start );
+}
 
 
 void        tipojuego_code_cuenta_piezas( Tipojuego* tj, char* casillero, int owner, char* color, char* tpieza ){

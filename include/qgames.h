@@ -102,10 +102,10 @@ void*       tipojuego_get_code( Tipojuego* tj );
 void        tipojuego_code_start_condblock( Tipojuego* tj );
 void        tipojuego_code_else_condblock( Tipojuego* tj );
 void        tipojuego_code_end_condblock( Tipojuego* tj );
-void        tipojuego_code_start_block( Tipojuego* tj );
-void        tipojuego_code_end_block( Tipojuego* tj );
-void        tipojuego_code_break_block( Tipojuego* tj );
-void        tipojuego_code_continue_block( Tipojuego* tj );
+long        tipojuego_code_start_block( Tipojuego* tj );
+void        tipojuego_code_end_block( Tipojuego* tj, long block );
+void        tipojuego_code_break_block( Tipojuego* tj, long block );
+void        tipojuego_code_continue_block( Tipojuego* tj, long block );
 
 void        tipojuego_code_op_not( Tipojuego* tj );
 void        tipojuego_code_op_equal( Tipojuego* tj, long val );

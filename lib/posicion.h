@@ -31,6 +31,13 @@ int        posicion_analiza_movidas( Posicion* pos, char tipoanalisis, int color
 int        posicion_analiza_final( Posicion* pos,  int  color_actual, int color_sig, char** resultado );
 int        posicion_movidas_posibles( Posicion* pos );
 
+/*
+ * Funcion para detectar si alguna pieza esta en jaque
+ * Si el tipopieza no se especifica, se toman todas las piezas
+ * a las cuales se le puede hacer jaquemate
+ * */
+int        posicion_en_jaque( Posicion* pos, Tipopieza* tpieza, int color );
+
 void       posicion_mueve_pieza( Posicion* pos, Pieza* pieza, Casillero* destino );
 Pieza*     posicion_get_pieza( Posicion* pos, Pieza* pieza );
 void       posicion_free_movidas( Posicion* pos );

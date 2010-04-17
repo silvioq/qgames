@@ -305,8 +305,18 @@ int   analizador_casillero( Analizador* z, Casillero* cas ){
 }
 
 int    analizador_jaquemate( Analizador* z, Tipopieza* tpieza ){
+    int i;
+    LOGPRINT( 6, "jaquemate: Ingresa a controlar jaquemate para pieza %s", tpieza->nombre )
     if( !analizador_ahogado( z ) ) return 0;
-    if( posicion_en_jaque( z->pos ) ) return 1;
+    LOGPRINT( 6, "jaquemate: esta ahogado %s", tpieza->nombre )
+    for( i = 1; i <= z->pos->tjuego->colores ; i ++ ){
+        if( i == z->color ) continue;
+        if( posicion_en_jaque( z->pos, tpieza, i ) ){
+            LOGPRINT( 6, "jaquemate: la posicion esta en jaquemate para %s", tpieza->nombre );
+            return 1;
+        }
+    }
+    LOGPRINT( 6, "jaquemate: la posicion no era jaque %s", tpieza->nombre )
     return 0;
 }
 

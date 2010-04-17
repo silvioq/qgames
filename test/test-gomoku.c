@@ -149,7 +149,10 @@ int  main(int argc, char** argv) {
         if( ep->d_type != DT_REG ) continue;
         sprintf( filename, "../games/pgn/%s", ep->d_name );
         LOGPRINT( 5, "Leyendo PGN %s", filename );
-        assert( pgnscan_fname( filename ) );
+        if( !pgnscan_fname( filename ) ){
+            LOGPRINT( 2, "Error leyendo PGN %s", filename );
+            assert( 0 );
+        }
         if( !pgntag_variant ) continue;
         if( strcasecmp( pgntag_variant, "gomoku" ) == 0 ){
             assert( check_game( filename ) );

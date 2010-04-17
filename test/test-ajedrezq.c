@@ -36,6 +36,35 @@ int   los_alamos(){
     assert( partida = tipojuego_create_partida( losalamos ) );
     assert( partida_mover_notacion( partida, "e3" ) );
 
+    printf( "." );
+    char* prueba1 = "1. d3 d4 2. Qf4 Kd5";
+    assert( partida = tipojuego_create_partida( losalamos ) );
+    assert( partida_mover_pgn( partida, prueba1 ) );
+    assert( partida_movidas_count( partida ) > 10 );
+    assert( partida_mover_notacion( partida, "Qf3" ) );
+    assert( partida_final( partida, NULL ) == FINAL_ENJUEGO );
+
+
+    printf( "." );
+    char* prueba2 = " 1. d3 a4 2. Qe3 a3 3. d4 axb2";
+    assert( partida = tipojuego_create_partida( losalamos ) );
+    assert( partida_mover_pgn( partida, prueba2 ) );
+    if( partida_movidas_count( partida ) != 21 ){
+        partida_movidas_posibles_ascii( partida );
+    }
+    assert( partida_movidas_count( partida ) == 21 );
+    assert( partida_mover_notacion( partida, "Qxe5" ) );
+    assert( partida_final( partida, NULL ) == 1 );
+
+    printf( "." );
+    char* prueba3 = "d3 e4 2. Qf4";
+    assert( partida = tipojuego_create_partida( losalamos ) );
+    assert( partida_mover_pgn( partida, prueba3 ) );
+    assert( partida_movidas_count( partida ) == 1 );
+    assert( partida_mover_notacion( partida, "Nxf4" ) );
+    assert( partida_final( partida, NULL ) == FINAL_ENJUEGO );
+    
+
 }
 
 

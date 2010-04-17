@@ -68,7 +68,7 @@ define:     movida_rey direccion
             direccion
             parar-si !en_tablero?
             parar-si ocupado_propio?
-            parar-si atacado_enemigo?
+            # parar-si atacado_enemigo?
             juega
 
 # Listo, ahora si ... se vienen las definiciones de piezas
@@ -134,13 +134,17 @@ move:
 # Captura del peon
 move:
             n; e; 
-            if ocupado_enemigo? && en_zona? 'coronacion'
-              transforma 'caballo', 'torre', 'dama' 
+            if ocupado_enemigo? 
+              if en-zona? coronacion
+                  transforma 'caballo', 'torre', 'dama' 
+              end
               juega
             end
             casillero_inicial; n; o;
-            if ocupado_enemigo? && en_zona? coronacion
-              transforma 'caballo', 'torre', 'dama' 
+            if ocupado_enemigo?
+              if en-zona? coronacion
+                  transforma 'caballo', 'torre', 'dama' 
+              end
               juega
             end
 
@@ -148,21 +152,30 @@ move:
 piece:      rey            
 move:
             movida_rey "n" 
+move:
             movida_rey "s"
+move:
             movida_rey "e"
+move:
             movida_rey "o"
+move:
             movida_rey "n; e;"
+move:
             movida_rey "n; o;"
+move:
             movida_rey "s; o;"
+move:
             movida_rey "s; e;"
 
 # Listo con la definicion de piezas ... mas cosas
 #
 # Se vienen los finales. Son tambien distintos mini programas!
-ending:     
-            empata-si ahogado?
 ending:
             gana-si jaquemate? "rey"
+
+ending:     
+            empata-si ahogado?
+
 ending:
             empata-si repite_posicion? 3 
 ending:

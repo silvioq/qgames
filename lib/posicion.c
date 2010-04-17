@@ -26,7 +26,6 @@
 /* ---------------------------------------------------------------------------------------- */
 void        posicion_add_movida( Posicion* pos, Movida* mov );
 void        posicion_add_movidas( Posicion* pos, _list* movs );
-int         posicion_en_jaque( Posicion* pos, Movida* mov, int color );
 
 
 
@@ -95,17 +94,24 @@ Pieza*     posicion_get_pieza( Posicion* pos, Pieza* pieza ){
  * posibles jaques a las piezas que se le puede hacer 
  * jaquemate
  * */
-void        posicion_descartar_por_jaques( Posicion* pos, int color ){
+void        posicion_descartar_por_jaques( Posicion* pos, _list* movs, int color ){
     if( !TJJAQUEMATE(pos->tjuego) ) return;
-    if( !pos->movidas ) return ;
+    if( !movs ) return ;
+    LOGPRINT( 6, "Descartar por jaques controlando para color %d", color );
     int i;
-    for( i = 0; i < pos->movidas->entradas; i ++ ){
-        Movida* mov = (Movida*) pos->movidas->data[i];
-        if( posicion_en_jaque( pos, mov, color ) ){
-            list_quita( pos->movidas, i );
+    for( i = 0; i < movs->entradas; i ++ ){
+        Movida* mov = (Movida*) movs->data[i];
+        mov->pos = pos;
+        Posicion* pos2 = movida_ejecuta( mov );
+        if( posicion_en_jaque( pos2, NULL, color ) ){
+            LOGPRINT( 6, "Movida descartada %s => %s %p", 
+                    movida_pieza( mov )->tpieza->nombre, 
+                    movida_casillero_destino( mov )->nombre , mov->pos = pos) ;
+            list_quita( movs, i );
             movida_free( mov );
             i --;
         }
+        posicion_free( pos2 );
     }
 }
 
@@ -125,36 +131,38 @@ void        posicion_add_pieza( Posicion* pos, Pieza* pie ){
  * Esta funcion devuelve 1, si, una vez ejecutada la movida, 
  * alguna de las piezas afectadas queda en jaque.
  * */
-int         posicion_en_jaque( Posicion* pos, Movida* mov, int color ){
-    if( !TJJAQUEMATE(pos->tjuego) ) return 0;
-    Posicion* pos2 = posicion_dup( pos );
+int         posicion_en_jaque( Posicion* pos, Tipopieza* tpieza, int color ){
+    int i, j;
+    if( !TJJAQUEMATE(pos->tjuego) ) return 0; 
     Pieza* pieza;
-    Movida* movnew = movida_dup( mov );
-    movnew->pos = pos2;
-    movida_ejecuta( movnew );
-    list_inicio( pos2->piezas );
-    while( pieza = (Pieza*)list_siguiente( pos->piezas ) ){
+
+    for( i = 0 ; i < pos->piezas->entradas; i ++ ){
+        pieza = (Pieza*)pos->piezas->data[i];
         if( !pieza ) continue;
+        LOGPRINT( 6, "Pieza %s esta en %s", 
+                pieza->tpieza->nombre, 
+                ( CASILLERO_VALIDO( pieza->casillero ) ? pieza->casillero->nombre : "?" ) );
         if( !TJJAQUEMATE(pieza->tpieza) ) continue;
+        if( tpieza && pieza->tpieza != tpieza ) continue;
+        if( pieza->color != color ) continue;
         if( !CASILLERO_VALIDO(pieza->casillero)) continue;
-        int i;
-        for( i = 1; i <= pos2->tjuego->colores; i ++ ){
-            if( color == i ) continue;
+
+        // Ahora ejecuto las posibles movidas del enemigo
+        for( j = 1; j <= pos->tjuego->colores; j ++ ){
+            if( color == j ) continue;
             Movida* mov2;
-            LOGPRINT( 6, "Inico de analisis para color %d en %s", i, pieza->casillero->nombre );
-            posicion_analiza_movidas( pos2, ANALISIS_ATAQUE, i, 0, NULL );
-            list_inicio( pos2->movidas );
+            LOGPRINT( 6, "Inico de analisis para color %d en %s", j, pieza->casillero->nombre );
+            posicion_analiza_movidas( pos, ANALISIS_ATAQUE, j, 0, NULL );
+            if( !pos->movidas ) continue;
+            list_inicio( pos->movidas );
             while( mov2 = (Movida*) list_siguiente( pos->movidas ) ){
                 if( movida_casillero_destino( mov2 ) == pieza->casillero ){
-                    posicion_free( pos2 );
                     return 1;
                 }
             }
         }
     }
-    posicion_free( pos2 );
     return 0;
-
 }
 
 
@@ -225,8 +233,8 @@ int        posicion_analiza_movidas( Posicion* pos, char tipoanalisis, int color
                     movs =  analizador_evalua_movidas( regla, pos, pp, cas, tipoanalisis, 
                                     regla->tmov, color );
                     if( movs ){
-                        if( tipoanalisis != ANALISIS_ATAQUE ) posicion_descartar_por_jaques( pos, color ) ;
-                        if( tipoanalisis == ANALISIS_PRIMER_MOVIDA ) return 1;
+                        if( tipoanalisis != ANALISIS_ATAQUE ) posicion_descartar_por_jaques( pos, movs, color ) ;
+                        if( movs->entradas > 0 && tipoanalisis == ANALISIS_PRIMER_MOVIDA ) return 1;
                         posicion_add_movidas( pos, movs );
                         cantidad += movs->entradas;
                     }
@@ -256,10 +264,11 @@ int        posicion_analiza_movidas( Posicion* pos, char tipoanalisis, int color
                 movs =  analizador_evalua_movidas( regla, pos, pp, pp->casillero, tipoanalisis, 
                                 regla->tmov, color );
                 if( movs ){
-                    if( tipoanalisis != ANALISIS_ATAQUE ) posicion_descartar_por_jaques( pos, color ) ;
-                    if( tipoanalisis == ANALISIS_PRIMER_MOVIDA ) return 1;
+                    if( tipoanalisis != ANALISIS_ATAQUE ) posicion_descartar_por_jaques( pos, movs, color ) ;
+                    if( movs->entradas > 0 && tipoanalisis == ANALISIS_PRIMER_MOVIDA ) return 1;
                     posicion_add_movidas( pos, movs );
                     cantidad += movs->entradas;
+                    LOGPRINT( 6, "Regla %d %d entradas", r, movs->entradas );
                 }
             }
         }
@@ -278,8 +287,8 @@ int        posicion_analiza_movidas( Posicion* pos, char tipoanalisis, int color
                 movs =  analizador_evalua_movidas( regla, pos, pp, pp->casillero, tipoanalisis, 
                                 regla->tmov, color );
                 if( movs ){
-                    if( tipoanalisis != ANALISIS_ATAQUE ) posicion_descartar_por_jaques( pos, color ) ;
-                    if( tipoanalisis == ANALISIS_PRIMER_MOVIDA ) return 1;
+                    if( tipoanalisis != ANALISIS_ATAQUE ) posicion_descartar_por_jaques( pos, movs, color ) ;
+                    if( movs->entradas > 0 && tipoanalisis == ANALISIS_PRIMER_MOVIDA ) return 1;
                     posicion_add_movidas( pos, movs );
                     cantidad += movs->entradas;
                 }
