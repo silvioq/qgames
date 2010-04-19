@@ -2426,6 +2426,16 @@ yyreduce:
     {  tipojuego_add_notacion_rep( tipojuego, (yyvsp[(1) - (1)]) ); }
     break;
 
+  case 102:
+#line 646 "qgames_parser.y"
+    {  tipojuego_add_notacion_rep( tipojuego, (yyvsp[(2) - (2)]) ); }
+    break;
+
+  case 103:
+#line 647 "qgames_parser.y"
+    {  tipojuego_add_notacion_rep( tipojuego, (yyvsp[(3) - (3)]) ); }
+    break;
+
   case 104:
 #line 650 "qgames_parser.y"
     {  tipojuego_add_notacion_def( tipojuego, (yyvsp[(1) - (1)]) ); }
@@ -2600,7 +2610,7 @@ yyreduce:
 
 
 /* Line 1267 of yacc.c.  */
-#line 2604 "qgames_parser.c"
+#line 2614 "qgames_parser.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);

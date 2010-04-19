@@ -21,6 +21,8 @@
 #include  "posicion.h"
 #include  "notacion.h"
 
+#include  "log.h"
+
 char     notacion_default[] =  { NOTACION_ORIGEN, NOTACION_MARCA_IFORIGEN, NOTACION_DESTINO, 0 };
 char     notacion_repetida[] = { NOTACION_ORIGEN, NOTACION_MARCA_IFORIGEN, NOTACION_DESTINO, 0 };
 
@@ -40,27 +42,58 @@ char*   notacion_resolver_mov( Notacion* nott, Movida* mov, char* def );
  * nombre ... para ello se determina una opcion de repeticion
  * */
 
-
+#define  AGREGAR_PREFIJO(nom) \
+                if( prefix ){ \
+                    char* data = ALLOC( strlen( nom ) + strlen( prefix ) + 3 ); \
+                    sprintf( data, "%s-%s", prefix, nom ); \
+                    free( nom ); \
+                    nom = data; \
+                }
 
 void    notacion_resolver_movidas( Tipojuego* tjuego, _list* movs, char* prefix ){
     char* def = ( tjuego->notacion && tjuego->notacion->notacion ? 
                     tjuego->notacion->notacion : notacion_default );
     char* rep = ( tjuego->notacion && tjuego->notacion->repeticion ? 
                     tjuego->notacion->repeticion : notacion_repetida );
+    LOGPRINT( 6, "Repeticion es %s", rep );
     Movida* mmm;
 
     list_inicio( movs );
     while( mmm = list_siguiente( movs ) ){
         if( mmm->notacion ) continue;
         char*  nom = notacion_resolver_mov( tjuego->notacion, mmm, def );
-        if( prefix ){
-            char* data = ALLOC( strlen( nom ) + strlen( prefix ) + 3 );
-            sprintf( data, "%s-%s", prefix, nom );
-            free( nom );
-            nom = data;
-        }
+        AGREGAR_PREFIJO(nom);
         mmm->notacion = nom;
     }
+
+    // Listo, ahora es necesario trabajar con las repeticiones de movidas.
+    // por cada grupo de movidas repetidas, le aplico el resolver_mov
+    // con la definicion rep
+    int i, j;
+    char* actual;
+    for( i = 0; i < movs->entradas - 1; i ++ ){
+        mmm = (Movida*) movs->data[i];
+        int  tiene_iguales = 0;
+        for( j = i + 1; j < movs->entradas; j ++ ){
+            Movida* mmm2 = (Movida*) movs->data[j];
+            if( strcmp( mmm->notacion, mmm2->notacion ) == 0 ){
+                tiene_iguales = 1;
+                char*  nom = notacion_resolver_mov( tjuego->notacion, mmm2, rep );
+                AGREGAR_PREFIJO(nom);
+                free( mmm2->notacion );
+                mmm2->notacion = nom;
+                
+            }
+        }
+        if( tiene_iguales ){
+            char*  nom = notacion_resolver_mov( tjuego->notacion, mmm, rep );
+            AGREGAR_PREFIJO(nom);
+            free( mmm->notacion );
+            mmm->notacion = nom;
+        }
+        
+    }
+    
 
 
 }

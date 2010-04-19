@@ -73,6 +73,24 @@ int   los_alamos(){
     assert( partida_movida_valida( partida, "bxa6=N" ) );
     assert( partida_mover_notacion( partida, "bxa6=N" ) );
     assert( partida_count_piezas( partida, NULL, "caballo" ) == 5 );
+
+    printf( "." );
+    char* prueba5 = "1. a3 Nc4 2. a4 Nb6 3. Ra3 Nc4 4. f3 Nb6 5. f4 Nc4";
+    assert( partida = tipojuego_create_partida( losalamos, "x" ) );
+    assert( partida_mover_pgn( partida, prueba5 ) );
+    assert( partida_mover_notacion( partida, "Rf1-f3" ) );
+    assert( partida_mover_notacion( partida, "Nb6" ) );
+    assert( partida_movidas_count( partida ) == 20 );
+    assert( partida_movida_valida( partida, "Ra3-b3" ) );
+    assert( partida_movida_valida( partida, "Ra3-c3" ) );
+    assert( partida_movida_valida( partida, "Ra3-d3" ) );
+    assert( partida_movida_valida( partida, "Ra3-e3" ) );
+    assert( partida_movida_valida( partida, "Rf3-b3" ) );
+    assert( partida_movida_valida( partida, "Rf3-c3" ) );
+    assert( partida_movida_valida( partida, "Rf3-d3" ) );
+    assert( partida_movida_valida( partida, "Rf3-e3" ) );
+    assert( !partida_movida_valida( partida, "Re3" ) );
+    
 }
 
 

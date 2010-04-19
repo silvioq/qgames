@@ -642,9 +642,9 @@ instruction_notation_element:
     TOK_CAPTURED_MARK     { $$ =  NOTACION_CAPTURA; } ;
 
 instruction_notation_rep:
-    instruction_notation_element  {  tipojuego_add_notacion_rep( tipojuego, $1 ); } |
-    instruction_notation_rep  instruction_notation_element |
-    instruction_notation_rep ','  instruction_notation_element ;
+    instruction_notation_element                                  {  tipojuego_add_notacion_rep( tipojuego, $1 ); } |
+    instruction_notation_rep  instruction_notation_element        {  tipojuego_add_notacion_rep( tipojuego, $2 ); } |
+    instruction_notation_rep ','  instruction_notation_element    {  tipojuego_add_notacion_rep( tipojuego, $3 ); } ;
 
 instruction_notation_def:
     instruction_notation_element                                 {  tipojuego_add_notacion_def( tipojuego, $1 ); } |
