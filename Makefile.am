@@ -2,5 +2,5 @@
 SUBDIRS = qcode lib parser src test interfaces
 
 
-EXTRA_DIST = $(top_buildir)/games/*.qgame
+EXTRA_DIST = $(srcdir)/games/*.qgame
 
