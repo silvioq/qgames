@@ -49,7 +49,7 @@ int     pgnwrap(void){ return 1; }
 TAGDEF       \"[^\"]*\"
 SPACES       [ ]+
 MOVENUMBER   [0-9]+\.
-MOVE         [0-9a-z\-\+\/]+
+MOVE         [a-z][0-9a-z\-\+\/\=]+
 DOTS         \.{2,3}
 WWIN         1\-0
 BWIN         0\-1

@@ -30,7 +30,7 @@ int  tiene_colores = 0;
 void usage(char* prg){
 
     puts( "Uso:" );
-    printf( "  %s [-v] [filename.qgame | filename.pgn]\n", prg );
+    printf( "  %s [-vp] [filename.qgame | filename.pgn]\n", prg );
     exit( EXIT_FAILURE );
    
 }
@@ -361,15 +361,19 @@ Partida*  check_game(char* pgnfile, int flags){
 
 int  main(int argc, char** argv) {
     int  opt = 0, ret;
+    int  forzar_pgn = 0;
     int  flags = 0;
     loglevel = 3;
     Partida*  par = NULL;
 
-    while(( opt = getopt( argc, argv, "hv" )) != -1 ){
+    while(( opt = getopt( argc, argv, "hpv" )) != -1 ){
         switch(opt){
             case 'v':
                 flags |= QGZ_VERBOSE;
                 loglevel = 5;
+                break;
+            case 'p':
+                forzar_pgn = 1;
                 break;
             default:
                 usage(argv[0]);
@@ -378,12 +382,16 @@ int  main(int argc, char** argv) {
 
 
     if( optind == argc ){
-        ret = pgnscan_file( stdin );
-        if( !ret ){
-            ret = qgz_parse( stdin, "-", flags );
-        } else {
+        if( forzar_pgn ){
+            ret = pgnscan_file( stdin );
+            if( !ret ){
+                fprintf( stderr, "Error al procesar PGN: %s\n", pgnerror );
+                exit( EXIT_FAILURE ) ;
+            }
             par = check_game( "-", flags );
             if( par ) ret = 1; else ret = 0;
+        } else {
+            ret = qgz_parse( stdin, "-", flags );
         }
     } else {
         char* filename = argv[optind];
