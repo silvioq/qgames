@@ -150,6 +150,7 @@ void        partida_free( Partida* par );
 void        partida_movidas_posibles_ascii( Partida* par );
 int         partida_movidas_count ( Partida* par );
 int         partida_movidas_data  ( Partida* par, int num, char** notacion );
+int         partida_movida_valida ( Partida* par, char* notacion );
 
 int         partida_count_piezas  ( Partida* par, char* casillero );
 void        partida_tablero_ascii ( Partida* par );

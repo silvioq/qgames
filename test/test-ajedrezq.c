@@ -68,8 +68,9 @@ int   los_alamos(){
     char* prueba4 = "1. a3 e4 2. a4 e3 3. axb5 exf2";
     assert( partida = tipojuego_create_partida( losalamos ) );
     assert( partida_mover_pgn( partida, prueba4 ) );
-    loglevel = 5;
-    partida_movidas_posibles_ascii( partida );
+    assert( partida_movida_valida( partida, "bxa6=R" ) );
+    assert( partida_movida_valida( partida, "bxa6=Q" ) );
+    assert( partida_movida_valida( partida, "bxa6=N" ) );
 }
 
 

@@ -509,6 +509,17 @@ int         partida_movidas_data  ( Partida* par, int num, char** notacion ){
     return 1;
 }
 
+int         partida_movida_valida ( Partida* par, char* notacion ){
+    if( PARTIDATERMINADA(par) ) return 0;
+    int i, cant;
+    cant = partida_analizar_movidas( par );
+    for( i = 0; i < cant; i ++ ){
+        Movida* mov = (Movida*) par->pos->movidas->data[i];
+        if( mov->notacion && ( strcmp( mov->notacion, notacion ) == 0 ) ) return 1;
+    }
+    return 0;
+}
+
 /*
  * Devuelve la cantidad de movidas que hay generadas
  * */
