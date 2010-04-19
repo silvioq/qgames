@@ -59,5 +59,6 @@ Casillero*   movida_casillero_origen( Movida* mov );
 Casillero*   movida_casillero_destino( Movida* mov );
 Pieza*       movida_pieza( Movida* mov );
 int          movida_es_captura( Movida* mov );
+int          movida_es_transformacion( Movida* mov, int* color, Tipopieza** tp );
 
 #endif

@@ -339,6 +339,7 @@ int    analizador_transforma( Analizador* z, int owner, Tipopieza* tpieza ){
     }
     if( !z->mov_actual ) z->mov_actual = movida_new( z->pos );
     z->flags |= CON_TRANSFORMACION;
+    LOGPRINT( 6, "transformando %s en %s", z->pieza->tpieza->nombre, tpieza->nombre );
     movida_accion_transforma( z->mov_actual, z->pieza, color, tpieza );
     return  STATUS_NORMAL;
 }

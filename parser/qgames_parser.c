@@ -1774,7 +1774,7 @@ yyreduce:
 
   case 6:
 #line 151 "qgames_parser.y"
-    { add_parameter( TOK_STRING, (yyvsp[(2) - (3)]) ); }
+    { add_parameter( TOK_STRING, (yyvsp[(3) - (3)]) ); }
     break;
 
   case 7:

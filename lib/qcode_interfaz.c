@@ -64,9 +64,9 @@ long  code_wrapper_ocupado( QCodeVM* vm ){
 
 long  code_wrapper_transforma( QCodeVM* vm ){
     Analizador* z = (Analizador*)qcode_pop( vm );
-    int  owner    = (int)qcode_pop(vm);
     Tipopieza*  t = ZGETTIPOPIEZA( z, qcode_pop( vm ) );
     if( (long)t == -1 ) t = NULL;
+    int  owner    = (int)qcode_pop(vm);
     return (long)analizador_transforma(z,owner,t );
 }
 

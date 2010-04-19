@@ -64,7 +64,12 @@ int   los_alamos(){
     assert( partida_mover_notacion( partida, "Nxf4" ) );
     assert( partida_final( partida, NULL ) == FINAL_ENJUEGO );
     
-
+    printf( "." );
+    char* prueba4 = "1. a3 e4 2. a4 e3 3. axb5 exf2";
+    assert( partida = tipojuego_create_partida( losalamos ) );
+    assert( partida_mover_pgn( partida, prueba4 ) );
+    loglevel = 5;
+    partida_movidas_posibles_ascii( partida );
 }
 
 

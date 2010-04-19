@@ -126,10 +126,11 @@ void  movida_split_transformaciones( _list* movs ){
         Movida* mov = (Movida*)movs->data[i];
         for( j = 0; j < mov->acciones->entradas; j ++ ){
             Accion* acc = ((Accion*)mov->acciones->data[j]);
-            if( acc->tipo == ACCION_TRANSFORMA && acc->color == 0 ) cc ++;
+            if( acc->tipo == ACCION_TRANSFORMA && acc->tpieza ) cc ++;
             if( cc > 1 ) break;
         }
         if( cc > 1 ){  // Lo saco de la lista.
+            LOGPRINT( 6, "detecte movida con transformaciones %d", mov->acciones->entradas );
             trans[cant++] = mov;
             list_quita( movs, i );
             i --;
@@ -146,13 +147,14 @@ void  movida_split_transformaciones( _list* movs ){
             if( acc->tipo == ACCION_TRANSFORMA ){
                 Movida* nueva = movida_dup( mov );
                 for( k = 0; k < nueva->acciones->entradas; k ++ ){
-                    Accion* acc = (Accion*)nueva->acciones->data[k];
-                    if( k != j && acc->tipo == ACCION_TRANSFORMA ){
+                    Accion* acc2 = (Accion*)nueva->acciones->data[k];
+                    if( acc2->tpieza != acc->tpieza && acc2->tipo == ACCION_TRANSFORMA ){
+                        LOGPRINT( 6, "Sacando %s de %p", acc2->tpieza->nombre, mov );
                         list_quita( nueva->acciones, k-- );
-                        free( acc );
+                        free( acc2 );
                     }
                 }
-                list_agrega( mov, nueva );
+                list_agrega( movs, nueva );
             }
         } 
         movida_free( trans[i] );
@@ -260,3 +262,22 @@ int          movida_es_captura( Movida* mov ){
     return  0;
 }
 
+/*
+ * En el caso que la captura sea una transformacion, devuelve
+ * valor verdadero y setea las variables pasadas como parametro
+ * */
+int          movida_es_transformacion( Movida* mov, int* color, Tipopieza** tp ){
+   
+    Accion* acc;
+    if( !mov->acciones ) return 0;
+    list_inicio( mov->acciones );
+    while( acc = (Accion*)list_siguiente( mov->acciones ) ){
+        if( acc->tipo == ACCION_TRANSFORMA ){
+            if( color ) *color = acc->color;
+            if( tp    ) *tp    = acc->tpieza;
+            return 1;
+        }
+    }
+    return  0;
+
+}

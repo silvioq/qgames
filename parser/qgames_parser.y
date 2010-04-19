@@ -148,7 +148,7 @@ word_or_string:
 word_or_string_list:
         word_or_string                      { add_parameter( TOK_STRING, $1 ); }    |  
         word_or_string_list  word_or_string { add_parameter( TOK_STRING, $2 ); }    |
-        word_or_string_list ','  word_or_string { add_parameter( TOK_STRING, $2 ); }    ;
+        word_or_string_list ','  word_or_string { add_parameter( TOK_STRING, $3 ); }    ;
 
 number_list:
         TOK_NUMBER                         { add_parameter( TOK_NUMBER, $1 ); } |   

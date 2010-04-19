@@ -154,6 +154,17 @@ char*   notacion_resolver_mov( Notacion* nott, Movida* mov, char* def ){
         }
         defchar ++;
     }
+
+    Tipopieza* tp;
+    int  color;
+    if( movida_es_transformacion( mov, &color, &tp ) ){
+        if( tp ){
+            char* nnn = notacion_resolver_tpieza( nott, color, tp );
+            strcat( ret, "=" );
+            strcat( ret, nnn );
+        }
+    }
+
     return  ret;
 
 
