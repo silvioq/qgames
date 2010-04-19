@@ -134,7 +134,7 @@ void        tipojuego_code_final  ( Tipojuego* tj, char* color, int resultado );
 /*
  * A partir de aca, comenzamos con la partida
  * */
-Partida*    tipojuego_create_partida( Tipojuego* tj );
+Partida*    tipojuego_create_partida( Tipojuego* tj, char* id );
 
 int         partida_mover         ( Partida* par, int mov );
 int         partida_mover_notacion( Partida* par, char* mov );
@@ -152,7 +152,6 @@ int         partida_movidas_count ( Partida* par );
 int         partida_movidas_data  ( Partida* par, int num, char** notacion );
 int         partida_movida_valida ( Partida* par, char* notacion );
 
-int         partida_count_piezas  ( Partida* par, char* casillero, char* tipopieza );
 void        partida_tablero_ascii ( Partida* par );
 int         partida_tablero_count ( Partida* par );
 int         partida_tablero_data  ( Partida* par, int num, char** casillero, char** pieza, char** color );

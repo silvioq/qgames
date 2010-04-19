@@ -96,7 +96,7 @@ Partida*  procesar_partida( Tipojuego* tj, char* m, char* filename ){
     clock_t  inicio, final;
     int ret;
     inicio = clock();
-    Partida* par = tipojuego_create_partida( tj );
+    Partida* par = tipojuego_create_partida( tj, NULL );
     if( !m ) return  par;
     ret = partida_mover_serie( par, m );
     final = clock();
@@ -238,7 +238,7 @@ int  main(int argc, char** argv) {
     if( ret && interactivo && par ){
         jugar_partida(par);
     } else if ( ret && interactivo && tj ){
-        par = tipojuego_create_partida( tj );
+        par = tipojuego_create_partida( tj, NULL );
         jugar_partida(par);
     }
     if( par )    partida_free( par );

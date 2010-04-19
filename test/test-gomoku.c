@@ -44,7 +44,7 @@ int  check_game( char* fname ){
     }  
 
     inicio = clock();
-    assert( par = tipojuego_create_partida( gomoku ) );
+    assert( par = tipojuego_create_partida( gomoku, "x" ) );
     ret = partida_mover_serie( par, pgnmoves );
     final = clock();
 
@@ -119,7 +119,7 @@ int  main(int argc, char** argv) {
     assert( tipojuego_get_color( gomoku, "negro" )  == 2 ) ;
     printf( "." );
 
-    assert( partida = tipojuego_create_partida( gomoku ) );
+    assert( partida = tipojuego_create_partida( gomoku, "x" ) );
     assert( 0 == partida_count_piezas( partida, NULL, NULL ) );
     assert( 99 * 2 == partida_count_piezas( partida, CASILLERO_POZO, NULL ) );
     assert( 0 == partida_count_piezas( partida, "c1", NULL ) );

@@ -105,10 +105,11 @@ typedef  struct  StrPartida {
  * La creacion de la partida (escrita totalmente en C) es algo por lo que
  * espere durante mucho tiempo ... aqui esta! 
  * */
-Partida*  partida_new( Tipojuego* tjuego );
+Partida*  partida_new( Tipojuego* tjuego, char* id_par );
 
 int       partida_analizar_movidas( Partida* par );
 int       partida_analizar_finales( Partida* par );
+int       partida_count_piezas    ( Partida* par, char* casillero, char* tipopieza );
 
 Movida*   partida_ultimo_movimiento( Partida* par );
 

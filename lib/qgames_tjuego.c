@@ -555,8 +555,8 @@ void        tipojuego_end_code( Tipojuego* tj ){
 
 
 
-Partida*   tipojuego_create_partida( Tipojuego* tj ){
-   return  partida_new( tj );
+Partida*   tipojuego_create_partida( Tipojuego* tj, char* id ){
+   return  partida_new( tj, id );
 }
 
 /*

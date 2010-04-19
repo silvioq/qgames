@@ -74,7 +74,7 @@ void    secuencia_anterior( Partida* par ){
 }
 
 
-Partida*  partida_new( Tipojuego* tjuego ){
+Partida*  partida_new( Tipojuego* tjuego, char* id_par ){
     Partida*  par = ALLOC( sizeof( Partida ) );
     memset( par, 0, sizeof( Partida ) );
     par->tjuego = tjuego;
@@ -84,7 +84,9 @@ Partida*  partida_new( Tipojuego* tjuego ){
     par->inicio = time( NULL );
 
     // Calculo el id
-    {
+    if( id_par ){
+        par->id = strdup( id_par );
+    } else {
         char  aux[256];
         unsigned char  aux2[16];
         static  int xxx = 100; int seeded = 0;
