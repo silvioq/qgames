@@ -1,0 +1,12 @@
+[Event "Casual Game"]
+[Site "BrainKing.com (Prague, Czech Republic)"]
+[Date "2009.03.31"]
+[Round "2"]
+[White "tenuki"]
+[Black "ljubisa popovic"]
+[Result "1-0"]
+[Variant "AjedrezLosAlamos"]
+[Termination "abandoned"]
+
+1. d3 d4 2. c3 c4 3. Nd2 cxd3 4. exd3 dxc3 5. bxc3 Nd5 6. c4 bxc4 7. Nxc4+ Kc5
+8. Nxe5+ 1-0

@@ -1,0 +1,13 @@
+[Event "match a 2 partidas (#2)"]
+[Site "BrainKing.com (Prague, Czech Republic)"]
+[Date "2007.01.13"]
+[Round "2"]
+[White "FromHell"]
+[Black "tenuki"]
+[Variant "AjedrezLosAlamos"]
+[Termination "abandoned"]
+[Result "1-0"]
+
+1. d3 c4 2. c3 cxd3 3. exd3 d4 4. Nd2 dxc3 5. bxc3 Na4 6. c4 b4 7. Nb3 Nc3+
+8. Kd2 a4 9. Nc2 Qb6 10. Nxb4 Ne4+ 11. dxe4 Qxb4+ 12. Qc3 Qxc3+ 13. Kxc3 axb3
+14. axb3 Rc6 15. Rf1-d1+ Nd4 16. Rxd4+ exd4+ 17. Kxd4 fxe4 18. b4 Rxf2 19. c5+ 1-0
