@@ -23,7 +23,7 @@ typedef struct StrAccion{
     int         pieza_number;
     Casillero*  destino;
     int         color;
-    Tipopieza*  tipo_pieza;
+    Tipopieza*  tpieza;
     char*       att_key;
     int         att_val;
 }  Accion;
@@ -46,7 +46,10 @@ Movida*   movida_dup( Movida* mov );
 
 void  movida_accion_mueve  ( Movida* mov, Pieza* p, Casillero* destino );
 void  movida_accion_captura( Movida* mov, Pieza* p );
+void  movida_accion_transforma( Movida* mov, Pieza* p, int color, Tipopieza* tpieza );
 void  movida_free( Movida* mov );
+
+void  movida_split_transformaciones( _list* movs );
 
 Posicion*    movida_ejecuta( Movida* mov );
 

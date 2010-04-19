@@ -18,6 +18,8 @@
 #include  "movida.h"
 #include  "posicion.h"
 
+#include  "log.h"
+
 // -----------------------------------------------------------------
 
 Movida*   movida_new( Posicion* pos ){
@@ -56,6 +58,19 @@ void  movida_accion_captura( Movida* mov, Pieza* p ) {
     Accion* acc = accion_new();
     acc->tipo = ACCION_CAPTURA;
     acc->pieza_number = p->number;
+    if( !mov->acciones ) mov->acciones = list_nueva( NULL );
+    list_agrega( mov->acciones, acc );
+}
+
+/*
+ * La accion de transformacion
+ * */
+void   movida_accion_transforma( Movida* mov, Pieza* p, int color, Tipopieza* tpieza ){
+    Accion* acc = accion_new();
+    acc->tipo = ACCION_TRANSFORMA;
+    acc->pieza_number = p->number;
+    acc->tpieza       = tpieza;
+    acc->color        = color;
     if( !mov->acciones ) mov->acciones = list_nueva( NULL );
     list_agrega( mov->acciones, acc );
 }
@@ -100,6 +115,60 @@ Movida*   movida_dup( Movida* mov ){
     
 }
 
+void  movida_split_transformaciones( _list* movs ){
+    int  cant = 0, i;
+    Movida** trans = ALLOC(sizeof(Movida*) * movs->entradas );
+    
+    // Primero seleciono aquellas movidas que tienen mas de una transformacion 
+    // posible
+    for( i = 0; i < movs->entradas; i ++ ){
+        int j; int cc = 0;
+        Movida* mov = (Movida*)movs->data[i];
+        for( j = 0; j < mov->acciones->entradas; j ++ ){
+            Accion* acc = ((Accion*)mov->acciones->data[j]);
+            if( acc->tipo == ACCION_TRANSFORMA && acc->color == 0 ) cc ++;
+            if( cc > 1 ) break;
+        }
+        if( cc > 1 ){  // Lo saco de la lista.
+            trans[cant++] = mov;
+            list_quita( movs, i );
+            i --;
+        }
+    }
+
+    for( i = 0; i < cant ; i ++ ){
+        Movida* mov = trans[i]; 
+        int  j, k;
+        // por cada transformacion, creo una movida igual, sin 
+        // las demas transformaciones.
+        for( j = 0; j < mov->acciones->entradas; j ++ ){
+            Accion* acc = (Accion*)mov->acciones->data[j];
+            if( acc->tipo == ACCION_TRANSFORMA ){
+                Movida* nueva = movida_dup( mov );
+                for( k = 0; k < nueva->acciones->entradas; k ++ ){
+                    Accion* acc = (Accion*)nueva->acciones->data[k];
+                    if( k != j && acc->tipo == ACCION_TRANSFORMA ){
+                        list_quita( nueva->acciones, k-- );
+                        free( acc );
+                    }
+                }
+                list_agrega( mov, nueva );
+            }
+        } 
+        movida_free( trans[i] );
+    }
+    
+    free( trans );
+
+}
+
+/*
+ * Esta es la ejecucion de la movida, o sea, la apliacion
+ * de las acciones de la movida sobre la posicion que
+ * esta asociada.
+ * La posicion devuelta por la funcion es una nueva
+ * posicion
+ * */
 
 Posicion*  movida_ejecuta( Movida* mov ){
     //
@@ -107,14 +176,20 @@ Posicion*  movida_ejecuta( Movida* mov ){
     int i;
     for( i = 0; i < mov->acciones->entradas; i ++ ){
         Accion* acc = (Accion*) mov->acciones->data[i];
+        Pieza*  p = (Pieza*)pos->piezas->data[acc->pieza_number];
         switch( acc->tipo ){
             case ACCION_MUEVE:
-                posicion_mueve_pieza( pos, (Pieza*)pos->piezas->data[acc->pieza_number], acc->destino );
+                posicion_mueve_pieza( pos, p, acc->destino );
                 break;
             case ACCION_CAPTURA:
-                posicion_mueve_pieza( pos, (Pieza*)pos->piezas->data[acc->pieza_number], ENCAPTURA );
+                posicion_mueve_pieza( pos, p, ENCAPTURA );
+                break;
+            case ACCION_TRANSFORMA:
+                if( acc->color  ) p->color = acc->color;
+                if( acc->tpieza ) p->tpieza = acc->tpieza;
                 break;
             default:
+                LOGPRINT( 2, "Accion no implementada %d", acc->tipo );
                 assert( !"Accion no implementada" );
         }
     }

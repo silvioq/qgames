@@ -43,6 +43,9 @@ _list*   analizador_evalua_movidas( Regla* regla, Posicion* pos, Pieza* pieza, C
           z->cas_ori, ( !CASILLERO_VALIDO(z->cas_ori) ? "(no)" : z->cas_ori->nombre ) );
 
     code_execute_rule( z, regla->pc );
+
+    if( z->flags & CON_TRANSFORMACION ) movida_split_transformaciones( z->movidas );
+
     movidas = z->movidas;
     
     LOGPRINT( 6, "Fin analisis pieza casillero %p %s Movidas %p", 
@@ -241,20 +244,21 @@ int    analizador_juega  ( Analizador* z, Casillero* cas, int con_captura ){
     if( !CASILLERO_VALIDO( ccc ) ) return STATUS_NORMAL;
 #endif
     if( !z->movidas ) z->movidas = list_nueva( NULL );
-    Movida* mov = movida_new( z->pos );
-    movida_accion_mueve( mov, z->pieza, ccc );
+    if( !z->mov_actual ) z->mov_actual = movida_new( z->pos );
+    movida_accion_mueve( z->mov_actual, z->pieza, ccc );
     LOGPRINT( 6, "Juega %s en %s captura = %d", z->pieza->tpieza->nombre, ccc->nombre, con_captura );
-    list_agrega( z->movidas, mov );
     if( TIPOJUEGO_CAPTURAIMPLICITA(z->pos->tj) || con_captura ){
         int i;
         for( i = 0; i < z->pos->piezas->entradas; i ++ ){
             Pieza* pp = (Pieza*)z->pos->piezas->data[i];
             if( pp == z->pieza ) continue;
             if( pp->casillero == ccc){
-                movida_accion_captura( mov, pp );
+                movida_accion_captura( z->mov_actual, pp );
             }
         }
     }
+    list_agrega( z->movidas, z->mov_actual );
+    z->mov_actual = NULL;
     return  STATUS_NORMAL;
 }
 
@@ -319,6 +323,26 @@ int    analizador_jaquemate( Analizador* z, Tipopieza* tpieza ){
     LOGPRINT( 6, "jaquemate: la posicion no era jaque %s", tpieza->nombre )
     return 0;
 }
+
+int    analizador_transforma( Analizador* z, int owner, Tipopieza* tpieza ){
+    CHECK_STATUS;
+    int color;
+    if( owner == ENEMIGO ){
+        color = z->color + 1;
+        if( color > z->pos->tjuego->colores ) color = 1;
+    } else if ( owner == PROPIO ){
+        color = z->color;
+    } else if ( owner == NOCOLOR ){
+        color = z->color;
+    } else if ( owner > 0 ){
+        color = owner;
+    }
+    if( !z->mov_actual ) z->mov_actual = movida_new( z->pos );
+    z->flags |= CON_TRANSFORMACION;
+    movida_accion_transforma( z->mov_actual, z->pieza, color, tpieza );
+    return  STATUS_NORMAL;
+}
+
 
 /*
  * El analisis de ahogado es muy simple. 

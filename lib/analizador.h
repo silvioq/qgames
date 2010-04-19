@@ -10,6 +10,7 @@
 #define  ANALIZADOR_H   1
 
 
+#define    CON_TRANSFORMACION  0x1
 
 
 typedef  struct  StrAnalizador {
@@ -20,9 +21,11 @@ typedef  struct  StrAnalizador {
     int        tipo_movida;
     int        color;
     int        color_siguiente;
+    Movida*    mov_actual;
     _list*     movidas;
     char       tipo_analisis;
     char       status;
+    char       flags;
 
     char*      resultado;         // Para el analisis del final, este elemento contiene la descripcion del resultado
     int        color_ganador;     // Color que gano! 0 es tablas!
@@ -46,6 +49,7 @@ int      analizador_evalua_final  ( Regla* regla, Posicion* pos, Pieza* pieza, C
 
 
 int    analizador_juega  ( Analizador* z, Casillero* cas, int con_captura );
+int    analizador_transforma( Analizador*z, int owner, Tipopieza* tp);
 
 /*
  * Devuelve uno o cero, si se encuentra ocupado el casillero pasado como parametro
