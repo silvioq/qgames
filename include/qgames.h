@@ -152,7 +152,7 @@ int         partida_movidas_count ( Partida* par );
 int         partida_movidas_data  ( Partida* par, int num, char** notacion );
 int         partida_movida_valida ( Partida* par, char* notacion );
 
-int         partida_count_piezas  ( Partida* par, char* casillero );
+int         partida_count_piezas  ( Partida* par, char* casillero, char* tipopieza );
 void        partida_tablero_ascii ( Partida* par );
 int         partida_tablero_count ( Partida* par );
 int         partida_tablero_data  ( Partida* par, int num, char** casillero, char** pieza, char** color );

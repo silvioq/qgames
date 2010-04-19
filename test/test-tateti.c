@@ -45,13 +45,13 @@ int  main(int argc, char** argv) {
     printf( "." );
 
     assert( partida = tipojuego_create_partida( tateti ) );
-    assert( 0 == partida_count_piezas( partida, NULL ) );
-    assert( 10 == partida_count_piezas( partida, CASILLERO_POZO ) );
-    assert( 0 == partida_count_piezas( partida, "c1" ) );
-    assert( 0 == partida_count_piezas( partida, "b1" ) );
+    assert( 0 == partida_count_piezas( partida, NULL, NULL ) );
+    assert( 10 == partida_count_piezas( partida, CASILLERO_POZO, NULL ) );
+    assert( 0 == partida_count_piezas( partida, "c1", NULL ) );
+    assert( 0 == partida_count_piezas( partida, "b1", NULL ) );
     assert( partida_mover_notacion( partida, "c1" ) ); 
-    assert( 1 == partida_count_piezas( partida, "c1" ) );
-    assert( 0 == partida_count_piezas( partida, "b1" ) );
+    assert( 1 == partida_count_piezas( partida, "c1", NULL ) );
+    assert( 0 == partida_count_piezas( partida, "b1", NULL ) );
 
     assert( partida_final( partida, NULL ) == FINAL_ENJUEGO );
     assert( partida_mover_notacion( partida, "c1" ) == 0 ); 

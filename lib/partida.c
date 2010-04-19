@@ -403,8 +403,9 @@ int   partida_mover_mov( Partida* par, Movida* mov ){
  * Contador de cantidad de piezas, muy útil a la hora
  * de hacer pruebas
  * */
-int         partida_count_piezas  ( Partida* par, char* casillero ){
+int         partida_count_piezas  ( Partida* par, char* casillero, char* tpieza ){
     Casillero* cas;
+    Tipopieza* tp;
     int count = 0;
     if( !casillero ){
         cas = NULL;
@@ -416,11 +417,15 @@ int         partida_count_piezas  ( Partida* par, char* casillero ){
         int ret = GETCASILLERO( par->tjuego, casillero );
         cas = (Casillero*) par->tjuego->casilleros->data[ret];
     }
+    
+    tp = ( tpieza ? (Tipopieza*) par->tjuego->tipo_piezas->data[GETTIPOPIEZA( par->tjuego, tpieza )] : NULL );
+
 
     int i;
     for( i = 0; i < par->pos->piezas->entradas; i ++ ){
          Pieza* pie = (Pieza*) par->pos->piezas->data[i];
          if( pie ){
+              if( tpieza && tp != pie->tpieza ) continue;
               if( !cas ){
                   if(CASILLERO_VALIDO(pie->casillero)) count ++;
               } else if( cas == pie->casillero ){

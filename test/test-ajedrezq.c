@@ -71,6 +71,8 @@ int   los_alamos(){
     assert( partida_movida_valida( partida, "bxa6=R" ) );
     assert( partida_movida_valida( partida, "bxa6=Q" ) );
     assert( partida_movida_valida( partida, "bxa6=N" ) );
+    assert( partida_mover_notacion( partida, "bxa6=N" ) );
+    assert( partida_count_piezas( partida, NULL, "caballo" ) == 5 );
 }
 
 
@@ -104,15 +106,15 @@ int  main(int argc, char** argv) {
     printf( "." );
 
     assert( partida = tipojuego_create_partida( aje ) );
-    assert( 12 == partida_count_piezas( partida, NULL ) );
-    assert( 1 == partida_count_piezas( partida, "c1" ) );
-    assert( 0 == partida_count_piezas( partida, "b1" ) );
+    assert( 12 == partida_count_piezas( partida, NULL, NULL ) );
+    assert( 1 == partida_count_piezas( partida, "c1", NULL ) );
+    assert( 0 == partida_count_piezas( partida, "b1", NULL ) );
     printf( "." );
 
     char* prueba1 = "1. c3 bxc3 2. Kc2 Kb5";
     assert( partida_mover_pgn( partida, prueba1 ) );
     assert( partida_movidas_count( partida ) == 9 );
-    assert( 11 == partida_count_piezas( partida, NULL ) );
+    assert( 11 == partida_count_piezas( partida, NULL, NULL ) );
     partida_movidas_data( partida, 0, &notacion );
     assert( strcmp( notacion, "Kc1" ) == 0 ) ;
     partida_movidas_data( partida, 1, &notacion );
