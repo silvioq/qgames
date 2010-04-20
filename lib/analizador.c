@@ -129,6 +129,29 @@ int    analizador_atacado( Analizador* z, Casillero* cas ){
 }
 
 /*
+ * Esta funcion evalua si la movida anterior tuvo como destino
+ * el casillero pasado como parametro
+ * */
+int    analizador_destino_ant( Analizador* z, Casillero* cas ){
+    Casillero* ccc = ( cas ? cas : z->cas );
+    if( !ccc ) return 0;
+    if( !z->pos->mov_anterior ) return 0;
+    return( ccc == movida_casillero_destino( z->pos->mov_anterior ) );
+}
+
+/*
+ * Esta funcion evalua si la movida anterior tuvo como origen
+ * el casillero pasado como parametro
+ * */
+int    analizador_origen_ant( Analizador* z, Casillero* cas ){
+    Casillero* ccc = ( cas ? cas : z->cas );
+    if( !ccc ) return 0;
+    if( !z->pos->mov_anterior ) return 0;
+    return( ccc == movida_casillero_origen( z->pos->mov_anterior ) );
+}
+
+
+/*
  * El cuenta piezas, funcion fundamental para saber cuantas piezas
  * hay de un determinado tipo ... je je!
  * Los parametros son el casillero donde buscar, el color que buscar
@@ -176,7 +199,7 @@ int    analizador_cuenta_piezas( Analizador* z, Casillero* cas, int owner, Tipop
  *
  *  */
 
-int    analizador_ocupado( Analizador* z, Casillero* cas, int owner ){
+int    analizador_ocupado( Analizador* z, Casillero* cas, int owner, Tipopieza* tpieza ){
     Casillero*  ccc = ( cas ? cas : z->cas );
    
     CHECK_STATUS ;
@@ -189,6 +212,7 @@ int    analizador_ocupado( Analizador* z, Casillero* cas, int owner ){
     for( i = 0; i < z->pos->piezas->entradas; i ++ ){
         Pieza* pp = (Pieza*)z->pos->piezas->data[i];
         if( pp == z->pieza ) continue;
+        if( tpieza && tpieza != z->pieza->tpieza ) continue;
         if( pp->casillero == ccc ){
             if( owner == CUALQUIERA ){
                 return  1;

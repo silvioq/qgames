@@ -356,6 +356,7 @@ int        posicion_analiza_final( Posicion* pos, int  color_actual, int color_s
 Posicion*   posicion_dup( Posicion* pos ){
     Posicion* pnew = posicion_new( pos->tjuego );
     pnew->pos_anterior = pos->pos_anterior;
+    pnew->mov_anterior = pos->mov_anterior;
     int p;
     for( p = 0; p < pos->piezas->entradas; p ++ ){
         Pieza* pie = (Pieza*)pos->piezas->data[p];

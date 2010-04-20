@@ -183,9 +183,9 @@ void        tipojuego_code_cuenta_piezas( Tipojuego* tj, char* casillero, int ow
     qcode_opnlab( tj->qcode, QCCLX, "cuentapiezas" );
 }
 
-void        tipojuego_code_ocupado( Tipojuego* tj, char* casillero, int owner, char* color ){
+void        tipojuego_code_ocupado( Tipojuego* tj, char* casillero, int owner, char* color, char* tpieza ){
     int  own = CUALQUIERA;
-    long cas;
+    long cas, tp;
 
     if( owner == CUALQUIERA && color ){
         own = GETCOLOR(tj, color );
@@ -198,15 +198,36 @@ void        tipojuego_code_ocupado( Tipojuego* tj, char* casillero, int owner, c
     } else {
         cas = -1;
     }
-    qcode_op( tj->qcode, QCSTI, 16, own );      // t16 = own
-    qcode_op( tj->qcode, QCPSH, 16, 0 );        // PSH t16
-    qcode_op( tj->qcode, QCSTI, 16, cas );      // t16 = cas     
-    qcode_op( tj->qcode, QCPSH, 16, 0 );        // PSH t16
-    qcode_op( tj->qcode, QCPSH,  3, 0 );        // PSH r3
+
+    tp = ( tpieza ? GETTIPOPIEZA( tj, tpieza ) : -1 );
+
+    qcode_op( tj->qcode, QCSTI, 1, tp  );      // r1 = tp
+    qcode_op( tj->qcode, QCPSH, 1, 0 );        // PSH r1
+    qcode_op( tj->qcode, QCSTI, 1, own );      // r1 = own
+    qcode_op( tj->qcode, QCPSH, 1, 0 );        // PSH r1
+    qcode_op( tj->qcode, QCSTI, 1, cas );      // r1 = cas     
+    qcode_op( tj->qcode, QCPSH, 1, 0 );        // PSH r1
+    qcode_op( tj->qcode, QCPSH, 3, 0 );        // PSH r3
     qcode_opnlab( tj->qcode, QCCLX, "ocupado" );
-    // FIXME: Hay que controlar posibles estados erroneos
-    // RET_IF_STATUS;                              // Retorna si el valor es distinto de cero
 }
+
+
+void        tipojuego_code_destino_ant( Tipojuego* tj, char* casillero ){
+    long cas = ( casillero ? GETCASILLERO( tj, casillero ) : -1 );
+    qcode_op( tj->qcode, QCSTI, 1, cas );      // r1 = cas     
+    qcode_op( tj->qcode, QCPSH, 1, 0 );        // PSH r1
+    qcode_op( tj->qcode, QCPSH, 3, 0 );        // PSH r3
+    qcode_opnlab( tj->qcode, QCCLX, "destino_ant" );
+}
+
+void        tipojuego_code_origen_ant( Tipojuego* tj, char* casillero ){
+    long cas = ( casillero ? GETCASILLERO( tj, casillero ) : -1 );
+    qcode_op( tj->qcode, QCSTI, 1, cas );      // r1 = cas     
+    qcode_op( tj->qcode, QCPSH, 1, 0 );        // PSH r1
+    qcode_op( tj->qcode, QCPSH, 3, 0 );        // PSH r3
+    qcode_opnlab( tj->qcode, QCCLX, "destino_ant" );
+}
+
 
 void        tipojuego_code_ahogado( Tipojuego* tj, char* color ){
     int  col;

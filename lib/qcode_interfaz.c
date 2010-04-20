@@ -59,7 +59,9 @@ long  code_wrapper_ocupado( QCodeVM* vm ){
     Casillero*  c = ZGETCASILLERO( z, qcode_pop( vm ) );
     if( (long)c == -1 ) c = NULL;
     int  owner    = (int)qcode_pop(vm);
-    return (long)analizador_ocupado( z, c, owner );
+    Tipopieza*  t = ZGETTIPOPIEZA( z, qcode_pop( vm ) );
+    if( (long)t == -1 ) t = NULL;
+    return (long)analizador_ocupado( z, c, owner, t );
 }
 
 long  code_wrapper_transforma( QCodeVM* vm ){
@@ -80,6 +82,21 @@ long  code_wrapper_cuentapiezas( QCodeVM* vm ){
     if( (long)t == -1 ) t = NULL;
     return (long)analizador_cuenta_piezas( z, c, color, t );
 }
+
+long  code_wrapper_destino_ant( QCodeVM* vm ){
+    Analizador* z = (Analizador*)qcode_pop( vm );
+    Casillero*  c = ZGETCASILLERO( z, qcode_pop( vm ) );
+    if( (long)c == -1 ) c = NULL;
+    return (long)analizador_destino_ant( z, c );
+}
+
+long  code_wrapper_origen_ant( QCodeVM* vm ){
+    Analizador* z = (Analizador*)qcode_pop( vm );
+    Casillero*  c = ZGETCASILLERO( z, qcode_pop( vm ) );
+    if( (long)c == -1 ) c = NULL;
+    return (long)analizador_origen_ant( z, c );
+}
+
 
 long  code_wrapper_asigna_att( QCodeVM* vm ){
     Analizador* z = (Analizador*)qcode_pop( vm );
@@ -163,19 +180,22 @@ long  code_wrapper_dump( QCodeVM* vm ){
 void  code_initialize( QCode** qcode ){
     QCode*  q;
     q = qcode_new();
+    qcode_xcrlab( q, "ahogado"  ,    (qcode_extfunc)code_wrapper_ahogado );
     qcode_xcrlab( q, "asigna_att",   (qcode_extfunc)code_wrapper_asigna_att );
     qcode_xcrlab( q, "atacado",      (qcode_extfunc)code_wrapper_atacado );
+    qcode_xcrlab( q, "casillero",    (qcode_extfunc)code_wrapper_casillero );
     qcode_xcrlab( q, "cuentapiezas", (qcode_extfunc)code_wrapper_cuentapiezas );
-    qcode_xcrlab( q, "ocupado",   (qcode_extfunc)code_wrapper_ocupado );
-    qcode_xcrlab( q, "jaquemate", (qcode_extfunc)code_wrapper_jaquemate );
-    qcode_xcrlab( q, "juega",     (qcode_extfunc)code_wrapper_juega );
-    qcode_xcrlab( q, "casillero", (qcode_extfunc)code_wrapper_casillero );
+    qcode_xcrlab( q, "destino_ant",  (qcode_extfunc)code_wrapper_destino_ant );
     qcode_xcrlab( q, "direccion", (qcode_extfunc)code_wrapper_direccion );
-    qcode_xcrlab( q, "ahogado"  , (qcode_extfunc)code_wrapper_ahogado );
     qcode_xcrlab( q, "entablero", (qcode_extfunc)code_wrapper_entablero );
     qcode_xcrlab( q, "enzona",    (qcode_extfunc)code_wrapper_enzona );
     qcode_xcrlab( q, "final"    , (qcode_extfunc)code_wrapper_final );
+    qcode_xcrlab( q, "jaquemate", (qcode_extfunc)code_wrapper_jaquemate );
+    qcode_xcrlab( q, "juega",     (qcode_extfunc)code_wrapper_juega );
+    qcode_xcrlab( q, "ocupado",   (qcode_extfunc)code_wrapper_ocupado );
+    qcode_xcrlab( q, "origen_ant",(qcode_extfunc)code_wrapper_origen_ant );
     qcode_xcrlab( q, "transforma",(qcode_extfunc)code_wrapper_transforma );
+
     qcode_xcrlab( q, "dump"     , (qcode_extfunc)code_wrapper_dump );
 
     /* El primer codigo que meto es el tema del analizador */

@@ -119,6 +119,7 @@ void  qgzprintf( char* format, ... ){
 %token    TOK_ATACADO_ENEMIGO
 %token    TOK_CAPTURA        TOK_CAPTURA_SI        TOK_CAPTURA_Y_JUEGA   TOK_CAPTURA_Y_JUEGA_SI
 %token    TOK_CASILLERO_INICIAL
+%token    TOK_DESTINO_ANT
 %token    TOK_EMPATA    TOK_EMPATA_SI
 %token    TOK_ENTABLERO
 %token    TOK_ENZONA   
@@ -129,6 +130,7 @@ void  qgzprintf( char* format, ... ){
 %token    TOK_OCUPADO
 %token    TOK_OCUPADOENEMIGO
 %token    TOK_OCUPADOPROPIO
+%token    TOK_ORIGEN_ANT
 %token    TOK_PARA      TOK_PARA_SI
 %token    TOK_PIERDE    TOK_PIERDE_SI
 %token    TOK_TRANSFORMA
@@ -223,6 +225,39 @@ instexpr_cantidad_piezas:
     cantidad_piezas_preludio                       { 
             tipojuego_code_cuenta_piezas( tipojuego, NULL, $1, NULL, NULL );
     };
+
+
+instexpr_movidas_anteriores:
+    TOK_DESTINO_ANT    {
+            CHECK_TIPOJUEGO;
+            tipojuego_code_destino_ant( tipojuego, NULL );
+    } |
+    TOK_DESTINO_ANT   word_or_string  {
+            CHECK_TIPOJUEGO;
+            if( NOT_FOUND != tipojuego_get_casillero( tipojuego, ((char*)$2) ) ){
+                tipojuego_code_destino_ant( tipojuego, ((char*)$2) );
+            } else {
+                qgzprintf( "Debe ser un casillero %s", ((char*)$2) );
+                yyerror( "Debe ser un casillero");
+                YYERROR;
+            }
+    } |
+    TOK_ORIGEN_ANT    {
+            CHECK_TIPOJUEGO;
+            tipojuego_code_origen_ant( tipojuego, NULL );
+    } |
+    TOK_ORIGEN_ANT   word_or_string  {
+            CHECK_TIPOJUEGO;
+            if( NOT_FOUND != tipojuego_get_casillero( tipojuego, ((char*)$2) ) ){
+                tipojuego_code_origen_ant( tipojuego, ((char*)$2) );
+            } else {
+                qgzprintf( "Debe ser un casillero %s", ((char*)$2) );
+                yyerror( "Debe ser un casillero");
+                YYERROR;
+            }
+    };
+                
+
     
 
 instexpr_entablero:
@@ -281,23 +316,25 @@ instexpr_jaquemate:
 instexpr_ocupado:
     TOK_OCUPADO         {
         CHECK_TIPOJUEGO;
-        tipojuego_code_ocupado( tipojuego, NULL, CUALQUIERA, NULL );
+        tipojuego_code_ocupado( tipojuego, NULL, CUALQUIERA, NULL, NULL );
     } |
     TOK_OCUPADOPROPIO   {
         CHECK_TIPOJUEGO;
-        tipojuego_code_ocupado( tipojuego, NULL, PROPIO, NULL );
+        tipojuego_code_ocupado( tipojuego, NULL, PROPIO, NULL, NULL );
     } |
     TOK_OCUPADOENEMIGO   {
         CHECK_TIPOJUEGO;
-        tipojuego_code_ocupado( tipojuego, NULL, ENEMIGO, NULL );
+        tipojuego_code_ocupado( tipojuego, NULL, ENEMIGO, NULL, NULL );
     } |
     TOK_OCUPADO  word_or_string {
         char* nombre = (char*)$2;
         CHECK_TIPOJUEGO;
         if( tipojuego_get_casillero( tipojuego, nombre ) != NOT_FOUND ){
-             tipojuego_code_ocupado( tipojuego, nombre, CUALQUIERA, NULL );
+             tipojuego_code_ocupado( tipojuego, nombre, CUALQUIERA, NULL, NULL );
         } else if( tipojuego_get_color( tipojuego, nombre ) != NOT_FOUND ){
-             tipojuego_code_ocupado( tipojuego, NULL, CUALQUIERA, nombre );
+             tipojuego_code_ocupado( tipojuego, NULL, CUALQUIERA, nombre, NULL );
+        } else if( tipojuego_get_tipopieza( tipojuego, nombre ) != NOT_FOUND ){
+             tipojuego_code_ocupado( tipojuego, NULL, CUALQUIERA, NULL, nombre );
         } else {
             yyerror( "Ocupado?" );
             YYERROR;
@@ -345,6 +382,7 @@ instexpr:
     instexpr_ahogado |
     instexpr_atacado |
     instexpr_cantidad_piezas |
+    instexpr_movidas_anteriores |
     instexpr_entablero |
     instexpr_enzona  |
     instexpr_jaquemate |

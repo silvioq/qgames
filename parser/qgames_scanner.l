@@ -121,7 +121,6 @@ define\:        { define_created = 0; BEGIN(define_head);   }
                             if( parmcount == totalparm ){
                                 if( ! switch_to_define( )) yyterminate();
                             }
-                            free( str );
                           }
 <params>\"[^\"]*\"        { 
                             char* str = strdup( ((char*)yytext) + 1 );
@@ -131,9 +130,8 @@ define\:        { define_created = 0; BEGIN(define_head);   }
                             if( parmcount == totalparm ){
                                 if( ! switch_to_define( )) yyterminate();
                             }
-                            free( str );
                           }
-<params>[^ \n\r,]+        { if( !add_parameter_to_def( yytext ) ) yyterminate();
+<params>[^ \n\r,]+        { if( !add_parameter_to_def( strdup( yytext ) ) ) yyterminate();
                             if( parmcount == totalparm ){
                                 if( ! switch_to_define( ) )yyterminate();
                             }
@@ -158,7 +156,8 @@ define\:        { define_created = 0; BEGIN(define_head);   }
 <code>captura{BAR}y{BAR}juega                 { return  TOK_CAPTURA_Y_JUEGA; }
 <code>captura{BAR}y{BAR}juega{BAR}si          { return  TOK_CAPTURA_Y_JUEGA_SI; }
 <code>captura{BAR}y{BAR}juega{SPACES}if       { return  TOK_CAPTURA_Y_JUEGA_SI; }
-<code>casillero{BAR}inicial     { return  TOK_CASILLERO_INICIAL; }
+<code>casillero{BAR}inicial                   { return  TOK_CASILLERO_INICIAL; }
+<code>destino{BAR}ant(erior)?\??              { return  TOK_DESTINO_ANT; }
 <code>empata                 { return TOK_EMPATA;    }
 <code>empata\-si             { return TOK_EMPATA_SI; }
 <code>en{BAR}tablero\??      { return TOK_ENTABLERO; }
@@ -170,14 +169,15 @@ define\:        { define_created = 0; BEGIN(define_head);   }
 <code>juega{BAR}si           { return TOK_JUEGA_SI;  }
 <code>juega{SPACES}if        { return TOK_JUEGA_SI;  }
 <code>ocupado\??             { return TOK_OCUPADO;   }
-<code>ocupado{BAR}enemigo\?? { return TOK_OCUPADOENEMIGO;   }
-<code>ocupado{BAR}propio\??  { return TOK_OCUPADOPROPIO;   }
-<code>ocupado{BAR}enemigo\?? { return TOK_OCUPADOENEMIGO;   }
-<code>ocupado{BAR}propio\??  { return TOK_OCUPADOPROPIO;   }
-<code>parar?                 { return  TOK_PARA;        }
-<code>parar?{BAR}si          { return  TOK_PARA_SI;     }
-<code>parar{SPACES}if        { return  TOK_PARA_SI;     }
-<code>pierde                 { return  TOK_PIERDE;      }
+<code>ocupado{BAR}enemigo\??                  { return  TOK_OCUPADOENEMIGO;   }
+<code>ocupado{BAR}propio\??                   { return  TOK_OCUPADOPROPIO;   }
+<code>ocupado{BAR}enemigo\??                  { return  TOK_OCUPADOENEMIGO;   }
+<code>ocupado{BAR}propio\??                   { return  TOK_OCUPADOPROPIO;   }
+<code>origen{BAR}ant(erior)?\??               { return  TOK_ORIGEN_ANT; }
+<code>parar?                                  { return  TOK_PARA;        }
+<code>parar?{BAR}si                           { return  TOK_PARA_SI;     }
+<code>parar{SPACES}if                         { return  TOK_PARA_SI;     }
+<code>pierde                                  { return  TOK_PIERDE;      }
 <code>pierde{BAR}si          { return  TOK_PIERDE_SI;   }
 <code>transformar?           { return  TOK_TRANSFORMA;  }
 <code>repite{BAR}posicion\?? { return  TOK_REPITEPOS; }
@@ -294,7 +294,9 @@ void   generate_define( ){
     symtable_adddef( symt, defactual    , parmcount, defparms, define_body );
     free( define_body );
     free( defactual );
-    for( i = 0 ; i < parmcount; i ++ ){ free( defparms[i] ); }
+    for( i = 0; i < parmcount ; i ++ ){
+        free( defparms[i] );
+    }
 }
 
 
@@ -315,7 +317,6 @@ int    switch_to_define( ){
         qgzerror( "Error resolviendo define" );
         return 0;
     }
-
        
     // buffers[sp_buffer] = yybuffer
     buffers[sp_buffer] = YY_CURRENT_BUFFER;

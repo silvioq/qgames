@@ -18,8 +18,8 @@
 #include "config.h"
 #include "tipojuego.h"
 #include "pieza.h"
-#include "posicion.h"
 #include "movida.h"
+#include "posicion.h"
 #include "partida.h"
 #include "../parser/pgn_scanner.h"
 

@@ -59,7 +59,7 @@ int    analizador_asigna_att( Analizador* z, char* att, int val );
  *  owner: Dueño. Puede ser ENEMIGO, PROPIO, CUALQUIERA o un color
  *
  *  */
-int    analizador_ocupado( Analizador* z, Casillero* cas, int owner );
+int    analizador_ocupado( Analizador* z, Casillero* cas, int owner, Tipopieza* tpieza );
 
 
 /*
@@ -70,6 +70,8 @@ int    analizador_direccion( Analizador* z, Direccion* dir );
 
 int    analizador_atacado( Analizador* z, Casillero* cas );
 int    analizador_cuenta_piezas( Analizador* z, Casillero* cas, int owner, Tipopieza* tpieza );
+int    analizador_destino_ant( Analizador* z, Casillero* cas );
+int    analizador_origen_ant( Analizador* z, Casillero* cas );
 int    analizador_ahogado( Analizador* z );
 int    analizador_entablero( Analizador* z );
 int    analizador_enzona( Analizador* z, int zona, int color, Tipopieza* tpieza );

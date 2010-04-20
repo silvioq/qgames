@@ -16,8 +16,8 @@
 #include  "simbolos.h"
 #include  "tipojuego.h"
 #include  "pieza.h"
-#include  "posicion.h"
 #include  "movida.h"
+#include  "posicion.h"
 #include  "partida.h"
 #include  "log.h"
 

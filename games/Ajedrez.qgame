@@ -73,7 +73,7 @@ define:     al_paso direccion
             direccion
             parar if !ocupado_enemigo?
             parar if !destino_anterior?
-            parar if !pieza_en_casillero?( peon )
+            parar if !ocupado? peon 
             n; n
             parar if !origen_anterior?
             casillero_inicial

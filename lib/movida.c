@@ -190,6 +190,8 @@ void  movida_split_transformaciones( _list* movs ){
 Posicion*  movida_ejecuta( Movida* mov ){
     //
     Posicion*  pos = posicion_dup( mov->pos );
+    pos->pos_anterior = mov->pos;
+    pos->mov_anterior = mov;
     int i;
     for( i = 0; i < mov->acciones->entradas; i ++ ){
         Accion* acc = (Accion*) mov->acciones->data[i];
