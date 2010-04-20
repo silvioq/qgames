@@ -244,7 +244,7 @@ int    analizador_juega  ( Analizador* z, Casillero* cas, int con_captura ){
     if( !CASILLERO_VALIDO( ccc ) ) return STATUS_NORMAL;
 #endif
     if( !z->movidas ) z->movidas = list_nueva( NULL );
-    if( !z->mov_actual ) z->mov_actual = movida_new( z->pos );
+    if( !z->mov_actual ) z->mov_actual = movida_new( z->pos, z->pieza );
     movida_accion_mueve( z->mov_actual, z->pieza, ccc );
     LOGPRINT( 6, "Juega %s en %s captura = %d", z->pieza->tpieza->nombre, ccc->nombre, con_captura );
     if( TIPOJUEGO_CAPTURAIMPLICITA(z->pos->tj) || con_captura ){
@@ -337,10 +337,16 @@ int    analizador_transforma( Analizador* z, int owner, Tipopieza* tpieza ){
     } else if ( owner > 0 ){
         color = owner;
     }
-    if( !z->mov_actual ) z->mov_actual = movida_new( z->pos );
+    if( !z->mov_actual ) z->mov_actual = movida_new( z->pos, z->pieza );
     z->flags |= CON_TRANSFORMACION;
     LOGPRINT( 6, "transformando %s en %s", z->pieza->tpieza->nombre, tpieza->nombre );
     movida_accion_transforma( z->mov_actual, z->pieza, color, tpieza );
+    return  STATUS_NORMAL;
+}
+
+int    analizador_asigna_att( Analizador* z, char* att, int val ){
+    if( !z->mov_actual ) z->mov_actual = movida_new( z->pos, z->pieza );
+    movida_accion_asigna_att( z->mov_actual, z->pieza, att, val );
     return  STATUS_NORMAL;
 }
 

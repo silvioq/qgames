@@ -149,10 +149,15 @@ define\:        { define_created = 0; BEGIN(define_head);   }
 <code>not                 { return TOK_NOT;       }
 
 <code>ahogado\??                  { return  TOK_AHOGADO;   }
+<code>asigna{BAR}atributo         { return  TOK_ASIGNA_ATT; }
+<code>asigna{BAR}att              { return  TOK_ASIGNA_ATT; }
 <code>atacado{BAR}enemigo\??      { return  TOK_ATACADO_ENEMIGO; }
 <code>cantidad{BAR}piezas\??                  { return  TOK_CANTIDAD_PIEZAS; }
 <code>cantidad{BAR}piezas{BAR}propi(a|o)s?    { return  TOK_CANTIDAD_PIEZAS_PROPIAS; }
 <code>cantidad{BAR}piezas{BAR}enemig(a|o)s?   { return  TOK_CANTIDAD_PIEZAS_ENEMIGAS; }
+<code>captura{BAR}y{BAR}juega                 { return  TOK_CAPTURA_Y_JUEGA; }
+<code>captura{BAR}y{BAR}juega{BAR}si          { return  TOK_CAPTURA_Y_JUEGA_SI; }
+<code>captura{BAR}y{BAR}juega{SPACES}if       { return  TOK_CAPTURA_Y_JUEGA_SI; }
 <code>casillero{BAR}inicial     { return  TOK_CASILLERO_INICIAL; }
 <code>empata                 { return TOK_EMPATA;    }
 <code>empata\-si             { return TOK_EMPATA_SI; }
@@ -163,6 +168,7 @@ define\:        { define_created = 0; BEGIN(define_head);   }
 <code>jaquemate\??           { return TOK_JAQUEMATE; }
 <code>juega                  { return TOK_JUEGA;     } 
 <code>juega{BAR}si           { return TOK_JUEGA_SI;  }
+<code>juega{SPACES}if        { return TOK_JUEGA_SI;  }
 <code>ocupado\??             { return TOK_OCUPADO;   }
 <code>ocupado{BAR}enemigo\?? { return TOK_OCUPADOENEMIGO;   }
 <code>ocupado{BAR}propio\??  { return TOK_OCUPADOPROPIO;   }
@@ -170,6 +176,7 @@ define\:        { define_created = 0; BEGIN(define_head);   }
 <code>ocupado{BAR}propio\??  { return TOK_OCUPADOPROPIO;   }
 <code>parar?                 { return  TOK_PARA;        }
 <code>parar?{BAR}si          { return  TOK_PARA_SI;     }
+<code>parar{SPACES}if        { return  TOK_PARA_SI;     }
 <code>pierde                 { return  TOK_PIERDE;      }
 <code>pierde{BAR}si          { return  TOK_PIERDE_SI;   }
 <code>transformar?           { return  TOK_TRANSFORMA;  }
@@ -181,17 +188,19 @@ define\:        { define_created = 0; BEGIN(define_head);   }
 <code>while               { return  TOK_WHILE;       }
 
 
-<INITIAL,code>\-?[0-9]+  { 
-                  qgzlval = atol(yytext); 
-                  return TOK_NUMBER;
-                }
+<INITIAL,code>\-?[0-9]+           { 
+                                    qgzlval = atol(yytext); 
+                                    return TOK_NUMBER;
+                                  }
 
-<INITIAL>{WORD} { 
-                  qgzlval = (long)strdup(yytext); 
-                  ((char*)(long)qgzlval)[yyleng] = 0;
-                  qgzprintf( "WORD: %s", (char*)(long)qgzlval  );
-                  return  TOK_WORD; 
-                }
+<INITIAL,code>true                { qgzlval = 1; return TOK_NUMBER; }
+<INITIAL,code>false               { qgzlval = 0; return TOK_NUMBER; }
+<INITIAL>{WORD}                   { 
+                                    qgzlval = (long)strdup(yytext); 
+                                    ((char*)(long)qgzlval)[yyleng] = 0;
+                                    qgzprintf( "WORD: %s", (char*)(long)qgzlval  );
+                                    return  TOK_WORD; 
+                                  }
 
 <INITIAL,code>[ \t\r]+        /* ignore whitespace */
 <INITIAL,code>\#[^\n]*        /* ignora comentario */

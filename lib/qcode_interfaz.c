@@ -81,6 +81,13 @@ long  code_wrapper_cuentapiezas( QCodeVM* vm ){
     return (long)analizador_cuenta_piezas( z, c, color, t );
 }
 
+long  code_wrapper_asigna_att( QCodeVM* vm ){
+    Analizador* z = (Analizador*)qcode_pop( vm );
+    char* att  = (char*)qcode_pop(vm);
+    int   val  = (int)qcode_pop(vm);
+    return (long)analizador_asigna_att( z, att, val );
+}
+
 
 long  code_wrapper_juega( QCodeVM* vm ){
     Analizador* z = (Analizador*)qcode_pop( vm );
@@ -156,7 +163,8 @@ long  code_wrapper_dump( QCodeVM* vm ){
 void  code_initialize( QCode** qcode ){
     QCode*  q;
     q = qcode_new();
-    qcode_xcrlab( q, "atacado",   (qcode_extfunc)code_wrapper_atacado );
+    qcode_xcrlab( q, "asigna_att",   (qcode_extfunc)code_wrapper_asigna_att );
+    qcode_xcrlab( q, "atacado",      (qcode_extfunc)code_wrapper_atacado );
     qcode_xcrlab( q, "cuentapiezas", (qcode_extfunc)code_wrapper_cuentapiezas );
     qcode_xcrlab( q, "ocupado",   (qcode_extfunc)code_wrapper_ocupado );
     qcode_xcrlab( q, "jaquemate", (qcode_extfunc)code_wrapper_jaquemate );

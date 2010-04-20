@@ -313,6 +313,21 @@ void        tipojuego_code_juega  ( Tipojuego* tj, char* casillero, int captura 
     RET_IF_STATUS;                              // Retorna si el valor es distinto de cero
 }
 
+
+
+void        tipojuego_code_asigna_att( Tipojuego* tj, char* att, int val ){
+    qcode_op( tj->qcode, QCSTI,  1, val );      // r1 = val
+    qcode_op( tj->qcode, QCPSH,  1, 0 );        // PSH r1
+    qcode_op( tj->qcode, QCSTI,  1, (long)att );// r1 = att
+    qcode_op( tj->qcode, QCPSH,  1, 0 );        // PSH r1
+    qcode_op( tj->qcode, QCPSH,  3, 0 );        // PSH r3
+    qcode_opnlab( tj->qcode, QCCLX, "asigna_att" );
+    RET_IF_STATUS;                              // Retorna si el valor es distinto de cero
+}
+
+
+
+
 void        tipojuego_code_para  ( Tipojuego* tj ){
     qcode_op( tj->qcode, QCRET,  0, 0 );        // RET
 }

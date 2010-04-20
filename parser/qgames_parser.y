@@ -115,7 +115,9 @@ void  qgzprintf( char* format, ... ){
 %token    TOK_SEPCODE
 
 %token    TOK_AHOGADO
+%token    TOK_ASIGNA_ATT
 %token    TOK_ATACADO_ENEMIGO
+%token    TOK_CAPTURA        TOK_CAPTURA_SI        TOK_CAPTURA_Y_JUEGA   TOK_CAPTURA_Y_JUEGA_SI
 %token    TOK_CASILLERO_INICIAL
 %token    TOK_EMPATA    TOK_EMPATA_SI
 %token    TOK_ENTABLERO
@@ -428,17 +430,40 @@ instaction_movs:
                     }
     };
 
+
+instaction_asigna_att:
+    TOK_ASIGNA_ATT  word_or_string  TOK_NUMBER {
+          CHECK_TIPOJUEGO;
+          tipojuego_code_asigna_att( tipojuego, (char*)$2, $3 );
+    } |
+    TOK_ASIGNA_ATT  word_or_string ',' TOK_NUMBER {
+          CHECK_TIPOJUEGO;
+          tipojuego_code_asigna_att( tipojuego, (char*)$2, $4 );
+    } 
+
+
+
 instaction_juega:
     TOK_JUEGA   {
             CHECK_TIPOJUEGO;
             tipojuego_code_juega( tipojuego, NULL, 0 );
     }  | 
+    TOK_CAPTURA_Y_JUEGA {
+            CHECK_TIPOJUEGO;
+            tipojuego_code_juega( tipojuego, NULL, 1 );
+    } |
     TOK_JUEGA_SI   instexpr {
             CHECK_TIPOJUEGO;
             tipojuego_code_start_condblock( tipojuego );
             tipojuego_code_juega( tipojuego, NULL, 0 );
             tipojuego_code_end_condblock( tipojuego );
-    };
+    } |
+    TOK_CAPTURA_Y_JUEGA_SI  instexpr {
+            CHECK_TIPOJUEGO;
+            tipojuego_code_start_condblock( tipojuego );
+            tipojuego_code_juega( tipojuego, NULL, 1 );
+            tipojuego_code_end_condblock( tipojuego );
+    } ;
  
 
 instaction_para:
@@ -480,6 +505,7 @@ instaction_while:
     
 
 instaction:
+    instaction_asigna_att |
     instaction_juega |
     instaction_final |
     instaction_if    |
@@ -526,18 +552,10 @@ code_list:
 /* A partir de aqui van las instrucciones generales del tipo de juego          */
 /* --------------------------------------------------------------------------- */
 instruction_attr:
-    TOK_ATTR     word_or_string  word_or_string
+    TOK_ATTR     word_or_string  TOK_NUMBER
                    {  CHECK_TIPOJUEGO ;
                       CHECK_LAST_PIEZA;
-                      int  def = 0;
-                      if( strcasecmp( ((char*)$3), "false" ) == 0 ){
-                          def = 0;
-                      } else if( strcasecmp( ((char*)$3), "true" ) == 0 ){
-                          def = 1;
-                      } else {
-                          def = atoi( ((char*)$3) );
-                      }
-                      tipojuego_add_tpieza_att( tipojuego, last_pieza, ((char*)$2), def );
+                      tipojuego_add_tpieza_att( tipojuego, last_pieza, ((char*)$2), $3 );
                     }
                  ;
 

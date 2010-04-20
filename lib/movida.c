@@ -22,11 +22,12 @@
 
 // -----------------------------------------------------------------
 
-Movida*   movida_new( Posicion* pos ){
+Movida*   movida_new( Posicion* pos, Pieza* pie ){
   Movida* m;
   m = ALLOC( sizeof( Movida ) );
   memset( m, 0, sizeof( Movida ) );
   m->pos = pos;
+  if( pie ) m->piece_number = pie->number;
   return m;
 }
 
@@ -75,6 +76,19 @@ void   movida_accion_transforma( Movida* mov, Pieza* p, int color, Tipopieza* tp
     list_agrega( mov->acciones, acc );
 }
 
+/*
+ * Esta accion asigna un atributo a una pieza
+ * */
+void  movida_accion_asigna_att( Movida* mov, Pieza* p, char* att, int val ){
+    Accion* acc = accion_new();
+    acc->tipo = ACCION_ASIGNA_ATT;
+    acc->pieza_number = p->number;
+    acc->att_key      = att;
+    acc->att_val      = val;
+    if( !mov->acciones ) mov->acciones = list_nueva( NULL );
+    list_agrega( mov->acciones, acc );
+}
+
 
 /*
  * Limpia todo lo que tiene la movida, que no es mucho, por 
@@ -98,9 +112,10 @@ void  movida_free( Movida* mov ){
  * */
 
 Movida*   movida_dup( Movida* mov ){
-    Movida*  movnew = movida_new( mov->pos );
+    Movida*  movnew = movida_new( mov->pos, NULL );
     if( mov->notacion ) movnew->notacion = strdup( mov->notacion );
     int i;
+    movnew->piece_number = mov->piece_number;
     movnew->tmov     = mov->tmov;
     movnew->continua = mov->continua;
     movnew->acciones = list_nueva( NULL );
@@ -235,19 +250,7 @@ Casillero*   movida_casillero_destino( Movida* mov ){
  * pieza de la estructura, para posteriores usos
  * */
 Pieza*       movida_pieza( Movida* mov ){
-    Accion* acc;
-    if( mov->pieza ) return mov->pieza;
-    if( !mov->acciones ) return NULL;
-    list_inicio( mov->acciones );
-    while( acc = (Accion*)list_siguiente( mov->acciones ) ){
-        switch( acc->tipo ){
-            case  ACCION_MUEVE:
-                mov->pieza = (Pieza*) mov->pos->piezas->data[acc->pieza_number];
-                return  mov->pieza;
-        }
-            
-    }
-    return  NULL;
+    return mov->pos->piezas->data[mov->piece_number];
 }
 
 

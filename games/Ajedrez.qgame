@@ -124,21 +124,21 @@ move:
             movida_derecho "n; o"
 
 piece:      caballo
-move:       caballo
+move:       
             movida_caballo 'n; n; e'
-move:       caballo
+move:       
             movida_caballo 'n; n; o'
-move:       caballo
+move:       
             movida_caballo 's; s; e'
-move:       caballo
+move:       
             movida_caballo 's; s; o'
-move:       caballo
+move:       
             movida_caballo 'e; e; s'
-move:       caballo
+move:       
             movida_caballo 'o; o; s'
-move:       caballo
+move:     
             movida_caballo 'e; e; n'
-move:       caballo
+move:      
             movida_caballo 'o; o; n' 
 
 piece:      "peon"
@@ -147,7 +147,9 @@ move:
             n
             parar if !en_tablero?
             parar if ocupado? 
-            transforma 'caballo', 'alfil', 'torre', 'dama' if en_zona? 'coronacion'
+            if  en_zona? coronacion
+               transforma 'caballo', 'alfil', 'torre', 'dama'
+            end
             juega
             if en_zona? 'peones'
               n; juega if !ocupado?
@@ -157,12 +159,16 @@ move:
 move:
             n; e; 
             if ocupado_enemigo? 
-              transforma 'caballo', 'alfil', 'torre', 'dama' if en_zona? 'coronacion'
+              if en_zona? coronacion
+                transforma 'caballo', 'alfil', 'torre', 'dama'
+              end
               captura_y_juega
             end
             casillero_inicial; n; o;
             if ocupado_enemigo? 
-              transforma 'caballo', 'alfil', 'torre', 'dama' if en_zona? coronacion
+              if en_zona? coronacion
+                transforma 'caballo', 'alfil', 'torre', 'dama'
+              end
               captura_y_juega
             end
 

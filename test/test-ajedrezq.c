@@ -170,9 +170,10 @@ int  main(int argc, char** argv) {
     assert( partida_mover_pgn( partida, prueba4 ) );
     assert( partida_final( partida, NULL ) == 2 ); // gana el negro
 
-    printf( "\n" );
-
     los_alamos() ;
+
+
+    printf( "\n" );
 
     return  EXIT_SUCCESS;
 }
