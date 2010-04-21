@@ -3193,7 +3193,6 @@ int    switch_to_define( ){
     line_buffer[sp_buffer] = qgzlineno;
     qgzlineno = 1;
     newdata_buffer[sp_buffer] = data;
-    printf( "el tamaño es %d\n", strlen( data ) );
     defname_buffer[sp_buffer] = defactual;
     sp_buffer ++;
 

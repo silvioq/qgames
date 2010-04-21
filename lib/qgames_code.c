@@ -144,8 +144,8 @@ long        tipojuego_code_start_block( Tipojuego* tj ){
  * */
 void        tipojuego_code_end_block( Tipojuego* tj, long block ){
     struct  codeBlock* cb = (struct codeBlock*)block;
-    FREE(cb);
     qcode_label( tj->qcode, cb->label_end );
+    FREE(cb);
 }
 
 void        tipojuego_code_break_block( Tipojuego* tj, long block ){

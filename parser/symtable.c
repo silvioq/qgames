@@ -99,7 +99,7 @@ int        symtable_resolve( symtable* sym, char* name, int argc, char** argv, c
     symdef* def = symtable_search( sym, name );
     if( !def ) return 0;
     int  len = strlen( def->def );
-    int  aloc = len;
+    int  aloc = len + 256;
     int  i;
     char* ret = ALLOC( aloc );
 
@@ -118,7 +118,7 @@ int        symtable_resolve( symtable* sym, char* name, int argc, char** argv, c
             // En len_from, tengo la longitud de lo que quiero reemplazar
             // En len_to    tengo la longitud del nuevo string;
             // Si len - len_from + len_to > alloc, realoco y comienzo nuevamente
-            if( len - len_from + len_to > aloc ){
+            if( len - len_from + len_to + 5 > aloc ){
                 aloc += - len_from + len_to + 10 ;
                 ret = REALLOC( ret, aloc );
                 strpoint = ret;
