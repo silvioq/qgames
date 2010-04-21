@@ -85,7 +85,7 @@ Partida*  partida_new( Tipojuego* tjuego, char* id_par ){
 
     // Calculo el id
     if( id_par ){
-        par->id = strdup( id_par );
+        par->id = STRDUP( id_par );
     } else {
         char  aux[256];
         unsigned char  aux2[16];
@@ -128,7 +128,7 @@ Partida*  partida_new( Tipojuego* tjuego, char* id_par ){
 
 void  partida_free( Partida* par ){
     if( par->pos ) posicion_free( par->pos );
-    if( par->id ) free( par->id );
+    if( par->id ) FREE( par->id );
     if( par->movimientos ){
         int  i;
         for( i = 0; i < par->movimientos->entradas; i ++ ){
@@ -137,7 +137,7 @@ void  partida_free( Partida* par ){
         }
         list_free( par->movimientos );
     }
-    free( par );
+    FREE( par );
 }
 
 

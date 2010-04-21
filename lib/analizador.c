@@ -54,7 +54,7 @@ _list*   analizador_evalua_movidas( Regla* regla, Posicion* pos, Pieza* pieza, C
           movidas );
 
     posicion_free( z->pos );
-    free( z );
+    FREE( z );
 
 
     return movidas;
@@ -80,13 +80,13 @@ int      analizador_evalua_final  ( Regla* regla, Posicion* pos, Pieza* pieza, C
     LOGPRINT( 6, "Fin del analisis de final status = %d", z->status );
 
     if( z->status == STATUS_EOG ){
-        if( resultado ) *resultado = strdup( z->resultado );
+        if( resultado ) *resultado = STRDUP( z->resultado );
         ret =  z->color_ganador ? z->color_ganador : FINAL_EMPATE;
         LOGPRINT( 4, "Fin de partida detectado %d => %s", ret, z->resultado );
-        if( z->resultado ) free( z->resultado ); 
+        if( z->resultado ) FREE( z->resultado ); 
     }       
     else ret =  FINAL_ENJUEGO;
-    free( z );
+    FREE( z );
     return ret;
 
 }
@@ -272,20 +272,42 @@ int    analizador_juega  ( Analizador* z, Casillero* cas, int con_captura ){
     movida_accion_mueve( z->mov_actual, z->pieza, ccc );
     LOGPRINT( 6, "Juega %s en %s captura = %d", z->pieza->tpieza->nombre, ccc->nombre, con_captura );
     if( TIPOJUEGO_CAPTURAIMPLICITA(z->pos->tj) || con_captura ){
-        int i;
+        analizador_captura( z, ccc );
+/*        int i;
         for( i = 0; i < z->pos->piezas->entradas; i ++ ){
             Pieza* pp = (Pieza*)z->pos->piezas->data[i];
             if( pp == z->pieza ) continue;
             if( pp->casillero == ccc){
                 movida_accion_captura( z->mov_actual, pp );
             }
-        }
+        }*/
     }
     list_agrega( z->movidas, z->mov_actual );
     z->mov_actual = NULL;
     return  STATUS_NORMAL;
 }
 
+int    analizador_captura  ( Analizador* z, Casillero* cas  ){
+    CHECK_STATUS ;
+    Casillero* ccc = ( cas ? cas : z->cas );
+#if(OUTOFBOARD_ISERROR)
+    if( !CASILLERO_VALIDO( ccc ) ) return STATUS_OUTOFBOARD;
+#else
+    if( !CASILLERO_VALIDO( ccc ) ) return STATUS_NORMAL;
+#endif
+    if( !z->movidas ) z->movidas = list_nueva( NULL );
+    if( !z->mov_actual ) z->mov_actual = movida_new( z->pos, z->pieza );
+    int i;
+    for( i = 0; i < z->pos->piezas->entradas; i ++ ){
+        Pieza* pp = (Pieza*)z->pos->piezas->data[i];
+        if( !pp ) continue;
+        if( pp == z->pieza ) continue;
+        if( pp->casillero == ccc){
+            movida_accion_captura( z->mov_actual, pp );
+        }
+    }
+    return  STATUS_NORMAL;
+}
 
 
 int   analizador_direccion( Analizador* z, Direccion* dir ){
@@ -406,7 +428,7 @@ int   analizador_final( Analizador* z, int color, int res ){
         case EMPATA:
             z->color_ganador = 0;
             z->status        = STATUS_EOG;
-            z->resultado     = strdup( "Draw" );
+            z->resultado     = STRDUP( "Draw" );
             break;
         case GANA:
             z->color_ganador = ( color ? color : z->color );

@@ -45,7 +45,7 @@ static char * getline (const char *prompt)
 {
   static char *buf = NULL;        /* Always allocated and freed
                                    from inside this function.  */
-  if(buf) free(buf);
+  if(buf) FREE(buf);
 
   buf = (char *) readline ((char *) prompt);
   if (buf && *buf) add_history (buf);

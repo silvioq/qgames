@@ -7,6 +7,7 @@
 
 #include  <stdlib.h>
 #include  <string.h>
+#include  <stdio.h>
 #include  <assert.h>
 
 #include  "qgames.h"
@@ -20,7 +21,7 @@ Tipopieza*  tipopieza_new( Tipojuego* tj, char* nombre ){
 
     Tipopieza* t = ALLOC( sizeof( Tipopieza ) );
     memset( t, 0, sizeof( Tipopieza ) );
-    t->nombre = strdup( nombre );
+    t->nombre = STRDUP( nombre );
     t->tipojuego = tj;
     return t;
 

@@ -46,7 +46,7 @@ char*   notacion_resolver_mov( Notacion* nott, Movida* mov, char* def );
                 if( prefix ){ \
                     char* data = ALLOC( strlen( nom ) + strlen( prefix ) + 3 ); \
                     sprintf( data, "%s-%s", prefix, nom ); \
-                    free( nom ); \
+                    FREE( nom ); \
                     nom = data; \
                 }
 
@@ -80,7 +80,7 @@ void    notacion_resolver_movidas( Tipojuego* tjuego, _list* movs, char* prefix 
                 tiene_iguales = 1;
                 char*  nom = notacion_resolver_mov( tjuego->notacion, mmm2, rep );
                 AGREGAR_PREFIJO(nom);
-                free( mmm2->notacion );
+                FREE( mmm2->notacion );
                 mmm2->notacion = nom;
                 
             }
@@ -88,7 +88,7 @@ void    notacion_resolver_movidas( Tipojuego* tjuego, _list* movs, char* prefix 
         if( tiene_iguales ){
             char*  nom = notacion_resolver_mov( tjuego->notacion, mmm, rep );
             AGREGAR_PREFIJO(nom);
-            free( mmm->notacion );
+            FREE( mmm->notacion );
             mmm->notacion = nom;
         }
         

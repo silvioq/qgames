@@ -49,6 +49,7 @@ int      analizador_evalua_final  ( Regla* regla, Posicion* pos, Pieza* pieza, C
 
 
 int    analizador_juega  ( Analizador* z, Casillero* cas, int con_captura );
+int    analizador_captura( Analizador* z, Casillero* cas );
 int    analizador_transforma( Analizador*z, int owner, Tipopieza* tp);
 int    analizador_asigna_att( Analizador* z, char* att, int val );
 

@@ -38,13 +38,13 @@ void   symtable_freedef( symdef* def ){
     if( def->argc ){
         int  i;
         for( i = 0; i < def->argc; i ++ ){
-            free( def->argv[i] );
+            FREE( def->argv[i] );
         }
     }
-    if( def->argv ) free( def->argv );
-    if( def->def  ) free( def->def );
-    free( def->nombre );
-    free( def );
+    if( def->argv ) FREE( def->argv );
+    if( def->def  ) FREE( def->def );
+    FREE( def->nombre );
+    FREE( def );
 }
 
 
@@ -63,7 +63,7 @@ int        symtable_addsym( symtable* sym, char* name ){
     if( symtable_search( sym, name ) ) return 0;
     symdef* sd = ALLOC( sizeof( symdef ) );
     memset( sd, 0, sizeof( symdef ) );
-    sd->nombre = strdup( name );
+    sd->nombre = STRDUP( name );
     list_agrega( L(sym), sd );
     return 1;
 }
@@ -73,14 +73,14 @@ int        symtable_adddef( symtable* sym, char* name, int argc, char** argv, ch
     if( symtable_search( sym, name ) ) return 0;
     symdef* sd = ALLOC( sizeof( symdef ) );
     memset( sd, 0, sizeof( symdef ) );
-    sd->nombre = strdup( name );
+    sd->nombre = STRDUP( name );
     sd->argv   = ALLOC( sizeof( char* ) * argc );
     sd->argc   = argc;
     int  i;
     for( i = 0; i < argc; i ++ ){
-        sd->argv[i] = strdup( argv[i] );
+        sd->argv[i] = STRDUP( argv[i] );
     }
-    sd->def    = strdup( def );
+    sd->def    = STRDUP( def );
     list_agrega( L(sym), sd );
     return 1;
 }

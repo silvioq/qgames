@@ -44,7 +44,7 @@ void       tablero_genera_dimensiones( Tablero* tab, int dimc, char** dimv ){
     tab->dimensiones = list_nueva( NULL );
     tab->dimc = dimc;
     for( i = 0; i < dimc; i ++ ){
-        list_agrega( tab->dimensiones, strdup( dimv[i] ) );
+        list_agrega( tab->dimensiones, STRDUP( dimv[i] ) );
         dimp[i] = dimv[i];
         dimint[i] = 0;
     }

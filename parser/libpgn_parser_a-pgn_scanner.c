@@ -2076,7 +2076,7 @@ void    addmove(char* move){
 
 
 
-#define  FREEVARIABLE(var) if( var ){ free( var ); var = NULL; }
+#define  FREEVARIABLE(var) if( var ){ FREE( var ); var = NULL; }
 
 void   freepgn( ){
 

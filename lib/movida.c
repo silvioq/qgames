@@ -99,12 +99,12 @@ void  movida_free( Movida* mov ){
         int i;
         for( i = 0; i < mov->acciones->entradas; i ++ ){
             // La accion se puede borrar tranquilamente
-            free( mov->acciones->data[i] );
+            FREE( mov->acciones->data[i] );
         }
         list_free( mov->acciones );
     }
-    if( mov->notacion ) free( mov->notacion );
-    free( mov );
+    if( mov->notacion ) FREE( mov->notacion );
+    FREE( mov );
 }
 
 /*
@@ -113,7 +113,7 @@ void  movida_free( Movida* mov ){
 
 Movida*   movida_dup( Movida* mov ){
     Movida*  movnew = movida_new( mov->pos, NULL );
-    if( mov->notacion ) movnew->notacion = strdup( mov->notacion );
+    if( mov->notacion ) movnew->notacion = STRDUP( mov->notacion );
     int i;
     movnew->piece_number = mov->piece_number;
     movnew->tmov     = mov->tmov;
@@ -166,7 +166,7 @@ void  movida_split_transformaciones( _list* movs ){
                     if( acc2->tpieza != acc->tpieza && acc2->tipo == ACCION_TRANSFORMA ){
                         LOGPRINT( 6, "Sacando %s de %p", acc2->tpieza->nombre, mov );
                         list_quita( nueva->acciones, k-- );
-                        free( acc2 );
+                        FREE( acc2 );
                     }
                 }
                 list_agrega( movs, nueva );
@@ -175,7 +175,7 @@ void  movida_split_transformaciones( _list* movs ){
         movida_free( trans[i] );
     }
     
-    free( trans );
+    FREE( trans );
 
 }
 

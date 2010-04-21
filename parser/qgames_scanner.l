@@ -53,22 +53,22 @@ BAR       (\_|\-)?
 
 
 <INITIAL,code>\"    { string_ret = YYSTATE; BEGIN(string); qgzlval = 0; }
-<string>[^\"]*      { qgzlval = (long)strdup(yytext); 
+<string>[^\"]*      { qgzlval = (long)STRDUP(yytext); 
                       return TOK_STRING;
                     }
 <string>\"          { BEGIN(string_ret); 
                       if( !qgzlval ){ 
-                          qgzlval = (long)strdup(""); 
+                          qgzlval = (long)STRDUP(""); 
                           return TOK_STRING; }  
                     }
 
 <INITIAL,code>\'    { string_ret = YYSTATE; BEGIN(string2); qgzlval = 0;  }
-<string2>[^\']*     { qgzlval = (long)strdup(yytext); 
+<string2>[^\']*     { qgzlval = (long)STRDUP(yytext); 
                       return TOK_STRING;
                     }
 <string2>\'         { BEGIN(string_ret); 
                       if( !qgzlval ){ 
-                          qgzlval = (long)strdup(""); 
+                          qgzlval = (long)STRDUP(""); 
                           return TOK_STRING; }  
                     }
 
@@ -114,24 +114,26 @@ zone\:          { return TOK_ZONE;      }
 define\:        { define_created = 0; BEGIN(define_head);   }
 
 <params>\'[^\']*\'        { 
-                            char* str = strdup( ((char*)yytext) + 1 );
+                            char* str = STRDUP( ((char*)yytext) + 1 );
                             str[yyleng - 2] = 0;
                             
                             if( !add_parameter_to_def( str ) ) yyterminate();
+                            // FREE( str );
                             if( parmcount == totalparm ){
                                 if( ! switch_to_define( )) yyterminate();
                             }
                           }
 <params>\"[^\"]*\"        { 
-                            char* str = strdup( ((char*)yytext) + 1 );
+                            char* str = STRDUP( ((char*)yytext) + 1 );
                             str[yyleng - 2] = 0;
                             
                             if( !add_parameter_to_def( str ) ) yyterminate();
+                            // FREE( str );
                             if( parmcount == totalparm ){
                                 if( ! switch_to_define( )) yyterminate();
                             }
                           }
-<params>[^ \n\r,]+        { if( !add_parameter_to_def( strdup( yytext ) ) ) yyterminate();
+<params>[^ \n\r,]+        { if( !add_parameter_to_def( yytext ) ) yyterminate();
                             if( parmcount == totalparm ){
                                 if( ! switch_to_define( ) )yyterminate();
                             }
@@ -153,6 +155,7 @@ define\:        { define_created = 0; BEGIN(define_head);   }
 <code>cantidad{BAR}piezas\??                  { return  TOK_CANTIDAD_PIEZAS; }
 <code>cantidad{BAR}piezas{BAR}propi(a|o)s?    { return  TOK_CANTIDAD_PIEZAS_PROPIAS; }
 <code>cantidad{BAR}piezas{BAR}enemig(a|o)s?   { return  TOK_CANTIDAD_PIEZAS_ENEMIGAS; }
+<code>captura                                 { return  TOK_CAPTURA; }
 <code>captura{BAR}y{BAR}juega                 { return  TOK_CAPTURA_Y_JUEGA; }
 <code>captura{BAR}y{BAR}juega{BAR}si          { return  TOK_CAPTURA_Y_JUEGA_SI; }
 <code>captura{BAR}y{BAR}juega{SPACES}if       { return  TOK_CAPTURA_Y_JUEGA_SI; }
@@ -196,7 +199,7 @@ define\:        { define_created = 0; BEGIN(define_head);   }
 <INITIAL,code>true                { qgzlval = 1; return TOK_NUMBER; }
 <INITIAL,code>false               { qgzlval = 0; return TOK_NUMBER; }
 <INITIAL>{WORD}                   { 
-                                    qgzlval = (long)strdup(yytext); 
+                                    qgzlval = (long)STRDUP(yytext); 
                                     ((char*)(long)qgzlval)[yyleng] = 0;
                                     qgzprintf( "WORD: %s", (char*)(long)qgzlval  );
                                     return  TOK_WORD; 
@@ -214,15 +217,15 @@ define\:        { define_created = 0; BEGIN(define_head);   }
                   int  argc = ( symt ? symtable_argc( symt, yytext ) : -1 );
                   if( argc == 0 ){
                       parmcount = 0;
-                      defactual = strdup( yytext );
+                      defactual = STRDUP( yytext );
                       switch_to_define( );
                   } else if( argc >= 0 ){
                       parmcount = 0;
                       totalparm = argc;
-                      defactual = strdup( yytext );
+                      defactual = STRDUP( yytext );
                       BEGIN(params);
                   } else {
-                      qgzlval = (long)strdup(yytext); 
+                      qgzlval = (long)STRDUP(yytext); 
                       ((char*)(long)qgzlval)[yyleng] = 0;
                       return  TOK_WORD; 
                   }
@@ -233,8 +236,8 @@ define\:        { define_created = 0; BEGIN(define_head);   }
                       yyterminate();
                   } else {  
                       sp_buffer --;
-                      if( newdata_buffer[sp_buffer] ) free( newdata_buffer[sp_buffer] );
-                      if( defname_buffer[sp_buffer] ) free( defname_buffer[sp_buffer] );
+                      if( newdata_buffer[sp_buffer] ) FREE( newdata_buffer[sp_buffer] );
+                      if( defname_buffer[sp_buffer] ) FREE( defname_buffer[sp_buffer] );
                       yy_delete_buffer( YY_CURRENT_BUFFER );
                       yy_switch_to_buffer( buffers[sp_buffer] );
                       yylineno = line_buffer[sp_buffer]  ;
@@ -270,7 +273,7 @@ int    defined( char* d ){
 
 void   create_define( char* d ){
     define_created = 1;    
-    defactual     = strdup( d );
+    defactual     = STRDUP( d );
     define_body   = ALLOC( 1024 );
     define_body[0] = 0;
     define_bodyc  = 0;
@@ -278,7 +281,7 @@ void   create_define( char* d ){
 }
 
 int    add_parameter_to_def( char* p ){
-    defparms[parmcount++] = strdup( p );   
+    defparms[parmcount++] = STRDUP( p );   
     if( parmcount >= MAXPARMS ){ 
         qgzerror( "Se alcanzo el maximo de parametros admitidos" );
         return 0;
@@ -292,10 +295,10 @@ void   generate_define( ){
     if( !symt ) symt = symtable_init( );
     define_body[define_bodyc] = 0;
     symtable_adddef( symt, defactual    , parmcount, defparms, define_body );
-    free( define_body );
-    free( defactual );
+    FREE( define_body );
+    FREE( defactual );
     for( i = 0; i < parmcount ; i ++ ){
-        free( defparms[i] );
+        FREE( defparms[i] );
     }
 }
 
@@ -323,13 +326,14 @@ int    switch_to_define( ){
     line_buffer[sp_buffer] = yylineno;
     yylineno = 1;
     newdata_buffer[sp_buffer] = data;
-    defname_buffer[sp_buffer] = strdup( defactual );
+    printf( "el tamaño es %d\n", strlen( data ) );
+    defname_buffer[sp_buffer] = defactual;
     sp_buffer ++;
 
     for( i = 0; i < parmcount ; i ++ ){
-        free( defparms[i] );
+        FREE( defparms[i] );
     }
-    free( defactual );
+    defactual = NULL;
 
     yy_scan_string( data );
     BEGIN(code);
@@ -339,7 +343,7 @@ int    switch_to_define( ){
 }
 
 
-char*  defname_actual( ){
+const char*  defname_actual( ){
     if( sp_buffer == 0 ) return NULL;
     return( defname_buffer[sp_buffer-1] );
 }

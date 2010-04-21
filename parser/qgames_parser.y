@@ -41,7 +41,7 @@ Tipojuego*   tipojuego  = NULL;
 char*        last_pieza = NULL;
 char*        last_tmov  = NULL;
 
-char*  defname_actual( );
+const  char*  defname_actual( );
 
 #define  CHECK_TIPOJUEGO   \
     if( !tipojuego ){ yyerror( "gametype no definido aun" ); YYERROR; }
@@ -55,7 +55,7 @@ char*  defname_actual( );
     { yyerror( "Aviso: funcion " f " no implementada" ); }
 
 void yyerror(const char *str) { 
-    char  * define = defname_actual(  );
+    const char  * define = defname_actual(  );
     if( define ){ 
         fprintf(stderr,"error: %s (linea: %d - %s)\n",str, qgzlineno, define); 
     } else {
@@ -69,7 +69,7 @@ int qgzwrap() { return 1; }
 void  qgzprintf( char* format, ... ){
   if( !qgz_verbose ) return;
   va_list  a;
-  char* define;
+  const char* define;
   va_start( a, format );
   printf( "%.4d", qgzlineno );
   define = defname_actual( );
@@ -501,7 +501,11 @@ instaction_juega:
             tipojuego_code_start_condblock( tipojuego );
             tipojuego_code_juega( tipojuego, NULL, 1 );
             tipojuego_code_end_condblock( tipojuego );
-    } ;
+    } |
+    TOK_CAPTURA   { 
+            CHECK_TIPOJUEGO;
+            tipojuego_code_captura( tipojuego, NULL );
+    };
  
 
 instaction_para:
@@ -754,8 +758,8 @@ instruction_piece:
     TOK_PIECE        word_or_string  { 
         CHECK_TIPOJUEGO; 
         tipojuego_add_tipopieza( tipojuego, ((char*)$2) ); 
-        if( last_pieza ) free( last_pieza );
-        last_pieza = strdup( ((char*)$2) );
+        if( last_pieza ) FREE( last_pieza );
+        last_pieza = STRDUP( ((char*)$2) );
     };
 
 instruction_start:

@@ -399,8 +399,8 @@ static void yy_fatal_error (yyconst char msg[]  );
 	*yy_cp = '\0'; \
 	(yy_c_buf_p) = yy_cp;
 
-#define YY_NUM_RULES 98
-#define YY_END_OF_BUFFER 99
+#define YY_NUM_RULES 99
+#define YY_END_OF_BUFFER 100
 /* This struct is not used in this scanner,
    but its presence is necessary. */
 struct yy_trans_info
@@ -411,91 +411,91 @@ struct yy_trans_info
 static yyconst flex_int16_t yy_accept[797] =
     {   0,
         0,    0,    2,    2,    5,    5,    0,    0,    0,    0,
-        0,    0,    0,    0,   99,   97,   90,   92,    1,   91,
-        4,   97,   86,   89,   89,   89,   89,   89,   89,   89,
-       89,   89,   89,   89,   89,   89,   89,   89,   89,    2,
-        3,    5,    6,   96,   90,   93,   45,    1,   91,   96,
-        4,   96,   86,   94,   43,   95,   95,   95,   95,   95,
-       95,   95,   95,   95,   95,   95,   95,   95,   95,   95,
-       95,   95,   95,   95,   95,   95,   95,   95,   95,   95,
-       95,   95,   95,   95,   95,    9,    9,   12,   11,   10,
-       39,   98,   40,   39,   39,   90,   91,   86,   89,   89,
+        0,    0,    0,    0,  100,   98,   91,   93,    1,   92,
+        4,   98,   87,   90,   90,   90,   90,   90,   90,   90,
+       90,   90,   90,   90,   90,   90,   90,   90,   90,    2,
+        3,    5,    6,   97,   91,   94,   45,    1,   92,   97,
+        4,   97,   87,   95,   43,   96,   96,   96,   96,   96,
+       96,   96,   96,   96,   96,   96,   96,   96,   96,   96,
+       96,   96,   96,   96,   96,   96,   96,   96,   96,   96,
+       96,   96,   96,   96,   96,    9,    9,   12,   11,   10,
+       39,   99,   40,   39,   39,   91,   92,   87,   90,   90,
 
-       89,   89,   89,   89,   89,   89,   89,   89,   89,   89,
-       89,   89,   89,   89,   89,   89,   89,   89,   89,   89,
-       89,   89,   89,    2,    5,   44,   42,   95,   95,   95,
-       95,   95,   95,   95,   95,   82,   95,   95,   95,   95,
-       83,   95,   95,   95,   95,   95,   95,   95,   95,   95,
-       95,   95,    7,   95,   95,   95,   95,   95,   95,   95,
-       82,   95,   95,   95,   95,   83,   95,   95,   95,   95,
-       95,   95,   95,   95,   95,   95,    0,    8,    0,   10,
-       10,   39,   39,    0,   38,   39,    0,   37,   89,   89,
-       89,   89,   89,   89,   89,   89,   89,   89,   89,   89,
+       90,   90,   90,   90,   90,   90,   90,   90,   90,   90,
+       90,   90,   90,   90,   90,   90,   90,   90,   90,   90,
+       90,   90,   90,    2,    5,   44,   42,   96,   96,   96,
+       96,   96,   96,   96,   96,   83,   96,   96,   96,   96,
+       84,   96,   96,   96,   96,   96,   96,   96,   96,   96,
+       96,   96,    7,   96,   96,   96,   96,   96,   96,   96,
+       83,   96,   96,   96,   96,   84,   96,   96,   96,   96,
+       96,   96,   96,   96,   96,   96,    0,    8,    0,   10,
+       10,   39,   39,    0,   38,   39,    0,   37,   90,   90,
+       90,   90,   90,   90,   90,   90,   90,   90,   90,   90,
 
-       89,   89,   89,   89,   89,   89,   89,   89,   89,   89,
-       89,   95,   41,   95,   95,   95,   95,   95,   95,   95,
-       95,   84,   95,   95,   95,   95,   95,   95,   46,   95,
-       95,   95,   95,   95,   95,   95,   95,   95,   41,   95,
-       95,   95,   95,   95,   95,   95,   95,   84,   95,   95,
-       95,   95,   95,   95,   46,   95,   95,   95,   95,   95,
-       95,   95,   95,   38,   37,   89,   89,   89,   89,   89,
-       89,   89,   89,   89,   89,   89,   22,   89,   89,   89,
-       89,   89,   89,   89,   89,   89,   89,   87,   89,   95,
-       95,   95,   95,   95,   95,   95,   95,   95,   95,   95,
+       90,   90,   90,   90,   90,   90,   90,   90,   90,   90,
+       90,   96,   41,   96,   96,   96,   96,   96,   96,   96,
+       96,   85,   96,   96,   96,   96,   96,   96,   46,   96,
+       96,   96,   96,   96,   96,   96,   96,   96,   41,   96,
+       96,   96,   96,   96,   96,   96,   96,   85,   96,   96,
+       96,   96,   96,   96,   46,   96,   96,   96,   96,   96,
+       96,   96,   96,   38,   37,   90,   90,   90,   90,   90,
+       90,   90,   90,   90,   90,   90,   22,   90,   90,   90,
+       90,   90,   90,   90,   90,   90,   90,   88,   90,   96,
+       96,   96,   96,   96,   96,   96,   96,   96,   96,   96,
 
-       63,   95,   95,   95,   95,   75,   95,   95,   95,   87,
-       95,   95,   95,   95,   95,   95,   95,   95,   95,   95,
-       95,   95,   63,   95,   95,   95,   95,   75,   95,   95,
-       95,   87,   95,   89,   89,   89,   89,   89,   89,   89,
-       19,   89,   88,   89,   23,   89,   89,   89,   89,   89,
-       89,   89,   89,   89,   89,   35,   95,   95,   95,   95,
-       95,   95,   95,   95,   95,   95,   88,   95,   95,   95,
-       66,   95,   95,   95,   75,   95,   95,   95,   95,   85,
-       95,   95,   95,   95,   95,   95,   95,   95,   95,   95,
-       88,   95,   95,   95,   66,   95,   95,   95,   75,   95,
+       64,   96,   96,   96,   96,   76,   96,   96,   96,   88,
+       96,   96,   96,   96,   96,   96,   96,   96,   96,   96,
+       96,   96,   64,   96,   96,   96,   96,   76,   96,   96,
+       96,   88,   96,   90,   90,   90,   90,   90,   90,   90,
+       19,   90,   89,   90,   23,   90,   90,   90,   90,   90,
+       90,   90,   90,   90,   90,   35,   96,   96,   96,   96,
+       96,   96,   96,   96,   96,   96,   89,   96,   96,   96,
+       67,   96,   96,   96,   76,   96,   96,   96,   96,   86,
+       96,   96,   96,   96,   96,   96,   96,   96,   96,   96,
+       89,   96,   96,   96,   67,   96,   96,   96,   76,   96,
 
-       95,   95,   95,   85,   89,   14,   89,   16,   89,   89,
-       89,   89,   89,   89,   89,   89,   26,   89,   28,   89,
-       30,   89,   33,   89,   34,   95,   95,   95,   95,   95,
-       95,   95,   59,   95,   62,   64,   95,    0,   95,   95,
-       95,   95,    0,   76,   78,   95,   95,   95,   95,   95,
-       95,   95,   95,   95,   59,   95,   62,   64,   95,   95,
-       95,   95,   95,   76,   78,   95,   95,   89,   89,   17,
-       36,   89,   20,   89,   89,   89,   89,   89,   89,   89,
-       47,   95,   95,   95,   95,   95,   95,   95,   95,   95,
-       62,   95,    0,   67,   69,   95,   95,    0,   95,   95,
+       96,   96,   96,   86,   90,   14,   90,   16,   90,   90,
+       90,   90,   90,   90,   90,   90,   26,   90,   28,   90,
+       30,   90,   33,   90,   34,   96,   96,   96,   96,   96,
+       96,   96,   60,   96,   63,   65,   96,    0,   96,   96,
+       96,   96,    0,   77,   79,   96,   96,   96,   96,   96,
+       96,   96,   96,   96,   60,   96,   63,   65,   96,   96,
+       96,   96,   96,   77,   79,   96,   96,   90,   90,   17,
+       36,   90,   20,   90,   90,   90,   90,   90,   90,   90,
+       47,   96,   96,   96,   96,   54,   96,   96,   96,   96,
+       63,   96,    0,   68,   70,   96,   96,    0,   96,   96,
 
-       95,   95,   95,   47,   95,   95,   95,   95,   95,   95,
-       95,   95,   95,   62,   95,   67,   69,   95,   95,   95,
-       95,   95,   95,   95,   89,   89,   89,   89,   89,   89,
-       27,   89,   89,   89,   47,   95,   95,   95,   95,   95,
-       95,   95,   95,   95,   95,   95,   95,   68,   95,   69,
-       95,   95,   95,   77,   79,   95,   95,   47,   95,   95,
-       95,   95,   95,   95,   95,   95,   95,   95,   95,   95,
-       95,   69,   95,   95,   95,   79,   95,   95,   89,   89,
-       89,   89,   21,   24,   25,   29,   31,   32,   95,   49,
-       95,   95,   95,   95,   95,   95,   95,   60,   61,   65,
+       96,   96,   96,   47,   96,   96,   96,   96,   54,   96,
+       96,   96,   96,   63,   96,   68,   70,   96,   96,   96,
+       96,   96,   96,   96,   90,   90,   90,   90,   90,   90,
+       27,   90,   90,   90,   47,   96,   96,   96,   96,   96,
+       96,   96,   96,   96,   96,   96,   96,   69,   96,   70,
+       96,   96,   96,   78,   80,   96,   96,   47,   96,   96,
+       96,   96,   96,   96,   96,   96,   96,   96,   96,   96,
+       96,   70,   96,   96,   96,   80,   96,   96,   90,   90,
+       90,   90,   21,   24,   25,   29,   31,   32,   96,   49,
+       96,   96,   96,   96,   96,   96,   96,   61,   62,   66,
 
-       95,   95,   74,   95,   95,   95,   49,   95,   95,   95,
-       95,   95,   95,   95,   60,   61,   65,   95,   95,   74,
-       95,   95,   13,   89,   18,   89,   95,   95,   95,   95,
-       95,   95,   58,   61,   65,   95,   95,   74,   95,   95,
-       80,   95,   95,   95,   95,   95,   95,   58,   61,   65,
-       95,   95,   74,   95,   95,   80,   89,   95,   95,   95,
-       95,   95,   58,   95,   95,   95,   95,   95,   80,   95,
-       95,   95,   95,   95,   58,   95,   95,   95,   95,   95,
-       80,   15,   95,   95,   95,   95,   95,   95,   95,   95,
-       95,   95,   95,   95,   95,   95,   95,   95,   95,   95,
+       96,   96,   75,   96,   96,   96,   49,   96,   96,   96,
+       96,   96,   96,   96,   61,   62,   66,   96,   96,   75,
+       96,   96,   13,   90,   18,   90,   96,   96,   96,   96,
+       96,   96,   59,   62,   66,   96,   96,   75,   96,   96,
+       81,   96,   96,   96,   96,   96,   96,   59,   62,   66,
+       96,   96,   75,   96,   96,   81,   90,   96,   96,   96,
+       96,   96,   59,   96,   96,   96,   96,   96,   81,   96,
+       96,   96,   96,   96,   59,   96,   96,   96,   96,   96,
+       81,   15,   96,   96,   96,   96,   96,   96,   96,   96,
+       96,   96,   96,   96,   96,   96,   96,   96,   96,   96,
 
-       95,   95,   95,   95,   95,   54,   95,   95,   95,   71,
-       95,   95,   95,   95,   95,   54,   95,   95,   95,   71,
-       95,   95,   48,   50,   51,    0,   95,   95,   95,   95,
-       70,   71,   74,   81,   48,   50,   51,   95,   95,   95,
-       95,   70,   71,   74,   81,   50,   95,   51,   95,   95,
-        0,   55,   95,   58,   70,   81,   50,   95,   51,   95,
-       95,   55,   95,   58,   70,   81,   95,   95,   56,   57,
-       95,   95,   57,   95,   95,   95,   95,   95,   95,   95,
-       95,   95,   95,   95,   95,   95,   52,   95,   52,   53,
+       96,   96,   96,   96,   96,   55,   96,   96,   96,   72,
+       96,   96,   96,   96,   96,   55,   96,   96,   96,   72,
+       96,   96,   48,   50,   51,    0,   96,   96,   96,   96,
+       71,   72,   75,   82,   48,   50,   51,   96,   96,   96,
+       96,   71,   72,   75,   82,   50,   96,   51,   96,   96,
+        0,   56,   96,   59,   71,   82,   50,   96,   51,   96,
+       96,   56,   96,   59,   71,   82,   96,   96,   57,   58,
+       96,   96,   58,   96,   96,   96,   96,   96,   96,   96,
+       96,   96,   96,   96,   96,   96,   52,   96,   52,   53,
        52,   53,   52,   53,   53,    0
 
     } ;
@@ -1194,13 +1194,14 @@ static yyconst flex_int16_t yy_chk[2077] =
     } ;
 
 /* Table of booleans, true if rule could match eol. */
-static yyconst flex_int32_t yy_rule_can_match_eol[99] =
+static yyconst flex_int32_t yy_rule_can_match_eol[100] =
     {   0,
 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0,     };
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 
+        };
 
 static yy_state_type yy_last_accepting_state;
 static char *yy_last_accepting_cpos;
@@ -1257,7 +1258,7 @@ char       string_ret ; // donde retorna
 
 
 
-#line 1261 "qgames_scanner.c"
+#line 1262 "qgames_scanner.c"
 
 #define INITIAL 0
 #define string 1
@@ -1424,7 +1425,7 @@ YY_DECL
 
 
 
-#line 1428 "qgames_scanner.c"
+#line 1429 "qgames_scanner.c"
 
 	if ( !(yy_init) )
 		{
@@ -1523,7 +1524,7 @@ case 2:
 /* rule 2 can match eol */
 YY_RULE_SETUP
 #line 56 "qgames_scanner.l"
-{ qgzlval = (long)strdup(qgztext); 
+{ qgzlval = (long)STRDUP(qgztext); 
                       return TOK_STRING;
                     }
 	YY_BREAK
@@ -1532,7 +1533,7 @@ YY_RULE_SETUP
 #line 59 "qgames_scanner.l"
 { BEGIN(string_ret); 
                       if( !qgzlval ){ 
-                          qgzlval = (long)strdup(""); 
+                          qgzlval = (long)STRDUP(""); 
                           return TOK_STRING; }  
                     }
 	YY_BREAK
@@ -1545,7 +1546,7 @@ case 5:
 /* rule 5 can match eol */
 YY_RULE_SETUP
 #line 66 "qgames_scanner.l"
-{ qgzlval = (long)strdup(qgztext); 
+{ qgzlval = (long)STRDUP(qgztext); 
                       return TOK_STRING;
                     }
 	YY_BREAK
@@ -1554,7 +1555,7 @@ YY_RULE_SETUP
 #line 69 "qgames_scanner.l"
 { BEGIN(string_ret); 
                       if( !qgzlval ){ 
-                          qgzlval = (long)strdup(""); 
+                          qgzlval = (long)STRDUP(""); 
                           return TOK_STRING; }  
                     }
 	YY_BREAK
@@ -1720,10 +1721,11 @@ case 37:
 YY_RULE_SETUP
 #line 116 "qgames_scanner.l"
 { 
-                            char* str = strdup( ((char*)qgztext) + 1 );
+                            char* str = STRDUP( ((char*)qgztext) + 1 );
                             str[qgzleng - 2] = 0;
                             
                             if( !add_parameter_to_def( str ) ) yyterminate();
+                            // FREE( str );
                             if( parmcount == totalparm ){
                                 if( ! switch_to_define( )) yyterminate();
                             }
@@ -1732,12 +1734,13 @@ YY_RULE_SETUP
 case 38:
 /* rule 38 can match eol */
 YY_RULE_SETUP
-#line 125 "qgames_scanner.l"
+#line 126 "qgames_scanner.l"
 { 
-                            char* str = strdup( ((char*)qgztext) + 1 );
+                            char* str = STRDUP( ((char*)qgztext) + 1 );
                             str[qgzleng - 2] = 0;
                             
                             if( !add_parameter_to_def( str ) ) yyterminate();
+                            // FREE( str );
                             if( parmcount == totalparm ){
                                 if( ! switch_to_define( )) yyterminate();
                             }
@@ -1745,8 +1748,8 @@ YY_RULE_SETUP
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
-#line 134 "qgames_scanner.l"
-{ if( !add_parameter_to_def( strdup( qgztext ) ) ) yyterminate();
+#line 136 "qgames_scanner.l"
+{ if( !add_parameter_to_def( qgztext ) ) yyterminate();
                             if( parmcount == totalparm ){
                                 if( ! switch_to_define( ) )yyterminate();
                             }
@@ -1754,313 +1757,318 @@ YY_RULE_SETUP
 	YY_BREAK
 case 40:
 YY_RULE_SETUP
-#line 139 "qgames_scanner.l"
+#line 141 "qgames_scanner.l"
 // No hago nada!
 	YY_BREAK
 case 41:
 YY_RULE_SETUP
-#line 142 "qgames_scanner.l"
+#line 144 "qgames_scanner.l"
 { return TOK_AND;       }
 	YY_BREAK
 case 42:
 YY_RULE_SETUP
-#line 143 "qgames_scanner.l"
+#line 145 "qgames_scanner.l"
 { return TOK_DEQUAL;    }
 	YY_BREAK
 case 43:
 YY_RULE_SETUP
-#line 144 "qgames_scanner.l"
+#line 146 "qgames_scanner.l"
 { return TOK_EQUAL;     }
 	YY_BREAK
 case 44:
 YY_RULE_SETUP
-#line 145 "qgames_scanner.l"
+#line 147 "qgames_scanner.l"
 { return TOK_AND;       }
 	YY_BREAK
 case 45:
 YY_RULE_SETUP
-#line 146 "qgames_scanner.l"
+#line 148 "qgames_scanner.l"
 { return TOK_NOT;       }
 	YY_BREAK
 case 46:
 YY_RULE_SETUP
-#line 147 "qgames_scanner.l"
+#line 149 "qgames_scanner.l"
 { return TOK_NOT;       }
 	YY_BREAK
 case 47:
 YY_RULE_SETUP
-#line 149 "qgames_scanner.l"
+#line 151 "qgames_scanner.l"
 { return  TOK_AHOGADO;   }
 	YY_BREAK
 case 48:
 YY_RULE_SETUP
-#line 150 "qgames_scanner.l"
+#line 152 "qgames_scanner.l"
 { return  TOK_ASIGNA_ATT; }
 	YY_BREAK
 case 49:
 YY_RULE_SETUP
-#line 151 "qgames_scanner.l"
+#line 153 "qgames_scanner.l"
 { return  TOK_ASIGNA_ATT; }
 	YY_BREAK
 case 50:
 YY_RULE_SETUP
-#line 152 "qgames_scanner.l"
+#line 154 "qgames_scanner.l"
 { return  TOK_ATACADO_ENEMIGO; }
 	YY_BREAK
 case 51:
 YY_RULE_SETUP
-#line 153 "qgames_scanner.l"
+#line 155 "qgames_scanner.l"
 { return  TOK_CANTIDAD_PIEZAS; }
 	YY_BREAK
 case 52:
 YY_RULE_SETUP
-#line 154 "qgames_scanner.l"
+#line 156 "qgames_scanner.l"
 { return  TOK_CANTIDAD_PIEZAS_PROPIAS; }
 	YY_BREAK
 case 53:
 YY_RULE_SETUP
-#line 155 "qgames_scanner.l"
+#line 157 "qgames_scanner.l"
 { return  TOK_CANTIDAD_PIEZAS_ENEMIGAS; }
 	YY_BREAK
 case 54:
 YY_RULE_SETUP
-#line 156 "qgames_scanner.l"
-{ return  TOK_CAPTURA_Y_JUEGA; }
+#line 158 "qgames_scanner.l"
+{ return  TOK_CAPTURA; }
 	YY_BREAK
 case 55:
 YY_RULE_SETUP
-#line 157 "qgames_scanner.l"
-{ return  TOK_CAPTURA_Y_JUEGA_SI; }
+#line 159 "qgames_scanner.l"
+{ return  TOK_CAPTURA_Y_JUEGA; }
 	YY_BREAK
 case 56:
 YY_RULE_SETUP
-#line 158 "qgames_scanner.l"
+#line 160 "qgames_scanner.l"
 { return  TOK_CAPTURA_Y_JUEGA_SI; }
 	YY_BREAK
 case 57:
 YY_RULE_SETUP
-#line 159 "qgames_scanner.l"
-{ return  TOK_CASILLERO_INICIAL; }
+#line 161 "qgames_scanner.l"
+{ return  TOK_CAPTURA_Y_JUEGA_SI; }
 	YY_BREAK
 case 58:
 YY_RULE_SETUP
-#line 160 "qgames_scanner.l"
-{ return  TOK_DESTINO_ANT; }
+#line 162 "qgames_scanner.l"
+{ return  TOK_CASILLERO_INICIAL; }
 	YY_BREAK
 case 59:
 YY_RULE_SETUP
-#line 161 "qgames_scanner.l"
-{ return TOK_EMPATA;    }
+#line 163 "qgames_scanner.l"
+{ return  TOK_DESTINO_ANT; }
 	YY_BREAK
 case 60:
 YY_RULE_SETUP
-#line 162 "qgames_scanner.l"
-{ return TOK_EMPATA_SI; }
+#line 164 "qgames_scanner.l"
+{ return TOK_EMPATA;    }
 	YY_BREAK
 case 61:
 YY_RULE_SETUP
-#line 163 "qgames_scanner.l"
-{ return TOK_ENTABLERO; }
+#line 165 "qgames_scanner.l"
+{ return TOK_EMPATA_SI; }
 	YY_BREAK
 case 62:
 YY_RULE_SETUP
-#line 164 "qgames_scanner.l"
-{ return TOK_ENZONA;    }
+#line 166 "qgames_scanner.l"
+{ return TOK_ENTABLERO; }
 	YY_BREAK
 case 63:
 YY_RULE_SETUP
-#line 165 "qgames_scanner.l"
-{ return TOK_GANA;      }
+#line 167 "qgames_scanner.l"
+{ return TOK_ENZONA;    }
 	YY_BREAK
 case 64:
 YY_RULE_SETUP
-#line 166 "qgames_scanner.l"
-{ return TOK_GANA_SI;   }
+#line 168 "qgames_scanner.l"
+{ return TOK_GANA;      }
 	YY_BREAK
 case 65:
 YY_RULE_SETUP
-#line 167 "qgames_scanner.l"
-{ return TOK_JAQUEMATE; }
+#line 169 "qgames_scanner.l"
+{ return TOK_GANA_SI;   }
 	YY_BREAK
 case 66:
 YY_RULE_SETUP
-#line 168 "qgames_scanner.l"
-{ return TOK_JUEGA;     } 
+#line 170 "qgames_scanner.l"
+{ return TOK_JAQUEMATE; }
 	YY_BREAK
 case 67:
 YY_RULE_SETUP
-#line 169 "qgames_scanner.l"
-{ return TOK_JUEGA_SI;  }
+#line 171 "qgames_scanner.l"
+{ return TOK_JUEGA;     } 
 	YY_BREAK
 case 68:
 YY_RULE_SETUP
-#line 170 "qgames_scanner.l"
+#line 172 "qgames_scanner.l"
 { return TOK_JUEGA_SI;  }
 	YY_BREAK
 case 69:
 YY_RULE_SETUP
-#line 171 "qgames_scanner.l"
-{ return TOK_OCUPADO;   }
+#line 173 "qgames_scanner.l"
+{ return TOK_JUEGA_SI;  }
 	YY_BREAK
 case 70:
 YY_RULE_SETUP
-#line 172 "qgames_scanner.l"
-{ return  TOK_OCUPADOENEMIGO;   }
+#line 174 "qgames_scanner.l"
+{ return TOK_OCUPADO;   }
 	YY_BREAK
 case 71:
 YY_RULE_SETUP
-#line 173 "qgames_scanner.l"
-{ return  TOK_OCUPADOPROPIO;   }
+#line 175 "qgames_scanner.l"
+{ return  TOK_OCUPADOENEMIGO;   }
 	YY_BREAK
 case 72:
 YY_RULE_SETUP
-#line 174 "qgames_scanner.l"
-{ return  TOK_OCUPADOENEMIGO;   }
+#line 176 "qgames_scanner.l"
+{ return  TOK_OCUPADOPROPIO;   }
 	YY_BREAK
 case 73:
 YY_RULE_SETUP
-#line 175 "qgames_scanner.l"
-{ return  TOK_OCUPADOPROPIO;   }
+#line 177 "qgames_scanner.l"
+{ return  TOK_OCUPADOENEMIGO;   }
 	YY_BREAK
 case 74:
 YY_RULE_SETUP
-#line 176 "qgames_scanner.l"
-{ return  TOK_ORIGEN_ANT; }
+#line 178 "qgames_scanner.l"
+{ return  TOK_OCUPADOPROPIO;   }
 	YY_BREAK
 case 75:
 YY_RULE_SETUP
-#line 177 "qgames_scanner.l"
-{ return  TOK_PARA;        }
+#line 179 "qgames_scanner.l"
+{ return  TOK_ORIGEN_ANT; }
 	YY_BREAK
 case 76:
 YY_RULE_SETUP
-#line 178 "qgames_scanner.l"
-{ return  TOK_PARA_SI;     }
+#line 180 "qgames_scanner.l"
+{ return  TOK_PARA;        }
 	YY_BREAK
 case 77:
 YY_RULE_SETUP
-#line 179 "qgames_scanner.l"
+#line 181 "qgames_scanner.l"
 { return  TOK_PARA_SI;     }
 	YY_BREAK
 case 78:
 YY_RULE_SETUP
-#line 180 "qgames_scanner.l"
-{ return  TOK_PIERDE;      }
+#line 182 "qgames_scanner.l"
+{ return  TOK_PARA_SI;     }
 	YY_BREAK
 case 79:
 YY_RULE_SETUP
-#line 181 "qgames_scanner.l"
-{ return  TOK_PIERDE_SI;   }
+#line 183 "qgames_scanner.l"
+{ return  TOK_PIERDE;      }
 	YY_BREAK
 case 80:
 YY_RULE_SETUP
-#line 182 "qgames_scanner.l"
-{ return  TOK_TRANSFORMA;  }
+#line 184 "qgames_scanner.l"
+{ return  TOK_PIERDE_SI;   }
 	YY_BREAK
 case 81:
 YY_RULE_SETUP
-#line 183 "qgames_scanner.l"
-{ return  TOK_REPITEPOS; }
+#line 185 "qgames_scanner.l"
+{ return  TOK_TRANSFORMA;  }
 	YY_BREAK
 case 82:
 YY_RULE_SETUP
-#line 185 "qgames_scanner.l"
-{ return TOK_DO;        }
+#line 186 "qgames_scanner.l"
+{ return  TOK_REPITEPOS; }
 	YY_BREAK
 case 83:
 YY_RULE_SETUP
-#line 186 "qgames_scanner.l"
-{ return TOK_IF;        }
+#line 188 "qgames_scanner.l"
+{ return TOK_DO;        }
 	YY_BREAK
 case 84:
 YY_RULE_SETUP
-#line 187 "qgames_scanner.l"
-{ return TOK_END;       }
+#line 189 "qgames_scanner.l"
+{ return TOK_IF;        }
 	YY_BREAK
 case 85:
 YY_RULE_SETUP
-#line 188 "qgames_scanner.l"
-{ return  TOK_WHILE;       }
+#line 190 "qgames_scanner.l"
+{ return TOK_END;       }
 	YY_BREAK
 case 86:
 YY_RULE_SETUP
 #line 191 "qgames_scanner.l"
+{ return  TOK_WHILE;       }
+	YY_BREAK
+case 87:
+YY_RULE_SETUP
+#line 194 "qgames_scanner.l"
 { 
                                     qgzlval = atol(qgztext); 
                                     return TOK_NUMBER;
                                   }
 	YY_BREAK
-case 87:
-YY_RULE_SETUP
-#line 196 "qgames_scanner.l"
-{ qgzlval = 1; return TOK_NUMBER; }
-	YY_BREAK
 case 88:
 YY_RULE_SETUP
-#line 197 "qgames_scanner.l"
-{ qgzlval = 0; return TOK_NUMBER; }
+#line 199 "qgames_scanner.l"
+{ qgzlval = 1; return TOK_NUMBER; }
 	YY_BREAK
 case 89:
 YY_RULE_SETUP
-#line 198 "qgames_scanner.l"
+#line 200 "qgames_scanner.l"
+{ qgzlval = 0; return TOK_NUMBER; }
+	YY_BREAK
+case 90:
+YY_RULE_SETUP
+#line 201 "qgames_scanner.l"
 { 
-                                    qgzlval = (long)strdup(qgztext); 
+                                    qgzlval = (long)STRDUP(qgztext); 
                                     ((char*)(long)qgzlval)[qgzleng] = 0;
                                     qgzprintf( "WORD: %s", (char*)(long)qgzlval  );
                                     return  TOK_WORD; 
                                   }
 	YY_BREAK
-case 90:
-YY_RULE_SETUP
-#line 205 "qgames_scanner.l"
-/* ignore whitespace */
-	YY_BREAK
 case 91:
 YY_RULE_SETUP
-#line 206 "qgames_scanner.l"
-/* ignora comentario */
+#line 208 "qgames_scanner.l"
+/* ignore whitespace */
 	YY_BREAK
 case 92:
-/* rule 92 can match eol */
 YY_RULE_SETUP
 #line 209 "qgames_scanner.l"
-{ return  TOK_SEPARATOR ; }
+/* ignora comentario */
 	YY_BREAK
 case 93:
 /* rule 93 can match eol */
 YY_RULE_SETUP
-#line 211 "qgames_scanner.l"
-{ return  TOK_SEPCODE; }
+#line 212 "qgames_scanner.l"
+{ return  TOK_SEPARATOR ; }
 	YY_BREAK
 case 94:
+/* rule 94 can match eol */
 YY_RULE_SETUP
-#line 212 "qgames_scanner.l"
+#line 214 "qgames_scanner.l"
 { return  TOK_SEPCODE; }
 	YY_BREAK
 case 95:
 YY_RULE_SETUP
-#line 213 "qgames_scanner.l"
+#line 215 "qgames_scanner.l"
+{ return  TOK_SEPCODE; }
+	YY_BREAK
+case 96:
+YY_RULE_SETUP
+#line 216 "qgames_scanner.l"
 {
                   int  argc = ( symt ? symtable_argc( symt, qgztext ) : -1 );
                   if( argc == 0 ){
                       parmcount = 0;
-                      defactual = strdup( qgztext );
+                      defactual = STRDUP( qgztext );
                       switch_to_define( );
                   } else if( argc >= 0 ){
                       parmcount = 0;
                       totalparm = argc;
-                      defactual = strdup( qgztext );
+                      defactual = STRDUP( qgztext );
                       BEGIN(params);
                   } else {
-                      qgzlval = (long)strdup(qgztext); 
+                      qgzlval = (long)STRDUP(qgztext); 
                       ((char*)(long)qgzlval)[qgzleng] = 0;
                       return  TOK_WORD; 
                   }
                 }
 	YY_BREAK
-case 96:
+case 97:
 YY_RULE_SETUP
-#line 230 "qgames_scanner.l"
+#line 233 "qgames_scanner.l"
 { return (int) qgztext[0]; }
 	YY_BREAK
 case YY_STATE_EOF(INITIAL):
@@ -2070,30 +2078,30 @@ case YY_STATE_EOF(code):
 case YY_STATE_EOF(define):
 case YY_STATE_EOF(define_head):
 case YY_STATE_EOF(params):
-#line 232 "qgames_scanner.l"
+#line 235 "qgames_scanner.l"
 { if( sp_buffer == 0 ){
                       yyterminate();
                   } else {  
                       sp_buffer --;
-                      if( newdata_buffer[sp_buffer] ) free( newdata_buffer[sp_buffer] );
-                      if( defname_buffer[sp_buffer] ) free( defname_buffer[sp_buffer] );
+                      if( newdata_buffer[sp_buffer] ) FREE( newdata_buffer[sp_buffer] );
+                      if( defname_buffer[sp_buffer] ) FREE( defname_buffer[sp_buffer] );
                       qgz_delete_buffer(YY_CURRENT_BUFFER );
                       qgz_switch_to_buffer(buffers[sp_buffer] );
                       qgzlineno = line_buffer[sp_buffer]  ;
                   }
                 }
 	YY_BREAK
-case 97:
-YY_RULE_SETUP
-#line 244 "qgames_scanner.l"
-
-	YY_BREAK
 case 98:
 YY_RULE_SETUP
 #line 247 "qgames_scanner.l"
+
+	YY_BREAK
+case 99:
+YY_RULE_SETUP
+#line 250 "qgames_scanner.l"
 ECHO;
 	YY_BREAK
-#line 2097 "qgames_scanner.c"
+#line 2105 "qgames_scanner.c"
 
 	case YY_END_OF_BUFFER:
 		{
@@ -3104,7 +3112,7 @@ void qgzfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 247 "qgames_scanner.l"
+#line 250 "qgames_scanner.l"
 
 
 
@@ -3132,7 +3140,7 @@ int    defined( char* d ){
 
 void   create_define( char* d ){
     define_created = 1;    
-    defactual     = strdup( d );
+    defactual     = STRDUP( d );
     define_body   = ALLOC( 1024 );
     define_body[0] = 0;
     define_bodyc  = 0;
@@ -3140,7 +3148,7 @@ void   create_define( char* d ){
 }
 
 int    add_parameter_to_def( char* p ){
-    defparms[parmcount++] = strdup( p );   
+    defparms[parmcount++] = STRDUP( p );   
     if( parmcount >= MAXPARMS ){ 
         qgzerror( "Se alcanzo el maximo de parametros admitidos" );
         return 0;
@@ -3154,10 +3162,10 @@ void   generate_define( ){
     if( !symt ) symt = symtable_init( );
     define_body[define_bodyc] = 0;
     symtable_adddef( symt, defactual    , parmcount, defparms, define_body );
-    free( define_body );
-    free( defactual );
+    FREE( define_body );
+    FREE( defactual );
     for( i = 0; i < parmcount ; i ++ ){
-        free( defparms[i] );
+        FREE( defparms[i] );
     }
 }
 
@@ -3185,13 +3193,14 @@ int    switch_to_define( ){
     line_buffer[sp_buffer] = qgzlineno;
     qgzlineno = 1;
     newdata_buffer[sp_buffer] = data;
-    defname_buffer[sp_buffer] = strdup( defactual );
+    printf( "el tamaño es %d\n", strlen( data ) );
+    defname_buffer[sp_buffer] = defactual;
     sp_buffer ++;
 
     for( i = 0; i < parmcount ; i ++ ){
-        free( defparms[i] );
+        FREE( defparms[i] );
     }
-    free( defactual );
+    defactual = NULL;
 
     qgz_scan_string(data );
     BEGIN(code);
@@ -3201,7 +3210,7 @@ int    switch_to_define( ){
 }
 
 
-char*  defname_actual( ){
+const char*  defname_actual( ){
     if( sp_buffer == 0 ) return NULL;
     return( defname_buffer[sp_buffer-1] );
 }

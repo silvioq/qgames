@@ -150,7 +150,7 @@ char*  seleccionar_menu( Partida* par, int linea, int col ){
     for( i = 0; i < cant; i ++ ){
         char* notacion;
         assert( partida_movidas_data( par, i, &notacion ) );
-        items[i] = new_item( strdup( notacion ), NULL );
+        items[i] = new_item( STRDUP( notacion ), NULL );
     }
     items[i] = NULL;
     menu = new_menu( items );
@@ -200,14 +200,14 @@ char*  seleccionar_menu( Partida* par, int linea, int col ){
     }
 
     if( selected != (ITEM*)-1 ){
-        ret = strdup( item_name(selected ) );
+        ret = STRDUP( item_name(selected ) );
     } else {
         ret = NULL;
     }
 
     for( i = 0; i < cant; i ++ ){
-        free( item_name(items[i]) );
-        free( items[i] );
+        FREE( item_name(items[i]) );
+        FREE( items[i] );
     }
     unpost_menu( menu );
     free_menu( menu );
@@ -229,7 +229,7 @@ void  jugar_partida(Partida* par){
     while(xx = seleccionar_menu(par,1,w + 3)){
         partida_mover_notacion( par, xx );
         
-        free( xx );
+        FREE( xx );
         imprimir_tablero( par, 1 );
         if( partida_final( par, &res ) != FINAL_ENJUEGO ) break;
     }

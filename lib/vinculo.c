@@ -21,5 +21,5 @@ Vinculo* vinculo_new( Casillero* ori, Direccion* dir, Casillero* des ){
 }
 
 void    vinculo_free( Vinculo* vin ){
-    free( vin );
+    FREE( vin );
 }

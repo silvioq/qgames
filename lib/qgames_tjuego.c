@@ -24,14 +24,14 @@
 int  simbolo_id = 0;
 
 #define   SIM_ADD(tj,tipo,nom,ref)  \
-  list_agrega(tj->simbolos, simbolo_new( tipo, strdup(nom), ref ) );
+  list_agrega(tj->simbolos, simbolo_new( tipo, STRDUP(nom), ref ) );
 
 
 #define  TABLERO_ACTUAL(tjuego) ((Tablero*)(tjuego->tableros->data[tjuego->tablero_actual - 1]))
 
 void   free_simbolo( Simbolo* s ){
-    free( s->nombre );
-    free( s );
+    FREE( s->nombre );
+    FREE( s );
 }
 
 /* 
@@ -59,7 +59,7 @@ Tipojuego*   tipojuego_new( char* nombre ){
 
     tj->simbolos = list_nueva( (_list_freefunc)free_simbolo );
 
-    tj->nombre  = strdup( nombre );
+    tj->nombre  = STRDUP( nombre );
     tj->inicial = posicion_new( tj );
     SIM_ADD( tj, SIM_TIPOJUEGO, tj->nombre, 0 );  
 
@@ -226,7 +226,7 @@ int         tipojuego_add_tpieza_att( Tipojuego* tj, char* tpieza, char* att, in
         tp->att_nombres = list_nueva( NULL );
         tp->att_default = list_nueva( NULL );
     }
-    list_agrega( tp->att_nombres, strdup(att) );
+    list_agrega( tp->att_nombres, STRDUP(att) );
     list_agrega( tp->att_default, (void*)(long)default_value );
     return  default_value;
 }

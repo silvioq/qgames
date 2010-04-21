@@ -41,7 +41,7 @@ void   pieza_free( Pieza* p ){
   if( p->atributos ){
       list_free( p->atributos );
   }
-  free( p );
+  FREE( p );
 }
 
 /*

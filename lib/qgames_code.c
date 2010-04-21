@@ -46,7 +46,7 @@ void     push_label_stack( long label ){
         label_stack_data =  (long*)ALLOC( sizeof( long ) * 10 );
         label_stack_size = 10;
     }
-    if( label_stack_point <= label_stack_size ){
+    if( label_stack_point >= label_stack_size ){
         label_stack_size += 10;
         label_stack_data = (long*) REALLOC( label_stack_data, sizeof( long ) * label_stack_size );
     }
@@ -144,7 +144,7 @@ long        tipojuego_code_start_block( Tipojuego* tj ){
  * */
 void        tipojuego_code_end_block( Tipojuego* tj, long block ){
     struct  codeBlock* cb = (struct codeBlock*)block;
-    free(cb);
+    FREE(cb);
     qcode_label( tj->qcode, cb->label_end );
 }
 
@@ -325,15 +325,24 @@ void        tipojuego_code_juega  ( Tipojuego* tj, char* casillero, int captura 
         cas = -1;
     }
 
-    qcode_op( tj->qcode, QCSTI, 16, captura );  // t16 = captura
-    qcode_op( tj->qcode, QCPSH, 16, 0 );        // PSH t16
-    qcode_op( tj->qcode, QCSTI, 16, cas );      // t16 = cas     
-    qcode_op( tj->qcode, QCPSH, 16, 0 );        // PSH t16
-    qcode_op( tj->qcode, QCPSH,  3, 0 );        // PSH r3
+    qcode_op( tj->qcode, QCSTI, 1, captura );  // r1 = captura
+    qcode_op( tj->qcode, QCPSH, 1, 0 );        // PSH r1
+    qcode_op( tj->qcode, QCSTI, 1, cas );      // r1 = cas     
+    qcode_op( tj->qcode, QCPSH, 1, 0 );        // PSH r1
+    qcode_op( tj->qcode, QCPSH, 3, 0 );        // PSH r3
     qcode_opnlab( tj->qcode, QCCLX, "juega" );
     RET_IF_STATUS;                              // Retorna si el valor es distinto de cero
 }
 
+void        tipojuego_code_captura( Tipojuego* tj, char* casillero ){
+    long cas = ( casillero ? GETCASILLERO(tj, casillero ) : -1 );
+
+    qcode_op( tj->qcode, QCSTI, 1, cas );      // r1 = cas     
+    qcode_op( tj->qcode, QCPSH, 1, 0 );        // PSH r1
+    qcode_op( tj->qcode, QCPSH, 3, 0 );        // PSH r3
+    qcode_opnlab( tj->qcode, QCCLX, "captura" );
+    RET_IF_STATUS;                              // Retorna si el valor es distinto de cero
+}
 
 
 void        tipojuego_code_asigna_att( Tipojuego* tj, char* att, int val ){
