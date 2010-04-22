@@ -13,6 +13,7 @@
 #include  <stdarg.h>
 #include  <qgames.h>
 
+#include  "log.h"
 #include  "list.h"
 #include  "simbolos.h"
 #include  "tipojuego.h"
@@ -364,9 +365,11 @@ void        tipojuego_code_evalua_att( Tipojuego* tj, char* att ){
 }
 
 
-void       tipojuego_code_setmarca( Tipojuego* tj, char* casillero ){
+void       tipojuego_code_setmarca( Tipojuego* tj, int marca, char* casillero ){
     long cas = ( casillero ? GETCASILLERO(tj, casillero ) : -1 );
     qcode_op( tj->qcode, QCSTI, 1, cas );      // r1 = cas     
+    qcode_op( tj->qcode, QCPSH, 1, 0 );        // PSH r1
+    qcode_op( tj->qcode, QCSTI, 1, marca );    // r1 = marca
     qcode_op( tj->qcode, QCPSH, 1, 0 );        // PSH r1
     qcode_op( tj->qcode, QCPSH, 3, 0 );        // PSH r3
     qcode_opnlab( tj->qcode, QCCLX, "setmarca" );

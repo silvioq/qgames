@@ -79,6 +79,7 @@ int    analizador_origen_ant( Analizador* z, Casillero* cas );
 int    analizador_ahogado( Analizador* z );
 int    analizador_entablero( Analizador* z );
 int    analizador_enzona( Analizador* z, int zona, int color, Tipopieza* tpieza );
+int    analizador_setmarca( Analizador* z, int marca, Casillero* cas);
 int    analizador_jaquemate( Analizador* z, Tipopieza* tpieza );
 
 

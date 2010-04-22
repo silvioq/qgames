@@ -514,7 +514,7 @@ int         tipojuego_start_code(  Tipojuego* tj, char tiporegla, char* tipopiez
   if( tipomov ){
     sm   = tipojuego_get_simbolo( tj, tipomov );
     if( !sm ){
-      printf( "Tipo movimiento %s inexistente (File %s - linea %d\n", tipomov, __FILE__, __LINE__ );
+      printf( "Tipo movimiento %s inexistente (File %s - linea %d)\n", tipomov, __FILE__, __LINE__ );
       exit( EXIT_FAILURE );
     }
     if( sm->tipo != SIM_TIPOMOV ){

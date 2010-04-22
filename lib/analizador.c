@@ -235,6 +235,19 @@ int    analizador_entablero( Analizador* z ){
 }
 
 /*
+ * Esta funcion setea la marca pasada como parametro, con el casillero
+ * definido. Si el casillero es nulo, entonces tomara el actual
+ * */
+int    analizador_setmarca( Analizador* z, int marca, Casillero* cas){
+    Casillero* ccc = ( cas ? cas : z->cas );
+    CHECK_STATUS;
+    if( !z->marcas ) z->marcas = ALLOC( sizeof( Casillero* ) * MARCAS_Q );
+    assert( marca < MARCAS_Q );
+    z->marcas[marca] = ccc;
+    return  STATUS_NORMAL;
+}
+
+/*
  * Esta funcion revisa si en la zona especificada, se encuentra alguna pieza
  * del color pasado como parametro.
  * color: Dueño. Puede ser ENEMIGO, PROPIO, CUALQUIERA o un color

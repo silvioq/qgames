@@ -544,10 +544,10 @@ instaction_para:
 /* Moviendo las cosas de un lugar a otro                  */
 /* ------------------------------------------------------ */
 instaction_mueve:
-    TOK_MUEVE   TOK_PIEZAS_EN_CAS  TOK_WORD  |
-    TOK_MUEVE   TOK_PIEZAS_EN_CAS  instaction_get_marca  |
-    TOK_MUEVE   TOK_WORD           TOK_WORD  |
-    TOK_MUEVE   instaction_get_marca;
+    TOK_MUEVE   TOK_PIEZAS_EN_CAS  TOK_WORD               { NOT_IMPLEMENTED_WARN( "mueve" ); } |
+    TOK_MUEVE   TOK_PIEZAS_EN_CAS  instaction_get_marca   { NOT_IMPLEMENTED_WARN( "mueve" ); } |
+    TOK_MUEVE   TOK_WORD           TOK_WORD               { NOT_IMPLEMENTED_WARN( "mueve" ); } |
+    TOK_MUEVE   instaction_get_marca                      { NOT_IMPLEMENTED_WARN( "mueve" ); } ;
 
 
 /* ------------------------------------------------------ */
@@ -568,8 +568,14 @@ instaction_marca_casillero:
 
 
 instaction_set_marca:
-    TOK_MARCA   TOK_NUMBER   instaction_marca_casillero  { NOT_IMPLEMENTED_WARN( "marca" ); } |
-    TOK_MARCA   instaction_marca_casillero               { NOT_IMPLEMENTED_WARN( "marca" ); } ;
+    TOK_MARCA   TOK_NUMBER   instaction_marca_casillero  { 
+                        CHECK_TIPOJUEGO; 
+                        tipojuego_code_setmarca( tipojuego, $2, (char*)$3 );
+    } |
+    TOK_MARCA   instaction_marca_casillero               { 
+                        CHECK_TIPOJUEGO; 
+                        tipojuego_code_setmarca( tipojuego,  0, (char*)$2 );
+    } ;
 
 
 instaction_get_marca:

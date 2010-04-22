@@ -111,6 +111,14 @@ long  code_wrapper_evalua_att( QCodeVM* vm ){
     return (long)analizador_evalua_att( z, att );
 }
 
+long  code_wrapper_setmarca( QCodeVM* vm ){
+    Analizador* z = (Analizador*)qcode_pop( vm );
+    int  marca    = qcode_pop( vm );
+    Casillero*  c = ZGETCASILLERO( z, qcode_pop( vm ) );
+    if( (long)c == -1 ) c = NULL;
+    return (long)analizador_setmarca( z, marca, c );
+}
+
 long  code_wrapper_captura( QCodeVM* vm ){
     Analizador* z = (Analizador*)qcode_pop( vm );
     Casillero*  c = ZGETCASILLERO( z, qcode_pop( vm ) );
@@ -208,6 +216,7 @@ void  code_initialize( QCode** qcode ){
     qcode_xcrlab( q, "juega",     (qcode_extfunc)code_wrapper_juega );
     qcode_xcrlab( q, "ocupado",   (qcode_extfunc)code_wrapper_ocupado );
     qcode_xcrlab( q, "origen_ant",(qcode_extfunc)code_wrapper_origen_ant );
+    qcode_xcrlab( q, "setmarca"  ,(qcode_extfunc)code_wrapper_setmarca );
     qcode_xcrlab( q, "transforma",(qcode_extfunc)code_wrapper_transforma );
 
     qcode_xcrlab( q, "dump"     , (qcode_extfunc)code_wrapper_dump );

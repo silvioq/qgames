@@ -163,11 +163,13 @@ define\:        { define_created = 0; BEGIN(define_head);   }
 <code>casillero{BAR}inicial                   { return  TOK_CASILLERO_INICIAL; }
 <code>destino{BAR}ant(erior)?\??              { return  TOK_DESTINO_ANT; }
 <code>empata                 { return TOK_EMPATA;    }
-<code>empata\-si             { return TOK_EMPATA_SI; }
+<code>empata{BAR}si          { return TOK_EMPATA_SI; }
+<code>empata{SPACES}if       { return TOK_EMPATA_SI; }
 <code>en{BAR}tablero\??      { return TOK_ENTABLERO; }
 <code>en{BAR}zona\??         { return TOK_ENZONA;    }
 <code>gana                   { return TOK_GANA;      }
 <code>gana{BAR}si            { return TOK_GANA_SI;   }
+<code>gana{SPACES}if         { return TOK_GANA_SI;   }
 <code>marca                  { return TOK_MARCA;     }
 <code>mover                  { return TOK_MUEVE;     }
 <code>mueve                  { return TOK_MUEVE;     }

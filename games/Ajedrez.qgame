@@ -208,13 +208,13 @@ move:       enroque_corto
 move:       enroque_largo
             parar if ya_movido?
             o; parar if ocupado?; parar if atacado_enemigo?
-            destino_torre = aqui
+            marca aqui
             o; parar if ocupado?; parar if atacado_enemigo?
             o; parar if ocupado?
             o; parar if ocupado_enemigo?; 
-            parar if !pieza_en_casillero? torre; 
+            parar if !ocupado? torre; 
             parar if ya_movido?;
-            mueve piezas_en_casillero, destino_torre
+            mueve piezas_en_casillero marca
             casillero_inicial; o; o; 
             asigna_atributo 'ya_movido', true
             juega
@@ -231,8 +231,8 @@ ending:
 ending:
             empata if cantidad_piezas? 2
             parar  if !cantidad_piezas? 3
-            empata if cantidad_piezas? alfil 1
-            empata if cantidad_piezas? caballo 1
+            empata if cantidad_piezas? alfil = 1
+            empata if cantidad_piezas? caballo = 1
 
 sequence:   blanco negro
 start:      torre    blanco  a1  h1
@@ -257,10 +257,10 @@ notation:   torre   R
 notation:   alfil   B
 notation:   caballo N
 notation:   peon    ""
-notation:   marca_captura   x
-notation:   marca_movida   "-"
-notation:   default   nombre_pieza  marca_captura      casillero_destino
-notation:   onrepeat  nombre_pieza  casillero_origen   marca              casillero_destino
+notation:   captured-mark   x
+notation:   mark           "-"
+notation:   default   piece-name  captured-mark      target
+notation:   onrepeat  piece-name  origin             captured-mark    target         
 notation:   enroque_corto   "0-0"
 notation:   enroque_largo   "0-0-0"
 
