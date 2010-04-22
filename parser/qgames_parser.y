@@ -39,7 +39,6 @@ extern FILE* qgzin;
 
 Tipojuego*   tipojuego  = NULL;
 char*        last_pieza = NULL;
-char*        last_tmov  = NULL;
 
 const  char*  defname_actual( );
 
@@ -389,20 +388,37 @@ instexpr:
     instexpr_ocupado |
     instexpr_repitepos |
     TOK_WORD        {    
-            int  algo;
             CHECK_TIPOJUEGO;
             /* una direccion podria ser */
-            algo = tipojuego_get_direccion( tipojuego, (char*)$1 );
-            if( algo != NOT_FOUND ){
-                qgzprintf( "Direccion %s no esperada", (char*)$1 );
+            if( tipojuego_get_direccion( tipojuego, (char*)$1 ) != NOT_FOUND ){
+                    qgzprintf( "Direccion %s no esperada", (char*)$1 );
+                    yyerror( "Direccion no esperada" );
+                    YYERROR;
             } else {
-                algo = tipojuego_get_casillero( tipojuego, (char*)$1 );
-                if( algo != NOT_FOUND ){
+                if( tipojuego_get_casillero( tipojuego, (char*)$1 ) != NOT_FOUND ){
                     qgzprintf( "Casillero %s no esperado", (char*)$1 );
+                    yyerror( "Casillero no esperado" );
+                    YYERROR;
+                } else if( tipojuego_get_att( tipojuego, last_pieza, (char*) $1 ) != NOT_FOUND ) {
+                          NOT_IMPLEMENTED_WARN( "atributo?" );
                 } else {
+                   int  len = strlen( (char*)$1 );
+                   int  hay_algo = 0;
+                   if( len > 0 && ((char*)($1))[len-1] == '?' ){
+                      char* sin_pregunta = STRDUP( (char*) $1 );
+                      sin_pregunta[len-1] = 0;
+                      if( tipojuego_get_att( tipojuego, last_pieza, sin_pregunta ) != NOT_FOUND ){
+                          hay_algo = 1;
+                          NOT_IMPLEMENTED_WARN( "atributo?" );
+                      }
+                      FREE(sin_pregunta);
+                  }
+
+                  if( !hay_algo ){
                     qgzprintf( "%s no es nada", (char*)$1 );
                     yyerror( "Comando no reconocido" );
                     YYERROR;
+                  }
                 }
             }
     };
@@ -555,24 +571,18 @@ instaction:
     instaction_para  |
     instaction_while |
     TOK_WORD    {   
-            int  algo;
             CHECK_TIPOJUEGO;
             /* una direccion podria ser */
             // qgzprintf( "Reconociendo %s", (char*)$1 );
-            algo = tipojuego_get_direccion( tipojuego, (char*)$1 );
-            if( algo != NOT_FOUND ){
-                tipojuego_code_direccion( tipojuego, (char*)$1 );
-            } else {
-                algo = tipojuego_get_casillero( tipojuego, (char*)$1 );
-                if( algo != NOT_FOUND ){
+            if( tipojuego_get_direccion( tipojuego, (char*)$1 ) != NOT_FOUND ){
+                    tipojuego_code_direccion( tipojuego, (char*)$1 );
+            } else if( tipojuego_get_casillero( tipojuego, (char*)$1 ) != NOT_FOUND ){
                     tipojuego_code_casillero( tipojuego, (char*)$1 );
-                } else {
+            } else {
                     qgzprintf( "%s no es nada", (char*)$1 );
                     yyerror( "Comando no reconocido" );
                     YYERROR;
-                }
             }
-
     } ; 
 
 /* --------------------------------------------------------------------------- */
@@ -637,24 +647,24 @@ instruction_direction:
                     };
 
 instruction_drop_prelude:
-    TOK_DROP   |
+    TOK_DROP   { $$ = 0; } |
     TOK_DROP   word_or_string { NOT_IMPLEMENTED; } |
     TOK_DROP   word_or_string  word_or_string { NOT_IMPLEMENTED; } ;
 
 instruction_drop:
-    instruction_drop_prelude  TOK_SEPARATOR { 
+    instruction_drop_prelude  TOK_SEPARATOR {
         CHECK_TIPOJUEGO; 
         CHECK_LAST_PIEZA;
         change_to_code_mode(); 
-        tipojuego_start_code( tipojuego, DROP, last_pieza, last_tmov );
+        tipojuego_start_code( tipojuego, DROP, last_pieza, (char*)($1) );
     }  code_list {
         tipojuego_end_code( tipojuego ) ;
     };
 
 
 instruction_move_prelude:
-    TOK_MOVE                    |
-    TOK_MOVE   word_or_string  { NOT_IMPLEMENTED; } ;
+    TOK_MOVE                   { $$ = 0; } |
+    TOK_MOVE   word_or_string  { $$ = $2; } ;
 
 
 instruction_move:
@@ -662,7 +672,7 @@ instruction_move:
         CHECK_TIPOJUEGO; 
         CHECK_LAST_PIEZA;
         change_to_code_mode(); 
-        tipojuego_start_code( tipojuego, MOVE, last_pieza, last_tmov );
+        tipojuego_start_code( tipojuego, MOVE, last_pieza, (char*)($1) );
     }  code_list {
         tipojuego_end_code( tipojuego ) ;
     };
@@ -691,6 +701,7 @@ instruction_gametype:
 instruction_movetype:
     TOK_MOVETYPE     word_or_string {
         CHECK_TIPOJUEGO;
+        qgzprintf( "Definiendo %s", ((char*)$2) );
         tipojuego_add_tipo_mov( tipojuego, ((char*)$2) );
     }
 

@@ -222,12 +222,7 @@ int         tipojuego_add_tpieza_att( Tipojuego* tj, char* tpieza, char* att, in
     assert( sp->tipo == SIM_TIPOPIEZA );
 
     tp = (Tipopieza*) tj->tipo_piezas->data[sp->ref];
-    if( !tp->att_nombres ){
-        tp->att_nombres = list_nueva( NULL );
-        tp->att_default = list_nueva( NULL );
-    }
-    list_agrega( tp->att_nombres, STRDUP(att) );
-    list_agrega( tp->att_default, (void*)(long)default_value );
+    tipopieza_add_att( tp, att, default_value );
     return  default_value;
 }
 
@@ -314,6 +309,15 @@ int         tipojuego_get_tipopieza( Tipojuego* tj, char* tpieza ){
     if( !sym ) return NOT_FOUND;
     if( sym->tipo != SIM_TIPOPIEZA ) return NOT_FOUND;
     return  sym->ref;
+}
+
+int         tipojuego_get_att( Tipojuego* tj, char* tpieza, char* att ){
+    Simbolo*  sym;
+    sym = tipojuego_get_simbolo( tj, tpieza );
+    if( !sym ) return NOT_FOUND;
+    if( sym->tipo != SIM_TIPOPIEZA ) return NOT_FOUND;
+    Tipopieza* x = (Tipopieza*) tj->tipo_piezas->data[sym->ref];
+    return tipopieza_get_att( x, att );
 }
 
 int         tipojuego_get_zona     ( Tipojuego* tj, char* zona ){
@@ -496,11 +500,11 @@ int         tipojuego_start_code(  Tipojuego* tj, char tiporegla, char* tipopiez
   if( tipopieza ){
     sp = tipojuego_get_simbolo( tj, tipopieza );
     if( !sp ){
-      printf( "Tipo pieza %s inexistente (File %s - linea %d\n", tipopieza, __FILE__, __LINE__ );
+      printf( "Tipo pieza %s inexistente (File %s - linea %d)\n", tipopieza, __FILE__, __LINE__ );
       exit( EXIT_FAILURE );
     }
     if( sp->tipo != SIM_TIPOPIEZA ){
-      printf( "%s no es tipo pieza (File %s - linea %d\n", tipopieza, __FILE__, __LINE__ );
+      printf( "%s no es tipo pieza (File %s - linea %d)\n", tipopieza, __FILE__, __LINE__ );
       exit( EXIT_FAILURE );
     }
     tpieza = (Tipopieza*)tj->tipo_piezas->data[sp->ref];
@@ -513,8 +517,8 @@ int         tipojuego_start_code(  Tipojuego* tj, char tiporegla, char* tipopiez
       printf( "Tipo movimiento %s inexistente (File %s - linea %d\n", tipomov, __FILE__, __LINE__ );
       exit( EXIT_FAILURE );
     }
-    if( sp->tipo != SIM_TIPOMOV ){
-      printf( "%s no es tipo movimiento (File %s - linea %d\n", tipomov, __FILE__, __LINE__ );
+    if( sm->tipo != SIM_TIPOMOV ){
+      printf( "%s no es tipo movimiento (File %s - linea %d)\n", tipomov, __FILE__, __LINE__ );
       exit( EXIT_FAILURE );
     }
     tmov = sm->ref;

@@ -26,3 +26,25 @@ Tipopieza*  tipopieza_new( Tipojuego* tj, char* nombre ){
     return t;
 
 }
+
+void        tipopieza_add_att(Tipopieza* tp, char* att, int default_value ){
+    assert( tipopieza_get_att( tp, att ) == NOT_FOUND );
+    if( !tp->att_nombres ){
+        tp->att_nombres = list_nueva( NULL );
+        tp->att_default = list_nueva( NULL );
+    }
+    list_agrega( tp->att_nombres, STRDUP(att) );
+    list_agrega( tp->att_default, (void*)(long)default_value );
+}
+
+int        tipopieza_get_att( Tipopieza* tp, char* att ){
+    if( !tp->att_nombres ) return NOT_FOUND;
+    list_inicio( tp->att_nombres );
+    int  i;
+    for( i = 0; i < tp->att_nombres->entradas; i ++ ){
+        char* nom = tp->att_nombres->data[i];
+        if( strcmp( nom, att ) == 0 ) return  i;
+    }
+    return NOT_FOUND;
+}
+

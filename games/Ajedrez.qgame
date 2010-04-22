@@ -141,6 +141,7 @@ move:
 move:      
             movida_caballo 'o; o; n' 
 
+
 piece:      "peon"
 # Movida para adelante
 move:       
@@ -190,7 +191,8 @@ move:
             movida_rey "s; o;"
             movida_rey "s; e;"
 
-move:       rey   enroque_corto
+
+move:       enroque_corto
             parar if ya_movido?
             e; parar if ocupado?; parar if atacado_enemigo?
             destino_torre = aqui
