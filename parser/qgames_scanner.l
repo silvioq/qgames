@@ -149,6 +149,7 @@ define\:        { define_created = 0; BEGIN(define_head);   }
 <code>not                 { return TOK_NOT;       }
 
 <code>ahogado\??                  { return  TOK_AHOGADO;   }
+<code>aqui                        { return  TOK_AQUI;      }
 <code>asigna{BAR}atributo         { return  TOK_ASIGNA_ATT; }
 <code>asigna{BAR}att              { return  TOK_ASIGNA_ATT; }
 <code>atacado{BAR}enemigo\??      { return  TOK_ATACADO_ENEMIGO; }
@@ -167,6 +168,9 @@ define\:        { define_created = 0; BEGIN(define_head);   }
 <code>en{BAR}zona\??         { return TOK_ENZONA;    }
 <code>gana                   { return TOK_GANA;      }
 <code>gana{BAR}si            { return TOK_GANA_SI;   }
+<code>marca                  { return TOK_MARCA;     }
+<code>mover                  { return TOK_MUEVE;     }
+<code>mueve                  { return TOK_MUEVE;     }
 <code>jaquemate\??           { return TOK_JAQUEMATE; }
 <code>juega                  { return TOK_JUEGA;     } 
 <code>juega{BAR}si           { return TOK_JUEGA_SI;  }
@@ -181,7 +185,8 @@ define\:        { define_created = 0; BEGIN(define_head);   }
 <code>parar?{BAR}si                           { return  TOK_PARA_SI;     }
 <code>parar{SPACES}if                         { return  TOK_PARA_SI;     }
 <code>pierde                                  { return  TOK_PIERDE;      }
-<code>pierde{BAR}si          { return  TOK_PIERDE_SI;   }
+<code>pierde{BAR}si                           { return  TOK_PIERDE_SI;   }
+<code>piezas{BAR}en{BAR}casillero             { return  TOK_PIEZAS_EN_CAS; }
 <code>transformar?           { return  TOK_TRANSFORMA;  }
 <code>repite{BAR}posicion\?? { return  TOK_REPITEPOS; }
 

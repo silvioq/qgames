@@ -23,6 +23,7 @@
 
 #include  "log.h"
 
+#define  MARCAS_Q         16    // hasta 16 marcas!
 #define  CHECK_STATUS     assert( z->status == STATUS_NORMAL );
 #define  CHECK_END_CODE   assert( z->tipo_analisis == ANALISIS_FINAL );
 
@@ -54,6 +55,7 @@ _list*   analizador_evalua_movidas( Regla* regla, Posicion* pos, Pieza* pieza, C
           movidas );
 
     posicion_free( z->pos );
+    if( z->marcas ) FREE( z->marcas );
     FREE( z );
 
 
@@ -396,6 +398,9 @@ int    analizador_asigna_att( Analizador* z, char* att, int val ){
     return  STATUS_NORMAL;
 }
 
+int    analizador_evalua_att( Analizador* z, char* att ){
+    return  pieza_get_att( z->pieza, att );
+}
 
 /*
  * El analisis de ahogado es muy simple. 

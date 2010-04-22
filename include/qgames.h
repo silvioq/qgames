@@ -110,7 +110,9 @@ void        tipojuego_code_op_false( Tipojuego* tj );
 
 void        tipojuego_code_direccion( Tipojuego* tj, char* direccion );
 void        tipojuego_code_casillero( Tipojuego* tj, char* casillero );
+void        tipojuego_code_setmarca ( Tipojuego* tj, char* casillero );
 void        tipojuego_code_asigna_att( Tipojuego* tj, char* att, int val );
+void        tipojuego_code_evalua_att( Tipojuego* tj, char* att );
 void        tipojuego_code_juega  ( Tipojuego* tj, char* casillero, int captura );
 void        tipojuego_code_captura( Tipojuego* tj, char* casillero );
 void        tipojuego_code_transforma( Tipojuego* tj, int owner, char* color, char* tpieza );

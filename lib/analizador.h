@@ -27,6 +27,8 @@ typedef  struct  StrAnalizador {
     char       status;
     char       flags;
 
+    Casillero** marcas;
+
     char*      resultado;         // Para el analisis del final, este elemento contiene la descripcion del resultado
     int        color_ganador;     // Color que gano! 0 es tablas!
 }  Analizador;
@@ -52,6 +54,7 @@ int    analizador_juega  ( Analizador* z, Casillero* cas, int con_captura );
 int    analizador_captura( Analizador* z, Casillero* cas );
 int    analizador_transforma( Analizador*z, int owner, Tipopieza* tp);
 int    analizador_asigna_att( Analizador* z, char* att, int val );
+int    analizador_evalua_att( Analizador* z, char* att );
 
 /*
  * Devuelve uno o cero, si se encuentra ocupado el casillero pasado como parametro

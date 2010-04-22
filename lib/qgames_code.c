@@ -355,6 +355,23 @@ void        tipojuego_code_asigna_att( Tipojuego* tj, char* att, int val ){
     RET_IF_STATUS;                              // Retorna si el valor es distinto de cero
 }
 
+void        tipojuego_code_evalua_att( Tipojuego* tj, char* att ){
+    char*  natt = STRDUP( att );
+    qcode_op( tj->qcode, QCSTI,  1, (long)natt );// r1 = att
+    qcode_op( tj->qcode, QCPSH,  1, 0 );         // PSH r1
+    qcode_op( tj->qcode, QCPSH,  3, 0 );         // PSH r3
+    qcode_opnlab( tj->qcode, QCCLX, "evalua_att" );
+}
+
+
+void       tipojuego_code_setmarca( Tipojuego* tj, char* casillero ){
+    long cas = ( casillero ? GETCASILLERO(tj, casillero ) : -1 );
+    qcode_op( tj->qcode, QCSTI, 1, cas );      // r1 = cas     
+    qcode_op( tj->qcode, QCPSH, 1, 0 );        // PSH r1
+    qcode_op( tj->qcode, QCPSH, 3, 0 );        // PSH r3
+    qcode_opnlab( tj->qcode, QCCLX, "setmarca" );
+    RET_IF_STATUS;                              // Retorna si el valor es distinto de cero
+}
 
 
 

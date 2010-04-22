@@ -105,6 +105,12 @@ long  code_wrapper_asigna_att( QCodeVM* vm ){
     return (long)analizador_asigna_att( z, att, val );
 }
 
+long  code_wrapper_evalua_att( QCodeVM* vm ){
+    Analizador* z = (Analizador*)qcode_pop( vm );
+    char* att  = (char*)qcode_pop(vm);
+    return (long)analizador_evalua_att( z, att );
+}
+
 long  code_wrapper_captura( QCodeVM* vm ){
     Analizador* z = (Analizador*)qcode_pop( vm );
     Casillero*  c = ZGETCASILLERO( z, qcode_pop( vm ) );
@@ -196,6 +202,7 @@ void  code_initialize( QCode** qcode ){
     qcode_xcrlab( q, "direccion", (qcode_extfunc)code_wrapper_direccion );
     qcode_xcrlab( q, "entablero", (qcode_extfunc)code_wrapper_entablero );
     qcode_xcrlab( q, "enzona",    (qcode_extfunc)code_wrapper_enzona );
+    qcode_xcrlab( q, "evalua_att",   (qcode_extfunc)code_wrapper_evalua_att );
     qcode_xcrlab( q, "final"    , (qcode_extfunc)code_wrapper_final );
     qcode_xcrlab( q, "jaquemate", (qcode_extfunc)code_wrapper_jaquemate );
     qcode_xcrlab( q, "juega",     (qcode_extfunc)code_wrapper_juega );

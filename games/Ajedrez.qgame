@@ -195,12 +195,12 @@ move:
 move:       enroque_corto
             parar if ya_movido?
             e; parar if ocupado?; parar if atacado_enemigo?
-            destino_torre = aqui
+            marca aqui
             e; parar if ocupado?; parar if atacado_enemigo?
             e; parar if ocupado_enemigo?;
-            parar if !pieza_en_casillero? torre; 
+            parar if !ocupado? torre; 
             parar if ya_movido?;
-            mueve piezas_en_casillero, destino_torre
+            mueve piezas_en_casillero marca
             casillero_inicial; e; e; 
             asigna_atributo 'ya_movido', true
             juega

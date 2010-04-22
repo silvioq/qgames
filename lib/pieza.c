@@ -100,3 +100,13 @@ Pieza*   pieza_dup( Pieza* pieza ){
     }
     return p;
 }
+
+
+
+int      pieza_get_att( Pieza* p, char* att ){
+    if( !p->atributos ) return 0;
+    int x = tipopieza_get_att( p->tpieza, att );
+    if( x == NOT_FOUND ) return 0;
+    if( x >= p->atributos->entradas ) return 0;
+    return (int)(long)p->atributos->data[x];
+}

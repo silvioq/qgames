@@ -114,6 +114,7 @@ void  qgzprintf( char* format, ... ){
 %token    TOK_SEPCODE
 
 %token    TOK_AHOGADO
+%token    TOK_AQUI
 %token    TOK_ASIGNA_ATT
 %token    TOK_ATACADO_ENEMIGO
 %token    TOK_CAPTURA        TOK_CAPTURA_SI        TOK_CAPTURA_Y_JUEGA   TOK_CAPTURA_Y_JUEGA_SI
@@ -125,6 +126,8 @@ void  qgzprintf( char* format, ... ){
 %token    TOK_GANA      TOK_GANA_SI
 %token    TOK_JAQUEMATE
 %token    TOK_JUEGA     TOK_JUEGA_SI
+%token    TOK_MARCA
+%token    TOK_MUEVE     TOK_MUEVE_SI
 %token    TOK_IF
 %token    TOK_OCUPADO
 %token    TOK_OCUPADOENEMIGO
@@ -132,6 +135,7 @@ void  qgzprintf( char* format, ... ){
 %token    TOK_ORIGEN_ANT
 %token    TOK_PARA      TOK_PARA_SI
 %token    TOK_PIERDE    TOK_PIERDE_SI
+%token    TOK_PIEZAS_EN_CAS
 %token    TOK_TRANSFORMA
 %token    TOK_REPITEPOS
 
@@ -399,8 +403,8 @@ instexpr:
                     qgzprintf( "Casillero %s no esperado", (char*)$1 );
                     yyerror( "Casillero no esperado" );
                     YYERROR;
-                } else if( tipojuego_get_att( tipojuego, last_pieza, (char*) $1 ) != NOT_FOUND ) {
-                          NOT_IMPLEMENTED_WARN( "atributo?" );
+                } else if( tipojuego_get_att( tipojuego, last_pieza, (char*)$1 ) != NOT_FOUND ) {
+                      tipojuego_code_evalua_att( tipojuego, (char*)$1 );
                 } else {
                    int  len = strlen( (char*)$1 );
                    int  hay_algo = 0;
@@ -409,7 +413,7 @@ instexpr:
                       sin_pregunta[len-1] = 0;
                       if( tipojuego_get_att( tipojuego, last_pieza, sin_pregunta ) != NOT_FOUND ){
                           hay_algo = 1;
-                          NOT_IMPLEMENTED_WARN( "atributo?" );
+                          tipojuego_code_evalua_att( tipojuego, sin_pregunta );
                       }
                       FREE(sin_pregunta);
                   }
@@ -537,6 +541,49 @@ instaction_para:
     };
 
 /* ------------------------------------------------------ */
+/* Moviendo las cosas de un lugar a otro                  */
+/* ------------------------------------------------------ */
+instaction_mueve:
+    TOK_MUEVE   TOK_PIEZAS_EN_CAS  TOK_WORD  |
+    TOK_MUEVE   TOK_PIEZAS_EN_CAS  instaction_get_marca  |
+    TOK_MUEVE   TOK_WORD           TOK_WORD  |
+    TOK_MUEVE   instaction_get_marca;
+
+
+/* ------------------------------------------------------ */
+/* Marcando un casillero para uso futuro                  */
+/* ------------------------------------------------------ */
+instaction_marca_casillero:
+    TOK_AQUI   { $$ = 0; } |
+    word_or_string  {
+                          CHECK_TIPOJUEGO;
+                          if( NOT_FOUND == tipojuego_get_casillero( tipojuego, (char*)$1 ) ){
+                              qgzprintf( "%s debe ser un casillero", (char*)$1 );
+                              yyerror( "Debe ser un casillero" );
+                              YYERROR;
+                          } else {
+                              $$ = $1;
+                          }
+    };
+
+
+instaction_set_marca:
+    TOK_MARCA   TOK_NUMBER   instaction_marca_casillero  { NOT_IMPLEMENTED_WARN( "marca" ); } |
+    TOK_MARCA   instaction_marca_casillero               { NOT_IMPLEMENTED_WARN( "marca" ); } ;
+
+
+instaction_get_marca:
+    TOK_MARCA   TOK_NUMBER                               { $$ = $1; } |
+    TOK_MARCA                                            { $$ = 0; };
+
+
+instaction_goto_marca:
+    instaction_get_marca                                 { NOT_IMPLEMENTED_WARN( "marca" ); } ;
+
+
+
+
+/* ------------------------------------------------------ */
 /* Instrucciones de control de flujo del programa         */
 /* ------------------------------------------------------ */
 instaction_if:
@@ -567,9 +614,12 @@ instaction:
     instaction_juega |
     instaction_final |
     instaction_if    |
-    instaction_movs  |
-    instaction_para  |
-    instaction_while |
+    instaction_set_marca |
+    instaction_goto_marca |
+    instaction_movs   |
+    instaction_mueve  |
+    instaction_para   |
+    instaction_while  |
     TOK_WORD    {   
             CHECK_TIPOJUEGO;
             /* una direccion podria ser */
