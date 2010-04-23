@@ -31,6 +31,7 @@ _list*   analizador_evalua_movidas( Regla* regla, Posicion* pos, Pieza* pieza, C
 
     Analizador* z = (Analizador*)ALLOC( sizeof( Analizador ) );
     _list* movidas ;
+
     memset( z, 0, sizeof( Analizador ) );
     z->pos     = posicion_dup(pos);
     z->pieza   = posicion_get_pieza(z->pos,pieza);

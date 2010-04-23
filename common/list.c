@@ -93,7 +93,8 @@ void    list_free( _list* lista ){
             if( lista->free_func ) lista->free_func( lista->data[i] );
         }
     }
-
+    
+    LIST_FREE( lista->data );
     LIST_FREE( lista );
 
 }
