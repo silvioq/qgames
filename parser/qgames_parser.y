@@ -313,6 +313,7 @@ instexpr_jaquemate:
                 qgzprintf( "%s debe ser un tipo de pieza", ((char*)$2) );
                 yyerror( "Debe ser un tipo de pieza" );
             }
+            FREE( (void*)$2 );
     };
 
 
@@ -342,6 +343,7 @@ instexpr_ocupado:
             yyerror( "Ocupado?" );
             YYERROR;
         }
+        FREE( (void*)$2 );
     };
 
 

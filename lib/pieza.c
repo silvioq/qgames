@@ -13,6 +13,7 @@
 #include  <stdarg.h>
 #include  <qgames.h>
 
+#include  "log.h"
 #include  "list.h"
 #include  "simbolos.h"
 #include  "tipojuego.h"
@@ -99,6 +100,24 @@ Pieza*   pieza_dup( Pieza* pieza ){
         }
     }
     return p;
+}
+
+
+void     pieza_set_att( Pieza* p, char* att, int val ){
+    int x = tipopieza_get_att( p->tpieza, att );
+    if( x == NOT_FOUND ){
+        LOGPRINT( 1, "atributo %s incorrecto para %s", att, p->tpieza->nombre );
+        exit( EXIT_FAILURE );
+    }
+
+    if( !p->atributos ){
+        int i ;
+        p->atributos = list_nueva( NULL );
+        for( i = 0; i < p->tpieza->att_default->entradas ; i ++ ){
+            list_agrega( p->atributos, p->tpieza->att_default->data[i] );
+        }
+    }
+    p->atributos->data[x] = (void*)(long)val;
 }
 
 

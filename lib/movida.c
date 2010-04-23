@@ -7,7 +7,6 @@
 #include  <stdio.h>
 #include  <stdlib.h>
 #include  <string.h>
-#include  <assert.h>
 #include  <stdarg.h>
 #include  <qgames.h>
 
@@ -207,9 +206,13 @@ Posicion*  movida_ejecuta( Movida* mov ){
                 if( acc->color  ) p->color = acc->color;
                 if( acc->tpieza ) p->tpieza = acc->tpieza;
                 break;
+            case ACCION_ASIGNA_ATT:
+                pieza_set_att( p, acc->att_key, acc->att_val );
+                break;
             default:
-                LOGPRINT( 2, "Accion no implementada %d", acc->tipo );
-                assert( !"Accion no implementada" );
+                
+                LOGPRINT( 1, "Accion no implementada %d", acc->tipo );
+                exit( EXIT_FAILURE );
         }
     }
     return pos;

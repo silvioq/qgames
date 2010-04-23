@@ -23,7 +23,7 @@ Pieza*   pieza_new( Tipopieza* tpieza, Casillero* cas, int color );
 Pieza*   pieza_dup( Pieza* pieza );
 int      pieza_equal( Pieza* p1, Pieza* p2 );
 char*    pieza_hash( Pieza* p1 );
-int      pieza_set_att( Pieza* p, char* att, int val );
+void     pieza_set_att( Pieza* p, char* att, int val );
 int      pieza_get_att( Pieza* p, char* att );
 
 

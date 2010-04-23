@@ -127,7 +127,16 @@ Partida*  partida_new( Tipojuego* tjuego, char* id_par ){
  * */
 
 void  partida_free( Partida* par ){
-    if( par->pos ) posicion_free( par->pos );
+    if( par->pos ){
+        Posicion * pos,* pos_act;
+        pos_act = par->pos;
+        while( pos_act->pos_anterior ){ 
+            pos = pos_act->pos_anterior;
+            posicion_free( pos_act );
+            pos_act = pos;
+        }
+        posicion_free( pos_act );
+    }
     if( par->id ) FREE( par->id );
     if( par->movimientos ){
         int  i;
@@ -364,17 +373,22 @@ int         partida_mover_serie ( Partida* par, char* serie ){
  * */
 
 int   partida_mover_mov( Partida* par, Movida* mov ){
-    Posicion* parnew;
+    Posicion* posnew;
+    Movida* movant;
     int  ret;
     if( PARTIDACONT( par ) ){
         assert( !"Hace falta agregar las movidas continuadas a la lista de movimientos anterior" );
     }
     if( !par->movimientos ) par->movimientos = list_nueva( NULL );
-    list_agrega( par->movimientos, movida_dup( mov ) );
+    movant = movida_dup( mov );
+    list_agrega( par->movimientos, movant );
 
-    parnew = movida_ejecuta( mov );
+    posnew = movida_ejecuta( mov );
+    posnew->pos_anterior = par->pos;
+    posnew->mov_anterior = movant;
     posicion_free_movidas( par->pos );
-    par->pos = parnew;
+    
+    par->pos = posnew;
     par->flags &= ~MOVCALC;
 
     int  color_actual = par->color;

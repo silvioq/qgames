@@ -38,9 +38,10 @@ void  posicion_free_movidas( Posicion* pos ){
         for( i = 0; i < pos->movidas->entradas; i ++ ){
             Movida* mov = (Movida*)pos->movidas->data[i];
             movida_free( mov );
-        }
+        }/*
         list_free( pos->movidas );
-        pos->movidas = NULL;
+        pos->movidas = NULL;*/
+        pos->movidas->entradas = 0;
     }
 }
 
@@ -72,15 +73,19 @@ Posicion*   posicion_new( Tipojuego* tj ){
 }
 
 void      posicion_free( Posicion* pos ){
-    posicion_free_movidas( pos );
+    if( pos->movidas ){
+        posicion_free_movidas( pos );
+        list_free( pos->movidas );
+    }
     if( pos->piezas ){
         int i;
         for( i = 0; i < pos->piezas->entradas; i ++ ){
             Pieza* pieza = pos->piezas->data[i];
-            pieza_free( pieza );
+            if( pieza )pieza_free( pieza );
         }
         list_free( pos->piezas );
     }
+    FREE(pos);
 }
 
 
@@ -153,7 +158,7 @@ int         posicion_en_jaque( Posicion* pos, Tipopieza* tpieza, int color ){
             Movida* mov2;
             LOGPRINT( 6, "Inico de analisis para color %d en %s", j, pieza->casillero->nombre );
             posicion_analiza_movidas( pos, ANALISIS_ATAQUE, j, 0, NULL );
-            if( !pos->movidas ) continue;
+            if( !pos->movidas || pos->movidas->entradas == 0 ) continue;
             list_inicio( pos->movidas );
             while( mov2 = (Movida*) list_siguiente( pos->movidas ) ){
                 if( movida_casillero_destino( mov2 ) == pieza->casillero ){
@@ -162,6 +167,7 @@ int         posicion_en_jaque( Posicion* pos, Tipopieza* tpieza, int color ){
             }
         }
     }
+
     return 0;
 }
 
@@ -187,8 +193,6 @@ int         posicion_en_jaque( Posicion* pos, Tipopieza* tpieza, int color ){
  **/
 
 int        posicion_analiza_movidas( Posicion* pos, char tipoanalisis, int color, int tipomov, Pieza* pieza ){
-
-    int cantidad = 0;
 
     LOGPRINT( 6, "Ingreso a analisis movidas tipoanalisis = %d, color = %d, tipomov = %d", 
         tipoanalisis, color, tipomov )
@@ -234,9 +238,9 @@ int        posicion_analiza_movidas( Posicion* pos, char tipoanalisis, int color
                                     regla->tmov, color );
                     if( movs ){
                         if( tipoanalisis != ANALISIS_ATAQUE ) posicion_descartar_por_jaques( pos, movs, color ) ;
-                        if( movs->entradas > 0 && tipoanalisis == ANALISIS_PRIMER_MOVIDA ) return 1;
                         posicion_add_movidas( pos, movs );
-                        cantidad += movs->entradas;
+                        list_free( movs );
+                        if( pos->movidas && pos->movidas->entradas > 0 && tipoanalisis == ANALISIS_PRIMER_MOVIDA ) return 1;
                     }
                 }
             }
@@ -265,9 +269,9 @@ int        posicion_analiza_movidas( Posicion* pos, char tipoanalisis, int color
                                 regla->tmov, color );
                 if( movs ){
                     if( tipoanalisis != ANALISIS_ATAQUE ) posicion_descartar_por_jaques( pos, movs, color ) ;
-                    if( movs->entradas > 0 && tipoanalisis == ANALISIS_PRIMER_MOVIDA ) return 1;
                     posicion_add_movidas( pos, movs );
-                    cantidad += movs->entradas;
+                    list_free( movs );
+                    if( pos->movidas && pos->movidas->entradas > 0 && tipoanalisis == ANALISIS_PRIMER_MOVIDA ) return 1;
                     LOGPRINT( 6, "Regla %d %d entradas", r, movs->entradas );
                 }
             }
@@ -288,17 +292,16 @@ int        posicion_analiza_movidas( Posicion* pos, char tipoanalisis, int color
                                 regla->tmov, color );
                 if( movs ){
                     if( tipoanalisis != ANALISIS_ATAQUE ) posicion_descartar_por_jaques( pos, movs, color ) ;
-                    if( movs->entradas > 0 && tipoanalisis == ANALISIS_PRIMER_MOVIDA ) return 1;
                     posicion_add_movidas( pos, movs );
-                    cantidad += movs->entradas;
+                    list_free( movs );
+                    if( pos->movidas && pos->movidas->entradas > 0 && tipoanalisis == ANALISIS_PRIMER_MOVIDA ) return 1;
                 }
             }
         }
     }
 
 
-
-    return cantidad;
+    if( pos->movidas ) return pos->movidas->entradas; else return 0;
 }
 
 
