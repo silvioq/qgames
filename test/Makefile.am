@@ -1,8 +1,9 @@
 
-check_PROGRAMS = test-tateti test-gomoku test-ajedrezq
+check_PROGRAMS = test-tateti test-gomoku test-ajedrezq test-qgames
 test_tateti_SOURCES = test-tateti.c
 test_gomoku_SOURCES = test-gomoku.c
 test_ajedrezq_SOURCES = test-ajedrezq.c
+test_qgames_SOURCES = test-qgames.c test-qgames-scanner.l
 
 DEPENDENCIES = \
 										$(top_builddir)/parser/libqgames-parser.a \
@@ -19,5 +20,8 @@ test_ajedrezq_LDADD      = $(DEPENDENCIES)
 test_gomoku_DEPENDENCIES = $(DEPENDENCIES)
 test_gomoku_LDADD        = $(DEPENDENCIES)
 
+test_qgames_DEPENDENCIES = $(DEPENDENCIES)
+test_qgames_LDADD        = $(DEPENDENCIES)
+
 AM_CFLAGS = -I$(top_srcdir)/include -I$(top_srcdir)/common -I$(top_srcdir)/qcode/src
-TESTS = $(check_PROGRAMS)
+TESTS = test-tateti test-gomoku test-ajedrezq  qgtest.sh

@@ -286,6 +286,17 @@ void        tipojuego_add_pieza( Tipojuego* tj, char* tpieza, char* casillero, c
   posicion_add_pieza( tj->inicial, p );
 }
 
+/*
+ * Devuelve el nombre del tipo juego ...
+ * */
+const char* tipojuego_get_nombre   ( Tipojuego* tj ){
+    return (const char*) tj->nombre;
+}
+
+/*
+ * Devuelve el numero de casillero.
+ * En el caso de no ser encontrado, devuelve NOT_FOUND
+ * */
 
 int         tipojuego_get_casillero( Tipojuego* tj, char* cas ){
     Simbolo*  sym;

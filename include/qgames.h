@@ -50,6 +50,7 @@ void        tipojuego_add_pieza( Tipojuego* tj, char* tpieza, char* casillero, c
 
 
 #define   NOT_FOUND   -1
+const char* tipojuego_get_nombre   ( Tipojuego* tj );
 int         tipojuego_get_casillero( Tipojuego* tj, char* cas );
 int         tipojuego_get_direccion( Tipojuego* tj, char* dir );
 int         tipojuego_get_tipopieza( Tipojuego* tj, char* tpieza );

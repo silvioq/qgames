@@ -32,9 +32,12 @@ POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
 check_PROGRAMS = test-tateti$(EXEEXT) test-gomoku$(EXEEXT) \
-	test-ajedrezq$(EXEEXT)
+	test-ajedrezq$(EXEEXT) test-qgames$(EXEEXT)
+TESTS = test-tateti$(EXEEXT) test-gomoku$(EXEEXT) \
+	test-ajedrezq$(EXEEXT) qgtest.sh
 subdir = test
-DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
+DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in \
+	test-qgames-scanner.c
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
@@ -46,6 +49,9 @@ am_test_ajedrezq_OBJECTS = test-ajedrezq.$(OBJEXT)
 test_ajedrezq_OBJECTS = $(am_test_ajedrezq_OBJECTS)
 am_test_gomoku_OBJECTS = test-gomoku.$(OBJEXT)
 test_gomoku_OBJECTS = $(am_test_gomoku_OBJECTS)
+am_test_qgames_OBJECTS = test-qgames.$(OBJEXT) \
+	test-qgames-scanner.$(OBJEXT)
+test_qgames_OBJECTS = $(am_test_qgames_OBJECTS)
 am_test_tateti_OBJECTS = test-tateti.$(OBJEXT)
 test_tateti_OBJECTS = $(am_test_tateti_OBJECTS)
 DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
@@ -60,10 +66,14 @@ CCLD = $(CC)
 LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
 	--mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) \
 	$(LDFLAGS) -o $@
+LEXCOMPILE = $(LEX) $(LFLAGS) $(AM_LFLAGS)
+LTLEXCOMPILE = $(LIBTOOL) $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
+	--mode=compile $(LEX) $(LFLAGS) $(AM_LFLAGS)
+YLWRAP = $(top_srcdir)/ylwrap
 SOURCES = $(test_ajedrezq_SOURCES) $(test_gomoku_SOURCES) \
-	$(test_tateti_SOURCES)
+	$(test_qgames_SOURCES) $(test_tateti_SOURCES)
 DIST_SOURCES = $(test_ajedrezq_SOURCES) $(test_gomoku_SOURCES) \
-	$(test_tateti_SOURCES)
+	$(test_qgames_SOURCES) $(test_tateti_SOURCES)
 ETAGS = etags
 CTAGS = ctags
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
@@ -185,6 +195,7 @@ top_srcdir = @top_srcdir@
 test_tateti_SOURCES = test-tateti.c
 test_gomoku_SOURCES = test-gomoku.c
 test_ajedrezq_SOURCES = test-ajedrezq.c
+test_qgames_SOURCES = test-qgames.c test-qgames-scanner.l
 DEPENDENCIES = \
 										$(top_builddir)/parser/libqgames-parser.a \
                     $(top_builddir)/lib/libqgames.a \
@@ -197,12 +208,13 @@ test_ajedrezq_DEPENDENCIES = $(DEPENDENCIES)
 test_ajedrezq_LDADD = $(DEPENDENCIES)
 test_gomoku_DEPENDENCIES = $(DEPENDENCIES)
 test_gomoku_LDADD = $(DEPENDENCIES)
+test_qgames_DEPENDENCIES = $(DEPENDENCIES)
+test_qgames_LDADD = $(DEPENDENCIES)
 AM_CFLAGS = -I$(top_srcdir)/include -I$(top_srcdir)/common -I$(top_srcdir)/qcode/src
-TESTS = $(check_PROGRAMS)
 all: all-am
 
 .SUFFIXES:
-.SUFFIXES: .c .lo .o .obj
+.SUFFIXES: .c .l .lo .o .obj
 $(srcdir)/Makefile.in:  $(srcdir)/Makefile.am  $(am__configure_deps)
 	@for dep in $?; do \
 	  case '$(am__configure_deps)' in \
@@ -245,6 +257,9 @@ test-ajedrezq$(EXEEXT): $(test_ajedrezq_OBJECTS) $(test_ajedrezq_DEPENDENCIES)
 test-gomoku$(EXEEXT): $(test_gomoku_OBJECTS) $(test_gomoku_DEPENDENCIES) 
 	@rm -f test-gomoku$(EXEEXT)
 	$(LINK) $(test_gomoku_OBJECTS) $(test_gomoku_LDADD) $(LIBS)
+test-qgames$(EXEEXT): $(test_qgames_OBJECTS) $(test_qgames_DEPENDENCIES) 
+	@rm -f test-qgames$(EXEEXT)
+	$(LINK) $(test_qgames_OBJECTS) $(test_qgames_LDADD) $(LIBS)
 test-tateti$(EXEEXT): $(test_tateti_OBJECTS) $(test_tateti_DEPENDENCIES) 
 	@rm -f test-tateti$(EXEEXT)
 	$(LINK) $(test_tateti_OBJECTS) $(test_tateti_LDADD) $(LIBS)
@@ -257,6 +272,8 @@ distclean-compile:
 
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-ajedrezq.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-gomoku.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-qgames-scanner.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-qgames.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-tateti.Po@am__quote@
 
 .c.o:
@@ -279,6 +296,9 @@ distclean-compile:
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='$<' object='$@' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(LTCOMPILE) -c -o $@ $<
+
+.l.c:
+	$(am__skiplex) $(SHELL) $(YLWRAP) $< $(LEX_OUTPUT_ROOT).c $@ -- $(LEXCOMPILE)
 
 mostlyclean-libtool:
 	-rm -f *.lo
@@ -462,6 +482,7 @@ distclean-generic:
 maintainer-clean-generic:
 	@echo "This command is intended for maintainers to use"
 	@echo "it deletes files that may require special tools to rebuild."
+	-rm -f test-qgames-scanner.c
 clean: clean-am
 
 clean-am: clean-checkPROGRAMS clean-generic clean-libtool \

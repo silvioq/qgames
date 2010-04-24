@@ -18,4 +18,4 @@ test_pgn_LDADD =        $(srcdir)/libpgn-parser.a
 test_symtable_SOURCES = test-symtable.c symtable.c symtable.h ../common/list.c
 
 TESTS = $(check_PROGRAMS)
-EXTRA_DIST = $(srcdir)qgames_scanner.h
+EXTRA_DIST = $(srcdir)/qgames_scanner.h
