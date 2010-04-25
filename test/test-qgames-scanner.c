@@ -991,12 +991,12 @@ YY_RULE_SETUP
 case 17:
 YY_RULE_SETUP
 #line 82 "test-qgames-scanner.l"
-{ chequear_resultado(EMPATA); BEGIN(INITIAL); }
+{ chequear_resultado(FINAL_EMPATE); BEGIN(INITIAL); }
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
 #line 83 "test-qgames-scanner.l"
-{ chequear_resultado(ENJUEGO); BEGIN(INITIAL); }
+{ chequear_resultado(FINAL_ENJUEGO); BEGIN(INITIAL); }
 	YY_BREAK
 case 19:
 /* rule 19 can match eol */
@@ -2147,7 +2147,7 @@ void  chequear_resultado(int resultado){
     char* restxt;
     int res = partida_final( partida, &restxt );
     if( res == resultado ) return ;
-    LOGPRINT( 2, "Resultado inesperado %d != %d (%s) (%d)", resultado, res, restxt, yylineno );
+    LOGPRINT( 3, "Resultado inesperado %d != %d (%s) (%d)", resultado, res, restxt, yylineno );
     exit( EXIT_FAILURE );
 }
 

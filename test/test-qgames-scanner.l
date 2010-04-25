@@ -79,8 +79,8 @@ RESULT       ({DRAW}|{BWIN}|{WWIN}|\*)
 
 <check_result>{WWIN}            { chequear_resultado(1); BEGIN(INITIAL); }
 <check_result>{BWIN}            { chequear_resultado(2); BEGIN(INITIAL); }
-<check_result>{DRAW}            { chequear_resultado(EMPATA); BEGIN(INITIAL); }
-<check_result>\*                { chequear_resultado(ENJUEGO); BEGIN(INITIAL); }
+<check_result>{DRAW}            { chequear_resultado(FINAL_EMPATE); BEGIN(INITIAL); }
+<check_result>\*                { chequear_resultado(FINAL_ENJUEGO); BEGIN(INITIAL); }
 
 <check_movida,check_result,check_piezas>\n   { BEGIN(INITIAL); }
 
@@ -186,7 +186,7 @@ void  chequear_resultado(int resultado){
     char* restxt;
     int res = partida_final( partida, &restxt );
     if( res == resultado ) return ;
-    LOGPRINT( 2, "Resultado inesperado %d != %d (%s) (%d)", resultado, res, restxt, yylineno );
+    LOGPRINT( 3, "Resultado inesperado %d != %d (%s) (%d)", resultado, res, restxt, yylineno );
     exit( EXIT_FAILURE );
 }
 
