@@ -64,12 +64,12 @@ RESULT       ({DRAW}|{BWIN}|{WWIN}|\*)
 <INITIAL>check{BAR}movidas?     { BEGIN(check_movida); }  
 <INITIAL>check{BAR}result       { BEGIN(check_result); }  
 
-<nombre_juego>{WORD}            { nuevo_juego( yytext ); }
+<nombre_juego>{WORD}            { nuevo_juego( yytext ); BEGIN(INITIAL); }
 
 <movidas>{MOVENUMBER}           /* no hago nada */
+<movidas>(nuevo.*)|(check.*)|(mueve)    { yyless( 0 ); BEGIN(INITIAL); }
 <movidas>{MOVE}                 { add_movida( yytext ); }
-<movidas>\n\n                   { BEGIN(INITIAL); }
-<movidas>(nuevo|check|mueve)    { yyless( 0 ); BEGIN(INITIAL); }
+<movidas>\n                     /* no hago nada */
 
 <check_piezas>{WORD}            { count_piezas_add_parameter( yytext ); }
 <check_piezas>{NUM}             { check_count_piezas( atol(yytext) ); BEGIN(INITIAL); }
@@ -84,15 +84,19 @@ RESULT       ({DRAW}|{BWIN}|{WWIN}|\*)
 
 <check_movida,check_result,check_piezas>\n   { BEGIN(INITIAL); }
 
-{RESULT}                        { yyless( 0 ); BEGIN(check_result); }
+<*>{RESULT}                     { yyless( 0 ); BEGIN(check_result); }
 
-\#[^\n]*                        /* ignora comentario */
+<*>\#[^\n]*                     /* ignora comentario */
 
 
-[ \t\r]+                        /* ignore whitespace */
-EOF                             yyterminate( );
-.                               {
-                                  LOGPRINT( 2, "Caracter no esperado %c (%d)", yytext[0], yylineno );
+<*>[ \t\r]+                     /* ignore whitespace */
+<*><<EOF>>                      { 
+                                  LOGPRINT( 5, "Terminando file %d por EOF", yyin );
+                                   yyterminate( );
+                                }
+<INITIAL>\n                     /* Ignora para inicial */
+<*>.                            {
+                                  LOGPRINT( 2, "Caracter no esperado %d (%d)", yytext[0], yylineno );
                                   exit( EXIT_FAILURE );
                                 }
 
@@ -111,18 +115,21 @@ int    nuevo_juego( char* t ){
     }
 
     if( !tjuego ){
-        char* filename = ALLOC( strlen( t ) ) + 15;
+        char* filename = ALLOC( strlen( t ) + 25 );
         sprintf( filename, "../games/%s.qgame", t );
+        LOGPRINT( 5, "Voy a abrir %s", filename );
         tjuego = qgz_parse_filename( filename, 0 );
         if( !tjuego ) {
             LOGPRINT( 2, "Error al analizar %s %d", filename, yylineno );
             exit( EXIT_FAILURE );
         }
         list_agrega( tipojuegos, tjuego );
+        FREE( filename );
     }
 
     if( partida ) partida_free( partida );
     partida = tipojuego_create_partida( tjuego, NULL );
+    LOGPRINT( 5, "Partida de %s creada", t );
 
 }
 
@@ -136,6 +143,7 @@ void   add_movida( char* movs ){
         LOGPRINT( 2, "Error al intentar mover %s (%d)", movs, yylineno );
         exit( EXIT_FAILURE ) ;
     }
+    LOGPRINT( 5, "Agrega movida %s", movs );
 }
 
 void  free_struct(strcheck* str){
@@ -148,6 +156,7 @@ void  free_struct(strcheck* str){
 
 
 int   iniciar_chequeo(  ){
+    LOGPRINT( 5, "Inicio de chequeo, con  lista = %p", checklist );
     if( checklist ) list_free( checklist );
     checklist = list_nueva( (_list_freefunc)free_struct );
 }
@@ -155,6 +164,7 @@ int   iniciar_chequeo(  ){
 
 void   count_piezas_add_parameter( char* param ){
     strcheck* str = ALLOC(sizeof( strcheck ) );
+    LOGPRINT( 5, "Agrega parametro %s", param );
     memset( str, 0, sizeof( strcheck ) );
     if( tipojuego_get_casillero( tjuego, param ) != NOT_FOUND ){
         str->casillero = STRDUP( param );
@@ -204,24 +214,27 @@ void  check_count_piezas(int resultado){
                 break;
             }
         }
-        if( valido ) total ++;
+        if( valido ) contador ++;
     }
-    if( total = resultado ) return;
-    LOGPRINT( 2, "Resultado inesperado %d != %d en count piezas (%d)", resultado, total, yylineno );
+    LOGPRINT( 5, "Comparando resultado %d con %d", contador, resultado );
+    if( contador == resultado ) return;
+    LOGPRINT( 3, "Resultado inesperado %d != %d en count piezas (%d)", resultado, contador, yylineno );
     exit( EXIT_FAILURE );
 }
 
 void   chequear_count_movidas(int movs){
     int  count = partida_movidas_count( partida );
+    LOGPRINT( 5, "Comparando cantidad movidas %d con %d", count, movs );
     if( movs != count ){
-        LOGPRINT( 2, "Resultado inesperado %d != %d en count movidas (%d)", movs, count, yylineno );
+        LOGPRINT( 3, "Resultado inesperado %d != %d en count movidas (%d)", movs, count, yylineno );
         exit( EXIT_FAILURE );
     }
 }
 
 void   chequear_movida_valida(char* mov){
+    LOGPRINT( 5, "Verificando movida valida %s", mov );
     if( !partida_movida_valida( partida, mov ) ){
-        LOGPRINT( 2, "Movida %s invalida (%d)", mov, yylineno );
+        LOGPRINT( 3, "Movida %s invalida (%d)", mov, yylineno );
         exit( EXIT_FAILURE );
     }
 }
