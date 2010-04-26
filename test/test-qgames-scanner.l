@@ -50,7 +50,8 @@ BAR          (\_|\-)?
 NUM          [0-9]+
 WORD         ([a-zA-Z\?][a-zA-Z0-9\-\_]*\??)
 MOVENUMBER   [0-9]+\.
-MOVE         [a-z][0-9a-z\-\+\#\/\=]+
+DOTS         \.{2,3}
+MOVE         [a-zA-Z][0-9a-z\-\+\#\/\=]+
 WWIN         1\-0
 BWIN         0\-1
 DRAW         1\/2\-1\/2
@@ -67,6 +68,7 @@ RESULT       ({DRAW}|{BWIN}|{WWIN}|\*)
 <nombre_juego>{WORD}            { nuevo_juego( yytext ); BEGIN(INITIAL); }
 
 <movidas>{MOVENUMBER}           /* no hago nada */
+<movidas>{DOTS}                 /* no hago nada */
 <movidas>(nuevo.*)|(check.*)|(mueve)    { yyless( 0 ); BEGIN(INITIAL); }
 <movidas>{MOVE}                 { add_movida( yytext ); }
 <movidas>\n                     /* no hago nada */
@@ -91,12 +93,11 @@ RESULT       ({DRAW}|{BWIN}|{WWIN}|\*)
 
 <*>[ \t\r]+                     /* ignore whitespace */
 <*><<EOF>>                      { 
-                                  LOGPRINT( 5, "Terminando file %d por EOF", yyin );
                                    yyterminate( );
                                 }
 <INITIAL>\n                     /* Ignora para inicial */
 <*>.                            {
-                                  LOGPRINT( 2, "Caracter no esperado %d (%d)", yytext[0], yylineno );
+                                  LOGPRINT( 2, "Caracter no esperado '%c' (%d)", yytext[0], yylineno );
                                   exit( EXIT_FAILURE );
                                 }
 
@@ -139,7 +140,7 @@ void   add_movida( char* movs ){
         LOGPRINT( 2, "No fue inicializada la partida (%d)", yylineno );
         exit( EXIT_FAILURE );
     }
-    if( !partida_mover_notacion( partida, movs ) ){
+    if( !partida_mover_serie( partida, movs ) ){
         LOGPRINT( 2, "Error al intentar mover %s (%d)", movs, yylineno );
         exit( EXIT_FAILURE ) ;
     }
@@ -186,7 +187,7 @@ void  chequear_resultado(int resultado){
     char* restxt;
     int res = partida_final( partida, &restxt );
     if( res == resultado ) return ;
-    LOGPRINT( 3, "Resultado inesperado %d != %d (%s) (%d)", resultado, res, restxt, yylineno );
+    LOGPRINT( 2, "Resultado inesperado %d != %d (%s) (%d)", resultado, res, restxt, yylineno );
     exit( EXIT_FAILURE );
 }
 
@@ -218,7 +219,7 @@ void  check_count_piezas(int resultado){
     }
     LOGPRINT( 5, "Comparando resultado %d con %d", contador, resultado );
     if( contador == resultado ) return;
-    LOGPRINT( 3, "Resultado inesperado %d != %d en count piezas (%d)", resultado, contador, yylineno );
+    LOGPRINT( 2, "Resultado inesperado %d != %d en count piezas (%d)", resultado, contador, yylineno );
     exit( EXIT_FAILURE );
 }
 
@@ -226,7 +227,7 @@ void   chequear_count_movidas(int movs){
     int  count = partida_movidas_count( partida );
     LOGPRINT( 5, "Comparando cantidad movidas %d con %d", count, movs );
     if( movs != count ){
-        LOGPRINT( 3, "Resultado inesperado %d != %d en count movidas (%d)", movs, count, yylineno );
+        LOGPRINT( 2, "Resultado inesperado %d != %d en count movidas (%d)", movs, count, yylineno );
         exit( EXIT_FAILURE );
     }
 }
@@ -234,7 +235,7 @@ void   chequear_count_movidas(int movs){
 void   chequear_movida_valida(char* mov){
     LOGPRINT( 5, "Verificando movida valida %s", mov );
     if( !partida_movida_valida( partida, mov ) ){
-        LOGPRINT( 3, "Movida %s invalida (%d)", mov, yylineno );
+        LOGPRINT( 2, "Movida %s invalida (%d)", mov, yylineno );
         exit( EXIT_FAILURE );
     }
 }

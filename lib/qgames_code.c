@@ -335,6 +335,32 @@ void        tipojuego_code_juega  ( Tipojuego* tj, char* casillero, int captura 
     RET_IF_STATUS;                              // Retorna si el valor es distinto de cero
 }
 
+
+void        tipojuego_code_mueve  ( Tipojuego* tj, char fromto_flags, void* from, void* to ){
+    long from_var, to_var;
+    if( (fromto_flags&FROM_MASK)==FROM_CASILLERO) {
+        from_var = GETCASILLERO( tj, (char*)from ) ;
+    } else {
+        from_var = (long)from;
+    }
+    if( (fromto_flags&TO_MASK)==TO_CASILLERO) {
+        to_var = GETCASILLERO( tj, (char*)to ) ;
+    } else {
+        to_var = (long)to;
+    }
+    qcode_op( tj->qcode, QCSTI, 1, to_var );   // r1 = to          
+    qcode_op( tj->qcode, QCPSH, 1, 0 );        // PSH r1
+    qcode_op( tj->qcode, QCSTI, 1, from_var );   // r1 = from        
+    qcode_op( tj->qcode, QCPSH, 1, 0 );        // PSH r1
+    qcode_op( tj->qcode, QCSTI, 1, fromto_flags );   // r1 = fromto_flags
+    qcode_op( tj->qcode, QCPSH, 1, 0 );        // PSH r1
+    qcode_op( tj->qcode, QCPSH, 3, 0 );        // PSH r3
+    qcode_opnlab( tj->qcode, QCCLX, "mueve" );
+    RET_IF_STATUS;                              // Retorna si el valor es distinto de cero
+}
+
+
+
 void        tipojuego_code_captura( Tipojuego* tj, char* casillero ){
     long cas = ( casillero ? GETCASILLERO(tj, casillero ) : -1 );
 

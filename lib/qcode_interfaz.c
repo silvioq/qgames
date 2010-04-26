@@ -134,6 +134,16 @@ long  code_wrapper_juega( QCodeVM* vm ){
     return (long)analizador_juega( z, c, captura );
 }
 
+long  code_wrapper_mueve( QCodeVM* vm ){
+    Analizador* z = (Analizador*)qcode_pop( vm );
+    long  fromto = qcode_pop( vm );
+    long  from   = qcode_pop( vm );
+    long  to     = qcode_pop( vm );
+    if( (fromto&FROM_MASK)==FROM_CASILLERO) from = (long)ZGETCASILLERO(z, from );
+    if( (fromto&TO_MASK)==TO_CASILLERO)     to   = (long)ZGETCASILLERO(z, to );
+    return (long)analizador_mueve( z, fromto, (void*)from, (void*)to );
+}
+
 long  code_wrapper_casillero( QCodeVM* vm ){
     Analizador* z = (Analizador*)qcode_pop( vm );
     Casillero*  c = ZGETCASILLERO( z, qcode_pop( vm ) );
@@ -214,6 +224,7 @@ void  code_initialize( QCode** qcode ){
     qcode_xcrlab( q, "final"    , (qcode_extfunc)code_wrapper_final );
     qcode_xcrlab( q, "jaquemate", (qcode_extfunc)code_wrapper_jaquemate );
     qcode_xcrlab( q, "juega",     (qcode_extfunc)code_wrapper_juega );
+    qcode_xcrlab( q, "mueve",     (qcode_extfunc)code_wrapper_mueve );
     qcode_xcrlab( q, "ocupado",   (qcode_extfunc)code_wrapper_ocupado );
     qcode_xcrlab( q, "origen_ant",(qcode_extfunc)code_wrapper_origen_ant );
     qcode_xcrlab( q, "setmarca"  ,(qcode_extfunc)code_wrapper_setmarca );

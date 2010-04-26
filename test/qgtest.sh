@@ -1,14 +1,18 @@
 #!/bin/bash
 HAY_ERROR=0
+verbose=""
+if [ $1x == "-vx" ]; then
+    verbose="-v"
+fi
+
 for file in `ls qgtest/*.qgtest`;
 do
-    printf $file
-    ./test-qgames  $file
+    ./test-qgames  $verbose $file
     if [ $? != 0 ]; then
-        echo  "  ERROR!"
+        echo  "$file  ERROR!"
         HAY_ERROR=1
     else
-        echo  "  OK"
+        echo  "$file  OK"
     fi
 done
 exit  $HAY_ERROR

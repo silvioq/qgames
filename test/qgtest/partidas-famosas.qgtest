@@ -1,0 +1,52 @@
+# Partidas famosas
+# La inmortal.
+
+# Esta partida es considerada como uno de los máximos exponentes de la 
+# llamada Escuela Romántica.
+# 
+# Adolf Anderssen era uno de los mejores jugadores de su época, y 
+# considerado por muchos campeón del mundo tras su victoria en el 
+# torneo de Londres de 1851. Lionel Kieseritzky vivió en Francia la 
+# mayor parte de su vida, país en el que daba clases de ajedrez y 
+# jugaba partidas por cinco francos la hora en el Café de la Regence 
+# de París. Kieseritzky era conocido por su capacidad de derrotar 
+# a jugadores más débiles, aún concediéndoles ventaja - por ejemplo, 
+# jugando sin dama.
+
+# La partida inmortal fue una partida informal, jugada entre estos 
+# dos jugadores en Londres. Tras el final de la partida, Kieseritzky 
+# estaba impresionado y telegrafió las jugadas a su club de ajedrez 
+# parisino. La revista de ajedrez La Regence publicó la partida en 
+# julio de 1851. El nombre de "partida inmortal" se lo puso el 
+# austriaco Ernst Falkbeer en 1855.
+
+nuevo-juego  Ajedrez
+mueve
+    1. e4 e5 2. f4
+    2. ... exf4
+    3. Bc4 
+
+check-movida  Qh4
+mueve       Qh4+
+    4. Kf1 b5
+    5. Bxb5 Nf6 6. Nf3
+    6. ... Qh6 7. d3
+    7. ... Nh5
+    8. Nh4 Qg5
+    9. Nf5 c6
+    10. g4 Nf6 11. Rg1
+    11. ... cxb5
+    12. h4!
+    12. ... Qg6 13. h5 Qg5 14. Qf3
+    14. ... Ng8
+    15. Bxf4 Qf6 16. Nc3 Bc5
+    17. Nd5
+    17. ... Qxb2
+    18. Bd6
+    18. ... Bxg1
+    19. e5
+    19. ... Qxa1+ 20. Ke2
+    20. ... Na6
+    21. Nxg7+ Kd8 22. Qf6+
+    22. ... Nxf6
+    23. Be7# 1-0 

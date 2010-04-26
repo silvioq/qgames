@@ -1,0 +1,9 @@
+# Testeo de ajedrez
+nuevo-juego  Ajedrez
+check-movidas  20
+check-piezas   32
+
+mueve 
+1. e4 e5
+
+check-movidas  30

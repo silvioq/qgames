@@ -119,6 +119,19 @@ void        tipojuego_code_captura( Tipojuego* tj, char* casillero );
 void        tipojuego_code_transforma( Tipojuego* tj, int owner, char* color, char* tpieza );
 void        tipojuego_code_para   ( Tipojuego* tj );
 
+/*
+ * fromto => Indica que tiene los parametros from y to
+ * */
+#define     FROM_AQUI                  0x10
+#define     FROM_MARCA                 0x20
+#define     FROM_CASILLERO             0x30
+#define     FROM_MASK                  0xF0
+#define     TO_AQUI                    0x01
+#define     TO_MARCA                   0x02
+#define     TO_CASILLERO               0x03 
+#define     TO_MASK                    0x0F
+void        tipojuego_code_mueve  ( Tipojuego* tj, char fromto_flags, void* from, void* to );
+
 /* Definiciones para los dueños o colores */
 #define   ENEMIGO       -1
 #define   PROPIO        -2

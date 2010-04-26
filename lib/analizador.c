@@ -231,6 +231,10 @@ int    analizador_ocupado( Analizador* z, Casillero* cas, int owner, Tipopieza* 
 
 }
 
+/*
+ * Devuelve verdadero o falso, dependiendo si actualmente
+ * estamos en el tablero o hemos salido de el
+ * */
 int    analizador_entablero( Analizador* z ){
     return( CASILLERO_VALIDO(z->cas) );
 }
@@ -302,6 +306,64 @@ int    analizador_juega  ( Analizador* z, Casillero* cas, int con_captura ){
     z->mov_actual = NULL;
     return  STATUS_NORMAL;
 }
+
+
+int    analizador_mueve  ( Analizador* z, char fromto_flags, void* from, void* to ){
+    Casillero* cas_from;
+    Casillero* cas_to;
+    int  marca, i;
+    switch((fromto_flags&FROM_MASK)){
+        case  FROM_AQUI:
+            cas_from = z->cas;
+            break;
+        case  FROM_MARCA:
+            marca = (long)from;
+            assert( marca < MARCAS_Q );
+            cas_from = z->marcas[marca];
+            break;
+        case  FROM_CASILLERO:
+            cas_from = (Casillero*) from;
+            break;
+        default:
+            LOGPRINT( 2, "From-To flags contiene un valor incorrecto %x", fromto_flags );
+            exit( EXIT_FAILURE );
+    }
+    if( !CASILLERO_VALIDO( cas_from ) ) return STATUS_OUTOFBOARD;
+
+    switch((fromto_flags&TO_MASK)){
+        case  TO_AQUI:
+            cas_to = z->cas;
+            break;
+        case  TO_MARCA:
+            marca = (long)to;
+            assert( marca < MARCAS_Q );
+            cas_to = z->marcas[marca];
+            break;
+        case  TO_CASILLERO:
+            cas_to = (Casillero*)to;
+            break;
+        default:
+            LOGPRINT( 2, "From-To flags contiene un valor incorrecto %x", fromto_flags );
+            exit( EXIT_FAILURE );
+    }
+    if( !CASILLERO_VALIDO( cas_to ) ) return STATUS_OUTOFBOARD;
+
+    int hay_piezas = 0;
+    for( i = 0; i < z->pos->piezas->entradas; i ++ ){
+        Pieza* pp = (Pieza*)z->pos->piezas->data[i];
+        if( !pp ) continue;
+        if( pp->casillero == cas_from ){
+            if( !z->mov_actual ) z->mov_actual = movida_new( z->pos, z->pieza );
+            movida_accion_mueve( z->mov_actual, pp, cas_to );
+            hay_piezas = 1;
+        }
+    }
+    if( !hay_piezas ) LOGPRINT( 3, "Atencion, no habia piezas en %s", cas_from->nombre );
+    return  STATUS_NORMAL;
+
+}
+
+
 
 int    analizador_captura  ( Analizador* z, Casillero* cas  ){
     CHECK_STATUS ;
