@@ -21,13 +21,12 @@
 # austriaco Ernst Falkbeer en 1855.
 
 nuevo-juego  Ajedrez
-mueve
     1. e4 e5 2. f4
     2. ... exf4
     3. Bc4 
 
 check-movida  Qh4
-mueve       Qh4+
+           Qh4+
     4. Kf1 b5
     5. Bxb5 Nf6 6. Nf3
     6. ... Qh6 7. d3
