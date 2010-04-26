@@ -50,7 +50,7 @@ _list*   analizador_evalua_movidas( Regla* regla, Posicion* pos, Pieza* pieza, C
 
     movidas = z->movidas;
     
-    LOGPRINT( 6, "Fin analisis pieza casillero %p %s Movidas %p", 
+    LOGPRINT( 6, "Fin analisis pieza casillero %s %p %s Movidas %p", 
           z->pieza->tpieza->nombre, 
           z->cas_ori, ( !CASILLERO_VALIDO(z->cas_ori) ? "(no)" : z->cas_ori->nombre ), 
           movidas );

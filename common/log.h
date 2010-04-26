@@ -22,11 +22,13 @@
 extern   FILE*  logfile;
 extern   int    loglevel;
 
+#define QUOTEME_(x) #x
+#define QUOTEME(x) QUOTEME_(x)
 
 #define  LOGPRINT( level, fmt, ... )  \
     if( level <= loglevel ){ \
         if( !logfile ) logfile = stdout; \
-        fprintf( logfile, "Lev %02d: %s:%d " fmt "\n", level, __FILE__, __LINE__, __VA_ARGS__ ); \
+        fprintf( logfile, "Lev %02d: %-20s " fmt "\n", level, __FILE__ ":" QUOTEME(__LINE__), __VA_ARGS__ ); \
     }
 
 #endif

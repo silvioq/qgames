@@ -144,9 +144,6 @@ int         posicion_en_jaque( Posicion* pos, Tipopieza* tpieza, int color ){
     for( i = 0 ; i < pos->piezas->entradas; i ++ ){
         pieza = (Pieza*)pos->piezas->data[i];
         if( !pieza ) continue;
-        LOGPRINT( 6, "Pieza %s esta en %s", 
-                pieza->tpieza->nombre, 
-                ( CASILLERO_VALIDO( pieza->casillero ) ? pieza->casillero->nombre : "?" ) );
         if( !TJJAQUEMATE(pieza->tpieza) ) continue;
         if( tpieza && pieza->tpieza != tpieza ) continue;
         if( pieza->color != color ) continue;

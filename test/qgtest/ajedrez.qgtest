@@ -5,4 +5,11 @@ check-piezas   32
 
 1. e4 e5
 
-check-movidas  30
+check-movidas  29
+check-movidas  Ke2  Qe2 Qf3  Bc4
+
+2. Bc4 Nc6
+
+# verbose 6
+check-movidas  Ke2  Kf1
+

@@ -35,7 +35,7 @@ check-movida  Qh4
     9. Nf5 c6
     10. g4 Nf6 11. Rg1
     11. ... cxb5
-    12. h4!
+    12. h4 
     12. ... Qg6 13. h5 Qg5 14. Qf3
     14. ... Ng8
     15. Bxf4 Qf6 16. Nc3 Bc5
@@ -48,4 +48,4 @@ check-movida  Qh4
     20. ... Na6
     21. Nxg7+ Kd8 22. Qf6+
     22. ... Nxf6
-    23. Be7# 1-0 
+    23. Be7  1-0 

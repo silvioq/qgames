@@ -183,12 +183,19 @@ piece:      rey
 attribute:  ya_movido   false
 move:
             movida_rey "n" 
+move:
             movida_rey "s"
+move:
             movida_rey "e"
+move:
             movida_rey "o"
+move:
             movida_rey "n; e;"
+move:
             movida_rey "n; o;"
+move:
             movida_rey "s; o;"
+move:
             movida_rey "s; e;"
 
 

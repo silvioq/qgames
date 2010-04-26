@@ -43,7 +43,7 @@ typedef  struct strCheck{
 %option batch
 %option yylineno
 %option noyywrap
-%x      check_movida  check_result check_piezas  nombre_juego
+%x      check_movida  check_result check_piezas  nombre_juego   verbose_state
 
 SPACES       [ ]+
 BAR          (\_|\-)?
@@ -63,6 +63,7 @@ RESULT       ({DRAW}|{BWIN}|{WWIN}|\*)
 <INITIAL>check{BAR}piezas       { iniciar_chequeo( ); BEGIN(check_piezas); }
 <INITIAL>check{BAR}movidas?     { BEGIN(check_movida); }  
 <INITIAL>check{BAR}result       { BEGIN(check_result); }  
+<INITIAL>verbose                { BEGIN(verbose_state); }
 
 <nombre_juego>{WORD}            { nuevo_juego( yytext ); BEGIN(INITIAL); }
 
@@ -81,6 +82,8 @@ RESULT       ({DRAW}|{BWIN}|{WWIN}|\*)
 <check_result>{BWIN}            { chequear_resultado(2); BEGIN(INITIAL); }
 <check_result>{DRAW}            { chequear_resultado(FINAL_EMPATE); BEGIN(INITIAL); }
 <check_result>\*                { chequear_resultado(FINAL_ENJUEGO); BEGIN(INITIAL); }
+
+<verbose_state>{NUM}            { loglevel = atol( yytext ); BEGIN(INITIAL); }
 
 <check_movida,check_result,check_piezas>\n   { BEGIN(INITIAL); }
 
