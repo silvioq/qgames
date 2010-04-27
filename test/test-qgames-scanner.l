@@ -51,7 +51,7 @@ NUM          [0-9]+
 WORD         ([a-zA-Z\?][a-zA-Z0-9\-\_]*\??)
 MOVENUMBER   [0-9]+\.
 DOTS         \.{2,3}
-MOVE         [0a-zA-Z][0-9a-z\-\+\#\/\=]+
+MOVE         [0a-zA-Z][0-9a-zA-Z\-\+\#\/\=]+
 WWIN         1\-0
 BWIN         0\-1
 DRAW         1\/2\-1\/2

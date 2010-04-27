@@ -64,8 +64,100 @@ nuevo-juego   Ajedrez
 69. g5 Ra8 70. Kh6 Ra6+ 71. g6 Ra8 72. Rg7+ Kh8 73. Rf7 Rb8 74. Re7 Ra8
 75. Kg5 Kg8 76. Kf6 Ra6+ 77. Re6 Rxe6+ 78. Kxe6 Kg7 79. Kf5 Kg8 80. Kf6 Kf8
 81. Kg5 Kg7 82. Kf5 Kg8 83. Kg4 Kg7 84. Kg5 
-
-
 84. ... Kg8 
-# 1/2-1/2 No funciona por el momento, debido a que no estoy controlando 
-#         repeticiones de jugadas
+*
+85. Kf6 Kf8 86. g7+ Kg8 87. Kg6 
+1/2-1/2
+
+
+nuevo-juego   Ajedrez
+1. d4 Nf6 2. Nf3 e6 3. Bf4 c5 4. e3 d5 5. Bb5+ Nc6 6. Ne5 Bd7 7. Nxd7 Qxd7
+8. c3 a6 9. Be2 Bd6 10. Bg5 h6 11. Bh4 cxd4 12. exd4 Ne4 13. f3 Nf6 14. Nd2 Rc8
+15. Nb3 Qe7 16. Bf2 Na7 17. Nc5 0-0 18. a4 Nd7 19. Nxb7 Rb8 20. Nxd6 Qxd6
+21. Rb1 Nc8 22. Bg3 e5 23. 0-0 Ne7 24. f4 f6 25. fxe5 fxe5 26. Bf3 Qe6
+27. dxe5 Nxe5 28. Re1 Nxf3+ 29. gxf3 Qb6+ 30. Qd4 Qg6 31. Qg4 Qxg4 32. fxg4 Rb7
+33. Bd6 Rf7 34. Bxe7 Rf7xe7 35. b4 Kf7 36. Kf2 Re4 37. Re3 Rxg4 38. Rf3+ Ke6
+39. Rd1 d4 40. Re1+ Kd5 41. Rd1 Kc4 42. Rd1-d3 dxc3 43. Rxc3+ Kd5 44. Rf3-d3+ Ke5
+45. Re3+ Kf4 46. Rc4+ Kg5 47. Rg3 Rxg3 48. hxg3 Kf5 49. Kf3 h5 50. Rc5+ Kg6
+51. b5 axb5 52. axb5 Kf6 53. Rxh5 g5 54. Kg4 Rxb5 55. Rh6+ Kg7 56. Rc6 Ra5
+57. Kh5 Rb5 58. Rg6+ Kf7 59. Rxg5 Rb1 60. Rf5+ Kg7 61. g4 Rh1+ 62. Kg5 Rg1
+63. Rf4 Rh1 64. Rf6 Rg1 65. Rd6 Rg2 66. Rd7+ Kg8 67. Kf5 Rf2+ 68. Kg6 Rf8
+69. g5 Ra8 70. Kh6 Ra6+ 71. g6 Ra8 72. Rg7+ Kh8 73. Rf7 Rb8 74. Re7 Ra8
+75. Kg5 Kg8 76. Kf6 Ra6+ 77. Re6 Rxe6+ 78. Kxe6 Kg7 79. Kf5 Kg8 80. Kf6 Kf8
+81. Kg5 Kg7 82. Kf5 Kg8 83. Kg4 Kg7 84. Kg5 
+84. ... Kg8 
+*
+85. Kf6 Kf8 86. g7+ Ke8 87. g8=N
+1/2-1/2
+
+
+nuevo-juego   Ajedrez
+1. d4 Nf6 2. Nf3 e6 3. Bf4 c5 4. e3 d5 5. Bb5+ Nc6 6. Ne5 Bd7 7. Nxd7 Qxd7
+8. c3 a6 9. Be2 Bd6 10. Bg5 h6 11. Bh4 cxd4 12. exd4 Ne4 13. f3 Nf6 14. Nd2 Rc8
+15. Nb3 Qe7 16. Bf2 Na7 17. Nc5 0-0 18. a4 Nd7 19. Nxb7 Rb8 20. Nxd6 Qxd6
+21. Rb1 Nc8 22. Bg3 e5 23. 0-0 Ne7 24. f4 f6 25. fxe5 fxe5 26. Bf3 Qe6
+27. dxe5 Nxe5 28. Re1 Nxf3+ 29. gxf3 Qb6+ 30. Qd4 Qg6 31. Qg4 Qxg4 32. fxg4 Rb7
+33. Bd6 Rf7 34. Bxe7 Rf7xe7 35. b4 Kf7 36. Kf2 Re4 37. Re3 Rxg4 38. Rf3+ Ke6
+39. Rd1 d4 40. Re1+ Kd5 41. Rd1 Kc4 42. Rd1-d3 dxc3 43. Rxc3+ Kd5 44. Rf3-d3+ Ke5
+45. Re3+ Kf4 46. Rc4+ Kg5 47. Rg3 Rxg3 48. hxg3 Kf5 49. Kf3 h5 50. Rc5+ Kg6
+51. b5 axb5 52. axb5 Kf6 53. Rxh5 g5 54. Kg4 Rxb5 55. Rh6+ Kg7 56. Rc6 Ra5
+57. Kh5 Rb5 58. Rg6+ Kf7 59. Rxg5 Rb1 60. Rf5+ Kg7 61. g4 Rh1+ 62. Kg5 Rg1
+63. Rf4 Rh1 64. Rf6 Rg1 65. Rd6 Rg2 66. Rd7+ Kg8 67. Kf5 Rf2+ 68. Kg6 Rf8
+69. g5 Ra8 70. Kh6 Ra6+ 71. g6 Ra8 72. Rg7+ Kh8 73. Rf7 Rb8 74. Re7 Ra8
+75. Kg5 Kg8 76. Kf6 Ra6+ 77. Re6 Rxe6+ 78. Kxe6 Kg7 79. Kf5 Kg8 80. Kf6 Kf8
+81. Kg5 Kg7 82. Kf5 Kg8 83. Kg4 Kg7 84. Kg5 
+84. ... Kg8 
+*
+85. Kf6 Kf8 86. g7+ Ke8 87. g8=B
+1/2-1/2
+
+
+nuevo-juego   Ajedrez
+1. d4 Nf6 2. Nf3 e6 3. Bf4 c5 4. e3 d5 5. Bb5+ Nc6 6. Ne5 Bd7 7. Nxd7 Qxd7
+8. c3 a6 9. Be2 Bd6 10. Bg5 h6 11. Bh4 cxd4 12. exd4 Ne4 13. f3 Nf6 14. Nd2 Rc8
+15. Nb3 Qe7 16. Bf2 Na7 17. Nc5 0-0 18. a4 Nd7 19. Nxb7 Rb8 20. Nxd6 Qxd6
+21. Rb1 Nc8 22. Bg3 e5 23. 0-0 Ne7 24. f4 f6 25. fxe5 fxe5 26. Bf3 Qe6
+27. dxe5 Nxe5 28. Re1 Nxf3+ 29. gxf3 Qb6+ 30. Qd4 Qg6 31. Qg4 Qxg4 32. fxg4 Rb7
+33. Bd6 Rf7 34. Bxe7 Rf7xe7 35. b4 Kf7 36. Kf2 Re4 37. Re3 Rxg4 38. Rf3+ Ke6
+39. Rd1 d4 40. Re1+ Kd5 41. Rd1 Kc4 42. Rd1-d3 dxc3 43. Rxc3+ Kd5 44. Rf3-d3+ Ke5
+45. Re3+ Kf4 46. Rc4+ Kg5 47. Rg3 Rxg3 48. hxg3 Kf5 49. Kf3 h5 50. Rc5+ Kg6
+51. b5 axb5 52. axb5 Kf6 53. Rxh5 g5 54. Kg4 Rxb5 55. Rh6+ Kg7 56. Rc6 Ra5
+57. Kh5 Rb5 58. Rg6+ Kf7 59. Rxg5 Rb1 60. Rf5+ Kg7 61. g4 Rh1+ 62. Kg5 Rg1
+63. Rf4 Rh1 64. Rf6 Rg1 65. Rd6 Rg2 66. Rd7+ Kg8 67. Kf5 Rf2+ 68. Kg6 Rf8
+69. g5 Ra8 70. Kh6 Ra6+ 71. g6 Ra8 72. Rg7+ Kh8 73. Rf7 Rb8 74. Re7 Ra8
+75. Kg5 Kg8 76. Kf6 Ra6+ 77. Re6 Rxe6+ 78. Kxe6 Kg7 79. Kf5 Kg8 80. Kf6 Kf8
+81. Kg5 Kg7 82. Kf5 Kg8 83. Kg4 Kg7 84. Kg5 
+84. ... Kg8 
+*
+85. Kf6 Kf8 86. g7+ Ke8 87. g8=R
+*
+
+
+nuevo-juego Ajedrez
+
+1. e4 Nf6 2. e5 Ne4 3. d3 d5 4. dxe4 d4 5. Qf3 f6
+6. exf6 exf6 7. e5 Nd7 8. Bb5 c6 9. e6 Nc5
+10. Bxc6 Nd7 11. Bg5 Qb6 12. Bxd7 Ke7 13. Nh3 Bxd7
+14. Nf4 Qd6 15. Qxb7 Rd8 16. 0-0 fxg5 17. Nd5 Kxe6
+18. Re1 Kf7 19. Nd2 Rb8 20. Ne4 Rxb7 21. Nxd6 Bxd6
+22. Re4 Bc6 23. c4 d3 24. Re3 d2 25. Rf3 Kg6
+26. g4 Re8 27. Kg2 Re1 28. Rxe1 dxe1=Q 29. Re3 Qd2
+30. Re6 Kf7 31. Rxd6 Qd4 32. Rxc6 Rxb2 33. Rc7 Ke8
+34. Re7 Kf8 35. h4 Qxf2 36. Kh3 Qf3
+0-1
+check-piezas torre blanco e7 1
+check-piezas torre negro b2 1
+check-piezas caballo blanco d5 1
+check-piezas rey blanco h3 1
+check-piezas rey negro f8 1
+check-piezas peon blanco a2 1
+check-piezas peon blanco c4 1
+check-piezas peon blanco g4 1
+check-piezas peon blanco h4 1
+check-piezas peon negro a7 1
+check-piezas peon negro g5 1
+check-piezas peon negro g7 1
+check-piezas peon negro h7 1
+check-piezas dama negro f3 1
+
+
