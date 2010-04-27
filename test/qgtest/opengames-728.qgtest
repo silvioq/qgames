@@ -1,0 +1,31 @@
+# Juego obtenido de  http://www.opengames.com.ar/{728}.pgn
+# Entre  ["Glendon Swift"] y ["ariza"]
+nuevo-juego Ajedrez
+
+1. Nf3 f5 2. c4 Nf6 3. d3 g6 4. Nc3 Bg7 5. e4 fxe4 
+6. dxe4 d6 7. Rb1 e5 8. Bg5 Be6 9. Be2 0-0 
+10. Qb3 b6 11. Nd5 Bxd5 12. cxd5 Nb8-d7 13. Bb5 Nc5 
+14. Qc4 Nc5xe4 15. Qxe4 Nxe4 16. Bxd8 Ra8xd8 
+17. 0-0 a6 18. Bc6 Rxf3 19. gxf3 Nd2 20. Kg2 Rf8 
+21. Rf1-d1 Nxb1 22. Rxb1 Bh6 23. Rd1 Kg7 
+24. Rd3 Bc1 25. b3 Bb2 26. a4 a5 27. Rd2 Bd4 
+28. Rc2 Bc5 29. Kg3 h5 30. h4 Kh6 31. Rc4 Rf7 
+32. Be8 Re7 33. Bc6 g5 34. Rc2 gxh4 35. Kxh4 Rf7 
+36. Kg3 h4 37. Kg2 Kg5 38. Rc4 Bd4 39. Be8 Re7 
+40. Bc6 Kf4 41. Kh3 Kxf3 42. Kxh4 Bxf2 43. Kg5 e4 
+44. Kf6 Bh4 45. Kg6 Re5 46. Kh6 Bg5 47. Kg6 e3 
+48. Bd7 e2 
+check-piezas torre blanco c4 1
+check-piezas torre negro e5 1
+check-piezas alfil blanco d7 1
+check-piezas alfil negro g5 1
+check-piezas rey blanco g6 1
+check-piezas rey negro f3 1
+check-piezas peon blanco a4 1
+check-piezas peon blanco b3 1
+check-piezas peon blanco d5 1
+check-piezas peon negro a5 1
+check-piezas peon negro b6 1
+check-piezas peon negro c7 1
+check-piezas peon negro d6 1
+check-piezas peon negro e2 1

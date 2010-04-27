@@ -1,0 +1,30 @@
+# Juego obtenido de  http://www.opengames.com.ar/{699}.pgn
+# Entre  ["Chuse Inazio"] y ["Ramiro"]
+nuevo-juego Ajedrez
+
+1. e4 e5 2. Nf3 Nc6 3. d4 d6 4. dxe5 dxe5 
+5. Qxd8 Nxd8 6. Nxe5 Bd6 7. Nc4 b5 8. Nxd6 cxd6 
+9. Bxb5 Bd7 10. Nc3 Rb8 11. Bxd7 Kxd7 12. b3 Nf6 
+13. f3 Nc6 14. Be3 
+check-piezas torre blanco a1 1
+check-piezas torre blanco h1 1
+check-piezas torre negro b8 1
+check-piezas torre negro h8 1
+check-piezas caballo blanco c3 1
+check-piezas caballo negro c6 1
+check-piezas caballo negro f6 1
+check-piezas alfil blanco e3 1
+check-piezas rey blanco e1 1
+check-piezas rey negro d7 1
+check-piezas peon blanco a2 1
+check-piezas peon blanco b3 1
+check-piezas peon blanco c2 1
+check-piezas peon blanco e4 1
+check-piezas peon blanco f3 1
+check-piezas peon blanco g2 1
+check-piezas peon blanco h2 1
+check-piezas peon negro a7 1
+check-piezas peon negro d6 1
+check-piezas peon negro f7 1
+check-piezas peon negro g7 1
+check-piezas peon negro h7 1

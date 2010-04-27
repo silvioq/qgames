@@ -1,0 +1,33 @@
+# Juego obtenido de  http://www.opengames.com.ar/{1017}.pgn
+# Entre  ["ERICH GONZALEZ"] y ["Mervin Gonzalez"]
+nuevo-juego Ajedrez
+
+1. e4 c5 2. Nf3 d6 3. d4 cxd4 4. Nxd4 Nf6 
+5. Nc3 a6 6. Bg5 e6 7. Bd3 Be7 8. Be3 0-0 
+9. 0-0 Qc7 10. f4 b5 11. a3 Bb7 12. Qf3 Nb8-d7 
+13. Rf1-e1 Nb6 14. Ra1-d1 Nc4 15. Bxc4 bxc4 
+16. Bc1 Qb6 17. Qg3 Ra8-d8 18. Kh1 Ba8 19. b4 cxb3 
+20. cxb3 Rd7 21. Bb2 Rf8-d8 22. Na4 Qb7 23. Qe3 Nxe4 
+24. Re2 Nc5 25. Qg3 Bf8 26. Rc2 e5 27. Ne2 Qe4 
+28. Rc2-d2 Nxb3 29. Na4-c3 Qc4 30. Rd3 Nc5 
+31. Rd3-d2 d5 32. fxe5 d4 33. Qf4 dxc3 34. Qxc4 Rxd2 
+35. Rf1 Bd5 36. Qg4 cxb2 37. Nf4 Bb3 
+check-piezas torre blanco f1 1
+check-piezas torre negro d2 1
+check-piezas torre negro d8 1
+check-piezas caballo blanco f4 1
+check-piezas caballo negro c5 1
+check-piezas alfil negro b3 1
+check-piezas alfil negro f8 1
+check-piezas dama blanco g4 1
+check-piezas rey blanco h1 1
+check-piezas rey negro g8 1
+check-piezas peon blanco a3 1
+check-piezas peon blanco e5 1
+check-piezas peon blanco g2 1
+check-piezas peon blanco h2 1
+check-piezas peon negro a6 1
+check-piezas peon negro b2 1
+check-piezas peon negro f7 1
+check-piezas peon negro g7 1
+check-piezas peon negro h7 1

@@ -1,0 +1,31 @@
+# Juego obtenido de  http://www.opengames.com.ar/{1034}.pgn
+# Entre  ["ERICH GONZALEZ"] y ["teri guerios"]
+nuevo-juego Ajedrez
+
+1. e4 e6 2. d4 d5 3. Nd2 Nc6 4. Ng1-f3 Bd6 
+5. e5 Qd7 6. exd6 Qxd6 7. Be2 Nxd4 8. Nxd4 Nf6 
+9. 0-0 e5 10. Nb5 Qc6 11. Nf3 0-0 12. Nxe5 Qb6 
+13. Be3 Qa5 14. c3 c6 15. b4 Qd8 16. Nxa7 b6 
+17. Na7xc6 Qd6 18. Bxb6 Nd7 19. Bc5 Qc7 20. Nxd7 Bxd7 
+21. Ne7 Kh8 22. Nxd5 
+check-piezas torre blanco a1 1
+check-piezas torre blanco f1 1
+check-piezas torre negro a8 1
+check-piezas torre negro f8 1
+check-piezas caballo blanco d5 1
+check-piezas alfil blanco c5 1
+check-piezas alfil blanco e2 1
+check-piezas alfil negro d7 1
+check-piezas dama blanco d1 1
+check-piezas rey blanco g1 1
+check-piezas dama negro c7 1
+check-piezas rey negro h8 1
+check-piezas peon blanco a2 1
+check-piezas peon blanco b4 1
+check-piezas peon blanco c3 1
+check-piezas peon blanco f2 1
+check-piezas peon blanco g2 1
+check-piezas peon blanco h2 1
+check-piezas peon negro f7 1
+check-piezas peon negro g7 1
+check-piezas peon negro h7 1

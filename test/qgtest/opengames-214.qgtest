@@ -1,0 +1,32 @@
+# Juego obtenido de  http://www.opengames.com.ar/{214}.pgn
+# Entre  ["Omar Martínez"] y ["Yav Mar Kyn"]
+nuevo-juego Ajedrez
+
+1. e4 e5 2. Nf3 Nc6 3. Bb5 Ng8-e7 4. 0-0 a6 
+5. Ba4 b5 6. Bb3 d6 7. h3 Ng6 8. c3 Be7 9. d4 0-0 
+10. dxe5 dxe5 11. Be3 Bb7 12. Bc2 Na5 13. b3 c5 
+14. Nb1-d2 Qc7 15. Qe2 Rf8-d8 16. Ra1-d1 Rd7 
+17. Bg5 Ra8-d8 18. Bxe7 Nxe7 19. Ng5 h6 20. Ng5-f3 Bc6 
+21. Nh2 Rd6 22. Nd2-f3 Nb7 23. Rxd6 Rxd6 
+24. Rd1 Rxd1 25. Qxd1 Qd6 26. Ng4 Ng6 27. Qxd6 Nxd6 
+28. Ng4xe5 Bxe4 29. Nxg6 Bxc2 30. Ne7 Kf8 
+31. Nd5 Be4 32. Nc7 Bxf3 33. gxf3 a5 34. Kf1 Ke7 
+35. Ke2 b4 36. c4 Nf5 37. Kd3 Kd6 38. Nd5 Ke5 
+39. f4 Kd6 40. Ke4 Nd4 41. Ne3 g6 42. Ng4 h5 
+43. Ne5 Ke6 44. Nd3 Kd6 
+check-piezas caballo blanco d3 1
+check-piezas caballo negro d4 1
+check-piezas rey blanco e4 1
+check-piezas rey negro d6 1
+check-piezas peon blanco a2 1
+check-piezas peon blanco b3 1
+check-piezas peon blanco c4 1
+check-piezas peon blanco f2 1
+check-piezas peon blanco f4 1
+check-piezas peon blanco h3 1
+check-piezas peon negro a5 1
+check-piezas peon negro b4 1
+check-piezas peon negro c5 1
+check-piezas peon negro f7 1
+check-piezas peon negro g6 1
+check-piezas peon negro h5 1

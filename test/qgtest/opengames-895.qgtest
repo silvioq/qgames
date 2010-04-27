@@ -1,0 +1,30 @@
+# Juego obtenido de  http://www.opengames.com.ar/{895}.pgn
+# Entre  ["Miguel Ángel"] y ["incoherente"]
+nuevo-juego Ajedrez
+
+1. e4 d5 2. e5 c5 3. d4 cxd4 4. Qxd4 Nc6 
+5. Bb5 Qa5 6. Nc3 Qxb5 7. Nxb5 Nxd4 8. Nxd4 Bd7 
+9. Ng1-e2 e6 10. 0-0 Ne7 11. b3 Nc6 12. Bb2 Nxe5 
+13. h3 Ng6 14. c4 e5 15. Nb5 Bxb5 16. cxb5 d4 
+17. f4 d3 18. Nc1 e4 19. f5 Ne7 20. b4 d2 
+21. Ne2 Nd5 22. Nc3 Nxc3 23. Bxc3 0-0-0 24. Kf2 Rd3 
+25. Be5 Bxb4 26. Bf4 Rh8-d8 27. Bxd2 Bxd2 
+28. a4 Be3 29. Ke2 Bg5 30. a5 Rd2 31. Ke1 
+check-piezas torre blanco a1 1
+check-piezas torre blanco f1 1
+check-piezas torre negro d2 1
+check-piezas torre negro d8 1
+check-piezas alfil negro g5 1
+check-piezas rey blanco e1 1
+check-piezas rey negro c8 1
+check-piezas peon blanco a5 1
+check-piezas peon blanco b5 1
+check-piezas peon blanco f5 1
+check-piezas peon blanco g2 1
+check-piezas peon blanco h3 1
+check-piezas peon negro a7 1
+check-piezas peon negro b7 1
+check-piezas peon negro e4 1
+check-piezas peon negro f7 1
+check-piezas peon negro g7 1
+check-piezas peon negro h7 1

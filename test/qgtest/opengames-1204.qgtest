@@ -1,0 +1,32 @@
+# Juego obtenido de  http://www.opengames.com.ar/{1204}.pgn
+# Entre  ["Oscar Gomez"] y ["Alexis Augoustis"]
+nuevo-juego Ajedrez
+
+1. d4 e6 2. e4 d5 3. exd5 exd5 4. Bd3 Nc6 
+5. c3 Bd6 6. Qf3 Ng8-e7 7. Ne2 Bg4 8. Qxg4 Qd7 
+9. Qxd7 Kxd7 10. Bf4 Ra8-e8 11. 0-0 Ng6 12. Bxd6 Kxd6 
+13. Nd2 Re7 14. Rf1-e1 Rh8-e8 15. Kf1 Nd8 
+16. Bxg6 hxg6 17. Ng3 Ne6 18. Nf3 f6 19. Re3 c6 
+20. Ra1-e1 b6 21. Nh4 Nf8 22. Nh4-f5 gxf5 
+23. Nxf5 
+check-piezas torre blanco e1 1
+check-piezas torre blanco e3 1
+check-piezas torre negro e7 1
+check-piezas torre negro e8 1
+check-piezas caballo blanco f5 1
+check-piezas caballo negro f8 1
+check-piezas rey blanco f1 1
+check-piezas rey negro d6 1
+check-piezas peon blanco a2 1
+check-piezas peon blanco b2 1
+check-piezas peon blanco c3 1
+check-piezas peon blanco d4 1
+check-piezas peon blanco f2 1
+check-piezas peon blanco g2 1
+check-piezas peon blanco h2 1
+check-piezas peon negro a7 1
+check-piezas peon negro b6 1
+check-piezas peon negro c6 1
+check-piezas peon negro d5 1
+check-piezas peon negro f6 1
+check-piezas peon negro g7 1

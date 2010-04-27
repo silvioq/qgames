@@ -1,0 +1,35 @@
+# Juego obtenido de  http://www.opengames.com.ar/{1085}.pgn
+# Entre  ["G"] y ["Oscar Gomez"]
+nuevo-juego Ajedrez
+
+1. e4 e5 2. Bc4 Nf6 3. d3 Nc6 4. Nh3 Be7 
+5. Ng5 0-0 6. Nc3 d6 7. h4 Na5 8. Be3 Nxc4 
+9. b3 Nxe3 10. fxe3 Bg4 11. Nf3 c6 12. 0-0 Nh5 
+13. Qe1 Bxf3 14. Rxf3 Bxh4 15. g3 Qg5 16. Ne2 Qg6 
+17. Kh2 Be7 18. Qf2 Nf6 19. Rg1 Ng4 
+check-piezas torre blanco g1 1
+check-piezas torre blanco f3 1
+check-piezas torre negro a8 1
+check-piezas torre negro f8 1
+check-piezas caballo blanco e2 1
+check-piezas caballo negro g4 1
+check-piezas alfil negro e7 1
+check-piezas dama blanco f2 1
+check-piezas rey blanco h2 1
+check-piezas dama negro g6 1
+check-piezas rey negro g8 1
+check-piezas peon blanco a2 1
+check-piezas peon blanco b3 1
+check-piezas peon blanco c2 1
+check-piezas peon blanco d3 1
+check-piezas peon blanco e4 1
+check-piezas peon blanco e3 1
+check-piezas peon blanco g3 1
+check-piezas peon negro a7 1
+check-piezas peon negro b7 1
+check-piezas peon negro c6 1
+check-piezas peon negro d6 1
+check-piezas peon negro e5 1
+check-piezas peon negro f7 1
+check-piezas peon negro g7 1
+check-piezas peon negro h7 1

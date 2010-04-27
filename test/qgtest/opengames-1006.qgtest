@@ -1,0 +1,31 @@
+# Juego obtenido de  http://www.opengames.com.ar/{1006}.pgn
+# Entre  ["incoherente"] y ["Mervin Gonzalez"]
+nuevo-juego Ajedrez
+
+1. e4 c5 2. Nf3 d6 3. d4 cxd4 4. Nxd4 Nf6 
+5. Nc3 a6 6. Nf3 Nc6 7. Bg5 e6 8. Be2 h6 
+9. Be3 b5 10. a3 Bb7 11. h3 Be7 12. 0-0 0-0 
+13. Re1 Qc7 14. Qd2 Ne5 15. Nxe5 dxe5 16. Bd3 Rf8-d8 
+17. f3 Nd7 18. Qf2 Ra8-c8 19. Ra1-d1 Nc5 
+20. Qg3 Kh7 21. Be2 f5 22. exf5 exf5 23. Qf2 f4 
+24. Bc1 Ne4 25. Nxe4 Bxe4 26. Rxd8 Qxd8 27. Rd1 Qc7 
+28. b4 Bxc2 29. Rd2 a5 30. Bxb5 Bg6 31. Rd1 axb4 
+32. axb4 Rd8 33. Rf1 Rd5 34. Be2 Bxb4 35. Kh2 Rc5 
+36. Bb2 Rc2 37. Rb1 Bd6 38. h4 Qe7 
+check-piezas torre blanco b1 1
+check-piezas torre negro c2 1
+check-piezas alfil blanco b2 1
+check-piezas alfil blanco e2 1
+check-piezas alfil negro g6 1
+check-piezas alfil negro d6 1
+check-piezas dama blanco f2 1
+check-piezas rey blanco h2 1
+check-piezas dama negro e7 1
+check-piezas rey negro h7 1
+check-piezas peon blanco f3 1
+check-piezas peon blanco g2 1
+check-piezas peon blanco h4 1
+check-piezas peon negro e5 1
+check-piezas peon negro f4 1
+check-piezas peon negro g7 1
+check-piezas peon negro h6 1

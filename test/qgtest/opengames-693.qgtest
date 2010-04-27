@@ -1,0 +1,26 @@
+# Juego obtenido de  http://www.opengames.com.ar/{693}.pgn
+# Entre  ["Silvio"] y ["Fernando"]
+nuevo-juego Ajedrez
+
+1. e4 e5 2. Nf3 Nc6 3. Bb5 a6 4. Ba4 Nf6 
+5. 0-0 Be7 6. Re1 0-0 7. c3 b5 8. Bb3 Re8 
+9. d3 a5 10. a4 b4 11. d4 d6 12. Ng5 d5 13. exd5 Nxd5 
+14. dxe5 Bxg5 15. Bxg5 Qxg5 16. Qxd5 Be6 
+17. Qxc6 Bxb3 18. cxb4 Qe7 19. Nd2 Qxb4 20. Ne4 Be6 
+21. Qxc7 Qxb2 22. Ra1-b1 Qa3 23. Nd6 Re8-d8 
+24. Nxf7 Rd7 25. Qc6 Re8 26. Ng5 Bf5 27. e6 Rd7-e7 
+28. Rb7 h6 29. Rxe7 Qxe7 30. Nf3 Bxe6 31. Nd4 Qf7 
+32. Rxe6 Rf8 33. Nf3 Qf5 34. Re1 Kh7 35. Qe4 Kh8 
+36. Qxf5 Rxf5 37. Re5 Rxe5 38. Nxe5 Kh7 39. f4 Kg8 
+40. Kf2 Kf8 41. Ke3 Ke7 42. Nc6 Kf6 43. g4 Ke6 
+44. Kd4 Kd7 45. Nxa5 Kc7 46. Ke5 Kb6 47. Nc4 Kc5 
+48. a5 Kb5 49. f5 Ka6 50. Ke6 Ka7 51. Kf7 Ka6 
+52. Kxg7 Kb5 53. f6 Kxc4 54. f7 h5 55. f8=Q hxg4 
+56. Qd6 Kb5 57. Qb6 Kc4 58. Kf6 Kd3 59. Qb4 Ke3 
+60. Kf5 
+check-piezas rey blanco f5 1
+check-piezas rey negro e3 1
+check-piezas peon blanco a5 1
+check-piezas peon blanco h2 1
+check-piezas peon negro g4 1
+check-piezas dama blanco b4 1

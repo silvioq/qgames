@@ -1,0 +1,27 @@
+# Juego obtenido de  http://www.opengames.com.ar/{1261}.pgn
+# Entre  ["Rodrigo Barros Gewehr"] y ["teri guerios"]
+nuevo-juego Ajedrez
+
+1. e4 Nf6 2. e5 Ne4 3. d3 d5 4. dxe4 d4 5. Qf3 f6 
+6. exf6 exf6 7. e5 Nd7 8. Bb5 c6 9. e6 Nc5 
+10. Bxc6 Nd7 11. Bg5 Qb6 12. Bxd7 Ke7 13. Nh3 Bxd7 
+14. Nf4 Qd6 15. Qxb7 Rd8 16. 0-0 fxg5 17. Nd5 Kxe6 
+18. Re1 Kf7 19. Nd2 Rb8 20. Ne4 Rxb7 21. Nxd6 Bxd6 
+22. Re4 Bc6 23. c4 d3 24. Re3 d2 25. Rf3 Kg6 
+26. g4 Re8 27. Kg2 Re1 28. Rxe1 dxe1=Q 29. Re3 Qd2 
+30. Re6 Kf7 31. Rxd6 Qd4 32. Rxc6 Rxb2 33. Rc7 Ke8 
+34. Re7 Kf8 35. h4 Qxf2 36. Kh3 Qf3 
+check-piezas torre blanco e7 1
+check-piezas torre negro b2 1
+check-piezas caballo blanco d5 1
+check-piezas rey blanco h3 1
+check-piezas rey negro f8 1
+check-piezas peon blanco a2 1
+check-piezas peon blanco c4 1
+check-piezas peon blanco g4 1
+check-piezas peon blanco h4 1
+check-piezas peon negro a7 1
+check-piezas peon negro g5 1
+check-piezas peon negro g7 1
+check-piezas peon negro h7 1
+check-piezas dama negro f3 1
