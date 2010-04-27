@@ -2102,11 +2102,11 @@ void   add_movida( char* movs ){
         LOGPRINT( 2, "No fue inicializada la partida (%d)", yylineno );
         exit( EXIT_FAILURE );
     }
+    LOGPRINT( 5, "Agrega movida %s", movs );
     if( !partida_mover_serie( partida, movs ) ){
         LOGPRINT( 2, "Error al intentar mover %s (%d)", movs, yylineno );
         exit( EXIT_FAILURE ) ;
     }
-    LOGPRINT( 5, "Agrega movida %s", movs );
 }
 
 void  free_struct(strcheck* str){

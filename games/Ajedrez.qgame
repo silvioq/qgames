@@ -267,7 +267,7 @@ notation:   peon    ""
 notation:   captured-mark   x
 notation:   mark           "-"
 notation:   default   piece-name  captured-mark      target
-notation:   onrepeat  piece-name  origin             captured-mark    target         
+notation:   onrepeat  piece-name  origin             mark    target         
 notation:   enroque_corto   "0-0"
 notation:   enroque_largo   "0-0-0"
 
