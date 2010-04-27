@@ -41,7 +41,7 @@ typedef struct StrAccion{
 #define   ACCION_PASAR          10
 
 
-Movida*   movida_new( Posicion* pos, Pieza* pieza );
+Movida*   movida_new( Posicion* pos, Pieza* pieza, int tmov );
 Movida*   movida_dup( Movida* mov );
 
 void  movida_accion_mueve  ( Movida* mov, Pieza* p, Casillero* destino );

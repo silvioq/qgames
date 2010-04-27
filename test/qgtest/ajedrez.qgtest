@@ -13,3 +13,18 @@ check-movidas  Ke2  Qe2 Qf3  Bc4
 # verbose 6
 check-movidas  Ke2  Kf1
 
+
+nuevo-juego  Ajedrez
+1. e4   e5
+2. Nf3  Nc6
+3. Bb5  a6
+
+# verbose  5
+
+check-movidas 0-0
+check-piezas  e1 rey  1
+   0-0
+
+check-piezas  g1 rey    1
+check-piezas  f1 torre  1
+

@@ -18,7 +18,7 @@ typedef  struct  StrAnalizador {
     Pieza*     pieza;
     Casillero* cas;
     Casillero* cas_ori;           // Casillero original
-    int        tipo_movida;
+    int        tmov;
     int        color;
     int        color_siguiente;
     Movida*    mov_actual;

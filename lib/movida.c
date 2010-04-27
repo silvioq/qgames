@@ -21,12 +21,13 @@
 
 // -----------------------------------------------------------------
 
-Movida*   movida_new( Posicion* pos, Pieza* pie ){
+Movida*   movida_new( Posicion* pos, Pieza* pie, int tmov ){
   Movida* m;
   m = ALLOC( sizeof( Movida ) );
   memset( m, 0, sizeof( Movida ) );
   m->pos = pos;
   if( pie ) m->piece_number = pie->number;
+  m->tmov = tmov;
   return m;
 }
 
@@ -111,11 +112,10 @@ void  movida_free( Movida* mov ){
  * */
 
 Movida*   movida_dup( Movida* mov ){
-    Movida*  movnew = movida_new( mov->pos, NULL );
+    Movida*  movnew = movida_new( mov->pos, NULL, mov->tmov );
     if( mov->notacion ) movnew->notacion = STRDUP( mov->notacion );
     int i;
     movnew->piece_number = mov->piece_number;
-    movnew->tmov     = mov->tmov;
     movnew->continua = mov->continua;
     movnew->acciones = list_nueva( NULL );
 
@@ -237,16 +237,21 @@ Casillero*   movida_casillero_origen( Movida* mov ){
  * */
 Casillero*   movida_casillero_destino( Movida* mov ){
     Accion* acc;
+    Casillero*  probable = NULL;
     if( mov->destino ) return mov->destino;
     if( !mov->acciones ) return NULL;
+    int  i;
     list_inicio( mov->acciones );
     while( acc = (Accion*)list_siguiente( mov->acciones ) ){
         if( acc->destino ){
-            mov->destino = acc->destino;
-            return acc->destino;
+            if( acc->pieza_number == mov->piece_number ){
+                mov->destino = acc->destino;
+                return acc->destino;
+            }
+            if( !probable ) probable = acc->destino;
         }
     }
-    return  NULL;
+    return  probable;
 }
 
 /*

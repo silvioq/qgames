@@ -137,6 +137,10 @@ char*   notacion_resolver_tpieza( Notacion* nott, int color, Tipopieza* tpieza){
 
 char*   notacion_resolver_mov( Notacion* nott, Movida* mov, char* def ){
     assert( def );
+    if( mov->tmov > 0 ){
+        char*  tmov = notacion_resolver_tmov( nott, mov->tmov );
+        if( tmov ) return STRDUP( tmov );
+    }
     char*  ret = ALLOC( 1024 );
     *ret = 0;
     char*  defchar = def;

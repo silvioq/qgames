@@ -39,10 +39,11 @@ _list*   analizador_evalua_movidas( Regla* regla, Posicion* pos, Pieza* pieza, C
     z->cas_ori = cas;
     z->color   = color;
     z->tipo_analisis = tipoanalisis;
-    z->tipo_movida   = tipomovida;
-    LOGPRINT( 6, "Inicio analisis pieza %s casillero %p %s", 
+    z->tmov    = tipomovida;
+    LOGPRINT( 6, "Inicio analisis pieza %s casillero %p %s tipomovida = %d", 
           z->pieza->tpieza->nombre, 
-          z->cas_ori, ( !CASILLERO_VALIDO(z->cas_ori) ? "(no)" : z->cas_ori->nombre ) );
+          z->cas_ori, ( !CASILLERO_VALIDO(z->cas_ori) ? "(no)" : z->cas_ori->nombre ),
+          z->tmov );
 
     code_execute_rule( z, regla->pc );
 
@@ -207,7 +208,8 @@ int    analizador_ocupado( Analizador* z, Casillero* cas, int owner, Tipopieza* 
    
     CHECK_STATUS ;
     if( CASILLERO_VALIDO(ccc) ){
-        LOGPRINT( 6, "Pregunta por ocupado al casillero %s owner = %d", ccc->nombre, owner );
+        LOGPRINT( 6, "Pregunta por ocupado al casillero %s owner = %d tipopieza = %s", 
+            ccc->nombre, owner, tpieza ? tpieza->nombre : "(cualquiera)" );
     } else {
         return 0;
     }
@@ -215,7 +217,8 @@ int    analizador_ocupado( Analizador* z, Casillero* cas, int owner, Tipopieza* 
     for( i = 0; i < z->pos->piezas->entradas; i ++ ){
         Pieza* pp = (Pieza*)z->pos->piezas->data[i];
         if( pp == z->pieza ) continue;
-        if( tpieza && tpieza != z->pieza->tpieza ) continue;
+        if( !pp ) continue;
+        if( tpieza && tpieza != pp->tpieza ) continue;
         if( pp->casillero == ccc ){
             if( owner == CUALQUIERA ){
                 return  1;
@@ -288,7 +291,7 @@ int    analizador_juega  ( Analizador* z, Casillero* cas, int con_captura ){
     if( !CASILLERO_VALIDO( ccc ) ) return STATUS_NORMAL;
 #endif
     if( !z->movidas ) z->movidas = list_nueva( NULL );
-    if( !z->mov_actual ) z->mov_actual = movida_new( z->pos, z->pieza );
+    if( !z->mov_actual ) z->mov_actual = movida_new( z->pos, z->pieza, z->tmov );
     movida_accion_mueve( z->mov_actual, z->pieza, ccc );
     LOGPRINT( 6, "Juega %s en %s captura = %d", z->pieza->tpieza->nombre, ccc->nombre, con_captura );
     if( TIPOJUEGO_CAPTURAIMPLICITA(z->pos->tj) || con_captura ){
@@ -352,8 +355,10 @@ int    analizador_mueve  ( Analizador* z, char fromto_flags, void* from, void* t
     for( i = 0; i < z->pos->piezas->entradas; i ++ ){
         Pieza* pp = (Pieza*)z->pos->piezas->data[i];
         if( !pp ) continue;
+        if( pp == z->pieza ) continue;
         if( pp->casillero == cas_from ){
-            if( !z->mov_actual ) z->mov_actual = movida_new( z->pos, z->pieza );
+            if( !z->mov_actual ) z->mov_actual = movida_new( z->pos, z->pieza, z->tmov );
+            LOGPRINT( 5, "Mueve %s a %s", pp->tpieza->nombre, cas_to->nombre );
             movida_accion_mueve( z->mov_actual, pp, cas_to );
             hay_piezas = 1;
         }
@@ -374,7 +379,7 @@ int    analizador_captura  ( Analizador* z, Casillero* cas  ){
     if( !CASILLERO_VALIDO( ccc ) ) return STATUS_NORMAL;
 #endif
     if( !z->movidas ) z->movidas = list_nueva( NULL );
-    if( !z->mov_actual ) z->mov_actual = movida_new( z->pos, z->pieza );
+    if( !z->mov_actual ) z->mov_actual = movida_new( z->pos, z->pieza, z->tmov );
     int i;
     for( i = 0; i < z->pos->piezas->entradas; i ++ ){
         Pieza* pp = (Pieza*)z->pos->piezas->data[i];
@@ -461,7 +466,7 @@ int    analizador_transforma( Analizador* z, int owner, Tipopieza* tpieza ){
     } else if ( owner > 0 ){
         color = owner;
     }
-    if( !z->mov_actual ) z->mov_actual = movida_new( z->pos, z->pieza );
+    if( !z->mov_actual ) z->mov_actual = movida_new( z->pos, z->pieza, z->tmov );
     z->flags |= CON_TRANSFORMACION;
     LOGPRINT( 6, "transformando %s en %s", z->pieza->tpieza->nombre, tpieza->nombre );
     movida_accion_transforma( z->mov_actual, z->pieza, color, tpieza );
@@ -469,13 +474,15 @@ int    analizador_transforma( Analizador* z, int owner, Tipopieza* tpieza ){
 }
 
 int    analizador_asigna_att( Analizador* z, char* att, int val ){
-    if( !z->mov_actual ) z->mov_actual = movida_new( z->pos, z->pieza );
+    if( !z->mov_actual ) z->mov_actual = movida_new( z->pos, z->pieza, z->tmov );
     movida_accion_asigna_att( z->mov_actual, z->pieza, att, val );
     return  STATUS_NORMAL;
 }
 
 int    analizador_evalua_att( Analizador* z, char* att ){
-    return  pieza_get_att( z->pieza, att );
+    int ret = pieza_get_att( z->pieza, att );
+    LOGPRINT( 5, "Evaluando atributo %s de %s = %d", att, z->pieza->tpieza->nombre, ret );
+    return  ret;
 }
 
 /*

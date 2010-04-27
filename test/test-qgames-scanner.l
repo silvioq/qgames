@@ -51,7 +51,7 @@ NUM          [0-9]+
 WORD         ([a-zA-Z\?][a-zA-Z0-9\-\_]*\??)
 MOVENUMBER   [0-9]+\.
 DOTS         \.{2,3}
-MOVE         [a-zA-Z][0-9a-z\-\+\#\/\=]+
+MOVE         [0a-zA-Z][0-9a-z\-\+\#\/\=]+
 WWIN         1\-0
 BWIN         0\-1
 DRAW         1\/2\-1\/2
@@ -67,6 +67,7 @@ RESULT       ({DRAW}|{BWIN}|{WWIN}|\*)
 
 <nombre_juego>{WORD}            { nuevo_juego( yytext ); BEGIN(INITIAL); }
 
+<INITIAL>{RESULT}               { yyless( 0 ); BEGIN(check_result); }
 <INITIAL>{MOVENUMBER}           /* no hago nada */
 <INITIAL>{DOTS}                 /* no hago nada */
 <INITIAL>{MOVE}                 { add_movida( yytext ); }
@@ -87,7 +88,6 @@ RESULT       ({DRAW}|{BWIN}|{WWIN}|\*)
 
 <check_movida,check_result,check_piezas>\n   { BEGIN(INITIAL); }
 
-<*>{RESULT}                     { yyless( 0 ); BEGIN(check_result); }
 
 <*>\#[^\n]*                     /* ignora comentario */
 

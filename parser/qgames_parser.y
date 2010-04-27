@@ -546,10 +546,22 @@ instaction_para:
 /* Moviendo las cosas de un lugar a otro                  */
 /* ------------------------------------------------------ */
 instaction_mueve:
-    TOK_MUEVE   TOK_PIEZAS_EN_CAS  TOK_WORD               { NOT_IMPLEMENTED_WARN( "mueve" ); } |
-    TOK_MUEVE   TOK_PIEZAS_EN_CAS  instaction_get_marca   { NOT_IMPLEMENTED_WARN( "mueve" ); } |
-    TOK_MUEVE   TOK_WORD           TOK_WORD               { NOT_IMPLEMENTED_WARN( "mueve" ); } |
-    TOK_MUEVE   instaction_get_marca                      { NOT_IMPLEMENTED_WARN( "mueve" ); } ;
+    TOK_MUEVE   TOK_PIEZAS_EN_CAS  TOK_WORD               { 
+                          CHECK_TIPOJUEGO;
+                          if( NOT_FOUND == tipojuego_get_casillero( tipojuego, (char*)$3 ) ){
+                              qgzprintf( "%s debe ser un casillero", (char*)$3 );
+                              yyerror( "Debe ser un casillero" );
+                              YYERROR;
+                          } else {
+                              tipojuego_code_mueve( tipojuego, FROM_AQUI | TO_CASILLERO, 0, (char*)$3 );
+                          }
+     } |
+    TOK_MUEVE   TOK_PIEZAS_EN_CAS  instaction_get_marca   { 
+                          CHECK_TIPOJUEGO;
+                          tipojuego_code_mueve( tipojuego, FROM_AQUI | TO_MARCA, 0, (void*)$3 );
+     } |
+    TOK_MUEVE   TOK_WORD           TOK_WORD               { NOT_IMPLEMENTED_WARN( "mueve cas  => casillero" ); } |
+    TOK_MUEVE   instaction_get_marca                      { NOT_IMPLEMENTED_WARN( "mueve      => marca" ); } ;
 
 
 /* ------------------------------------------------------ */
