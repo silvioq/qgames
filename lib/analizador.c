@@ -138,9 +138,12 @@ int    analizador_atacado( Analizador* z, Casillero* cas ){
  * */
 int    analizador_destino_ant( Analizador* z, Casillero* cas ){
     Casillero* ccc = ( cas ? cas : z->cas );
+    LOGPRINT( 6, "Viendo destino anterior en %s", ccc->nombre );
     if( !ccc ) return 0;
     if( !z->pos->mov_anterior ) return 0;
-    return( ccc == movida_casillero_destino( z->pos->mov_anterior ) );
+    Casillero* ret = movida_casillero_destino( z->pos->mov_anterior );
+    LOGPRINT( 6, "Destino anterior fue %s", CASILLERO_VALIDO(ret)? ret->nombre : "(no se)" );
+    return( ccc == ret );
 }
 
 /*
@@ -223,13 +226,13 @@ int    analizador_ocupado( Analizador* z, Casillero* cas, int owner, Tipopieza* 
             if( owner == CUALQUIERA ){
                 return  1;
             } else if( owner == PROPIO ){
-                if( z->color == pp->color ){ LOGPRINT( 6, " ... ocupado %d", 1 ); return 1; }
+                if( z->color == pp->color ){ LOGPRINT( 6, " ... ocupado propio  %d", 1 ); return 1; }
             } else if( owner == ENEMIGO ) {
-                if( z->color != pp->color ){ LOGPRINT( 6, " ... ocupado %d", 1 );return 1; }
+                if( z->color != pp->color ){ LOGPRINT( 6, " ... ocupado enemigo %d", 1 );return 1; }
             } else if( pp->color == owner ){ LOGPRINT( 6, " ... ocupado %d", 1 ); return 1; }
         }
     }
-    LOGPRINT( 6, " ... no ocupado %d", 1 );
+    LOGPRINT( 6, " ... no ocupado %d", 0 );
     return 0;
 
 }
@@ -264,13 +267,21 @@ int    analizador_enzona( Analizador* z, int zona, int color, Tipopieza* tpieza 
     CHECK_STATUS;
     int  i;
     int  colorcheck = ( color == PROPIO ? z->color : color );
-    for( i = 0; i < z->pos->piezas->entradas; i ++ ){
-        Pieza* ppp = (Pieza*)z->pos->piezas->data[i];
-        if( !CASILLERO_VALIDO(ppp->casillero ) ) continue;
-        if( ppp->color != colorcheck ) continue;
-        if( tpieza && ppp->tpieza != tpieza ) continue;
-        if(  tipojuego_casillero_en_zona( z->pos->tjuego, ppp->casillero, zona, colorcheck ) ){
-            LOGPRINT( 6, "En zona acertó! zona=%d color=%d cas=%s tpieza=%p", zona, colorcheck, ppp->casillero->nombre, tpieza );
+
+    if( z->tipo_analisis == ANALISIS_FINAL ){
+        for( i = 0; i < z->pos->piezas->entradas; i ++ ){
+            Pieza* ppp = (Pieza*)z->pos->piezas->data[i];
+            if( !CASILLERO_VALIDO(ppp->casillero ) ) continue;
+            if( ppp->color != colorcheck ) continue;
+            if( tpieza && ppp->tpieza != tpieza ) continue;
+            if(  tipojuego_casillero_en_zona( z->pos->tjuego, ppp->casillero, zona, colorcheck ) ){
+                LOGPRINT( 6, "En zona acertó! zona=%d color=%d cas=%s tpieza=%p", zona, colorcheck, ppp->casillero->nombre, tpieza );
+                return 1;
+            }
+        }
+    } else {
+        if( tipojuego_casillero_en_zona( z->pos->tjuego, z->cas, zona, z->color ) ){
+            LOGPRINT( 6, "En zona acertó! zona=%d color=%d cas=%s tpieza=%p", zona, z->color, z->cas->nombre, tpieza );
             return 1;
         }
     }
@@ -481,7 +492,7 @@ int    analizador_asigna_att( Analizador* z, char* att, int val ){
 
 int    analizador_evalua_att( Analizador* z, char* att ){
     int ret = pieza_get_att( z->pieza, att );
-    LOGPRINT( 5, "Evaluando atributo %s de %s = %d", att, z->pieza->tpieza->nombre, ret );
+    LOGPRINT( 6, "Evaluando atributo %s de %s = %d", att, z->pieza->tpieza->nombre, ret );
     return  ret;
 }
 

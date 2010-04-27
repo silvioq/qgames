@@ -226,7 +226,7 @@ void        tipojuego_code_origen_ant( Tipojuego* tj, char* casillero ){
     qcode_op( tj->qcode, QCSTI, 1, cas );      // r1 = cas     
     qcode_op( tj->qcode, QCPSH, 1, 0 );        // PSH r1
     qcode_op( tj->qcode, QCPSH, 3, 0 );        // PSH r3
-    qcode_opnlab( tj->qcode, QCCLX, "destino_ant" );
+    qcode_opnlab( tj->qcode, QCCLX, "origen_ant" );
 }
 
 

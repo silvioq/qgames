@@ -63,6 +63,8 @@ RESULT       ({DRAW}|{BWIN}|{WWIN}|\*)
 <INITIAL>check{BAR}piezas       { iniciar_chequeo( ); BEGIN(check_piezas); }
 <INITIAL>check{BAR}movidas?     { BEGIN(check_movida); }  
 <INITIAL>check{BAR}result       { BEGIN(check_result); }  
+<INITIAL>show{BAR}movidas       { partida_movidas_posibles_ascii( partida ) ; }
+<INITIAL>show{BAR}tablero       { partida_tablero_ascii( partida ) ; }
 <INITIAL>verbose                { BEGIN(verbose_state); }
 
 <nombre_juego>{WORD}            { nuevo_juego( yytext ); BEGIN(INITIAL); }

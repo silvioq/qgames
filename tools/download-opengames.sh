@@ -16,9 +16,11 @@ fi
 
 # cat $file
 
+echo "# Juego obtenido de  http://www.opengames.com.ar/${juego}.pgn"
+echo "# Entre " `cat $file | grep White | sed "s/White //g"` "y" `cat $file | grep Black | sed "s/Black //g"`
 echo "nuevo-juego Ajedrez"
 cat $file | grep -v "^\\["
-cat $file | grep "Result" | sed s/[^-012\\*\\/]//g
+# cat $file | grep "Result" | sed s/[^-012\\*\\/]//g
 
 rm $file
 
