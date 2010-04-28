@@ -764,6 +764,7 @@ instruction_gametype:
             YYERROR;
         } else {
             tipojuego = tipojuego_new( ((char*)$2) );
+            FREE((void*)$2);
         }
     };
 
@@ -772,6 +773,7 @@ instruction_movetype:
         CHECK_TIPOJUEGO;
         qgzprintf( "Definiendo %s", ((char*)$2) );
         tipojuego_add_tipo_mov( tipojuego, ((char*)$2) );
+        FREE((void*)$2);
     }
 
 instruction_notation_element:
@@ -827,6 +829,9 @@ instruction_notation:
             YYERROR;
         } 
         tipojuego_add_notacion_tpieza( tipojuego, tpieza, color, abbr ) ;
+        FREE((void*)$2);
+        FREE((void*)$3);
+        FREE((void*)$4);
     } |
     TOK_NOTATION    TOK_MARK            word_or_string  { 
                   CHECK_TIPOJUEGO;
