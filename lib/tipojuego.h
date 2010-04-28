@@ -100,6 +100,12 @@ typedef   struct  StrNotacion{
     char*        repeticion;
     _list*       notacion_tpiezas;
     _list*       notacion_tmovs;
+
+    // Marca de movida (separacion)
+    char*        marca;
+
+    // Marca de capturado (cuando hay captura)
+    char*        captura;
 } _Notacion;
 
 typedef struct StrNotacionData {

@@ -483,6 +483,17 @@ void   tipojuego_add_notacion_rep( Tipojuego* tj, char elemento ){
     }
 }
 
+/*
+ * Esta funcion setea la marca de notacion. La primera
+ * es la separacion de movida y la segunda es la marca de
+ * capturado
+ * */
+void   tipojuego_set_notacion_marca( Tipojuego* tj, char* marca, char* captura ){
+    INIT_NOTACION(tj);
+    if( marca )   tj->notacion->marca = STRDUP(marca);
+    if( captura ) tj->notacion->captura = STRDUP(captura);
+}
+
 
 /*
  * Esta funcion agrega una nueva entrada de codigo, y va armando la lista

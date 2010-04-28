@@ -81,6 +81,7 @@ void   tipojuego_add_notacion_def( Tipojuego* tj, char elemento );
 void   tipojuego_add_notacion_rep( Tipojuego* tj, char elemento );
 void   tipojuego_add_notacion_tmov( Tipojuego* tj, char* tmov, char* notacion );
 void   tipojuego_add_notacion_tpieza( Tipojuego* tj, char* tpieza, char* color, char* abbr );
+void   tipojuego_set_notacion_marca( Tipojuego* tj, char* marca, char* captura );
 
 
 

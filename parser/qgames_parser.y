@@ -718,8 +718,7 @@ instruction_direction:
 
 instruction_drop_prelude:
     TOK_DROP   { $$ = 0; } |
-    TOK_DROP   word_or_string { NOT_IMPLEMENTED; } |
-    TOK_DROP   word_or_string  word_or_string { NOT_IMPLEMENTED; } ;
+    TOK_DROP   word_or_string { NOT_IMPLEMENTED; } ;
 
 instruction_drop:
     instruction_drop_prelude  TOK_SEPARATOR {
@@ -829,8 +828,16 @@ instruction_notation:
         } 
         tipojuego_add_notacion_tpieza( tipojuego, tpieza, color, abbr ) ;
     } |
-    TOK_NOTATION    TOK_MARK            word_or_string  { NOT_IMPLEMENTED_WARN("notacion: mark"); } |
-    TOK_NOTATION    TOK_CAPTURED_MARK   word_or_string  { NOT_IMPLEMENTED_WARN("notacion: captured_mark"); } |
+    TOK_NOTATION    TOK_MARK            word_or_string  { 
+                  CHECK_TIPOJUEGO;
+                  tipojuego_set_notacion_marca( tipojuego, (char*)$3, NULL );
+                  FREE((void*)$3);
+             } |
+    TOK_NOTATION    TOK_CAPTURED_MARK   word_or_string  { 
+                  CHECK_TIPOJUEGO;
+                  tipojuego_set_notacion_marca( tipojuego, NULL, (char*)$3 );
+                  FREE((void*)$3);
+             } |
     TOK_NOTATION    TOK_DEFAULT         instruction_notation_def  |
     TOK_NOTATION    TOK_ONREPEAT        instruction_notation_rep  ;
 

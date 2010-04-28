@@ -158,11 +158,11 @@ char*   notacion_resolver_mov( Notacion* nott, Movida* mov, char* def ){
                 if( !CASILLERO_VALIDO( origen ) ) break;
             case  NOTACION_MARCA:
                 if( !movida_es_captura( mov ) ){
-                    strcat( ret, "-" );
+                    strcat( ret, ( nott && nott->marca ? nott->marca : "-" ) );
                     break;
                 }
             case  NOTACION_CAPTURA:
-                if( movida_es_captura( mov ) ) strcat( ret, "x" );
+                if( movida_es_captura( mov ) ) strcat( ret, ( nott && nott->captura ? nott->captura : "x" ) );
                 break;  
             case  NOTACION_DESTINO:
                 destino = movida_casillero_destino( mov );
