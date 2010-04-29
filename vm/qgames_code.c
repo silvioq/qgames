@@ -12,6 +12,7 @@
 #include  <assert.h>
 #include  <stdarg.h>
 #include  <qgames.h>
+#include  <qgames_code.h>
 
 #include  "log.h"
 #include  "list.h"
