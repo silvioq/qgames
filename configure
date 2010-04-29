@@ -21165,7 +21165,7 @@ cat >>confdefs.h <<\_ACEOF
 _ACEOF
 
 
-ac_config_files="$ac_config_files Makefile lib/Makefile vm/Makefile parser/Makefile src/Makefile interfaces/Makefile test/Makefile test/bin/Makefile test/qgtest/Makefile"
+ac_config_files="$ac_config_files Makefile lib/Makefile vm/Makefile parser/Makefile ifaces/Makefile test/Makefile test/bin/Makefile test/qgtest/Makefile"
 
 
 
@@ -21773,8 +21773,7 @@ do
     "lib/Makefile") CONFIG_FILES="$CONFIG_FILES lib/Makefile" ;;
     "vm/Makefile") CONFIG_FILES="$CONFIG_FILES vm/Makefile" ;;
     "parser/Makefile") CONFIG_FILES="$CONFIG_FILES parser/Makefile" ;;
-    "src/Makefile") CONFIG_FILES="$CONFIG_FILES src/Makefile" ;;
-    "interfaces/Makefile") CONFIG_FILES="$CONFIG_FILES interfaces/Makefile" ;;
+    "ifaces/Makefile") CONFIG_FILES="$CONFIG_FILES ifaces/Makefile" ;;
     "test/Makefile") CONFIG_FILES="$CONFIG_FILES test/Makefile" ;;
     "test/bin/Makefile") CONFIG_FILES="$CONFIG_FILES test/bin/Makefile" ;;
     "test/qgtest/Makefile") CONFIG_FILES="$CONFIG_FILES test/qgtest/Makefile" ;;

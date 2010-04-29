@@ -37,8 +37,7 @@ AC_CONFIG_FILES(
    lib/Makefile
    vm/Makefile
    parser/Makefile
-   src/Makefile
-   interfaces/Makefile
+   ifaces/Makefile
    test/Makefile
    test/bin/Makefile
    test/qgtest/Makefile

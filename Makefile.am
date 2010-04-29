@@ -1,4 +1,4 @@
-SUBDIRS = vm lib parser src test interfaces
+SUBDIRS = vm lib parser test ifaces
 
 EXTRA_DIST = $(srcdir)/games/*.qgame
 
