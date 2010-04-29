@@ -21165,7 +21165,7 @@ cat >>confdefs.h <<\_ACEOF
 _ACEOF
 
 
-ac_config_files="$ac_config_files Makefile lib/Makefile vm/Makefile parser/Makefile src/Makefile interfaces/Makefile test/Makefile"
+ac_config_files="$ac_config_files Makefile lib/Makefile vm/Makefile parser/Makefile src/Makefile interfaces/Makefile test/Makefile test/bin/Makefile test/qgtest/Makefile"
 
 
 
@@ -21776,6 +21776,8 @@ do
     "src/Makefile") CONFIG_FILES="$CONFIG_FILES src/Makefile" ;;
     "interfaces/Makefile") CONFIG_FILES="$CONFIG_FILES interfaces/Makefile" ;;
     "test/Makefile") CONFIG_FILES="$CONFIG_FILES test/Makefile" ;;
+    "test/bin/Makefile") CONFIG_FILES="$CONFIG_FILES test/bin/Makefile" ;;
+    "test/qgtest/Makefile") CONFIG_FILES="$CONFIG_FILES test/qgtest/Makefile" ;;
 
   *) { { echo "$as_me:$LINENO: error: invalid argument: $ac_config_target" >&5
 echo "$as_me: error: invalid argument: $ac_config_target" >&2;}

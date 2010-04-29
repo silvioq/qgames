@@ -16,6 +16,7 @@ AM_CFLAGS = -I$(top_srcdir)/include -I$(top_srcdir)/common -I$(top_srcdir)/vm
 
 
 TESTS_ENVIRONMENT = $(srcdir)/qgames 
-TESTS = $(srcdir)/../games/*.qgame $(srcdir)/../games/pgn/*.pgn
+TESTS = $(srcdir)/../games/*.qgame 
+# $(srcdir)/../test/pgn/*.pgn
 # XFAIL_TESTS =  $(srcdir)/../games/Ajedrez.qgame  
 EXTRA_DIST = $(srcdir)/games/*.qgame

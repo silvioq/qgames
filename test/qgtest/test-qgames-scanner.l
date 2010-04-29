@@ -120,7 +120,7 @@ int    nuevo_juego( char* t ){
 
     if( !tjuego ){
         char* filename = malloc( strlen( t ) + 25 );
-        sprintf( filename, "../games/%s.qgame", t );
+        sprintf( filename, "../../games/%s.qgame", t );
         LOGPRINT( 5, "Voy a abrir %s", filename );
         tjuego = qgz_parse_filename( filename, 0 );
         if( !tjuego ) {

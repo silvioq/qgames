@@ -29,7 +29,7 @@ int   los_alamos(){
 
     Partida*   partida;
     char* notacion;
-    char *filename = "../games/AjedrezLosAlamos.qgame";
+    char *filename = "../../games/AjedrezLosAlamos.qgame";
 
     printf( "." );
     assert( losalamos = qgz_parse_filename( filename, 0 ) );
@@ -99,7 +99,7 @@ int   los_alamos(){
 int  main(int argc, char** argv) {
     Partida*   partida;
     char* notacion;
-    char *filename = "../games/AjedrezQGames.qgame";
+    char *filename = "../../games/AjedrezQGames.qgame";
     assert( aje = qgz_parse_filename( filename, 0 ) );
 
     loglevel = 2;

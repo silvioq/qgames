@@ -1,27 +1,6 @@
+SUBDIRS=bin qgtest
 
-check_PROGRAMS = test-tateti test-gomoku test-ajedrezq test-qgames
-test_tateti_SOURCES = test-tateti.c
-test_gomoku_SOURCES = test-gomoku.c
-test_ajedrezq_SOURCES = test-ajedrezq.c
-test_qgames_SOURCES = test-qgames.c test-qgames-scanner.l
+TESTS_ENVIRONMENT = $(top_builddir)/src/qgames 
+TESTS = $(srcdir)/pgn/*.pgn
 
-DEPENDENCIES = \
-										$(top_builddir)/parser/libqgames-parser.a \
-                    $(top_builddir)/lib/libqgames.a \
-									  $(top_builddir)/parser/libpgn-parser.a \
-                    $(top_builddir)/vm/libqcode.a
-
-test_tateti_DEPENDENCIES = $(DEPENDENCIES)
-test_tateti_LDADD        = $(DEPENDENCIES)
-
-test_ajedrezq_DEPENDENCIES = $(DEPENDENCIES)
-test_ajedrezq_LDADD      = $(DEPENDENCIES)
-
-test_gomoku_DEPENDENCIES = $(DEPENDENCIES)
-test_gomoku_LDADD        = $(DEPENDENCIES)
-
-test_qgames_DEPENDENCIES = $(DEPENDENCIES)
-test_qgames_LDADD        = $(DEPENDENCIES)
-
-AM_CFLAGS = -I$(top_srcdir)/include -I$(top_srcdir)/common -I$(top_srcdir)/qcode/src
-TESTS = test-tateti test-gomoku test-ajedrezq  qgtest.sh
+EXTRA_DIST = $(srcdir)/pgn/*.pgn

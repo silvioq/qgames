@@ -20,7 +20,7 @@
 int  main(int argc, char** argv) {
     Tipojuego* tateti;
     Partida*   partida;
-    char *filename = "../games/TaTeTi.qgame";
+    char *filename = "../../games/TaTeTi.qgame";
     assert( tateti = qgz_parse_filename( filename, 0 ) );
 
     loglevel = 2;

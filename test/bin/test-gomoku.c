@@ -12,8 +12,6 @@
 #include <unistd.h>
 #include <assert.h>
 
-#include <sys/types.h>
-#include <dirent.h>
 #include <time.h>
 
 #include <qgames.h>
@@ -95,7 +93,7 @@ int  check_game( char* fname ){
 int  main(int argc, char** argv) {
     Partida*   partida;
     int  count = 0;
-    char *filename = "../games/Gomoku.qgame";
+    char *filename = "../../games/Gomoku.qgame";
     assert( gomoku = qgz_parse_filename( filename, 0 ) );
 
     loglevel = 2;
@@ -139,27 +137,6 @@ int  main(int argc, char** argv) {
 
     partida_free( partida );
     printf( "." );
-
-    DIR* dp;
-    struct dirent * ep;
-
-    assert( dp = opendir( "../games/pgn" ) );
-    while( ep = readdir( dp ) ){
-        char filename[256];
-        if( ep->d_type != DT_REG ) continue;
-        sprintf( filename, "../games/pgn/%s", ep->d_name );
-        LOGPRINT( 5, "Leyendo PGN %s", filename );
-        if( !pgnscan_fname( filename ) ){
-            LOGPRINT( 2, "Error leyendo PGN %s", filename );
-            assert( 0 );
-        }
-        if( !pgntag_variant ) continue;
-        if( strcasecmp( pgntag_variant, "gomoku" ) == 0 ){
-            assert( check_game( filename ) );
-            printf( "." );
-        }
-    }
-    closedir( dp );
 
     printf( "\n" );
     return  EXIT_SUCCESS;

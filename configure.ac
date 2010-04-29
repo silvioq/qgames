@@ -40,6 +40,8 @@ AC_CONFIG_FILES(
    src/Makefile
    interfaces/Makefile
    test/Makefile
+   test/bin/Makefile
+   test/qgtest/Makefile
    ])
 
 
