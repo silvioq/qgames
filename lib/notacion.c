@@ -44,9 +44,9 @@ char*   notacion_resolver_mov( Notacion* nott, Movida* mov, char* def );
 
 #define  AGREGAR_PREFIJO(nom) \
                 if( prefix ){ \
-                    char* data = ALLOC( strlen( nom ) + strlen( prefix ) + 3 ); \
+                    char* data = malloc( strlen( nom ) + strlen( prefix ) + 3 ); \
                     sprintf( data, "%s-%s", prefix, nom ); \
-                    FREE( nom ); \
+                    free( nom ); \
                     nom = data; \
                 }
 
@@ -80,7 +80,7 @@ void    notacion_resolver_movidas( Tipojuego* tjuego, _list* movs, char* prefix 
                 tiene_iguales = 1;
                 char*  nom = notacion_resolver_mov( tjuego->notacion, mmm2, rep );
                 AGREGAR_PREFIJO(nom);
-                FREE( mmm2->notacion );
+                free( mmm2->notacion );
                 mmm2->notacion = nom;
                 
             }
@@ -88,7 +88,7 @@ void    notacion_resolver_movidas( Tipojuego* tjuego, _list* movs, char* prefix 
         if( tiene_iguales ){
             char*  nom = notacion_resolver_mov( tjuego->notacion, mmm, rep );
             AGREGAR_PREFIJO(nom);
-            FREE( mmm->notacion );
+            free( mmm->notacion );
             mmm->notacion = nom;
         }
         
@@ -139,9 +139,9 @@ char*   notacion_resolver_mov( Notacion* nott, Movida* mov, char* def ){
     assert( def );
     if( mov->tmov > 0 ){
         char*  tmov = notacion_resolver_tmov( nott, mov->tmov );
-        if( tmov ) return STRDUP( tmov );
+        if( tmov ) return strdup( tmov );
     }
-    char*  ret = ALLOC( 1024 );
+    char*  ret = malloc( 1024 );
     *ret = 0;
     char*  defchar = def;
     while( *defchar ){

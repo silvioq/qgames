@@ -27,7 +27,7 @@
 
 Pieza*   pieza_new( Tipopieza* tpieza, Casillero* cas, int color ){
     Pieza *p;
-    p = (Pieza*)ALLOC( sizeof( Pieza ) );
+    p = (Pieza*)malloc( sizeof( Pieza ) );
     memset( p, 0, sizeof( Pieza ) );
     p->tpieza = tpieza;
     p->casillero = cas;
@@ -42,7 +42,7 @@ void   pieza_free( Pieza* p ){
   if( p->atributos ){
       list_free( p->atributos );
   }
-  FREE( p );
+  free( p );
 }
 
 /*
@@ -83,7 +83,7 @@ int     pieza_equal( Pieza* p1, Pieza* p2 ){
 
 Pieza*   pieza_dup( Pieza* pieza ){
     Pieza *p;
-    p = (Pieza*)ALLOC( sizeof( Pieza ) );
+    p = (Pieza*)malloc( sizeof( Pieza ) );
     memset( p, 0, sizeof( Pieza ) );
     p->tpieza    = pieza->tpieza;
     p->casillero = pieza->casillero;

@@ -6,7 +6,7 @@
 */
 
 #include  <string.h>
-#include  <defines.h>
+#include  <stdlib.h>
 #include  "symtable.h"
 #include  "list.h"
 
@@ -38,13 +38,13 @@ void   symtable_freedef( symdef* def ){
     if( def->argc ){
         int  i;
         for( i = 0; i < def->argc; i ++ ){
-            FREE( def->argv[i] );
+            free( def->argv[i] );
         }
     }
-    if( def->argv ) FREE( def->argv );
-    if( def->def  ) FREE( def->def );
-    FREE( def->nombre );
-    FREE( def );
+    if( def->argv ) free( def->argv );
+    if( def->def  ) free( def->def );
+    free( def->nombre );
+    free( def );
 }
 
 
@@ -61,9 +61,9 @@ void       symtable_free( symtable* sym ){
 int        symtable_addsym( symtable* sym, char* name ){
     /* Verifico la existencia de la entrada */
     if( symtable_search( sym, name ) ) return 0;
-    symdef* sd = ALLOC( sizeof( symdef ) );
+    symdef* sd = malloc( sizeof( symdef ) );
     memset( sd, 0, sizeof( symdef ) );
-    sd->nombre = STRDUP( name );
+    sd->nombre = strdup( name );
     list_agrega( L(sym), sd );
     return 1;
 }
@@ -71,16 +71,16 @@ int        symtable_addsym( symtable* sym, char* name ){
 
 int        symtable_adddef( symtable* sym, char* name, int argc, char** argv, char* def ){
     if( symtable_search( sym, name ) ) return 0;
-    symdef* sd = ALLOC( sizeof( symdef ) );
+    symdef* sd = malloc( sizeof( symdef ) );
     memset( sd, 0, sizeof( symdef ) );
-    sd->nombre = STRDUP( name );
-    sd->argv   = ALLOC( sizeof( char* ) * argc );
+    sd->nombre = strdup( name );
+    sd->argv   = malloc( sizeof( char* ) * argc );
     sd->argc   = argc;
     int  i;
     for( i = 0; i < argc; i ++ ){
-        sd->argv[i] = STRDUP( argv[i] );
+        sd->argv[i] = strdup( argv[i] );
     }
-    sd->def    = STRDUP( def );
+    sd->def    = strdup( def );
     list_agrega( L(sym), sd );
     return 1;
 }
@@ -101,7 +101,7 @@ int        symtable_resolve( symtable* sym, char* name, int argc, char** argv, c
     int  len = strlen( def->def );
     int  aloc = len + 256;
     int  i;
-    char* ret = ALLOC( aloc );
+    char* ret = malloc( aloc );
 
     strcpy( ret, def->def );
 
@@ -120,7 +120,7 @@ int        symtable_resolve( symtable* sym, char* name, int argc, char** argv, c
             // Si len - len_from + len_to > alloc, realoco y comienzo nuevamente
             if( len - len_from + len_to + 5 > aloc ){
                 aloc += - len_from + len_to + 10 ;
-                ret = REALLOC( ret, aloc );
+                ret = realloc( ret, aloc );
                 strpoint = ret;
                 continue;
             } else {

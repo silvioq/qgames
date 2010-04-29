@@ -9,7 +9,6 @@
 #include <stdlib.h>
 #include <assert.h>
 #include "symtable.h"
-#include "defines.h"
 
 char* def1 = "direccion_1; direccion_2";
 char* params1[2] = { "direccion_1", "direccion_2" };
@@ -29,13 +28,13 @@ int  main(int argc, char**argv){
     assert( !symtable_resolve( sym, "xsxx", 0, NULL, NULL ) );
     assert( symtable_resolve( sym, "def1", 0, NULL, &ret ) );
     assert( strcmp( ret, "; " ) == 0 );
-    FREE( ret );
+    free( ret );
 
     assert( symtable_argc( sym, "def1" ) == 2 );
     assert( symtable_resolve( sym, "def1", 1, pp1, &ret ) );
     // printf( "1. %s\n", ret );
     assert( strcmp( ret, "no; " ) == 0 );
-    FREE( ret );
+    free( ret );
 
     assert( symtable_resolve( sym, "def1", 2, pp1, &ret ) );
     assert( strcmp( ret, "no; ne" ) == 0 );
@@ -43,11 +42,11 @@ int  main(int argc, char**argv){
     assert( symtable_argc( sym, "def2" ) == 1 );
     assert( symtable_resolve( sym, "def2", 0, pp1, &ret ) );
     assert( strcmp( ret, "while(  ) do algo" ) == 0 );
-    FREE( ret );
+    free( ret );
 
     assert( symtable_resolve( sym, "def2", 1, pp1, &ret ) );
     assert( strcmp( ret, "while( no ) do algo" ) == 0 );
-    FREE( ret );
+    free( ret );
     symtable_free( sym );
 
     return EXIT_SUCCESS;

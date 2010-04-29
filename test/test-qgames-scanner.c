@@ -2111,7 +2111,7 @@ int    nuevo_juego( char* t ){
     }
 
     if( !tjuego ){
-        char* filename = ALLOC( strlen( t ) + 25 );
+        char* filename = malloc( strlen( t ) + 25 );
         sprintf( filename, "../games/%s.qgame", t );
         LOGPRINT( 5, "Voy a abrir %s", filename );
         tjuego = qgz_parse_filename( filename, 0 );
@@ -2120,7 +2120,7 @@ int    nuevo_juego( char* t ){
             exit( EXIT_FAILURE );
         }
         list_agrega( tipojuegos, tjuego );
-        FREE( filename );
+        free( filename );
     }
 
     if( partida ) partida_free( partida );
@@ -2143,11 +2143,11 @@ void   add_movida( char* movs ){
 }
 
 void  free_struct(strcheck* str){
-    if( str->casillero ) FREE( str->casillero);
-    if( str->tipopieza ) FREE( str->tipopieza);
-    if( str->color     ) FREE( str->color    );
-    if( str->movida    ) FREE( str->movida   );
-    FREE( str );
+    if( str->casillero ) free( str->casillero);
+    if( str->tipopieza ) free( str->tipopieza);
+    if( str->color     ) free( str->color    );
+    if( str->movida    ) free( str->movida   );
+    free( str );
 }
 
 
@@ -2159,15 +2159,15 @@ int   iniciar_chequeo(  ){
 
 
 void   count_piezas_add_parameter( char* param ){
-    strcheck* str = ALLOC(sizeof( strcheck ) );
+    strcheck* str = malloc(sizeof( strcheck ) );
     LOGPRINT( 5, "Agrega parametro %s", param );
     memset( str, 0, sizeof( strcheck ) );
     if( tipojuego_get_casillero( tjuego, param ) != NOT_FOUND ){
-        str->casillero = STRDUP( param );
+        str->casillero = strdup( param );
     } else if( tipojuego_get_tipopieza( tjuego, param ) != NOT_FOUND ){
-        str->tipopieza = STRDUP( param );
+        str->tipopieza = strdup( param );
     } else if( tipojuego_get_color( tjuego, param ) != NOT_FOUND ){
-        str->color = STRDUP( param );
+        str->color = strdup( param );
     } else {
         LOGPRINT( 2, "Parametro %s no reconocido (%d)", param, yylineno );
         exit( EXIT_FAILURE );

@@ -23,7 +23,7 @@
 
 Movida*   movida_new( Posicion* pos, Pieza* pie, int tmov ){
   Movida* m;
-  m = ALLOC( sizeof( Movida ) );
+  m = malloc( sizeof( Movida ) );
   memset( m, 0, sizeof( Movida ) );
   m->pos = pos;
   if( pie ) m->piece_number = pie->number;
@@ -33,7 +33,7 @@ Movida*   movida_new( Posicion* pos, Pieza* pie, int tmov ){
 
 static inline Accion*   accion_new(){
     Accion* acc;
-    acc = ALLOC( sizeof( Accion ) );
+    acc = malloc( sizeof( Accion ) );
     memset( acc, 0, sizeof( Accion ) );
     return  acc;
 }
@@ -99,12 +99,12 @@ void  movida_free( Movida* mov ){
         int i;
         for( i = 0; i < mov->acciones->entradas; i ++ ){
             // La accion se puede borrar tranquilamente
-            FREE( mov->acciones->data[i] );
+            free( mov->acciones->data[i] );
         }
         list_free( mov->acciones );
     }
-    if( mov->notacion ) FREE( mov->notacion );
-    FREE( mov );
+    if( mov->notacion ) free( mov->notacion );
+    free( mov );
 }
 
 /*
@@ -113,7 +113,7 @@ void  movida_free( Movida* mov ){
 
 Movida*   movida_dup( Movida* mov ){
     Movida*  movnew = movida_new( mov->pos, NULL, mov->tmov );
-    if( mov->notacion ) movnew->notacion = STRDUP( mov->notacion );
+    if( mov->notacion ) movnew->notacion = strdup( mov->notacion );
     int i;
     movnew->piece_number = mov->piece_number;
     movnew->continua = mov->continua;
@@ -131,7 +131,7 @@ Movida*   movida_dup( Movida* mov ){
 
 void  movida_split_transformaciones( _list* movs ){
     int  cant = 0, i;
-    Movida** trans = ALLOC(sizeof(Movida*) * movs->entradas );
+    Movida** trans = malloc(sizeof(Movida*) * movs->entradas );
     
     // Primero seleciono aquellas movidas que tienen mas de una transformacion 
     // posible
@@ -165,7 +165,7 @@ void  movida_split_transformaciones( _list* movs ){
                     if( acc2->tpieza != acc->tpieza && acc2->tipo == ACCION_TRANSFORMA ){
                         LOGPRINT( 6, "Sacando %s de %p", acc2->tpieza->nombre, mov );
                         list_quita( nueva->acciones, k-- );
-                        FREE( acc2 );
+                        free( acc2 );
                     }
                 }
                 list_agrega( movs, nueva );
@@ -174,7 +174,7 @@ void  movida_split_transformaciones( _list* movs ){
         movida_free( trans[i] );
     }
     
-    FREE( trans );
+    free( trans );
 
 }
 

@@ -16,11 +16,11 @@
 
 
 Casillero* casillero_new( char* cas, int tablero ){
-    Casillero* c = ALLOC( sizeof( Casillero ) );
+    Casillero* c = malloc( sizeof( Casillero ) );
     int i;
 
     memset( c, 0, sizeof( Casillero ) );
-    c->nombre = STRDUP( cas );
+    c->nombre = strdup( cas );
     c->tablero = tablero;
     // printf( "El nombre es %s\n", c->nombre );
     for( i = 0; i < MAXDIMS; i ++ ) c->posicion[i] = -1;
@@ -39,8 +39,8 @@ void    casillero_free( Casillero* cas ){
         }
         list_free( cas->vinculos );
     }
-    FREE( cas->nombre );
-    FREE( cas );
+    free( cas->nombre );
+    free( cas );
 }
 
 
@@ -73,7 +73,7 @@ void    casillero_kill_vinculo( Casillero* ori, Direccion* dir, Casillero* des )
         }
     }
 
-    FREE( vv );
+    free( vv );
 
 }
 

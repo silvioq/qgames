@@ -27,7 +27,7 @@ typedef   struct  StrSimbolo{
 extern   int simbolo_id;
 
 static inline Simbolo* simbolo_new( int tipo, char* nombre, int ref ){
-    Simbolo* s = (Simbolo*) ALLOC( sizeof( Simbolo ) );
+    Simbolo* s = (Simbolo*) malloc( sizeof( Simbolo ) );
     s->tipo = tipo; 
     s->nombre = nombre;
     s->id   = ++simbolo_id;

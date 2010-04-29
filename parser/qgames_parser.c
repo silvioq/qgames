@@ -2041,7 +2041,7 @@ yyreduce:
                 qgzprintf( "%s debe ser un tipo de pieza", ((char*)(yyvsp[(2) - (2)])) );
                 yyerror( "Debe ser un tipo de pieza" );
             }
-            FREE( (void*)(yyvsp[(2) - (2)]) );
+            free( (void*)(yyvsp[(2) - (2)]) );
     }
     break;
 
@@ -2084,7 +2084,7 @@ yyreduce:
             yyerror( "Ocupado?" );
             YYERROR;
         }
-        FREE( (void*)(yyvsp[(2) - (2)]) );
+        free( (void*)(yyvsp[(2) - (2)]) );
     }
     break;
 
@@ -2161,13 +2161,13 @@ yyreduce:
                    int  len = strlen( (char*)(yyvsp[(1) - (1)]) );
                    int  hay_algo = 0;
                    if( len > 0 && ((char*)((yyvsp[(1) - (1)])))[len-1] == '?' ){
-                      char* sin_pregunta = STRDUP( (char*) (yyvsp[(1) - (1)]) );
+                      char* sin_pregunta = strdup( (char*) (yyvsp[(1) - (1)]) );
                       sin_pregunta[len-1] = 0;
                       if( tipojuego_get_att( tipojuego, last_pieza, sin_pregunta ) != NOT_FOUND ){
                           hay_algo = 1;
                           tipojuego_code_evalua_att( tipojuego, sin_pregunta );
                       }
-                      FREE(sin_pregunta);
+                      free(sin_pregunta);
                   }
 
                   if( !hay_algo ){
@@ -2625,7 +2625,7 @@ yyreduce:
             YYERROR;
         } else {
             tipojuego = tipojuego_new( ((char*)(yyvsp[(2) - (2)])) );
-            FREE((void*)(yyvsp[(2) - (2)]));
+            free((void*)(yyvsp[(2) - (2)]));
         }
     }
     break;
@@ -2636,7 +2636,7 @@ yyreduce:
         CHECK_TIPOJUEGO;
         qgzprintf( "Definiendo %s", ((char*)(yyvsp[(2) - (2)])) );
         tipojuego_add_tipo_mov( tipojuego, ((char*)(yyvsp[(2) - (2)])) );
-        FREE((void*)(yyvsp[(2) - (2)]));
+        free((void*)(yyvsp[(2) - (2)]));
     }
     break;
 
@@ -2735,9 +2735,9 @@ yyreduce:
             YYERROR;
         } 
         tipojuego_add_notacion_tpieza( tipojuego, tpieza, color, abbr ) ;
-        FREE((void*)(yyvsp[(2) - (4)]));
-        FREE((void*)(yyvsp[(3) - (4)]));
-        FREE((void*)(yyvsp[(4) - (4)]));
+        free((void*)(yyvsp[(2) - (4)]));
+        free((void*)(yyvsp[(3) - (4)]));
+        free((void*)(yyvsp[(4) - (4)]));
     }
     break;
 
@@ -2746,7 +2746,7 @@ yyreduce:
     { 
                   CHECK_TIPOJUEGO;
                   tipojuego_set_notacion_marca( tipojuego, (char*)(yyvsp[(3) - (3)]), NULL );
-                  FREE((void*)(yyvsp[(3) - (3)]));
+                  free((void*)(yyvsp[(3) - (3)]));
              }
     break;
 
@@ -2755,7 +2755,7 @@ yyreduce:
     { 
                   CHECK_TIPOJUEGO;
                   tipojuego_set_notacion_marca( tipojuego, NULL, (char*)(yyvsp[(3) - (3)]) );
-                  FREE((void*)(yyvsp[(3) - (3)]));
+                  free((void*)(yyvsp[(3) - (3)]));
              }
     break;
 
@@ -2764,8 +2764,8 @@ yyreduce:
     { 
         CHECK_TIPOJUEGO; 
         tipojuego_add_tipopieza( tipojuego, ((char*)(yyvsp[(2) - (2)])) ); 
-        if( last_pieza ) FREE( last_pieza );
-        last_pieza = STRDUP( ((char*)(yyvsp[(2) - (2)])) );
+        if( last_pieza ) free( last_pieza );
+        last_pieza = strdup( ((char*)(yyvsp[(2) - (2)])) );
     }
     break;
 
@@ -3143,7 +3143,7 @@ int   qgz_parse( FILE* f, char* filename, int flags ){
  * */
 void  add_parameter( int  type, long param ){
   if( !qgz_param_list ){
-    qgz_param_list = ALLOC( sizeof( str_param  ) * MAX_PARAMS );
+    qgz_param_list = malloc( sizeof( str_param  ) * MAX_PARAMS );
   }
   if( qgz_param_count + 1 >= MAX_PARAMS ) {
       yyerror( "Cantidad maxima de parametros alcanzado" );

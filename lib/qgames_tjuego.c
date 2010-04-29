@@ -24,14 +24,14 @@
 int  simbolo_id = 0;
 
 #define   SIM_ADD(tj,tipo,nom,ref)  \
-  list_agrega(tj->simbolos, simbolo_new( tipo, STRDUP(nom), ref ) );
+  list_agrega(tj->simbolos, simbolo_new( tipo, strdup(nom), ref ) );
 
 
 #define  TABLERO_ACTUAL(tjuego) ((Tablero*)(tjuego->tableros->data[tjuego->tablero_actual - 1]))
 
 void   free_simbolo( Simbolo* s ){
-    FREE( s->nombre );
-    FREE( s );
+    free( s->nombre );
+    free( s );
 }
 
 /* 
@@ -54,12 +54,12 @@ Simbolo*    tipojuego_get_simbolo( Tipojuego* tj, char* sim ){
  * por el momento
  * */
 Tipojuego*   tipojuego_new( char* nombre ){
-    Tipojuego *  tj = ALLOC( sizeof( Tipojuego ) );
+    Tipojuego *  tj = malloc( sizeof( Tipojuego ) );
     memset( tj, 0, sizeof( Tipojuego ) );
 
     tj->simbolos = list_nueva( (_list_freefunc)free_simbolo );
 
-    tj->nombre  = STRDUP( nombre );
+    tj->nombre  = strdup( nombre );
     tj->inicial = posicion_new( tj );
     SIM_ADD( tj, SIM_TIPOJUEGO, tj->nombre, 0 );  
 
@@ -181,7 +181,7 @@ void        tipojuego_add_cas_to_zona( Tipojuego* tj, char* cas, char* color, ch
     int  zzz = GETZONA( tj, zona );
     int  ccc = GETCOLOR( tj, color );
     int  cass = GETCASILLERO( tj, cas );
-    Zonadef* zdef = ALLOC( sizeof( Zonadef ) );
+    Zonadef* zdef = malloc( sizeof( Zonadef ) );
     zdef->color = ccc;
     zdef->zona  = zzz;
     zdef->cas   = tj->casilleros->data[cass];
@@ -389,7 +389,7 @@ void        tipojuego_add_simetria( Tipojuego*  tj, char* color, char* d1, char*
     int  dd1 = GETDIRECCION( tj, d1 );
     int  dd2 = GETDIRECCION( tj, d2 );
 
-    Simetria*  sim = ALLOC( sizeof( Simetria ) );
+    Simetria*  sim = malloc( sizeof( Simetria ) );
     sim->color = col;
     sim->dir1  = tj->direcciones->data[dd1];
     sim->dir2  = tj->direcciones->data[dd2];
@@ -407,7 +407,7 @@ void        tipojuego_add_secuencia( Tipojuego* tj, char* color, char* tipomov )
     int  col = GETCOLOR( tj, color );
     int  tmov = ( tipomov ? GETTIPOMOV( tj, tipomov ) : 0 );
 
-    Secuencia* seq = (Secuencia*) ALLOC( sizeof( Secuencia ) );
+    Secuencia* seq = (Secuencia*) malloc( sizeof( Secuencia ) );
     seq->color = col;
     seq->tmov  = tmov;
 
@@ -427,7 +427,7 @@ void        tipojuego_add_secuencia_rep( Tipojuego* tj ){
  * */
 #define  INIT_NOTACION( tj ) \
     if( !tj->notacion ) { \
-        tj->notacion = ALLOC( sizeof( Notacion ) );\
+        tj->notacion = malloc( sizeof( Notacion ) );\
         memset( tj->notacion, 0, sizeof( Notacion ) ); \
     }
 
@@ -438,7 +438,7 @@ void        tipojuego_add_secuencia_rep( Tipojuego* tj ){
 void   tipojuego_add_notacion_tpieza( Tipojuego* tj, char* tpieza, char* color, char* abbr ){
     int  tp = GETTIPOPIEZA( tj, tpieza );
     int  col = ( color ? tipojuego_get_color( tj, color ) : 0 );
-    NotacionData* not_data = ALLOC( sizeof( NotacionData ) );
+    NotacionData* not_data = malloc( sizeof( NotacionData ) );
     not_data->valor = (long)(tj->tipo_piezas->data[tp]);
     not_data->color = col;
     not_data->notacion = abbr;
@@ -449,7 +449,7 @@ void   tipojuego_add_notacion_tpieza( Tipojuego* tj, char* tpieza, char* color, 
 
 void   tipojuego_add_notacion_tmov( Tipojuego* tj, char* tmov, char* notacion ){
     int  tm = GETTIPOMOV( tj, tmov );
-    NotacionData* not_data = ALLOC( sizeof( NotacionData ) );
+    NotacionData* not_data = malloc( sizeof( NotacionData ) );
     not_data->valor = tm;
     not_data->notacion = notacion;
     INIT_NOTACION(tj);
@@ -460,7 +460,7 @@ void   tipojuego_add_notacion_tmov( Tipojuego* tj, char* tmov, char* notacion ){
 void   tipojuego_add_notacion_def( Tipojuego* tj, char elemento ){
     INIT_NOTACION(tj);
     if( !tj->notacion->notacion ){  
-        tj->notacion->notacion = ALLOC(128);
+        tj->notacion->notacion = malloc(128);
         tj->notacion->notacion[0] = elemento;
         tj->notacion->notacion[1] = 0;
     } else {
@@ -473,7 +473,7 @@ void   tipojuego_add_notacion_def( Tipojuego* tj, char elemento ){
 void   tipojuego_add_notacion_rep( Tipojuego* tj, char elemento ){
     INIT_NOTACION(tj);
     if( !tj->notacion->repeticion ){  
-        tj->notacion->repeticion = ALLOC(128);
+        tj->notacion->repeticion = malloc(128);
         tj->notacion->repeticion[0] = elemento;
         tj->notacion->repeticion[1] = 0;
     } else {
@@ -490,8 +490,8 @@ void   tipojuego_add_notacion_rep( Tipojuego* tj, char elemento ){
  * */
 void   tipojuego_set_notacion_marca( Tipojuego* tj, char* marca, char* captura ){
     INIT_NOTACION(tj);
-    if( marca )   tj->notacion->marca = STRDUP(marca);
-    if( captura ) tj->notacion->captura = STRDUP(captura);
+    if( marca )   tj->notacion->marca = strdup(marca);
+    if( captura ) tj->notacion->captura = strdup(captura);
 }
 
 
@@ -548,7 +548,7 @@ int         tipojuego_start_code(  Tipojuego* tj, char tiporegla, char* tipopiez
     tmov = 0;
   }
   
-  cod = ALLOC( sizeof( Regla ) );
+  cod = malloc( sizeof( Regla ) );
   memset( cod, 0, sizeof( Regla ) );
   cod->tpieza = tpieza;
   cod->tmov   = tmov;

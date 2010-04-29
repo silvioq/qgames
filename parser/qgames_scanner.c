@@ -1585,7 +1585,7 @@ case 2:
 /* rule 2 can match eol */
 YY_RULE_SETUP
 #line 56 "qgames_scanner.l"
-{ qgzlval = (long)STRDUP(qgztext); 
+{ qgzlval = (long)strdup(qgztext); 
                       return TOK_STRING;
                     }
 	YY_BREAK
@@ -1594,7 +1594,7 @@ YY_RULE_SETUP
 #line 59 "qgames_scanner.l"
 { BEGIN(string_ret); 
                       if( !qgzlval ){ 
-                          qgzlval = (long)STRDUP(""); 
+                          qgzlval = (long)strdup(""); 
                           return TOK_STRING; }  
                     }
 	YY_BREAK
@@ -1607,7 +1607,7 @@ case 5:
 /* rule 5 can match eol */
 YY_RULE_SETUP
 #line 66 "qgames_scanner.l"
-{ qgzlval = (long)STRDUP(qgztext); 
+{ qgzlval = (long)strdup(qgztext); 
                       return TOK_STRING;
                     }
 	YY_BREAK
@@ -1616,7 +1616,7 @@ YY_RULE_SETUP
 #line 69 "qgames_scanner.l"
 { BEGIN(string_ret); 
                       if( !qgzlval ){ 
-                          qgzlval = (long)STRDUP(""); 
+                          qgzlval = (long)strdup(""); 
                           return TOK_STRING; }  
                     }
 	YY_BREAK
@@ -1782,11 +1782,11 @@ case 37:
 YY_RULE_SETUP
 #line 116 "qgames_scanner.l"
 { 
-                            char* str = STRDUP( ((char*)qgztext) + 1 );
+                            char* str = strdup( ((char*)qgztext) + 1 );
                             str[qgzleng - 2] = 0;
                             
                             if( !add_parameter_to_def( str ) ) yyterminate();
-                            // FREE( str );
+                            // free( str );
                             if( parmcount == totalparm ){
                                 if( ! switch_to_define( )) yyterminate();
                             }
@@ -1797,11 +1797,11 @@ case 38:
 YY_RULE_SETUP
 #line 126 "qgames_scanner.l"
 { 
-                            char* str = STRDUP( ((char*)qgztext) + 1 );
+                            char* str = strdup( ((char*)qgztext) + 1 );
                             str[qgzleng - 2] = 0;
                             
                             if( !add_parameter_to_def( str ) ) yyterminate();
-                            // FREE( str );
+                            // free( str );
                             if( parmcount == totalparm ){
                                 if( ! switch_to_define( )) yyterminate();
                             }
@@ -2108,7 +2108,7 @@ case 97:
 YY_RULE_SETUP
 #line 208 "qgames_scanner.l"
 { 
-                                    qgzlval = (long)STRDUP(qgztext); 
+                                    qgzlval = (long)strdup(qgztext); 
                                     ((char*)(long)qgzlval)[qgzleng] = 0;
                                     qgzprintf( "WORD: %s", (char*)(long)qgzlval  );
                                     return  TOK_WORD; 
@@ -2148,15 +2148,15 @@ YY_RULE_SETUP
                   int  argc = ( symt ? symtable_argc( symt, qgztext ) : -1 );
                   if( argc == 0 ){
                       parmcount = 0;
-                      defactual = STRDUP( qgztext );
+                      defactual = strdup( qgztext );
                       switch_to_define( );
                   } else if( argc >= 0 ){
                       parmcount = 0;
                       totalparm = argc;
-                      defactual = STRDUP( qgztext );
+                      defactual = strdup( qgztext );
                       BEGIN(params);
                   } else {
-                      qgzlval = (long)STRDUP(qgztext); 
+                      qgzlval = (long)strdup(qgztext); 
                       ((char*)(long)qgzlval)[qgzleng] = 0;
                       return  TOK_WORD; 
                   }
@@ -2179,8 +2179,8 @@ case YY_STATE_EOF(params):
                       yyterminate();
                   } else {  
                       sp_buffer --;
-                      if( newdata_buffer[sp_buffer] ) FREE( newdata_buffer[sp_buffer] );
-                      if( defname_buffer[sp_buffer] ) FREE( defname_buffer[sp_buffer] );
+                      if( newdata_buffer[sp_buffer] ) free( newdata_buffer[sp_buffer] );
+                      if( defname_buffer[sp_buffer] ) free( defname_buffer[sp_buffer] );
                       qgz_delete_buffer(YY_CURRENT_BUFFER );
                       qgz_switch_to_buffer(buffers[sp_buffer] );
                       qgzlineno = line_buffer[sp_buffer]  ;
@@ -3236,15 +3236,15 @@ int    defined( char* d ){
 
 void   create_define( char* d ){
     define_created = 1;    
-    defactual     = STRDUP( d );
-    define_body   = ALLOC( 1024 );
+    defactual     = strdup( d );
+    define_body   = malloc( 1024 );
     define_body[0] = 0;
     define_bodyc  = 0;
     parmcount     = 0;
 }
 
 int    add_parameter_to_def( char* p ){
-    defparms[parmcount++] = STRDUP( p );   
+    defparms[parmcount++] = strdup( p );   
     if( parmcount >= MAXPARMS ){ 
         qgzerror( "Se alcanzo el maximo de parametros admitidos" );
         return 0;
@@ -3258,10 +3258,10 @@ void   generate_define( ){
     if( !symt ) symt = symtable_init( );
     define_body[define_bodyc] = 0;
     symtable_adddef( symt, defactual    , parmcount, defparms, define_body );
-    FREE( define_body );
-    FREE( defactual );
+    free( define_body );
+    free( defactual );
     for( i = 0; i < parmcount ; i ++ ){
-        FREE( defparms[i] );
+        free( defparms[i] );
     }
 }
 
@@ -3293,7 +3293,7 @@ int    switch_to_define( ){
     sp_buffer ++;
 
     for( i = 0; i < parmcount ; i ++ ){
-        FREE( defparms[i] );
+        free( defparms[i] );
     }
     defactual = NULL;
 

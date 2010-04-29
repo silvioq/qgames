@@ -66,7 +66,7 @@ void  posicion_add_movidas( Posicion* pos, _list* movs ){
 
 Posicion*   posicion_new( Tipojuego* tj ){
   Posicion* pos;
-  pos = ALLOC( sizeof( Posicion ) );
+  pos = malloc( sizeof( Posicion ) );
   memset( pos, 0, sizeof( Posicion ) );
   pos->tjuego = tj;
   return  pos;
@@ -85,7 +85,7 @@ void      posicion_free( Posicion* pos ){
         }
         list_free( pos->piezas );
     }
-    FREE(pos);
+    free(pos);
 }
 
 

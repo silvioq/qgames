@@ -641,7 +641,8 @@ char *pgntext;
 */
 
 #include <stdio.h>
-#include "defines.h"
+#include <stdlib.h>
+#include <string.h>
 #include "pgn_scanner.h"
 
 
@@ -674,7 +675,7 @@ void    addmove(char*);
 
 int     pgnwrap(void){ return 1; }
 
-#line 678 "libpgn_parser_a-pgn_scanner.c"
+#line 679 "libpgn_parser_a-pgn_scanner.c"
 
 #define INITIAL 0
 
@@ -827,10 +828,10 @@ YY_DECL
 	register char *yy_cp, *yy_bp;
 	register int yy_act;
     
-#line 59 "pgn_scanner.l"
+#line 60 "pgn_scanner.l"
 
 
-#line 834 "libpgn_parser_a-pgn_scanner.c"
+#line 835 "libpgn_parser_a-pgn_scanner.c"
 
 	if ( !(yy_init) )
 		{
@@ -912,133 +913,133 @@ do_action:	/* This label is used only to access EOF actions. */
 case 1:
 /* rule 1 can match eol */
 YY_RULE_SETUP
-#line 61 "pgn_scanner.l"
+#line 62 "pgn_scanner.l"
 {  pgntag_annotator = extracttag( pgntext ); pgncolno += pgnleng; }
 	YY_BREAK
 case 2:
 /* rule 2 can match eol */
 YY_RULE_SETUP
-#line 62 "pgn_scanner.l"
+#line 63 "pgn_scanner.l"
 {  pgntag_black   = extracttag( pgntext ); pgncolno += pgnleng; }
 	YY_BREAK
 case 3:
 /* rule 3 can match eol */
 YY_RULE_SETUP
-#line 63 "pgn_scanner.l"
+#line 64 "pgn_scanner.l"
 {  pgntag_date    = extracttag( pgntext ); pgncolno += pgnleng; }
 	YY_BREAK
 case 4:
 /* rule 4 can match eol */
 YY_RULE_SETUP
-#line 64 "pgn_scanner.l"
+#line 65 "pgn_scanner.l"
 {  pgntag_event   = extracttag( pgntext ); pgncolno += pgnleng; }
 	YY_BREAK
 case 5:
 /* rule 5 can match eol */
 YY_RULE_SETUP
-#line 65 "pgn_scanner.l"
+#line 66 "pgn_scanner.l"
 {  pgntag_fen     = extracttag( pgntext ); pgncolno += pgnleng; }
 	YY_BREAK
 case 6:
 /* rule 6 can match eol */
 YY_RULE_SETUP
-#line 66 "pgn_scanner.l"
+#line 67 "pgn_scanner.l"
 {  pgntag_result  = extracttag( pgntext ); pgncolno += pgnleng; }
 	YY_BREAK
 case 7:
 /* rule 7 can match eol */
 YY_RULE_SETUP
-#line 67 "pgn_scanner.l"
+#line 68 "pgn_scanner.l"
 {  pgntag_round   = extracttag( pgntext ); pgncolno += pgnleng; }
 	YY_BREAK
 case 8:
 /* rule 8 can match eol */
 YY_RULE_SETUP
-#line 68 "pgn_scanner.l"
+#line 69 "pgn_scanner.l"
 {  pgntag_site    = extracttag( pgntext ); pgncolno += pgnleng; }
 	YY_BREAK
 case 9:
 /* rule 9 can match eol */
 YY_RULE_SETUP
-#line 69 "pgn_scanner.l"
+#line 70 "pgn_scanner.l"
 {  pgntag_termination = extracttag( pgntext ); pgncolno += pgnleng; }
 	YY_BREAK
 case 10:
 /* rule 10 can match eol */
 YY_RULE_SETUP
-#line 70 "pgn_scanner.l"
+#line 71 "pgn_scanner.l"
 {  pgntag_variant = extracttag( pgntext ); pgncolno += pgnleng; }
 	YY_BREAK
 case 11:
 /* rule 11 can match eol */
 YY_RULE_SETUP
-#line 71 "pgn_scanner.l"
+#line 72 "pgn_scanner.l"
 {  pgntag_white   = extracttag( pgntext ); pgncolno += pgnleng; }
 	YY_BREAK
 case 12:
 /* rule 12 can match eol */
 YY_RULE_SETUP
-#line 72 "pgn_scanner.l"
+#line 73 "pgn_scanner.l"
 {  printf( "Tag no reconocido en %d\n", pgnlineno );  pgncolno += pgnleng ; }
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 74 "pgn_scanner.l"
+#line 75 "pgn_scanner.l"
 { /* Por ahora ignoro los numeros de movidas */ pgncolno += pgnleng; }
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 75 "pgn_scanner.l"
+#line 76 "pgn_scanner.l"
 pgncolno += pgnleng;
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 76 "pgn_scanner.l"
+#line 77 "pgn_scanner.l"
 addmove( pgntext ); pgncolno += pgnleng ;
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 77 "pgn_scanner.l"
+#line 78 "pgn_scanner.l"
 pgncolno += pgnleng ;
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 79 "pgn_scanner.l"
+#line 80 "pgn_scanner.l"
 { /* ignore whitespace */ pgncolno += pgnleng ; }
 	YY_BREAK
 case 18:
 /* rule 18 can match eol */
 YY_RULE_SETUP
-#line 80 "pgn_scanner.l"
+#line 81 "pgn_scanner.l"
 /* ignore comments */ pgncolno += pgnleng;
 	YY_BREAK
 case 19:
 /* rule 19 can match eol */
 YY_RULE_SETUP
-#line 81 "pgn_scanner.l"
+#line 82 "pgn_scanner.l"
 /* ignore comments */ pgncolno += pgnleng;
 	YY_BREAK
 case 20:
 /* rule 20 can match eol */
 YY_RULE_SETUP
-#line 83 "pgn_scanner.l"
+#line 84 "pgn_scanner.l"
 { pgncolno = 1; pgnlineno ++; }
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 86 "pgn_scanner.l"
+#line 87 "pgn_scanner.l"
 {
-                                  pgnerror = ALLOC( 256 );
+                                  pgnerror = malloc( 256 );
                                   sprintf( pgnerror, "Caracter no reconocido (%c) Linea: %d, Col: %d", pgntext[0], pgnlineno, pgncolno );
                                   yyterminate();
                                };
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 92 "pgn_scanner.l"
+#line 93 "pgn_scanner.l"
 ECHO;
 	YY_BREAK
-#line 1042 "libpgn_parser_a-pgn_scanner.c"
+#line 1043 "libpgn_parser_a-pgn_scanner.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -2037,7 +2038,7 @@ void pgnfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 92 "pgn_scanner.l"
+#line 93 "pgn_scanner.l"
 
 
 
@@ -2048,7 +2049,7 @@ char*  extracttag(char* line){
     endquote --;
 
     int  len = endquote - initquote + 1;
-    char* ret = ALLOC( len + 1 );
+    char* ret = malloc( len + 1 );
     strncpy( ret, initquote, len );
     ret[len] = 0;
     return ret;
@@ -2056,7 +2057,7 @@ char*  extracttag(char* line){
 
 void    addmove(char* move){
     if( !pgnmoves ){ 
-        pgnmoves = ALLOC( 32 ); 
+        pgnmoves = malloc( 32 ); 
         pgnmoves[0] = 0;
         pgnmvchcount = 0;
         pgnmvchalloc = 32;
@@ -2064,7 +2065,7 @@ void    addmove(char* move){
     int  len = strlen( move );
     if( pgnmvchcount + len + 1 >= pgnmvchalloc ){
         pgnmvchalloc += len + 32;
-        pgnmoves = REALLOC( pgnmoves, pgnmvchalloc );
+        pgnmoves = realloc( pgnmoves, pgnmvchalloc );
     }
 
     if( pgnmvchcount ){ 
@@ -2078,7 +2079,7 @@ void    addmove(char* move){
 
 
 
-#define  FREEVARIABLE(var) if( var ){ FREE( var ); var = NULL; }
+#define  FREEVARIABLE(var) if( var ){ free( var ); var = NULL; }
 
 void   freepgn( ){
 

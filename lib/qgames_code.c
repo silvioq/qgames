@@ -44,12 +44,12 @@ int     label_stack_point = 0;
 
 void     push_label_stack( long label ){
     if( !label_stack_data ){
-        label_stack_data =  (long*)ALLOC( sizeof( long ) * 10 );
+        label_stack_data =  (long*)malloc( sizeof( long ) * 10 );
         label_stack_size = 10;
     }
     if( label_stack_point >= label_stack_size ){
         label_stack_size += 10;
-        label_stack_data = (long*) REALLOC( label_stack_data, sizeof( long ) * label_stack_size );
+        label_stack_data = (long*) realloc( label_stack_data, sizeof( long ) * label_stack_size );
     }
     label_stack_data[label_stack_point] = label;
     label_stack_point ++;
@@ -134,7 +134,7 @@ struct codeBlock{
  * puede salir en cualquier momento!
  * */
 long        tipojuego_code_start_block( Tipojuego* tj ){
-    struct  codeBlock* cb = ALLOC( sizeof( struct codeBlock ) );
+    struct  codeBlock* cb = malloc( sizeof( struct codeBlock ) );
     cb->label_start = qcode_crlab( tj->qcode, unnamed_label );
     cb->label_end   = qcode_crlab( tj->qcode, unnamed_label );
     qcode_label( tj->qcode, cb->label_start );
@@ -146,7 +146,7 @@ long        tipojuego_code_start_block( Tipojuego* tj ){
 void        tipojuego_code_end_block( Tipojuego* tj, long block ){
     struct  codeBlock* cb = (struct codeBlock*)block;
     qcode_label( tj->qcode, cb->label_end );
-    FREE(cb);
+    free(cb);
 }
 
 void        tipojuego_code_break_block( Tipojuego* tj, long block ){
@@ -383,7 +383,7 @@ void        tipojuego_code_asigna_att( Tipojuego* tj, char* att, int val ){
 }
 
 void        tipojuego_code_evalua_att( Tipojuego* tj, char* att ){
-    char*  natt = STRDUP( att );
+    char*  natt = strdup( att );
     qcode_op( tj->qcode, QCSTI,  1, (long)natt );// r1 = att
     qcode_op( tj->qcode, QCPSH,  1, 0 );         // PSH r1
     qcode_op( tj->qcode, QCPSH,  3, 0 );         // PSH r3

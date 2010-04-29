@@ -29,7 +29,7 @@
 
 _list*   analizador_evalua_movidas( Regla* regla, Posicion* pos, Pieza* pieza, Casillero* cas, char tipoanalisis, int tipomovida, int color ){
 
-    Analizador* z = (Analizador*)ALLOC( sizeof( Analizador ) );
+    Analizador* z = (Analizador*)malloc( sizeof( Analizador ) );
     _list* movidas ;
 
     memset( z, 0, sizeof( Analizador ) );
@@ -57,8 +57,8 @@ _list*   analizador_evalua_movidas( Regla* regla, Posicion* pos, Pieza* pieza, C
           movidas );
 
     posicion_free( z->pos );
-    if( z->marcas ) FREE( z->marcas );
-    FREE( z );
+    if( z->marcas ) free( z->marcas );
+    free( z );
 
 
     return movidas;
@@ -67,7 +67,7 @@ _list*   analizador_evalua_movidas( Regla* regla, Posicion* pos, Pieza* pieza, C
 
 int      analizador_evalua_final  ( Regla* regla, Posicion* pos, Pieza* pieza, Casillero* cas, int color, int color_siguiente, char** resultado ){
 
-    Analizador* z = (Analizador*)ALLOC( sizeof( Analizador ) );
+    Analizador* z = (Analizador*)malloc( sizeof( Analizador ) );
     int  ret;
     memset( z, 0, sizeof( Analizador ) );
     z->pos     = pos;
@@ -84,13 +84,13 @@ int      analizador_evalua_final  ( Regla* regla, Posicion* pos, Pieza* pieza, C
     LOGPRINT( 6, "Fin del analisis de final status = %d", z->status );
 
     if( z->status == STATUS_EOG ){
-        if( resultado ) *resultado = STRDUP( z->resultado );
+        if( resultado ) *resultado = strdup( z->resultado );
         ret =  z->color_ganador ? z->color_ganador : FINAL_EMPATE;
         LOGPRINT( 4, "Fin de partida detectado %d => %s", ret, z->resultado );
-        if( z->resultado ) FREE( z->resultado ); 
+        if( z->resultado ) free( z->resultado ); 
     }       
     else ret =  FINAL_ENJUEGO;
-    FREE( z );
+    free( z );
     return ret;
 
 }
@@ -252,7 +252,7 @@ int    analizador_entablero( Analizador* z ){
 int    analizador_setmarca( Analizador* z, int marca, Casillero* cas){
     Casillero* ccc = ( cas ? cas : z->cas );
     CHECK_STATUS;
-    if( !z->marcas ) z->marcas = ALLOC( sizeof( Casillero* ) * MARCAS_Q );
+    if( !z->marcas ) z->marcas = malloc( sizeof( Casillero* ) * MARCAS_Q );
     assert( marca < MARCAS_Q );
     z->marcas[marca] = ccc;
     return  STATUS_NORMAL;
@@ -527,18 +527,18 @@ int   analizador_final( Analizador* z, int color, int res ){
         case EMPATA:
             z->color_ganador = 0;
             z->status        = STATUS_EOG;
-            z->resultado     = STRDUP( "Draw" );
+            z->resultado     = strdup( "Draw" );
             break;
         case GANA:
             z->color_ganador = ( color ? color : z->color );
             z->status        = STATUS_EOG;
-            z->resultado     = ALLOC( 256 );
+            z->resultado     = malloc( 256 );
             sprintf( z->resultado, "%s Gana", tipojuego_get_colorname( z->pos->tjuego, z->color_ganador ) );
             break;
         case PIERDE:
             z->color_ganador = ( color ? tipojuego_get_coloroponente( z->pos->tjuego, color ) : z->color_siguiente );
             z->status        = STATUS_EOG;
-            z->resultado     = ALLOC( 256 );
+            z->resultado     = malloc( 256 );
             sprintf( z->resultado, "%s Pierde", tipojuego_get_colorname( z->pos->tjuego, ( color ? color : z->color ) ) );
             break;
         default:

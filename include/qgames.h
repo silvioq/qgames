@@ -5,9 +5,6 @@
   Silvio Quadri 2009.
 */
 
-#include  "list.h"
-#include  "defines.h"
-
 #ifndef   QGAMES_H
 #define   QGAMES_H  1
 

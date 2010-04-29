@@ -12,8 +12,8 @@
 
 
 Direccion* direccion_new( char* dir ){
-    Direccion* c = ALLOC( sizeof( Direccion ) );
+    Direccion* c = malloc( sizeof( Direccion ) );
     memset( c, 0, sizeof( Direccion ) );
-    c->nombre = STRDUP( dir );
+    c->nombre = strdup( dir );
     return c;
 }

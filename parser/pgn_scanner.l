@@ -8,7 +8,8 @@
 */
 
 #include <stdio.h>
-#include "defines.h"
+#include <stdlib.h>
+#include <string.h>
 #include "pgn_scanner.h"
 
 
@@ -84,7 +85,7 @@ RESULT       ({DRAW}|{BWIN}|{WWIN})
 
 
 .                              {
-                                  pgnerror = ALLOC( 256 );
+                                  pgnerror = malloc( 256 );
                                   sprintf( pgnerror, "Caracter no reconocido (%c) Linea: %d, Col: %d", yytext[0], pgnlineno, pgncolno );
                                   yyterminate();
                                };
@@ -98,7 +99,7 @@ char*  extracttag(char* line){
     endquote --;
 
     int  len = endquote - initquote + 1;
-    char* ret = ALLOC( len + 1 );
+    char* ret = malloc( len + 1 );
     strncpy( ret, initquote, len );
     ret[len] = 0;
     return ret;
@@ -106,7 +107,7 @@ char*  extracttag(char* line){
 
 void    addmove(char* move){
     if( !pgnmoves ){ 
-        pgnmoves = ALLOC( 32 ); 
+        pgnmoves = malloc( 32 ); 
         pgnmoves[0] = 0;
         pgnmvchcount = 0;
         pgnmvchalloc = 32;
@@ -114,7 +115,7 @@ void    addmove(char* move){
     int  len = strlen( move );
     if( pgnmvchcount + len + 1 >= pgnmvchalloc ){
         pgnmvchalloc += len + 32;
-        pgnmoves = REALLOC( pgnmoves, pgnmvchalloc );
+        pgnmoves = realloc( pgnmoves, pgnmvchalloc );
     }
 
     if( pgnmvchcount ){ 
@@ -128,7 +129,7 @@ void    addmove(char* move){
 
 
 
-#define  FREEVARIABLE(var) if( var ){ FREE( var ); var = NULL; }
+#define  FREEVARIABLE(var) if( var ){ free( var ); var = NULL; }
 
 void   freepgn( ){
 

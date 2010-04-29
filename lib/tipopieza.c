@@ -19,9 +19,9 @@
  * */
 Tipopieza*  tipopieza_new( Tipojuego* tj, char* nombre ){
 
-    Tipopieza* t = ALLOC( sizeof( Tipopieza ) );
+    Tipopieza* t = malloc( sizeof( Tipopieza ) );
     memset( t, 0, sizeof( Tipopieza ) );
-    t->nombre = STRDUP( nombre );
+    t->nombre = strdup( nombre );
     t->tipojuego = tj;
     return t;
 
@@ -33,7 +33,7 @@ void        tipopieza_add_att(Tipopieza* tp, char* att, int default_value ){
         tp->att_nombres = list_nueva( NULL );
         tp->att_default = list_nueva( NULL );
     }
-    list_agrega( tp->att_nombres, STRDUP(att) );
+    list_agrega( tp->att_nombres, strdup(att) );
     list_agrega( tp->att_default, (void*)(long)default_value );
 }
 

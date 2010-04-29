@@ -18,7 +18,7 @@
  * Creacion de un tablero
  * */
 Tablero*   tablero_new( Tipojuego* tj , int numero ){
-    Tablero *  t = ALLOC( sizeof( Tablero ) );
+    Tablero *  t = malloc( sizeof( Tablero ) );
     memset( t, 0, sizeof( Tablero ) );
 
     t->tipojuego = tj;
@@ -44,7 +44,7 @@ void       tablero_genera_dimensiones( Tablero* tab, int dimc, char** dimv ){
     tab->dimensiones = list_nueva( NULL );
     tab->dimc = dimc;
     for( i = 0; i < dimc; i ++ ){
-        list_agrega( tab->dimensiones, STRDUP( dimv[i] ) );
+        list_agrega( tab->dimensiones, strdup( dimv[i] ) );
         dimp[i] = dimv[i];
         dimint[i] = 0;
     }

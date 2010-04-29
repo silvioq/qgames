@@ -75,7 +75,7 @@ void    secuencia_anterior( Partida* par ){
 
 
 Partida*  partida_new( Tipojuego* tjuego, char* id_par ){
-    Partida*  par = ALLOC( sizeof( Partida ) );
+    Partida*  par = malloc( sizeof( Partida ) );
     memset( par, 0, sizeof( Partida ) );
     par->tjuego = tjuego;
     par->pos    = posicion_dup( tjuego->inicial );
@@ -85,13 +85,13 @@ Partida*  partida_new( Tipojuego* tjuego, char* id_par ){
 
     // Calculo el id
     if( id_par ){
-        par->id = STRDUP( id_par );
+        par->id = strdup( id_par );
     } else {
         char  aux[256];
         unsigned char  aux2[16];
         static  int xxx = 100; int seeded = 0;
         int  mod = xxx % 8;
-        char*  id = ALLOC( 256 );
+        char*  id = malloc( 256 );
         int  di;
         xxx += 7;
         md5_state_t  md5;
@@ -137,7 +137,7 @@ void  partida_free( Partida* par ){
         }
         posicion_free( pos_act );
     }
-    if( par->id ) FREE( par->id );
+    if( par->id ) free( par->id );
     if( par->movimientos ){
         int  i;
         for( i = 0; i < par->movimientos->entradas; i ++ ){
@@ -146,7 +146,7 @@ void  partida_free( Partida* par ){
         }
         list_free( par->movimientos );
     }
-    FREE( par );
+    free( par );
 }
 
 
@@ -211,7 +211,7 @@ Movida*     partida_ultimo_movimiento( Partida* par ){
 #define  STREXPAND(str,alloc,count)  \
     if( count > alloc ){ \
         alloc = count + 32;\
-        str = REALLOC( ret, alloc );\
+        str = realloc( ret, alloc );\
     }
 
 
@@ -219,7 +219,7 @@ Movida*     partida_ultimo_movimiento( Partida* par ){
 char*       partida_pgn( Partida* par ){
     int  alloc = ( par->movimientos ? par->movimientos->entradas : 0 ) * 10 + 32 ;
     int  count = 0;
-    char* ret = ALLOC( alloc ); int point;
+    char* ret = malloc( alloc ); int point;
     // Primero, variante
     char* var = "[Variant \"%s\"]\n";
     char* res = "[Result \"%s\"]\n";

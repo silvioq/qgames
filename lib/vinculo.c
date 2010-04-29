@@ -12,7 +12,7 @@
 
 
 Vinculo* vinculo_new( Casillero* ori, Direccion* dir, Casillero* des ){
-    Vinculo* c = ALLOC( sizeof( Vinculo ) );
+    Vinculo* c = malloc( sizeof( Vinculo ) );
     c->origen    = ori; 
     c->direccion = dir;
     c->destino   = des;
@@ -21,5 +21,5 @@ Vinculo* vinculo_new( Casillero* ori, Direccion* dir, Casillero* des ){
 }
 
 void    vinculo_free( Vinculo* vin ){
-    FREE( vin );
+    free( vin );
 }

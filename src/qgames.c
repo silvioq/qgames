@@ -45,7 +45,7 @@ static char * getline (const char *prompt)
 {
   static char *buf = NULL;        /* Always allocated and freed
                                    from inside this function.  */
-  if(buf) FREE(buf);
+  if(buf) free(buf);
 
   buf = (char *) readline ((char *) prompt);
   if (buf && *buf) add_history (buf);
@@ -58,7 +58,7 @@ static char * getline (const char *prompt)
   static char *buf = NULL;        /* Always allocated and freed
                                    from inside this function.  */
   int count;
-  if(!buf) buf = ALLOC( 1024 );
+  if(!buf) buf = malloc( 1024 );
   printf( prompt );
   fgets(buf, 1024, stdin);
   buf[strlen(buf)-1] = 0;
