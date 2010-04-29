@@ -1,7 +1,7 @@
 lib_LIBRARIES = libqgames-parser.a libpgn-parser.a
 check_PROGRAMS = test-pgn test-symtable
 
-libqgames_parser_a_SOURCES = qgames_parser.y qgames_parser.h qgames_scanner.h qgames_scanner.l symtable.c
+libqgames_parser_a_SOURCES = qgames_parser.y qgames_parser.h qgames_scanner.l symtable.c
 libpgn_parser_a_SOURCES = pgn_scanner.l
 
 AM_YFLAGS = -d -v -p qgz
@@ -18,4 +18,3 @@ test_pgn_LDADD =        $(srcdir)/libpgn-parser.a
 test_symtable_SOURCES = test-symtable.c symtable.c symtable.h ../common/list.c
 
 TESTS = $(check_PROGRAMS)
-EXTRA_DIST = $(srcdir)/qgames_scanner.h

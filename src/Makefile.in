@@ -192,9 +192,6 @@ qgames_LDADD = $(DEPENDENCIES)
 AM_CFLAGS = -I$(top_srcdir)/include -I$(top_srcdir)/common -I$(top_srcdir)/vm
 TESTS_ENVIRONMENT = $(srcdir)/qgames 
 TESTS = $(srcdir)/../games/*.qgame 
-# $(srcdir)/../test/pgn/*.pgn
-# XFAIL_TESTS =  $(srcdir)/../games/Ajedrez.qgame  
-EXTRA_DIST = $(srcdir)/games/*.qgame
 all: all-am
 
 .SUFFIXES:
@@ -562,6 +559,8 @@ uninstall-am: uninstall-binPROGRAMS
 	mostlyclean-generic mostlyclean-libtool pdf pdf-am ps ps-am \
 	tags uninstall uninstall-am uninstall-binPROGRAMS
 
+# $(srcdir)/../test/pgn/*.pgn
+# XFAIL_TESTS =  $(srcdir)/../games/Ajedrez.qgame  
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:

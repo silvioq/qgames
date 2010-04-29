@@ -19,4 +19,3 @@ TESTS_ENVIRONMENT = $(srcdir)/qgames
 TESTS = $(srcdir)/../games/*.qgame 
 # $(srcdir)/../test/pgn/*.pgn
 # XFAIL_TESTS =  $(srcdir)/../games/Ajedrez.qgame  
-EXTRA_DIST = $(srcdir)/games/*.qgame
