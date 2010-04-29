@@ -4,14 +4,17 @@ bin_PROGRAMS = qgames-ncurses
 qgames_ncurses_SOURCES = qgames-ncurses.c ../common/list.c  
 
 qgames_ncurses_LDFLAGS = -lmenu @CURSES_LIBS@
-qgames_ncurses_DEPENDENCIES = $(top_builddir)/qcode/src/libqcode.la $(top_builddir)/lib/libqgames.a \
-										$(top_builddir)/parser/libqgames-parser.a $(top_builddir)/parser/libpgn-parser.a
-qgames_ncurses_LDADD = \
+
+DEPENDENCIES = \
 										$(top_builddir)/parser/libqgames-parser.a \
                     $(top_builddir)/lib/libqgames.a \
 									  $(top_builddir)/parser/libpgn-parser.a \
-                    $(top_builddir)/qcode/src/libqcode.la
+                    $(top_builddir)/vm/libqcode.a
 
-AM_CFLAGS = -I$(top_srcdir)/include -I$(top_srcdir)/common -I$(top_srcdir)/qcode/src
+qgames_ncurses_DEPENDENCIES = $(DEPENDENCIES)
+qgames_ncurses_LDADD = $(DEPENDENCIES)
+
+
+AM_CFLAGS = -I$(top_srcdir)/include -I$(top_srcdir)/common -I$(top_srcdir)/vm
 
 

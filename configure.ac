@@ -1,4 +1,4 @@
-AC_INIT([qgames], [2.4.0])
+AC_INIT([qgames], [2.9.0])
 AM_INIT_AUTOMAKE
 AC_PROG_CC
 AC_PROG_YACC
@@ -15,7 +15,6 @@ AC_CHECK_HEADERS([ncurses.h])
 AC_SUBST([CURSES_LIBS])
 
 AM_CONDITIONAL([QASM], [0])
-AC_CONFIG_SUBDIRS([qcode])
 
 # 
 # if test x"${ac_cv_lib_ncursesw_ncursesw}" = xyes; then
@@ -35,9 +34,8 @@ AC_DEFINE([QGAMES_SERVERNAME],["qgames.com.ar"], ["Nombre del servidor a usar"])
 
 AC_CONFIG_FILES(
   [Makefile
-   qcode/Makefile
-   qcode/src/Makefile
    lib/Makefile
+   vm/Makefile
    parser/Makefile
    src/Makefile
    interfaces/Makefile

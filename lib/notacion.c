@@ -13,8 +13,8 @@
 #include  <qgames.h>
 
 #include  "list.h"
-#include  "simbolos.h"
 #include  "tipojuego.h"
+#include  "simbolos.h"
 #include  "pieza.h"
 #include  "movida.h"
 #include  "analizador.h"

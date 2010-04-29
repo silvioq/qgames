@@ -9,7 +9,7 @@ DEPENDENCIES = \
 										$(top_builddir)/parser/libqgames-parser.a \
                     $(top_builddir)/lib/libqgames.a \
 									  $(top_builddir)/parser/libpgn-parser.a \
-                    $(top_builddir)/qcode/src/libqcode.la
+                    $(top_builddir)/vm/libqcode.a
 
 test_tateti_DEPENDENCIES = $(DEPENDENCIES)
 test_tateti_LDADD        = $(DEPENDENCIES)

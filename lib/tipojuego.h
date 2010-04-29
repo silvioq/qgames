@@ -13,6 +13,7 @@
 
 typedef   struct   StrNotacion  Notacion;
 typedef   struct   StrRegla     Regla;
+typedef   struct   StrSimbolo   Simbolo;
 
 #define   JAQUEMATE    0x1
 #define   TJJAQUEMATE(tj)  (tj->flags & JAQUEMATE)
@@ -179,6 +180,8 @@ int         tipojuego_get_coloroponente( Tipojuego* tj, int color );
 
 int         tipojuego_casillero_en_zona( Tipojuego* tj, Casillero* cas, int zona, int color );
 Direccion*  tipojuego_dir_by_sym( Tipojuego*, Direccion* dir, int color );
+
+Simbolo*    tipojuego_get_simbolo( Tipojuego* tj, char* sim );
 
 #define     TIPOJUEGO_CAPTURAIMPLICITA(tj) 1
 

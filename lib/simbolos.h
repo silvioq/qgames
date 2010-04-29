@@ -13,7 +13,7 @@ typedef   struct  StrSimbolo{
     int     id;
     char*   nombre;
     int     ref;
-}  Simbolo;
+}  _Simbolo;
 
 
 #define   SIM_TIPOJUEGO  1

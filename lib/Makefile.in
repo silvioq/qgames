@@ -54,12 +54,10 @@ ARFLAGS = cru
 libqgames_a_AR = $(AR) $(ARFLAGS)
 libqgames_a_LIBADD =
 am_libqgames_a_OBJECTS = list.$(OBJEXT) md5.$(OBJEXT) log.$(OBJEXT) \
-	qgames_tjuego.$(OBJEXT) qgames_code.$(OBJEXT) \
-	qcode_interfaz.$(OBJEXT) tipojuego.$(OBJEXT) tablero.$(OBJEXT) \
-	casillero.$(OBJEXT) vinculo.$(OBJEXT) direccion.$(OBJEXT) \
-	tipopieza.$(OBJEXT) notacion.$(OBJEXT) pieza.$(OBJEXT) \
-	movida.$(OBJEXT) posicion.$(OBJEXT) analizador.$(OBJEXT) \
-	partida.$(OBJEXT)
+	tipojuego.$(OBJEXT) tablero.$(OBJEXT) casillero.$(OBJEXT) \
+	vinculo.$(OBJEXT) direccion.$(OBJEXT) tipopieza.$(OBJEXT) \
+	notacion.$(OBJEXT) pieza.$(OBJEXT) movida.$(OBJEXT) \
+	posicion.$(OBJEXT) analizador.$(OBJEXT) partida.$(OBJEXT)
 libqgames_a_OBJECTS = $(am_libqgames_a_OBJECTS)
 DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
@@ -188,14 +186,12 @@ psdir = @psdir@
 sbindir = @sbindir@
 sharedstatedir = @sharedstatedir@
 srcdir = @srcdir@
-subdirs = @subdirs@
 sysconfdir = @sysconfdir@
 target_alias = @target_alias@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 lib_LIBRARIES = libqgames.a
 libqgames_a_SOURCES = ../common/list.c  ../common/md5.c ../common/log.c\
-								qgames_tjuego.c   qgames_code.c  qcode_interfaz.c  \
 								tipojuego.c  tipojuego.h  \
 								tablero.c  casillero.c  vinculo.c  direccion.c   tipopieza.c   \
 								notacion.c   \
@@ -203,7 +199,7 @@ libqgames_a_SOURCES = ../common/list.c  ../common/md5.c ../common/log.c\
 								analizador.c   \
 								partida.c 
 
-AM_CFLAGS = -I$(top_srcdir)/include -I$(top_srcdir)/common -I$(top_srcdir)/qcode/src
+AM_CFLAGS = -I$(top_srcdir)/include -I$(top_srcdir)/common -I$(top_srcdir)/vm
 all: all-am
 
 .SUFFIXES:
@@ -288,9 +284,6 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/partida.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pieza.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/posicion.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/qcode_interfaz.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/qgames_code.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/qgames_tjuego.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/tablero.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/tipojuego.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/tipopieza.Po@am__quote@

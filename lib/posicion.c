@@ -14,7 +14,6 @@
 #include  <qgames.h>
 
 #include  "list.h"
-#include  "simbolos.h"
 #include  "tipojuego.h"
 #include  "pieza.h"
 #include  "movida.h"

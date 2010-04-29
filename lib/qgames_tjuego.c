@@ -495,89 +495,6 @@ void   tipojuego_set_notacion_marca( Tipojuego* tj, char* marca, char* captura )
 }
 
 
-/*
- * Esta funcion agrega una nueva entrada de codigo, y va armando la lista
- * de etiquetas
- * El retorno de la funcion es la etiqueta para el codificador
- * */
-int         tipojuego_start_code(  Tipojuego* tj, char tiporegla, char* tipopieza, char* tipomov ){
-
-  static int  label = 0;
-  Simbolo* sp;
-  Simbolo* sm;
-
-  Tipopieza*  tpieza;
-  int  tmov;
-  Regla* cod ;
-
-  if( !tj->qcode ){
-    code_initialize( &tj->qcode );
-  }
-
-  assert( ( tiporegla == DROP ) || ( tiporegla == MOVE ) || ( tiporegla == END ) );
-  assert( ( tiporegla == END  ) || tipopieza );
-  assert( ( tiporegla != END  ) || ( !tipopieza ) );
-  assert( ( tiporegla != END  ) || ( !tipomov ) );
-
-  if( tipopieza ){
-    sp = tipojuego_get_simbolo( tj, tipopieza );
-    if( !sp ){
-      printf( "Tipo pieza %s inexistente (File %s - linea %d)\n", tipopieza, __FILE__, __LINE__ );
-      exit( EXIT_FAILURE );
-    }
-    if( sp->tipo != SIM_TIPOPIEZA ){
-      printf( "%s no es tipo pieza (File %s - linea %d)\n", tipopieza, __FILE__, __LINE__ );
-      exit( EXIT_FAILURE );
-    }
-    tpieza = (Tipopieza*)tj->tipo_piezas->data[sp->ref];
-  } else tpieza = NULL;
-
-  // A ver el tipo de juego
-  if( tipomov ){
-    sm   = tipojuego_get_simbolo( tj, tipomov );
-    if( !sm ){
-      printf( "Tipo movimiento %s inexistente (File %s - linea %d)\n", tipomov, __FILE__, __LINE__ );
-      exit( EXIT_FAILURE );
-    }
-    if( sm->tipo != SIM_TIPOMOV ){
-      printf( "%s no es tipo movimiento (File %s - linea %d)\n", tipomov, __FILE__, __LINE__ );
-      exit( EXIT_FAILURE );
-    }
-    tmov = sm->ref;
-  } else {
-    tmov = 0;
-  }
-  
-  cod = malloc( sizeof( Regla ) );
-  memset( cod, 0, sizeof( Regla ) );
-  cod->tpieza = tpieza;
-  cod->tmov   = tmov;
-  cod->tregla = tiporegla;
-  label ++;
-  cod->label  = qcode_crlab( tj->qcode, unnamed_label );
-  qcode_label( tj->qcode, cod->label );
-  cod->pc     = qcode_label_getpc( tj->qcode, cod->label );
-
-  if( tpieza ){
-    if( !tpieza->rules ) tpieza->rules = list_nueva( NULL );
-    list_agrega( tpieza->rules, cod );
-    tj->regla_actual = cod;
-  } else { 
-    if( !tj->rules ) tj->rules = list_nueva( NULL );
-    list_agrega( tj->rules, cod );
-    tj->regla_actual = cod;
-  }
-  qcode_opnlab( tj->qcode, QCCLX, "initz" );
-  qcode_op( tj->qcode, QCSTO, 3, 0 );
-
-  return cod->label;
-
-}
-
-
-void        tipojuego_end_code( Tipojuego* tj ){
-    qcode_op( tj->qcode, QCRET, 0 , 0 );
-}
 
 
 
@@ -585,7 +502,3 @@ Partida*   tipojuego_create_partida( Tipojuego* tj, char* id ){
    return  partida_new( tj, id );
 }
 
-/*
-void*       tipojuego_get_code( Tipojuego* tj ){
-    return (void*)tj->qcode;
-}*/
