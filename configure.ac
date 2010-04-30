@@ -31,6 +31,10 @@ AM_CONDITIONAL([QASM], [0])
 
 
 AC_DEFINE([QGAMES_SERVERNAME],["qgames.com.ar"], ["Nombre del servidor a usar"])
+AC_SUBST(DEPENDENCIES,["\$(top_builddir)/parser/libqgames-parser.a \
+                    \$(top_builddir)/lib/libqgames.a \
+									  \$(top_builddir)/parser/libpgn-parser.a \
+                    \$(top_builddir)/vm/libqcode.a"])
 
 AC_CONFIG_FILES(
   [Makefile

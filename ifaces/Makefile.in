@@ -47,6 +47,7 @@ binPROGRAMS_INSTALL = $(INSTALL_PROGRAM)
 PROGRAMS = $(bin_PROGRAMS)
 am_qgames_console_OBJECTS = qgames-console.$(OBJEXT) list.$(OBJEXT)
 qgames_console_OBJECTS = $(am_qgames_console_OBJECTS)
+am__DEPENDENCIES_1 =
 am_qgames_ncurses_OBJECTS = qgames-ncurses.$(OBJEXT) list.$(OBJEXT)
 qgames_ncurses_OBJECTS = $(am_qgames_ncurses_OBJECTS)
 qgames_ncurses_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) \
@@ -89,6 +90,7 @@ CXXFLAGS = @CXXFLAGS@
 CYGPATH_W = @CYGPATH_W@
 DEFS = @DEFS@
 DEPDIR = @DEPDIR@
+DEPENDENCIES = @DEPENDENCIES@
 DSYMUTIL = @DSYMUTIL@
 ECHO = @ECHO@
 ECHO_C = @ECHO_C@
@@ -185,12 +187,6 @@ top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 qgames_ncurses_SOURCES = qgames-ncurses.c ../common/list.c  
 qgames_ncurses_LDFLAGS = -lmenu @CURSES_LIBS@
-DEPENDENCIES = \
-										$(top_builddir)/parser/libqgames-parser.a \
-                    $(top_builddir)/lib/libqgames.a \
-									  $(top_builddir)/parser/libpgn-parser.a \
-                    $(top_builddir)/vm/libqcode.a
-
 qgames_ncurses_DEPENDENCIES = $(DEPENDENCIES)
 qgames_ncurses_LDADD = $(DEPENDENCIES)
 qgames_console_SOURCES = qgames-console.c ../common/list.c  
