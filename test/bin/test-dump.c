@@ -21,6 +21,7 @@ int  main(int argc, char** argv) {
 
     p1 = tipojuego_create_partida( ajedrez, "id" );
     assert( partida_dump( p1, &data, &size ));
+    free( data );
     assert( size == 13 );
 
     assert( partida_mover_notacion( p1, "e4" ) );
