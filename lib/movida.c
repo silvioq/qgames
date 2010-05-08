@@ -355,30 +355,33 @@ int          movida_dump( Movida* mov, void** data, int* size ){
     ADDDATA( ret, len, len16, aloc );
 
     /* Listo! las acciones .... estas son mas faciles ...
-        char        tipo;
-        int         pieza_number;
-        Casillero*  destino;
-        int         color;
-        Tipopieza*  tpieza;
-        int         att_key;
-        int         att_val;
+        char        tipo;         (char)
+        int         pieza_number; (short)
+        Casillero*  destino;      (short)
+        int         color;        (short)
+        Tipopieza*  tpieza;       (char)
+        int         att_key;      (char)
+        int         att_val;      (int)
     */
     for( i = 0; i < mov->acciones->entradas; i ++ ){
         Accion* acc = mov->acciones->data[i];
         ADDDATA( ret, len, acc->tipo, aloc );
-        ADDDATA( ret, len, acc->pieza_number, aloc );
-        if( acc->destino ){
-           ADDDATA( ret, len, acc->destino->number, aloc );
-        } else {
-           ADDDATA( ret, len, (int)0, aloc );
-        }
-        ADDDATA( ret, len, acc->color, aloc );
-        if( acc->tpieza ){
-            ADDDATA( ret, len, acc->tpieza, aloc );
-        } else {
-            ADDDATA( ret, len, (int)0, aloc );
-        }
-        ADDDATA( ret, len, acc->att_key, aloc );
+
+        len16 = acc->pieza_number;
+        ADDDATA( ret, len, len16, aloc );
+
+        len16 = acc->destino ? acc->destino->number : 0 ;
+        ADDDATA( ret, len, len16, aloc );
+
+        len8 = acc->color;
+        ADDDATA( ret, len, len8, aloc );
+
+        len8 = acc->tpieza ? acc->tpieza->number : 0 ;
+        ADDDATA( ret, len, len8, aloc );
+
+        len8 = acc->att_key;
+        ADDDATA( ret, len, len8, aloc );
+
         ADDDATA( ret, len, acc->att_val, aloc );
     }
 
