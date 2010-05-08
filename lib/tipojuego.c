@@ -97,7 +97,7 @@ int         tipojuego_add_casillero( Tipojuego* tj, char* casillero ){
         exit( EXIT_FAILURE );
     }
     if( !tj->casilleros )  tj->casilleros = list_nueva( NULL );
-    Casillero*  cas = casillero_new( casillero, tj->tablero_actual );
+    Casillero*  cas = casillero_new( casillero, tj->tablero_actual, tj->casilleros->entradas );
     int ref = list_agrega( tj->casilleros, cas );
     SIM_ADD( tj, SIM_CASILLERO, casillero, ref );
     return ref;
@@ -202,7 +202,7 @@ int         tipojuego_add_tipopieza( Tipojuego* tj, char* tpieza    ){
         exit( EXIT_FAILURE );
     }
     if( !tj->tipo_piezas )  tj->tipo_piezas = list_nueva( NULL );
-    Tipopieza* pie = tipopieza_new( tj, tpieza );
+    Tipopieza* pie = tipopieza_new( tj, tpieza, tj->tipo_piezas->entradas );
     int ref = list_agrega( tj->tipo_piezas, pie );
     SIM_ADD( tj, SIM_TIPOPIEZA, tpieza, ref );
     return tj->simbolos->entradas - 1;

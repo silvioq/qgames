@@ -17,12 +17,13 @@
 /*
  * Crea un nuevo tipo de pieza. Nada más ni nada menos.
  * */
-Tipopieza*  tipopieza_new( Tipojuego* tj, char* nombre ){
+Tipopieza*  tipopieza_new( Tipojuego* tj, char* nombre, int number ){
 
     Tipopieza* t = malloc( sizeof( Tipopieza ) );
     memset( t, 0, sizeof( Tipopieza ) );
     t->nombre = strdup( nombre );
     t->tipojuego = tj;
+    t->number = number;
     return t;
 
 }

@@ -293,3 +293,99 @@ int          movida_es_transformacion( Movida* mov, int* color, Tipopieza** tp )
     return  0;
 
 }
+
+
+#define  STREXPAND(str,alloc,count)  \
+    if( count > alloc ){ \
+        alloc = count + 32;\
+        str = realloc( ret, alloc );\
+    }
+
+#define  ADDDATA( data, len, dato, alloc ){ \
+    if( len + sizeof( dato ) > alloc ){ \
+        alloc = len + sizeof( dato ) + 256; \
+        data = realloc( data, alloc ); \
+    } \
+    typeof(dato)* point = (typeof(dato)*)( ((char*)data) + len );\
+    *point = dato ;\
+    len += sizeof( dato ); \
+  }
+
+/*
+ * Esta funcion transpasa a binario los datos de una movida
+ * Recibe como parametro un puntero a puntero y un 
+ * puntero a entero. En el primer caso devolvera la data
+ * y en el segundo el tamaño de la memoria alocada
+ * */
+
+int          movida_dump( Movida* mov, void** data, int* size ){
+
+    int   aloc = 256;
+    int   len  = 0, i;
+    void* ret = malloc( aloc );
+    unsigned char len8;
+    unsigned short len16;
+    /* La estructura a devolver es la siguiente:
+       1. un char con el tamaño de la notacion. Si no esta "notada",
+          sera un cero
+       2. la notacion
+       3. Entero tmov (tipo de movimiento)
+       4. Entero numero de pieza
+       5. Char, continua
+       6. Dos bytes indicando la cantidad de acciones
+          . Todas las acciones */
+
+    if( mov->notacion ){
+        len8 = strlen( mov->notacion );
+    } else {
+        len8 = 0;
+    }
+    ADDDATA( ret, len, len8, aloc );
+    if( len8 > 0 ){
+        STREXPAND( ret, aloc, len + len8 );
+        memcpy( ((char*)ret) + len , mov->notacion, len8 );
+        len += len8;
+    }
+
+    ADDDATA( ret, len, mov->tmov, aloc );
+    ADDDATA( ret, len, mov->piece_number, aloc );
+    ADDDATA( ret, len, mov->continua, aloc );
+
+    len16 = mov->acciones->entradas;
+    ADDDATA( ret, len, len16, aloc );
+
+    /* Listo! las acciones .... estas son mas faciles ...
+        char        tipo;
+        int         pieza_number;
+        Casillero*  destino;
+        int         color;
+        Tipopieza*  tpieza;
+        int         att_key;
+        int         att_val;
+    */
+    for( i = 0; i < mov->acciones->entradas; i ++ ){
+        Accion* acc = mov->acciones->data[i];
+        ADDDATA( ret, len, acc->tipo, aloc );
+        ADDDATA( ret, len, acc->pieza_number, aloc );
+        if( acc->destino ){
+           ADDDATA( ret, len, acc->destino->number, aloc );
+        } else {
+           ADDDATA( ret, len, (int)0, aloc );
+        }
+        ADDDATA( ret, len, acc->color, aloc );
+        if( acc->tpieza ){
+            ADDDATA( ret, len, acc->tpieza, aloc );
+        } else {
+            ADDDATA( ret, len, (int)0, aloc );
+        }
+        ADDDATA( ret, len, acc->att_key, aloc );
+        ADDDATA( ret, len, acc->att_val, aloc );
+    }
+
+    *data = ret;
+    *size = len;
+
+    return 1;
+}
+
+

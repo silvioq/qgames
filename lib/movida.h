@@ -13,8 +13,8 @@ typedef  struct  StrMovida {
     Posicion*   pos;
     char*       notacion;
     int         tmov;
-    int         continua;
     int         piece_number;
+    char        continua;
     Casillero*  destino;      // Solo como auxiliar, no usar directamente, para eso esta movida_destino
 } Movida;
 
@@ -61,5 +61,8 @@ Casillero*   movida_casillero_destino( Movida* mov );
 Pieza*       movida_pieza( Movida* mov );
 int          movida_es_captura( Movida* mov );
 int          movida_es_transformacion( Movida* mov, int* color, Tipopieza** tp );
+
+int          movida_dump( Movida* mov, void** data, int* size );
+Movida*      movida_load( void* data, int size );
 
 #endif

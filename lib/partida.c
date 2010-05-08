@@ -590,22 +590,29 @@ int         partida_final         ( Partida* par, char** resultado ){
 #error  "Error de tamaños de tipos de datos"
 #endif
 */
+#define  ADDDATA( data, len, dato, alloc ){ \
+    if( len + sizeof( dato ) > alloc ){ \
+        alloc = len + sizeof( dato ) + 256; \
+        data = realloc( data, alloc ); \
+    } \
+    typeof(dato)* point = (typeof(dato)*)( ((char*)data) + len );\
+    *point = dato ;\
+    len += sizeof( dato ); \
+  }
 
 int         partida_dump( Partida* par, void** data, int* size ){
 
-    assert( !"Esta funcion no esta implementada" );
-
-
     int   aloc = 256;
-    int   len  = 0;
+    int   len  = 0, i;
     void* ret = malloc( aloc );
-    void* point;
     unsigned char len8;
     unsigned short len16;
 
     /* La estructura es la siguiente:
         1 byte con el largo del nombre del tipo de juego (int)
         n byte con el nombre del tipo de juego
+        1 byte con el largo del id
+        n bytes con el id
         2 bytes con la cantidad de movidas
         lista de movidas: 
            donde cada movida tiene
@@ -614,20 +621,37 @@ int         partida_dump( Partida* par, void** data, int* size ){
     */
 
     len8 = strlen(par->tjuego->nombre);
-    ((char*)ret)[len++] = len8;
-    point = ret + len;
+    ADDDATA( ret, len, len8, aloc );
+    STREXPAND( ret, aloc, len + len8 );
+    memcpy( ((char*)ret) + len, par->tjuego->nombre, len8 );
     len += len8;
-    STREXPAND( ret, len, aloc );
-    memcpy( point, par->tjuego->nombre, len8 );
-    point += len8;
 
-    len16 = par->movimientos->entradas;
-    len += sizeof( unsigned short );
-    STREXPAND( ret, len, aloc );
-    *((unsigned short*)(point)) = len16;
-    point = ret + len ;
+    len8 = strlen(par->id);
+    ADDDATA( ret, len, len8, aloc );
+    STREXPAND( ret, aloc, len + len8 );
+    memcpy( ((char*)ret) + len, par->id, len8 );
+    len += len8;
 
-    
+    len16 = ( par->movimientos ? par->movimientos->entradas : 0 );
+    ADDDATA( ret, len, len16, aloc );
+
+    if( par->movimientos ){
+        for( i = 0; i < par->movimientos->entradas; i ++ ){
+            Movida* mov = par->movimientos->data[i];
+            void * mmm;
+            int    size;
+            assert( movida_dump( mov, &mmm, &size ) );
+            len16 = size;
+            ADDDATA( ret, len, len16, aloc );
+            STREXPAND( ret, aloc, len + size );
+            memcpy( ((char*)ret) + len, mmm, size );
+            free( mmm );
+            len += size;
+        }
+    }
+  
+    *data = ret;
+    *size = len;
 
 
 }

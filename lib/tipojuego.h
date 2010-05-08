@@ -56,6 +56,7 @@ typedef   struct   StrCasillero {
     char*       nombre;
     int         tablero;
     int         posicion[MAXDIMS];
+    int         number;
     _list*      vinculos;
 } Casillero;
 
@@ -79,6 +80,7 @@ typedef   struct   StrTipopieza {
     _list*      att_nombres;
     _list*      att_default;
     _list*      rules;
+    int         number;
     char        flags;
 } Tipopieza;
 
@@ -206,7 +208,7 @@ void       tablero_genera_dimensiones( Tablero* tab, int dimc, char** dimv );
 
 #define    CASILLERO_VALIDO(cas) ( cas != ENPOZO && cas != ENCAPTURA && cas != OUTOFBOARD )
 
-Casillero* casillero_new( char* cas, int tablero );
+Casillero* casillero_new( char* cas, int tablero, int number );
 void       casillero_free( Casillero* cas );
 void       casillero_add_vinculo( Casillero* ori, Direccion* dir, Casillero* des );
 void       casillero_kill_vinculo( Casillero* ori,Direccion* dir, Casillero* des );
@@ -226,7 +228,7 @@ Vinculo*   vinculo_new( Casillero* ori, Direccion* dir, Casillero* des );
 void       tipojuego_genera_vinculos( Tipojuego* tj, Direccion* dir );
 
 /* Tipos de pieza */
-Tipopieza*  tipopieza_new( Tipojuego* tj, char* nombre );
+Tipopieza*  tipopieza_new( Tipojuego* tj, char* nombre, int number );
 void        tipopieza_add_att(Tipopieza* tp, char* att, int default_value );
 int         tipopieza_get_att( Tipopieza* tp, char* att );
 

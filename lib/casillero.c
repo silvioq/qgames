@@ -15,13 +15,14 @@
 
 
 
-Casillero* casillero_new( char* cas, int tablero ){
+Casillero* casillero_new( char* cas, int tablero, int number ){
     Casillero* c = malloc( sizeof( Casillero ) );
     int i;
 
     memset( c, 0, sizeof( Casillero ) );
     c->nombre = strdup( cas );
     c->tablero = tablero;
+    c->number  = number;
     // printf( "El nombre es %s\n", c->nombre );
     for( i = 0; i < MAXDIMS; i ++ ) c->posicion[i] = -1;
     return c;
