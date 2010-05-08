@@ -484,13 +484,13 @@ int    analizador_transforma( Analizador* z, int owner, Tipopieza* tpieza ){
     return  STATUS_NORMAL;
 }
 
-int    analizador_asigna_att( Analizador* z, char* att, int val ){
+int    analizador_asigna_att( Analizador* z, int att, int val ){
     if( !z->mov_actual ) z->mov_actual = movida_new( z->pos, z->pieza, z->tmov );
     movida_accion_asigna_att( z->mov_actual, z->pieza, att, val );
     return  STATUS_NORMAL;
 }
 
-int    analizador_evalua_att( Analizador* z, char* att ){
+int    analizador_evalua_att( Analizador* z, int att ){
     int ret = pieza_get_att( z->pieza, att );
     LOGPRINT( 6, "Evaluando atributo %s de %s = %d", att, z->pieza->tpieza->nombre, ret );
     return  ret;

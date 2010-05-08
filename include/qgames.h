@@ -112,6 +112,10 @@ int         partida_tablero_data  ( Partida* par, int num, char** casillero, cha
 char*       partida_pgn( Partida* par ); // free luego!
 
 
+int         partida_dump( Partida* par, void** data, int* size );
+Partida*    partida_load( void* data, int size );
+
+
 
 
 #endif

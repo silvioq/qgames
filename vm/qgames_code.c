@@ -374,9 +374,12 @@ void        tipojuego_code_captura( Tipojuego* tj, char* casillero ){
 
 
 void        tipojuego_code_asigna_att( Tipojuego* tj, char* att, int val ){
+    Regla* rule = tj->regla_actual;
+    assert( rule->tpieza );
+    long a = GETTIPOPIEZAATT(tj, rule->tpieza, att );
     qcode_op( tj->qcode, QCSTI,  1, val );      // r1 = val
     qcode_op( tj->qcode, QCPSH,  1, 0 );        // PSH r1
-    qcode_op( tj->qcode, QCSTI,  1, (long)att );// r1 = att
+    qcode_op( tj->qcode, QCSTI,  1, a );        // r1 = a
     qcode_op( tj->qcode, QCPSH,  1, 0 );        // PSH r1
     qcode_op( tj->qcode, QCPSH,  3, 0 );        // PSH r3
     qcode_opnlab( tj->qcode, QCCLX, "asigna_att" );
@@ -384,8 +387,10 @@ void        tipojuego_code_asigna_att( Tipojuego* tj, char* att, int val ){
 }
 
 void        tipojuego_code_evalua_att( Tipojuego* tj, char* att ){
-    char*  natt = strdup( att );
-    qcode_op( tj->qcode, QCSTI,  1, (long)natt );// r1 = att
+    Regla* rule = tj->regla_actual;
+    assert( rule->tpieza );
+    long a = GETTIPOPIEZAATT(tj, rule->tpieza, att );
+    qcode_op( tj->qcode, QCSTI,  1, a );         // r1 = a
     qcode_op( tj->qcode, QCPSH,  1, 0 );         // PSH r1
     qcode_op( tj->qcode, QCPSH,  3, 0 );         // PSH r3
     qcode_opnlab( tj->qcode, QCCLX, "evalua_att" );

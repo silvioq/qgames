@@ -78,7 +78,7 @@ void   movida_accion_transforma( Movida* mov, Pieza* p, int color, Tipopieza* tp
 /*
  * Esta accion asigna un atributo a una pieza
  * */
-void  movida_accion_asigna_att( Movida* mov, Pieza* p, char* att, int val ){
+void  movida_accion_asigna_att( Movida* mov, Pieza* p, int att, int val ){
     Accion* acc = accion_new();
     acc->tipo = ACCION_ASIGNA_ATT;
     acc->pieza_number = p->number;

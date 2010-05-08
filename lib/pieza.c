@@ -101,13 +101,14 @@ Pieza*   pieza_dup( Pieza* pieza ){
     return p;
 }
 
-
-void     pieza_set_att( Pieza* p, char* att, int val ){
+/*
     int x = tipopieza_get_att( p->tpieza, att );
     if( x == NOT_FOUND ){
         LOGPRINT( 1, "atributo %s incorrecto para %s", att, p->tpieza->nombre );
         exit( EXIT_FAILURE );
     }
+*/
+void     pieza_set_att( Pieza* p, int att, int val ){
 
     if( !p->atributos ){
         int i ;
@@ -116,15 +117,18 @@ void     pieza_set_att( Pieza* p, char* att, int val ){
             list_agrega( p->atributos, p->tpieza->att_default->data[i] );
         }
     }
-    p->atributos->data[x] = (void*)(long)val;
+    assert( att < p->atributos->entradas );
+    p->atributos->data[att] = (void*)(long)val;
 }
 
 
 
-int      pieza_get_att( Pieza* p, char* att ){
+int      pieza_get_att( Pieza* p, int att ){
     if( !p->atributos ) return 0;
+/*
     int x = tipopieza_get_att( p->tpieza, att );
     if( x == NOT_FOUND ) return 0;
-    if( x >= p->atributos->entradas ) return 0;
-    return (int)(long)p->atributos->data[x];
+    if( x >= p->atributos->entradas ) return 0; */
+    if( att >= p->atributos->entradas ) return 0;
+    return (int)(long)p->atributos->data[att];
 }

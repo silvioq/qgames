@@ -54,8 +54,8 @@ int    analizador_juega  ( Analizador* z, Casillero* cas, int con_captura );
 int    analizador_mueve  ( Analizador* z, char fromto_flags, void* from, void* to );
 int    analizador_captura( Analizador* z, Casillero* cas );
 int    analizador_transforma( Analizador*z, int owner, Tipopieza* tp);
-int    analizador_asigna_att( Analizador* z, char* att, int val );
-int    analizador_evalua_att( Analizador* z, char* att );
+int    analizador_asigna_att( Analizador* z, int att, int val );
+int    analizador_evalua_att( Analizador* z, int att );
 
 /*
  * Devuelve uno o cero, si se encuentra ocupado el casillero pasado como parametro

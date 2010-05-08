@@ -101,14 +101,14 @@ long  code_wrapper_origen_ant( QCodeVM* vm ){
 
 long  code_wrapper_asigna_att( QCodeVM* vm ){
     Analizador* z = (Analizador*)qcode_pop( vm );
-    char* att  = (char*)qcode_pop(vm);
+    int   att  = (int)qcode_pop(vm);
     int   val  = (int)qcode_pop(vm);
     return (long)analizador_asigna_att( z, att, val );
 }
 
 long  code_wrapper_evalua_att( QCodeVM* vm ){
     Analizador* z = (Analizador*)qcode_pop( vm );
-    char* att  = (char*)qcode_pop(vm);
+    int   att  = (int)qcode_pop(vm);
     return (long)analizador_evalua_att( z, att );
 }
 

@@ -572,3 +572,64 @@ int         partida_final         ( Partida* par, char** resultado ){
 
 }
 
+
+/*
+ * Esta funcion genera un binario con la definicion de la partida,
+ * para ser levantado próximamente.
+ * Parametros:
+ *  
+ * Retorna
+ *   0 si hubo error
+ * */
+/*
+#if sizeof(unsigned char) != 1
+#error  "Error de tamaños de tipos de datos"
+#endif
+
+#if (sizeof(unsigned short)!=2)
+#error  "Error de tamaños de tipos de datos"
+#endif
+*/
+
+int         partida_dump( Partida* par, void** data, int* size ){
+
+    assert( !"Esta funcion no esta implementada" );
+
+
+    int   aloc = 256;
+    int   len  = 0;
+    void* ret = malloc( aloc );
+    void* point;
+    unsigned char len8;
+    unsigned short len16;
+
+    /* La estructura es la siguiente:
+        1 byte con el largo del nombre del tipo de juego (int)
+        n byte con el nombre del tipo de juego
+        2 bytes con la cantidad de movidas
+        lista de movidas: 
+           donde cada movida tiene
+           2 bytes con el largo de la movida
+           movida
+    */
+
+    len8 = strlen(par->tjuego->nombre);
+    ((char*)ret)[len++] = len8;
+    point = ret + len;
+    len += len8;
+    STREXPAND( ret, len, aloc );
+    memcpy( point, par->tjuego->nombre, len8 );
+    point += len8;
+
+    len16 = par->movimientos->entradas;
+    len += sizeof( unsigned short );
+    STREXPAND( ret, len, aloc );
+    *((unsigned short*)(point)) = len16;
+    point = ret + len ;
+
+    
+
+
+}
+
+
