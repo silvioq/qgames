@@ -1,9 +1,24 @@
 
-Desarrollo
+Desarrollo corto plazo (version 2.9.1)
+
+* Dump y load
+* Graficos (GD)
+* Compilar como librería y comenzar con el ecosistema QGames
+
+Version 2.9.5
 
 * Cambiar la definicion de archivo qgames para que este 100% en ingles
-* Pasar el qcode a solo los archivos necesarios.
-
 Juegos
 
 * Ajedrez Jubilado
+
+Ecosistema QGames
+* qgames-factory: una utilidad para simplificar el salvado de los
+                  dumps y la gestion de los tipos de juegos.
+                  Seria deseable que tenga una interaccion del tipo
+                  webservice
+
+* qgames-gtk:     Interfaz grafica basada en Gtk
+* qgames-kde:     Interfaz grafica basada en Qt 
+* qgames-ruby:    Modulo ruby
+* qgames-ia:      
