@@ -9,6 +9,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <assert.h>
+#include  <stdint.h>
 #include <md5.h>
 #include <time.h>
 #include <sys/time.h>
@@ -581,15 +582,6 @@ int         partida_final         ( Partida* par, char** resultado ){
  * Retorna
  *   0 si hubo error
  * */
-/*
-#if sizeof(unsigned char) != 1
-#error  "Error de tamaños de tipos de datos"
-#endif
-
-#if (sizeof(unsigned short)!=2)
-#error  "Error de tamaños de tipos de datos"
-#endif
-*/
 #define  ADDDATA( data, len, dato, alloc ){ \
     if( len + sizeof( dato ) > alloc ){ \
         alloc = len + sizeof( dato ) + 256; \
@@ -605,14 +597,21 @@ int         partida_dump( Partida* par, void** data, int* size ){
     int   aloc = 256;
     int   len  = 0, i;
     void* ret = malloc( aloc );
-    unsigned char len8;
-    unsigned short len16;
+    uint8_t len8;
+    uint16_t len16;
 
     /* La estructura es la siguiente:
         1 byte con el largo del nombre del tipo de juego (int)
         n byte con el nombre del tipo de juego
         1 byte con el largo del id
         n bytes con el id
+        1 byte con tmov
+        1 byte con color
+        2 bytes con el numero de pieza q continua
+        1 byte con la secuencia
+        4 bytes con el flag
+        (8 bytes con el time_t inicio)
+        (8 bytes con el time_t final)
         2 bytes con la cantidad de movidas
         lista de movidas: 
            donde cada movida tiene
@@ -631,6 +630,30 @@ int         partida_dump( Partida* par, void** data, int* size ){
     STREXPAND( ret, aloc, len + len8 );
     memcpy( ((char*)ret) + len, par->id, len8 );
     len += len8;
+
+    // tipo de movimiento
+    len8 = par->tmov;
+    ADDDATA( ret, len, len8, aloc );
+
+    // Color
+    len8 = par->color;
+    ADDDATA( ret, len, len8, aloc );
+    
+    // Pieza
+    len16 = par->pieza_continua ? par->pieza_continua->number : (uint16_t)-1 ;
+    ADDDATA( ret, len, len16, aloc );
+
+    // Secuencia
+    len8 = par->secuencia;
+    ADDDATA( ret, len, len8, aloc );
+
+    // flag
+    ADDDATA( ret, len, ((uint32_t)par->flags), aloc );
+
+    // times!
+    ADDDATA( ret, len, ((uint64_t)par->inicio), aloc );
+    ADDDATA( ret, len, ((uint64_t)par->final), aloc );
+
 
     len16 = ( par->movimientos ? par->movimientos->entradas : 0 );
     ADDDATA( ret, len, len16, aloc );
@@ -652,6 +675,87 @@ int         partida_dump( Partida* par, void** data, int* size ){
   
     *data = ret;
     *size = len;
+
+
+}
+/*
+ * Esta funcion toma un espacio de memoria y recrea
+ * la partida
+ * */
+Partida*    partida_load( Tipojuego* tjuego, void* data, int size ){
+
+    char* point = data;
+    uint8_t len8;
+    uint16_t len16, piece_num;
+    int  max, i;
+    char aux[256];
+    Partida* par;
+
+    /* El primer paso es controlar que el tipo de juego corresponda
+       con lo que tiene la data */
+    
+    len8 = point[0]; 
+    point ++;
+    memcpy( point, aux, len8 );
+    aux[len8] = 0;
+    point += len8;
+
+    if( strcmp( aux, tjuego->nombre ) != 0 ){
+        LOGPRINT( 2, "Error: tipojuego esperado %s != %s", tjuego->nombre, aux );
+        return NULL;
+    }
+
+    len8 = point[0]; 
+    point ++;
+    memcpy( point, aux, len8 );
+    aux[len8] = 0;
+    point += len8;
+    par = tipojuego_create_partida( tjuego, aux );
+
+    // ahora vienen 25 bytes ... controlo primero de no pasarme.
+    assert( point + 25 <= ((char*)data) + size );
+
+    len8 = point[0];
+    par->tmov = len8;
+    point ++;
+
+    len8 = point[0];
+    par->color = len8;
+    point ++;
+
+    piece_num = ((uint16_t*)point)[0];
+    point += sizeof(uint16_t);
+
+    len8 = point[0];
+    par->secuencia = len8;
+    point ++;
+
+    par->flags = (int)(((uint32_t*)point)[0]);
+    point += sizeof(uint32_t);
+
+    par->inicio = (time_t)(((uint64_t*)point)[0]);
+    point += sizeof( uint64_t );
+    par->final = (time_t)(((uint64_t*)point)[0]);
+    point += sizeof( uint64_t );
+
+    par->movimientos = list_nueva( NULL );
+    max = ((uint16_t*)point)[0];
+    point += sizeof( uint16_t);
+    for( i = 0; i < max; i ++ ){
+        len16 = ((uint16_t*)point)[0];
+        point += sizeof(uint16_t);
+        Movida* mov = movida_load( par->pos, point, len16 );
+        assert( point + len16 <= ((char*)data) + size );
+        point += len16;
+        list_agrega( par->movimientos, mov );
+        Posicion* pos = movida_ejecuta( mov );
+        pos->pos_anterior = par->pos;
+        par->pos = pos;
+    }
+
+    par->pieza_continua = ( piece_num == (uint16_t)-1 ? NULL : par->pos->piezas->data[piece_num] );
+    return par;
+
 
 
 }

@@ -63,6 +63,6 @@ int          movida_es_captura( Movida* mov );
 int          movida_es_transformacion( Movida* mov, int* color, Tipopieza** tp );
 
 int          movida_dump( Movida* mov, void** data, int* size );
-Movida*      movida_load( void* data, int size );
+Movida*      movida_load( Posicion* pos, void* data, int size );
 
 #endif

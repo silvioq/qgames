@@ -8,6 +8,8 @@
 #include  <stdlib.h>
 #include  <string.h>
 #include  <stdarg.h>
+#include  <stdint.h>
+#include  <assert.h>
 #include  <qgames.h>
 
 #include  "list.h"
@@ -323,8 +325,8 @@ int          movida_dump( Movida* mov, void** data, int* size ){
     int   aloc = 256;
     int   len  = 0, i;
     void* ret = malloc( aloc );
-    unsigned char len8;
-    unsigned short len16;
+    uint8_t len8;
+    uint16_t len16;
     /* La estructura a devolver es la siguiente:
        1. un char con el tamaño de la notacion. Si no esta "notada",
           sera un cero
@@ -347,8 +349,10 @@ int          movida_dump( Movida* mov, void** data, int* size ){
         len += len8;
     }
 
-    ADDDATA( ret, len, mov->tmov, aloc );
-    ADDDATA( ret, len, mov->piece_number, aloc );
+    len8 = mov->tmov;
+    ADDDATA( ret, len, len8, aloc );
+    len16 = mov->piece_number;
+    ADDDATA( ret, len, len16, aloc );
     ADDDATA( ret, len, mov->continua, aloc );
 
     len16 = mov->acciones->entradas;
@@ -370,13 +374,13 @@ int          movida_dump( Movida* mov, void** data, int* size ){
         len16 = acc->pieza_number;
         ADDDATA( ret, len, len16, aloc );
 
-        len16 = acc->destino ? acc->destino->number : 0 ;
+        len16 = acc->destino ? acc->destino->number : -1 ;
         ADDDATA( ret, len, len16, aloc );
 
         len8 = acc->color;
         ADDDATA( ret, len, len8, aloc );
 
-        len8 = acc->tpieza ? acc->tpieza->number : 0 ;
+        len8 = acc->tpieza ? acc->tpieza->number : -1 ;
         ADDDATA( ret, len, len8, aloc );
 
         len8 = acc->att_key;
@@ -389,6 +393,84 @@ int          movida_dump( Movida* mov, void** data, int* size ){
     *size = len;
 
     return 1;
+}
+
+/*
+ * Esta funcion toma lo que hay en la memoria, con 
+ * el tamaño correspondiente y devuelve la movida
+ * armada como corresponde 
+ * */
+Movida*      movida_load( Posicion* pos, void* data, int size ){
+    Movida* mov = movida_new( pos, NULL, 0 );
+    char* point = data;
+    uint8_t len8;
+    uint16_t len16;
+    int  max, i;
+
+    // Lo primero que viene es la notacion
+    len8 = point[0];
+    mov->notacion = malloc( len8 + 1 );
+    point ++;
+    memcpy( point, mov->notacion, len8 );
+    mov->notacion[len8] = 0;
+    point += len8;
+
+    len8 = point[0];
+    mov->tmov = len8;
+    point ++;
+
+    len16 = ((uint16_t*)point)[0];
+    mov->piece_number = len16;
+    point += 2;
+
+    len8 = point[0];
+    mov->continua = len8;
+    point ++;
+
+    // Ahora las acciones
+    max = ((uint16_t*)point)[0];
+    point += 2;
+    mov->acciones = list_nueva( NULL );
+    for( i = 0; i < max ; i ++ ){
+        Accion* acc = malloc( sizeof( Accion ) );
+        acc->tipo = point[0];
+        point ++;
+        assert( ((char*)data) + size > point );
+
+        len16 = ((uint16_t*)point)[0];
+        acc->pieza_number = len16;
+        point += 2;
+        assert( ((char*)data) + size > point );
+
+        len16 = ((uint16_t*)point)[0];
+        if( len16 != (uint16_t)-1 ){
+            acc->destino = (Casillero*)(pos->tjuego->casilleros->data[len16]);
+        }
+        point += 2;
+        assert( ((char*)data) + size > point );
+
+        acc->color = point[0];
+        point ++;
+        assert( ((char*)data) + size > point );
+
+        len8 = point[0];
+        if( len8 != (uint8_t)-1 ){
+            acc->tpieza = (Tipopieza*)(pos->tjuego->tipo_piezas->data[len8]);
+        }
+        point ++;
+        assert( ((char*)data) + size > point );
+
+        acc->att_key = point[0];
+        point ++;
+        assert( ((char*)data) + size > point );
+        
+        acc->att_val = ((int*)point)[0];
+        point += sizeof( int );
+        assert( ((char*)data) + size >= point );
+
+        list_agrega( mov->acciones, acc );
+    }
+    return  mov;
 }
 
 

@@ -113,7 +113,7 @@ char*       partida_pgn( Partida* par ); // free luego!
 
 
 int         partida_dump( Partida* par, void** data, int* size );
-Partida*    partida_load( void* data, int size );
+Partida*    partida_load( Tipojuego* tj, void* data, int size );
 
 
 

@@ -43,11 +43,11 @@ int  main(int argc, char** argv) {
     p1 = tipojuego_create_partida( ajedrez, "id" );
     assert( partida_dump( p1, &data, &size ));
     free( data );
-    assert( size == 13 );
+    assert( size == 38 );
 
     assert( partida_mover_notacion( p1, "e4" ) );
     assert( partida_dump( p1, &data, &size ) );
-    assert( size > 20 );
+    assert( size > 50 );
     free( data );
     partida_free( p1 ); 
 
@@ -58,7 +58,8 @@ int  main(int argc, char** argv) {
     free( data );
     assert( partida_mover_pgn( p1, pgn ) );
     assert( partida_dump( p1, &data, &size ));
-    assert( size == 4677  );
+    // printf( "El tamaño es %d\n", size );
+    assert( size == 4087 );
 /*
     FILE* f = fopen( "x", "w" );
     fwrite( data, 1, size, f );
