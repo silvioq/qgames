@@ -1,0 +1,22 @@
+# Juego obtenido de  http://www.opengames.com.ar/657.pgn
+# Entre  ["Silvio"] y ["Angel Alfredo Martinez Ques"]
+nuevo-juego Jubilado
+
+1. d4 f5 2. Kd2 d5 3. Kd3 Kf7 4. f3 b5 5. e4 e6 
+6. Ke3 g5 7. g3 c6 8. h4 gxh4 9. gxh4 Kg6 
+10. Kf4 a5 11. exf5 Kf6 12. fxe6 Kxe6 13. Kg5 b4 
+14. b3 Kf7 15. f4 Kg7 16. Kf5 Kf7 17. Ke5 h5 
+18. f5 Ke7 19. f6 Kf7 20. Kf5 
+check-piezas rey blanco f5 1
+check-piezas rey negro f7 1
+check-piezas peon blanco a2 1
+check-piezas peon blanco b3 1
+check-piezas peon blanco c2 1
+check-piezas peon blanco d4 1
+check-piezas peon blanco f6 1
+check-piezas peon blanco h4 1
+check-piezas peon negro a5 1
+check-piezas peon negro b4 1
+check-piezas peon negro c6 1
+check-piezas peon negro d5 1
+check-piezas peon negro h5 1

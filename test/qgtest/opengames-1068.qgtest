@@ -1,0 +1,18 @@
+# Juego obtenido de  http://www.opengames.com.ar/1068.pgn
+# Entre  ["Guillermo Corbacho C"] y ["Silvio"]
+nuevo-juego Jubilado
+
+1. f4 d5 2. f5 Kd7 3. d4 Kd6 4. Kd2 e6 5. fxe6 fxe6 
+6. Kd3 c5 7. dxc5 Kxc5 8. e4 b5 9. exd5 Kxd5 
+10. b3 g5 11. c4 bxc4 12. bxc4 Kc5 13. g4 a5 
+14. a3 e5 15. Ke4 Kxc4 16. Kxe5 Kb3 17. Kf6 Kxa3 
+18. Kxg5 Kb4 19. Kh6 a4 20. Kxh7 a3 21. h4 a2 
+22. g5 a1=R 23. h5 Kc5 24. g6 Kd6 25. g7 Rh1 
+26. h6 Ke7 27. g8=R Kf7 28. Rg2 Rh3 29. Rf2 Ke7 
+30. Kg7 Rg3 31. Kh8 Rg1 32. Ra2 Kf7 33. Ra7 Kf8 
+34. Rg7 Rh1 35. Kh7 Rh2 36. Rg6 Kf7 37. Rg1 
+check-piezas rey blanco h7 1
+check-piezas rey negro f7 1
+check-piezas peon blanco h6 1
+check-piezas torre negro h2 1
+check-piezas torre blanco g1 1

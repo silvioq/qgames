@@ -1,0 +1,20 @@
+# Juego obtenido de  http://www.opengames.com.ar/1325.pgn
+# Entre  ["Efrén Herrera"] y ["Buddy"]
+nuevo-juego Jubilado
+
+1. e4 e5 2. Ke2 Ke7 3. Ke3 c6 4. d4 Ke6 5. f4 exf4 
+6. Kxf4 f6 7. h4 g6 8. g4 h6 9. c4 g5 10. hxg5 hxg5 
+11. Ke3 d5 12. c5 b5 13. b4 Kd7 14. exd5 cxd5 
+15. a3 a6 16. Kf3 
+check-piezas rey blanco f3 1
+check-piezas rey negro d7 1
+check-piezas peon blanco a3 1
+check-piezas peon blanco b4 1
+check-piezas peon blanco c5 1
+check-piezas peon blanco d4 1
+check-piezas peon blanco g4 1
+check-piezas peon negro a6 1
+check-piezas peon negro b5 1
+check-piezas peon negro d5 1
+check-piezas peon negro f6 1
+check-piezas peon negro g5 1

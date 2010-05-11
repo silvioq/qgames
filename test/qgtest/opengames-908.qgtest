@@ -1,0 +1,17 @@
+# Juego obtenido de  http://www.opengames.com.ar/908.pgn
+# Entre  ["Guillermo Corbacho C"] y ["incoherente"]
+nuevo-juego Jubilado
+
+1. e4 e5 2. Ke2 Ke7 3. Ke3 Kd6 4. d4 exd4 
+5. Kxd4 g5 6. g3 g4 7. b4 b5 8. e5 Ke6 9. Ke4 h5 
+10. Kf4 f6 11. exf6 Kxf6 12. f3 gxf3 13. Kxf3 Kf5 
+14. h3 d6 15. g4 hxg4 16. hxg4 Ke5 17. c3 c6 
+18. Kg3 c5 19. bxc5 dxc5 20. Kf3 a5 21. Ke3 a4 
+22. Kd3 b4 23. Kc4 b3 24. axb3 a3 25. Kxc5 a2 
+26. b4 a1=R 27. b5 
+check-piezas rey blanco c5 1
+check-piezas rey negro e5 1
+check-piezas peon blanco b5 1
+check-piezas peon blanco c3 1
+check-piezas peon blanco g4 1
+check-piezas torre negro a1 1

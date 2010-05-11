@@ -1,0 +1,16 @@
+# Juego obtenido de  http://www.opengames.com.ar/907.pgn
+# Entre  ["incoherente"] y ["Jairo"]
+nuevo-juego Jubilado
+
+1. e4 e5 2. Ke2 Ke7 3. Ke3 c5 4. Kd3 b5 5. a4 a6 
+6. axb5 axb5 7. h4 h5 8. Ke3 Ke6 9. f4 exf4 
+10. Kxf4 f6 11. d3 d6 12. c3 g6 13. d4 cxd4 
+14. cxd4 d5 15. b3 dxe4 16. Kxe4 b4 17. g3 Kd6 
+18. Kf4 Kd5 19. Ke3 g5 20. g4 hxg4 21. h5 f5 
+22. h6 f4 23. Ke2 Kxd4 24. h7 g3 25. h8=R Kc3 
+26. Rg8 Kxb3 27. Rxg5 Kc2 28. Rc5 Kb2 29. Rc4 b3 
+30. Rxf4 g2 31. Rg4 Kc2 32. Rxg2 b2 33. Ke3 
+check-piezas rey blanco e3 1
+check-piezas rey negro c2 1
+check-piezas peon negro b2 1
+check-piezas torre blanco g2 1

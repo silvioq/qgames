@@ -1,0 +1,18 @@
+# Juego obtenido de  http://www.opengames.com.ar/1004.pgn
+# Entre  ["ERICH GONZALEZ"] y ["Jairo"]
+nuevo-juego Jubilado
+
+1. e4 e5 2. Ke2 Ke7 3. Ke3 Ke6 4. f4 exf4 
+5. Kxf4 d5 6. a3 c5 7. g4 dxe4 8. Kxe4 b5 
+9. b4 cxb4 10. axb4 g6 11. g5 f5 12. gxf6 Kxf6 
+13. Kd5 h5 14. Kc6 g5 15. c4 bxc4 16. Kd5 g4 
+17. Ke4 Kg5 18. Kd4 h4 19. Ke3 a6 20. Kf2 Kf4 
+21. Kg2 g3 22. h3 Ke4 23. Kf1 Kd3 24. Ke1 Kc2 
+25. Ke2 Kb3 26. Ke3 Kxb4 27. Ke2 a5 28. Ke3 a4 
+29. Ke2 a3 30. d3 cxd3 31. Kxd3 g2 
+check-piezas rey blanco d3 1
+check-piezas rey negro b4 1
+check-piezas peon blanco h3 1
+check-piezas peon negro a3 1
+check-piezas peon negro g2 1
+check-piezas peon negro h4 1

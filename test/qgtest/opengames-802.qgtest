@@ -1,0 +1,20 @@
+# Juego obtenido de  http://www.opengames.com.ar/802.pgn
+# Entre  ["Henry Sánchez Quispe"] y ["Oscar Gomez"]
+nuevo-juego Jubilado
+
+1. e4 e5 2. Ke2 Ke7 3. Ke3 Ke6 4. d4 d5 5. f4 exf4 
+6. Kxf4 dxe4 7. Kxe4 f5 8. Kf4 c6 9. c4 h6 
+10. h4 a5 11. g4 fxg4 12. Kxg4 g6 13. b3 b5 
+14. a4 bxc4 15. bxc4 Kf6 16. Kf4 Ke6 17. Ke4 Kd6 
+18. Kf4 Ke6 19. Kg4 Kf6 20. Kf4 Ke6 21. Ke4 Kd6 
+22. Kf4 Ke6 
+check-piezas rey blanco f4 1
+check-piezas rey negro e6 1
+check-piezas peon blanco a4 1
+check-piezas peon blanco c4 1
+check-piezas peon blanco d4 1
+check-piezas peon blanco h4 1
+check-piezas peon negro a5 1
+check-piezas peon negro c6 1
+check-piezas peon negro g6 1
+check-piezas peon negro h6 1

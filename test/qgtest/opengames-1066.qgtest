@@ -1,0 +1,18 @@
+# Juego obtenido de  http://www.opengames.com.ar/1066.pgn
+# Entre  ["Silvio"] y ["Alexis Augoustis"]
+nuevo-juego Jubilado
+
+1. e4 e5 2. Ke2 Ke7 3. Ke3 Ke6 4. d4 exd4 
+5. Kxd4 f5 6. f3 c5 7. Kxc5 fxe4 8. fxe4 Ke5 
+9. c4 d6 10. Kb5 Kxe4 11. b4 d5 12. cxd5 Kxd5 
+13. a4 h6 14. a5 g6 15. Ka4 Kc4 16. Ka3 h5 
+17. h3 h4 18. Ka4 g5 19. Ka3 Kd3 20. Kb3 Ke2 
+21. Kc4 Kf2 22. Kd5 Kxg2 23. Kd6 Kxh3 24. Kc7 g4 
+25. Kxb7 g3 26. b5 g2 27. Kxa7 g1=R 28. b6 Rg7 
+29. b7 Kg4 
+check-piezas rey blanco a7 1
+check-piezas rey negro g4 1
+check-piezas peon blanco a5 1
+check-piezas peon blanco b7 1
+check-piezas peon negro h4 1
+check-piezas torre negro g7 1

@@ -1,0 +1,20 @@
+# Juego obtenido de  http://www.opengames.com.ar/1029.pgn
+# Entre  ["incoherente"] y ["ERICH GONZALEZ"]
+nuevo-juego Jubilado
+
+1. b4 d5 2. d4 Kd7 3. Kd2 Kd6 4. f4 h6 5. Kd3 g5 
+6. fxg5 hxg5 7. h3 e5 8. e4 c6 9. g3 b5 10. c3 Ke6 
+11. Ke3 dxe4 12. Kxe4 f5 13. Ke3 f4 14. Kf3 fxg3 
+15. Kxg3 exd4 16. cxd4 Kf7 17. Kf3 Kf6 18. Ke4 Ke6 
+19. Ke3 Kd5 20. Kd3 a6 21. a3 Kd6 22. Ke4 Ke6 
+23. Ke3 Kf7 24. Ke4 Kf6 25. d5 cxd5 26. Kxd5 Kf5 
+27. Kc5 Kf4 28. Kb6 Kg3 29. Kxa6 Kxh3 30. Kxb5 g4 
+31. a4 g3 32. a5 g2 33. a6 g1=R 34. a7 Rg8 
+35. Ka6 Rg6 36. Ka5 Rg8 37. b5 Kh4 38. b6 Ra8 
+39. Ka6 Rg8 40. Kb7 Rg7 41. Kb8 Rg8 42. Kb7 Rg7 
+43. Ka6 
+check-piezas rey blanco a6 1
+check-piezas rey negro h4 1
+check-piezas peon blanco a7 1
+check-piezas peon blanco b6 1
+check-piezas torre negro g7 1

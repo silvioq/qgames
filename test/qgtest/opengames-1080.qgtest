@@ -1,0 +1,23 @@
+# Juego obtenido de  http://www.opengames.com.ar/1080.pgn
+# Entre  ["incoherente"] y ["José Fuentes Urrutia"]
+nuevo-juego Jubilado
+
+1. f4 d5 2. g4 f6 3. Kf2 Kd7 4. e4 Kd6 5. Ke3 c6 
+6. d4 e5 7. dxe5 fxe5 8. f5 d4 9. Kd3 b5 
+10. a4 a6 11. h4 bxa4 12. Kc4 a5 13. g5 h5 
+14. g6 c5 15. f6 
+check-piezas rey blanco c4 1
+check-piezas rey negro d6 1
+check-piezas peon blanco b2 1
+check-piezas peon blanco c2 1
+check-piezas peon blanco e4 1
+check-piezas peon blanco f6 1
+check-piezas peon blanco g6 1
+check-piezas peon blanco h4 1
+check-piezas peon negro a5 1
+check-piezas peon negro a4 1
+check-piezas peon negro c5 1
+check-piezas peon negro d4 1
+check-piezas peon negro e5 1
+check-piezas peon negro g7 1
+check-piezas peon negro h5 1

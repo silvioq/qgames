@@ -1,0 +1,19 @@
+# Juego obtenido de  http://www.opengames.com.ar/751.pgn
+# Entre  ["ERICH GONZALEZ"] y ["David Magaña"]
+nuevo-juego Jubilado
+
+1. e4 e5 2. Ke2 Ke7 3. Ke3 Ke6 4. f4 d6 5. g4 f6 
+6. f5 Kd7 7. h4 h6 8. c4 c5 9. a3 a6 10. b3 Kc6 
+11. Kd3 b5 12. Kc3 Kb6 13. cxb5 axb5 14. a4 Ka5 
+15. axb5 Kxb5 16. h5 Kb6 17. Kc4 Kc6 18. b4 Kb6 
+19. bxc5 dxc5 20. Kd5 Kb5 21. Ke6 Kc4 22. Kf7 Kd3 
+23. Kxg7 Kxd2 24. Kxf6 c4 25. Kxe5 c3 26. f6 c2 
+27. f7 c1=R 28. f8=R Rg1 29. Kd4 Rxg4 30. Rf6 Rg5 
+31. Rxh6 Ra5 32. e5 Ra4 33. Kd5 Ra5 34. Ke4 Ra4 
+35. Kf5 Ke3 
+check-piezas rey blanco f5 1
+check-piezas rey negro e3 1
+check-piezas peon blanco e5 1
+check-piezas peon blanco h5 1
+check-piezas torre negro a4 1
+check-piezas torre blanco h6 1

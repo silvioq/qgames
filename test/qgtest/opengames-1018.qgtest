@@ -1,0 +1,23 @@
+# Juego obtenido de  http://www.opengames.com.ar/1018.pgn
+# Entre  ["incoherente"] y ["ariza"]
+nuevo-juego Jubilado
+
+1. e4 e5 2. Ke2 Ke7 3. Ke3 Ke6 4. d4 d5 5. dxe5 Kxe5 
+6. f4 Ke6 7. g4 dxe4 8. Kxe4 a5 9. b3 b5 
+10. Kd4 Kd6 11. c4 c5 12. Kd3 b4 13. Ke4 f6 
+14. f5 Kc6 15. Kf4 Kd7 16. h4 Kd6 17. g5 Ke7 
+18. g6 h6 19. h5 
+check-piezas rey blanco f4 1
+check-piezas rey negro e7 1
+check-piezas peon blanco a2 1
+check-piezas peon blanco b3 1
+check-piezas peon blanco c4 1
+check-piezas peon blanco f5 1
+check-piezas peon blanco g6 1
+check-piezas peon blanco h5 1
+check-piezas peon negro a5 1
+check-piezas peon negro b4 1
+check-piezas peon negro c5 1
+check-piezas peon negro f6 1
+check-piezas peon negro g7 1
+check-piezas peon negro h6 1

@@ -1,0 +1,16 @@
+# Juego obtenido de  http://www.opengames.com.ar/1065.pgn
+# Entre  ["Alexis Augoustis"] y ["incoherente"]
+nuevo-juego Jubilado
+
+1. e4 c5 2. Ke2 e5 3. Kd3 b5 4. a4 a6 5. axb5 axb5 
+6. c3 Ke7 7. b4 d6 8. c4 bxc4 9. Kxc4 cxb4 
+10. Kxb4 Ke6 11. Kc4 g6 12. d4 f5 13. f3 Kf6 
+14. Kd5 exd4 15. Kxd4 fxe4 16. Kxe4 Ke6 17. g3 g5 
+18. h3 d5 19. Kd4 h5 20. Ke3 h4 21. gxh4 gxh4 
+22. Kf4 Kf6 23. Ke3 
+check-piezas rey blanco e3 1
+check-piezas rey negro f6 1
+check-piezas peon blanco f3 1
+check-piezas peon blanco h3 1
+check-piezas peon negro d5 1
+check-piezas peon negro h4 1

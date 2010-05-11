@@ -1,0 +1,19 @@
+# Juego obtenido de  http://www.opengames.com.ar/1031.pgn
+# Entre  ["Silvio"] y ["Porfirio de Jesús Yepes Torres"]
+nuevo-juego Jubilado
+
+1. e4 e5 2. Ke2 Ke7 3. Ke3 Ke6 4. d4 d5 5. f4 dxe4 
+6. Kxe4 f5 7. Ke3 e4 8. c4 c6 9. b4 b5 10. cxb5 cxb5 
+11. g4 g6 12. h3 h5 13. gxf5 gxf5 14. Kd2 Kd5 
+15. Kc3 h4 16. a3 a6 17. Kc2 Kxd4 18. Kd2 e3 
+check-piezas rey blanco d2 1
+check-piezas rey negro d4 1
+check-piezas peon blanco a3 1
+check-piezas peon blanco b4 1
+check-piezas peon blanco f4 1
+check-piezas peon blanco h3 1
+check-piezas peon negro a6 1
+check-piezas peon negro b5 1
+check-piezas peon negro e3 1
+check-piezas peon negro f5 1
+check-piezas peon negro h4 1

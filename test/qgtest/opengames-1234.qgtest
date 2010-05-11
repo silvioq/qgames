@@ -1,0 +1,26 @@
+# Juego obtenido de  http://www.opengames.com.ar/1234.pgn
+# Entre  ["Oscar Gomez"] y ["ERICH GONZALEZ"]
+nuevo-juego Jubilado
+
+1. e4 e5 2. Ke2 Ke7 3. Ke3 g5 4. d4 Ke6 5. d5 Kd6 
+6. h3 c6 7. dxc6 dxc6 8. Kf3 h5 9. g4 h4 
+10. Ke3 b5 11. b4 c5 12. c3 Kc6 13. Kd3 Kb6 
+14. a3 c4 15. Ke3 a5 16. Ke2 a4 17. Ke3 Kc7 
+18. f3 Kd6 19. Ke2 Ke6 20. Ke3 f6 21. Ke2 Ke7 
+22. Kd2 
+check-piezas rey blanco d2 1
+check-piezas rey negro e7 1
+check-piezas peon blanco a3 1
+check-piezas peon blanco b4 1
+check-piezas peon blanco c3 1
+check-piezas peon blanco e4 1
+check-piezas peon blanco f3 1
+check-piezas peon blanco g4 1
+check-piezas peon blanco h3 1
+check-piezas peon negro a4 1
+check-piezas peon negro b5 1
+check-piezas peon negro c4 1
+check-piezas peon negro e5 1
+check-piezas peon negro f6 1
+check-piezas peon negro g5 1
+check-piezas peon negro h4 1

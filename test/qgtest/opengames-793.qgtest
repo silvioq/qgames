@@ -1,0 +1,20 @@
+# Juego obtenido de  http://www.opengames.com.ar/793.pgn
+# Entre  ["Silvio"] y ["José Fuentes Urrutia"]
+nuevo-juego Jubilado
+
+1. e4 e5 2. Ke2 Ke7 3. Ke3 Ke6 4. d4 d5 5. exd5 Kxd5 
+6. dxe5 Kxe5 7. c4 c5 8. f4 Kf5 9. a3 h5 
+10. h3 f6 11. Kf3 g5 12. fxg5 fxg5 13. g3 a5 
+14. a4 b6 15. b3 g4 16. hxg4 hxg4 17. Ke3 Ke5 
+18. Kd3 Kf5 19. Kd2 Ke4 20. Ke2 Kd4 21. Kd2 Ke4 
+22. Ke2 Kd4 23. Kd2 Ke4 24. Ke2 Kd4 25. Kd2 Ke4 
+check-piezas rey blanco d2 1
+check-piezas rey negro e4 1
+check-piezas peon blanco a4 1
+check-piezas peon blanco b3 1
+check-piezas peon blanco c4 1
+check-piezas peon blanco g3 1
+check-piezas peon negro a5 1
+check-piezas peon negro b6 1
+check-piezas peon negro c5 1
+check-piezas peon negro g4 1

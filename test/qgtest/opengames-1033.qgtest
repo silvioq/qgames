@@ -1,0 +1,21 @@
+# Juego obtenido de  http://www.opengames.com.ar/1033.pgn
+# Entre  ["Néstor"] y ["Porfirio de Jesús Yepes Torres"]
+nuevo-juego Jubilado
+
+1. d4 d5 2. Kd2 Kd7 3. Kd3 Kd6 4. e4 e5 5. exd5 Kxd5 
+6. c4 Kd6 7. d5 Kc5 8. Kc3 f5 9. b4 Kd6 10. Kd3 g5 
+11. f3 h5 12. a4 c6 13. dxc6 Kxc6 14. a5 a6 
+15. g3 g4 16. Ke3 b6 17. axb6 Kxb6 18. f4 e4 
+19. Kd4 Kb7 20. c5 Kc6 21. Kc4 Kc7 22. Kc3 Kd7 
+check-piezas rey blanco c3 1
+check-piezas rey negro d7 1
+check-piezas peon blanco b4 1
+check-piezas peon blanco c5 1
+check-piezas peon blanco f4 1
+check-piezas peon blanco g3 1
+check-piezas peon blanco h2 1
+check-piezas peon negro a6 1
+check-piezas peon negro e4 1
+check-piezas peon negro f5 1
+check-piezas peon negro g4 1
+check-piezas peon negro h5 1

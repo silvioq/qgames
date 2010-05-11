@@ -1,0 +1,17 @@
+# Juego obtenido de  http://www.opengames.com.ar/903.pgn
+# Entre  ["marcos manuel marin lopez"] y ["incoherente"]
+nuevo-juego Jubilado
+
+1. d4 d5 2. Kd2 Kd7 3. Kd3 Kd6 4. e4 f6 5. exd5 Kxd5 
+6. c4 Kd6 7. f4 e5 8. fxe5 fxe5 9. b4 exd4 
+10. Kxd4 c5 11. bxc5 Kc6 12. g3 a5 13. a4 g6 
+14. h3 g5 15. h4 gxh4 16. gxh4 h5 17. Ke5 Kxc5 
+18. Kf5 Kxc4 19. Kg5 Kb4 
+20. Kxh5 Kxa4 21. Kg4 b5 
+22. h5 b4 23. h6 b3 24. h7 b2 25. h8=R b1=R 
+26. Kf4 Re1 
+check-piezas rey blanco f4 1
+check-piezas rey negro a4 1
+check-piezas peon negro a5 1
+check-piezas torre blanco h8 1
+check-piezas torre negro e1 1

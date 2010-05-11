@@ -1,0 +1,18 @@
+# Juego obtenido de  http://www.opengames.com.ar/683.pgn
+# Entre  ["marcelo"] y ["Marco Antonio Boza "]
+nuevo-juego Jubilado
+
+1. e4 e5 2. Ke2 Ke7 3. g3 Ke6 4. Ke3 f5 5. exf5 Kxf5 
+6. c3 d5 7. d4 e4 8. b3 Kg4 9. c4 c6 10. c5 g5 
+11. b4 h5 12. a4 Kh3 13. b5 Kxh2 14. bxc6 bxc6 
+15. Ke2 Kg2 16. a5 a6 17. Ke1 Kf3 18. Kf1 e3 
+19. fxe3 Kxe3 20. Kg2 Kxd4 21. Kf3 Kxc5 22. Ke3 Kc4 
+23. Kd2 Kb4 24. Kd3 c5 25. Ke3 Kxa5 
+check-piezas rey blanco e3 1
+check-piezas rey negro a5 1
+check-piezas peon blanco g3 1
+check-piezas peon negro a6 1
+check-piezas peon negro c5 1
+check-piezas peon negro d5 1
+check-piezas peon negro g5 1
+check-piezas peon negro h5 1

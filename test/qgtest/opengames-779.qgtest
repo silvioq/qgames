@@ -1,0 +1,20 @@
+# Juego obtenido de  http://www.opengames.com.ar/779.pgn
+# Entre  ["Néstor"] y ["RAMIROCHE"]
+nuevo-juego Jubilado
+
+1. d4 d5 2. Kd2 Kd7 3. Kd3 Kd6 4. e4 dxe4 
+5. Kxe4 b6 6. c4 e6 7. g4 f6 8. f4 c6 9. b4 c5 
+10. dxc5 bxc5 11. b5 h6 12. a4 g6 13. f5 gxf5 
+14. gxf5 e5 15. h3 h5 16. a5 Kc7 17. Kd5 h4 
+18. Kxc5 Kb7 19. Kd5 Kc7 20. c5 Kc8 21. Kd6 e4 
+22. a6 e3 23. b6 axb6 24. c6 
+check-piezas rey blanco d6 1
+check-piezas rey negro c8 1
+check-piezas peon blanco a6 1
+check-piezas peon blanco c6 1
+check-piezas peon blanco f5 1
+check-piezas peon blanco h3 1
+check-piezas peon negro b6 1
+check-piezas peon negro e3 1
+check-piezas peon negro f6 1
+check-piezas peon negro h4 1
