@@ -363,6 +363,7 @@ int         partida_mover_serie ( Partida* par, char* serie ){
         }
         move[i] = 0;
         if( i > 0 && move[i-1] == '+' ) move[i-1] = 0;
+        if( i > 0 && move[i-1] == '#' ) move[i-1] = 0;
         if( !partida_mover_notacion( par, move ) ) return 0;
         if( PARTIDATERMINADA(par) ) return 1;
         if( movepoint[i] == 0 ) return 1;

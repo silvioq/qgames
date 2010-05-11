@@ -1,0 +1,7 @@
+# Juego obtenido de  http://brainking.com/es/GetPGN/1184471.pgn?g=1184471
+# Entre  ["grafzahl"] y ["varkala"]
+nuevo-juego AjedrezLosAlamos
+
+1. d3 b4 2. f3 d4 3. e3 Qb5 4. a3 dxe3 5. Qxe3 Nd4 6. c3 bxc3 7. bxc3 Qb2
+8. cxd4 cxd4 9. Qc1 Qxa1 10. Nc2 Qa2 11. f4 Na4 12. Re1 exf4 13. Qxf4+ Kd5
+14. Qe5+ Kc6 15. Nxd4+ Kb6 16. Qb5# 1-0

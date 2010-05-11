@@ -1,0 +1,6 @@
+# Juego obtenido de  http://brainking.com/es/GetPGN/1183358.pgn?g=1183358
+# Entre  ["blueducksflying"] y ["grafzahl"]
+nuevo-juego AjedrezLosAlamos
+
+1. d3 d4 2. c3 dxc3 3. bxc3 e4 4. d4 cxd4 5. Nc2 Qd5 6. Nba3 Nc4 7. Qb1 Nxa3
+8. Nxa3 dxc3+ 9. Kc2 Qd2+ 10. Kb3 Nc5# 0-1

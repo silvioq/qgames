@@ -1,0 +1,7 @@
+# Juego obtenido de  http://brainking.com/es/GetPGN/1192477.pgn?g=1192477
+# Entre  ["Gordon Shumway"] y ["grafzahl"]
+nuevo-juego AjedrezLosAlamos
+
+1. d3 e4 2. b3 exd3 3. cxd3 d4 4. Na3 b4 5. Nc4+ Nxc4 6. dxc4 a4 7. a3 axb3
+8. Qb2 Qe4 9. f3 Qe3 10. Nd3 bxa3 11. Rxa3 Rc6 12. Nc1 Nf4 13. Nxb3 d3
+14. Qxf6+ Ne6 15. Na5 Qxe2+ 16. Kc1 Qc2# 0-1

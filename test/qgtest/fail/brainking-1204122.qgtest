@@ -1,0 +1,8 @@
+# Juego obtenido de  http://brainking.com/es/GetPGN/1204122.pgn?g=1204122
+# Entre  ["grafzahl"] y ["zetes"]
+nuevo-juego AjedrezLosAlamos
+
+1. d3 c4 2. c3 cxd3 3. exd3 d4 4. Nc2 dxc3 5. bxc3 Nf4 6. Qd2 Nbd5 7. Re1 a4
+8. d4 e4 9. Nba3 Nd3 10. Re3 Nxe3+ 11. Nxe3 f4 12. Nec2 f3 13. Nb4 Nxb4
+14. cxb4 Rf5 15. Rc1 Qb6 16. Qe3 Rd5 17. Qf4+ Ke6 18. Qxe4+ Kd6 19. Qxf3 Qxd4+
+20. Kc2 Rc6+ 21. Kb1 Rxc1+ 22. Kxc1 Qa1+ 23. Nb1 Qxa2 24. Qf6# 1-0
