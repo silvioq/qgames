@@ -1,0 +1,35 @@
+# Juego obtenido de  http://www.opengames.com.ar/1377.pgn
+# Entre  ["Carlos López"] y ["incoherente"]
+nuevo-juego Ajedrez
+
+1. e4 d5 2. exd5 Nf6 3. Nf3 Nxd5 4. d4 Bg4 
+5. Bc4 Nc6 6. Bxd5 Qxd5 7. Nc3 Qh5 8. Be3 0-0-0 
+9. 0-0 Ne5 10. Qd2 
+check-piezas torre blanco a1 1
+check-piezas torre blanco f1 1
+check-piezas torre negro d8 1
+check-piezas torre negro h8 1
+check-piezas caballo blanco c3 1
+check-piezas caballo blanco f3 1
+check-piezas caballo negro e5 1
+check-piezas alfil blanco e3 1
+check-piezas alfil negro g4 1
+check-piezas alfil negro f8 1
+check-piezas dama blanco d2 1
+check-piezas rey blanco g1 1
+check-piezas dama negro h5 1
+check-piezas rey negro c8 1
+check-piezas peon blanco a2 1
+check-piezas peon blanco b2 1
+check-piezas peon blanco c2 1
+check-piezas peon blanco d4 1
+check-piezas peon blanco f2 1
+check-piezas peon blanco g2 1
+check-piezas peon blanco h2 1
+check-piezas peon negro a7 1
+check-piezas peon negro b7 1
+check-piezas peon negro c7 1
+check-piezas peon negro e7 1
+check-piezas peon negro f7 1
+check-piezas peon negro g7 1
+check-piezas peon negro h7 1

@@ -1,0 +1,19 @@
+# Juego obtenido de  http://www.opengames.com.ar/1221.pgn
+# Entre  ["Silvio"] y ["marcelo"]
+nuevo-juego Gomoku
+
+1. g7 g8 2. f8 h6 3. f7 h7 4. h8 h5 5. f6 f5 
+6. e5 g5 7. i9 
+check-piezas gema blanco g7 1
+check-piezas gema blanco f8 1
+check-piezas gema blanco f7 1
+check-piezas gema blanco h8 1
+check-piezas gema blanco f6 1
+check-piezas gema blanco e5 1
+check-piezas gema blanco i9 1
+check-piezas gema negro g8 1
+check-piezas gema negro h6 1
+check-piezas gema negro h7 1
+check-piezas gema negro h5 1
+check-piezas gema negro f5 1
+check-piezas gema negro g5 1

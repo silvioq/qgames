@@ -1,0 +1,7 @@
+# Juego obtenido de  http://www.opengames.com.ar/1062.pgn
+# Entre  ["Carlos"] y ["Buddy"]
+nuevo-juego Gomoku
+
+1. g7 f7 
+check-piezas gema blanco g7 1
+check-piezas gema negro f7 1

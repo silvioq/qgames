@@ -1,0 +1,25 @@
+# Juego obtenido de  http://www.opengames.com.ar/715.pgn
+# Entre  ["Silvio"] y ["victor"]
+nuevo-juego Gomoku
+
+1. g7 f7 2. f8 g8 3. h9 h7 4. f9 g9 5. g10 i7 
+6. h8 h10 7. i8 f10 8. h6 e9 9. j7 k6 10. f11 
+check-piezas gema blanco g7 1
+check-piezas gema blanco f8 1
+check-piezas gema blanco h9 1
+check-piezas gema blanco f9 1
+check-piezas gema blanco g10 1
+check-piezas gema blanco h8 1
+check-piezas gema blanco i8 1
+check-piezas gema blanco h6 1
+check-piezas gema blanco j7 1
+check-piezas gema blanco f11 1
+check-piezas gema negro f7 1
+check-piezas gema negro g8 1
+check-piezas gema negro h7 1
+check-piezas gema negro g9 1
+check-piezas gema negro i7 1
+check-piezas gema negro h10 1
+check-piezas gema negro f10 1
+check-piezas gema negro e9 1
+check-piezas gema negro k6 1

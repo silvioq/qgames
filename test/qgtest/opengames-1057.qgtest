@@ -1,0 +1,6 @@
+# Juego obtenido de  http://www.opengames.com.ar/1057.pgn
+# Entre  ["Silvio"] y ["Carlos"]
+nuevo-juego Gomoku
+
+1. g7 
+check-piezas gema blanco g7 1
