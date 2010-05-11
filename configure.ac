@@ -1,4 +1,8 @@
-AC_INIT([qgames], [2.9.0])
+AC_INIT([qgames], [2.9.0], ["silvioq@gmail.com"])
+AC_DEFINE([QG_MAJOR_VERSION],[2], "Major")
+AC_DEFINE([QG_MINOR_VERSION],[9], "Minor")
+AC_DEFINE([QG_REV_VERSION],  [0], "revision version")
+
 AM_INIT_AUTOMAKE
 AC_PROG_CC
 AC_PROG_YACC

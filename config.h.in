@@ -57,6 +57,15 @@
 /* "Nombre del servidor a usar" */
 #undef QGAMES_SERVERNAME
 
+/* "Major" */
+#undef QG_MAJOR_VERSION
+
+/* "Minor" */
+#undef QG_MINOR_VERSION
+
+/* "revision version" */
+#undef QG_REV_VERSION
+
 /* Define to 1 if you have the ANSI C header files. */
 #undef STDC_HEADERS
 
