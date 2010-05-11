@@ -411,7 +411,7 @@ Movida*      movida_load( Posicion* pos, void* data, int size ){
     len8 = point[0];
     mov->notacion = malloc( len8 + 1 );
     point ++;
-    memcpy( point, mov->notacion, len8 );
+    memcpy( mov->notacion, point, len8 );
     mov->notacion[len8] = 0;
     point += len8;
 

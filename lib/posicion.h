@@ -41,6 +41,10 @@ int        posicion_en_jaque( Posicion* pos, Tipopieza* tpieza, int color );
 
 void       posicion_mueve_pieza( Posicion* pos, Pieza* pieza, Casillero* destino );
 Pieza*     posicion_get_pieza( Posicion* pos, Pieza* pieza );
+
+/* ---------------------------------------------------------------------------------------- */
+void       posicion_add_movida( Posicion* pos, Movida* mov );
+void       posicion_add_movidas( Posicion* pos, _list* movs );
 void       posicion_free_movidas( Posicion* pos );
 
 #endif

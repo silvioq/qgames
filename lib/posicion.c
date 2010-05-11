@@ -23,9 +23,6 @@
 
 #include  "log.h"
 
-/* ---------------------------------------------------------------------------------------- */
-void        posicion_add_movida( Posicion* pos, Movida* mov );
-void        posicion_add_movidas( Posicion* pos, _list* movs );
 
 
 

@@ -5,15 +5,44 @@
 #include <assert.h>
 
 #include <time.h>
+#include "log.h"
 
 #include <qgames.h>
 #include <qgames_analyzer.h>
 
+void  control_igual_partida( Partida* p1, Partida* p2 ){
+    int i;
+    assert( partida_movidas_count( p1 ) == partida_movidas_count( p2 ) );
+    // printf( "Las movidas son %d == %d\n", partida_movidas_count( p1 ), partida_movidas_count( p2 ) );
+    for( i = 0; i < partida_movidas_count( p2 ); i ++ ){
+        char* n1, *n2;
+        partida_movidas_data( p1, i, &n1 );
+        partida_movidas_data( p2, i, &n2 );
+        assert( strcmp( n1, n2 ) == 0 );
+    }
+
+    assert( partida_tablero_count( p1 ) == partida_tablero_count( p2 ) );
+    // printf( "Las piezas son %d == %d\n", partida_tablero_count( p1 ), partida_tablero_count( p2 ) );
+    for( i = 0; i < partida_tablero_count( p2 ); i ++ ){
+        char* cas1, *pie1, *col1;
+        char* cas2, *pie2, *col2;
+        partida_tablero_data( p1, i, &cas1, &pie1, &col1 );
+        partida_tablero_data( p2, i, &cas2, &pie2, &col2 );
+        assert( strcmp( cas1, cas2 ) == 0 );
+        assert( strcmp( col1, col2 ) == 0 );
+        assert( strcmp( pie1, pie2 ) == 0 );
+    }
+}
+
 
 int  main(int argc, char** argv) {
-    Tipojuego* ajedrez;
-    Partida*  p1;
+    Tipojuego* ajedrez, *gomoku;
+    Partida*  p1, *p2;
     char* filename = "../../games/Ajedrez.qgame";
+    char* file2    = "../../games/Gomoku.qgame";
+    int i;
+
+    loglevel = 2;
 
     char* pgn = 
           "1. b4 e5 2. Bb2 Bxb4 3. Bxe5 Nf6 4. c4 Nc6 "
@@ -38,28 +67,40 @@ int  main(int argc, char** argv) {
     void* data;
     int   size;
     assert( ajedrez = qgz_parse_filename( filename, 0 ) );
+    assert( gomoku  = qgz_parse_filename( file2   , 0 ) );
     
 
     p1 = tipojuego_create_partida( ajedrez, "id" );
     assert( partida_dump( p1, &data, &size ));
     free( data );
-    assert( size == 38 );
+    assert( size == 40 );
 
     assert( partida_mover_notacion( p1, "e4" ) );
     assert( partida_dump( p1, &data, &size ) );
-    assert( size > 50 );
+    assert( size > 60 );
     free( data );
     partida_free( p1 ); 
 
    
     p1 = tipojuego_create_partida( ajedrez, NULL );
     assert( partida_dump( p1, &data, &size ));
-    assert( size > 30  );
+    assert( size > 60  );
     free( data );
     assert( partida_mover_pgn( p1, pgn ) );
     assert( partida_dump( p1, &data, &size ));
     // printf( "El tamaño es %d\n", size );
-    assert( size == 4087 );
+    assert( size == 4089 );
+
+    assert( p2 = partida_load( ajedrez, data, size ) );
+    assert( !partida_load( gomoku, data, size ) );
+    assert( partida_movidas_count( p2 ) == 15 );
+    assert( partida_movidas_count( p1 ) == 15 );
+    control_igual_partida( p1, p2 );
+
+    free( data );
+    assert( partida_dump( p1, &data, &size ));
+    // printf( "El tamaño es %d\n", size );
+    assert( size == 4592 );
 /*
     FILE* f = fopen( "x", "w" );
     fwrite( data, 1, size, f );

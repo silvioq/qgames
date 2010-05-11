@@ -5,6 +5,7 @@
   Silvio Quadri 2010.
 */
 
+#include <config.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -601,6 +602,7 @@ int         partida_dump( Partida* par, void** data, int* size ){
     uint16_t len16;
 
     /* La estructura es la siguiente:
+        2 bytes con la version del qgames, siendo igual a MAJOR_VERSION * 256 + MINOR_VERSION
         1 byte con el largo del nombre del tipo de juego (int)
         n byte con el nombre del tipo de juego
         1 byte con el largo del id
@@ -617,7 +619,11 @@ int         partida_dump( Partida* par, void** data, int* size ){
            donde cada movida tiene
            2 bytes con el largo de la movida
            movida
+        2 bytes con la cantidad de movidas calculadas
     */
+
+    len16 = QG_MAJOR_VERSION * 256 + QG_MINOR_VERSION;
+    ADDDATA( ret, len, len16, aloc );
 
     len8 = strlen(par->tjuego->nombre);
     ADDDATA( ret, len, len8, aloc );
@@ -672,6 +678,24 @@ int         partida_dump( Partida* par, void** data, int* size ){
             len += size;
         }
     }
+
+    // 
+    if( PARTIDAMOVCALC(par) && !PARTIDATERMINADA( par) ){
+        len16 = par->pos->movidas->entradas;
+        ADDDATA( ret, len, len16, aloc );
+        for( i = 0; i < par->pos->movidas->entradas; i ++ ){
+            Movida* mov = par->pos->movidas->data[i];
+            void * mmm;
+            int    size;
+            assert( movida_dump( mov, &mmm, &size ) );
+            len16 = size;
+            ADDDATA( ret, len, len16, aloc );
+            STREXPAND( ret, aloc, len + size );
+            memcpy( ((char*)ret) + len, mmm, size );
+            free( mmm );
+            len += size;
+        }
+    }
   
     *data = ret;
     *size = len;
@@ -691,12 +715,20 @@ Partida*    partida_load( Tipojuego* tjuego, void* data, int size ){
     char aux[256];
     Partida* par;
 
+    len16 = ((uint16_t*)point)[0];
+    if( len16 < 2 * 256 + 9 ){
+        LOGPRINT( 2, "Error: de version de archivo: %d.%d => ", len16 / 256, len16 % 256, 2, 9 , aux );
+        return 0;
+    }
+    point += sizeof( uint16_t );
+
     /* El primer paso es controlar que el tipo de juego corresponda
        con lo que tiene la data */
+
     
     len8 = point[0]; 
     point ++;
-    memcpy( point, aux, len8 );
+    memcpy( aux, point, len8 );
     aux[len8] = 0;
     point += len8;
 
@@ -707,7 +739,7 @@ Partida*    partida_load( Tipojuego* tjuego, void* data, int size ){
 
     len8 = point[0]; 
     point ++;
-    memcpy( point, aux, len8 );
+    memcpy( aux, point, len8 );
     aux[len8] = 0;
     point += len8;
     par = tipojuego_create_partida( tjuego, aux );
@@ -754,6 +786,21 @@ Partida*    partida_load( Tipojuego* tjuego, void* data, int size ){
     }
 
     par->pieza_continua = ( piece_num == (uint16_t)-1 ? NULL : par->pos->piezas->data[piece_num] );
+
+    // Finalmente, analizamos si hay movidas calculadas
+    if( PARTIDAMOVCALC(par) && !PARTIDATERMINADA( par) ){
+        max = ((uint16_t*)point)[0];
+        point += sizeof( uint16_t);
+        for( i = 0; i < max; i ++ ){
+            len16 = ((uint16_t*)point)[0];
+            point += sizeof(uint16_t);
+            Movida* mov = movida_load( par->pos, point, len16 );
+            assert( point + len16 <= ((char*)data) + size );
+            point += len16;
+            posicion_add_movida( par->pos, mov );
+        }
+    }
+
     return par;
 
 
