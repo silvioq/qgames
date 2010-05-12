@@ -1,0 +1,20 @@
+# Juego obtenido de  http://www.opengames.com.ar/653.pgn
+# Entre  ["Renzo"] y ["Néstor"]
+nuevo-juego Jubilado
+
+1. f4 f5 2. e3 Kf7 3. c4 c5 4. d4 d6 5. b3 cxd4 
+6. e4 fxe4 7. g4 Kf6 8. f5 e6 9. g5 Kxf5 
+10. Ke2 Kxg5 11. h3 Kh4 12. Kd2 Kxh3 
+check-piezas rey blanco d2 1
+check-piezas rey negro h3 1
+check-piezas peon blanco a2 1
+check-piezas peon blanco b3 1
+check-piezas peon blanco c4 1
+check-piezas peon negro a7 1
+check-piezas peon negro b7 1
+check-piezas peon negro d4 1
+check-piezas peon negro d6 1
+check-piezas peon negro e6 1
+check-piezas peon negro e4 1
+check-piezas peon negro g7 1
+check-piezas peon negro h7 1

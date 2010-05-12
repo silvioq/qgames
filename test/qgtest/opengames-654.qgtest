@@ -1,0 +1,21 @@
+# Juego obtenido de  http://www.opengames.com.ar/654.pgn
+# Entre  ["Néstor"] y ["Renzo"]
+nuevo-juego Jubilado
+
+1. d4 d5 2. Kd2 e6 3. Kd3 Ke7 4. e4 f5 5. e5 c5 
+6. dxc5 b5 7. cxb6 axb6 8. f4 h5 9. h4 b5 
+10. Kd4 g6 11. Kc5 Kf7 12. Kxb5 Ke7 13. Kc6 
+check-piezas rey blanco c6 1
+check-piezas rey negro e7 1
+check-piezas peon blanco a2 1
+check-piezas peon blanco b2 1
+check-piezas peon blanco c2 1
+check-piezas peon blanco e5 1
+check-piezas peon blanco f4 1
+check-piezas peon blanco g2 1
+check-piezas peon blanco h4 1
+check-piezas peon negro d5 1
+check-piezas peon negro e6 1
+check-piezas peon negro f5 1
+check-piezas peon negro g6 1
+check-piezas peon negro h5 1
