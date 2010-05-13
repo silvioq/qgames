@@ -14,6 +14,7 @@
 typedef   struct   StrNotacion  Notacion;
 typedef   struct   StrRegla     Regla;
 typedef   struct   StrSimbolo   Simbolo;
+typedef   struct   StrGraphdef  Graphdef;
 
 #define   JAQUEMATE    0x1
 #define   TJJAQUEMATE(tj)  (tj->flags & JAQUEMATE)
@@ -52,6 +53,7 @@ typedef   struct   StrTablero {
     // Cantidad de dimensiones que tiene el tablero
     int          dimc;          
     _list*       dimensiones;
+    Graphdef*    graph_def;
 } Tablero  ;
 
 typedef   struct   StrCasillero {
@@ -60,6 +62,7 @@ typedef   struct   StrCasillero {
     int         posicion[MAXDIMS];
     int         number;
     _list*      vinculos;
+    Graphdef*   graph_def;
 } Casillero;
 
 typedef   struct   StrDireccion {

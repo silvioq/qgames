@@ -16,6 +16,7 @@
 
 #include  "list.h"
 #include  "tipojuego.h"
+#include  "graphdef.h"
 #include  "simbolos.h"
 #include  "pieza.h"
 #include  "movida.h"
@@ -485,6 +486,44 @@ void   tipojuego_add_notacion_rep( Tipojuego* tj, char elemento ){
         tj->notacion->repeticion[len+1] = 0;
     }
 }
+
+/*
+ *
+ * A partir de aqui, comienzas las definiciones de graficos
+ *
+ * */
+
+void   tipojuego_graph_tablero_std     ( Tipojuego* tj, int board_number, char graphtype, int width, int height, int forecolor, int backcolor ){
+    int b = ( board_number == BOARD_ACTUAL ? tj->tablero_actual : board_number );
+    assert( b <= tj->tableros->entradas );
+    if( !tj->graphdefs ) tj->graphdefs = list_nueva( NULL );
+    Graphdef* g = malloc( sizeof( Graphdef ) );
+    memset( g, 0, sizeof( Graphdef ) );
+    g->tipo = TIPOGRAPH_TABLERO;
+    g->tablero = b;
+    g->std  = graphtype;
+    g->w    = width;
+    g->h    = height;
+    g->f    = forecolor;
+    g->b    = backcolor;
+
+    list_agrega( tj->graphdefs, g );
+
+}
+
+void   tipojuego_graph_tipopieza_std   ( Tipojuego* tj, char* tpieza, int stdimg, int width, int height ){
+    int tp = GETTIPOPIEZA( tj, tpieza );
+    if( !tj->graphdefs ) tj->graphdefs = list_nueva( NULL );
+    Graphdef* g = malloc( sizeof( Graphdef ) );
+    memset( g, 0, sizeof( Graphdef ) );
+    g->tipo = TIPOGRAPH_TPIEZA;
+    g->tpieza = tj->tipo_piezas->data[tp];
+    g->std  = stdimg;
+    g->w    = width;
+    g->h    = height;
+    list_agrega( tj->graphdefs, g );
+}
+
 
 /*
  * Esta funcion setea la marca de notacion. La primera

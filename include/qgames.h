@@ -102,7 +102,7 @@ void   tipojuego_set_notacion_marca( Tipojuego* tj, char* marca, char* captura )
 void   tipojuego_graph_tablero_std     ( Tipojuego* tj, int board_number, char graphtype, int width, int height, int forecolor, int backcolor );
 void   tipojuego_graph_tablero_cus     ( Tipojuego* tj, int board_number, char* file  );
 void   tipojuego_graph_tipopieza_std   ( Tipojuego* tj, char* tpieza, int stdimg, int width, int height );
-void   tipojuego_graph_tipopieza_cus   ( Tipojuego* tj, char* tpieza, char* file );
+void   tipojuego_graph_tipopieza_cus   ( Tipojuego* tj, char* tpieza, char* color, char* file );
 void   tipojuego_graph_casillero_std   ( Tipojuego* tj, char* casillero, int resaltado, int color );
 void   tipojuego_graph_casillero_cus   ( Tipojuego* tj, char* casillero, char* file );
 
