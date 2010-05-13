@@ -38,6 +38,8 @@ typedef   struct   StrTipojuego {
     Posicion*    inicial;
     char         flags;
 
+    _list*       graphdefs;
+
     _list*       rules;           // Aca van los finales
     Regla*       regla_actual;
     QCode*       qcode;

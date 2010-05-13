@@ -15,6 +15,8 @@ void   init_scanner();
 int    defined( char* d );
 int    switch_to_define( );
 
+#define   HEXTOI(x)  ( x >= 'A' && x <= 'F' ? x - 'A' + 10 : ( x >= 'a' && x <= 'f' ? x - 'a' + 10 : x - '0' ) )
+
 
 symtable*  symt = NULL;
 char*  defactual = NULL;
@@ -47,6 +49,7 @@ char       string_ret ; // donde retorna
 WORD      ([a-zA-Z\?][a-zA-Z0-9\-\_]*\??)
 SPACES    [ ]+
 BAR       (\_|\-)?
+HTMLCOL   (\#[0-9a-fA-F]{6})|(\#[0-9a-fA-F]{3})
 
 %%
 
@@ -72,6 +75,21 @@ BAR       (\_|\-)?
                           return TOK_STRING; }  
                     }
 
+<INITIAL>{HTMLCOL}  { if( yyleng == 4 ){
+                          qgzlval = HEXTOI(yytext[1]) * 16 * 16 + 
+                                    HEXTOI(yytext[2]) * 16 + 
+                                    HEXTOI(yytext[3]) ;
+                      } else if( yyleng == 7 ){
+                          qgzlval = HEXTOI(yytext[1]) * 16 * 16 * 16 * 16 * 16 + 
+                                    HEXTOI(yytext[2]) * 16 * 16 * 16 * 16 + 
+                                    HEXTOI(yytext[3]) * 16 * 16 * 16 +  
+                                    HEXTOI(yytext[4]) * 16 * 16  +  
+                                    HEXTOI(yytext[5]) * 16 +  
+                                    HEXTOI(yytext[6]) ; 
+                      } else yyterminate();
+                      return  TOK_HTMLCOLOR;
+                    }
+
 
 <code>^{WORD}\:     { BEGIN(INITIAL); yyless(0); return  TOK_SEPARATOR; }
 <define>^{WORD}\:   { generate_define(); BEGIN(INITIAL); yyless(0); return  TOK_SEPARATOR; }
@@ -87,19 +105,26 @@ BAR       (\_|\-)?
 <define_head>.
 
 
-attribute\:     { return TOK_ATTR;      }
-board\:         { return TOK_BOARD ;    }
-captured{BAR}mark { return TOK_CAPTURED_MARK; }
-color\:         { return TOK_COLOR;     }
-default         { return TOK_DEFAULT;   }
-directions?\:   { return TOK_DIRECTION; }
-drop\:          { return TOK_DROP;      }
-ending\:        { return TOK_ENDING;    }
-gametype\:      { return TOK_GAMETYPE;  }
-mark            { return TOK_MARK;      }
-move\:          { return TOK_MOVE;      }
-movetype\:      { return TOK_MOVETYPE;  }
-notation\:      { return TOK_NOTATION;  }
+attribute\:         { return  TOK_ATTR;      }
+board\:             { return  TOK_BOARD ;    }
+captured{BAR}mark   { return  TOK_CAPTURED_MARK; }
+color\:             { return  TOK_COLOR;     }
+checkerboard        { return  TOK_CHECKERBOARD; }
+default             { return  TOK_DEFAULT;   }
+directions?\:       { return  TOK_DIRECTION; }
+drop\:              { return  TOK_DROP;      }
+ending\:            { return  TOK_ENDING;    }
+gametype\:          { return  TOK_GAMETYPE;  }
+graph{BAR}board\:   { return  TOK_GRAPH_BOARD; }
+graph{BAR}piece\:   { return  TOK_GRAPH_PIECE; }
+graph{BAR}square\:  { return  TOK_GRAPH_SQUARE; }
+grid                { return  TOK_GRID;    }
+highlight(ed)?      { return  TOK_HIGHLIGHTED;  }
+intersections?      { return  TOK_INTERSECTIONS; }
+mark                { return  TOK_MARK;      }
+move\:              { return  TOK_MOVE;      }
+movetype\:          { return  TOK_MOVETYPE;  }
+notation\:          { return  TOK_NOTATION;  }
 origin          { return TOK_ORIGIN;    }
 onrepeat        { return TOK_ONREPEAT;  }
 piece\:         { return TOK_PIECE;     }
@@ -108,6 +133,13 @@ repeat          { return TOK_REPEAT;    }
 sequence\:      { return TOK_SEQUENCE;  }
 symmetry\:      { return TOK_SYMMETRY;  }
 start\:         { return TOK_START;     }
+standard{BAR}gem    { return  TOK_STANDARD_GEM      ; }
+standard{BAR}bishop { return  TOK_STANDARD_BISHOP   ; }
+standard{BAR}king   { return  TOK_STANDARD_KING     ; }
+standard{BAR}knight { return  TOK_STANDARD_KNIGHT   ; }
+standard{BAR}pawn   { return  TOK_STANDARD_PAWN     ; }
+standard{BAR}queen  { return  TOK_STANDARD_QUEEN    ; }
+standard{BAR}rook   { return  TOK_STANDARD_ROOK     ; }
 target          { return TOK_TARGET;    }
 zone\:          { return TOK_ZONE;      }
 

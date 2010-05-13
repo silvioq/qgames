@@ -1,7 +1,7 @@
-AC_INIT([qgames], [2.9.0], ["silvioq@gmail.com"])
-AC_DEFINE([QG_MAJOR_VERSION],[2], "Major")
-AC_DEFINE([QG_MINOR_VERSION],[9], "Minor")
-AC_DEFINE([QG_REV_VERSION],  [0], "revision version")
+AC_INIT([qgames], [2.9.1], ["silvioq@gmail.com"])
+AC_DEFINE([QG_MAJOR_VERSION],[2], Major version)
+AC_DEFINE([QG_MINOR_VERSION],[9], Minor version)
+AC_DEFINE([QG_REV_VERSION],  [1], Revision version)
 
 AM_INIT_AUTOMAKE
 AC_PROG_CC
@@ -18,7 +18,20 @@ AC_CHECK_LIB(ncursesw,initscr,[CURSES_LIBS="-lncursesw"])
 AC_CHECK_HEADERS([ncurses.h])
 AC_SUBST([CURSES_LIBS])
 
-AM_CONDITIONAL([QASM], [0])
+AC_CHECK_HEADERS([gd.h])
+AC_CHECK_LIB(gd,gdImageCreate,[GD_LIBS="-lgd"],[
+    echo  "--------------------------------------------"
+    echo  "      Cuidado! no esta instalado GD"
+    echo  "--------------------------------------------" ]
+    )
+AC_CHECK_HEADERS([png.h])
+AC_CHECK_LIB(png,png_read_info,[PNG_LIBS="-lpng"])
+
+if test x"${ac_cv_lib_png_png_read_info}" = xyes; then
+    if  test x"${ac_cv_lib_gd_gdImageCreate}" = xyes; then
+        AC_DEFINE([GRAPH_ENABLED], [1], Graficos habilitados)
+    fi
+fi
 
 # 
 # if test x"${ac_cv_lib_ncursesw_ncursesw}" = xyes; then
@@ -49,6 +62,7 @@ AC_CONFIG_FILES(
    test/Makefile
    test/bin/Makefile
    test/qgtest/Makefile
+   tools/Makefile
    ])
 
 

@@ -14,6 +14,11 @@
 #include  <config.h>
 #include  <qgames.h>
 #include  <qgames_analyzer.h>
+
+#if HAVE_LIBREADLINE
+#include  <readline/readline.h>
+#endif
+
 #include  "log.h"
 #include  "../parser/pgn_scanner.h"
 
@@ -47,7 +52,7 @@ static char * getline (const char *prompt)
                                    from inside this function.  */
   if(buf) free(buf);
 
-  buf = (char *) readline ((char *) prompt);
+  buf = readline(prompt);
   if (buf && *buf) add_history (buf);
   return buf;
 }

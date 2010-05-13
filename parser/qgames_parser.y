@@ -84,6 +84,7 @@ void  qgzprintf( char* format, ... ){
 %}
 
 %token    TOK_NUMBER  TOK_WORD        TOK_STRING
+%token    TOK_HTMLCOLOR
 %token    TOK_SEPARATOR
 
 
@@ -143,6 +144,22 @@ void  qgzprintf( char* format, ... ){
 %token    TOK_AND       TOK_OR          TOK_NOT
 %token    TOK_EQUAL     TOK_DEQUAL
 %token    TOK_WHILE     TOK_DO   TOK_END
+
+%token    TOK_GRAPH_BOARD
+%token    TOK_GRAPH_PIECE
+%token    TOK_GRAPH_SQUARE
+%token    TOK_GRID
+%token    TOK_CHECKERBOARD
+%token    TOK_INTERSECTIONS
+%token    TOK_HIGHLIGHTED
+
+%token    TOK_STANDARD_GEM
+%token    TOK_STANDARD_BISHOP
+%token    TOK_STANDARD_KING
+%token    TOK_STANDARD_KNIGHT
+%token    TOK_STANDARD_PAWN
+%token    TOK_STANDARD_QUEEN
+%token    TOK_STANDARD_ROOK
 
 
 %start    game_definition
@@ -769,6 +786,54 @@ instruction_gametype:
         }
     };
 
+/* ------------------------------------------------------------------------- */
+/* La definicion de la graficacion                                           */
+/* ------------------------------------------------------------------------- */
+instruction_graph_colors:
+    TOK_HTMLCOLOR  ','  TOK_HTMLCOLOR |
+    TOK_HTMLCOLOR       TOK_HTMLCOLOR ;
+
+instruction_graph_dimensions:
+    TOK_NUMBER     ','  TOK_NUMBER  |
+    TOK_NUMBER     'x'  TOK_NUMBER  |
+    TOK_NUMBER          TOK_NUMBER ;
+
+instruction_graph_def:
+    instruction_graph_colors ',' instruction_graph_dimensions |
+    instruction_graph_colors     instruction_graph_dimensions |
+    instruction_graph_dimensions ',' instruction_graph_colors |
+    instruction_graph_dimensions     instruction_graph_colors ;
+
+instruction_graph_standard:
+    TOK_STANDARD_GEM   |
+    TOK_STANDARD_BISHOP  |
+    TOK_STANDARD_KING    |
+    TOK_STANDARD_KNIGHT  |
+    TOK_STANDARD_PAWN    |
+    TOK_STANDARD_QUEEN   |
+    TOK_STANDARD_ROOK   ;
+
+board_number:
+    TOK_NUMBER  { $$ = $1; } | { $$ = BOARD_ACTUAL; };
+    
+
+instruction_graph:
+    TOK_GRAPH_BOARD   board_number  TOK_CHECKERBOARD   instruction_graph_def     { NOT_IMPLEMENTED_WARN( "graph-board checkerboard" ) } |
+    TOK_GRAPH_BOARD   board_number  TOK_INTERSECTIONS  instruction_graph_def     { NOT_IMPLEMENTED_WARN( "graph-board intersections" )} |
+    TOK_GRAPH_BOARD   board_number  TOK_GRID           instruction_graph_def     { NOT_IMPLEMENTED_WARN( "graph-board grid" )} |
+    TOK_GRAPH_BOARD   board_number  word_or_string                               { NOT_IMPLEMENTED_WARN( "graph-board string" ) } |
+    TOK_GRAPH_PIECE   instruction_graph_standard       instruction_graph_dimensions  { NOT_IMPLEMENTED_WARN( "graph-piece standard" ) } |
+    TOK_GRAPH_PIECE   word_or_string                               { NOT_IMPLEMENTED_WARN( "graph-piece string" ); } |
+    TOK_GRAPH_SQUARE  word_or_string  word_or_string               { NOT_IMPLEMENTED_WARN( "graph-square file" ); } |
+    TOK_GRAPH_SQUARE  word_or_string  TOK_HTMLCOLOR                { NOT_IMPLEMENTED_WARN( "graph-square color" ); } |
+    TOK_GRAPH_SQUARE  word_or_string  TOK_HIGHLIGHTED              { NOT_IMPLEMENTED_WARN( "graph-square highlighted" ); } ;
+
+
+
+/* ------------------------------------------------------------------------- */
+/* La definicion de los tipos de movidas                                     */
+/* ------------------------------------------------------------------------- */
+
 instruction_movetype:
     TOK_MOVETYPE     word_or_string {
         CHECK_TIPOJUEGO;
@@ -935,6 +1000,7 @@ instruction:
     instruction_drop       |
     instruction_ending     |
     instruction_gametype   |
+    instruction_graph      |
     instruction_move       |
     instruction_movetype   |
     instruction_notation   |

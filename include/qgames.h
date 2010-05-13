@@ -81,6 +81,32 @@ void   tipojuego_add_notacion_tpieza( Tipojuego* tj, char* tpieza, char* color, 
 void   tipojuego_set_notacion_marca( Tipojuego* tj, char* marca, char* captura );
 
 
+/*
+ * A partir de aqui, comenzamos con la definicion de la graficacion
+ * del tipo de juego.
+ * */
+#define   BOARD_ACTUAL  -1
+#define   STANDARD_GEM        1
+#define   STANDARD_BISHOP     2
+#define   STANDARD_KING       3
+#define   STANDARD_KNIGHT     4
+#define   STANDARD_PAWN       5
+#define   STANDARD_QUEEN      6
+#define   STANDARD_ROOK       7
+
+#define   TYPE_CHECKERBOARD   1
+#define   TYPE_INTERSECTIONS  2
+#define   TYPE_GRID           3
+
+
+void   tipojuego_graph_tablero_std     ( Tipojuego* tj, int board_number, char graphtype, int width, int height, int forecolor, int backcolor );
+void   tipojuego_graph_tablero_cus     ( Tipojuego* tj, int board_number, char* file  );
+void   tipojuego_graph_tipopieza_std   ( Tipojuego* tj, char* tpieza, int stdimg, int width, int height );
+void   tipojuego_graph_tipopieza_cus   ( Tipojuego* tj, char* tpieza, char* file );
+void   tipojuego_graph_casillero_std   ( Tipojuego* tj, char* casillero, int resaltado, int color );
+void   tipojuego_graph_casillero_cus   ( Tipojuego* tj, char* casillero, char* file );
+
+
 
 
 

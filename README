@@ -3,3 +3,18 @@
 Esta es la nueva version de QGames. En estado alfa, la idea es migrar todo el codigo Ruby
 a C.
 
+
+== Requisitos
+
+Esta es una lista de librerias recomendables para la compilación
+* ncursesw
+* readline
+* gd2
+* png12
+
+Una forma rapida de compilar podria ser
+
+  sudo aptitude install libncursesw5-dev libreadline5-dev libgd2-xpm-dev libpng12-dev
+
+  sudo aptitude install libncursesw5 libreadline5 libgd2-xpm libpng3
+
