@@ -1,0 +1,23 @@
+# Juego obtenido de  http://www.opengames.com.ar/902.pgn
+# Entre  ["incoherente"] y ["Guillermo Corbacho C"]
+nuevo-juego Jubilado
+
+1. e4 e5 2. Ke2 Ke7 3. Ke3 Ke6 4. d4 g5 5. d5 Kd6 
+6. c4 Kc5 7. Kd3 a5 8. Kc3 h5 9. f3 c6 10. b3 cxd5 
+11. cxd5 h4 12. g4 b5 13. a3 b4 14. axb4 axb4 
+15. Kd3 f6 16. h3 d6 17. Ke3 Kb6 18. Kd3 Kb5 
+19. Ke3 Kc5 20. Kd3 
+check-piezas rey blanco d3 1
+check-piezas rey negro c5 1
+check-piezas peon blanco b3 1
+check-piezas peon blanco d5 1
+check-piezas peon blanco e4 1
+check-piezas peon blanco f3 1
+check-piezas peon blanco g4 1
+check-piezas peon blanco h3 1
+check-piezas peon negro b4 1
+check-piezas peon negro d6 1
+check-piezas peon negro e5 1
+check-piezas peon negro f6 1
+check-piezas peon negro g5 1
+check-piezas peon negro h4 1
