@@ -107,6 +107,18 @@ void   tipojuego_graph_casillero_std   ( Tipojuego* tj, char* casillero, int res
 void   tipojuego_graph_casillero_cus   ( Tipojuego* tj, char* casillero, char* file );
 
 
+/*
+ * Estas funciones devuelven el PNG asociado a un elemento
+ * En todos los casos, en caso de fallos, devolvera 0, sino, 
+ * la cantidad de bytes.
+ * Una vez utilizado, debe eliminarse los datos del elemento
+ * png, mediante un free
+ *
+ * */
+int    tipojuego_get_tablero_png( Tipojuego* tj, int board_number, void** png );
+int    tipojuego_get_tpieza_png( Tipojuego* tj, char* color, char* tpieza );
+
+
 
 
 
@@ -141,6 +153,27 @@ char*       partida_pgn( Partida* par ); // free luego!
 int         partida_dump( Partida* par, void** data, int* size );
 Partida*    partida_load( Tipojuego* tj, void* data, int size );
 
+/*
+ * Esta funcion devuelve la imagen de la partida
+ * En caso de fallos, devolvera 0, sino, la cantidad de bytes.
+ * Una vez utilizado, debe eliminarse los datos del elemento
+ * png, mediante un free
+ * El parametro flags indicara si la posicion debera dibujarse
+ * en forma inversa (rotado para las negras), si hay highlight
+ * de ultima movida y otras que iran aparenciendo
+ * El parametro movida indica el numero de movida a controlar
+ * En el caso que sea negativo, se contara desde atras hacia
+ * adelante, siendo -1 la ultima
+ * 
+ * */
+#define  LAST_MOVE  -1
+#define  GETPNG_ROTADO                0x01
+#define  GETPNG_HIGHLIGHT_GREEN       0x02
+#define  GETPNG_HIGHLIGHT_BLUE        0x04
+#define  GETPNG_HIGHLIGHT_RED         0x08
+#define  GETPNG_HIGHLIGHT_YELLOW    ( GETPNG_HIGHLIGHT_GREEN | GETPNG_HIGHLIGHT_RED )
+
+int         partida_get_png( Partida* par, int flags, int movida, void** png );
 
 
 

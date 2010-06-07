@@ -1,4 +1,4 @@
-AC_INIT([qgames], [2.9.1], ["silvioq@gmail.com"])
+AC_INIT([qgames], [2.9.1], [silvioq@gmail.com])
 AC_DEFINE([QG_MAJOR_VERSION],[2], Major version)
 AC_DEFINE([QG_MINOR_VERSION],[9], Minor version)
 AC_DEFINE([QG_REV_VERSION],  [1], Revision version)

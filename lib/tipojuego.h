@@ -51,9 +51,10 @@ typedef   struct   StrTablero {
     int          numero;
 
     // Cantidad de dimensiones que tiene el tablero
-    int          dimc;          
+    int          dimc;       
+    int          dimmax[MAXDIMS];
     _list*       dimensiones;
-    Graphdef*    graph_def;
+    Graphdef*    graphdef;
 } Tablero  ;
 
 typedef   struct   StrCasillero {
@@ -185,6 +186,11 @@ typedef  struct  StrZonadef{
     ret; \
   })
 
+#define  tipojuego_get_tablero(tj,num) ({\
+    assert( num <= tj->tableros->entradas );\
+    (Tablero*) tj->tableros->data[num]; \
+  })
+
 /* Funciones de acceso a datos de tipojuego */
 Casillero*  tipojuego_get_casillero_by_num( Tipojuego* tj, int nro );
 Casillero*  tipojuego_get_casillero_by_relpos( Tipojuego* tj, int tablero, int dims[MAXDIMS] );
@@ -201,7 +207,7 @@ Simbolo*    tipojuego_get_simbolo( Tipojuego* tj, char* sim );
 /* Funciones de manejo de tablero */
 Tablero*   tablero_new( Tipojuego* tj, int numero );
 void       tablero_genera_dimensiones( Tablero* tab, int dimc, char** dimv );
-
+Graphdef*  tablero_get_graphdef( Tablero* t );
 
 
 

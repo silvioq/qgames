@@ -12,6 +12,7 @@
 
 #include  "qgames.h"
 #include  "tipojuego.h"
+#include  "graphdef.h"
 
 
 /*  
@@ -71,8 +72,10 @@ void       tablero_genera_dimensiones( Tablero* tab, int dimc, char** dimv ){
         // printf( "Estoy creando casillero %s\n", cas );
         int sim = tipojuego_add_casillero( tab->tipojuego, cas );
         casillero = (Casillero*)tab->tipojuego->casilleros->data[sim];
-        for( j = 0; j < dimc; j ++ )
+        for( j = 0; j < dimc; j ++ ){
             casillero->posicion[j] = dimint[j];
+            if( dimint[j] + 1 > tab->dimmax[j] ) tab->dimmax[j] =  dimint[j] + 1;
+        }
 
         // Busco el proximo de cada uno
         for( i = dimc - 1; i >= 0; i -- ){
@@ -103,4 +106,18 @@ void       tablero_genera_dimensiones( Tablero* tab, int dimc, char** dimv ){
     
 }
 
+Graphdef*  tablero_get_graphdef( Tablero* t ){
+    if( t->graphdef ) return t->graphdef;
+    Tipojuego* tj = t->tipojuego;
+    if( !tj->graphdefs ) return NULL;
+    int i;
+    for( i = 0; i < tj->graphdefs->entradas; i++ ){
+        Graphdef* g = tj->graphdefs->data[i];
+        if( g->tipo == TIPOGRAPH_TABLERO && g->tablero == t->numero ){
+            t->graphdef = g;
+            return g;
+        }
+    }
+    return NULL;
+}
 
