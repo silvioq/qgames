@@ -76,8 +76,8 @@ HTMLCOL   (\#[0-9a-fA-F]{6})|(\#[0-9a-fA-F]{3})
                     }
 
 <INITIAL>{HTMLCOL}  { if( yyleng == 4 ){
-                          qgzlval = HEXTOI(yytext[1]) * 16 * 16 + 
-                                    HEXTOI(yytext[2]) * 16 + 
+                          qgzlval = HEXTOI(yytext[1]) * 16 * 16 * 16 * 16 + 
+                                    HEXTOI(yytext[2]) * 16 * 16 + 
                                     HEXTOI(yytext[3]) ;
                       } else if( yyleng == 7 ){
                           qgzlval = HEXTOI(yytext[1]) * 16 * 16 * 16 * 16 * 16 + 

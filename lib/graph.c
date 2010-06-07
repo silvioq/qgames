@@ -18,12 +18,35 @@
 #include  "tipojuego.h"
 #include  "graphdef.h"
 
+/*
+ * Esta funcion arma un tablero tipo damero (checkerboard)
+ * */
+#if  HAVE_GD_H
+gdImagePtr  graph_dibujar_checkerboard( int w, int h, int cw, int ch, int f, int b ){
+    int i, j;
+    gdImagePtr  gd = gdImageCreateTrueColor( h, w );
+    int  fondo  = gdImageColorAllocate( gd, ( b | 0xFF0000 ) >> 24, ( b | 0xFF00 ) >> 16 , b | 0xFF );
+    int  frente = gdImageColorAllocate( gd, ( f | 0xFF0000 ) >> 24, ( f | 0xFF00 ) >> 16 , f | 0xFF );
+    gdImageFilledRectangle( gd, 0, 0, w - 1, h - 1, fondo );
+    for( i = 0; i < cw; i ++ ){
+        int color_f = ( i % 2 == 0 ? fondo : frente );
+        for( j = 0; j < cw; j ++ ){
+            if( color_f == frente ){
+                gdImageFilledRectangle( gd, w - cw * ( i + 1 ), ch * j,
+                                            w - cw * i  - 1   , ch * ( j + 1 ) - 1,
+                                        frente );
+                color_f = fondo;
+            } else color_f = frente;
+        }
+    }
+}
+#endif
 
 int    tipojuego_get_tablero_png( Tipojuego* tj, int board_number, void** png ){
 #if HAVE_GD_H
     Graphdef*  g;
-    if( board_number == BOARD_ACTUAL ) 
-        return tipojuego_get_tablero_png( tj, tj->tablero_actual, png );
+    int size;
+    if( board_number == BOARD_ACTUAL ) return tipojuego_get_tablero_png( tj, tj->tablero_actual, png );
     if( !tj->graphdefs ){
         LOGPRINT( 2, "No hay definiciones de grafico board = %d", board_number );
         return 0;
@@ -35,23 +58,48 @@ int    tipojuego_get_tablero_png( Tipojuego* tj, int board_number, void** png ){
         return 0;
     }
     // Si no tenemos ancho, calculemoslo.
-    if( !g->w ){
-        int i;
-        Graphdef* gg = NULL;
-        for( i == 0 ; i <  tj->graphdefs->entradas; i ++ ){
-            Graphdef* ggg = tj->graphdefs->data[i];
-            if( ggg->tipo == TIPOGRAPH_TPIEZA ){
-                gg = ggg;
-                break;
+    if( g->cus ){
+        if( !g->gd ){
+            FILE* fpng = fopen( g->cus, "r" );
+            if( !fpng ){
+                LOGPRINT( 2, "No puede abrir %s", fpng );
+                return 0;
             }
+            g->gd = gdImageCreateFromPng( fpng );
+            fclose( fpng );
         }
-        if( !gg ){
-            LOGPRINT( 2, "Error calculando tamaño board = %d", board_number );
-            return 0;
+    } else {
+        if( !g->w ){
+            int i;
+            Graphdef* gg = NULL;
+            for( i == 0 ; i <  tj->graphdefs->entradas; i ++ ){
+                Graphdef* ggg = tj->graphdefs->data[i];
+                if( ggg->tipo == TIPOGRAPH_TPIEZA ){
+                    gg = ggg;
+                    break;
+                }
+            }
+            if( !gg ){
+                LOGPRINT( 2, "Error calculando tamaño board = %d", board_number );
+                return 0;
+            }
+            g->w = gg->w * tt->dimmax[0];
+            g->h = gg->h * tt->dimmax[1];
         }
-        g->w = gg->w * tt->dimmax[0];
-        g->h = gg->h * tt->dimmax[1];
+        switch(g->std){
+            case  TYPE_CHECKERBOARD   :
+                g->gd = graph_dibujar_checkerboard( g->w, g->h, tt->dimmax[0], tt->dimmax[1], g->f, g->b );
+            case  TYPE_INTERSECTIONS  :
+            case  TYPE_GRID           :
+                LOGPRINT( 2, "No implementado %d", g->std );
+                return 0;
+            default:
+                LOGPRINT( 2, "No implementado %d", g->std );
+                return 0;
+        }
     }
+    if( png ) *png = gdImagePngPtr( g->gd, &size );
+    return size;
 #else
     LOGPRINT( 2, "No compilado con el modulo GD board = %d", board_number );
     return 0;

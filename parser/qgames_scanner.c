@@ -1716,8 +1716,8 @@ case 7:
 YY_RULE_SETUP
 #line 78 "qgames_scanner.l"
 { if( qgzleng == 4 ){
-                          qgzlval = HEXTOI(qgztext[1]) * 16 * 16 + 
-                                    HEXTOI(qgztext[2]) * 16 + 
+                          qgzlval = HEXTOI(qgztext[1]) * 16 * 16 * 16 * 16 + 
+                                    HEXTOI(qgztext[2]) * 16 * 16 + 
                                     HEXTOI(qgztext[3]) ;
                       } else if( qgzleng == 7 ){
                           qgzlval = HEXTOI(qgztext[1]) * 16 * 16 * 16 * 16 * 16 + 
