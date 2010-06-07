@@ -13,6 +13,7 @@ test_ajedrezq_LDADD      = $(DEPENDENCIES)
 
 test_gomoku_DEPENDENCIES = $(DEPENDENCIES)
 test_gomoku_LDADD        = $(DEPENDENCIES)
+test_gomoku_LDFLAGS      = @GD_LIBS@ @PNG_LIBS@
 
 test_dump_DEPENDENCIES = $(DEPENDENCIES)
 test_dump_LDADD        = $(DEPENDENCIES)

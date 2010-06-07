@@ -16,7 +16,6 @@ AC_CHECK_LIB(readline,readline)
 AC_CHECK_LIB(ncurses,initscr,[CURSES_LIBS="-lncurses"])
 AC_CHECK_LIB(ncursesw,initscr,[CURSES_LIBS="-lncursesw"])
 AC_CHECK_HEADERS([ncurses.h])
-AC_SUBST([CURSES_LIBS])
 
 AC_CHECK_HEADERS([gd.h])
 AC_CHECK_LIB(gd,gdImageCreate,[GD_LIBS="-lgd"],[
@@ -26,6 +25,12 @@ AC_CHECK_LIB(gd,gdImageCreate,[GD_LIBS="-lgd"],[
     )
 AC_CHECK_HEADERS([png.h])
 AC_CHECK_LIB(png,png_read_info,[PNG_LIBS="-lpng"])
+
+
+AC_SUBST([CURSES_LIBS])
+AC_SUBST([GD_LIBS])
+AC_SUBST([PNG_LIBS])
+
 
 if test x"${ac_cv_lib_png_png_read_info}" = xyes; then
     if  test x"${ac_cv_lib_gd_gdImageCreate}" = xyes; then

@@ -40,6 +40,30 @@ gdImagePtr  graph_dibujar_checkerboard( int w, int h, int cw, int ch, int f, int
         }
     }
 }
+
+
+gdImagePtr  graph_dibujar_grid( int w, int h, int cw, int ch, int f, int b ){
+    int i, j;
+
+    gdImagePtr  gd = gdImageCreateTrueColor( h + 4, w + 4 );
+    int  fondo  = gdImageColorAllocate( gd, ( b | 0xFF0000 ) >> 24, ( b | 0xFF00 ) >> 16 , b | 0xFF );
+    int  frente = gdImageColorAllocate( gd, ( f | 0xFF0000 ) >> 24, ( f | 0xFF00 ) >> 16 , f | 0xFF );
+    gdImageFilledRectangle( gd, 0, 0, w - 3, h - 3, fondo );
+    gdImageSetThickness( gd, 4 ); // La linea de cuatro pixel que pienso dibujar por el borde
+    // Dibujo un rectangulo alrededor de todo el tablero.
+    gdImageRectangle( gd, 0, 0, w - 3, h - 3, frente );
+    gdImageSetThickness( gd, 2 ); // La linea de dos pixel que pienso dibujar
+
+    for( i = 1; i < cw; i ++ ){
+        gdImageLine( gd, cw * i, 0, cw * i, h, frente );
+    }
+    for( i = 1; i < ch; i ++ ){
+        gdImageLine( gd, 0, ch * i, w, ch * i, frente );
+    }
+    return  gd;
+
+}
+
 #endif
 
 int    tipojuego_get_tablero_png( Tipojuego* tj, int board_number, void** png ){
@@ -89,8 +113,10 @@ int    tipojuego_get_tablero_png( Tipojuego* tj, int board_number, void** png ){
         switch(g->std){
             case  TYPE_CHECKERBOARD   :
                 g->gd = graph_dibujar_checkerboard( g->w, g->h, tt->dimmax[0], tt->dimmax[1], g->f, g->b );
-            case  TYPE_INTERSECTIONS  :
+                break;
             case  TYPE_GRID           :
+                g->gd = graph_dibujar_grid( g->w, g->h, tt->dimmax[0], tt->dimmax[1], g->f, g->b );
+            case  TYPE_INTERSECTIONS  :
                 LOGPRINT( 2, "No implementado %d", g->std );
                 return 0;
             default:

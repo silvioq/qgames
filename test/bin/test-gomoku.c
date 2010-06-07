@@ -17,6 +17,11 @@
 #include <qgames.h>
 #include <qgames_analyzer.h>
 
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <errno.h>
+
+
 #include "../parser/pgn_scanner.h"
 #include "log.h"
 
@@ -137,6 +142,23 @@ int  main(int argc, char** argv) {
 
     partida_free( partida );
     printf( "." );
+
+    // A ver si dibujamos algo ...
+    if( !mkdir( "../../tmp", S_IRWXU | S_IRWXG | S_IRWXO ) ){
+        assert( errno == EEXIST );
+    }
+    void * gomoku_png;
+    FILE*  fpng; /*
+    TODO: Esto hay que descomentarlo!
+    int size = tipojuego_get_tablero_png( gomoku, BOARD_ACTUAL, &gomoku_png );
+    printf( "." );
+    assert( size );
+
+    fpng = fopen( "../../tmp/gomoku.png", "w" );
+    assert( fwrite( gomoku_png, size, 1, fpng ) );
+    fclose( fpng ); */
+    
+    
 
     printf( "\n" );
     return  EXIT_SUCCESS;

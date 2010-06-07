@@ -49,6 +49,9 @@ am_test_dump_OBJECTS = test-dump.$(OBJEXT)
 test_dump_OBJECTS = $(am_test_dump_OBJECTS)
 am_test_gomoku_OBJECTS = test-gomoku.$(OBJEXT)
 test_gomoku_OBJECTS = $(am_test_gomoku_OBJECTS)
+test_gomoku_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) \
+	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) \
+	$(test_gomoku_LDFLAGS) $(LDFLAGS) -o $@
 am_test_tateti_OBJECTS = test-tateti.$(OBJEXT)
 test_tateti_OBJECTS = $(am_test_tateti_OBJECTS)
 DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
@@ -100,6 +103,7 @@ EGREP = @EGREP@
 EXEEXT = @EXEEXT@
 F77 = @F77@
 FFLAGS = @FFLAGS@
+GD_LIBS = @GD_LIBS@
 GREP = @GREP@
 INSTALL = @INSTALL@
 INSTALL_DATA = @INSTALL_DATA@
@@ -126,6 +130,7 @@ PACKAGE_STRING = @PACKAGE_STRING@
 PACKAGE_TARNAME = @PACKAGE_TARNAME@
 PACKAGE_VERSION = @PACKAGE_VERSION@
 PATH_SEPARATOR = @PATH_SEPARATOR@
+PNG_LIBS = @PNG_LIBS@
 RANLIB = @RANLIB@
 SED = @SED@
 SET_MAKE = @SET_MAKE@
@@ -195,6 +200,7 @@ test_ajedrezq_DEPENDENCIES = $(DEPENDENCIES)
 test_ajedrezq_LDADD = $(DEPENDENCIES)
 test_gomoku_DEPENDENCIES = $(DEPENDENCIES)
 test_gomoku_LDADD = $(DEPENDENCIES)
+test_gomoku_LDFLAGS = @GD_LIBS@ @PNG_LIBS@
 test_dump_DEPENDENCIES = $(DEPENDENCIES)
 test_dump_LDADD = $(DEPENDENCIES)
 AM_CFLAGS = -I$(top_srcdir)/include -I$(top_srcdir)/common -I$(top_srcdir)/qcode/src
@@ -247,7 +253,7 @@ test-dump$(EXEEXT): $(test_dump_OBJECTS) $(test_dump_DEPENDENCIES)
 	$(LINK) $(test_dump_OBJECTS) $(test_dump_LDADD) $(LIBS)
 test-gomoku$(EXEEXT): $(test_gomoku_OBJECTS) $(test_gomoku_DEPENDENCIES) 
 	@rm -f test-gomoku$(EXEEXT)
-	$(LINK) $(test_gomoku_OBJECTS) $(test_gomoku_LDADD) $(LIBS)
+	$(test_gomoku_LINK) $(test_gomoku_OBJECTS) $(test_gomoku_LDADD) $(LIBS)
 test-tateti$(EXEEXT): $(test_tateti_OBJECTS) $(test_tateti_DEPENDENCIES) 
 	@rm -f test-tateti$(EXEEXT)
 	$(LINK) $(test_tateti_OBJECTS) $(test_tateti_LDADD) $(LIBS)
