@@ -45,6 +45,9 @@ int   ajedrez_check(){
     fclose( fpng ); 
 
     assert( size == 1426 );
+    if( md5_mem( ajedrez_png, size ) != -1446965539 ){
+        printf( "Atencion cambio el md5 => %d\n", md5_mem( ajedrez_png, size ) );
+    }
     assert( md5_mem( ajedrez_png, size ) == -1446965539 );
     qgames_free_png( ajedrez_png );  
 

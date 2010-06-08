@@ -17,6 +17,7 @@
 #include  "log.h"
 #include  "tipojuego.h"
 #include  "graphdef.h"
+#include  "errno.h"
 
 /*
  * Esta funcion arma un tablero tipo damero (checkerboard)
@@ -70,6 +71,104 @@ gdImagePtr  graph_dibujar_grid( int w, int h, int cw, int ch, int f, int b ){
     return  gd;
 
 }
+
+
+gdImagePtr  graph_tpieza_get_png( Tipopieza* tp, int color ){
+    if( !tp->tipojuego->graphdefs ) return NULL;
+    int i;
+    Graphdef* g = NULL;
+    Graphdef* g0 = NULL;
+
+
+    for( i = 0; i < tp->tipojuego->graphdefs->entradas; i ++ ){
+        Graphdef* g2 = tp->tipojuego->graphdefs->data[i];
+        if( g2->tipo == TIPOGRAPH_TPIEZA && g2->tpieza == tp  ){
+            if( g2->color == color ){
+                g = g2;
+                break;
+            } else if( g2->color == 0 ){
+                g0 = g2;
+            }
+        }
+    }
+
+    if( !g && !g0 ){
+        LOGPRINT( 2, "No se puede encontrar grafico para %s", tp->nombre );
+        return NULL;
+    } else if ( !g ) g = g0;
+
+    if( g->gd ) return g->gd;
+    if( g->cus ){
+        FILE* fpng = fopen( g->cus, "r" );
+        if( !fpng ){
+            LOGPRINT( 2, "No puede abrir %s", fpng );
+            return NULL;
+        }
+        g->gd = gdImageCreateFromPng( fpng );
+        g->w  = gdImageSX( g->gd );
+        g->h  = gdImageSY( g->gd );
+        fclose( fpng );
+        return  g->gd;
+    }
+
+    char* piece;
+    char* colorname;
+    char  size[24];
+    char  filename[1024];
+    switch( g->std ){
+        case  STANDARD_GEM        :
+            piece = "gema";
+            break;
+        case  STANDARD_BISHOP     :
+            piece = "alfil";
+            break;
+        case  STANDARD_KING       :
+            piece = "rey";
+            break;
+        case  STANDARD_KNIGHT     :
+            piece = "caballo";
+            break;
+        case  STANDARD_PAWN       :
+            piece = "peon";
+            break;
+        case  STANDARD_QUEEN      :
+            piece = "dama";
+            break;
+        case  STANDARD_ROOK       :
+            piece = "torre";
+            break;
+        default:
+            LOGPRINT( 2, "No esta definido pieza estandar %d", g->std );
+            return NULL;
+    }
+
+    sprintf( size, "%dx%d", g->w, g->h );
+    colorname = tipojuego_get_colorname( tp->tipojuego, color );
+    sprintf( filename, "%s/images/%s/%s-%s.png", DATADIR, size, piece, colorname );
+    FILE* f = fopen( filename, "r" );
+    if( !f ){
+        LOGPRINT( 2, "Error al abrir %s (%d - %s)", filename, errno, strerror );
+        return NULL;
+    }
+    gdImagePtr gd = gdImageCreateFromPng( f );
+    fclose( f );
+
+    // Ahora lo que hago es volver a crear una imagen para ponerlo en la 
+    // lista para luego poder tomarla como corresponde, ya que las estandares
+    // no tienen color
+    g0 = malloc( sizeof( Graphdef ) );
+    memset( g0, 0, sizeof( Graphdef ) );
+    g0->tipo   = TIPOGRAPH_TPIEZA;
+    g0->tpieza = tp;
+    g0->std    = g->std;
+    g0->w      = g->w;
+    g0->h      = g->h;
+    g0->gd     = gd;
+    
+    list_agrega( tp->tipojuego->graphdefs, g0 );
+    return gd;
+}
+
 
 #endif
 
@@ -158,6 +257,21 @@ int    tipojuego_get_tablero_png( Tipojuego* tj, int board_number, int flags, vo
 }
 
 
+/*
+ * Bueno, vamos a ver si podemos obtener la pieza
+ * */
+int    tipojuego_get_tpieza_png( Tipojuego* tj, char* color, char* tpieza, void** png ){
+#if HAVE_GD_H
+    Tipopieza* tp = tj->tipo_piezas->data[ GETTIPOPIEZA(tj,tpieza) ];
+    int  col      = GETCOLOR(tj,color);
+    gdImagePtr gd = graph_tpieza_get_png( tp, col );
+    int  size = 0;
+    if( png ) *png = gdImagePngPtr( gd, &size );
+    return size;
+#endif
+    LOGPRINT( 2, "No compilado con el modulo GD tpieza = %s", tpieza );
+    return 0;
+}
 /*
  *
  * Esta es la funcion que libera lo alocado por la librería GD

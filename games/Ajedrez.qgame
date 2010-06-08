@@ -274,3 +274,9 @@ notation:   enroque_largo   "0-0-0"
 # Aca vienen las definiciones de tablero ... simplemente voy a hacer
 # un damero de dimensiones estandares
 graph-board: checkerboard   384 384    $FFFFFF $A0A0A0 
+graph-piece: standard-king     rey   48 48
+graph-piece: standard-queen    dama  48 48
+graph-piece: standard-bishop   alfil 48 48
+graph-piece: standard-knight   caballo  48 48
+graph-piece: standard-rook     torre 48 48
+graph-piece: standard-peon     pawn  48 48

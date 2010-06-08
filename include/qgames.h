@@ -117,7 +117,7 @@ void   tipojuego_graph_casillero_cus   ( Tipojuego* tj, char* casillero, char* f
  *
  * */
 int    tipojuego_get_tablero_png( Tipojuego* tj, int board_number, int flags, void** png );
-int    tipojuego_get_tpieza_png( Tipojuego* tj, char* color, char* tpieza );
+int    tipojuego_get_tpieza_png( Tipojuego* tj, char* color, char* tpieza, void** png );
 void   qgames_free_pgn( void* );
 
 
