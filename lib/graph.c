@@ -25,8 +25,8 @@
 gdImagePtr  graph_dibujar_checkerboard( int w, int h, int cw, int ch, int f, int b ){
     int i, j;
     gdImagePtr  gd = gdImageCreateTrueColor( h, w );
-    int  fondo  = gdImageColorAllocate( gd, ( b | 0xFF0000 ) >> 24, ( b | 0xFF00 ) >> 16 , b | 0xFF );
-    int  frente = gdImageColorAllocate( gd, ( f | 0xFF0000 ) >> 24, ( f | 0xFF00 ) >> 16 , f | 0xFF );
+    int  fondo  = gdImageColorAllocate( gd, b >> 16, ( b & 0xFF00 ) >> 8 , b & 0xFF );
+    int  frente = gdImageColorAllocate( gd, f >> 16, ( f & 0xFF00 ) >> 8 , f & 0xFF );
     gdImageFilledRectangle( gd, 0, 0, w - 1, h - 1, fondo );
     for( i = 0; i < cw; i ++ ){
         int color_f = ( i % 2 == 0 ? fondo : frente );
@@ -45,20 +45,23 @@ gdImagePtr  graph_dibujar_checkerboard( int w, int h, int cw, int ch, int f, int
 gdImagePtr  graph_dibujar_grid( int w, int h, int cw, int ch, int f, int b ){
     int i, j;
 
-    gdImagePtr  gd = gdImageCreateTrueColor( h + 4, w + 4 );
-    int  fondo  = gdImageColorAllocate( gd, ( b | 0xFF0000 ) >> 24, ( b | 0xFF00 ) >> 16 , b | 0xFF );
-    int  frente = gdImageColorAllocate( gd, ( f | 0xFF0000 ) >> 24, ( f | 0xFF00 ) >> 16 , f | 0xFF );
-    gdImageFilledRectangle( gd, 0, 0, w - 3, h - 3, fondo );
-    gdImageSetThickness( gd, 4 ); // La linea de cuatro pixel que pienso dibujar por el borde
+    gdImagePtr  gd = gdImageCreateTrueColor( h + 6, w + 6 );
+    int  fondo  = gdImageColorAllocate( gd, b >> 16, ( b & 0xFF00 ) >> 8 , b & 0xFF );
+    int  frente = gdImageColorAllocate( gd, f >> 16, ( f & 0xFF00 ) >> 8 , f & 0xFF );
+    gdImageFilledRectangle( gd, 0, 0, w + 5, h + 5, fondo );
+    gdImageSetThickness( gd, 1 ); // La linea de cuatro pixel que pienso dibujar por el borde
     // Dibujo un rectangulo alrededor de todo el tablero.
-    gdImageRectangle( gd, 0, 0, w - 3, h - 3, frente );
+    // gdImageRectangle( gd, 0, 0, w + 3 , h + 3 , frente );
+    gdImageRectangle( gd, 1, 1, w + 4 , h + 4 , frente );
+    gdImageRectangle( gd, 2, 2, w + 3 , h + 3 , frente );
+    gdImageRectangle( gd, 3, 3, w + 2 , h + 2 , frente );
     gdImageSetThickness( gd, 2 ); // La linea de dos pixel que pienso dibujar
 
-    for( i = 1; i < cw; i ++ ){
-        gdImageLine( gd, cw * i, 0, cw * i, h, frente );
+    for( i = 1; i < cw - 1; i ++ ){
+        gdImageLine( gd, 3 + cw * i, 3 + 0, 3 + cw * i, 3 + h, frente );
     }
-    for( i = 1; i < ch; i ++ ){
-        gdImageLine( gd, 0, ch * i, w, ch * i, frente );
+    for( i = 1; i < ch - 1; i ++ ){
+        gdImageLine( gd, 3 + 0, 3 + ch * i, 3 + w, 3 + ch * i, frente );
     }
     return  gd;
 
@@ -76,6 +79,7 @@ int    tipojuego_get_tablero_png( Tipojuego* tj, int board_number, void** png ){
         return 0;
     }
     Tablero* tt = tipojuego_get_tablero( tj, board_number );
+    assert( tt );
 
     if( !(g = tablero_get_graphdef( tt ) ) ){
         LOGPRINT( 2, "No se encuentra definicion para board = %d", board_number );
@@ -112,10 +116,11 @@ int    tipojuego_get_tablero_png( Tipojuego* tj, int board_number, void** png ){
         }
         switch(g->std){
             case  TYPE_CHECKERBOARD   :
-                g->gd = graph_dibujar_checkerboard( g->w, g->h, tt->dimmax[0], tt->dimmax[1], g->f, g->b );
+                g->gd = graph_dibujar_checkerboard( g->w, g->h, g->w / tt->dimmax[0], g->h / tt->dimmax[1], g->f, g->b );
                 break;
             case  TYPE_GRID           :
-                g->gd = graph_dibujar_grid( g->w, g->h, tt->dimmax[0], tt->dimmax[1], g->f, g->b );
+                g->gd = graph_dibujar_grid( g->w, g->h, g->w / tt->dimmax[0], g->h / tt->dimmax[1], g->f, g->b );
+                break;
             case  TYPE_INTERSECTIONS  :
                 LOGPRINT( 2, "No implementado %d", g->std );
                 return 0;

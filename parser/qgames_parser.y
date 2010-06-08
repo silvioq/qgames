@@ -793,12 +793,13 @@ instruction_gametype:
 /* ------------------------------------------------------------------------- */
 instruction_graph_colors:
     TOK_HTMLCOLOR  ','  TOK_HTMLCOLOR { html_color1 = $1; html_color2 = $3; }  |
-    TOK_HTMLCOLOR       TOK_HTMLCOLOR { html_color1 = $1; html_color2 = $2; } ;
+    TOK_HTMLCOLOR       TOK_HTMLCOLOR { html_color1 = $1; html_color2 = $2;
+                                      qgzprintf( "Frente: %x Fondo: %x", html_color1, html_color2 ); } ;
 
 instruction_graph_dimensions:
     TOK_NUMBER     ','  TOK_NUMBER    { graph_dim1 = $1; graph_dim2 = $3; } |
     TOK_NUMBER     'x'  TOK_NUMBER    { graph_dim1 = $1; graph_dim2 = $3; } |
-    TOK_NUMBER          TOK_NUMBER    { graph_dim1 = $1; graph_dim2 = $2; };
+    TOK_NUMBER          TOK_NUMBER    { graph_dim1 = $1; graph_dim2 = $2; qgzprintf( "%dx%d", $1, $2 ); };
 
 instruction_graph_def_prelude:
     { graph_dim1 = 0; graph_dim2 = 0; html_color1 = 0; html_color2 = 0; } ;
@@ -819,7 +820,9 @@ instruction_graph_standard:
     TOK_STANDARD_ROOK    { $$ = STANDARD_ROOK; }  ;
 
 board_number:
-    TOK_NUMBER  { $$ = $1; } | { $$ = BOARD_ACTUAL; };
+    TOK_NUMBER  { $$ = $1; 
+                  qgzprintf( "Tablero %d", $1 ); } | 
+                { $$ = BOARD_ACTUAL; qgzprintf( "Tablero actual" ); };
 
 board_std_type:
     TOK_CHECKERBOARD { $$ = TYPE_CHECKERBOARD; } | 
@@ -832,6 +835,14 @@ instruction_graph:
         tipojuego_graph_tablero_std( tipojuego, $2, $3, graph_dim1, graph_dim2, html_color1, html_color2 );
      } |
     TOK_GRAPH_BOARD   board_number  word_or_string                             { NOT_IMPLEMENTED_WARN( "graph-board file" ) } |
+    TOK_GRAPH_PIECE   instruction_graph_standard  word_or_string  instruction_graph_dimensions  {
+        CHECK_TIPOJUEGO;
+        if( tipojuego_get_tipopieza( tipojuego, ((char*)$3) ) == NOT_FOUND ){ 
+            qgzprintf( "%s debe ser un tipo de pieza", ((char*)$3) );
+            yyerror( "Debe ser un tipo de pieza" ); YYERROR;
+        }
+        tipojuego_graph_tipopieza_std( tipojuego, ((char*)$3), $2, graph_dim1, graph_dim2 );
+    } |
     TOK_GRAPH_PIECE   word_or_string  instruction_graph_standard  instruction_graph_dimensions  {
         CHECK_TIPOJUEGO;
         if( tipojuego_get_tipopieza( tipojuego, ((char*)$2) ) == NOT_FOUND ){ 
@@ -839,8 +850,7 @@ instruction_graph:
             yyerror( "Debe ser un tipo de pieza" ); YYERROR;
         }
         tipojuego_graph_tipopieza_std( tipojuego, ((char*)$2), $3, graph_dim1, graph_dim2 );
-    } 
-|
+    } |
     TOK_GRAPH_PIECE   word_or_string  word_or_string               { NOT_IMPLEMENTED_WARN( "graph-piece string" ); } |
     TOK_GRAPH_SQUARE  word_or_string  word_or_string               { NOT_IMPLEMENTED_WARN( "graph-square file" ); } |
     TOK_GRAPH_SQUARE  word_or_string  TOK_HTMLCOLOR                { NOT_IMPLEMENTED_WARN( "graph-square color" ); } |

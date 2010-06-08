@@ -49,7 +49,7 @@ char       string_ret ; // donde retorna
 WORD      ([a-zA-Z\?][a-zA-Z0-9\-\_]*\??)
 SPACES    [ ]+
 BAR       (\_|\-)?
-HTMLCOL   (\#[0-9a-fA-F]{6})|(\#[0-9a-fA-F]{3})
+HTMLCOL   (\$[0-9a-fA-F]{6})|(\$[0-9a-fA-F]{3})
 
 %%
 
@@ -75,7 +75,8 @@ HTMLCOL   (\#[0-9a-fA-F]{6})|(\#[0-9a-fA-F]{3})
                           return TOK_STRING; }  
                     }
 
-<INITIAL>{HTMLCOL}  { if( yyleng == 4 ){
+<INITIAL,code>{HTMLCOL}  { 
+                    if( yyleng == 4 ){
                           qgzlval = HEXTOI(yytext[1]) * 16 * 16 * 16 * 16 + 
                                     HEXTOI(yytext[2]) * 16 * 16 + 
                                     HEXTOI(yytext[3]) ;
@@ -212,8 +213,6 @@ define\:        { define_created = 0; BEGIN(define_head);   }
 <code>ocupado\??             { return TOK_OCUPADO;   }
 <code>ocupado{BAR}enemigo\??                  { return  TOK_OCUPADOENEMIGO;   }
 <code>ocupado{BAR}propio\??                   { return  TOK_OCUPADOPROPIO;   }
-<code>ocupado{BAR}enemigo\??                  { return  TOK_OCUPADOENEMIGO;   }
-<code>ocupado{BAR}propio\??                   { return  TOK_OCUPADOPROPIO;   }
 <code>origen{BAR}ant(erior)?\??               { return  TOK_ORIGEN_ANT; }
 <code>parar?                                  { return  TOK_PARA;        }
 <code>parar?{BAR}si                           { return  TOK_PARA_SI;     }
@@ -245,7 +244,7 @@ define\:        { define_created = 0; BEGIN(define_head);   }
                                   }
 
 <INITIAL,code>[ \t\r]+        /* ignore whitespace */
-<INITIAL,code>\#[^\n]*        /* ignora comentario */
+<INITIAL,code>\#[^\n]*        /* ignora comentario */ 
 
 
 \n              { return  TOK_SEPARATOR ; }

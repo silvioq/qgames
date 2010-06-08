@@ -72,3 +72,7 @@ ending:
 start:       gema   blanco   99
 start:       gema   negro    99
 
+
+graph-board: grid   390 390   $000000  $FFFF00
+graph-piece: standard-gem  gema   30 30
+# graph-piece: standard-gem  blanco 30 30

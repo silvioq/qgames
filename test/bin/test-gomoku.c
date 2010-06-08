@@ -148,15 +148,14 @@ int  main(int argc, char** argv) {
         assert( errno == EEXIST );
     }
     void * gomoku_png;
-    FILE*  fpng; /*
-    TODO: Esto hay que descomentarlo!
+    FILE*  fpng; 
     int size = tipojuego_get_tablero_png( gomoku, BOARD_ACTUAL, &gomoku_png );
     printf( "." );
     assert( size );
 
     fpng = fopen( "../../tmp/gomoku.png", "w" );
     assert( fwrite( gomoku_png, size, 1, fpng ) );
-    fclose( fpng ); */
+    fclose( fpng ); 
     
     
 

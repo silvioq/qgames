@@ -188,7 +188,7 @@ typedef  struct  StrZonadef{
 
 #define  tipojuego_get_tablero(tj,num) ({\
     assert( num <= tj->tableros->entradas );\
-    (Tablero*) tj->tableros->data[num]; \
+    (Tablero*) tj->tableros->data[num - 1]; \
   })
 
 /* Funciones de acceso a datos de tipojuego */
