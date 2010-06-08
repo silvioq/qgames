@@ -24,6 +24,26 @@
 
 Tipojuego* aje;
 Tipojuego* losalamos;
+Tipojuego* ajedrez;
+
+int   ajedrez_check(){
+
+    Partida*   partida;
+    char* notacion;
+    char *filename = "../../games/Ajedrez.qgame";
+    void * ajedrez_png;
+    FILE*  fpng; 
+
+    printf( "." );
+    assert( ajedrez = qgz_parse_filename( filename, 0 ) );
+    int size = tipojuego_get_tablero_png( ajedrez, BOARD_ACTUAL, &ajedrez_png );
+    printf( "." );
+    assert( size );
+
+    fpng = fopen( "../../tmp/ajedrez.png", "w" );
+    assert( fwrite( ajedrez_png, size, 1, fpng ) );
+    fclose( fpng ); 
+}
 
 int   los_alamos(){
 
@@ -171,6 +191,8 @@ int  main(int argc, char** argv) {
     assert( partida_final( partida, NULL ) == 2 ); // gana el negro
 
     los_alamos() ;
+
+    ajedrez_check();
 
 
     printf( "\n" );

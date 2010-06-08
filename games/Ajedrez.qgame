@@ -271,3 +271,6 @@ notation:   onrepeat  piece-name  origin             mark    target
 notation:   enroque_corto   "0-0"
 notation:   enroque_largo   "0-0-0"
 
+# Aca vienen las definiciones de tablero ... simplemente voy a hacer
+# un damero de dimensiones estandares
+graph-board: checkerboard   384 384    $FFFFFF $A0A0A0 

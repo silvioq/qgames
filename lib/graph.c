@@ -24,21 +24,25 @@
 #if  HAVE_GD_H
 gdImagePtr  graph_dibujar_checkerboard( int w, int h, int cw, int ch, int f, int b ){
     int i, j;
-    gdImagePtr  gd = gdImageCreateTrueColor( h, w );
+    gdImagePtr  gd = gdImageCreateTrueColor( w, h );
     int  fondo  = gdImageColorAllocate( gd, b >> 16, ( b & 0xFF00 ) >> 8 , b & 0xFF );
     int  frente = gdImageColorAllocate( gd, f >> 16, ( f & 0xFF00 ) >> 8 , f & 0xFF );
-    gdImageFilledRectangle( gd, 0, 0, w - 1, h - 1, fondo );
-    for( i = 0; i < cw; i ++ ){
+    gdImageFilledRectangle( gd, 0, 0, w - 1 , h - 1 , fondo );
+    int  cantx  = w / cw;
+    int  canty  = h / cw;
+    for( i = 0; i < cantx; i ++ ){
         int color_f = ( i % 2 == 0 ? fondo : frente );
-        for( j = 0; j < cw; j ++ ){
+        for( j = 0; j < canty; j ++ ){
             if( color_f == frente ){
-                gdImageFilledRectangle( gd, w - cw * ( i + 1 ), ch * j,
-                                            w - cw * i  - 1   , ch * ( j + 1 ) - 1,
+                LOGPRINT( 5, "y1=%d y2=%d",  h - ch * ( j + 1 ),  h - ch * j - 1 );
+                gdImageFilledRectangle( gd, cw * i,             h - ch * ( j + 1 ) ,
+                                            cw * ( i + 1 ) - 1, h - ch * j - 1, 
                                         frente );
                 color_f = fondo;
             } else color_f = frente;
         }
     }
+    return gd;
 }
 
 
