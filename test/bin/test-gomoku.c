@@ -24,6 +24,7 @@
 
 #include "../parser/pgn_scanner.h"
 #include "log.h"
+#include "md5.h"
 
 Tipojuego* gomoku;
 
@@ -149,7 +150,7 @@ int  main(int argc, char** argv) {
     }
     void * gomoku_png;
     FILE*  fpng; 
-    int size = tipojuego_get_tablero_png( gomoku, BOARD_ACTUAL, &gomoku_png );
+    int size = tipojuego_get_tablero_png( gomoku, BOARD_ACTUAL, 0, &gomoku_png );
     printf( "." );
     assert( size );
 
@@ -157,7 +158,21 @@ int  main(int argc, char** argv) {
     assert( fwrite( gomoku_png, size, 1, fpng ) );
     fclose( fpng ); 
     
+    assert( size == 1585 );
+    assert( md5_mem( gomoku_png, size ) == -1645013337 );
+    qgames_free_png( gomoku_png );
+
+    size = tipojuego_get_tablero_png( gomoku, BOARD_ACTUAL, GETPNG_ROTADO, &gomoku_png );
+    printf( "." );
+    assert( size );
+
+    fpng = fopen( "../../tmp/gomoku-r.png", "w" );
+    assert( fwrite( gomoku_png, size, 1, fpng ) );
+    fclose( fpng ); 
     
+    assert( size == 1585 );
+    assert( md5_mem( gomoku_png, size ) == -1645013337 );
+    qgames_free_png( gomoku_png );
 
     printf( "\n" );
     return  EXIT_SUCCESS;

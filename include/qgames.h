@@ -112,11 +112,13 @@ void   tipojuego_graph_casillero_cus   ( Tipojuego* tj, char* casillero, char* f
  * En todos los casos, en caso de fallos, devolvera 0, sino, 
  * la cantidad de bytes.
  * Una vez utilizado, debe eliminarse los datos del elemento
- * png, mediante un free
+ * png, mediante un free_pgn
+ * Los flags, pueden tener GETPNG_ROTADO.
  *
  * */
-int    tipojuego_get_tablero_png( Tipojuego* tj, int board_number, void** png );
+int    tipojuego_get_tablero_png( Tipojuego* tj, int board_number, int flags, void** png );
 int    tipojuego_get_tpieza_png( Tipojuego* tj, char* color, char* tpieza );
+void   qgames_free_pgn( void* );
 
 
 
@@ -157,7 +159,7 @@ Partida*    partida_load( Tipojuego* tj, void* data, int size );
  * Esta funcion devuelve la imagen de la partida
  * En caso de fallos, devolvera 0, sino, la cantidad de bytes.
  * Una vez utilizado, debe eliminarse los datos del elemento
- * png, mediante un free
+ * png, mediante un free_pgn
  * El parametro flags indicara si la posicion debera dibujarse
  * en forma inversa (rotado para las negras), si hay highlight
  * de ultima movida y otras que iran aparenciendo

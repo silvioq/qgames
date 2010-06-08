@@ -9,6 +9,7 @@
 #define  TIPOJUEGO_H  1
 
 #include  <qcode.h>
+#include  "config.h"
 #include  "list.h"
 
 typedef   struct   StrNotacion  Notacion;

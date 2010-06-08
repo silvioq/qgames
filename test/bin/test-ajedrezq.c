@@ -36,13 +36,27 @@ int   ajedrez_check(){
 
     printf( "." );
     assert( ajedrez = qgz_parse_filename( filename, 0 ) );
-    int size = tipojuego_get_tablero_png( ajedrez, BOARD_ACTUAL, &ajedrez_png );
+    int size = tipojuego_get_tablero_png( ajedrez, BOARD_ACTUAL, 0, &ajedrez_png );
     printf( "." );
     assert( size );
 
     fpng = fopen( "../../tmp/ajedrez.png", "w" );
     assert( fwrite( ajedrez_png, size, 1, fpng ) );
     fclose( fpng ); 
+
+    assert( size == 1426 );
+    assert( md5_mem( ajedrez_png, size ) == -1446965539 );
+    qgames_free_png( ajedrez_png );  
+
+    printf( "." );
+    size = tipojuego_get_tablero_png( ajedrez, BOARD_ACTUAL, GETPNG_ROTADO, &ajedrez_png );
+    fpng = fopen( "../../tmp/ajedrez-r.png", "w" );
+    assert( fwrite( ajedrez_png, size, 1, fpng ) );
+    fclose( fpng ); 
+    
+    assert( size == 1426 );
+    assert( md5_mem( ajedrez_png, size ) == -1446965539 );
+    qgames_free_png( ajedrez_png );  
 }
 
 int   los_alamos(){

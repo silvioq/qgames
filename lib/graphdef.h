@@ -21,15 +21,18 @@ typedef struct  StrGraphdef {
         Tipopieza* tpieza;
         Casillero* cas;
     };
-    char    std;
-    int     w;
-    int     h;
-    int     f;
-    int     b;
-    int     color;
-    char*   cus;
-#ifdef  HAVE_GD_H
+    char    std;    // Flag de imagen estandar
+    int     w;      // Width ancho
+    int     h;      // Height alto
+    int     f;      // Color frente (Forecolor)
+    int     b;      // Color fondo  (Backcolor)
+    int     ox;     // Offset x
+    int     oy;     // Offset y
+    int     color;  // Color de la pieza
+    char*   cus;    // Nombre del archivo "custom"
+#if HAVE_GD_H
     gdImagePtr  gd;
+    gdImagePtr  gd_r;   // Rotado
 #endif
 } _Graphdef;
 
