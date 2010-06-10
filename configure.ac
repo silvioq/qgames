@@ -31,6 +31,8 @@ AC_SUBST([CURSES_LIBS])
 AC_SUBST([GD_LIBS])
 AC_SUBST([PNG_LIBS])
 
+AC_SUBST([gamesdir], ["\$(pkgdatadir)/games"])
+AC_SUBST([imagesdir], ["\$(pkgdatadir)/images"])
 
 if test x"${ac_cv_lib_png_png_read_info}" = xyes; then
     if  test x"${ac_cv_lib_gd_gdImageCreate}" = xyes; then

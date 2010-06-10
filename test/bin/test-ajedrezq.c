@@ -60,6 +60,23 @@ int   ajedrez_check(){
     assert( size == 1426 );
     assert( md5_mem( ajedrez_png, size ) == -1446965539 );
     qgames_free_png( ajedrez_png );  
+
+    printf( "." );
+    size = tipojuego_get_tpieza_png( ajedrez, "blanco", "peon", &ajedrez_png );
+    fpng = fopen( "../../tmp/ajedrez-peon.png", "w" );
+    assert( fwrite( ajedrez_png, size, 1, fpng ) );
+    fclose( fpng ); 
+    qgames_free_png( ajedrez_png );  
+
+
+    printf( "." );
+    size = tipojuego_get_tpieza_png( ajedrez, "negro", "rey", &ajedrez_png );
+    fpng = fopen( "../../tmp/ajedrez-rey.png", "w" );
+    assert( fwrite( ajedrez_png, size, 1, fpng ) );
+    fclose( fpng ); 
+    qgames_free_png( ajedrez_png );  
+    
+    
 }
 
 int   los_alamos(){

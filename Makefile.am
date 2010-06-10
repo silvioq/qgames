@@ -1,9 +1,9 @@
 SUBDIRS = tools vm lib parser test ifaces
 
-# EXTRA_DIST = $(srcdir)/games/*.qgame $(srcdir)/tools/*.sh
 EXTRA_DIST = $(srcdir)/tools/*.sh
-gamesdir = $(pkgdatadir)/games
-imagesdir = $(pkgdatadir)/images
 dist_games_DATA = $(srcdir)/games/*.qgame
-dist_images_DATA = $(srcdir)/images/48x48/*.png $(srcdir)/images/30x30/*.png
+images48dir=$(pkgdatadir)/images/48x48
+images30dir=$(pkgdatadir)/images/30x30
+dist_images48_DATA = $(srcdir)/images/48x48/*.png
+dist_images30_DATA = $(srcdir)/images/30x30/*.png
 

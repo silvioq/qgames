@@ -144,10 +144,10 @@ gdImagePtr  graph_tpieza_get_png( Tipopieza* tp, int color ){
 
     sprintf( size, "%dx%d", g->w, g->h );
     colorname = tipojuego_get_colorname( tp->tipojuego, color );
-    sprintf( filename, "%s/images/%s/%s-%s.png", DATADIR, size, piece, colorname );
+    sprintf( filename, "%s/%s/%s-%s.png", IMGDIR, size, piece, colorname );
     FILE* f = fopen( filename, "r" );
     if( !f ){
-        LOGPRINT( 2, "Error al abrir %s (%d - %s)", filename, errno, strerror );
+        LOGPRINT( 2, "Error al abrir %s (%d - %s)", filename, errno, strerror(errno) );
         return NULL;
     }
     gdImagePtr gd = gdImageCreateFromPng( f );
