@@ -21,6 +21,7 @@
 
 #include "../parser/pgn_scanner.h"
 #include "log.h"
+#include "config.h"
 
 Tipojuego* aje;
 Tipojuego* losalamos;
@@ -36,6 +37,8 @@ int   ajedrez_check(){
 
     printf( "." );
     assert( ajedrez = qgz_parse_filename( filename, 0 ) );
+
+#if GRAPH_ENABLED
     int size = tipojuego_get_tablero_png( ajedrez, BOARD_ACTUAL, 0, &ajedrez_png );
     printf( "." );
     assert( size );
@@ -66,6 +69,7 @@ int   ajedrez_check(){
     fpng = fopen( "../../tmp/ajedrez-peon.png", "w" );
     assert( fwrite( ajedrez_png, size, 1, fpng ) );
     fclose( fpng ); 
+    assert( size == 298 );
     qgames_free_png( ajedrez_png );  
 
 
@@ -74,7 +78,13 @@ int   ajedrez_check(){
     fpng = fopen( "../../tmp/ajedrez-rey.png", "w" );
     assert( fwrite( ajedrez_png, size, 1, fpng ) );
     fclose( fpng ); 
+    assert( size == 433 );
     qgames_free_png( ajedrez_png );  
+#else
+    // Si no tengo los graficos habilitados, esto tiene que volver con
+    // cero
+    assert( tipojuego_get_tablero_png( ajedrez, BOARD_ACTUAL, 0, NULL ) == 0 );
+#endif
     
     
 }

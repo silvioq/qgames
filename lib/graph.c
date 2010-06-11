@@ -16,13 +16,16 @@
 
 #include  "log.h"
 #include  "tipojuego.h"
+#include  "pieza.h"
+#include  "movida.h"
+#include  "partida.h"
 #include  "graphdef.h"
 #include  "errno.h"
 
 /*
  * Esta funcion arma un tablero tipo damero (checkerboard)
  * */
-#if  HAVE_GD_H
+#if  GRAPH_ENABLED
 gdImagePtr  graph_dibujar_checkerboard( int w, int h, int cw, int ch, int f, int b ){
     int i, j;
     gdImagePtr  gd = gdImageCreateTrueColor( w, h );
@@ -170,18 +173,15 @@ gdImagePtr  graph_tpieza_get_png( Tipopieza* tp, int color ){
 }
 
 
-#endif
-
-int    tipojuego_get_tablero_png( Tipojuego* tj, int board_number, int flags, void** png ){
-#if HAVE_GD_H
+gdImagePtr    graph_get_tablero_png( Tipojuego* tj, int board_number, int flags ){
     Graphdef*  g;
     gdImagePtr gd;
-    int size;
-    if( board_number == BOARD_ACTUAL ) return tipojuego_get_tablero_png( tj, tj->tablero_actual, flags, png );
+
     if( !tj->graphdefs ){
         LOGPRINT( 2, "No hay definiciones de grafico board = %d", board_number );
         return 0;
     }
+
     Tablero* tt = tipojuego_get_tablero( tj, board_number );
     assert( tt );
 
@@ -248,6 +248,17 @@ int    tipojuego_get_tablero_png( Tipojuego* tj, int board_number, int flags, vo
         }
         gd = g->gd_r;
     }
+    return  gd;
+}
+#endif
+
+
+int    tipojuego_get_tablero_png( Tipojuego* tj, int board_number, int flags, void** png ){
+#if GRAPH_ENABLED
+    int size;
+    if( board_number == BOARD_ACTUAL ) return tipojuego_get_tablero_png( tj, tj->tablero_actual, flags, png );
+    gdImagePtr gd = graph_get_tablero_png( tj, board_number, flags );
+
     if( png ) *png = gdImagePngPtr( gd, &size );
     return size;
 #else
@@ -261,7 +272,7 @@ int    tipojuego_get_tablero_png( Tipojuego* tj, int board_number, int flags, vo
  * Bueno, vamos a ver si podemos obtener la pieza
  * */
 int    tipojuego_get_tpieza_png( Tipojuego* tj, char* color, char* tpieza, void** png ){
-#if HAVE_GD_H
+#if GRAPH_ENABLED
     Tipopieza* tp = tj->tipo_piezas->data[ GETTIPOPIEZA(tj,tpieza) ];
     int  col      = GETCOLOR(tj,color);
     gdImagePtr gd = graph_tpieza_get_png( tp, col );
@@ -278,9 +289,55 @@ int    tipojuego_get_tpieza_png( Tipojuego* tj, char* color, char* tpieza, void*
  *
  * */
 void   qgames_free_png( void* png ){
-#if HAVE_GD_H
+#if GRAPH_ENABLED
     gdFree( png );
 #endif
+}
+
+
+/*
+ * Esta funcion es la encargada de dibujar una posicion cualquiera
+ * a partir de una partida. Contamos con el flag, que indicara 
+ * cuestiones como si la posicion debe verse rotada (la vista de
+ * las negras en el ajedrez) o el color de resaltado de la ultima 
+ * movida.
+ * Ademas, es posible ver cualquier posicion, esto se indica mediante
+ * la variable movida ...
+ * */
+
+int         partida_get_png( Partida* par, int flags, int movida, void** png ){
+#if  GRAPH_ENABLED 
+    int tablero_flags = ( flags | GETPNG_ROTADO );
+    Posicion* pos;
+
+    if( movida == 0 ){
+        pos = par->tjuego->inicial ;
+    } else if ( movida == par->movimientos->entradas || movida == LAST_MOVE ){
+        pos = par->pos;
+    } else if ( movida > par->movimientos->entradas ){
+        LOGPRINT( 2, "Movida pedida %d. Cantidad movimientos %d. Partida %s",
+                        movida, par->movimientos->entradas, par->id );
+        return 0;
+    } else {
+        Movida* mov = par->movimientos->data[movida];
+        pos = mov->pos;
+    }
+
+    gdImagePtr gd = graph_get_tablero_png( par->tjuego, par->tjuego->tablero_actual, tablero_flags );
+    if( !gd ){
+        LOGPRINT( 2, "No es posible obtener la imagen del tablero para %s en partida %s", par->tjuego->nombre,
+                       par->id );
+        return  0;
+    }
+
+    
+    assert( !"partida_get_png no implementado aun"  );
+    return 0;
+#else
+    LOGPRINT( 2, "No compilado con el modulo GD partida = %s", par->id );
+    return 0;
+#endif
+    
 }
 
 
