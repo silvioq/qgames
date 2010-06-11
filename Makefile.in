@@ -14,6 +14,7 @@
 
 @SET_MAKE@
 
+
 VPATH = @srcdir@
 pkgdatadir = $(datadir)/@PACKAGE@
 pkglibdir = $(libdir)/@PACKAGE@
@@ -34,7 +35,7 @@ build_triplet = @build@
 host_triplet = @host@
 subdir = .
 DIST_COMMON = README $(am__configure_deps) $(dist_games_DATA) \
-	$(dist_images30_DATA) $(dist_images48_DATA) \
+	$(dist_images30_DATA) $(dist_images48_DATA) $(include_HEADERS) \
 	$(srcdir)/Makefile.am $(srcdir)/Makefile.in \
 	$(srcdir)/config.h.in $(top_srcdir)/configure AUTHORS COPYING \
 	ChangeLog INSTALL NEWS TODO config.guess config.sub depcomp \
@@ -64,11 +65,13 @@ am__vpath_adj = case $$p in \
   esac;
 am__strip_dir = `echo $$p | sed -e 's|^.*/||'`;
 am__installdirs = "$(DESTDIR)$(gamesdir)" "$(DESTDIR)$(images30dir)" \
-	"$(DESTDIR)$(images48dir)"
+	"$(DESTDIR)$(images48dir)" "$(DESTDIR)$(includedir)"
 dist_gamesDATA_INSTALL = $(INSTALL_DATA)
 dist_images30DATA_INSTALL = $(INSTALL_DATA)
 dist_images48DATA_INSTALL = $(INSTALL_DATA)
 DATA = $(dist_games_DATA) $(dist_images30_DATA) $(dist_images48_DATA)
+includeHEADERS_INSTALL = $(INSTALL_HEADER)
+HEADERS = $(include_HEADERS)
 RECURSIVE_CLEAN_TARGETS = mostlyclean-recursive clean-recursive	\
   distclean-recursive maintainer-clean-recursive
 ETAGS = etags
@@ -211,6 +214,7 @@ images48dir = $(pkgdatadir)/images/48x48
 images30dir = $(pkgdatadir)/images/30x30
 dist_images48_DATA = $(srcdir)/images/48x48/*.png
 dist_images30_DATA = $(srcdir)/images/30x30/*.png
+include_HEADERS = include/qgames.h include/qgames_analyzer.h include/qgames_code.h
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-recursive
 
@@ -324,6 +328,23 @@ uninstall-dist_images48DATA:
 	  f=$(am__strip_dir) \
 	  echo " rm -f '$(DESTDIR)$(images48dir)/$$f'"; \
 	  rm -f "$(DESTDIR)$(images48dir)/$$f"; \
+	done
+install-includeHEADERS: $(include_HEADERS)
+	@$(NORMAL_INSTALL)
+	test -z "$(includedir)" || $(MKDIR_P) "$(DESTDIR)$(includedir)"
+	@list='$(include_HEADERS)'; for p in $$list; do \
+	  if test -f "$$p"; then d=; else d="$(srcdir)/"; fi; \
+	  f=$(am__strip_dir) \
+	  echo " $(includeHEADERS_INSTALL) '$$d$$p' '$(DESTDIR)$(includedir)/$$f'"; \
+	  $(includeHEADERS_INSTALL) "$$d$$p" "$(DESTDIR)$(includedir)/$$f"; \
+	done
+
+uninstall-includeHEADERS:
+	@$(NORMAL_UNINSTALL)
+	@list='$(include_HEADERS)'; for p in $$list; do \
+	  f=$(am__strip_dir) \
+	  echo " rm -f '$(DESTDIR)$(includedir)/$$f'"; \
+	  rm -f "$(DESTDIR)$(includedir)/$$f"; \
 	done
 
 # This directory's subdirectories are mostly independent; you can cd
@@ -606,10 +627,10 @@ distcleancheck: distclean
 	       exit 1; } >&2
 check-am: all-am
 check: check-recursive
-all-am: Makefile $(DATA) config.h
+all-am: Makefile $(DATA) $(HEADERS) config.h
 installdirs: installdirs-recursive
 installdirs-am:
-	for dir in "$(DESTDIR)$(gamesdir)" "$(DESTDIR)$(images30dir)" "$(DESTDIR)$(images48dir)"; do \
+	for dir in "$(DESTDIR)$(gamesdir)" "$(DESTDIR)$(images30dir)" "$(DESTDIR)$(images48dir)" "$(DESTDIR)$(includedir)"; do \
 	  test -z "$$dir" || $(MKDIR_P) "$$dir"; \
 	done
 install: install-recursive
@@ -657,7 +678,7 @@ info: info-recursive
 info-am:
 
 install-data-am: install-dist_gamesDATA install-dist_images30DATA \
-	install-dist_images48DATA
+	install-dist_images48DATA install-includeHEADERS
 
 install-dvi: install-dvi-recursive
 
@@ -694,7 +715,7 @@ ps: ps-recursive
 ps-am:
 
 uninstall-am: uninstall-dist_gamesDATA uninstall-dist_images30DATA \
-	uninstall-dist_images48DATA
+	uninstall-dist_images48DATA uninstall-includeHEADERS
 
 .MAKE: $(RECURSIVE_CLEAN_TARGETS) $(RECURSIVE_TARGETS) install-am \
 	install-strip
@@ -709,14 +730,15 @@ uninstall-am: uninstall-dist_gamesDATA uninstall-dist_images30DATA \
 	install-data install-data-am install-dist_gamesDATA \
 	install-dist_images30DATA install-dist_images48DATA \
 	install-dvi install-dvi-am install-exec install-exec-am \
-	install-html install-html-am install-info install-info-am \
-	install-man install-pdf install-pdf-am install-ps \
-	install-ps-am install-strip installcheck installcheck-am \
-	installdirs installdirs-am maintainer-clean \
-	maintainer-clean-generic mostlyclean mostlyclean-generic \
-	mostlyclean-libtool pdf pdf-am ps ps-am tags tags-recursive \
-	uninstall uninstall-am uninstall-dist_gamesDATA \
-	uninstall-dist_images30DATA uninstall-dist_images48DATA
+	install-html install-html-am install-includeHEADERS \
+	install-info install-info-am install-man install-pdf \
+	install-pdf-am install-ps install-ps-am install-strip \
+	installcheck installcheck-am installdirs installdirs-am \
+	maintainer-clean maintainer-clean-generic mostlyclean \
+	mostlyclean-generic mostlyclean-libtool pdf pdf-am ps ps-am \
+	tags tags-recursive uninstall uninstall-am \
+	uninstall-dist_gamesDATA uninstall-dist_images30DATA \
+	uninstall-dist_images48DATA uninstall-includeHEADERS
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

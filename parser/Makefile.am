@@ -2,7 +2,7 @@ lib_LIBRARIES = libqgames-parser.a libpgn-parser.a
 check_PROGRAMS = test-pgn test-symtable
 
 libqgames_parser_a_SOURCES = qgames_parser.y qgames_parser.h qgames_scanner.l symtable.c
-libpgn_parser_a_SOURCES = pgn_scanner.l
+libpgn_parser_a_SOURCES = pgn_scanner.l pgn_scanner.h
 
 AM_YFLAGS = -d -v -p qgz
 AM_LFLAGS = --prefix qgz -o lex.yy.c

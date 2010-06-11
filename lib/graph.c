@@ -19,6 +19,7 @@
 #include  "pieza.h"
 #include  "movida.h"
 #include  "partida.h"
+#include  "posicion.h"
 #include  "graphdef.h"
 #include  "errno.h"
 
@@ -76,7 +77,7 @@ gdImagePtr  graph_dibujar_grid( int w, int h, int cw, int ch, int f, int b ){
 }
 
 
-gdImagePtr  graph_tpieza_get_png( Tipopieza* tp, int color ){
+gdImagePtr  graph_tpieza_get_gd( Tipopieza* tp, int color ){
     if( !tp->tipojuego->graphdefs ) return NULL;
     int i;
     Graphdef* g = NULL;
@@ -275,7 +276,7 @@ int    tipojuego_get_tpieza_png( Tipojuego* tj, char* color, char* tpieza, void*
 #if GRAPH_ENABLED
     Tipopieza* tp = tj->tipo_piezas->data[ GETTIPOPIEZA(tj,tpieza) ];
     int  col      = GETCOLOR(tj,color);
-    gdImagePtr gd = graph_tpieza_get_png( tp, col );
+    gdImagePtr gd = graph_tpieza_get_gd( tp, col );
     int  size = 0;
     if( png ) *png = gdImagePngPtr( gd, &size );
     return size;
@@ -308,6 +309,7 @@ void   qgames_free_png( void* png ){
 int         partida_get_png( Partida* par, int flags, int movida, void** png ){
 #if  GRAPH_ENABLED 
     int tablero_flags = ( flags | GETPNG_ROTADO );
+    int i;
     Posicion* pos;
 
     if( movida == 0 ){
@@ -319,7 +321,7 @@ int         partida_get_png( Partida* par, int flags, int movida, void** png ){
                         movida, par->movimientos->entradas, par->id );
         return 0;
     } else {
-        Movida* mov = par->movimientos->data[movida];
+        Movida* mov = (Movida*) par->movimientos->data[movida];
         pos = mov->pos;
     }
 
@@ -328,6 +330,23 @@ int         partida_get_png( Partida* par, int flags, int movida, void** png ){
         LOGPRINT( 2, "No es posible obtener la imagen del tablero para %s en partida %s", par->tjuego->nombre,
                        par->id );
         return  0;
+    }
+  
+    for( i = 0; i < pos->piezas->entradas; i ++ ){
+        Pieza* p = (Pieza*) pos->piezas->data[i];
+        if( !CASILLERO_VALIDO( p->casillero ) ) continue;
+        gdImagePtr gdp = graph_tpieza_get_gd( p->tpieza, p->color );
+        if( !gdp ){
+          gdFree( gd );
+          return 0;
+        }
+        // Aca tengo que entontrar la posicion relativa de la pieza
+        // y colocar el dibujo. No es otra cosa que la posicion
+        // relativa del casillero por el tamaño (tablero->g->w / tablero->dimmax[0])
+        // mas el offset del tablero
+        if( flags | GETPNG_ROTADO ){
+        } else {
+        }
     }
 
     

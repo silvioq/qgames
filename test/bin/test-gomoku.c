@@ -144,10 +144,12 @@ int  main(int argc, char** argv) {
     partida_free( partida );
     printf( "." );
 
+#if GRAPH_ENABLED
     // A ver si dibujamos algo ...
     if( !mkdir( "../../tmp", S_IRWXU | S_IRWXG | S_IRWXO ) ){
         assert( errno == EEXIST );
     }
+
     void * gomoku_png;
     FILE*  fpng; 
     int size = tipojuego_get_tablero_png( gomoku, BOARD_ACTUAL, 0, &gomoku_png );
@@ -173,6 +175,7 @@ int  main(int argc, char** argv) {
     assert( size == 1585 );
     assert( md5_mem( gomoku_png, size ) == -1645013337 );
     qgames_free_png( gomoku_png );
+#endif
 
     printf( "\n" );
     return  EXIT_SUCCESS;
