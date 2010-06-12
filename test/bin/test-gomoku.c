@@ -16,6 +16,7 @@
 
 #include <qgames.h>
 #include <qgames_analyzer.h>
+#include "config.h"
 
 #include <sys/stat.h>
 #include <sys/types.h>
@@ -152,6 +153,7 @@ int  main(int argc, char** argv) {
 
     void * gomoku_png;
     FILE*  fpng; 
+    int i;
     int size = tipojuego_get_tablero_png( gomoku, BOARD_ACTUAL, 0, &gomoku_png );
     printf( "." );
     assert( size );
@@ -175,6 +177,30 @@ int  main(int argc, char** argv) {
     assert( size == 1585 );
     assert( md5_mem( gomoku_png, size ) == -1645013337 );
     qgames_free_png( gomoku_png );
+
+    printf( "." );
+    partida = tipojuego_create_partida( gomoku, NULL );
+    size = partida_get_png( partida, 0, LAST_MOVE, &gomoku_png );
+    assert( size > 0 );
+    fpng = fopen( "../../tmp/gomoku-inicio.png", "w" );
+    assert( fwrite( gomoku_png, size, 1, fpng ) );
+    fclose( fpng ); 
+    qgames_free_png( gomoku_png );
+    assert( size == 1585 );
+    for( i = 0; i < 10; i ++ ){
+        assert( partida_mover( partida, 34 ) );
+    }
+    size = partida_get_png( partida, GETPNG_HIGHLIGHT_BLUE, LAST_MOVE, &gomoku_png );
+    assert( size > 0 );
+    fpng = fopen( "../../tmp/gomoku-01.png", "w" );
+    assert( fwrite( gomoku_png, size, 1, fpng ) );
+    fclose( fpng ); 
+
+    size = partida_get_png( partida, GETPNG_HIGHLIGHT_GREEN | GETPNG_ROTADO, LAST_MOVE, &gomoku_png );
+    assert( size > 0 );
+    fpng = fopen( "../../tmp/gomoku-01-r.png", "w" );
+    assert( fwrite( gomoku_png, size, 1, fpng ) );
+    fclose( fpng ); 
 #endif
 
     printf( "\n" );

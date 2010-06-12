@@ -128,6 +128,7 @@ void   qgames_free_pgn( void* );
  * A partir de aca, comenzamos con la partida
  * */
 Partida*    tipojuego_create_partida( Tipojuego* tj, char* id );
+char*       partida_id( Partida* par );
 
 int         partida_mover         ( Partida* par, int mov );
 int         partida_mover_notacion( Partida* par, char* mov );
@@ -173,6 +174,7 @@ Partida*    partida_load( Tipojuego* tj, void* data, int size );
 #define  GETPNG_HIGHLIGHT_GREEN       0x02
 #define  GETPNG_HIGHLIGHT_BLUE        0x04
 #define  GETPNG_HIGHLIGHT_RED         0x08
+#define  GETPNG_HIGHLIGHTED(flag)   ( flag & ( GETPNG_HIGHLIGHT_GREEN | GETPNG_HIGHLIGHT_BLUE | GETPNG_HIGHLIGHT_RED ))
 #define  GETPNG_HIGHLIGHT_YELLOW    ( GETPNG_HIGHLIGHT_GREEN | GETPNG_HIGHLIGHT_RED )
 
 int         partida_get_png( Partida* par, int flags, int movida, void** png );

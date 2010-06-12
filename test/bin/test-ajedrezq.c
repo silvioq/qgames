@@ -34,12 +34,13 @@ int   ajedrez_check(){
     char *filename = "../../games/Ajedrez.qgame";
     void * ajedrez_png;
     FILE*  fpng; 
+    int  size, size2, size1;
 
     printf( "." );
     assert( ajedrez = qgz_parse_filename( filename, 0 ) );
 
 #if GRAPH_ENABLED
-    int size = tipojuego_get_tablero_png( ajedrez, BOARD_ACTUAL, 0, &ajedrez_png );
+    size = tipojuego_get_tablero_png( ajedrez, BOARD_ACTUAL, 0, &ajedrez_png );
     printf( "." );
     assert( size );
 
@@ -80,6 +81,98 @@ int   ajedrez_check(){
     fclose( fpng ); 
     assert( size == 433 );
     qgames_free_png( ajedrez_png );  
+
+    printf( "." );
+    partida = tipojuego_create_partida( ajedrez, NULL );
+    size = partida_get_png( partida, 0, LAST_MOVE, &ajedrez_png );
+    assert( size > 0 );
+    fpng = fopen( "../../tmp/ajedrez-inicio.png", "w" );
+    assert( fwrite( ajedrez_png, size, 1, fpng ) );
+    fclose( fpng ); 
+    qgames_free_png( ajedrez_png );  
+    assert( size == 10759 );
+
+    size = partida_get_png( partida, GETPNG_ROTADO, LAST_MOVE, &ajedrez_png );
+    assert( size > 0 );
+    fpng = fopen( "../../tmp/ajedrez-inicio-r.png", "w" );
+    assert( fwrite( ajedrez_png, size, 1, fpng ) );
+    fclose( fpng ); 
+    qgames_free_png( ajedrez_png );  
+    assert( size == 10773 );
+
+    assert( partida_mover_notacion( partida, "e4" ) );
+    size = partida_get_png( partida, 0, LAST_MOVE, &ajedrez_png );
+    assert( size > 0 );
+    fpng = fopen( "../../tmp/ajedrez-01.png", "w" );
+    assert( fwrite( ajedrez_png, size, 1, fpng ) );
+    fclose( fpng ); 
+    qgames_free_png( ajedrez_png );  
+
+    size2 = partida_get_png( partida, GETPNG_HIGHLIGHT_RED, LAST_MOVE, &ajedrez_png );
+    assert( size2 > 0 );
+    fpng = fopen( "../../tmp/ajedrez-01-h.png", "w" );
+    assert( fwrite( ajedrez_png, size2, 1, fpng ) );
+    fclose( fpng ); 
+    qgames_free_png( ajedrez_png );  
+    assert( size2 > size );
+    size1 = size2;
+
+    size = partida_get_png( partida, GETPNG_ROTADO, LAST_MOVE, &ajedrez_png );
+    assert( size > 0 );
+    fpng = fopen( "../../tmp/ajedrez-01-r.png", "w" );
+    assert( fwrite( ajedrez_png, size, 1, fpng ) );
+    fclose( fpng ); 
+    qgames_free_png( ajedrez_png );  
+
+    size2 = partida_get_png( partida, GETPNG_HIGHLIGHT_RED | GETPNG_ROTADO, LAST_MOVE, &ajedrez_png );
+    assert( size2 > 0 );
+    fpng = fopen( "../../tmp/ajedrez-01-rh.png", "w" );
+    assert( fwrite( ajedrez_png, size2, 1, fpng ) );
+    fclose( fpng ); 
+    qgames_free_png( ajedrez_png );  
+    assert( size2 > size );
+
+    printf( "." );
+    assert( partida_mover_notacion( partida, "e5" ) );
+    size = partida_get_png( partida, 0, LAST_MOVE, &ajedrez_png );
+    assert( size > 0 );
+    fpng = fopen( "../../tmp/ajedrez-02.png", "w" );
+    assert( fwrite( ajedrez_png, size, 1, fpng ) );
+    fclose( fpng ); 
+    qgames_free_png( ajedrez_png );  
+
+    size2 = partida_get_png( partida, GETPNG_HIGHLIGHT_RED, LAST_MOVE, &ajedrez_png );
+    assert( size2 > 0 );
+    fpng = fopen( "../../tmp/ajedrez-02-h.png", "w" );
+    assert( fwrite( ajedrez_png, size2, 1, fpng ) );
+    fclose( fpng ); 
+    qgames_free_png( ajedrez_png );  
+    assert( size2 > size );
+
+    size = partida_get_png( partida, GETPNG_ROTADO, LAST_MOVE, &ajedrez_png );
+    assert( size > 0 );
+    fpng = fopen( "../../tmp/ajedrez-02-r.png", "w" );
+    assert( fwrite( ajedrez_png, size, 1, fpng ) );
+    fclose( fpng ); 
+    qgames_free_png( ajedrez_png );  
+
+    size2 = partida_get_png( partida, GETPNG_HIGHLIGHT_RED | GETPNG_ROTADO, LAST_MOVE, &ajedrez_png );
+    assert( size2 > 0 );
+    fpng = fopen( "../../tmp/ajedrez-02-rh.png", "w" );
+    assert( fwrite( ajedrez_png, size2, 1, fpng ) );
+    fclose( fpng ); 
+    qgames_free_png( ajedrez_png );  
+    assert( size2 > size );
+
+    /* Ahora vuelvo a dibujar la movida 1 deberia estar viendo lo mismo
+       que vi oportunamente */
+    size2 = partida_get_png( partida, GETPNG_HIGHLIGHT_RED, 1, &ajedrez_png );
+    assert( size2 > 0 );
+    fpng = fopen( "../../tmp/ajedrez-01-old.png", "w" );
+    assert( fwrite( ajedrez_png, size2, 1, fpng ) );
+    fclose( fpng ); 
+    qgames_free_png( ajedrez_png );  
+    assert( size1 == size2 );
 #else
     // Si no tengo los graficos habilitados, esto tiene que volver con
     // cero

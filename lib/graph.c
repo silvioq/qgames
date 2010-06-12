@@ -163,6 +163,7 @@ gdImagePtr  graph_tpieza_get_gd( Tipopieza* tp, int color ){
     g0 = malloc( sizeof( Graphdef ) );
     memset( g0, 0, sizeof( Graphdef ) );
     g0->tipo   = TIPOGRAPH_TPIEZA;
+    g0->color  = color;
     g0->tpieza = tp;
     g0->std    = g->std;
     g0->w      = g->w;
@@ -229,6 +230,7 @@ gdImagePtr    graph_get_tablero_png( Tipojuego* tj, int board_number, int flags 
                     break;
                 case  TYPE_GRID           :
                     g->gd = graph_dibujar_grid( g->w, g->h, g->w / tt->dimmax[0], g->h / tt->dimmax[1], g->f, g->b );
+                    g->ox = 3; g->oy = 3;
                     g->gd_r = g->gd;
                     break;
                 case  TYPE_INTERSECTIONS  :
@@ -306,34 +308,86 @@ void   qgames_free_png( void* png ){
  * la variable movida ...
  * */
 
+#define   HIGHLIGHT_SIZE  3.0
+
 int         partida_get_png( Partida* par, int flags, int movida, void** png ){
 #if  GRAPH_ENABLED 
-    int tablero_flags = ( flags | GETPNG_ROTADO );
+    int tablero_flags = ( flags & GETPNG_ROTADO );
     int i;
     Posicion* pos;
+    Movida* mov;
 
     if( movida == 0 ){
         pos = par->tjuego->inicial ;
-    } else if ( movida == par->movimientos->entradas || movida == LAST_MOVE ){
+        mov = NULL;
+    } else if ( movida == LAST_MOVE ) {
         pos = par->pos;
+        mov = par->movimientos && par->movimientos->entradas ? par->movimientos->data[par->movimientos->entradas-1] : NULL;
+    } else if ( !par->movimientos ){
+        LOGPRINT( 2, "Movida pedida %d. No hay movimientos. Partida %s",
+                        movida,  par->id );
+        return 0;
     } else if ( movida > par->movimientos->entradas ){
         LOGPRINT( 2, "Movida pedida %d. Cantidad movimientos %d. Partida %s",
                         movida, par->movimientos->entradas, par->id );
         return 0;
+    } else if ( movida == par->movimientos->entradas ) {
+        pos = par->pos;
+        mov = par->movimientos->data[movida];
     } else {
-        Movida* mov = (Movida*) par->movimientos->data[movida];
+        mov = (Movida*) par->movimientos->data[movida];
         pos = mov->pos;
+        mov = (Movida*) par->movimientos->data[movida-1];
     }
-
-    gdImagePtr gd = graph_get_tablero_png( par->tjuego, par->tjuego->tablero_actual, tablero_flags );
-    if( !gd ){
+    gdImagePtr gdt = graph_get_tablero_png( par->tjuego, par->tjuego->tablero_actual, tablero_flags );
+    if( !gdt ){
         LOGPRINT( 2, "No es posible obtener la imagen del tablero para %s en partida %s", par->tjuego->nombre,
                        par->id );
         return  0;
     }
-  
+    gdImagePtr gd = gdImageCreateTrueColor( gdImageSX( gdt ), gdImageSY( gdt ) );
+    gdImageCopy( gd, gdt, 0, 0, 0, 0, gdImageSX( gdt ), gdImageSY( gdt ) );
+
+    Tablero* tt = tipojuego_get_tablero( par->tjuego, par->tjuego->tablero_actual ); 
+
+    // Primero las marcas en el tablero, correspondientes al ultimo movimiento
+    if( GETPNG_HIGHLIGHTED( flags ) && mov ){
+        int  marca ;
+        int  rojo, verde, azul;
+        int  posx, posy;
+        rojo  = ( flags & GETPNG_HIGHLIGHT_RED ? 255 : 0 );
+        verde = ( flags & GETPNG_HIGHLIGHT_GREEN ? 255 : 0 );
+        azul  = ( flags & GETPNG_HIGHLIGHT_BLUE ? 255 : 0 );
+        marca = gdImageColorAllocate( gd, rojo, verde, azul );
+        gdImageSetThickness( gd, HIGHLIGHT_SIZE );
+        for( i = 0; i < mov->acciones->entradas; i ++ ){
+            Accion* acc = mov->acciones->data[i];
+            if( acc->destino ){
+                if( flags & GETPNG_ROTADO ){
+                    posx = ( tt->graphdef->w / tt->dimmax[0] ) * ( tt->dimmax[0] - acc->destino->posicion[0] - 1 ) +
+                            tt->graphdef->ox ;
+                    posy = ( tt->graphdef->h / tt->dimmax[1] ) * ( acc->destino->posicion[1] ) + 
+                            tt->graphdef->oy;
+                } else {
+                    posx = ( tt->graphdef->w / tt->dimmax[0] ) * acc->destino->posicion[0] +
+                            tt->graphdef->ox ;
+                    posy = ( tt->graphdef->h / tt->dimmax[1] ) * ( acc->destino->posicion[1] + 1 ) - 
+                            tt->graphdef->oy;
+                    posy = tt->graphdef->h - posy ;
+                }
+            }
+            gdImageRectangle( gd, posx + HIGHLIGHT_SIZE / 2.0, posy + HIGHLIGHT_SIZE / 2.0, 
+                                  posx + ( tt->graphdef->w / tt->dimmax[0] ) - HIGHLIGHT_SIZE / 2.0, 
+                                  posy + ( tt->graphdef->h / tt->dimmax[1] ) - HIGHLIGHT_SIZE / 2.0,
+                                marca );
+            
+        }
+    }
+
+    // Ahora las piezas
     for( i = 0; i < pos->piezas->entradas; i ++ ){
         Pieza* p = (Pieza*) pos->piezas->data[i];
+        int  posx, posy;
         if( !CASILLERO_VALIDO( p->casillero ) ) continue;
         gdImagePtr gdp = graph_tpieza_get_gd( p->tpieza, p->color );
         if( !gdp ){
@@ -344,14 +398,24 @@ int         partida_get_png( Partida* par, int flags, int movida, void** png ){
         // y colocar el dibujo. No es otra cosa que la posicion
         // relativa del casillero por el tamaño (tablero->g->w / tablero->dimmax[0])
         // mas el offset del tablero
-        if( flags | GETPNG_ROTADO ){
+        if( flags & GETPNG_ROTADO ){
+            posx = ( tt->graphdef->w / tt->dimmax[0] ) * ( tt->dimmax[0] - p->casillero->posicion[0] - 1 ) +
+                     tt->graphdef->ox ;
+            posy = ( tt->graphdef->h / tt->dimmax[1] ) * ( p->casillero->posicion[1] ) + 
+                    tt->graphdef->oy;
         } else {
+            posx = ( tt->graphdef->w / tt->dimmax[0] ) * p->casillero->posicion[0] +
+                     tt->graphdef->ox ;
+            posy = ( tt->graphdef->h / tt->dimmax[1] ) * ( p->casillero->posicion[1] + 1 ) - 
+                    tt->graphdef->oy;
+            posy = tt->graphdef->h - posy  ;
         }
+        gdImageCopy( gd, gdp, posx, posy, 0, 0, gdImageSX( gdp ), gdImageSY( gdp ) );
     }
-
+    int size = 0;
+    if( png ) *png = gdImagePngPtr( gd, &size );
+    return size;
     
-    assert( !"partida_get_png no implementado aun"  );
-    return 0;
 #else
     LOGPRINT( 2, "No compilado con el modulo GD partida = %s", par->id );
     return 0;
