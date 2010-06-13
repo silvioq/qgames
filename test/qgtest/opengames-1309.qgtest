@@ -1,0 +1,14 @@
+# Juego obtenido de  http://www.opengames.com.ar/1309.pgn
+# Entre  ["Oscar Gomez"] y ["marcelo"]
+nuevo-juego Pente
+
+1. g8 g7 2. f7 h6 3. h9 f8 4. e6 d5 5. i10 
+check-piezas gema blanco g8 1
+check-piezas gema blanco f7 1
+check-piezas gema blanco h9 1
+check-piezas gema blanco e6 1
+check-piezas gema blanco i10 1
+check-piezas gema negro g7 1
+check-piezas gema negro h6 1
+check-piezas gema negro f8 1
+check-piezas gema negro d5 1

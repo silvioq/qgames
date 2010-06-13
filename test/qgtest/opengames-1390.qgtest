@@ -1,0 +1,57 @@
+# Juego obtenido de  http://www.opengames.com.ar/1390.pgn
+# Entre  ["pepe"] y ["Oscar Gomez"]
+nuevo-juego Pente
+
+1. g7 h6 2. g6 g5 3. g8 i7 4. j8 g9 5. f4 h8 
+6. j6 e7 7. k7 l6 8. j9 i9 9. j10 j8 10. k9 j11 
+11. h4 h10 12. i11 f8 13. d6 e5 14. g4 i4 
+15. k7 l8 16. i5 g3 17. e4 d4 18. f5 d3 19. e6 f6 
+20. f3 c6 21. d6 f10 22. i8 h7 23. h8 i9 
+24. g7 j7 25. h8 d8 26. c9 g11 27. f12 j9 
+28. j10 e6 29. h5 f7 
+check-piezas gema blanco g8 1
+check-piezas gema blanco f4 1
+check-piezas gema blanco j6 1
+check-piezas gema blanco k9 1
+check-piezas gema blanco h4 1
+check-piezas gema blanco i11 1
+check-piezas gema blanco g4 1
+check-piezas gema blanco k7 1
+check-piezas gema blanco i5 1
+check-piezas gema blanco e4 1
+check-piezas gema blanco f5 1
+check-piezas gema blanco f3 1
+check-piezas gema blanco d6 1
+check-piezas gema blanco i8 1
+check-piezas gema blanco g7 1
+check-piezas gema blanco h8 1
+check-piezas gema blanco c9 1
+check-piezas gema blanco f12 1
+check-piezas gema blanco j10 1
+check-piezas gema negro g5 1
+check-piezas gema negro i7 1
+check-piezas gema negro g9 1
+check-piezas gema negro e7 1
+check-piezas gema negro l6 1
+check-piezas gema negro j8 1
+check-piezas gema negro j11 1
+check-piezas gema negro h10 1
+check-piezas gema negro f8 1
+check-piezas gema negro e5 1
+check-piezas gema negro i4 1
+check-piezas gema negro l8 1
+check-piezas gema negro g3 1
+check-piezas gema negro d4 1
+check-piezas gema negro d3 1
+check-piezas gema negro f6 1
+check-piezas gema negro c6 1
+check-piezas gema negro f10 1
+check-piezas gema negro i9 1
+check-piezas gema negro j7 1
+check-piezas gema negro d8 1
+check-piezas gema negro g11 1
+check-piezas gema negro j9 1
+check-piezas gema negro e6 1
+check-piezas gema negro f7 1
+
+0-1

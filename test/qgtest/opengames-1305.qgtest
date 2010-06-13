@@ -1,0 +1,23 @@
+# Juego obtenido de  http://www.opengames.com.ar/1305.pgn
+# Entre  ["Silvio"] y ["pepe"]
+nuevo-juego Pente
+
+1. g8 g7 2. h8 f8 3. e9 i8 4. h6 f8 5. g7 i5 
+6. g7 h7 7. g6 g8 8. h8 g5 9. e8 g6 10. f5 g7 
+11. g8 f8 12. h6 i6 13. i4 i7 14. i9 g8 15. j7 g7 
+check-piezas gema blanco e9 1
+check-piezas gema blanco e8 1
+check-piezas gema blanco f5 1
+check-piezas gema blanco h6 1
+check-piezas gema blanco i4 1
+check-piezas gema blanco i9 1
+check-piezas gema blanco j7 1
+check-piezas gema negro i8 1
+check-piezas gema negro i5 1
+check-piezas gema negro h7 1
+check-piezas gema negro g5 1
+check-piezas gema negro g6 1
+check-piezas gema negro i6 1
+check-piezas gema negro i7 1
+check-piezas gema negro g8 1
+check-piezas gema negro g7 1

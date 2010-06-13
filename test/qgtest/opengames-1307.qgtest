@@ -1,0 +1,28 @@
+# Juego obtenido de  http://www.opengames.com.ar/1307.pgn
+# Entre  ["Silvio"] y ["Buddy"]
+nuevo-juego Pente
+
+1. g7 h6 2. h8 i9 3. f6 j5 4. g8 g9 5. i8 g6 
+6. i6 g8 7. j8 g7 8. g6 h6 9. f8 e6 10. i5 h9 
+11. i4 i7 12. k8 l8 13. f7 f9 14. i10 g8 
+15. e9 f6 16. h9 j11 17. g6 d6 18. j6 h4 
+check-piezas gema blanco h8 1
+check-piezas gema blanco i8 1
+check-piezas gema blanco i6 1
+check-piezas gema blanco j8 1
+check-piezas gema blanco i5 1
+check-piezas gema blanco i4 1
+check-piezas gema blanco k8 1
+check-piezas gema blanco e9 1
+check-piezas gema blanco g6 1
+check-piezas gema blanco j6 1
+check-piezas gema negro i9 1
+check-piezas gema negro j5 1
+check-piezas gema negro e6 1
+check-piezas gema negro i7 1
+check-piezas gema negro l8 1
+check-piezas gema negro g8 1
+check-piezas gema negro f6 1
+check-piezas gema negro j11 1
+check-piezas gema negro d6 1
+check-piezas gema negro h4 1

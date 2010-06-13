@@ -1,0 +1,27 @@
+# Juego obtenido de  http://www.opengames.com.ar/1301.pgn
+# Entre  ["Silvio"] y ["Oscar Gomez"]
+nuevo-juego Pente
+
+1. g7 h6 2. h7 f7 3. i7 f5 4. i6 j5 5. g8 g9 
+6. i5 i8 7. j7 k7 8. e10 f9 9. g6 g4 10. h3 f6 
+11. e6 f8 
+check-piezas gema blanco g7 1
+check-piezas gema blanco h7 1
+check-piezas gema blanco i7 1
+check-piezas gema blanco i6 1
+check-piezas gema blanco g8 1
+check-piezas gema blanco i5 1
+check-piezas gema blanco j7 1
+check-piezas gema blanco e10 1
+check-piezas gema blanco g6 1
+check-piezas gema blanco h3 1
+check-piezas gema blanco e6 1
+check-piezas gema negro h6 1
+check-piezas gema negro f7 1
+check-piezas gema negro j5 1
+check-piezas gema negro g9 1
+check-piezas gema negro i8 1
+check-piezas gema negro k7 1
+check-piezas gema negro f9 1
+check-piezas gema negro f6 1
+check-piezas gema negro f8 1
