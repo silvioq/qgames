@@ -23,3 +23,11 @@ check-piezas  6
 
 # verbose  6
 h11 *
+
+# Esto es para verificar el cinco el linea
+nuevo-juego  Pente
+1. a1  c1
+2. a2  c4
+3. a3  c5
+4. a4  c6
+5. a5  1-0
