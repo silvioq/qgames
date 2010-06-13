@@ -1,0 +1,24 @@
+# Juego obtenido de  http://www.opengames.com.ar/90.pgn
+# Entre  ["Ramiro"] y ["Silvio"]
+nuevo-juego Pente
+
+1. g8 g6 2. h9 i10 3. h7 f9 4. h8 i6 5. h7 h6 
+6. j6 f6 7. e6 f8 8. f7 d5 9. i7 g7 10. h10 j7 
+11. h11 g8 12. h7 
+check-piezas gema blanco h9 1
+check-piezas gema blanco h8 1
+check-piezas gema blanco j6 1
+check-piezas gema blanco h10 1
+check-piezas gema blanco h11 1
+check-piezas gema blanco h7 1
+check-piezas gema negro g6 1
+check-piezas gema negro i10 1
+check-piezas gema negro f9 1
+check-piezas gema negro i6 1
+check-piezas gema negro h6 1
+check-piezas gema negro f6 1
+check-piezas gema negro f8 1
+check-piezas gema negro d5 1
+check-piezas gema negro g7 1
+check-piezas gema negro j7 1
+check-piezas gema negro g8 1

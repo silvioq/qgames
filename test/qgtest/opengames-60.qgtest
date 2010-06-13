@@ -1,0 +1,29 @@
+# Juego obtenido de  http://www.opengames.com.ar/60.pgn
+# Entre  ["Sergio"] y ["Silvio"]
+nuevo-juego Pente
+
+1. e10 g8 2. d7 g7 3. g6 g9 4. g10 f10 5. e8 c6 
+6. e6 f9 7. e8 f7 8. e9 e7 9. h9 e11 10. g9 f9 
+11. d12 i9 12. f10 d10 13. c7 d8 14. f6 h6 
+15. c9 e7 16. d8 b10 17. d8 g11 18. b6 
+check-piezas gema blanco e10 1
+check-piezas gema blanco e8 1
+check-piezas gema blanco g6 1
+check-piezas gema blanco g10 1
+check-piezas gema blanco e9 1
+check-piezas gema blanco e6 1
+check-piezas gema blanco d12 1
+check-piezas gema blanco f10 1
+check-piezas gema blanco c7 1
+check-piezas gema blanco f6 1
+check-piezas gema blanco d8 1
+check-piezas gema blanco b6 1
+check-piezas gema negro g7 1
+check-piezas gema negro c6 1
+check-piezas gema negro f9 1
+check-piezas gema negro i9 1
+check-piezas gema negro d10 1
+check-piezas gema negro h6 1
+check-piezas gema negro e7 1
+check-piezas gema negro b10 1
+check-piezas gema negro g11 1

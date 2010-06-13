@@ -1,0 +1,8 @@
+# Juego obtenido de  http://www.opengames.com.ar/216.pgn
+# Entre  ["Ramiro"] y ["Alonso"]
+nuevo-juego Pente
+
+1. f7 g6 2. f6 
+check-piezas gema blanco f7 1
+check-piezas gema blanco f6 1
+check-piezas gema negro g6 1

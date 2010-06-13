@@ -1,0 +1,9 @@
+# Juego obtenido de  http://www.opengames.com.ar/481.pgn
+# Entre  ["Alonso"] y ["Silvio"]
+nuevo-juego Pente
+
+1. g7 h8 2. j6 h7 
+check-piezas gema blanco g7 1
+check-piezas gema blanco j6 1
+check-piezas gema negro h8 1
+check-piezas gema negro h7 1

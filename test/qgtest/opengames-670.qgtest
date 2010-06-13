@@ -1,0 +1,16 @@
+# Juego obtenido de  http://www.opengames.com.ar/670.pgn
+# Entre  ["Ramiro"] y ["Silvio"]
+nuevo-juego Pente
+
+1. g7 h8 2. h6 f8 3. g6 i5 4. h6 f6 5. f7 e8 
+6. g5 g8 
+check-piezas gema blanco g6 1
+check-piezas gema blanco h6 1
+check-piezas gema blanco f7 1
+check-piezas gema blanco g5 1
+check-piezas gema negro h8 1
+check-piezas gema negro f8 1
+check-piezas gema negro i5 1
+check-piezas gema negro f6 1
+check-piezas gema negro e8 1
+check-piezas gema negro g8 1

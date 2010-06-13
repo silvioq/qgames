@@ -1,0 +1,15 @@
+# Juego obtenido de  http://www.opengames.com.ar/1220.pgn
+# Entre  ["Buddy"] y ["Rodrigoedp"]
+nuevo-juego Pente
+
+1. g7 h8 2. j6 h7 3. h6 h5 4. h9 h8 5. i5 k6 
+6. j4 
+check-piezas gema blanco g7 1
+check-piezas gema blanco j6 1
+check-piezas gema blanco h6 1
+check-piezas gema blanco h9 1
+check-piezas gema blanco i5 1
+check-piezas gema blanco j4 1
+check-piezas gema negro h5 1
+check-piezas gema negro h8 1
+check-piezas gema negro k6 1

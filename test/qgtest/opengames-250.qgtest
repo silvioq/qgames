@@ -1,0 +1,21 @@
+# Juego obtenido de  http://www.opengames.com.ar/250.pgn
+# Entre  ["Ramiro"] y ["Paco Arriaza"]
+nuevo-juego Pente
+
+1. f7 g7 2. e6 g8 3. e5 d5 4. g6 g9 5. g10 e6 
+6. f7 f8 7. e8 h6 8. d9 c10 9. h5 
+check-piezas gema blanco e5 1
+check-piezas gema blanco g6 1
+check-piezas gema blanco g10 1
+check-piezas gema blanco f7 1
+check-piezas gema blanco e8 1
+check-piezas gema blanco d9 1
+check-piezas gema blanco h5 1
+check-piezas gema negro g7 1
+check-piezas gema negro g8 1
+check-piezas gema negro d5 1
+check-piezas gema negro g9 1
+check-piezas gema negro e6 1
+check-piezas gema negro f8 1
+check-piezas gema negro h6 1
+check-piezas gema negro c10 1

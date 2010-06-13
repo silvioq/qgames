@@ -1,0 +1,26 @@
+# Juego obtenido de  http://www.opengames.com.ar/63.pgn
+# Entre  ["Silvio"] y ["Sojuzgado"]
+nuevo-juego Pente
+
+1. g6 g7 2. h7 h6 3. i5 f8 4. f5 i8 5. h5 g5 
+6. j5 i4 7. f4 i7 8. i6 k4 9. f9 g8 10. g9 g8 
+11. i9 i8 12. h9 i7 13. j9 
+check-piezas gema blanco g6 1
+check-piezas gema blanco h7 1
+check-piezas gema blanco f5 1
+check-piezas gema blanco h5 1
+check-piezas gema blanco j5 1
+check-piezas gema blanco f4 1
+check-piezas gema blanco f9 1
+check-piezas gema blanco g9 1
+check-piezas gema blanco i9 1
+check-piezas gema blanco h9 1
+check-piezas gema blanco j9 1
+check-piezas gema negro h6 1
+check-piezas gema negro f8 1
+check-piezas gema negro g5 1
+check-piezas gema negro i4 1
+check-piezas gema negro k4 1
+check-piezas gema negro g8 1
+check-piezas gema negro i8 1
+check-piezas gema negro i7 1
