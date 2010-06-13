@@ -41,6 +41,7 @@ void        tipojuego_kill_casillero( Tipojuego* tj, char* casillero );
 
 #define     POZO     -1
 #define     CAPTURA  -2
+#define     SINCASILLERO   -3
 #define     CASILLERO_POZO    ((char*)POZO)
 #define     CASILLERO_CAPTURA ((char*)CAPTURA)
 void        tipojuego_add_pieza( Tipojuego* tj, char* tpieza, char* casillero, char* color );

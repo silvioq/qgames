@@ -177,7 +177,7 @@ int       partida_analizar_movidas( Partida* par ){
 
     par->flags |= ANALIZANDO;
 
-    posicion_analiza_movidas( par->pos, ANALISIS_MOVIDA, par->color, par->tmov, par->pieza_continua );
+    int ret = posicion_analiza_movidas( par->pos, ANALISIS_MOVIDA, par->color, par->tmov, par->pieza_continua );
     par->flags &= (~ANALIZANDO);
     par->flags |= JUGANDO;
 
@@ -196,7 +196,7 @@ int       partida_analizar_movidas( Partida* par ){
     elapsed = ((double) (final - inicio)) / CLOCKS_PER_SEC;
     LOGPRINT( 5, "Total: %.6f", elapsed );
     par->flags |= MOVCALC;
-    return  par->pos->movidas->entradas;
+    return  ret;
 }
 
 
@@ -329,10 +329,12 @@ int       partida_mover_notacion( Partida* par, char* mov ){
     }
     if( !PARTIDAMOVCALC(par) ) partida_analizar_movidas( par );
     int i;
-    for( i = 0; i < par->pos->movidas->entradas; i ++ ){
-        Movida* mmm = (Movida*)par->pos->movidas->data[i];
-        if( strcmp( mov, mmm->notacion ) == 0 ) 
-            return  partida_mover_mov( par, mmm );
+    if( par->pos->movidas ){
+        for( i = 0; i < par->pos->movidas->entradas; i ++ ){
+            Movida* mmm = (Movida*)par->pos->movidas->data[i];
+            if( strcmp( mov, mmm->notacion ) == 0 ) 
+                return  partida_mover_mov( par, mmm );
+        }
     }
     LOGPRINT( 3, "No encuentro la movida %s", mov );
     return 0;

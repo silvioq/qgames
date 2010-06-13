@@ -1,0 +1,110 @@
+# El gametype es el nombre de juego que usaremos!
+gametype:    Pente
+
+# Cada color se define aparte o no
+color:       blanco      negro 
+
+# Board se puede definir como una lista de dimensiones.
+# Tambien podria estar en blanco y comenzar con las definiciones
+# de casillero de una.
+board:       "a b c d e f g h i  j  k  l  m"  "1 2 3 4 5 6 7 8 9 10 11 12 13"
+
+# Directions tiene el nombre de la direccion. Opcionalmente podria
+# tener n numeros que hace la representacion 'n' dimensional.
+directions:  n   0  1 
+directions:  e   1  0 
+directions:  ne  1  1 
+directions:  no -1  1 
+directions:  s   0 -1 
+directions:  o  -1  0 
+directions:  se  1 -1 
+directions:  so -1 -1 
+
+# Esta definicion es la definicion de la captura de dos piezas
+# enemigas en la direccion pasada como parametro
+define:     captura_dos   direccion
+            direccion
+            if  ocupado_enemigo?
+                direccion
+                if  ocupado_enemigo?
+                    direccion
+                    if  ocupado_propio?
+                        casillero_inicial
+                        direccion; captura; direccion; captura
+                    end
+                end
+            end
+            casillero_inicial
+
+# Aca hay una sola pieza!
+piece:       gema
+drop:
+             para-si ocupado?
+            captura_dos  n
+            captura_dos  no
+            captura_dos  o
+            captura_dos  so
+            captura_dos  s
+            captura_dos  se
+            captura_dos  e
+            captura_dos  ne
+            juega
+             
+
+
+ending:
+             parar-si !ocupado_propio?
+             n
+             parar-si !ocupado_propio?
+             n
+             parar-si !ocupado_propio?
+             n
+             parar-si !ocupado_propio?
+             n
+             gana-si ocupado_propio?
+
+ending:
+             parar-si !ocupado_propio?
+             e
+             parar-si !ocupado_propio?
+             e
+             parar-si !ocupado_propio?
+             e
+             parar-si !ocupado_propio?
+             e
+             gana-si ocupado_propio?
+
+ending:
+             parar-si !ocupado_propio?
+             ne
+             parar-si !ocupado_propio?
+             ne
+             parar-si !ocupado_propio?
+             ne
+             parar-si !ocupado_propio?
+             ne
+             gana-si ocupado_propio?
+
+ending:
+             parar-si !ocupado_propio?
+             no
+             parar-si !ocupado_propio?
+             no
+             parar-si !ocupado_propio?
+             no
+             parar-si !ocupado_propio?
+             no
+             gana-si ocupado_propio?
+
+ending:  
+            gana-si  capturadas_enemigo  10
+
+ending:
+             empata-si ahogado?
+
+start:       gema   blanco   99
+start:       gema   negro    99
+
+
+graph-board: grid   390 390   $000000  $FFFF00
+graph-piece: standard-gem  gema   30 30

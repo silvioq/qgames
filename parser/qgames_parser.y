@@ -122,6 +122,7 @@ void  qgzprintf( char* format, ... ){
 %token    TOK_ASIGNA_ATT
 %token    TOK_ATACADO_ENEMIGO
 %token    TOK_CAPTURA        TOK_CAPTURA_SI        TOK_CAPTURA_Y_JUEGA   TOK_CAPTURA_Y_JUEGA_SI
+%token    TOK_CAPTURADAS_ENEMIGO   TOK_CAPTURADAS_PROPIO
 %token    TOK_CASILLERO_INICIAL
 %token    TOK_DESTINO_ANT
 %token    TOK_EMPATA    TOK_EMPATA_SI
@@ -245,9 +246,17 @@ instexpr_cantidad_piezas:
             tipojuego_code_cuenta_piezas( tipojuego, NULL, $1, NULL, NULL );
             tipojuego_code_op_equal( tipojuego, $2 );
     } |
+    TOK_CAPTURADAS_ENEMIGO '=' TOK_NUMBER {
+            tipojuego_code_cuenta_piezas( tipojuego, CASILLERO_CAPTURA, ENEMIGO, NULL, NULL );
+            tipojuego_code_op_equal( tipojuego, $3 );
+    } |
+    TOK_CAPTURADAS_ENEMIGO  TOK_NUMBER {
+            tipojuego_code_cuenta_piezas( tipojuego, CASILLERO_CAPTURA, ENEMIGO, NULL, NULL );
+            tipojuego_code_op_equal( tipojuego, $2 );
+    } |
     cantidad_piezas_preludio                       { 
             tipojuego_code_cuenta_piezas( tipojuego, NULL, $1, NULL, NULL );
-    };
+    } ;
 
 
 instexpr_movidas_anteriores:

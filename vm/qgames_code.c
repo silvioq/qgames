@@ -167,7 +167,13 @@ void        tipojuego_code_cuenta_piezas( Tipojuego* tj, char* casillero, int ow
     long  cas;
     long  tp;
 
-    cas = ( casillero ? GETCASILLERO(tj,casillero) : -1 );
+    if( !casillero ){
+        cas = SINCASILLERO;
+    } else if ( casillero == CASILLERO_CAPTURA ) {
+        cas = CAPTURA;
+    } else {
+        cas = GETCASILLERO(tj,casillero);
+    }
     tp  = ( tpieza    ? GETTIPOPIEZA(tj,tpieza)    : -1 );
     if( owner == CUALQUIERA && color ){
         own = GETCOLOR(tj, color );
@@ -198,7 +204,7 @@ void        tipojuego_code_ocupado( Tipojuego* tj, char* casillero, int owner, c
     if( casillero ){
         cas = GETCASILLERO(tj, casillero );
     } else {
-        cas = -1;
+        cas = SINCASILLERO;
     }
 
     tp = ( tpieza ? GETTIPOPIEZA( tj, tpieza ) : -1 );
@@ -215,7 +221,7 @@ void        tipojuego_code_ocupado( Tipojuego* tj, char* casillero, int owner, c
 
 
 void        tipojuego_code_destino_ant( Tipojuego* tj, char* casillero ){
-    long cas = ( casillero ? GETCASILLERO( tj, casillero ) : -1 );
+    long cas = ( casillero ? GETCASILLERO( tj, casillero ) : SINCASILLERO );
     qcode_op( tj->qcode, QCSTI, 1, cas );      // r1 = cas     
     qcode_op( tj->qcode, QCPSH, 1, 0 );        // PSH r1
     qcode_op( tj->qcode, QCPSH, 3, 0 );        // PSH r3
@@ -223,7 +229,7 @@ void        tipojuego_code_destino_ant( Tipojuego* tj, char* casillero ){
 }
 
 void        tipojuego_code_origen_ant( Tipojuego* tj, char* casillero ){
-    long cas = ( casillero ? GETCASILLERO( tj, casillero ) : -1 );
+    long cas = ( casillero ? GETCASILLERO( tj, casillero ) : SINCASILLERO );
     qcode_op( tj->qcode, QCSTI, 1, cas );      // r1 = cas     
     qcode_op( tj->qcode, QCPSH, 1, 0 );        // PSH r1
     qcode_op( tj->qcode, QCPSH, 3, 0 );        // PSH r3
@@ -263,7 +269,7 @@ void        tipojuego_code_atacado( Tipojuego* tj, char* casillero ){
     if( casillero ){
         cas = GETCASILLERO(tj,casillero);
     } else {
-        cas = -1;
+        cas = SINCASILLERO;
     }
     qcode_op( tj->qcode, QCSTI, 16, cas );      // t16 = cas
     qcode_op( tj->qcode, QCPSH, 16, 0 );        // PSH t16
@@ -324,7 +330,7 @@ void        tipojuego_code_juega  ( Tipojuego* tj, char* casillero, int captura 
     if( casillero ){
         cas = GETCASILLERO(tj, casillero );
     } else {
-        cas = -1;
+        cas = SINCASILLERO;
     }
 
     qcode_op( tj->qcode, QCSTI, 1, captura );  // r1 = captura
@@ -363,7 +369,7 @@ void        tipojuego_code_mueve  ( Tipojuego* tj, char fromto_flags, void* from
 
 
 void        tipojuego_code_captura( Tipojuego* tj, char* casillero ){
-    long cas = ( casillero ? GETCASILLERO(tj, casillero ) : -1 );
+    long cas = ( casillero ? GETCASILLERO(tj, casillero ) : SINCASILLERO );
 
     qcode_op( tj->qcode, QCSTI, 1, cas );      // r1 = cas     
     qcode_op( tj->qcode, QCPSH, 1, 0 );        // PSH r1
@@ -398,7 +404,7 @@ void        tipojuego_code_evalua_att( Tipojuego* tj, char* att ){
 
 
 void       tipojuego_code_setmarca( Tipojuego* tj, int marca, char* casillero ){
-    long cas = ( casillero ? GETCASILLERO(tj, casillero ) : -1 );
+    long cas = ( casillero ? GETCASILLERO(tj, casillero ) : SINCASILLERO );
     qcode_op( tj->qcode, QCSTI, 1, cas );      // r1 = cas     
     qcode_op( tj->qcode, QCPSH, 1, 0 );        // PSH r1
     qcode_op( tj->qcode, QCSTI, 1, marca );    // r1 = marca
@@ -419,7 +425,7 @@ void        tipojuego_code_casillero( Tipojuego* tj, char* casillero ){
     if( casillero ){
         cas = GETCASILLERO(tj, casillero );
     } else {
-        cas = -1;
+        cas = SINCASILLERO;
     }
     qcode_op( tj->qcode, QCSTI, 16, cas );      // t16 = cas     
     qcode_op( tj->qcode, QCPSH, 16, 0 );        // PSH t16

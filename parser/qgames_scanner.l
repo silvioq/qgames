@@ -193,6 +193,8 @@ define\:        { define_created = 0; BEGIN(define_head);   }
 <code>captura{BAR}y{BAR}juega                 { return  TOK_CAPTURA_Y_JUEGA; }
 <code>captura{BAR}y{BAR}juega{BAR}si          { return  TOK_CAPTURA_Y_JUEGA_SI; }
 <code>captura{BAR}y{BAR}juega{SPACES}if       { return  TOK_CAPTURA_Y_JUEGA_SI; }
+<code>capturadas{BAR}enemigo                  { return  TOK_CAPTURADAS_ENEMIGO; }
+<code>capturadas{BAR}propio                   { return  TOK_CAPTURADAS_PROPIO; }
 <code>casillero{BAR}inicial                   { return  TOK_CASILLERO_INICIAL; }
 <code>destino{BAR}ant(erior)?\??              { return  TOK_DESTINO_ANT; }
 <code>empata                 { return TOK_EMPATA;    }

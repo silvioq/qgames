@@ -24,9 +24,15 @@
 
 
 #define  ZGETCASILLERO(z,c) ({ \
-    Casillero* ret = NULL; \
+    Casillero* ret; \
     int val = c; \
-    if( val != -1 ){         \
+    if( val == CAPTURA ){ \
+        ret = ENCAPTURA; \
+    } else if( val == POZO ){ \
+        ret = ENPOZO; \
+    } else if( val == SINCASILLERO ){         \
+        ret = NULL;\
+    } else { \
       ret = (Casillero*)  z->pos->tjuego->casilleros->data[val]; \
     } \
     ret; })
@@ -58,7 +64,6 @@ long  code_wrapper_ocupado( QCodeVM* vm ){
     Analizador* z = (Analizador*)qcode_pop( vm );
     assert( z );
     Casillero*  c = ZGETCASILLERO( z, qcode_pop( vm ) );
-    if( (long)c == -1 ) c = NULL;
     int  owner    = (int)qcode_pop(vm);
     Tipopieza*  t = ZGETTIPOPIEZA( z, qcode_pop( vm ) );
     if( (long)t == -1 ) t = NULL;
@@ -77,7 +82,6 @@ long  code_wrapper_transforma( QCodeVM* vm ){
 long  code_wrapper_cuentapiezas( QCodeVM* vm ){
     Analizador* z = (Analizador*)qcode_pop( vm );
     Casillero*  c = ZGETCASILLERO( z, qcode_pop( vm ) );
-    if( (long)c == -1 ) c = NULL;
     int  color    = (int)qcode_pop(vm);
     Tipopieza*  t = ZGETTIPOPIEZA( z, qcode_pop( vm ) );
     if( (long)t == -1 ) t = NULL;
@@ -87,14 +91,12 @@ long  code_wrapper_cuentapiezas( QCodeVM* vm ){
 long  code_wrapper_destino_ant( QCodeVM* vm ){
     Analizador* z = (Analizador*)qcode_pop( vm );
     Casillero*  c = ZGETCASILLERO( z, qcode_pop( vm ) );
-    if( (long)c == -1 ) c = NULL;
     return (long)analizador_destino_ant( z, c );
 }
 
 long  code_wrapper_origen_ant( QCodeVM* vm ){
     Analizador* z = (Analizador*)qcode_pop( vm );
     Casillero*  c = ZGETCASILLERO( z, qcode_pop( vm ) );
-    if( (long)c == -1 ) c = NULL;
     return (long)analizador_origen_ant( z, c );
 }
 
@@ -116,21 +118,18 @@ long  code_wrapper_setmarca( QCodeVM* vm ){
     Analizador* z = (Analizador*)qcode_pop( vm );
     int  marca    = qcode_pop( vm );
     Casillero*  c = ZGETCASILLERO( z, qcode_pop( vm ) );
-    if( (long)c == -1 ) c = NULL;
     return (long)analizador_setmarca( z, marca, c );
 }
 
 long  code_wrapper_captura( QCodeVM* vm ){
     Analizador* z = (Analizador*)qcode_pop( vm );
     Casillero*  c = ZGETCASILLERO( z, qcode_pop( vm ) );
-    if( (long)c == -1 ) c = NULL;
     return (long)analizador_captura( z, c );
 }
 
 long  code_wrapper_juega( QCodeVM* vm ){
     Analizador* z = (Analizador*)qcode_pop( vm );
     Casillero*  c = ZGETCASILLERO( z, qcode_pop( vm ) );
-    if( (long)c == -1 ) c = NULL;
     int  captura  = (int)qcode_pop(vm);
     return (long)analizador_juega( z, c, captura );
 }
@@ -148,7 +147,6 @@ long  code_wrapper_mueve( QCodeVM* vm ){
 long  code_wrapper_casillero( QCodeVM* vm ){
     Analizador* z = (Analizador*)qcode_pop( vm );
     Casillero*  c = ZGETCASILLERO( z, qcode_pop( vm ) );
-    if( (long)c == -1 ) c = NULL;
     return (long)analizador_casillero( z, c );
 }
     
