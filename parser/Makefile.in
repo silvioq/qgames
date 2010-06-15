@@ -44,15 +44,7 @@ am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 mkinstalldirs = $(install_sh) -d
 CONFIG_HEADER = $(top_builddir)/config.h
 CONFIG_CLEAN_FILES =
-am__vpath_adj_setup = srcdirstrip=`echo "$(srcdir)" | sed 's|.|.|g'`;
-am__vpath_adj = case $$p in \
-    $(srcdir)/*) f=`echo "$$p" | sed "s|^$$srcdirstrip/||"`;; \
-    *) f=$$p;; \
-  esac;
-am__strip_dir = `echo $$p | sed -e 's|^.*/||'`;
-am__installdirs = "$(DESTDIR)$(libdir)"
-libLIBRARIES_INSTALL = $(INSTALL_DATA)
-LIBRARIES = $(lib_LIBRARIES)
+LIBRARIES = $(noinst_LIBRARIES)
 ARFLAGS = cru
 libpgn_parser_a_AR = $(AR) $(ARFLAGS)
 libpgn_parser_a_LIBADD =
@@ -215,12 +207,12 @@ sysconfdir = @sysconfdir@
 target_alias = @target_alias@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-lib_LIBRARIES = libqgames-parser.a libpgn-parser.a
+noinst_LIBRARIES = libqgames-parser.a libpgn-parser.a
 libqgames_parser_a_SOURCES = qgames_parser.y qgames_parser.h qgames_scanner.l symtable.c
 libpgn_parser_a_SOURCES = pgn_scanner.l pgn_scanner.h
 AM_YFLAGS = -d -v -p qgz
 AM_LFLAGS = --prefix qgz -o lex.yy.c
-AM_CFLAGS = -I$(top_srcdir)/include -I$(top_srcdir)/common -I$(top_srcdir)/vm
+AM_CFLAGS = -I$(top_srcdir)/include -I$(top_srcdir)/common -I$(top_srcdir)/vm -fPIC
 libpgn_parser_a_LFLAGS = --prefix pgn -o lex.yy.c
 test_pgn_SOURCES = test-pgn.c
 test_pgn_DEPENDENCIES = $(srcdir)/libpgn-parser.a
@@ -260,35 +252,9 @@ $(top_srcdir)/configure:  $(am__configure_deps)
 	cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) am--refresh
 $(ACLOCAL_M4):  $(am__aclocal_m4_deps)
 	cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) am--refresh
-install-libLIBRARIES: $(lib_LIBRARIES)
-	@$(NORMAL_INSTALL)
-	test -z "$(libdir)" || $(MKDIR_P) "$(DESTDIR)$(libdir)"
-	@list='$(lib_LIBRARIES)'; for p in $$list; do \
-	  if test -f $$p; then \
-	    f=$(am__strip_dir) \
-	    echo " $(libLIBRARIES_INSTALL) '$$p' '$(DESTDIR)$(libdir)/$$f'"; \
-	    $(libLIBRARIES_INSTALL) "$$p" "$(DESTDIR)$(libdir)/$$f"; \
-	  else :; fi; \
-	done
-	@$(POST_INSTALL)
-	@list='$(lib_LIBRARIES)'; for p in $$list; do \
-	  if test -f $$p; then \
-	    p=$(am__strip_dir) \
-	    echo " $(RANLIB) '$(DESTDIR)$(libdir)/$$p'"; \
-	    $(RANLIB) "$(DESTDIR)$(libdir)/$$p"; \
-	  else :; fi; \
-	done
 
-uninstall-libLIBRARIES:
-	@$(NORMAL_UNINSTALL)
-	@list='$(lib_LIBRARIES)'; for p in $$list; do \
-	  p=$(am__strip_dir) \
-	  echo " rm -f '$(DESTDIR)$(libdir)/$$p'"; \
-	  rm -f "$(DESTDIR)$(libdir)/$$p"; \
-	done
-
-clean-libLIBRARIES:
-	-test -z "$(lib_LIBRARIES)" || rm -f $(lib_LIBRARIES)
+clean-noinstLIBRARIES:
+	-test -z "$(noinst_LIBRARIES)" || rm -f $(noinst_LIBRARIES)
 libpgn-parser.a: $(libpgn_parser_a_OBJECTS) $(libpgn_parser_a_DEPENDENCIES) 
 	-rm -f libpgn-parser.a
 	$(libpgn_parser_a_AR) libpgn-parser.a $(libpgn_parser_a_OBJECTS) $(libpgn_parser_a_LIBADD)
@@ -533,9 +499,6 @@ check-am: all-am
 check: check-am
 all-am: Makefile $(LIBRARIES)
 installdirs:
-	for dir in "$(DESTDIR)$(libdir)"; do \
-	  test -z "$$dir" || $(MKDIR_P) "$$dir"; \
-	done
 install: install-am
 install-exec: install-exec-am
 install-data: install-data-am
@@ -566,8 +529,8 @@ maintainer-clean-generic:
 	-rm -f qgames_scanner.c
 clean: clean-am
 
-clean-am: clean-checkPROGRAMS clean-generic clean-libLIBRARIES \
-	clean-libtool mostlyclean-am
+clean-am: clean-checkPROGRAMS clean-generic clean-libtool \
+	clean-noinstLIBRARIES mostlyclean-am
 
 distclean: distclean-am
 	-rm -rf ./$(DEPDIR)
@@ -589,7 +552,7 @@ install-data-am:
 
 install-dvi: install-dvi-am
 
-install-exec-am: install-libLIBRARIES
+install-exec-am:
 
 install-html: install-html-am
 
@@ -621,24 +584,23 @@ ps: ps-am
 
 ps-am:
 
-uninstall-am: uninstall-libLIBRARIES
+uninstall-am:
 
 .MAKE: install-am install-strip
 
 .PHONY: CTAGS GTAGS all all-am check check-TESTS check-am clean \
-	clean-checkPROGRAMS clean-generic clean-libLIBRARIES \
-	clean-libtool ctags distclean distclean-compile \
+	clean-checkPROGRAMS clean-generic clean-libtool \
+	clean-noinstLIBRARIES ctags distclean distclean-compile \
 	distclean-generic distclean-libtool distclean-tags distdir dvi \
 	dvi-am html html-am info info-am install install-am \
 	install-data install-data-am install-dvi install-dvi-am \
 	install-exec install-exec-am install-html install-html-am \
-	install-info install-info-am install-libLIBRARIES install-man \
-	install-pdf install-pdf-am install-ps install-ps-am \
-	install-strip installcheck installcheck-am installdirs \
-	maintainer-clean maintainer-clean-generic mostlyclean \
-	mostlyclean-compile mostlyclean-generic mostlyclean-libtool \
-	pdf pdf-am ps ps-am tags uninstall uninstall-am \
-	uninstall-libLIBRARIES
+	install-info install-info-am install-man install-pdf \
+	install-pdf-am install-ps install-ps-am install-strip \
+	installcheck installcheck-am installdirs maintainer-clean \
+	maintainer-clean-generic mostlyclean mostlyclean-compile \
+	mostlyclean-generic mostlyclean-libtool pdf pdf-am ps ps-am \
+	tags uninstall uninstall-am
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

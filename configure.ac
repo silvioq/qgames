@@ -1,12 +1,13 @@
-AC_INIT([qgames], [2.9.2], [silvioq@gmail.com])
+AC_INIT([qgames], [2.9.3], [silvioq@gmail.com])
 AC_DEFINE([QG_MAJOR_VERSION],[2], Major version)
 AC_DEFINE([QG_MINOR_VERSION],[9], Minor version)
-AC_DEFINE([QG_REV_VERSION],  [1], Revision version)
+AC_DEFINE([QG_REV_VERSION],  [3], Revision version)
 
 AM_INIT_AUTOMAKE
 AC_PROG_CC
 AC_PROG_YACC
 AC_PROG_LEX
+AC_PROG_RANLIB
 AC_PROG_LIBTOOL
 AC_CONFIG_SRCDIR([configure.ac])
 AC_CONFIG_HEADERS([config.h])     # not even really needed
@@ -55,16 +56,17 @@ fi
 
 
 AC_DEFINE([QGAMES_SERVERNAME],["qgames.com.ar"], ["Nombre del servidor a usar"])
-AC_SUBST(DEPENDENCIES,["\$(top_builddir)/parser/libqgames-parser.a \
-                    \$(top_builddir)/lib/libqgames.a \
-									  \$(top_builddir)/parser/libpgn-parser.a \
-                    \$(top_builddir)/vm/libqcode.a"])
+# AC_SUBST(DEPENDENCIES,["\$(top_builddir)/parser/libqgames-parser.a \
+                    # \$(top_builddir)/lib/libqgames.a \
+									  # \$(top_builddir)/parser/libpgn-parser.a \
+                    # \$(top_builddir)/vm/libqcode.a"])
+AC_SUBST(DEPENDENCIES,["\$(top_builddir)/lib/libqgames.la"])
 
 AC_CONFIG_FILES(
   [Makefile
-   lib/Makefile
    vm/Makefile
    parser/Makefile
+   lib/Makefile
    ifaces/Makefile
    test/Makefile
    test/bin/Makefile

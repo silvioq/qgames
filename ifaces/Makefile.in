@@ -48,6 +48,9 @@ PROGRAMS = $(bin_PROGRAMS)
 am_qgames_console_OBJECTS = qgames-console.$(OBJEXT) list.$(OBJEXT)
 qgames_console_OBJECTS = $(am_qgames_console_OBJECTS)
 am__DEPENDENCIES_1 =
+qgames_console_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) \
+	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) \
+	$(qgames_console_LDFLAGS) $(LDFLAGS) -o $@
 am_qgames_ncurses_OBJECTS = qgames-ncurses.$(OBJEXT) list.$(OBJEXT)
 qgames_ncurses_OBJECTS = $(am_qgames_ncurses_OBJECTS)
 qgames_ncurses_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) \
@@ -190,10 +193,11 @@ target_alias = @target_alias@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 qgames_ncurses_SOURCES = qgames-ncurses.c ../common/list.c  
-qgames_ncurses_LDFLAGS = -lmenu @CURSES_LIBS@
+qgames_ncurses_LDFLAGS = -lmenu @CURSES_LIBS@ @GD_LIBS@ @PNG_LIBS@
 qgames_ncurses_DEPENDENCIES = $(DEPENDENCIES)
 qgames_ncurses_LDADD = $(DEPENDENCIES)
 qgames_console_SOURCES = qgames-console.c ../common/list.c  
+qgames_console_LDFLAGS = @GD_LIBS@ @PNG_LIBS@
 qgames_console_DEPENDENCIES = $(DEPENDENCIES)
 qgames_console_LDADD = $(DEPENDENCIES)
 AM_CFLAGS = -I$(top_srcdir)/include -I$(top_srcdir)/common -I$(top_srcdir)/vm
@@ -260,7 +264,7 @@ clean-binPROGRAMS:
 	done
 qgames-console$(EXEEXT): $(qgames_console_OBJECTS) $(qgames_console_DEPENDENCIES) 
 	@rm -f qgames-console$(EXEEXT)
-	$(LINK) $(qgames_console_OBJECTS) $(qgames_console_LDADD) $(LIBS)
+	$(qgames_console_LINK) $(qgames_console_OBJECTS) $(qgames_console_LDADD) $(LIBS)
 qgames-ncurses$(EXEEXT): $(qgames_ncurses_OBJECTS) $(qgames_ncurses_DEPENDENCIES) 
 	@rm -f qgames-ncurses$(EXEEXT)
 	$(qgames_ncurses_LINK) $(qgames_ncurses_OBJECTS) $(qgames_ncurses_LDADD) $(LIBS)

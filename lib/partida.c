@@ -708,6 +708,8 @@ int         partida_dump( Partida* par, void** data, int* size ){
     *data = ret;
     *size = len;
 
+    return 1;
+
 
 }
 /*

@@ -11,18 +11,16 @@ test_tateti_LDADD        = $(DEPENDENCIES)
 
 test_ajedrezq_DEPENDENCIES = $(DEPENDENCIES)
 test_ajedrezq_LDADD        = $(DEPENDENCIES)
-test_ajedrezq_LDFLAGS      = @GD_LIBS@ @PNG_LIBS@
 
 test_gomoku_DEPENDENCIES = $(DEPENDENCIES)
 test_gomoku_LDADD        = $(DEPENDENCIES)
-test_gomoku_LDFLAGS      = @GD_LIBS@ @PNG_LIBS@
 
 test_dump_DEPENDENCIES = $(DEPENDENCIES)
 test_dump_LDADD        = $(DEPENDENCIES)
 
 test_graph_DEPENDENCIES = $(DEPENDENCIES)
 test_graph_LDADD        = $(DEPENDENCIES)
-test_graph_LDFLAGS      = @GD_LIBS@ @PNG_LIBS@
 
 AM_CFLAGS = -I$(top_srcdir)/include -I$(top_srcdir)/common -I$(top_srcdir)/qcode/src
+AM_LDFLAGS      = @GD_LIBS@ @PNG_LIBS@
 TESTS = $(check_PROGRAMS)

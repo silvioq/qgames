@@ -1,12 +1,13 @@
-lib_LIBRARIES = libqgames-parser.a libpgn-parser.a
+# lib_LIBRARIES = libqgames-parser.a libpgn-parser.a
 check_PROGRAMS = test-pgn test-symtable
+noinst_LIBRARIES = libqgames-parser.a libpgn-parser.a
 
 libqgames_parser_a_SOURCES = qgames_parser.y qgames_parser.h qgames_scanner.l symtable.c
 libpgn_parser_a_SOURCES = pgn_scanner.l pgn_scanner.h
 
 AM_YFLAGS = -d -v -p qgz
 AM_LFLAGS = --prefix qgz -o lex.yy.c
-AM_CFLAGS = -I$(top_srcdir)/include -I$(top_srcdir)/common -I$(top_srcdir)/vm
+AM_CFLAGS = -I$(top_srcdir)/include -I$(top_srcdir)/common -I$(top_srcdir)/vm -fPIC
 
 libpgn_parser_a_LFLAGS = --prefix pgn -o lex.yy.c
 

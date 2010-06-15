@@ -7,6 +7,8 @@ Version 2.9.5
 
 * Cambiar la definicion de archivo qgames para que este 100% en ingles
 * Verificar los asserts de la definicion de juegos.
+* Las funciones del parser que se exportan, tienen que pasar a la 
+  libreria principal.
 
 
 Juegos
