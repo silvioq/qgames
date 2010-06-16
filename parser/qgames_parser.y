@@ -908,7 +908,7 @@ instruction_notation:
         if( NOT_FOUND != tipojuego_get_tipopieza( tipojuego, (char*)$2 ) ){
             if( !tipojuego_add_notacion_tpieza( tipojuego, (char*)$2, NULL, (char*)$3 ) ) YYERROR ;
         } else if ( NOT_FOUND != tipojuego_get_tipomov( tipojuego, (char*)$2 ) ){
-            tipojuego_add_notacion_tmov( tipojuego, (char*)$2, (char*)$3 ) ;
+            if( !tipojuego_add_notacion_tmov( tipojuego, (char*)$2, (char*)$3 ) ) YYERROR ;
         } else {
             qgzprintf( "%s debe ser un tipo de pieza o un tipo de movimiento", (char*)$2 );
             yyerror( "Notacion mal formada" );

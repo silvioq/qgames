@@ -78,7 +78,7 @@ int         tipojuego_get_cell_bycasillero( Tipojuego* tj, char* casillero,  int
 
 void   tipojuego_add_notacion_def( Tipojuego* tj, char elemento );
 void   tipojuego_add_notacion_rep( Tipojuego* tj, char elemento );
-void   tipojuego_add_notacion_tmov( Tipojuego* tj, char* tmov, char* notacion );
+int    tipojuego_add_notacion_tmov( Tipojuego* tj, char* tmov, char* notacion );
 int    tipojuego_add_notacion_tpieza( Tipojuego* tj, char* tpieza, char* color, char* abbr );
 void   tipojuego_set_notacion_marca( Tipojuego* tj, char* marca, char* captura );
 

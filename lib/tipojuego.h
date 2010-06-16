@@ -214,7 +214,9 @@ typedef  struct  StrZonadef{
 
 #define  GETTIPOMOV(tj,nom)  ({ \
     int ret = tipojuego_get_tipomov(tj,nom); \
-    assert( ret != NOT_FOUND ); \
+    if( ret == NOT_FOUND ){\
+        TJSETERROR( tj, "Tipo movimiento no encontrado", nom );\
+    }\
     ret; \
   })
 

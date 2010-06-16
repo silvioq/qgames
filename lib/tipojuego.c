@@ -426,6 +426,7 @@ int         tipojuego_add_secuencia( Tipojuego* tj, char* color, char* tipomov )
     int  col = GETCOLOR( tj, color );
     if( !TJVALIDO( tj ) ) return 0;
     int  tmov = ( tipomov ? GETTIPOMOV( tj, tipomov ) : 0 );
+    if( !TJVALIDO( tj ) ) return 0;
 
     Secuencia* seq = (Secuencia*) malloc( sizeof( Secuencia ) );
     seq->color = col;
@@ -472,14 +473,17 @@ int    tipojuego_add_notacion_tpieza( Tipojuego* tj, char* tpieza, char* color, 
     return 1;
 }
 
-void   tipojuego_add_notacion_tmov( Tipojuego* tj, char* tmov, char* notacion ){
+int    tipojuego_add_notacion_tmov( Tipojuego* tj, char* tmov, char* notacion ){
+    if( !TJVALIDO( tj ) ) return 0;
     int  tm = GETTIPOMOV( tj, tmov );
+    if( !TJVALIDO( tj ) ) return 0;
     NotacionData* not_data = malloc( sizeof( NotacionData ) );
     not_data->valor = tm;
     not_data->notacion = notacion;
     INIT_NOTACION(tj);
     if( !tj->notacion->notacion_tmovs ) tj->notacion->notacion_tmovs = list_nueva( NULL );
     list_agrega( tj->notacion->notacion_tmovs , not_data );
+    return 1;
 }
 
 void   tipojuego_add_notacion_def( Tipojuego* tj, char elemento ){
