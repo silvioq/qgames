@@ -654,7 +654,10 @@ int     tipojuego_genera_vinculos( Tipojuego* tj, Direccion* dir ){
         if( ( des = tipojuego_get_casillero_by_relpos( tj, ori->tablero, posicion ) ) ){
             LOGPRINT( 6, "Agrega origen:%s dir:%s des:%s",
                   ori->nombre, dir->nombre, des->nombre );
-            casillero_add_vinculo( ori, dir, des );
+            if( !casillero_add_vinculo( ori, dir, des ) ){
+                TJSETERROR( tj, "Error agregando vinculo", ori->nombre );
+                return 0;
+            }
         }
     }
     return 1;

@@ -7,9 +7,9 @@
 
 #include <stdlib.h>
 #include <string.h>
-#include <assert.h>
 #include "qgames.h"
 #include "tipojuego.h"
+#include "log.h"
 
 
 
@@ -98,17 +98,23 @@ int        casillero_check_dims( Casillero* cas, int max_dims, int pos[MAXDIMS] 
  * Esta función agrega el vínculo en la lista de origen y de destino
  * */
 
-void   casillero_add_vinculo( Casillero* ori, Direccion* dir, Casillero* des ){
+int    casillero_add_vinculo( Casillero* ori, Direccion* dir, Casillero* des ){
 
     Vinculo* v;
     Vinculo* search;
 
     // Lo busco en la lista
     search = casillero_busca_vinculo_pororigen( ori, dir );
-    assert( !search );
+    if( search ){
+        LOGPRINT( 1, "Error vinculo existente %s => %s", ori->nombre, dir->nombre );
+        return 0;
+    }
 
     search = casillero_busca_vinculo_pordestino( des, dir );
-    assert( !search );
+    if( search ){
+        LOGPRINT( 1, "Error vinculo existente %s => %s", dir->nombre, des->nombre );
+        return 0;
+    }
 
     // Listo, lo puedo agregar en ambas listas 
     v = vinculo_new( ori, dir, des );
@@ -118,6 +124,7 @@ void   casillero_add_vinculo( Casillero* ori, Direccion* dir, Casillero* des ){
 
     if( !des->vinculos ) des->vinculos = list_nueva( NULL );
     list_agrega( des->vinculos, v );
+    return 1;
 }
 
 
@@ -125,7 +132,10 @@ Vinculo*   casillero_busca_vinculo( Casillero* cas, Direccion* dir, char orides 
 
     Vinculo* v;
 
-    assert( ( orides == 'O' ) || ( orides == 'D' ) );
+    if( ( orides != 'O' ) && ( orides != 'D' ) ){
+        LOGPRINT( 1, "Parametro incorrecto orides=%s", orides );
+        return NULL;
+    }
 
     if( !cas->vinculos ) return NULL;
     list_inicio( cas->vinculos );

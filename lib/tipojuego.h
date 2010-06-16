@@ -266,7 +266,7 @@ Graphdef*  tablero_get_graphdef( Tablero* t );
 
 Casillero* casillero_new( char* cas, int tablero, int number );
 void       casillero_free( Casillero* cas );
-void       casillero_add_vinculo( Casillero* ori, Direccion* dir, Casillero* des );
+int        casillero_add_vinculo( Casillero* ori, Direccion* dir, Casillero* des );
 void       casillero_kill_vinculo( Casillero* ori,Direccion* dir, Casillero* des );
 Vinculo*   casillero_busca_vinculo_pororigen( Casillero* ori, Direccion* dir );
 Vinculo*   casillero_busca_vinculo_pordestino( Casillero* des, Direccion* dir );
