@@ -470,13 +470,27 @@ int         tipojuego_code_casillero( Tipojuego* tj, char* casillero ){
     RET_IF_STATUS;                              // Retorna si el valor es distinto de cero
     return 1;
 }
+
+/*
+ * Esta es la codificacion de la funcion direccion.
+ * Mueve el puntero casillero desde el actual hasta
+ * el de la direccion
+ * */
     
-void        tipojuego_code_direccion( Tipojuego* tj, char* direccion ){
+int         tipojuego_code_direccion( Tipojuego* tj, char* direccion ){
     long dir;
+    if( !TJVALIDO( tj ) ) return 0;
     Regla* rule = tj->regla_actual;
-    assert( rule );
-    assert( direccion );
+    if( !rule ){ 
+        TJSETERROR( tj, "No hay regla actual definida", 0);
+        return 0;
+    }
+    if( !direccion ){ 
+        TJSETERROR( tj, "No establecida la direccion", 0 );
+        return 0;
+    }
     dir = GETDIRECCION(tj, direccion );
+    if( !TJVALIDO( tj ) ) return 0;
     rule->flags |= RULEFLAG_DIRECCION;
 
     qcode_op( tj->qcode, QCSTI, 16, dir );      // t16 = dir     
@@ -484,6 +498,7 @@ void        tipojuego_code_direccion( Tipojuego* tj, char* direccion ){
     qcode_op( tj->qcode, QCPSH,  3, 0 );        // PSH r3
     qcode_opnlab( tj->qcode, QCCLX, "direccion" );
     RET_IF_STATUS;                              // Retorna si el valor es distinto de cero
+    return 1;
 }
 
 void        tipojuego_code_final  ( Tipojuego* tj, char* color, int resultado ){

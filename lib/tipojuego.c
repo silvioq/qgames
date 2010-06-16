@@ -397,10 +397,13 @@ int         tipojuego_get_cell_bycasillero( Tipojuego* tj, char* casillero,  int
 /*
  * La simetria
  * */
-void        tipojuego_add_simetria( Tipojuego*  tj, char* color, char* d1, char* d2 ){
+int         tipojuego_add_simetria( Tipojuego*  tj, char* color, char* d1, char* d2 ){
+    if( !TJVALIDO( tj ) ) return 0;
     int  col = GETCOLOR( tj, color );
     int  dd1 = GETDIRECCION( tj, d1 );
+    if( !TJVALIDO( tj ) ) return 0;
     int  dd2 = GETDIRECCION( tj, d2 );
+    if( !TJVALIDO( tj ) ) return 0;
 
     Simetria*  sim = malloc( sizeof( Simetria ) );
     sim->color = col;
@@ -409,6 +412,7 @@ void        tipojuego_add_simetria( Tipojuego*  tj, char* color, char* d1, char*
     
     if( !tj->simetrias ) tj->simetrias = list_nueva( NULL );
     list_agrega( tj->simetrias, sim );
+    return 1;
 }
 
 

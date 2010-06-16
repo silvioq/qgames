@@ -158,11 +158,15 @@ typedef  struct  StrZonadef{
 #define QUOTEME_(x) #x
 #define QUOTEME(x) QUOTEME_(x)
 #endif
-#define  TJSETERROR(tj,text,...){ \
+#define  TJSETERROR(tj,text,add){ \
     TJINVALIDAR(tj);\
     tj->error_line = __LINE__; tj->error_file = __FILE__;\
     tj->error_msg = strdup(text);\
-    LOGPRINT( 2, text, __VA_ARGS__ );\
+    if( add ){ \
+        LOGPRINT( 2, text " (%s)", add  );\
+    } else { \
+        LOGPRINT( 2, text, 0 );\
+    }\
 }
 
 
@@ -177,7 +181,9 @@ typedef  struct  StrZonadef{
 
 #define  GETDIRECCION(tj,nom)  ({ \
     int ret = tipojuego_get_direccion(tj,nom); \
-    assert( ret != NOT_FOUND ); \
+    if( ret == NOT_FOUND ){\
+        TJSETERROR( tj, "Direccion no encontrada", nom );\
+    }\
     ret; \
   })
 

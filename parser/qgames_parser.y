@@ -679,7 +679,7 @@ instaction:
             /* una direccion podria ser */
             // qgzprintf( "Reconociendo %s", (char*)$1 );
             if( tipojuego_get_direccion( tipojuego, (char*)$1 ) != NOT_FOUND ){
-                    tipojuego_code_direccion( tipojuego, (char*)$1 );
+                    if( !tipojuego_code_direccion( tipojuego, (char*)$1 ) ) YYERROR;
             } else if( tipojuego_get_casillero( tipojuego, (char*)$1 ) != NOT_FOUND ){
                     if( !tipojuego_code_casillero( tipojuego, (char*)$1 ) ) YYERROR;
             } else {
@@ -1013,7 +1013,7 @@ instruction_sequence:
 instruction_sym:
     TOK_SYMMETRY     word_or_string  word_or_string  word_or_string { 
         CHECK_TIPOJUEGO;
-        tipojuego_add_simetria( tipojuego, ((char*)$2), (char*)$3, (char*)$4 );
+        if( !tipojuego_add_simetria( tipojuego, ((char*)$2), (char*)$3, (char*)$4 ) ) YYERROR;
     } ;
 
 instruction_zone:

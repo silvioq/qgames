@@ -2610,7 +2610,7 @@ yyreduce:
             /* una direccion podria ser */
             // qgzprintf( "Reconociendo %s", (char*)$1 );
             if( tipojuego_get_direccion( tipojuego, (char*)(yyvsp[(1) - (1)]) ) != NOT_FOUND ){
-                    tipojuego_code_direccion( tipojuego, (char*)(yyvsp[(1) - (1)]) );
+                    if( !tipojuego_code_direccion( tipojuego, (char*)(yyvsp[(1) - (1)]) ) ) YYERROR;
             } else if( tipojuego_get_casillero( tipojuego, (char*)(yyvsp[(1) - (1)]) ) != NOT_FOUND ){
                     if( !tipojuego_code_casillero( tipojuego, (char*)(yyvsp[(1) - (1)]) ) ) YYERROR;
             } else {
@@ -3114,7 +3114,7 @@ yyreduce:
 #line 1014 "qgames_parser.y"
     { 
         CHECK_TIPOJUEGO;
-        tipojuego_add_simetria( tipojuego, ((char*)(yyvsp[(2) - (4)])), (char*)(yyvsp[(3) - (4)]), (char*)(yyvsp[(4) - (4)]) );
+        if( !tipojuego_add_simetria( tipojuego, ((char*)(yyvsp[(2) - (4)])), (char*)(yyvsp[(3) - (4)]), (char*)(yyvsp[(4) - (4)]) ) ) YYERROR;
     }
     break;
 
