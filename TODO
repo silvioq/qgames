@@ -1,12 +1,12 @@
 
 Desarrollo corto plazo (version 2.9.3)
 
-* Compilar como librería y comenzar con el ecosistema QGames
+* Compilar como librería y comenzar con el ecosistema QGames (casi listo)
+* Verificar los asserts de la definicion de juegos.
 
 Version 2.9.5
 
 * Cambiar la definicion de archivo qgames para que este 100% en ingles
-* Verificar los asserts de la definicion de juegos.
 * Las funciones del parser que se exportan, tienen que pasar a la 
   libreria principal.
 
