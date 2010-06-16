@@ -278,6 +278,7 @@ int         tipojuego_code_enzona ( Tipojuego* tj, char* zona, char* tpieza ){
     int  za, tp;
     if( !TJVALIDO( tj ) ) return 0;
     za = GETZONA(tj, zona);
+    if( !TJVALIDO(tj) ) return 0;
     tp = ( tpieza ? GETTIPOPIEZA( tj, tpieza ) : - 1 );
     if( !TJVALIDO( tj ) ) return 0;
     qcode_op( tj->qcode, QCSTI, 16, tp );       // t16 = tp

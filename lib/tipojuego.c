@@ -190,6 +190,7 @@ int         tipojuego_add_zona( Tipojuego* tj, char* zona ){
 int         tipojuego_add_cas_to_zona( Tipojuego* tj, char* cas, char* color, char* zona ){
     if( !TJVALIDO(tj) ) return 0;
     int  zzz = GETZONA( tj, zona );
+    if( !TJVALIDO(tj) ) return 0;
     int  ccc = GETCOLOR( tj, color );
     if( !TJVALIDO(tj) ) return 0;
     int  cass = GETCASILLERO( tj, cas );
