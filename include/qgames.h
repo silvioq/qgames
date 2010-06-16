@@ -25,8 +25,8 @@ int         tipojuego_add_tablero  ( Tipojuego* tj );
 int         tipojuego_genera_dimensiones( Tipojuego* tj, int dimc, char** dimv );
 int         tipojuego_add_casillero( Tipojuego* tj, char* casillero );
 int         tipojuego_add_direccion( Tipojuego* tj, char* direccion );
-void        tipojuego_add_direccion_rel( Tipojuego* tj, char* direccion, ... );
-void        tipojuego_add_direccion_arr( Tipojuego* tj, char* direccion, int* dirv );
+int         tipojuego_add_direccion_rel( Tipojuego* tj, char* direccion, ... );
+int         tipojuego_add_direccion_arr( Tipojuego* tj, char* direccion, int* dirv );
 int         tipojuego_add_link     ( Tipojuego* tj, char* cas_ori, char* dir, char* cas_des );
 int         tipojuego_add_color    ( Tipojuego* tj, char* color );
 int         tipojuego_add_tipo_mov ( Tipojuego* tj, char* tipo_mov );
@@ -36,7 +36,7 @@ int         tipojuego_add_zona     ( Tipojuego* tj, char* zona      );
 int         tipojuego_add_cas_to_zona( Tipojuego* tj, char* cas, char* color, char* zona );
 int         tipojuego_add_simetria ( Tipojuego* tj, char* color, char* dir1, char* dir2 );
 int         tipojuego_add_secuencia( Tipojuego* tj, char* color, char* tipomov );
-void        tipojuego_add_secuencia_rep( Tipojuego* tj );
+int         tipojuego_add_secuencia_rep( Tipojuego* tj );
 
 void        tipojuego_kill_casillero( Tipojuego* tj, char* casillero );
 
@@ -45,7 +45,7 @@ void        tipojuego_kill_casillero( Tipojuego* tj, char* casillero );
 #define     SINCASILLERO   -3
 #define     CASILLERO_POZO    ((char*)POZO)
 #define     CASILLERO_CAPTURA ((char*)CAPTURA)
-void        tipojuego_add_pieza( Tipojuego* tj, char* tpieza, char* casillero, char* color );
+int         tipojuego_add_pieza( Tipojuego* tj, char* tpieza, char* casillero, char* color );
 
 
 #define   NOT_FOUND   -1
@@ -101,11 +101,11 @@ void   tipojuego_set_notacion_marca( Tipojuego* tj, char* marca, char* captura )
 #define   TYPE_GRID           3
 
 
-void   tipojuego_graph_tablero_std     ( Tipojuego* tj, int board_number, char graphtype, int width, int height, int forecolor, int backcolor );
+int    tipojuego_graph_tablero_std     ( Tipojuego* tj, int board_number, char graphtype, int width, int height, int forecolor, int backcolor );
 void   tipojuego_graph_tablero_cus     ( Tipojuego* tj, int board_number, char* file  );
 int    tipojuego_graph_tipopieza_std   ( Tipojuego* tj, char* tpieza, int stdimg, int width, int height );
 int    tipojuego_graph_tipopieza_cus   ( Tipojuego* tj, char* tpieza, char* color, char* file );
-void   tipojuego_graph_casillero_std   ( Tipojuego* tj, char* casillero, int resaltado, int color );
+int    tipojuego_graph_casillero_std   ( Tipojuego* tj, char* casillero, int resaltado, int color );
 void   tipojuego_graph_casillero_cus   ( Tipojuego* tj, char* casillero, char* file );
 
 

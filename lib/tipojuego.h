@@ -27,11 +27,12 @@ typedef   struct   StrGraphdef  Graphdef;
 
 
 typedef   struct   StrTipojuego {
+    int          flags;
+    int          tablero_actual;
     _list*       simbolos;
     _list*       tableros;
     _list*       casilleros;
     _list*       direcciones;
-    int          tablero_actual;
     Notacion*    notacion;
     _list*       secuencias;
     int          secuencia_repeat;
@@ -43,7 +44,6 @@ typedef   struct   StrTipojuego {
     int          zonas;
     _list*       defzonas;
     Posicion*    inicial;
-    int          flags;
 
     _list*       graphdefs;
 
@@ -222,12 +222,17 @@ typedef  struct  StrZonadef{
 
 #define  GETZONA(tj,nom)  ({ \
     int ret = tipojuego_get_zona(tj,nom); \
-    assert( ret != NOT_FOUND ); \
+    if( ret == NOT_FOUND ){\
+        TJSETERROR( tj, "Zona no encontrada", nom );\
+    }\
     ret; \
   })
 
 #define  tipojuego_get_tablero(tj,num) ({\
-    assert( num <= tj->tableros->entradas );\
+    if( num > tj->tableros->entradas ){\
+        char xx_tab[20]; sprintf( "%d", xx_tab, num ); \
+        TJSETERROR( tj, "Numero de tablero incorrecto", xx_tab );\
+    };\
     (Tablero*) tj->tableros->data[num - 1]; \
   })
 
@@ -276,7 +281,7 @@ Direccion* direccion_new( char* dir );
 
 /* Tema vinculos */
 Vinculo*   vinculo_new( Casillero* ori, Direccion* dir, Casillero* des );
-void       tipojuego_genera_vinculos( Tipojuego* tj, Direccion* dir );
+int        tipojuego_genera_vinculos( Tipojuego* tj, Direccion* dir );
 
 /* Tipos de pieza */
 Tipopieza*  tipopieza_new( Tipojuego* tj, char* nombre, int number );

@@ -369,7 +369,7 @@ int    analizador_mueve  ( Analizador* z, char fromto_flags, void* from, void* t
         if( pp == z->pieza ) continue;
         if( pp->casillero == cas_from ){
             if( !z->mov_actual ) z->mov_actual = movida_new( z->pos, z->pieza, z->tmov );
-            LOGPRINT( 5, "Mueve %s a %s", pp->tpieza->nombre, cas_to->nombre );
+            LOGPRINT( 6, "Mueve %s a %s", pp->tpieza->nombre, cas_to->nombre );
             movida_accion_mueve( z->mov_actual, pp, cas_to );
             hay_piezas = 1;
         }

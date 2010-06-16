@@ -711,7 +711,7 @@ instruction_attr:
     TOK_ATTR     word_or_string  TOK_NUMBER
                    {  CHECK_TIPOJUEGO ;
                       CHECK_LAST_PIEZA;
-                      tipojuego_add_tpieza_att( tipojuego, last_pieza, ((char*)$2), $3 );
+                      if( !tipojuego_add_tpieza_att( tipojuego, last_pieza, ((char*)$2), $3 ) ) YYERROR;
                     }
                  ;
 
@@ -747,7 +747,7 @@ instruction_direction:
                       for( i = 0; i < qgz_param_count; i ++ ){
                           dirs[i] = qgz_param_list[i].par;
                       }
-                      tipojuego_add_direccion_arr( tipojuego, ((char*)$2), dirs );
+                      if( !tipojuego_add_direccion_arr( tipojuego, ((char*)$2), dirs ) ) YYERROR;
                     };
 
 instruction_drop_prelude:
@@ -846,7 +846,7 @@ board_std_type:
 instruction_graph:
     TOK_GRAPH_BOARD   board_number  board_std_type   instruction_graph_def     { 
         CHECK_TIPOJUEGO;
-        tipojuego_graph_tablero_std( tipojuego, $2, $3, graph_dim1, graph_dim2, html_color1, html_color2 );
+        if( !tipojuego_graph_tablero_std( tipojuego, $2, $3, graph_dim1, graph_dim2, html_color1, html_color2 ) ) YYERROR;
      } |
     TOK_GRAPH_BOARD   board_number  word_or_string                             { NOT_IMPLEMENTED_WARN( "graph-board file" ) } |
     TOK_GRAPH_PIECE   instruction_graph_standard  word_or_string  instruction_graph_dimensions  {
@@ -968,14 +968,14 @@ instruction_start:
         CHECK_TIPOJUEGO;
         int i;
         for( i = 0; i < $4; i ++ ){
-          tipojuego_add_pieza( tipojuego, ((char*)$2), CASILLERO_POZO, ((char*)$3) );
+            if( !tipojuego_add_pieza( tipojuego, ((char*)$2), CASILLERO_POZO, ((char*)$3) ) ) YYERROR;
         }
     } |
     TOK_START        word_or_string  word_or_string { init_parameters(); } word_or_string_list  {
         CHECK_TIPOJUEGO;
         int i;
         for( i = 0; i < qgz_param_count; i ++ ){
-          tipojuego_add_pieza( tipojuego, ((char*)$2), (char*)qgz_param_list[i].par, ((char*)$3) );
+          if( !tipojuego_add_pieza( tipojuego, ((char*)$2), (char*)qgz_param_list[i].par, ((char*)$3) ) ) YYERROR;
         }
     } ;
 
@@ -1005,7 +1005,7 @@ instruction_sequence_prelude:
 instruction_sequence:
     instruction_sequence_prelude |
     instruction_sequence_prelude  TOK_REPEAT {
-        tipojuego_add_secuencia_rep( tipojuego );
+        if( !tipojuego_add_secuencia_rep( tipojuego ) ) YYERROR;
     }
     instruction_sequence_list;
 

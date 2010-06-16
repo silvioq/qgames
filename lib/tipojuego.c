@@ -6,7 +6,6 @@
 */
 
 
-#include  <assert.h>
 #include  <stdlib.h>
 #include  <stdio.h>
 #include  <string.h>
@@ -130,15 +129,23 @@ int         tipojuego_add_direccion( Tipojuego* tj, char* direccion ){
 /* 
  * Agrega las direcciones relativas a una dirección cualquiera
  * */
-void       tipojuego_add_direccion_rel( Tipojuego* tj, char* direccion, ... ){
+int        tipojuego_add_direccion_rel( Tipojuego* tj, char* direccion, ... ){
 
     int  i;
     Direccion* dir;
     Simbolo*  sym;
     va_list args;
 
-    assert( sym = tipojuego_get_simbolo( tj, direccion ) );
-    assert( SIM_DIRECCION == sym->tipo );
+    if( !TJVALIDO(tj) ) return 0;
+    sym = tipojuego_get_simbolo( tj, direccion ) ;
+    if( !sym ){
+        TJSETERROR( tj, "Error obteniendo simbolo direccion", direccion );
+        return 0;
+    }
+    if( SIM_DIRECCION != sym->tipo ){
+        TJSETERROR( tj, "Simbolo no es direccion", direccion );
+        return 0;
+    }
     dir = (Direccion*)tj->direcciones->data[sym->ref];
 
     va_start( args, direccion );
@@ -147,26 +154,35 @@ void       tipojuego_add_direccion_rel( Tipojuego* tj, char* direccion, ... ){
     }
 
     va_end( args );
+    return 1;
 
 }
 
 /* 
  * Agrega las direcciones relativas a una dirección cualquiera
  * */
-void       tipojuego_add_direccion_arr( Tipojuego* tj, char* direccion, int* dirv ){
+int        tipojuego_add_direccion_arr( Tipojuego* tj, char* direccion, int* dirv ){
 
     int  i;
     Direccion* dir;
     Simbolo*  sym;
 
-    assert( sym = tipojuego_get_simbolo( tj, direccion ) );
-    assert( SIM_DIRECCION == sym->tipo );
+    if( !TJVALIDO(tj) ) return 0;
+    sym = tipojuego_get_simbolo( tj, direccion ) ;
+    if( !sym ){
+        TJSETERROR( tj, "Error obteniendo simbolo direccion", direccion );
+        return 0;
+    }
+    if( SIM_DIRECCION != sym->tipo ){
+        TJSETERROR( tj, "Simbolo no es direccion", direccion );
+        return 0;
+    }
     dir = (Direccion*)tj->direcciones->data[sym->ref];
 
     for( i = 0; i < TABLERO_ACTUAL(tj)->dimc; i ++ ){
         dir->mov_relativo[i] = dirv[i];
     }
-    tipojuego_genera_vinculos( tj, dir );
+    return tipojuego_genera_vinculos( tj, dir );
 }
 
 /*
@@ -227,18 +243,12 @@ int         tipojuego_add_tipopieza( Tipojuego* tj, char* tpieza    ){
 int         tipojuego_add_tpieza_att( Tipojuego* tj, char* tpieza, char* att, int default_value ){
 
     Tipopieza* tp;
-    Simbolo*  sp;
-    sp = tipojuego_get_simbolo( tj, tpieza );
-    if( !sp ){
-        printf( "Tipo pieza %s inexistente (File %s - linea %d)\n", tpieza, __FILE__, __LINE__ );
-        exit( EXIT_FAILURE );
-    }
-
-    assert( sp->tipo == SIM_TIPOPIEZA );
-
-    tp = (Tipopieza*) tj->tipo_piezas->data[sp->ref];
+    if( !TJVALIDO(tj) ) return 0;
+    int  tt = GETTIPOPIEZA( tj, tpieza );
+    if( !TJVALIDO(tj) ) return 0;
+    tp = (Tipopieza*) tj->tipo_piezas->data[tt];
     tipopieza_add_att( tp, att, default_value );
-    return  default_value;
+    return  1;
 }
 
 /*
@@ -246,23 +256,25 @@ int         tipojuego_add_tpieza_att( Tipojuego* tj, char* tpieza, char* att, in
  *
  * */
 int         tipojuego_add_tipo_mov( Tipojuego* tj, char* tmov  ){
+    if( !TJVALIDO(tj) ) return 0;
     if( tipojuego_get_simbolo( tj, tmov ) ){
-        printf( "Tipo movimiento %s existente (File %s - linea %d)\n", tmov, __FILE__, __LINE__ );
-        exit( EXIT_FAILURE );
+        TJSETERROR( tj, "Tipo de movimiento ya existente", tmov );
+        return 0;
     }
     tj->tipomovs ++;
     SIM_ADD( tj, SIM_TIPOMOV, tmov, tj->tipomovs );
-    return tj->tipomovs;
+    return 1;
 }
 
 int         tipojuego_add_color    ( Tipojuego* tj, char* color ){
+    if( !TJVALIDO(tj) ) return 0;
     if( tipojuego_get_simbolo( tj, color ) ){
-        printf( "Color %s existente (File %s - linea %d)\n", color, __FILE__, __LINE__ );
-        exit( EXIT_FAILURE );
+        TJSETERROR( tj, "Color ya existente", color );
+        return 0;
     }
     tj->colores ++;
     SIM_ADD( tj, SIM_COLOR, color, tj->colores );
-    return tj->colores;
+    return 1;
 
 }
 
@@ -271,34 +283,33 @@ int         tipojuego_add_color    ( Tipojuego* tj, char* color ){
  * Esta funcion agrega una pieza a la posicion original.
  *
  * */
-void        tipojuego_add_pieza( Tipojuego* tj, char* tpieza, char* casillero, char* color ){
+int         tipojuego_add_pieza( Tipojuego* tj, char* tpieza, char* casillero, char* color ){
 
+    if( !TJVALIDO(tj) ) return 0;
+    Tipopieza*  tp;
+    Casillero*  cas;
+    int         col;
+    Pieza*      p;
 
-  Simbolo* s;
-  Tipopieza*  tp;
-  Casillero*  cas;
-  int         col;
-  Pieza*      p;
+    if( !TJVALIDO(tj) ) return 0;
+    int  tt = GETTIPOPIEZA( tj, tpieza );
+    if( !TJVALIDO(tj) ) return 0;
+    tp = (Tipopieza*) tj->tipo_piezas->data[tt];
 
-  assert( s = tipojuego_get_simbolo( tj, tpieza ) );
-  assert( s->tipo == SIM_TIPOPIEZA );
-  tp = (Tipopieza*) tj->tipo_piezas->data[s->ref];
-
-  if( casillero == CASILLERO_POZO ){
-    cas = ENPOZO;
-  } else {
-    assert( s = tipojuego_get_simbolo( tj, casillero ) );
-    assert( s->tipo == SIM_CASILLERO );
-    cas = (Casillero*) tj->casilleros->data[s->ref];
-  }
+    if( casillero == CASILLERO_POZO ){
+       cas = ENPOZO;
+    } else {
+       int  cc = GETCASILLERO( tj, casillero );
+       if( !TJVALIDO(tj) ) return 0;
+       cas = (Casillero*) tj->casilleros->data[cc];
+    }
   
-  assert( s = tipojuego_get_simbolo( tj, color ) );
-  assert( s->tipo == SIM_COLOR );
-  col = s->ref;
+    col = GETCOLOR( tj, color );
+    if( !TJVALIDO(tj) ) return 0;
   
-  p = pieza_new( tp, cas, col );
-  assert( tj->inicial->tjuego );
-  posicion_add_pieza( tj->inicial, p );
+    p = pieza_new( tp, cas, col );
+    posicion_add_pieza( tj->inicial, p );
+    return 1;
 }
 
 /*
@@ -438,9 +449,14 @@ int         tipojuego_add_secuencia( Tipojuego* tj, char* color, char* tipomov )
     return 1;
 }
 
-void        tipojuego_add_secuencia_rep( Tipojuego* tj ){
-    assert( tj->secuencias );
+int         tipojuego_add_secuencia_rep( Tipojuego* tj ){
+    if( !TJVALIDO( tj ) ) return 0;
+    if( !tj->secuencias ){
+        TJSETERROR( tj, "No hay secuencias", 0 );
+        return 0;
+    }
     tj->secuencia_repeat = tj->secuencias->entradas;
+    return 1;
 }
 
 /*
@@ -519,9 +535,13 @@ void   tipojuego_add_notacion_rep( Tipojuego* tj, char elemento ){
  *
  * */
 
-void   tipojuego_graph_tablero_std     ( Tipojuego* tj, int board_number, char graphtype, int width, int height, int forecolor, int backcolor ){
+int    tipojuego_graph_tablero_std     ( Tipojuego* tj, int board_number, char graphtype, int width, int height, int forecolor, int backcolor ){
+    if( !TJVALIDO(tj) ) return 0;
     int b = ( board_number == BOARD_ACTUAL ? tj->tablero_actual : board_number );
-    assert( b <= tj->tableros->entradas );
+    if( b > tj->tableros->entradas ){
+        TJSETERROR( tj, "Numero de tablero incorrecto", 0 );
+        return 0;
+    }
     if( !tj->graphdefs ) tj->graphdefs = list_nueva( NULL );
     Graphdef* g = malloc( sizeof( Graphdef ) );
     memset( g, 0, sizeof( Graphdef ) );
@@ -534,6 +554,7 @@ void   tipojuego_graph_tablero_std     ( Tipojuego* tj, int board_number, char g
     g->b    = backcolor;
 
     list_agrega( tj->graphdefs, g );
+    return 1;
 
 }
 
@@ -593,7 +614,7 @@ Partida*   tipojuego_create_partida( Tipojuego* tj, char* id ){
 
 Casillero*  tipojuego_get_casillero_by_relpos( Tipojuego* tj, int tablero, int dims[MAXDIMS] ){
     Casillero* c;
-    assert( tablero <= tj->tableros->entradas );
+    if( tablero > tj->tableros->entradas ) return NULL;
     int  dimensiones = ((Tablero*) tj->tableros->data[tablero - 1] )->dimc;
     list_inicio( tj->casilleros );
     while( ( c = list_siguiente( tj->casilleros ) ) ){
@@ -610,10 +631,11 @@ Casillero*  tipojuego_get_casillero_by_relpos( Tipojuego* tj, int tablero, int d
  * y de las direcciones 
  * */
 
-void    tipojuego_genera_vinculos( Tipojuego* tj, Direccion* dir ){
+int     tipojuego_genera_vinculos( Tipojuego* tj, Direccion* dir ){
     int i, j, k;
     Casillero* ori;
     Casillero* des;
+    if( !TJVALIDO( tj )) return 0;
     int posicion[MAXDIMS];
 
     for( i = 0; i < tj->casilleros->entradas; i ++ ){
@@ -625,13 +647,17 @@ void    tipojuego_genera_vinculos( Tipojuego* tj, Direccion* dir ){
            posicion[k] = ori->posicion[k] + dir->mov_relativo[k] ;
            if( dir->mov_relativo[k] ) hay_algo = 1;
         }
-        assert( hay_algo );
+        if( !hay_algo ){
+            TJSETERROR( tj, "Error al generar vinculos", ori->nombre );
+            return 0;
+        };
         if( ( des = tipojuego_get_casillero_by_relpos( tj, ori->tablero, posicion ) ) ){
             LOGPRINT( 6, "Agrega origen:%s dir:%s des:%s",
                   ori->nombre, dir->nombre, des->nombre );
             casillero_add_vinculo( ori, dir, des );
         }
     }
+    return 1;
 
 }
 
@@ -670,7 +696,11 @@ Direccion*  tipojuego_dir_by_sym( Tipojuego* tj, Direccion* dir, int color ){
 char*       tipojuego_get_colorname( Tipojuego* tj, int color ){
     int i;
     static char color_no_encontrado[15];
-    assert( tj->simbolos );
+    if( !TJVALIDO( tj ) ) return NULL;
+    if( !tj->simbolos ){
+        TJSETERROR( tj, "No estan definido los simbolos aun", 0 );
+        return NULL;
+    }
     for( i = 0; i < tj->simbolos->entradas; i ++ ){
         volatile Simbolo* sym;
         sym = tj->simbolos->data[i];
@@ -683,10 +713,11 @@ char*       tipojuego_get_colorname( Tipojuego* tj, int color ){
 
 int      tipojuego_get_coloroponente( Tipojuego* tj, int color ){
     int i;
+    if( !TJVALIDO( tj ) ) return 0;
     for( i = 1; i <= tj->colores; i ++ ){
         if( i != color ) return i;
     }
-    assert( !"Color no encontrado" );
+    TJSETERROR( tj, "Color no encontrado", 0 );
     return 0;
 }
 
