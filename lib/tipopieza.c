@@ -8,7 +8,6 @@
 #include  <stdlib.h>
 #include  <string.h>
 #include  <stdio.h>
-#include  <assert.h>
 
 #include  "qgames.h"
 #include  "tipojuego.h"
@@ -28,14 +27,17 @@ Tipopieza*  tipopieza_new( Tipojuego* tj, char* nombre, int number ){
 
 }
 
-void        tipopieza_add_att(Tipopieza* tp, char* att, int default_value ){
-    assert( tipopieza_get_att( tp, att ) == NOT_FOUND );
+int         tipopieza_add_att(Tipopieza* tp, char* att, int default_value ){
+    if( tipopieza_get_att( tp, att ) != NOT_FOUND ){
+        return 0;
+    }
     if( !tp->att_nombres ){
         tp->att_nombres = list_nueva( NULL );
         tp->att_default = list_nueva( NULL );
     }
     list_agrega( tp->att_nombres, strdup(att) );
     list_agrega( tp->att_default, (void*)(long)default_value );
+    return 1;
 }
 
 int        tipopieza_get_att( Tipopieza* tp, char* att ){

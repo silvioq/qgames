@@ -9,7 +9,6 @@
 #include  <string.h>
 #include  <stdarg.h>
 #include  <stdint.h>
-#include  <assert.h>
 #include  <qgames.h>
 
 #include  "list.h"
@@ -435,38 +434,66 @@ Movida*      movida_load( Posicion* pos, void* data, int size ){
         Accion* acc = malloc( sizeof( Accion ) );
         acc->tipo = point[0];
         point ++;
-        assert( ((char*)data) + size > point );
+        if( ((char*)data) + size <= point ){
+            LOGPRINT( 1, "Error tamaño puntero %p + %d <= %p", data, size, point );
+            movida_free( mov );
+            return NULL;
+        }
 
         len16 = ((uint16_t*)point)[0];
         acc->pieza_number = len16;
         point += 2;
-        assert( ((char*)data) + size > point );
+        if( ((char*)data) + size <= point ){
+            LOGPRINT( 1, "Error tamaño puntero %p + %d <= %p", data, size, point );
+            movida_free( mov );
+            return NULL;
+        }
 
         len16 = ((uint16_t*)point)[0];
         if( len16 != (uint16_t)-1 ){
             acc->destino = (Casillero*)(pos->tjuego->casilleros->data[len16]);
         }
         point += 2;
-        assert( ((char*)data) + size > point );
+        if( ((char*)data) + size <= point ){
+            LOGPRINT( 1, "Error tamaño puntero %p + %d <= %p", data, size, point );
+            movida_free( mov );
+            return NULL;
+        }
 
         acc->color = point[0];
         point ++;
-        assert( ((char*)data) + size > point );
+        if( ((char*)data) + size <= point ){
+            LOGPRINT( 1, "Error tamaño puntero %p + %d <= %p", data, size, point );
+            movida_free( mov );
+            return NULL;
+        }
 
         len8 = point[0];
         if( len8 != (uint8_t)-1 ){
             acc->tpieza = (Tipopieza*)(pos->tjuego->tipo_piezas->data[len8]);
         }
         point ++;
-        assert( ((char*)data) + size > point );
+        if( ((char*)data) + size <= point ){
+            LOGPRINT( 1, "Error tamaño puntero %p + %d <= %p", data, size, point );
+            movida_free( mov );
+            return NULL;
+        }
 
         acc->att_key = point[0];
         point ++;
-        assert( ((char*)data) + size > point );
+        if( ((char*)data) + size <= point ){
+            LOGPRINT( 1, "Error tamaño puntero %p + %d <= %p", data, size, point );
+            movida_free( mov );
+            return NULL;
+        }
         
         acc->att_val = ((int*)point)[0];
         point += sizeof( int );
-        assert( ((char*)data) + size >= point );
+        if( ((char*)data) + size < point ){
+            LOGPRINT( 1, "Error tamaño puntero %p + %d <= %p", data, size, point );
+            movida_free( mov );
+            return NULL;
+        }
 
         list_agrega( mov->acciones, acc );
     }

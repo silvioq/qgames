@@ -285,7 +285,7 @@ int        tipojuego_genera_vinculos( Tipojuego* tj, Direccion* dir );
 
 /* Tipos de pieza */
 Tipopieza*  tipopieza_new( Tipojuego* tj, char* nombre, int number );
-void        tipopieza_add_att(Tipopieza* tp, char* att, int default_value );
+int         tipopieza_add_att(Tipopieza* tp, char* att, int default_value );
 int         tipopieza_get_att( Tipopieza* tp, char* att );
 
 

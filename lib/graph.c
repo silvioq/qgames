@@ -9,7 +9,6 @@
 #include  <stdio.h>
 #include  <stdlib.h>
 #include  <string.h>
-#include  <assert.h>
 #include  <stdarg.h>
 #include  <qgames.h>
 #include  <config.h>
@@ -185,7 +184,7 @@ gdImagePtr    graph_get_tablero_png( Tipojuego* tj, int board_number, int flags 
     }
 
     Tablero* tt = tipojuego_get_tablero( tj, board_number );
-    assert( tt );
+    if( !tt ) return NULL;
 
     if( !(g = tablero_get_graphdef( tt ) ) ){
         LOGPRINT( 2, "No se encuentra definicion para board = %d", board_number );

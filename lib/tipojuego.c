@@ -247,7 +247,10 @@ int         tipojuego_add_tpieza_att( Tipojuego* tj, char* tpieza, char* att, in
     int  tt = GETTIPOPIEZA( tj, tpieza );
     if( !TJVALIDO(tj) ) return 0;
     tp = (Tipopieza*) tj->tipo_piezas->data[tt];
-    tipopieza_add_att( tp, att, default_value );
+    if( !tipopieza_add_att( tp, att, default_value ) ){
+        TJSETERROR( tj, "Error agregando atributo", att );
+        return 0;
+    };
     return  1;
 }
 
