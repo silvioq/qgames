@@ -183,6 +183,7 @@ int         tipojuego_code_cuenta_piezas( Tipojuego* tj, char* casillero, int ow
     if( !TJVALIDO( tj ) ) return 0;
     if( owner == CUALQUIERA && color ){
         own = GETCOLOR(tj, color );
+        if( !TJVALIDO( tj ) ) return 0;
     } else if( owner != CUALQUIERA ){
         own = owner;
     }
@@ -205,6 +206,7 @@ int         tipojuego_code_ocupado( Tipojuego* tj, char* casillero, int owner, c
     if( !TJVALIDO( tj ) ) return 0;
     if( owner == CUALQUIERA && color ){
         own = GETCOLOR(tj, color );
+        if( !TJVALIDO( tj ) ) return 0;
     } else if( owner != CUALQUIERA ){
         own = owner;
     }
@@ -260,6 +262,7 @@ int         tipojuego_code_ahogado( Tipojuego* tj, char* color ){
     int  col;
     if( color ){
         col = GETCOLOR( tj, color );
+        if( !TJVALIDO( tj ) ) return 0;
     } else
        col = -1;
     qcode_op( tj->qcode, QCSTI, 16, col );      // t16 = col
@@ -337,6 +340,7 @@ int         tipojuego_code_transforma( Tipojuego* tj, int owner, char* color, ch
 
     if( owner == NOCOLOR && color ){
         own = GETCOLOR(tj, color );
+        if( !TJVALIDO( tj ) ) return 0;
     } else if( owner != NOCOLOR ){
         own = owner;
     }
@@ -532,10 +536,12 @@ int         tipojuego_code_direccion( Tipojuego* tj, char* direccion ){
     return 1;
 }
 
-void        tipojuego_code_final  ( Tipojuego* tj, char* color, int resultado ){
+int         tipojuego_code_final  ( Tipojuego* tj, char* color, int resultado ){
     int  col;
+    if( !TJVALIDO( tj ) ) return 0;
     if( color ){
         col = GETCOLOR( tj, color );
+        if( !TJVALIDO( tj ) ) return 0;
     } else
        col = -1;
 
@@ -546,6 +552,7 @@ void        tipojuego_code_final  ( Tipojuego* tj, char* color, int resultado ){
     qcode_op( tj->qcode, QCPSH,  3, 0 );        // PSH r3
     qcode_opnlab( tj->qcode, QCCLX, "final" );
     RET_IF_STATUS;                              // Retorna si el valor es distinto de cero
+    return 1;
 
 
 }

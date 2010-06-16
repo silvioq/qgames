@@ -2315,7 +2315,7 @@ yyreduce:
 #line 468 "qgames_parser.y"
     {  
             CHECK_TIPOJUEGO;
-            tipojuego_code_final( tipojuego, NULL, EMPATA );
+            if( !tipojuego_code_final( tipojuego, NULL, EMPATA ) ) YYERROR;
     }
     break;
 
@@ -2324,7 +2324,7 @@ yyreduce:
     {  
             CHECK_TIPOJUEGO;
             tipojuego_code_start_condblock( tipojuego );
-            tipojuego_code_final( tipojuego, NULL, EMPATA );
+            if( !tipojuego_code_final( tipojuego, NULL, EMPATA ) ) YYERROR;
             tipojuego_code_end_condblock( tipojuego );
     }
     break;
@@ -2333,7 +2333,7 @@ yyreduce:
 #line 478 "qgames_parser.y"
     {  
             CHECK_TIPOJUEGO;
-            tipojuego_code_final( tipojuego, NULL, GANA );
+            if( !tipojuego_code_final( tipojuego, NULL, GANA ) ) YYERROR;
     }
     break;
 
@@ -2342,7 +2342,7 @@ yyreduce:
     {  
             CHECK_TIPOJUEGO;
             tipojuego_code_start_condblock( tipojuego );
-            tipojuego_code_final( tipojuego, NULL, GANA );
+            if( !tipojuego_code_final( tipojuego, NULL, GANA ) ) YYERROR;
             tipojuego_code_end_condblock( tipojuego );
     }
     break;
@@ -2351,7 +2351,7 @@ yyreduce:
 #line 488 "qgames_parser.y"
     {  
             CHECK_TIPOJUEGO;
-            tipojuego_code_final( tipojuego, NULL, PIERDE );
+            if( !tipojuego_code_final( tipojuego, NULL, PIERDE ) ) YYERROR;
     }
     break;
 
@@ -2360,7 +2360,7 @@ yyreduce:
     {  
             CHECK_TIPOJUEGO;
             tipojuego_code_start_condblock( tipojuego );
-            tipojuego_code_final( tipojuego, NULL, PIERDE );
+            if( !tipojuego_code_final( tipojuego, NULL, PIERDE ) ) YYERROR;
             tipojuego_code_end_condblock( tipojuego );
      }
     break;
@@ -3088,12 +3088,12 @@ yyreduce:
                 char* val2 = (char*)qgz_param_list[i+1].par;
                 int  tmov = tipojuego_get_tipomov( tipojuego, val2 );
                 if( tmov != NOT_FOUND ){
-                    tipojuego_add_secuencia( tipojuego, val1, val2 );
+                    if( !tipojuego_add_secuencia( tipojuego, val1, val2 ) ) YYERROR;
                     i ++;
                 } else {
-                    tipojuego_add_secuencia( tipojuego, val1, NULL );
+                    if( !tipojuego_add_secuencia( tipojuego, val1, NULL ) ) YYERROR;
                 }
-            } else tipojuego_add_secuencia( tipojuego, val1, NULL );
+            } else if( !tipojuego_add_secuencia( tipojuego, val1, NULL ) ) YYERROR;
         } 
     }
     break;

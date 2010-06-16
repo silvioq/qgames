@@ -191,6 +191,7 @@ int         tipojuego_add_cas_to_zona( Tipojuego* tj, char* cas, char* color, ch
     if( !TJVALIDO(tj) ) return 0;
     int  zzz = GETZONA( tj, zona );
     int  ccc = GETCOLOR( tj, color );
+    if( !TJVALIDO(tj) ) return 0;
     int  cass = GETCASILLERO( tj, cas );
     if( !TJVALIDO(tj) ) return 0;
     Zonadef* zdef = malloc( sizeof( Zonadef ) );
@@ -400,6 +401,7 @@ int         tipojuego_get_cell_bycasillero( Tipojuego* tj, char* casillero,  int
 int         tipojuego_add_simetria( Tipojuego*  tj, char* color, char* d1, char* d2 ){
     if( !TJVALIDO( tj ) ) return 0;
     int  col = GETCOLOR( tj, color );
+    if( !TJVALIDO(tj) ) return 0;
     int  dd1 = GETDIRECCION( tj, d1 );
     if( !TJVALIDO( tj ) ) return 0;
     int  dd2 = GETDIRECCION( tj, d2 );
@@ -419,9 +421,10 @@ int         tipojuego_add_simetria( Tipojuego*  tj, char* color, char* d1, char*
 /*
  * Vamos armando la secuencia de jugadas 
  * */
-void        tipojuego_add_secuencia( Tipojuego* tj, char* color, char* tipomov ){
-    LOGPRINT( 5, "Color a agregar es %s", color );
+int         tipojuego_add_secuencia( Tipojuego* tj, char* color, char* tipomov ){
+    if( !TJVALIDO( tj ) ) return 0;
     int  col = GETCOLOR( tj, color );
+    if( !TJVALIDO( tj ) ) return 0;
     int  tmov = ( tipomov ? GETTIPOMOV( tj, tipomov ) : 0 );
 
     Secuencia* seq = (Secuencia*) malloc( sizeof( Secuencia ) );
@@ -430,6 +433,7 @@ void        tipojuego_add_secuencia( Tipojuego* tj, char* color, char* tipomov )
 
     if( !tj->secuencias ) tj->secuencias = list_nueva( NULL );
     list_agrega( tj->secuencias, seq );
+    return 1;
 }
 
 void        tipojuego_add_secuencia_rep( Tipojuego* tj ){

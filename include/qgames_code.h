@@ -77,7 +77,7 @@ int         tipojuego_code_jaquemate( Tipojuego* tj, char* tpieza );
 #define   GANA      1
 #define   PIERDE    2
 #define   EMPATA    3
-void        tipojuego_code_final  ( Tipojuego* tj, char* color, int resultado );
+int         tipojuego_code_final  ( Tipojuego* tj, char* color, int resultado );
 
 
 

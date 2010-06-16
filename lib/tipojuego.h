@@ -206,7 +206,9 @@ typedef  struct  StrZonadef{
 
 #define  GETCOLOR(tj,nom)  ({ \
     int ret = tipojuego_get_color(tj,nom); \
-    assert( ret != NOT_FOUND ); \
+    if( ret == NOT_FOUND ){\
+        TJSETERROR( tj, "Color no encontrado", nom );\
+    }\
     ret; \
   })
 

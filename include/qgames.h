@@ -35,7 +35,7 @@ int         tipojuego_add_tpieza_att( Tipojuego* tj, char* tpieza, char* att, in
 int         tipojuego_add_zona     ( Tipojuego* tj, char* zona      );
 int         tipojuego_add_cas_to_zona( Tipojuego* tj, char* cas, char* color, char* zona );
 int         tipojuego_add_simetria ( Tipojuego* tj, char* color, char* dir1, char* dir2 );
-void        tipojuego_add_secuencia( Tipojuego* tj, char* color, char* tipomov );
+int         tipojuego_add_secuencia( Tipojuego* tj, char* color, char* tipomov );
 void        tipojuego_add_secuencia_rep( Tipojuego* tj );
 
 void        tipojuego_kill_casillero( Tipojuego* tj, char* casillero );
