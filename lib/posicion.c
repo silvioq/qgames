@@ -9,7 +9,6 @@
 #include  <stdio.h>
 #include  <stdlib.h>
 #include  <string.h>
-#include  <assert.h>
 #include  <stdarg.h>
 #include  <qgames.h>
 #include  <qgames_code.h>
@@ -192,10 +191,16 @@ int        posicion_analiza_movidas( Posicion* pos, char tipoanalisis, int color
         tipoanalisis, color, tipomov )
 
     // 1. chequeo de parametros
-    assert( color > 0 );
-    assert( ( tipoanalisis == ANALISIS_MOVIDA ) || 
-            ( tipoanalisis == ANALISIS_PRIMER_MOVIDA ) ||
-            ( tipoanalisis == ANALISIS_ATAQUE ) );
+    if( !color ){
+        LOGPRINT( 1, "Color debe estar definido (%d)", color );
+        return 0;
+    };
+    if(! ( ( tipoanalisis == ANALISIS_MOVIDA ) || 
+           ( tipoanalisis == ANALISIS_PRIMER_MOVIDA ) ||
+           ( tipoanalisis == ANALISIS_ATAQUE ) ) ){
+        LOGPRINT( 1, "Tipo analisis incorrecto (%d)", tipoanalisis );
+        return 0;
+    }
 
     // 2. Limpiamos las movidas
     posicion_free_movidas( pos );
@@ -321,6 +326,7 @@ int        posicion_analiza_final( Posicion* pos, int  color_actual, int color_s
             for( c = 0; c < pos->tjuego->casilleros->entradas ; c ++ ){
                 Casillero* cas = (Casillero*)pos->tjuego->casilleros->data[c];
                 int res = analizador_evalua_final( rule, pos, NULL, cas, color_actual, color_sig, resultado );
+                if( res == STATUS_ERROR ) return FINAL_ENJUEGO;
                 if( res == FINAL_EMPATE || res > 0 ) return res;
             }
         }
@@ -331,11 +337,13 @@ int        posicion_analiza_final( Posicion* pos, int  color_actual, int color_s
                 Pieza* pieza = (Pieza*)pos->piezas->data[i];
                 if( pieza->color != color_actual ) continue;
                 int res = analizador_evalua_final( rule, pos, pieza, pieza->casillero, color_actual, color_sig, resultado );
+                if( res == STATUS_ERROR ) return FINAL_ENJUEGO;
                 if( res == FINAL_EMPATE || res > 0 ) return res;
             }
         }
         if( !analizado ){
             int res = analizador_evalua_final( rule, pos, NULL, NULL, color_actual, color_sig, resultado );
+            if( res == STATUS_ERROR ) return FINAL_ENJUEGO;
             if( res == FINAL_EMPATE || res > 0 ) return res;
         }
     }

@@ -47,6 +47,7 @@ int      analizador_evalua_final  ( Regla* regla, Posicion* pos, Pieza* pieza, C
 #define   STATUS_OUTOFBOARD   1
 #define   STATUS_STOP         2
 #define   STATUS_EOG          4
+#define   STATUS_ERROR      128
 
 
 

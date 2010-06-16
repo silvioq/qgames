@@ -9,7 +9,6 @@
 #include  <stdio.h>
 #include  <stdlib.h>
 #include  <string.h>
-#include  <assert.h>
 #include  <stdarg.h>
 #include  <qgames.h>
 #include  <qgames_code.h>
@@ -24,8 +23,8 @@
 #include  "log.h"
 
 #define  MARCAS_Q         16    // hasta 16 marcas!
-#define  CHECK_STATUS     assert( z->status == STATUS_NORMAL );
-#define  CHECK_END_CODE   assert( z->tipo_analisis == ANALISIS_FINAL );
+#define  CHECK_STATUS     if( z->status != STATUS_NORMAL ) return STATUS_ERROR;
+#define  CHECK_END_CODE   if( z->tipo_analisis != ANALISIS_FINAL ) return STATUS_ERROR;
 
 _list*   analizador_evalua_movidas( Regla* regla, Posicion* pos, Pieza* pieza, Casillero* cas, char tipoanalisis, int tipomovida, int color ){
 
@@ -78,7 +77,10 @@ int      analizador_evalua_final  ( Regla* regla, Posicion* pos, Pieza* pieza, C
     z->color_siguiente = color_siguiente;
     z->tipo_analisis = ANALISIS_FINAL;
 
-    assert( regla->tregla == END );
+    if( regla->tregla != END ){
+        LOGPRINT( 1, "Regla debe ser de final (%d)", regla->tregla );
+        return STATUS_ERROR;
+    }
     code_execute_rule( z, regla->pc );
 
     LOGPRINT( 6, "Fin del analisis de final status = %d", z->status );
@@ -88,8 +90,7 @@ int      analizador_evalua_final  ( Regla* regla, Posicion* pos, Pieza* pieza, C
         ret =  z->color_ganador ? z->color_ganador : FINAL_EMPATE;
         LOGPRINT( 4, "Fin de partida detectado %d => %s", ret, z->resultado );
         if( z->resultado ) free( z->resultado ); 
-    }       
-    else ret =  FINAL_ENJUEGO;
+    } else ret =  FINAL_ENJUEGO;
     free( z );
     return ret;
 
@@ -253,7 +254,10 @@ int    analizador_setmarca( Analizador* z, int marca, Casillero* cas){
     Casillero* ccc = ( cas ? cas : z->cas );
     CHECK_STATUS;
     if( !z->marcas ) z->marcas = malloc( sizeof( Casillero* ) * MARCAS_Q );
-    assert( marca < MARCAS_Q );
+    if( marca >= MARCAS_Q ){
+        LOGPRINT( 1, "Error cantidad de marcas pedidas %d >= %d", marca, MARCAS_Q );
+        return  STATUS_ERROR;
+    }
     z->marcas[marca] = ccc;
     return  STATUS_NORMAL;
 }
@@ -332,15 +336,18 @@ int    analizador_mueve  ( Analizador* z, char fromto_flags, void* from, void* t
             break;
         case  FROM_MARCA:
             marca = (long)from;
-            assert( marca < MARCAS_Q );
+            if( marca >= MARCAS_Q ){
+                LOGPRINT( 1, "Error cantidad de marcas disponibles %d >= %d", marca, MARCAS_Q );
+                return STATUS_ERROR;
+            }
             cas_from = z->marcas[marca];
             break;
         case  FROM_CASILLERO:
             cas_from = (Casillero*) from;
             break;
         default:
-            LOGPRINT( 2, "From-To flags contiene un valor incorrecto %x", fromto_flags );
-            exit( EXIT_FAILURE );
+            LOGPRINT( 1, "From-To flags contiene un valor incorrecto %x", fromto_flags );
+            return STATUS_ERROR;
     }
     if( !CASILLERO_VALIDO( cas_from ) ) return STATUS_OUTOFBOARD;
 
@@ -350,15 +357,18 @@ int    analizador_mueve  ( Analizador* z, char fromto_flags, void* from, void* t
             break;
         case  TO_MARCA:
             marca = (long)to;
-            assert( marca < MARCAS_Q );
+            if( marca >= MARCAS_Q ){
+                LOGPRINT( 1, "Error cantidad de marcas disponibles %d >= %d", marca, MARCAS_Q );
+                return STATUS_ERROR;
+            }
             cas_to = z->marcas[marca];
             break;
         case  TO_CASILLERO:
             cas_to = (Casillero*)to;
             break;
         default:
-            LOGPRINT( 2, "From-To flags contiene un valor incorrecto %x", fromto_flags );
-            exit( EXIT_FAILURE );
+            LOGPRINT( 1, "From-To flags contiene un valor incorrecto %x", fromto_flags );
+            return STATUS_ERROR;
     }
     if( !CASILLERO_VALIDO( cas_to ) ) return STATUS_OUTOFBOARD;
 
@@ -505,7 +515,10 @@ int    analizador_evalua_att( Analizador* z, int att ){
 int   analizador_ahogado( Analizador* z ){
     Posicion* pos = posicion_dup( z->pos );
     int i;
-    assert( z->color_siguiente );
+    if( !z->color_siguiente ){
+        LOGPRINT( 2, "Error, color siguiente no definido %p", z );
+        return 0;
+    }
     i = posicion_analiza_movidas( pos, ANALISIS_PRIMER_MOVIDA, z->color_siguiente, 0, NULL );
     LOGPRINT( 6, "Llamando a posicion_analiza_movidas, para obtener ahogado con color %d resultado %d", z->color_siguiente, i );
     posicion_free( pos );
@@ -542,10 +555,9 @@ int   analizador_final( Analizador* z, int color, int res ){
             sprintf( z->resultado, "%s Pierde", tipojuego_get_colorname( z->pos->tjuego, ( color ? color : z->color ) ) );
             break;
         default:
-            assert( !"Resultado entrante incorrecto" );
+            LOGPRINT(1, "Resultado entrante %d incorrecto", res );
+            return STATUS_ERROR;
     }
     return z->status;
-            
-    
 }
 
