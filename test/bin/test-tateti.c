@@ -12,16 +12,18 @@
 #include <unistd.h>
 #include <assert.h>
 #include <qgames.h>
+#include <qgames_code.h>
 #include <qgames_analyzer.h>
 
 #include "log.h"
 
 
 int  main(int argc, char** argv) {
-    Tipojuego* tateti;
+    Tipojuego* tateti, *tateti2;
     Partida*   partida;
     char *filename = "../../games/TaTeTi.qgame";
     assert( tateti = qgz_parse_filename( filename, 0 ) );
+    assert( tateti2 = qgz_parse_filename( filename, 0 ) );
 
     loglevel = 2;
 
@@ -82,6 +84,13 @@ int  main(int argc, char** argv) {
     printf( "." );
     assert( partida_final( partida, NULL ) == 1 );
     partida_free( partida );
+
+    printf( "." );
+    assert( tipojuego_valido( tateti2 ) );
+    assert( tipojuego_code_casillero( tateti2, "a1" ) );
+    assert( tipojuego_valido( tateti2 ) );
+    assert( !tipojuego_code_casillero( tateti2, "a4" ) );
+    assert( !tipojuego_valido( tateti2 ) );
 
     printf( "\n" );
     return  EXIT_SUCCESS;
