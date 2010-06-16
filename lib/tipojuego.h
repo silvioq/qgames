@@ -189,13 +189,17 @@ typedef  struct  StrZonadef{
 
 #define  GETTIPOPIEZA(tj,nom)  ({ \
     int ret = tipojuego_get_tipopieza(tj,nom); \
-    assert( ret != NOT_FOUND ); \
+    if( ret == NOT_FOUND ){\
+        TJSETERROR( tj, "Tipo de pieza no encontrada", nom );\
+    }\
     ret; \
   })
 
 #define  GETTIPOPIEZAATT(tj,tp,nom) ({ \
     int  ret = tipopieza_get_att(tp, nom ); \
-    assert( ret != NOT_FOUND ); \
+    if( ret == NOT_FOUND ){\
+        TJSETERROR( tj, "Atributo no encontrado", nom );\
+    }\
     ret; \
   })
 

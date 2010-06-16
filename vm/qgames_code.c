@@ -180,6 +180,7 @@ int         tipojuego_code_cuenta_piezas( Tipojuego* tj, char* casillero, int ow
         if( !TJVALIDO( tj ) ) return 0;
     }
     tp  = ( tpieza    ? GETTIPOPIEZA(tj,tpieza)    : -1 );
+    if( !TJVALIDO( tj ) ) return 0;
     if( owner == CUALQUIERA && color ){
         own = GETCOLOR(tj, color );
     } else if( owner != CUALQUIERA ){
@@ -216,6 +217,7 @@ int         tipojuego_code_ocupado( Tipojuego* tj, char* casillero, int owner, c
     }
 
     tp = ( tpieza ? GETTIPOPIEZA( tj, tpieza ) : -1 );
+    if( !TJVALIDO( tj ) ) return 0;
 
     qcode_op( tj->qcode, QCSTI, 1, tp  );      // r1 = tp
     qcode_op( tj->qcode, QCPSH, 1, 0 );        // PSH r1
@@ -269,16 +271,19 @@ int         tipojuego_code_ahogado( Tipojuego* tj, char* color ){
     // RET_IF_STATUS;                              // Retorna si el valor es distinto de cero
 }
 
-void        tipojuego_code_enzona ( Tipojuego* tj, char* zona, char* tpieza ){
+int         tipojuego_code_enzona ( Tipojuego* tj, char* zona, char* tpieza ){
     int  za, tp;
+    if( !TJVALIDO( tj ) ) return 0;
     za = GETZONA(tj, zona);
     tp = ( tpieza ? GETTIPOPIEZA( tj, tpieza ) : - 1 );
+    if( !TJVALIDO( tj ) ) return 0;
     qcode_op( tj->qcode, QCSTI, 16, tp );       // t16 = tp
     qcode_op( tj->qcode, QCPSH, 16, 0 );        // PSH t16
     qcode_op( tj->qcode, QCSTI, 16, za );       // t16 = za
     qcode_op( tj->qcode, QCPSH, 16, 0 );        // PSH t16
     qcode_op( tj->qcode, QCPSH,  3, 0 );        // PSH r3
     qcode_opnlab( tj->qcode, QCCLX, "enzona" );
+    return 1;
     
 }
 
@@ -300,29 +305,33 @@ int         tipojuego_code_atacado( Tipojuego* tj, char* casillero ){
 }
 
 
-void        tipojuego_code_entablero( Tipojuego* tj ){
+int         tipojuego_code_entablero( Tipojuego* tj ){
     qcode_op( tj->qcode, QCPSH,  3, 0 );        // PSH r3
     qcode_opnlab( tj->qcode, QCCLX, "entablero" );
+    return 1;
     // FIXME: Hay que controlar posibles estados erroneos
     // RET_IF_STATUS;                              // Retorna si el valor es distinto de cero
 }
 
-void        tipojuego_code_jaquemate( Tipojuego* tj, char* tpieza  ){
-    assert( tj );
+int         tipojuego_code_jaquemate( Tipojuego* tj, char* tpieza  ){
+    if( !TJVALIDO(tj) ) return 0;
     tj->flags |= JAQUEMATE;
     tj->regla_actual->flags |= JAQUEMATE;
     int tp = GETTIPOPIEZA(tj, tpieza );
+    if( !TJVALIDO(tj) ) return 0;
     ((Tipopieza*)(tj->tipo_piezas->data[tp]))->flags |= JAQUEMATE;
     qcode_op( tj->qcode, QCSTI, 1, tp  );      // r1  = tp 
     qcode_op( tj->qcode, QCPSH, 1, 0 );        // PSH r1
     qcode_op( tj->qcode, QCPSH, 3, 0 );        // PSH r3
     qcode_opnlab( tj->qcode, QCCLX, "jaquemate" );
+    return 1;
 }
 
 
-void        tipojuego_code_transforma( Tipojuego* tj, int owner, char* color, char* tpieza  ){
+int         tipojuego_code_transforma( Tipojuego* tj, int owner, char* color, char* tpieza  ){
     int  own = NOCOLOR;
     int  tp ;
+    if( !TJVALIDO(tj) ) return 0;
 
     assert( owner == PROPIO || owner == ENEMIGO || owner == NOCOLOR );
 
@@ -334,6 +343,7 @@ void        tipojuego_code_transforma( Tipojuego* tj, int owner, char* color, ch
 
     if( tpieza ){
         tp = GETTIPOPIEZA(tj, tpieza );
+        if( !TJVALIDO(tj) ) return 0;
     } else {
         tp = -1;
     }
@@ -344,6 +354,7 @@ void        tipojuego_code_transforma( Tipojuego* tj, int owner, char* color, ch
     qcode_op( tj->qcode, QCPSH,  3, 0 );        // PSH r3
     qcode_opnlab( tj->qcode, QCCLX, "transforma" );
     RET_IF_STATUS;                              // Retorna si el valor es distinto de cero
+    return 1;
 }
 
 int         tipojuego_code_juega  ( Tipojuego* tj, char* casillero, int captura ){
@@ -410,10 +421,19 @@ int         tipojuego_code_captura( Tipojuego* tj, char* casillero ){
 }
 
 
-void        tipojuego_code_asigna_att( Tipojuego* tj, char* att, int val ){
+int         tipojuego_code_asigna_att( Tipojuego* tj, char* att, int val ){
+    if( !TJVALIDO(tj)) return 0;
     Regla* rule = tj->regla_actual;
-    assert( rule->tpieza );
+    if( !rule ){ 
+        TJSETERROR( tj, "No hay regla actual definida", 0);
+        return 0;
+    }
+    if( !rule->tpieza ){ 
+        TJSETERROR( tj, "La regla actual no esta asociada a una pieza", 0);
+        return 0;
+    }
     long a = GETTIPOPIEZAATT(tj, rule->tpieza, att );
+    if( !TJVALIDO(tj)) return 0;
     qcode_op( tj->qcode, QCSTI,  1, val );      // r1 = val
     qcode_op( tj->qcode, QCPSH,  1, 0 );        // PSH r1
     qcode_op( tj->qcode, QCSTI,  1, a );        // r1 = a
@@ -421,16 +441,27 @@ void        tipojuego_code_asigna_att( Tipojuego* tj, char* att, int val ){
     qcode_op( tj->qcode, QCPSH,  3, 0 );        // PSH r3
     qcode_opnlab( tj->qcode, QCCLX, "asigna_att" );
     RET_IF_STATUS;                              // Retorna si el valor es distinto de cero
+    return 1;
 }
 
-void        tipojuego_code_evalua_att( Tipojuego* tj, char* att ){
+int         tipojuego_code_evalua_att( Tipojuego* tj, char* att ){
+    if( !TJVALIDO(tj)) return 0;
     Regla* rule = tj->regla_actual;
-    assert( rule->tpieza );
+    if( !rule ){ 
+        TJSETERROR( tj, "No hay regla actual definida", 0);
+        return 0;
+    }
+    if( !rule->tpieza ){ 
+        TJSETERROR( tj, "La regla actual no esta asociada a una pieza", 0);
+        return 0;
+    }
     long a = GETTIPOPIEZAATT(tj, rule->tpieza, att );
+    if( !TJVALIDO(tj)) return 0;
     qcode_op( tj->qcode, QCSTI,  1, a );         // r1 = a
     qcode_op( tj->qcode, QCPSH,  1, 0 );         // PSH r1
     qcode_op( tj->qcode, QCPSH,  3, 0 );         // PSH r3
     qcode_opnlab( tj->qcode, QCCLX, "evalua_att" );
+    return 1;
 }
 
 

@@ -79,7 +79,7 @@ int         tipojuego_get_cell_bycasillero( Tipojuego* tj, char* casillero,  int
 void   tipojuego_add_notacion_def( Tipojuego* tj, char elemento );
 void   tipojuego_add_notacion_rep( Tipojuego* tj, char elemento );
 void   tipojuego_add_notacion_tmov( Tipojuego* tj, char* tmov, char* notacion );
-void   tipojuego_add_notacion_tpieza( Tipojuego* tj, char* tpieza, char* color, char* abbr );
+int    tipojuego_add_notacion_tpieza( Tipojuego* tj, char* tpieza, char* color, char* abbr );
 void   tipojuego_set_notacion_marca( Tipojuego* tj, char* marca, char* captura );
 
 
@@ -103,8 +103,8 @@ void   tipojuego_set_notacion_marca( Tipojuego* tj, char* marca, char* captura )
 
 void   tipojuego_graph_tablero_std     ( Tipojuego* tj, int board_number, char graphtype, int width, int height, int forecolor, int backcolor );
 void   tipojuego_graph_tablero_cus     ( Tipojuego* tj, int board_number, char* file  );
-void   tipojuego_graph_tipopieza_std   ( Tipojuego* tj, char* tpieza, int stdimg, int width, int height );
-void   tipojuego_graph_tipopieza_cus   ( Tipojuego* tj, char* tpieza, char* color, char* file );
+int    tipojuego_graph_tipopieza_std   ( Tipojuego* tj, char* tpieza, int stdimg, int width, int height );
+int    tipojuego_graph_tipopieza_cus   ( Tipojuego* tj, char* tpieza, char* color, char* file );
 void   tipojuego_graph_casillero_std   ( Tipojuego* tj, char* casillero, int resaltado, int color );
 void   tipojuego_graph_casillero_cus   ( Tipojuego* tj, char* casillero, char* file );
 

@@ -2117,7 +2117,7 @@ yyreduce:
 #line 301 "qgames_parser.y"
     {
             CHECK_TIPOJUEGO;
-            tipojuego_code_entablero( tipojuego );
+            if( !tipojuego_code_entablero( tipojuego ) ) YYERROR;
     }
     break;
 
@@ -2145,7 +2145,7 @@ yyreduce:
             if( !zona || !tpieza ){
                 yyerror( "Instruccion enzona mal formada" );
             }
-            tipojuego_code_enzona( tipojuego, zona, tpieza );
+            if( !tipojuego_code_enzona( tipojuego, zona, tpieza ) ) YYERROR;
     }
     break;
 
@@ -2154,7 +2154,7 @@ yyreduce:
     {
             CHECK_TIPOJUEGO;
             if( NOT_FOUND != tipojuego_get_zona( tipojuego, ((char*)(yyvsp[(2) - (2)])) ) ) {
-                tipojuego_code_enzona( tipojuego, (char*)(yyvsp[(2) - (2)]), NULL );
+                if( !tipojuego_code_enzona( tipojuego, (char*)(yyvsp[(2) - (2)]), NULL ) ) YYERROR;
             } else { 
                 qgzprintf( "%s debe ser una zona", ((char*)(yyvsp[(2) - (2)]) ) );
                 yyerror( "Instruccion enzona mal formada" );
@@ -2167,7 +2167,7 @@ yyreduce:
     {
             CHECK_TIPOJUEGO;
             if( NOT_FOUND != tipojuego_get_tipopieza( tipojuego, ((char*)(yyvsp[(2) - (2)])) ) ){
-                tipojuego_code_jaquemate( tipojuego, ((char*)(yyvsp[(2) - (2)])) );
+                if( !tipojuego_code_jaquemate( tipojuego, ((char*)(yyvsp[(2) - (2)])) ) ) YYERROR;
             } else {
                 qgzprintf( "%s debe ser un tipo de pieza", ((char*)(yyvsp[(2) - (2)])) );
                 yyerror( "Debe ser un tipo de pieza" );
@@ -2287,7 +2287,7 @@ yyreduce:
                     yyerror( "Casillero no esperado" );
                     YYERROR;
                 } else if( tipojuego_get_att( tipojuego, last_pieza, (char*)(yyvsp[(1) - (1)]) ) != NOT_FOUND ) {
-                      tipojuego_code_evalua_att( tipojuego, (char*)(yyvsp[(1) - (1)]) );
+                      if( !tipojuego_code_evalua_att( tipojuego, (char*)(yyvsp[(1) - (1)]) ) ) YYERROR;
                 } else {
                    int  len = strlen( (char*)(yyvsp[(1) - (1)]) );
                    int  hay_algo = 0;
@@ -2296,7 +2296,7 @@ yyreduce:
                       sin_pregunta[len-1] = 0;
                       if( tipojuego_get_att( tipojuego, last_pieza, sin_pregunta ) != NOT_FOUND ){
                           hay_algo = 1;
-                          tipojuego_code_evalua_att( tipojuego, sin_pregunta );
+                          if( !tipojuego_code_evalua_att( tipojuego, sin_pregunta ) ) YYERROR;
                       }
                       free(sin_pregunta);
                   }
@@ -2393,7 +2393,7 @@ yyreduce:
                     for( i = 0; i < qgz_param_count; i ++ ){
                         if( NOT_FOUND != tipojuego_get_tipopieza( tipojuego, qgz_param_list[i].str ) ){
                             qgzprintf( "Se va a transformar a %s %s", qgz_param_list[i].str, color );
-                            tipojuego_code_transforma( tipojuego, NOCOLOR, color, qgz_param_list[i].str );
+                            if( !tipojuego_code_transforma( tipojuego, NOCOLOR, color, qgz_param_list[i].str ) ) YYERROR;
                         } else if ( NOT_FOUND != tipojuego_get_color( tipojuego, qgz_param_list[i].str ) ){
                             qgzprintf( "Parametro incorrecto en transforma: %s", qgz_param_list[i].str ); 
                             yyerror( "Error de parametros en transforma, debe ser color o tipo de pieza" );
@@ -2406,7 +2406,7 @@ yyreduce:
 #line 529 "qgames_parser.y"
     {
           CHECK_TIPOJUEGO;
-          tipojuego_code_asigna_att( tipojuego, (char*)(yyvsp[(2) - (3)]), (yyvsp[(3) - (3)]) );
+          if( !tipojuego_code_asigna_att( tipojuego, (char*)(yyvsp[(2) - (3)]), (yyvsp[(3) - (3)]) ) ) YYERROR;
     }
     break;
 
@@ -2414,7 +2414,7 @@ yyreduce:
 #line 533 "qgames_parser.y"
     {
           CHECK_TIPOJUEGO;
-          tipojuego_code_asigna_att( tipojuego, (char*)(yyvsp[(2) - (4)]), (yyvsp[(4) - (4)]) );
+          if( !tipojuego_code_asigna_att( tipojuego, (char*)(yyvsp[(2) - (4)]), (yyvsp[(4) - (4)]) ) ) YYERROR;
     }
     break;
 
@@ -2874,7 +2874,7 @@ yyreduce:
             qgzprintf( "%s debe ser un tipo de pieza", ((char*)(yyvsp[(3) - (4)])) );
             yyerror( "Debe ser un tipo de pieza" ); YYERROR;
         }
-        tipojuego_graph_tipopieza_std( tipojuego, ((char*)(yyvsp[(3) - (4)])), (yyvsp[(2) - (4)]), graph_dim1, graph_dim2 );
+        if( !tipojuego_graph_tipopieza_std( tipojuego, ((char*)(yyvsp[(3) - (4)])), (yyvsp[(2) - (4)]), graph_dim1, graph_dim2 ) ) YYERROR;
     }
     break;
 
@@ -2886,7 +2886,7 @@ yyreduce:
             qgzprintf( "%s debe ser un tipo de pieza", ((char*)(yyvsp[(2) - (4)])) );
             yyerror( "Debe ser un tipo de pieza" ); YYERROR;
         }
-        tipojuego_graph_tipopieza_std( tipojuego, ((char*)(yyvsp[(2) - (4)])), (yyvsp[(3) - (4)]), graph_dim1, graph_dim2 );
+        if( !tipojuego_graph_tipopieza_std( tipojuego, ((char*)(yyvsp[(2) - (4)])), (yyvsp[(3) - (4)]), graph_dim1, graph_dim2 ) ) YYERROR;
     }
     break;
 
@@ -2947,32 +2947,32 @@ yyreduce:
 
   case 157:
 #line 895 "qgames_parser.y"
-    {  tipojuego_add_notacion_rep( tipojuego, (yyvsp[(1) - (1)]) ); }
+    { CHECK_TIPOJUEGO; tipojuego_add_notacion_rep( tipojuego, (yyvsp[(1) - (1)]) ); }
     break;
 
   case 158:
 #line 896 "qgames_parser.y"
-    {  tipojuego_add_notacion_rep( tipojuego, (yyvsp[(2) - (2)]) ); }
+    { CHECK_TIPOJUEGO; tipojuego_add_notacion_rep( tipojuego, (yyvsp[(2) - (2)]) ); }
     break;
 
   case 159:
 #line 897 "qgames_parser.y"
-    {  tipojuego_add_notacion_rep( tipojuego, (yyvsp[(3) - (3)]) ); }
+    { CHECK_TIPOJUEGO; tipojuego_add_notacion_rep( tipojuego, (yyvsp[(3) - (3)]) ); }
     break;
 
   case 160:
 #line 900 "qgames_parser.y"
-    {  tipojuego_add_notacion_def( tipojuego, (yyvsp[(1) - (1)]) ); }
+    { CHECK_TIPOJUEGO; tipojuego_add_notacion_def( tipojuego, (yyvsp[(1) - (1)]) ); }
     break;
 
   case 161:
 #line 901 "qgames_parser.y"
-    {  tipojuego_add_notacion_def( tipojuego, (yyvsp[(2) - (2)]) ); }
+    { CHECK_TIPOJUEGO; tipojuego_add_notacion_def( tipojuego, (yyvsp[(2) - (2)]) ); }
     break;
 
   case 162:
 #line 902 "qgames_parser.y"
-    {  tipojuego_add_notacion_def( tipojuego, (yyvsp[(3) - (3)]) ); }
+    { CHECK_TIPOJUEGO; tipojuego_add_notacion_def( tipojuego, (yyvsp[(3) - (3)]) ); }
     break;
 
   case 163:
@@ -2980,7 +2980,7 @@ yyreduce:
     { 
         CHECK_TIPOJUEGO;
         if( NOT_FOUND != tipojuego_get_tipopieza( tipojuego, (char*)(yyvsp[(2) - (3)]) ) ){
-            tipojuego_add_notacion_tpieza( tipojuego, (char*)(yyvsp[(2) - (3)]), NULL, (char*)(yyvsp[(3) - (3)]) ) ;
+            if( !tipojuego_add_notacion_tpieza( tipojuego, (char*)(yyvsp[(2) - (3)]), NULL, (char*)(yyvsp[(3) - (3)]) ) ) YYERROR ;
         } else if ( NOT_FOUND != tipojuego_get_tipomov( tipojuego, (char*)(yyvsp[(2) - (3)]) ) ){
             tipojuego_add_notacion_tmov( tipojuego, (char*)(yyvsp[(2) - (3)]), (char*)(yyvsp[(3) - (3)]) ) ;
         } else {
@@ -3014,7 +3014,7 @@ yyreduce:
             yyerror( "Notacion mal formada (color incorrecto)" );
             YYERROR;
         } 
-        tipojuego_add_notacion_tpieza( tipojuego, tpieza, color, abbr ) ;
+        if( !tipojuego_add_notacion_tpieza( tipojuego, tpieza, color, abbr ) ) YYERROR;
         free((void*)(yyvsp[(2) - (4)]));
         free((void*)(yyvsp[(3) - (4)]));
         free((void*)(yyvsp[(4) - (4)]));

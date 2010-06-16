@@ -452,8 +452,11 @@ void        tipojuego_add_secuencia_rep( Tipojuego* tj ){
  * La primera definicion de la notacion es la abreviatura del tipo 
  * de pieza
  * */
-void   tipojuego_add_notacion_tpieza( Tipojuego* tj, char* tpieza, char* color, char* abbr ){
+int    tipojuego_add_notacion_tpieza( Tipojuego* tj, char* tpieza, char* color, char* abbr ){
+    if( !TJVALIDO( tj ) ) return 0;
     int  tp = GETTIPOPIEZA( tj, tpieza );
+    if( !TJVALIDO( tj ) ) return 0;
+
     int  col = ( color ? tipojuego_get_color( tj, color ) : 0 );
     NotacionData* not_data = malloc( sizeof( NotacionData ) );
     not_data->valor = (long)(tj->tipo_piezas->data[tp]);
@@ -462,6 +465,7 @@ void   tipojuego_add_notacion_tpieza( Tipojuego* tj, char* tpieza, char* color, 
     INIT_NOTACION(tj);
     if( !tj->notacion->notacion_tpiezas ) tj->notacion->notacion_tpiezas = list_nueva( NULL );
     list_agrega( tj->notacion->notacion_tpiezas , not_data );
+    return 1;
 }
 
 void   tipojuego_add_notacion_tmov( Tipojuego* tj, char* tmov, char* notacion ){
@@ -524,8 +528,10 @@ void   tipojuego_graph_tablero_std     ( Tipojuego* tj, int board_number, char g
 
 }
 
-void   tipojuego_graph_tipopieza_std   ( Tipojuego* tj, char* tpieza, int stdimg, int width, int height ){
+int    tipojuego_graph_tipopieza_std   ( Tipojuego* tj, char* tpieza, int stdimg, int width, int height ){
+    if( !TJVALIDO(tj) ) return 0;
     int tp = GETTIPOPIEZA( tj, tpieza );
+    if( !TJVALIDO(tj) ) return 0;
     if( !tj->graphdefs ) tj->graphdefs = list_nueva( NULL );
     Graphdef* g = malloc( sizeof( Graphdef ) );
     memset( g, 0, sizeof( Graphdef ) );
@@ -535,6 +541,7 @@ void   tipojuego_graph_tipopieza_std   ( Tipojuego* tj, char* tpieza, int stdimg
     g->w    = width;
     g->h    = height;
     list_agrega( tj->graphdefs, g );
+    return 1;
 }
 
 
