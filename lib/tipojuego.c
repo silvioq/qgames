@@ -65,11 +65,17 @@ Tipojuego*   tipojuego_new( char* nombre ){
 
     tj->nombre  = strdup( nombre );
     tj->inicial = posicion_new( tj );
+    tj->flags   = ENDEFINCION | VALIDO;
     SIM_ADD( tj, SIM_TIPOJUEGO, tj->nombre, 0 );  
 
     return tj;
 
 }
+
+/* 
+ * Muy sencillo ... determino si el tipo de juego es o no es valido
+ * */
+int         tipojuego_valido( Tipojuego* tj ){ return TJVALIDO(tj); }
 
 /*
  * Genera un tablero y las dimensiones
@@ -181,16 +187,19 @@ int         tipojuego_add_zona( Tipojuego* tj, char* zona ){
  * Esta funcion tiene que agregar un casillero a la zona.
  * */
 
-void        tipojuego_add_cas_to_zona( Tipojuego* tj, char* cas, char* color, char* zona ){
+int         tipojuego_add_cas_to_zona( Tipojuego* tj, char* cas, char* color, char* zona ){
+    if( !TJVALIDO(tj) ) return 0;
     int  zzz = GETZONA( tj, zona );
     int  ccc = GETCOLOR( tj, color );
     int  cass = GETCASILLERO( tj, cas );
+    if( !TJVALIDO(tj) ) return 0;
     Zonadef* zdef = malloc( sizeof( Zonadef ) );
     zdef->color = ccc;
     zdef->zona  = zzz;
     zdef->cas   = tj->casilleros->data[cass];
     if( !tj->defzonas ) tj->defzonas = list_nueva( NULL );
     list_agrega( tj->defzonas, zdef );
+    return 1;
 }
 
 /*

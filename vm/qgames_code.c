@@ -34,6 +34,8 @@
 #else
 #define  RET_IF_STATUS
 #endif
+
+
 /*
  * Estas tres variables me permitiran trabajar con un stack de etiquetas
  * y generar los bloques
@@ -161,11 +163,13 @@ void        tipojuego_code_continue_block( Tipojuego* tj, long block ){
 }
 
 
-void        tipojuego_code_cuenta_piezas( Tipojuego* tj, char* casillero, int owner, char* color, char* tpieza ){
+int         tipojuego_code_cuenta_piezas( Tipojuego* tj, char* casillero, int owner, char* color, char* tpieza ){
     assert( tj );
     int   own = CUALQUIERA;
     long  cas;
     long  tp;
+
+    if( !TJVALIDO( tj ) ) return 0;
 
     if( !casillero ){
         cas = SINCASILLERO;
@@ -173,6 +177,7 @@ void        tipojuego_code_cuenta_piezas( Tipojuego* tj, char* casillero, int ow
         cas = CAPTURA;
     } else {
         cas = GETCASILLERO(tj,casillero);
+        if( !TJVALIDO( tj ) ) return 0;
     }
     tp  = ( tpieza    ? GETTIPOPIEZA(tj,tpieza)    : -1 );
     if( owner == CUALQUIERA && color ){
@@ -189,12 +194,14 @@ void        tipojuego_code_cuenta_piezas( Tipojuego* tj, char* casillero, int ow
     qcode_op( tj->qcode, QCPSH, 1, 0   );       // PSH r1
     qcode_op( tj->qcode, QCPSH, 3, 0   );       // PSH r3 ; analizado
     qcode_opnlab( tj->qcode, QCCLX, "cuentapiezas" );
+    return 1;
 }
 
-void        tipojuego_code_ocupado( Tipojuego* tj, char* casillero, int owner, char* color, char* tpieza ){
+int         tipojuego_code_ocupado( Tipojuego* tj, char* casillero, int owner, char* color, char* tpieza ){
     int  own = CUALQUIERA;
     long cas, tp;
 
+    if( !TJVALIDO( tj ) ) return 0;
     if( owner == CUALQUIERA && color ){
         own = GETCOLOR(tj, color );
     } else if( owner != CUALQUIERA ){
@@ -203,6 +210,7 @@ void        tipojuego_code_ocupado( Tipojuego* tj, char* casillero, int owner, c
 
     if( casillero ){
         cas = GETCASILLERO(tj, casillero );
+        if( !TJVALIDO( tj ) ) return 0;
     } else {
         cas = SINCASILLERO;
     }
@@ -217,27 +225,36 @@ void        tipojuego_code_ocupado( Tipojuego* tj, char* casillero, int owner, c
     qcode_op( tj->qcode, QCPSH, 1, 0 );        // PSH r1
     qcode_op( tj->qcode, QCPSH, 3, 0 );        // PSH r3
     qcode_opnlab( tj->qcode, QCCLX, "ocupado" );
+    return 1;
 }
 
 
-void        tipojuego_code_destino_ant( Tipojuego* tj, char* casillero ){
+int         tipojuego_code_destino_ant( Tipojuego* tj, char* casillero ){
+    if( !TJVALIDO(tj) )return 0;
     long cas = ( casillero ? GETCASILLERO( tj, casillero ) : SINCASILLERO );
+    if( !TJVALIDO(tj) )return 0;
+    
     qcode_op( tj->qcode, QCSTI, 1, cas );      // r1 = cas     
     qcode_op( tj->qcode, QCPSH, 1, 0 );        // PSH r1
     qcode_op( tj->qcode, QCPSH, 3, 0 );        // PSH r3
     qcode_opnlab( tj->qcode, QCCLX, "destino_ant" );
+    return 1;
 }
 
-void        tipojuego_code_origen_ant( Tipojuego* tj, char* casillero ){
+int         tipojuego_code_origen_ant( Tipojuego* tj, char* casillero ){
+    if( !TJVALIDO(tj) )return 0;
     long cas = ( casillero ? GETCASILLERO( tj, casillero ) : SINCASILLERO );
+    if( !TJVALIDO(tj) )return 0;
     qcode_op( tj->qcode, QCSTI, 1, cas );      // r1 = cas     
     qcode_op( tj->qcode, QCPSH, 1, 0 );        // PSH r1
     qcode_op( tj->qcode, QCPSH, 3, 0 );        // PSH r3
     qcode_opnlab( tj->qcode, QCCLX, "origen_ant" );
+    return 1;
 }
 
 
-void        tipojuego_code_ahogado( Tipojuego* tj, char* color ){
+int         tipojuego_code_ahogado( Tipojuego* tj, char* color ){
+    if( !TJVALIDO( tj ) ) return 0;
     int  col;
     if( color ){
         col = GETCOLOR( tj, color );
@@ -247,6 +264,7 @@ void        tipojuego_code_ahogado( Tipojuego* tj, char* color ){
     qcode_op( tj->qcode, QCPSH, 16, 0 );        // PSH t16
     qcode_op( tj->qcode, QCPSH,  3, 0 );        // PSH r3
     qcode_opnlab( tj->qcode, QCCLX, "ahogado" );
+    return 1;
     // FIXME: Hay que controlar posibles estados erroneos
     // RET_IF_STATUS;                              // Retorna si el valor es distinto de cero
 }
@@ -264,10 +282,12 @@ void        tipojuego_code_enzona ( Tipojuego* tj, char* zona, char* tpieza ){
     
 }
 
-void        tipojuego_code_atacado( Tipojuego* tj, char* casillero ){
+int         tipojuego_code_atacado( Tipojuego* tj, char* casillero ){
     int  cas;
+    if( !TJVALIDO(tj) ) return 0;
     if( casillero ){
         cas = GETCASILLERO(tj,casillero);
+        if( !TJVALIDO(tj) ) return 0;
     } else {
         cas = SINCASILLERO;
     }
@@ -275,6 +295,7 @@ void        tipojuego_code_atacado( Tipojuego* tj, char* casillero ){
     qcode_op( tj->qcode, QCPSH, 16, 0 );        // PSH t16
     qcode_op( tj->qcode, QCPSH,  3, 0 );        // PSH r3
     qcode_opnlab( tj->qcode, QCCLX, "atacado" );
+    return 1;
     
 }
 
@@ -325,10 +346,12 @@ void        tipojuego_code_transforma( Tipojuego* tj, int owner, char* color, ch
     RET_IF_STATUS;                              // Retorna si el valor es distinto de cero
 }
 
-void        tipojuego_code_juega  ( Tipojuego* tj, char* casillero, int captura ){
+int         tipojuego_code_juega  ( Tipojuego* tj, char* casillero, int captura ){
     long cas;
+    if( !TJVALIDO( tj ) ) return 0;
     if( casillero ){
         cas = GETCASILLERO(tj, casillero );
+        if( !TJVALIDO( tj ) ) return 0;
     } else {
         cas = SINCASILLERO;
     }
@@ -340,18 +363,22 @@ void        tipojuego_code_juega  ( Tipojuego* tj, char* casillero, int captura 
     qcode_op( tj->qcode, QCPSH, 3, 0 );        // PSH r3
     qcode_opnlab( tj->qcode, QCCLX, "juega" );
     RET_IF_STATUS;                              // Retorna si el valor es distinto de cero
+    return 1;
 }
 
 
-void        tipojuego_code_mueve  ( Tipojuego* tj, char fromto_flags, void* from, void* to ){
+int         tipojuego_code_mueve  ( Tipojuego* tj, char fromto_flags, void* from, void* to ){
     long from_var, to_var;
+    if( !TJVALIDO( tj ) ) return 0;
     if( (fromto_flags&FROM_MASK)==FROM_CASILLERO) {
         from_var = GETCASILLERO( tj, (char*)from ) ;
+        if( !TJVALIDO( tj ) ) return 0;
     } else {
         from_var = (long)from;
     }
     if( (fromto_flags&TO_MASK)==TO_CASILLERO) {
         to_var = GETCASILLERO( tj, (char*)to ) ;
+        if( !TJVALIDO( tj ) ) return 0;
     } else {
         to_var = (long)to;
     }
@@ -364,18 +391,22 @@ void        tipojuego_code_mueve  ( Tipojuego* tj, char fromto_flags, void* from
     qcode_op( tj->qcode, QCPSH, 3, 0 );        // PSH r3
     qcode_opnlab( tj->qcode, QCCLX, "mueve" );
     RET_IF_STATUS;                              // Retorna si el valor es distinto de cero
+    return 1;
 }
 
 
 
-void        tipojuego_code_captura( Tipojuego* tj, char* casillero ){
+int         tipojuego_code_captura( Tipojuego* tj, char* casillero ){
+    if( !TJVALIDO( tj ) ) return 0;
     long cas = ( casillero ? GETCASILLERO(tj, casillero ) : SINCASILLERO );
+    if( !TJVALIDO( tj ) ) return 0;
 
     qcode_op( tj->qcode, QCSTI, 1, cas );      // r1 = cas     
     qcode_op( tj->qcode, QCPSH, 1, 0 );        // PSH r1
     qcode_op( tj->qcode, QCPSH, 3, 0 );        // PSH r3
     qcode_opnlab( tj->qcode, QCCLX, "captura" );
     RET_IF_STATUS;                              // Retorna si el valor es distinto de cero
+    return 1;
 }
 
 
@@ -403,8 +434,10 @@ void        tipojuego_code_evalua_att( Tipojuego* tj, char* att ){
 }
 
 
-void       tipojuego_code_setmarca( Tipojuego* tj, int marca, char* casillero ){
+int        tipojuego_code_setmarca( Tipojuego* tj, int marca, char* casillero ){
+    if( !TJVALIDO(tj)) return 0;
     long cas = ( casillero ? GETCASILLERO(tj, casillero ) : SINCASILLERO );
+    if( !TJVALIDO(tj)) return 0;
     qcode_op( tj->qcode, QCSTI, 1, cas );      // r1 = cas     
     qcode_op( tj->qcode, QCPSH, 1, 0 );        // PSH r1
     qcode_op( tj->qcode, QCSTI, 1, marca );    // r1 = marca
@@ -412,6 +445,7 @@ void       tipojuego_code_setmarca( Tipojuego* tj, int marca, char* casillero ){
     qcode_op( tj->qcode, QCPSH, 3, 0 );        // PSH r3
     qcode_opnlab( tj->qcode, QCCLX, "setmarca" );
     RET_IF_STATUS;                              // Retorna si el valor es distinto de cero
+    return 1;
 }
 
 
@@ -420,10 +454,12 @@ void        tipojuego_code_para  ( Tipojuego* tj ){
     qcode_op( tj->qcode, QCRET,  0, 0 );        // RET
 }
 
-void        tipojuego_code_casillero( Tipojuego* tj, char* casillero ){
+int         tipojuego_code_casillero( Tipojuego* tj, char* casillero ){
     long cas;
+    if( !TJVALIDO(tj)) return 0;
     if( casillero ){
         cas = GETCASILLERO(tj, casillero );
+        if( !TJVALIDO(tj)) return 0;
     } else {
         cas = SINCASILLERO;
     }
@@ -432,6 +468,7 @@ void        tipojuego_code_casillero( Tipojuego* tj, char* casillero ){
     qcode_op( tj->qcode, QCPSH,  3, 0 );        // PSH r3
     qcode_opnlab( tj->qcode, QCCLX, "casillero" );
     RET_IF_STATUS;                              // Retorna si el valor es distinto de cero
+    return 1;
 }
     
 void        tipojuego_code_direccion( Tipojuego* tj, char* direccion ){

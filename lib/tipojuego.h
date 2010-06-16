@@ -17,8 +17,13 @@ typedef   struct   StrRegla     Regla;
 typedef   struct   StrSimbolo   Simbolo;
 typedef   struct   StrGraphdef  Graphdef;
 
-#define   JAQUEMATE    0x1
+#define   ENDEFINCION       0x1
+#define   VALIDO            0x2
+#define   JAQUEMATE         0x4
+
 #define   TJJAQUEMATE(tj)  (tj->flags & JAQUEMATE)
+#define   TJVALIDO(tj)     (tj->flags & VALIDO)
+#define   TJINVALIDAR(tj)  (tj->flags &= ~ VALIDO)
 
 
 typedef   struct   StrTipojuego {
@@ -38,13 +43,19 @@ typedef   struct   StrTipojuego {
     int          zonas;
     _list*       defzonas;
     Posicion*    inicial;
-    char         flags;
+    int          flags;
 
     _list*       graphdefs;
 
     _list*       rules;           // Aca van los finales
     Regla*       regla_actual;
     QCode*       qcode;
+
+    /* Todas estas variables son para indicar errores de validacion
+       en la generacion del tipo  de juego */
+    char*       error_msg;
+    char*       error_file;
+    int         error_line;
 } _Tipojuego;
 
 typedef   struct   StrTablero {
@@ -143,10 +154,24 @@ typedef  struct  StrZonadef{
 } Zonadef;
 
 
+#ifndef QUOTEME
+#define QUOTEME_(x) #x
+#define QUOTEME(x) QUOTEME_(x)
+#endif
+#define  TJSETERROR(tj,text,...){ \
+    TJINVALIDAR(tj);\
+    tj->error_line = __LINE__; tj->error_file = __FILE__;\
+    tj->error_msg = strdup(text);\
+    LOGPRINT( 2, text, __VA_ARGS__ );\
+}
+
+
 
 #define  GETCASILLERO(tj,nom)  ({ \
     int ret = tipojuego_get_casillero(tj,nom); \
-    assert( ret != NOT_FOUND ); \
+    if( ret == NOT_FOUND ){\
+        TJSETERROR( tj, "Casillero no encontrado", nom );\
+    }\
     ret; \
   })
 

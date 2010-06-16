@@ -311,7 +311,8 @@ long         graph_dim1, graph_dim2;
 const  char*  defname_actual( );
 
 #define  CHECK_TIPOJUEGO   \
-    if( !tipojuego ){ yyerror( "gametype no definido aun" ); YYERROR; }
+    if( !tipojuego ){ yyerror( "gametype no definido aun" ); YYERROR; }\
+    if( !tipojuego_valido( tipojuego ) ){ yyerror( "tipojuego no es valido" ); YYERROR; }
 #define  CHECK_LAST_PIEZA   \
     if( !last_pieza ){ yyerror( "pieza no definida" ); YYERROR; }
 
@@ -381,7 +382,7 @@ typedef int YYSTYPE;
 
 
 /* Line 216 of yacc.c.  */
-#line 385 "qgames_parser.c"
+#line 386 "qgames_parser.c"
 
 #ifdef short
 # undef short
@@ -745,27 +746,27 @@ static const yytype_int16 yyrhs[] =
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint16 yyrline[] =
 {
-       0,   172,   172,   173,   177,   178,   179,   182,   183,   190,
-     194,   200,   206,   211,   216,   225,   245,   249,   253,   257,
-     263,   267,   277,   281,   296,   302,   326,   337,   350,   354,
-     358,   362,   380,   388,   388,   391,   395,   395,   401,   403,
-     407,   414,   415,   416,   417,   418,   419,   420,   421,   422,
-     423,   424,   425,   463,   467,   473,   477,   483,   487,   497,
-     501,   501,   524,   528,   536,   540,   544,   550,   556,   563,
-     567,   578,   588,   592,   593,   600,   601,   614,   618,   625,
-     626,   630,   639,   642,   639,   647,   650,   647,   662,   663,
-     664,   665,   666,   667,   668,   669,   670,   671,   672,   689,
-     689,   693,   694,   706,   716,   716,   728,   728,   738,   738,
-     749,   750,   753,   753,   764,   765,   769,   769,   781,   781,
-     790,   804,   805,   809,   810,   811,   814,   817,   818,   819,
-     820,   823,   824,   825,   826,   827,   828,   829,   832,   834,
-     837,   838,   839,   842,   846,   847,   855,   863,   864,   865,
-     866,   875,   883,   884,   885,   886,   887,   890,   891,   892,
-     895,   896,   897,   901,   913,   939,   944,   949,   950,   954,
-     962,   969,   969,   978,   998,   998,  1001,  1002,  1002,  1009,
-    1015,  1015,  1033,  1034,  1035,  1036,  1037,  1038,  1039,  1040,
-    1041,  1042,  1043,  1044,  1045,  1046,  1047,  1048,  1048,  1055,
-    1056,  1060
+       0,   173,   173,   174,   178,   179,   180,   183,   184,   191,
+     195,   201,   207,   212,   217,   226,   246,   251,   256,   261,
+     268,   272,   282,   286,   301,   307,   331,   342,   355,   359,
+     363,   367,   385,   393,   393,   396,   400,   400,   406,   408,
+     412,   419,   420,   421,   422,   423,   424,   425,   426,   427,
+     428,   429,   430,   468,   472,   478,   482,   488,   492,   502,
+     506,   506,   529,   533,   541,   545,   549,   555,   561,   568,
+     572,   583,   593,   597,   598,   605,   606,   619,   623,   630,
+     631,   635,   644,   647,   644,   652,   655,   652,   667,   668,
+     669,   670,   671,   672,   673,   674,   675,   676,   677,   694,
+     694,   698,   699,   711,   721,   721,   733,   733,   743,   743,
+     754,   755,   758,   758,   769,   770,   774,   774,   786,   786,
+     795,   809,   810,   814,   815,   816,   819,   822,   823,   824,
+     825,   828,   829,   830,   831,   832,   833,   834,   837,   839,
+     842,   843,   844,   847,   851,   852,   860,   868,   869,   870,
+     871,   880,   888,   889,   890,   891,   892,   895,   896,   897,
+     900,   901,   902,   906,   918,   944,   949,   954,   955,   959,
+     967,   974,   974,   983,  1003,  1003,  1006,  1007,  1007,  1014,
+    1020,  1020,  1038,  1039,  1040,  1041,  1042,  1043,  1044,  1045,
+    1046,  1047,  1048,  1049,  1050,  1051,  1052,  1053,  1053,  1060,
+    1061,  1065
 };
 #endif
 
@@ -1924,66 +1925,66 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 172 "qgames_parser.y"
-    { (yyval) = (yyvsp[(1) - (1)]); }
-    break;
-
-  case 3:
 #line 173 "qgames_parser.y"
     { (yyval) = (yyvsp[(1) - (1)]); }
     break;
 
+  case 3:
+#line 174 "qgames_parser.y"
+    { (yyval) = (yyvsp[(1) - (1)]); }
+    break;
+
   case 4:
-#line 177 "qgames_parser.y"
+#line 178 "qgames_parser.y"
     { add_parameter( TOK_STRING, (yyvsp[(1) - (1)]) ); }
     break;
 
   case 5:
-#line 178 "qgames_parser.y"
+#line 179 "qgames_parser.y"
     { add_parameter( TOK_STRING, (yyvsp[(2) - (2)]) ); }
     break;
 
   case 6:
-#line 179 "qgames_parser.y"
+#line 180 "qgames_parser.y"
     { add_parameter( TOK_STRING, (yyvsp[(3) - (3)]) ); }
     break;
 
   case 7:
-#line 182 "qgames_parser.y"
+#line 183 "qgames_parser.y"
     { add_parameter( TOK_NUMBER, (yyvsp[(1) - (1)]) ); }
     break;
 
   case 8:
-#line 183 "qgames_parser.y"
+#line 184 "qgames_parser.y"
     { add_parameter( TOK_NUMBER, (yyvsp[(2) - (2)]) ); }
     break;
 
   case 9:
-#line 190 "qgames_parser.y"
+#line 191 "qgames_parser.y"
     { 
             CHECK_TIPOJUEGO;
-            tipojuego_code_ahogado( tipojuego, NULL );
+            if( !tipojuego_code_ahogado( tipojuego, NULL ) ) YYERROR;
     }
     break;
 
   case 10:
-#line 194 "qgames_parser.y"
+#line 195 "qgames_parser.y"
     {
             CHECK_TIPOJUEGO;
-            tipojuego_code_ahogado( tipojuego, (char*)(yyvsp[(2) - (2)]) );
+            if( !tipojuego_code_ahogado( tipojuego, (char*)(yyvsp[(2) - (2)]) ) ) YYERROR;
     }
     break;
 
   case 11:
-#line 200 "qgames_parser.y"
+#line 201 "qgames_parser.y"
     {
             CHECK_TIPOJUEGO;
-            tipojuego_code_atacado( tipojuego, NULL );
+            if( !tipojuego_code_atacado( tipojuego, NULL ) ) YYERROR;
     }
     break;
 
   case 12:
-#line 206 "qgames_parser.y"
+#line 207 "qgames_parser.y"
     { 
             CHECK_TIPOJUEGO;
             (yyval) = CUALQUIERA;
@@ -1992,7 +1993,7 @@ yyreduce:
     break;
 
   case 13:
-#line 211 "qgames_parser.y"
+#line 212 "qgames_parser.y"
     { 
             CHECK_TIPOJUEGO;
             (yyval) = PROPIO;
@@ -2001,7 +2002,7 @@ yyreduce:
     break;
 
   case 14:
-#line 216 "qgames_parser.y"
+#line 217 "qgames_parser.y"
     { 
             CHECK_TIPOJUEGO;
             (yyval) = ENEMIGO;
@@ -2010,7 +2011,7 @@ yyreduce:
     break;
 
   case 15:
-#line 225 "qgames_parser.y"
+#line 226 "qgames_parser.y"
     { 
             int i;
             char* cas = NULL; char* color = NULL; char *tpieza = NULL;
@@ -2029,55 +2030,59 @@ yyreduce:
                     yyerror( "Elemento no reconocido en cuentapiezas" ); YYERROR;
                 }
             }
-            tipojuego_code_cuenta_piezas( tipojuego, cas, (yyvsp[(1) - (2)]), color, tpieza );
+            if( !tipojuego_code_cuenta_piezas( tipojuego, cas, (yyvsp[(1) - (2)]), color, tpieza ) ) YYERROR;
     }
     break;
 
   case 16:
-#line 245 "qgames_parser.y"
+#line 246 "qgames_parser.y"
     {
-            tipojuego_code_cuenta_piezas( tipojuego, NULL, (yyvsp[(1) - (2)]), NULL, NULL );
+            CHECK_TIPOJUEGO;
+            if( !tipojuego_code_cuenta_piezas( tipojuego, NULL, (yyvsp[(1) - (2)]), NULL, NULL ) ) YYERROR;;
             tipojuego_code_op_equal( tipojuego, (yyvsp[(2) - (2)]) );
     }
     break;
 
   case 17:
-#line 249 "qgames_parser.y"
+#line 251 "qgames_parser.y"
     {
-            tipojuego_code_cuenta_piezas( tipojuego, CASILLERO_CAPTURA, ENEMIGO, NULL, NULL );
+            CHECK_TIPOJUEGO;
+            if( !tipojuego_code_cuenta_piezas( tipojuego, CASILLERO_CAPTURA, ENEMIGO, NULL, NULL ) ) YYERROR;;
             tipojuego_code_op_equal( tipojuego, (yyvsp[(3) - (3)]) );
     }
     break;
 
   case 18:
-#line 253 "qgames_parser.y"
+#line 256 "qgames_parser.y"
     {
-            tipojuego_code_cuenta_piezas( tipojuego, CASILLERO_CAPTURA, ENEMIGO, NULL, NULL );
+            CHECK_TIPOJUEGO;
+            if( !tipojuego_code_cuenta_piezas( tipojuego, CASILLERO_CAPTURA, ENEMIGO, NULL, NULL ) ) YYERROR;;
             tipojuego_code_op_equal( tipojuego, (yyvsp[(2) - (2)]) );
     }
     break;
 
   case 19:
-#line 257 "qgames_parser.y"
+#line 261 "qgames_parser.y"
     { 
-            tipojuego_code_cuenta_piezas( tipojuego, NULL, (yyvsp[(1) - (1)]), NULL, NULL );
+            CHECK_TIPOJUEGO;
+            if( !tipojuego_code_cuenta_piezas( tipojuego, NULL, (yyvsp[(1) - (1)]), NULL, NULL ) ) YYERROR;;
     }
     break;
 
   case 20:
-#line 263 "qgames_parser.y"
+#line 268 "qgames_parser.y"
     {
             CHECK_TIPOJUEGO;
-            tipojuego_code_destino_ant( tipojuego, NULL );
+            if( !tipojuego_code_destino_ant( tipojuego, NULL ) ) YYERROR;
     }
     break;
 
   case 21:
-#line 267 "qgames_parser.y"
+#line 272 "qgames_parser.y"
     {
             CHECK_TIPOJUEGO;
             if( NOT_FOUND != tipojuego_get_casillero( tipojuego, ((char*)(yyvsp[(2) - (2)])) ) ){
-                tipojuego_code_destino_ant( tipojuego, ((char*)(yyvsp[(2) - (2)])) );
+                if( !tipojuego_code_destino_ant( tipojuego, ((char*)(yyvsp[(2) - (2)])) ) ) YYERROR;
             } else {
                 qgzprintf( "Debe ser un casillero %s", ((char*)(yyvsp[(2) - (2)])) );
                 yyerror( "Debe ser un casillero");
@@ -2087,19 +2092,19 @@ yyreduce:
     break;
 
   case 22:
-#line 277 "qgames_parser.y"
+#line 282 "qgames_parser.y"
     {
             CHECK_TIPOJUEGO;
-            tipojuego_code_origen_ant( tipojuego, NULL );
+            if( !tipojuego_code_origen_ant( tipojuego, NULL ) ) YYERROR;
     }
     break;
 
   case 23:
-#line 281 "qgames_parser.y"
+#line 286 "qgames_parser.y"
     {
             CHECK_TIPOJUEGO;
             if( NOT_FOUND != tipojuego_get_casillero( tipojuego, ((char*)(yyvsp[(2) - (2)])) ) ){
-                tipojuego_code_origen_ant( tipojuego, ((char*)(yyvsp[(2) - (2)])) );
+                if( !tipojuego_code_origen_ant( tipojuego, ((char*)(yyvsp[(2) - (2)])) ) ) YYERROR;
             } else {
                 qgzprintf( "Debe ser un casillero %s", ((char*)(yyvsp[(2) - (2)])) );
                 yyerror( "Debe ser un casillero");
@@ -2109,7 +2114,7 @@ yyreduce:
     break;
 
   case 24:
-#line 296 "qgames_parser.y"
+#line 301 "qgames_parser.y"
     {
             CHECK_TIPOJUEGO;
             tipojuego_code_entablero( tipojuego );
@@ -2117,7 +2122,7 @@ yyreduce:
     break;
 
   case 25:
-#line 302 "qgames_parser.y"
+#line 307 "qgames_parser.y"
     {  
             CHECK_TIPOJUEGO;
             char*  zona = NULL;
@@ -2145,7 +2150,7 @@ yyreduce:
     break;
 
   case 26:
-#line 326 "qgames_parser.y"
+#line 331 "qgames_parser.y"
     {
             CHECK_TIPOJUEGO;
             if( NOT_FOUND != tipojuego_get_zona( tipojuego, ((char*)(yyvsp[(2) - (2)])) ) ) {
@@ -2158,7 +2163,7 @@ yyreduce:
     break;
 
   case 27:
-#line 337 "qgames_parser.y"
+#line 342 "qgames_parser.y"
     {
             CHECK_TIPOJUEGO;
             if( NOT_FOUND != tipojuego_get_tipopieza( tipojuego, ((char*)(yyvsp[(2) - (2)])) ) ){
@@ -2172,40 +2177,40 @@ yyreduce:
     break;
 
   case 28:
-#line 350 "qgames_parser.y"
+#line 355 "qgames_parser.y"
     {
         CHECK_TIPOJUEGO;
-        tipojuego_code_ocupado( tipojuego, NULL, CUALQUIERA, NULL, NULL );
+        if( !tipojuego_code_ocupado( tipojuego, NULL, CUALQUIERA, NULL, NULL ) ) YYERROR;
     }
     break;
 
   case 29:
-#line 354 "qgames_parser.y"
+#line 359 "qgames_parser.y"
     {
         CHECK_TIPOJUEGO;
-        tipojuego_code_ocupado( tipojuego, NULL, PROPIO, NULL, NULL );
+        if( !tipojuego_code_ocupado( tipojuego, NULL, PROPIO, NULL, NULL ) ) YYERROR;
     }
     break;
 
   case 30:
-#line 358 "qgames_parser.y"
+#line 363 "qgames_parser.y"
     {
         CHECK_TIPOJUEGO;
-        tipojuego_code_ocupado( tipojuego, NULL, ENEMIGO, NULL, NULL );
+        if( !tipojuego_code_ocupado( tipojuego, NULL, ENEMIGO, NULL, NULL ) ) YYERROR;
     }
     break;
 
   case 31:
-#line 362 "qgames_parser.y"
+#line 367 "qgames_parser.y"
     {
         char* nombre = (char*)(yyvsp[(2) - (2)]);
         CHECK_TIPOJUEGO;
         if( tipojuego_get_casillero( tipojuego, nombre ) != NOT_FOUND ){
-             tipojuego_code_ocupado( tipojuego, nombre, CUALQUIERA, NULL, NULL );
+             if( !tipojuego_code_ocupado( tipojuego, nombre, CUALQUIERA, NULL, NULL ) ) YYERROR;
         } else if( tipojuego_get_color( tipojuego, nombre ) != NOT_FOUND ){
-             tipojuego_code_ocupado( tipojuego, NULL, CUALQUIERA, nombre, NULL );
+             if( !tipojuego_code_ocupado( tipojuego, NULL, CUALQUIERA, nombre, NULL ) ) YYERROR;
         } else if( tipojuego_get_tipopieza( tipojuego, nombre ) != NOT_FOUND ){
-             tipojuego_code_ocupado( tipojuego, NULL, CUALQUIERA, NULL, nombre );
+             if( !tipojuego_code_ocupado( tipojuego, NULL, CUALQUIERA, NULL, nombre ) ) YYERROR;
         } else {
             yyerror( "Ocupado?" );
             YYERROR;
@@ -2215,7 +2220,7 @@ yyreduce:
     break;
 
   case 32:
-#line 380 "qgames_parser.y"
+#line 385 "qgames_parser.y"
     {
         CHECK_TIPOJUEGO;
         tipojuego_code_op_false( tipojuego );
@@ -2224,7 +2229,7 @@ yyreduce:
     break;
 
   case 35:
-#line 391 "qgames_parser.y"
+#line 396 "qgames_parser.y"
     {
                 CHECK_TIPOJUEGO;
                 tipojuego_code_op_not( tipojuego );
@@ -2232,7 +2237,7 @@ yyreduce:
     break;
 
   case 36:
-#line 395 "qgames_parser.y"
+#line 400 "qgames_parser.y"
     {
                 CHECK_TIPOJUEGO;
                 tipojuego_code_start_condblock( tipojuego );
@@ -2240,19 +2245,19 @@ yyreduce:
     break;
 
   case 37:
-#line 398 "qgames_parser.y"
+#line 403 "qgames_parser.y"
     { 
                 tipojuego_code_end_condblock( tipojuego );
     }
     break;
 
   case 38:
-#line 401 "qgames_parser.y"
+#line 406 "qgames_parser.y"
     { NOT_IMPLEMENTED; }
     break;
 
   case 39:
-#line 403 "qgames_parser.y"
+#line 408 "qgames_parser.y"
     {
                 CHECK_TIPOJUEGO;
                 tipojuego_code_op_equal( tipojuego, (yyvsp[(3) - (3)]) );
@@ -2260,7 +2265,7 @@ yyreduce:
     break;
 
   case 40:
-#line 407 "qgames_parser.y"
+#line 412 "qgames_parser.y"
     {
                 CHECK_TIPOJUEGO;
                 tipojuego_code_op_equal( tipojuego, (yyvsp[(1) - (3)]) );
@@ -2268,7 +2273,7 @@ yyreduce:
     break;
 
   case 52:
-#line 425 "qgames_parser.y"
+#line 430 "qgames_parser.y"
     {    
             CHECK_TIPOJUEGO;
             /* una direccion podria ser */
@@ -2307,7 +2312,7 @@ yyreduce:
     break;
 
   case 53:
-#line 463 "qgames_parser.y"
+#line 468 "qgames_parser.y"
     {  
             CHECK_TIPOJUEGO;
             tipojuego_code_final( tipojuego, NULL, EMPATA );
@@ -2315,7 +2320,7 @@ yyreduce:
     break;
 
   case 54:
-#line 467 "qgames_parser.y"
+#line 472 "qgames_parser.y"
     {  
             CHECK_TIPOJUEGO;
             tipojuego_code_start_condblock( tipojuego );
@@ -2325,7 +2330,7 @@ yyreduce:
     break;
 
   case 55:
-#line 473 "qgames_parser.y"
+#line 478 "qgames_parser.y"
     {  
             CHECK_TIPOJUEGO;
             tipojuego_code_final( tipojuego, NULL, GANA );
@@ -2333,7 +2338,7 @@ yyreduce:
     break;
 
   case 56:
-#line 477 "qgames_parser.y"
+#line 482 "qgames_parser.y"
     {  
             CHECK_TIPOJUEGO;
             tipojuego_code_start_condblock( tipojuego );
@@ -2343,7 +2348,7 @@ yyreduce:
     break;
 
   case 57:
-#line 483 "qgames_parser.y"
+#line 488 "qgames_parser.y"
     {  
             CHECK_TIPOJUEGO;
             tipojuego_code_final( tipojuego, NULL, PIERDE );
@@ -2351,7 +2356,7 @@ yyreduce:
     break;
 
   case 58:
-#line 487 "qgames_parser.y"
+#line 492 "qgames_parser.y"
     {  
             CHECK_TIPOJUEGO;
             tipojuego_code_start_condblock( tipojuego );
@@ -2361,7 +2366,7 @@ yyreduce:
     break;
 
   case 59:
-#line 497 "qgames_parser.y"
+#line 502 "qgames_parser.y"
     { 
             CHECK_TIPOJUEGO;
             tipojuego_code_casillero( tipojuego, NULL );
@@ -2369,12 +2374,12 @@ yyreduce:
     break;
 
   case 60:
-#line 501 "qgames_parser.y"
+#line 506 "qgames_parser.y"
     {  CHECK_TIPOJUEGO; init_parameters(); }
     break;
 
   case 61:
-#line 501 "qgames_parser.y"
+#line 506 "qgames_parser.y"
     {
                     int    i;
                     char*  color = NULL;
@@ -2398,7 +2403,7 @@ yyreduce:
     break;
 
   case 62:
-#line 524 "qgames_parser.y"
+#line 529 "qgames_parser.y"
     {
           CHECK_TIPOJUEGO;
           tipojuego_code_asigna_att( tipojuego, (char*)(yyvsp[(2) - (3)]), (yyvsp[(3) - (3)]) );
@@ -2406,7 +2411,7 @@ yyreduce:
     break;
 
   case 63:
-#line 528 "qgames_parser.y"
+#line 533 "qgames_parser.y"
     {
           CHECK_TIPOJUEGO;
           tipojuego_code_asigna_att( tipojuego, (char*)(yyvsp[(2) - (4)]), (yyvsp[(4) - (4)]) );
@@ -2414,51 +2419,51 @@ yyreduce:
     break;
 
   case 64:
-#line 536 "qgames_parser.y"
+#line 541 "qgames_parser.y"
     {
             CHECK_TIPOJUEGO;
-            tipojuego_code_juega( tipojuego, NULL, 0 );
+            if( !tipojuego_code_juega( tipojuego, NULL, 0 ) ) YYERROR;
     }
     break;
 
   case 65:
-#line 540 "qgames_parser.y"
+#line 545 "qgames_parser.y"
     {
             CHECK_TIPOJUEGO;
-            tipojuego_code_juega( tipojuego, NULL, 1 );
+            if( !tipojuego_code_juega( tipojuego, NULL, 1 ) ) YYERROR;
     }
     break;
 
   case 66:
-#line 544 "qgames_parser.y"
+#line 549 "qgames_parser.y"
     {
             CHECK_TIPOJUEGO;
             tipojuego_code_start_condblock( tipojuego );
-            tipojuego_code_juega( tipojuego, NULL, 0 );
+            if( !tipojuego_code_juega( tipojuego, NULL, 0 ) ) YYERROR;
             tipojuego_code_end_condblock( tipojuego );
     }
     break;
 
   case 67:
-#line 550 "qgames_parser.y"
+#line 555 "qgames_parser.y"
     {
             CHECK_TIPOJUEGO;
             tipojuego_code_start_condblock( tipojuego );
-            tipojuego_code_juega( tipojuego, NULL, 1 );
+            if( !tipojuego_code_juega( tipojuego, NULL, 1 ) ) YYERROR;
             tipojuego_code_end_condblock( tipojuego );
     }
     break;
 
   case 68:
-#line 556 "qgames_parser.y"
+#line 561 "qgames_parser.y"
     { 
             CHECK_TIPOJUEGO;
-            tipojuego_code_captura( tipojuego, NULL );
+            if( !tipojuego_code_captura( tipojuego, NULL ) ) YYERROR;
     }
     break;
 
   case 69:
-#line 563 "qgames_parser.y"
+#line 568 "qgames_parser.y"
     {  
             CHECK_TIPOJUEGO;
             tipojuego_code_para( tipojuego );
@@ -2466,7 +2471,7 @@ yyreduce:
     break;
 
   case 70:
-#line 567 "qgames_parser.y"
+#line 572 "qgames_parser.y"
     { 
             CHECK_TIPOJUEGO;
             tipojuego_code_start_condblock( tipojuego );
@@ -2476,7 +2481,7 @@ yyreduce:
     break;
 
   case 71:
-#line 578 "qgames_parser.y"
+#line 583 "qgames_parser.y"
     { 
                           CHECK_TIPOJUEGO;
                           if( NOT_FOUND == tipojuego_get_casillero( tipojuego, (char*)(yyvsp[(3) - (3)]) ) ){
@@ -2484,36 +2489,36 @@ yyreduce:
                               yyerror( "Debe ser un casillero" );
                               YYERROR;
                           } else {
-                              tipojuego_code_mueve( tipojuego, FROM_AQUI | TO_CASILLERO, 0, (char*)(yyvsp[(3) - (3)]) );
+                              if( !tipojuego_code_mueve( tipojuego, FROM_AQUI | TO_CASILLERO, 0, (char*)(yyvsp[(3) - (3)]) ) ) YYERROR;
                           }
      }
     break;
 
   case 72:
-#line 588 "qgames_parser.y"
+#line 593 "qgames_parser.y"
     { 
                           CHECK_TIPOJUEGO;
-                          tipojuego_code_mueve( tipojuego, FROM_AQUI | TO_MARCA, 0, (void*)(yyvsp[(3) - (3)]) );
+                          if( !tipojuego_code_mueve( tipojuego, FROM_AQUI | TO_MARCA, 0, (void*)(yyvsp[(3) - (3)]) ) ) YYERROR;
      }
     break;
 
   case 73:
-#line 592 "qgames_parser.y"
+#line 597 "qgames_parser.y"
     { NOT_IMPLEMENTED_WARN( "mueve cas  => casillero" ); }
     break;
 
   case 74:
-#line 593 "qgames_parser.y"
+#line 598 "qgames_parser.y"
     { NOT_IMPLEMENTED_WARN( "mueve      => marca" ); }
     break;
 
   case 75:
-#line 600 "qgames_parser.y"
+#line 605 "qgames_parser.y"
     { (yyval) = 0; }
     break;
 
   case 76:
-#line 601 "qgames_parser.y"
+#line 606 "qgames_parser.y"
     {
                           CHECK_TIPOJUEGO;
                           if( NOT_FOUND == tipojuego_get_casillero( tipojuego, (char*)(yyvsp[(1) - (1)]) ) ){
@@ -2527,38 +2532,38 @@ yyreduce:
     break;
 
   case 77:
-#line 614 "qgames_parser.y"
+#line 619 "qgames_parser.y"
     { 
                         CHECK_TIPOJUEGO; 
-                        tipojuego_code_setmarca( tipojuego, (yyvsp[(2) - (3)]), (char*)(yyvsp[(3) - (3)]) );
+                        if( !tipojuego_code_setmarca( tipojuego, (yyvsp[(2) - (3)]), (char*)(yyvsp[(3) - (3)]) ) ) YYERROR;
     }
     break;
 
   case 78:
-#line 618 "qgames_parser.y"
+#line 623 "qgames_parser.y"
     { 
                         CHECK_TIPOJUEGO; 
-                        tipojuego_code_setmarca( tipojuego,  0, (char*)(yyvsp[(2) - (2)]) );
+                        if( !tipojuego_code_setmarca( tipojuego,  0, (char*)(yyvsp[(2) - (2)]) ) ) YYERROR;
     }
     break;
 
   case 79:
-#line 625 "qgames_parser.y"
+#line 630 "qgames_parser.y"
     { (yyval) = (yyvsp[(1) - (2)]); }
     break;
 
   case 80:
-#line 626 "qgames_parser.y"
+#line 631 "qgames_parser.y"
     { (yyval) = 0; }
     break;
 
   case 81:
-#line 630 "qgames_parser.y"
+#line 635 "qgames_parser.y"
     { NOT_IMPLEMENTED_WARN( "marca" ); }
     break;
 
   case 82:
-#line 639 "qgames_parser.y"
+#line 644 "qgames_parser.y"
     {
             CHECK_TIPOJUEGO;
             tipojuego_code_start_condblock( tipojuego );
@@ -2566,14 +2571,14 @@ yyreduce:
     break;
 
   case 83:
-#line 642 "qgames_parser.y"
+#line 647 "qgames_parser.y"
     {
             tipojuego_code_end_condblock( tipojuego );
     }
     break;
 
   case 85:
-#line 647 "qgames_parser.y"
+#line 652 "qgames_parser.y"
     {
             CHECK_TIPOJUEGO;
             (yyval) = tipojuego_code_start_block( tipojuego );
@@ -2581,14 +2586,14 @@ yyreduce:
     break;
 
   case 86:
-#line 650 "qgames_parser.y"
+#line 655 "qgames_parser.y"
     {
             tipojuego_code_start_condblock( tipojuego );
     }
     break;
 
   case 87:
-#line 652 "qgames_parser.y"
+#line 657 "qgames_parser.y"
     {
             tipojuego_code_continue_block( tipojuego, (yyvsp[(2) - (7)]) );
             tipojuego_code_else_condblock( tipojuego );
@@ -2599,7 +2604,7 @@ yyreduce:
     break;
 
   case 98:
-#line 672 "qgames_parser.y"
+#line 677 "qgames_parser.y"
     {   
             CHECK_TIPOJUEGO;
             /* una direccion podria ser */
@@ -2607,7 +2612,7 @@ yyreduce:
             if( tipojuego_get_direccion( tipojuego, (char*)(yyvsp[(1) - (1)]) ) != NOT_FOUND ){
                     tipojuego_code_direccion( tipojuego, (char*)(yyvsp[(1) - (1)]) );
             } else if( tipojuego_get_casillero( tipojuego, (char*)(yyvsp[(1) - (1)]) ) != NOT_FOUND ){
-                    tipojuego_code_casillero( tipojuego, (char*)(yyvsp[(1) - (1)]) );
+                    if( !tipojuego_code_casillero( tipojuego, (char*)(yyvsp[(1) - (1)]) ) ) YYERROR;
             } else {
                     qgzprintf( "%s no es nada", (char*)(yyvsp[(1) - (1)]) );
                     yyerror( "Comando no reconocido" );
@@ -2617,7 +2622,7 @@ yyreduce:
     break;
 
   case 103:
-#line 707 "qgames_parser.y"
+#line 712 "qgames_parser.y"
     {  CHECK_TIPOJUEGO ;
                       CHECK_LAST_PIEZA;
                       tipojuego_add_tpieza_att( tipojuego, last_pieza, ((char*)(yyvsp[(2) - (3)])), (yyvsp[(3) - (3)]) );
@@ -2625,13 +2630,13 @@ yyreduce:
     break;
 
   case 104:
-#line 716 "qgames_parser.y"
+#line 721 "qgames_parser.y"
     { CHECK_TIPOJUEGO; 
                      init_parameters(); }
     break;
 
   case 105:
-#line 719 "qgames_parser.y"
+#line 724 "qgames_parser.y"
     {
                      char*  dims[MAX_PARAMS]; int i;
                      for( i = 0; i < qgz_param_count; i ++ ){
@@ -2642,12 +2647,12 @@ yyreduce:
     break;
 
   case 106:
-#line 728 "qgames_parser.y"
+#line 733 "qgames_parser.y"
     { CHECK_TIPOJUEGO; init_parameters(); }
     break;
 
   case 107:
-#line 729 "qgames_parser.y"
+#line 734 "qgames_parser.y"
     { int i;
                      for( i = 0; i < qgz_param_count; i ++ ){
                        char* col = ((char*)qgz_param_list[i].par);
@@ -2657,12 +2662,12 @@ yyreduce:
     break;
 
   case 108:
-#line 738 "qgames_parser.y"
+#line 743 "qgames_parser.y"
     { CHECK_TIPOJUEGO; init_parameters(); }
     break;
 
   case 109:
-#line 739 "qgames_parser.y"
+#line 744 "qgames_parser.y"
     {
                       int  dirs[MAX_PARAMS]; int i; 
                       tipojuego_add_direccion( tipojuego, ((char*)(yyvsp[(2) - (4)])) );
@@ -2674,17 +2679,17 @@ yyreduce:
     break;
 
   case 110:
-#line 749 "qgames_parser.y"
+#line 754 "qgames_parser.y"
     { (yyval) = 0; }
     break;
 
   case 111:
-#line 750 "qgames_parser.y"
+#line 755 "qgames_parser.y"
     { NOT_IMPLEMENTED; }
     break;
 
   case 112:
-#line 753 "qgames_parser.y"
+#line 758 "qgames_parser.y"
     {
         CHECK_TIPOJUEGO; 
         CHECK_LAST_PIEZA;
@@ -2694,24 +2699,24 @@ yyreduce:
     break;
 
   case 113:
-#line 758 "qgames_parser.y"
+#line 763 "qgames_parser.y"
     {
         tipojuego_end_code( tipojuego ) ;
     }
     break;
 
   case 114:
-#line 764 "qgames_parser.y"
+#line 769 "qgames_parser.y"
     { (yyval) = 0; }
     break;
 
   case 115:
-#line 765 "qgames_parser.y"
+#line 770 "qgames_parser.y"
     { (yyval) = (yyvsp[(2) - (2)]); }
     break;
 
   case 116:
-#line 769 "qgames_parser.y"
+#line 774 "qgames_parser.y"
     {
         CHECK_TIPOJUEGO; 
         CHECK_LAST_PIEZA;
@@ -2721,14 +2726,14 @@ yyreduce:
     break;
 
   case 117:
-#line 774 "qgames_parser.y"
+#line 779 "qgames_parser.y"
     {
         tipojuego_end_code( tipojuego ) ;
     }
     break;
 
   case 118:
-#line 781 "qgames_parser.y"
+#line 786 "qgames_parser.y"
     { 
             CHECK_TIPOJUEGO; 
             change_to_code_mode(); 
@@ -2737,14 +2742,14 @@ yyreduce:
     break;
 
   case 119:
-#line 785 "qgames_parser.y"
+#line 790 "qgames_parser.y"
     {
             tipojuego_end_code( tipojuego ) ;
     }
     break;
 
   case 120:
-#line 790 "qgames_parser.y"
+#line 795 "qgames_parser.y"
     { 
         if( tipojuego ){
             yyerror( "Ya fue definido el tipo juego" );
@@ -2757,99 +2762,99 @@ yyreduce:
     break;
 
   case 121:
-#line 804 "qgames_parser.y"
+#line 809 "qgames_parser.y"
     { html_color1 = (yyvsp[(1) - (3)]); html_color2 = (yyvsp[(3) - (3)]); }
     break;
 
   case 122:
-#line 805 "qgames_parser.y"
+#line 810 "qgames_parser.y"
     { html_color1 = (yyvsp[(1) - (2)]); html_color2 = (yyvsp[(2) - (2)]);
                                       qgzprintf( "Frente: %x Fondo: %x", html_color1, html_color2 ); }
     break;
 
   case 123:
-#line 809 "qgames_parser.y"
+#line 814 "qgames_parser.y"
     { graph_dim1 = (yyvsp[(1) - (3)]); graph_dim2 = (yyvsp[(3) - (3)]); }
     break;
 
   case 124:
-#line 810 "qgames_parser.y"
+#line 815 "qgames_parser.y"
     { graph_dim1 = (yyvsp[(1) - (3)]); graph_dim2 = (yyvsp[(3) - (3)]); }
     break;
 
   case 125:
-#line 811 "qgames_parser.y"
+#line 816 "qgames_parser.y"
     { graph_dim1 = (yyvsp[(1) - (2)]); graph_dim2 = (yyvsp[(2) - (2)]); qgzprintf( "%dx%d", (yyvsp[(1) - (2)]), (yyvsp[(2) - (2)]) ); }
     break;
 
   case 126:
-#line 814 "qgames_parser.y"
+#line 819 "qgames_parser.y"
     { graph_dim1 = 0; graph_dim2 = 0; html_color1 = 0; html_color2 = 0; }
     break;
 
   case 131:
-#line 823 "qgames_parser.y"
+#line 828 "qgames_parser.y"
     { (yyval) = STANDARD_GEM; }
     break;
 
   case 132:
-#line 824 "qgames_parser.y"
+#line 829 "qgames_parser.y"
     { (yyval) = STANDARD_BISHOP; }
     break;
 
   case 133:
-#line 825 "qgames_parser.y"
+#line 830 "qgames_parser.y"
     { (yyval) = STANDARD_KING; }
     break;
 
   case 134:
-#line 826 "qgames_parser.y"
+#line 831 "qgames_parser.y"
     { (yyval) = STANDARD_KNIGHT; }
     break;
 
   case 135:
-#line 827 "qgames_parser.y"
+#line 832 "qgames_parser.y"
     { (yyval) = STANDARD_PAWN; }
     break;
 
   case 136:
-#line 828 "qgames_parser.y"
+#line 833 "qgames_parser.y"
     { (yyval) = STANDARD_QUEEN ; }
     break;
 
   case 137:
-#line 829 "qgames_parser.y"
+#line 834 "qgames_parser.y"
     { (yyval) = STANDARD_ROOK; }
     break;
 
   case 138:
-#line 832 "qgames_parser.y"
+#line 837 "qgames_parser.y"
     { (yyval) = (yyvsp[(1) - (1)]); 
                   qgzprintf( "Tablero %d", (yyvsp[(1) - (1)]) ); }
     break;
 
   case 139:
-#line 834 "qgames_parser.y"
+#line 839 "qgames_parser.y"
     { (yyval) = BOARD_ACTUAL; qgzprintf( "Tablero actual" ); }
     break;
 
   case 140:
-#line 837 "qgames_parser.y"
+#line 842 "qgames_parser.y"
     { (yyval) = TYPE_CHECKERBOARD; }
     break;
 
   case 141:
-#line 838 "qgames_parser.y"
+#line 843 "qgames_parser.y"
     { (yyval) = TYPE_GRID; }
     break;
 
   case 142:
-#line 839 "qgames_parser.y"
+#line 844 "qgames_parser.y"
     { (yyval) = TYPE_INTERSECTIONS; }
     break;
 
   case 143:
-#line 842 "qgames_parser.y"
+#line 847 "qgames_parser.y"
     { 
         CHECK_TIPOJUEGO;
         tipojuego_graph_tablero_std( tipojuego, (yyvsp[(2) - (4)]), (yyvsp[(3) - (4)]), graph_dim1, graph_dim2, html_color1, html_color2 );
@@ -2857,12 +2862,12 @@ yyreduce:
     break;
 
   case 144:
-#line 846 "qgames_parser.y"
+#line 851 "qgames_parser.y"
     { NOT_IMPLEMENTED_WARN( "graph-board file" ) }
     break;
 
   case 145:
-#line 847 "qgames_parser.y"
+#line 852 "qgames_parser.y"
     {
         CHECK_TIPOJUEGO;
         if( tipojuego_get_tipopieza( tipojuego, ((char*)(yyvsp[(3) - (4)])) ) == NOT_FOUND ){ 
@@ -2874,7 +2879,7 @@ yyreduce:
     break;
 
   case 146:
-#line 855 "qgames_parser.y"
+#line 860 "qgames_parser.y"
     {
         CHECK_TIPOJUEGO;
         if( tipojuego_get_tipopieza( tipojuego, ((char*)(yyvsp[(2) - (4)])) ) == NOT_FOUND ){ 
@@ -2886,27 +2891,27 @@ yyreduce:
     break;
 
   case 147:
-#line 863 "qgames_parser.y"
+#line 868 "qgames_parser.y"
     { NOT_IMPLEMENTED_WARN( "graph-piece string" ); }
     break;
 
   case 148:
-#line 864 "qgames_parser.y"
+#line 869 "qgames_parser.y"
     { NOT_IMPLEMENTED_WARN( "graph-square file" ); }
     break;
 
   case 149:
-#line 865 "qgames_parser.y"
+#line 870 "qgames_parser.y"
     { NOT_IMPLEMENTED_WARN( "graph-square color" ); }
     break;
 
   case 150:
-#line 866 "qgames_parser.y"
+#line 871 "qgames_parser.y"
     { NOT_IMPLEMENTED_WARN( "graph-square highlighted" ); }
     break;
 
   case 151:
-#line 875 "qgames_parser.y"
+#line 880 "qgames_parser.y"
     {
         CHECK_TIPOJUEGO;
         qgzprintf( "Definiendo %s", ((char*)(yyvsp[(2) - (2)])) );
@@ -2916,62 +2921,62 @@ yyreduce:
     break;
 
   case 152:
-#line 883 "qgames_parser.y"
+#line 888 "qgames_parser.y"
     { (yyval) =  NOTACION_PIEZA; }
     break;
 
   case 153:
-#line 884 "qgames_parser.y"
+#line 889 "qgames_parser.y"
     { (yyval) =  NOTACION_ORIGEN; }
     break;
 
   case 154:
-#line 885 "qgames_parser.y"
+#line 890 "qgames_parser.y"
     { (yyval) =  NOTACION_DESTINO; }
     break;
 
   case 155:
-#line 886 "qgames_parser.y"
+#line 891 "qgames_parser.y"
     { (yyval) =  NOTACION_MARCA ; }
     break;
 
   case 156:
-#line 887 "qgames_parser.y"
+#line 892 "qgames_parser.y"
     { (yyval) =  NOTACION_CAPTURA; }
     break;
 
   case 157:
-#line 890 "qgames_parser.y"
+#line 895 "qgames_parser.y"
     {  tipojuego_add_notacion_rep( tipojuego, (yyvsp[(1) - (1)]) ); }
     break;
 
   case 158:
-#line 891 "qgames_parser.y"
+#line 896 "qgames_parser.y"
     {  tipojuego_add_notacion_rep( tipojuego, (yyvsp[(2) - (2)]) ); }
     break;
 
   case 159:
-#line 892 "qgames_parser.y"
+#line 897 "qgames_parser.y"
     {  tipojuego_add_notacion_rep( tipojuego, (yyvsp[(3) - (3)]) ); }
     break;
 
   case 160:
-#line 895 "qgames_parser.y"
+#line 900 "qgames_parser.y"
     {  tipojuego_add_notacion_def( tipojuego, (yyvsp[(1) - (1)]) ); }
     break;
 
   case 161:
-#line 896 "qgames_parser.y"
+#line 901 "qgames_parser.y"
     {  tipojuego_add_notacion_def( tipojuego, (yyvsp[(2) - (2)]) ); }
     break;
 
   case 162:
-#line 897 "qgames_parser.y"
+#line 902 "qgames_parser.y"
     {  tipojuego_add_notacion_def( tipojuego, (yyvsp[(3) - (3)]) ); }
     break;
 
   case 163:
-#line 901 "qgames_parser.y"
+#line 906 "qgames_parser.y"
     { 
         CHECK_TIPOJUEGO;
         if( NOT_FOUND != tipojuego_get_tipopieza( tipojuego, (char*)(yyvsp[(2) - (3)]) ) ){
@@ -2987,7 +2992,7 @@ yyreduce:
     break;
 
   case 164:
-#line 913 "qgames_parser.y"
+#line 918 "qgames_parser.y"
     { 
         CHECK_TIPOJUEGO;
         char* tpieza; char* color; char* abbr;
@@ -3017,7 +3022,7 @@ yyreduce:
     break;
 
   case 165:
-#line 939 "qgames_parser.y"
+#line 944 "qgames_parser.y"
     { 
                   CHECK_TIPOJUEGO;
                   tipojuego_set_notacion_marca( tipojuego, (char*)(yyvsp[(3) - (3)]), NULL );
@@ -3026,7 +3031,7 @@ yyreduce:
     break;
 
   case 166:
-#line 944 "qgames_parser.y"
+#line 949 "qgames_parser.y"
     { 
                   CHECK_TIPOJUEGO;
                   tipojuego_set_notacion_marca( tipojuego, NULL, (char*)(yyvsp[(3) - (3)]) );
@@ -3035,7 +3040,7 @@ yyreduce:
     break;
 
   case 169:
-#line 954 "qgames_parser.y"
+#line 959 "qgames_parser.y"
     { 
         CHECK_TIPOJUEGO; 
         tipojuego_add_tipopieza( tipojuego, ((char*)(yyvsp[(2) - (2)])) ); 
@@ -3045,7 +3050,7 @@ yyreduce:
     break;
 
   case 170:
-#line 962 "qgames_parser.y"
+#line 967 "qgames_parser.y"
     {
         CHECK_TIPOJUEGO;
         int i;
@@ -3056,12 +3061,12 @@ yyreduce:
     break;
 
   case 171:
-#line 969 "qgames_parser.y"
+#line 974 "qgames_parser.y"
     { init_parameters(); }
     break;
 
   case 172:
-#line 969 "qgames_parser.y"
+#line 974 "qgames_parser.y"
     {
         CHECK_TIPOJUEGO;
         int i;
@@ -3072,7 +3077,7 @@ yyreduce:
     break;
 
   case 173:
-#line 978 "qgames_parser.y"
+#line 983 "qgames_parser.y"
     {
         CHECK_TIPOJUEGO;
         int  i;
@@ -3094,19 +3099,19 @@ yyreduce:
     break;
 
   case 174:
-#line 998 "qgames_parser.y"
+#line 1003 "qgames_parser.y"
     { init_parameters(); }
     break;
 
   case 177:
-#line 1002 "qgames_parser.y"
+#line 1007 "qgames_parser.y"
     {
         tipojuego_add_secuencia_rep( tipojuego );
     }
     break;
 
   case 179:
-#line 1009 "qgames_parser.y"
+#line 1014 "qgames_parser.y"
     { 
         CHECK_TIPOJUEGO;
         tipojuego_add_simetria( tipojuego, ((char*)(yyvsp[(2) - (4)])), (char*)(yyvsp[(3) - (4)]), (char*)(yyvsp[(4) - (4)]) );
@@ -3114,12 +3119,12 @@ yyreduce:
     break;
 
   case 180:
-#line 1015 "qgames_parser.y"
+#line 1020 "qgames_parser.y"
     { init_parameters(); }
     break;
 
   case 181:
-#line 1015 "qgames_parser.y"
+#line 1020 "qgames_parser.y"
     { 
             CHECK_TIPOJUEGO;
             char* color = (char*)(yyvsp[(3) - (5)]);
@@ -3140,7 +3145,7 @@ yyreduce:
 
 
 /* Line 1267 of yacc.c.  */
-#line 3144 "qgames_parser.c"
+#line 3149 "qgames_parser.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -3354,7 +3359,7 @@ yyreturn:
 }
 
 
-#line 1064 "qgames_parser.y"
+#line 1069 "qgames_parser.y"
 
 
 /*

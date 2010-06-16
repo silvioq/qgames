@@ -46,7 +46,8 @@ long         graph_dim1, graph_dim2;
 const  char*  defname_actual( );
 
 #define  CHECK_TIPOJUEGO   \
-    if( !tipojuego ){ yyerror( "gametype no definido aun" ); YYERROR; }
+    if( !tipojuego ){ yyerror( "gametype no definido aun" ); YYERROR; }\
+    if( !tipojuego_valido( tipojuego ) ){ yyerror( "tipojuego no es valido" ); YYERROR; }
 #define  CHECK_LAST_PIEZA   \
     if( !last_pieza ){ yyerror( "pieza no definida" ); YYERROR; }
 
@@ -189,17 +190,17 @@ number_list:
 instexpr_ahogado:
     TOK_AHOGADO { 
             CHECK_TIPOJUEGO;
-            tipojuego_code_ahogado( tipojuego, NULL );
+            if( !tipojuego_code_ahogado( tipojuego, NULL ) ) YYERROR;
     } | 
     TOK_AHOGADO  word_or_string {
             CHECK_TIPOJUEGO;
-            tipojuego_code_ahogado( tipojuego, (char*)$2 );
+            if( !tipojuego_code_ahogado( tipojuego, (char*)$2 ) ) YYERROR;
     };
 
 instexpr_atacado:
     TOK_ATACADO_ENEMIGO {
             CHECK_TIPOJUEGO;
-            tipojuego_code_atacado( tipojuego, NULL );
+            if( !tipojuego_code_atacado( tipojuego, NULL ) ) YYERROR;
     };
 
 cantidad_piezas_preludio:
@@ -240,34 +241,38 @@ instexpr_cantidad_piezas:
                     yyerror( "Elemento no reconocido en cuentapiezas" ); YYERROR;
                 }
             }
-            tipojuego_code_cuenta_piezas( tipojuego, cas, $1, color, tpieza );
+            if( !tipojuego_code_cuenta_piezas( tipojuego, cas, $1, color, tpieza ) ) YYERROR;
     } |
     cantidad_piezas_preludio  TOK_NUMBER  {
-            tipojuego_code_cuenta_piezas( tipojuego, NULL, $1, NULL, NULL );
+            CHECK_TIPOJUEGO;
+            if( !tipojuego_code_cuenta_piezas( tipojuego, NULL, $1, NULL, NULL ) ) YYERROR;;
             tipojuego_code_op_equal( tipojuego, $2 );
     } |
     TOK_CAPTURADAS_ENEMIGO '=' TOK_NUMBER {
-            tipojuego_code_cuenta_piezas( tipojuego, CASILLERO_CAPTURA, ENEMIGO, NULL, NULL );
+            CHECK_TIPOJUEGO;
+            if( !tipojuego_code_cuenta_piezas( tipojuego, CASILLERO_CAPTURA, ENEMIGO, NULL, NULL ) ) YYERROR;;
             tipojuego_code_op_equal( tipojuego, $3 );
     } |
     TOK_CAPTURADAS_ENEMIGO  TOK_NUMBER {
-            tipojuego_code_cuenta_piezas( tipojuego, CASILLERO_CAPTURA, ENEMIGO, NULL, NULL );
+            CHECK_TIPOJUEGO;
+            if( !tipojuego_code_cuenta_piezas( tipojuego, CASILLERO_CAPTURA, ENEMIGO, NULL, NULL ) ) YYERROR;;
             tipojuego_code_op_equal( tipojuego, $2 );
     } |
     cantidad_piezas_preludio                       { 
-            tipojuego_code_cuenta_piezas( tipojuego, NULL, $1, NULL, NULL );
+            CHECK_TIPOJUEGO;
+            if( !tipojuego_code_cuenta_piezas( tipojuego, NULL, $1, NULL, NULL ) ) YYERROR;;
     } ;
 
 
 instexpr_movidas_anteriores:
     TOK_DESTINO_ANT    {
             CHECK_TIPOJUEGO;
-            tipojuego_code_destino_ant( tipojuego, NULL );
+            if( !tipojuego_code_destino_ant( tipojuego, NULL ) ) YYERROR;
     } |
     TOK_DESTINO_ANT   word_or_string  {
             CHECK_TIPOJUEGO;
             if( NOT_FOUND != tipojuego_get_casillero( tipojuego, ((char*)$2) ) ){
-                tipojuego_code_destino_ant( tipojuego, ((char*)$2) );
+                if( !tipojuego_code_destino_ant( tipojuego, ((char*)$2) ) ) YYERROR;
             } else {
                 qgzprintf( "Debe ser un casillero %s", ((char*)$2) );
                 yyerror( "Debe ser un casillero");
@@ -276,12 +281,12 @@ instexpr_movidas_anteriores:
     } |
     TOK_ORIGEN_ANT    {
             CHECK_TIPOJUEGO;
-            tipojuego_code_origen_ant( tipojuego, NULL );
+            if( !tipojuego_code_origen_ant( tipojuego, NULL ) ) YYERROR;
     } |
     TOK_ORIGEN_ANT   word_or_string  {
             CHECK_TIPOJUEGO;
             if( NOT_FOUND != tipojuego_get_casillero( tipojuego, ((char*)$2) ) ){
-                tipojuego_code_origen_ant( tipojuego, ((char*)$2) );
+                if( !tipojuego_code_origen_ant( tipojuego, ((char*)$2) ) ) YYERROR;
             } else {
                 qgzprintf( "Debe ser un casillero %s", ((char*)$2) );
                 yyerror( "Debe ser un casillero");
@@ -349,25 +354,25 @@ instexpr_jaquemate:
 instexpr_ocupado:
     TOK_OCUPADO         {
         CHECK_TIPOJUEGO;
-        tipojuego_code_ocupado( tipojuego, NULL, CUALQUIERA, NULL, NULL );
+        if( !tipojuego_code_ocupado( tipojuego, NULL, CUALQUIERA, NULL, NULL ) ) YYERROR;
     } |
     TOK_OCUPADOPROPIO   {
         CHECK_TIPOJUEGO;
-        tipojuego_code_ocupado( tipojuego, NULL, PROPIO, NULL, NULL );
+        if( !tipojuego_code_ocupado( tipojuego, NULL, PROPIO, NULL, NULL ) ) YYERROR;
     } |
     TOK_OCUPADOENEMIGO   {
         CHECK_TIPOJUEGO;
-        tipojuego_code_ocupado( tipojuego, NULL, ENEMIGO, NULL, NULL );
+        if( !tipojuego_code_ocupado( tipojuego, NULL, ENEMIGO, NULL, NULL ) ) YYERROR;
     } |
     TOK_OCUPADO  word_or_string {
         char* nombre = (char*)$2;
         CHECK_TIPOJUEGO;
         if( tipojuego_get_casillero( tipojuego, nombre ) != NOT_FOUND ){
-             tipojuego_code_ocupado( tipojuego, nombre, CUALQUIERA, NULL, NULL );
+             if( !tipojuego_code_ocupado( tipojuego, nombre, CUALQUIERA, NULL, NULL ) ) YYERROR;
         } else if( tipojuego_get_color( tipojuego, nombre ) != NOT_FOUND ){
-             tipojuego_code_ocupado( tipojuego, NULL, CUALQUIERA, nombre, NULL );
+             if( !tipojuego_code_ocupado( tipojuego, NULL, CUALQUIERA, nombre, NULL ) ) YYERROR;
         } else if( tipojuego_get_tipopieza( tipojuego, nombre ) != NOT_FOUND ){
-             tipojuego_code_ocupado( tipojuego, NULL, CUALQUIERA, NULL, nombre );
+             if( !tipojuego_code_ocupado( tipojuego, NULL, CUALQUIERA, NULL, nombre ) ) YYERROR;
         } else {
             yyerror( "Ocupado?" );
             YYERROR;
@@ -535,27 +540,27 @@ instaction_asigna_att:
 instaction_juega:
     TOK_JUEGA   {
             CHECK_TIPOJUEGO;
-            tipojuego_code_juega( tipojuego, NULL, 0 );
+            if( !tipojuego_code_juega( tipojuego, NULL, 0 ) ) YYERROR;
     }  | 
     TOK_CAPTURA_Y_JUEGA {
             CHECK_TIPOJUEGO;
-            tipojuego_code_juega( tipojuego, NULL, 1 );
+            if( !tipojuego_code_juega( tipojuego, NULL, 1 ) ) YYERROR;
     } |
     TOK_JUEGA_SI   instexpr {
             CHECK_TIPOJUEGO;
             tipojuego_code_start_condblock( tipojuego );
-            tipojuego_code_juega( tipojuego, NULL, 0 );
+            if( !tipojuego_code_juega( tipojuego, NULL, 0 ) ) YYERROR;
             tipojuego_code_end_condblock( tipojuego );
     } |
     TOK_CAPTURA_Y_JUEGA_SI  instexpr {
             CHECK_TIPOJUEGO;
             tipojuego_code_start_condblock( tipojuego );
-            tipojuego_code_juega( tipojuego, NULL, 1 );
+            if( !tipojuego_code_juega( tipojuego, NULL, 1 ) ) YYERROR;
             tipojuego_code_end_condblock( tipojuego );
     } |
     TOK_CAPTURA   { 
             CHECK_TIPOJUEGO;
-            tipojuego_code_captura( tipojuego, NULL );
+            if( !tipojuego_code_captura( tipojuego, NULL ) ) YYERROR;
     };
  
 
@@ -582,12 +587,12 @@ instaction_mueve:
                               yyerror( "Debe ser un casillero" );
                               YYERROR;
                           } else {
-                              tipojuego_code_mueve( tipojuego, FROM_AQUI | TO_CASILLERO, 0, (char*)$3 );
+                              if( !tipojuego_code_mueve( tipojuego, FROM_AQUI | TO_CASILLERO, 0, (char*)$3 ) ) YYERROR;
                           }
      } |
     TOK_MUEVE   TOK_PIEZAS_EN_CAS  instaction_get_marca   { 
                           CHECK_TIPOJUEGO;
-                          tipojuego_code_mueve( tipojuego, FROM_AQUI | TO_MARCA, 0, (void*)$3 );
+                          if( !tipojuego_code_mueve( tipojuego, FROM_AQUI | TO_MARCA, 0, (void*)$3 ) ) YYERROR;
      } |
     TOK_MUEVE   TOK_WORD           TOK_WORD               { NOT_IMPLEMENTED_WARN( "mueve cas  => casillero" ); } |
     TOK_MUEVE   instaction_get_marca                      { NOT_IMPLEMENTED_WARN( "mueve      => marca" ); } ;
@@ -613,11 +618,11 @@ instaction_marca_casillero:
 instaction_set_marca:
     TOK_MARCA   TOK_NUMBER   instaction_marca_casillero  { 
                         CHECK_TIPOJUEGO; 
-                        tipojuego_code_setmarca( tipojuego, $2, (char*)$3 );
+                        if( !tipojuego_code_setmarca( tipojuego, $2, (char*)$3 ) ) YYERROR;
     } |
     TOK_MARCA   instaction_marca_casillero               { 
                         CHECK_TIPOJUEGO; 
-                        tipojuego_code_setmarca( tipojuego,  0, (char*)$2 );
+                        if( !tipojuego_code_setmarca( tipojuego,  0, (char*)$2 ) ) YYERROR;
     } ;
 
 
@@ -676,7 +681,7 @@ instaction:
             if( tipojuego_get_direccion( tipojuego, (char*)$1 ) != NOT_FOUND ){
                     tipojuego_code_direccion( tipojuego, (char*)$1 );
             } else if( tipojuego_get_casillero( tipojuego, (char*)$1 ) != NOT_FOUND ){
-                    tipojuego_code_casillero( tipojuego, (char*)$1 );
+                    if( !tipojuego_code_casillero( tipojuego, (char*)$1 ) ) YYERROR;
             } else {
                     qgzprintf( "%s no es nada", (char*)$1 );
                     yyerror( "Comando no reconocido" );

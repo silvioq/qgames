@@ -22,8 +22,10 @@
 extern   FILE*  logfile;
 extern   int    loglevel;
 
+#ifndef QUOTEME
 #define QUOTEME_(x) #x
 #define QUOTEME(x) QUOTEME_(x)
+#endif
 
 #define  LOGPRINT( level, fmt, ... )  \
     if( level <= loglevel ){ \

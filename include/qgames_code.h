@@ -36,12 +36,12 @@ void        tipojuego_code_op_equal( Tipojuego* tj, long val );
 void        tipojuego_code_op_false( Tipojuego* tj );
 
 void        tipojuego_code_direccion( Tipojuego* tj, char* direccion );
-void        tipojuego_code_casillero( Tipojuego* tj, char* casillero );
-void        tipojuego_code_setmarca ( Tipojuego* tj, int marca, char* casillero );
+int         tipojuego_code_casillero( Tipojuego* tj, char* casillero );
+int         tipojuego_code_setmarca ( Tipojuego* tj, int marca, char* casillero );
 void        tipojuego_code_asigna_att( Tipojuego* tj, char* att, int val );
 void        tipojuego_code_evalua_att( Tipojuego* tj, char* att );
-void        tipojuego_code_juega  ( Tipojuego* tj, char* casillero, int captura );
-void        tipojuego_code_captura( Tipojuego* tj, char* casillero );
+int         tipojuego_code_juega  ( Tipojuego* tj, char* casillero, int captura );
+int         tipojuego_code_captura( Tipojuego* tj, char* casillero );
 void        tipojuego_code_transforma( Tipojuego* tj, int owner, char* color, char* tpieza );
 void        tipojuego_code_para   ( Tipojuego* tj );
 
@@ -56,19 +56,19 @@ void        tipojuego_code_para   ( Tipojuego* tj );
 #define     TO_MARCA                   0x02
 #define     TO_CASILLERO               0x03 
 #define     TO_MASK                    0x0F
-void        tipojuego_code_mueve  ( Tipojuego* tj, char fromto_flags, void* from, void* to );
+int         tipojuego_code_mueve  ( Tipojuego* tj, char fromto_flags, void* from, void* to );
 
 /* Definiciones para los dueños o colores */
 #define   ENEMIGO       -1
 #define   PROPIO        -2
 #define   CUALQUIERA     0
 #define   NOCOLOR        0
-void        tipojuego_code_ahogado( Tipojuego* tj, char* color );
-void        tipojuego_code_atacado( Tipojuego* tj, char* casillero );
-void        tipojuego_code_destino_ant( Tipojuego* tj, char* casillero );
-void        tipojuego_code_origen_ant( Tipojuego* tj, char* casillero );
-void        tipojuego_code_cuenta_piezas( Tipojuego* tj, char* casillero, int owner, char* color, char* tpieza );
-void        tipojuego_code_ocupado( Tipojuego* tj, char* casillero, int owner, char* color, char* tpieza );
+int         tipojuego_code_ahogado( Tipojuego* tj, char* color );
+int         tipojuego_code_atacado( Tipojuego* tj, char* casillero );
+int         tipojuego_code_destino_ant( Tipojuego* tj, char* casillero );
+int         tipojuego_code_origen_ant( Tipojuego* tj, char* casillero );
+int         tipojuego_code_cuenta_piezas( Tipojuego* tj, char* casillero, int owner, char* color, char* tpieza );
+int         tipojuego_code_ocupado( Tipojuego* tj, char* casillero, int owner, char* color, char* tpieza );
 void        tipojuego_code_entablero( Tipojuego* tj );
 void        tipojuego_code_enzona ( Tipojuego* tj, char* zona, char* tpieza );
 void        tipojuego_code_jaquemate( Tipojuego* tj, char* tpieza );
