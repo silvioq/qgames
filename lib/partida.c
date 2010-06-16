@@ -9,7 +9,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <assert.h>
 #include  <stdint.h>
 #include <md5.h>
 #include <time.h>
@@ -36,7 +35,10 @@ int   partida_mover_mov( Partida* par, Movida* mov );
 void    secuencia_actual   ( Partida* par, int* color, int* tmov ){
     Secuencia* seq;
     if( par->tjuego->secuencias ){
-        assert( par->secuencia < par->tjuego->secuencias->entradas );
+        if( par->secuencia > par->tjuego->secuencias->entradas ){
+            LOGPRINT( 1, "Me paso de secuencia (%d > %d)", par->secuencia, par->tjuego->secuencias->entradas )
+            return;
+        }
         seq = (Secuencia*)par->tjuego->secuencias->data[par->secuencia];
         if( color ) *color = seq->color;
         if( tmov  ) *tmov  = seq->tmov ;
@@ -182,7 +184,8 @@ int       partida_analizar_movidas( Partida* par ){
     par->flags |= JUGANDO;
 
     if( PARTIDACONT( par ) ){
-        assert( !"Hace falta agregar el pasar" );
+        LOGPRINT( 1, "Hace falta agregar el pasar, aun no implementado", 0 );
+        return  0;
     }
 
     if( PARTIDACONT( par ) ){
@@ -206,8 +209,14 @@ int       partida_analizar_movidas( Partida* par ){
  *
  * */
 Movida*     partida_ultimo_movimiento( Partida* par ){
-    assert( par->movimientos );
-    assert( par->movimientos->entradas > 0 );
+    if( !par->movimientos ){
+        LOGPRINT( 1, "No hay movimientos definidos", 0 );
+        return NULL;
+    }
+    if( par->movimientos->entradas  ){
+        LOGPRINT( 1, "No hay movimientos hechos", 0 );
+        return NULL;
+    }
     return (Movida*)(par->movimientos->data[par->movimientos->entradas - 1]);
 }
 
@@ -387,7 +396,8 @@ int   partida_mover_mov( Partida* par, Movida* mov ){
     Movida* movant;
     int  ret;
     if( PARTIDACONT( par ) ){
-        assert( !"Hace falta agregar las movidas continuadas a la lista de movimientos anterior" );
+        LOGPRINT( 1, "Hace falta agregar las movidas continuadas a la lista de movimientos anterior (no implementado)", 0 );
+        return 0;
     }
     if( !par->movimientos ) par->movimientos = list_nueva( NULL );
     movant = movida_dup( mov );
@@ -677,7 +687,10 @@ int         partida_dump( Partida* par, void** data, int* size ){
             Movida* mov = par->movimientos->data[i];
             void * mmm;
             int    size;
-            assert( movida_dump( mov, &mmm, &size ) );
+            if( !movida_dump( mov, &mmm, &size ) ){
+                LOGPRINT( 1, "No puede realizarse el dump de movida %p", mov );
+                return 0;
+            };
             len16 = size;
             ADDDATA( ret, len, len16, aloc );
             STREXPAND( ret, aloc, len + size );
@@ -695,7 +708,10 @@ int         partida_dump( Partida* par, void** data, int* size ){
             Movida* mov = par->pos->movidas->data[i];
             void * mmm;
             int    size;
-            assert( movida_dump( mov, &mmm, &size ) );
+            if( !movida_dump( mov, &mmm, &size ) ){
+                LOGPRINT( 1, "No puede realizarse el dump de movida %p", mov );
+                return 0;
+            };
             len16 = size;
             ADDDATA( ret, len, len16, aloc );
             STREXPAND( ret, aloc, len + size );
@@ -755,7 +771,11 @@ Partida*    partida_load( Tipojuego* tjuego, void* data, int size ){
     par = tipojuego_create_partida( tjuego, aux );
 
     // ahora vienen 25 bytes ... controlo primero de no pasarme.
-    assert( point + 25 <= ((char*)data) + size );
+    if( point + 25 > ((char*)data) + size ){
+        LOGPRINT( 1, "No puede levantarse la cantidad de bytes necesaria (%d)", size );
+        partida_free( par );
+        return NULL;
+    }
 
     len8 = point[0];
     par->tmov = len8;
@@ -787,7 +807,11 @@ Partida*    partida_load( Tipojuego* tjuego, void* data, int size ){
         len16 = ((uint16_t*)point)[0];
         point += sizeof(uint16_t);
         Movida* mov = movida_load( par->pos, point, len16 );
-        assert( point + len16 <= ((char*)data) + size );
+        if( point + len16 > ((char*)data) + size ) {
+            LOGPRINT( 1, "No puede levantarse la cantidad de bytes necesaria (%d)", size );
+            partida_free( par );
+            return NULL;
+        }
         point += len16;
         list_agrega( par->movimientos, mov );
         Posicion* pos = movida_ejecuta( mov );
@@ -805,7 +829,11 @@ Partida*    partida_load( Tipojuego* tjuego, void* data, int size ){
             len16 = ((uint16_t*)point)[0];
             point += sizeof(uint16_t);
             Movida* mov = movida_load( par->pos, point, len16 );
-            assert( point + len16 <= ((char*)data) + size );
+            if( point + len16 > ((char*)data) + size ){
+                LOGPRINT( 1, "No puede levantarse la cantidad de bytes necesaria (%d)", size );
+                partida_free( par );
+                return NULL;
+            }
             point += len16;
             posicion_add_movida( par->pos, mov );
         }
