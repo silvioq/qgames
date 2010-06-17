@@ -1,0 +1,32 @@
+# Juego obtenido de  http://www.opengames.com.ar/1288.pgn
+# Entre  ["Silvio"] y ["Fernando"]
+nuevo-juego Ajedrez
+
+1. e4 e5 2. Nf3 Nc6 3. Bb5 a6 4. Ba4 Nf6 
+5. 0-0 Nxe4 6. Re1 b5 7. Bb3 Ng5 8. d4 e4 
+9. Bxg5 Be7 10. Rxe4 0-0 11. d5 f6 12. dxc6 Kh8 
+13. cxd7 Bxd7 14. Bh4 Bd6 15. Nc3 Bc6 16. Re1 g5 
+17. Bg3 g4 18. Nd4 Bd7 19. Bxd6 cxd6 20. Be6 b4 
+21. Nd5 a5 22. Qxg4 Ra7 23. Nf5 Be8 24. Ra1-d1 h5 
+25. Qg3 Rh7 26. Qxd6 Bb5 27. Nxf6 Qxf6 28. Qe5 h4 
+29. Rd8 Qxe5 30. Rxf8 
+check-piezas torre blanco f8 1
+check-piezas torre blanco e1 1
+check-piezas torre negro h7 1
+check-piezas caballo blanco f5 1
+check-piezas alfil blanco e6 1
+check-piezas alfil negro b5 1
+check-piezas rey blanco g1 1
+check-piezas dama negro e5 1
+check-piezas rey negro h8 1
+check-piezas peon blanco a2 1
+check-piezas peon blanco b2 1
+check-piezas peon blanco c2 1
+check-piezas peon blanco f2 1
+check-piezas peon blanco g2 1
+check-piezas peon blanco h2 1
+check-piezas peon negro a5 1
+check-piezas peon negro b4 1
+check-piezas peon negro h4 1
+
+1-0

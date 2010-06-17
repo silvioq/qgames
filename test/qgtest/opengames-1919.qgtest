@@ -1,0 +1,30 @@
+# Juego obtenido de  http://www.opengames.com.ar/1919.pgn
+# Entre  ["Jordi Cabré i Carbó"] y ["JOSE TECHERA"]
+nuevo-juego Ajedrez
+
+1. e4 e5 2. a3 Nf6 3. Nc3 Bc5 4. Bc4 0-0 
+5. d3 h6 6. g4 Nxg4 7. Qxg4 d5 8. Qg3 dxc4 
+9. Bxh6 Qf6 10. Be3 Bxe3 11. Qxe3 cxd3 12. Qxd3 c6 
+13. Qg3 Na6 14. Nf3 Re8 15. Rg1 Nc7 16. h4 Ne6 
+17. Nxe5 Nd4 18. Ng4 Bxg4 19. Kf1 Bh5 20. Rd1 Bxd1 
+21. Qd3 Bxc2 22. Qg3 Nf3 
+check-piezas torre blanco g1 1
+check-piezas torre negro a8 1
+check-piezas torre negro e8 1
+check-piezas caballo blanco c3 1
+check-piezas caballo negro f3 1
+check-piezas alfil negro c2 1
+check-piezas dama blanco g3 1
+check-piezas rey blanco f1 1
+check-piezas dama negro f6 1
+check-piezas rey negro g8 1
+check-piezas peon blanco a3 1
+check-piezas peon blanco b2 1
+check-piezas peon blanco e4 1
+check-piezas peon blanco f2 1
+check-piezas peon blanco h4 1
+check-piezas peon negro a7 1
+check-piezas peon negro b7 1
+check-piezas peon negro c6 1
+check-piezas peon negro f7 1
+check-piezas peon negro g7 1
