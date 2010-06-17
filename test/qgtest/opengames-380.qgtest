@@ -1,0 +1,28 @@
+# Juego obtenido de  http://www.opengames.com.ar/380.pgn
+# Entre  ["Paco Arriaza"] y ["Sojuzgado"]
+nuevo-juego JustaDeCaballos
+
+1. d3-b4 f7-g5 2. g1-h3 d8-c6 3. d2-c4 d7-c5 
+4. e1-f3 g5xf3 5. b4xc6 f3-e1 
+check-piezas caballo blanco b1 1
+check-piezas caballo blanco c1 1
+check-piezas caballo blanco d1 1
+check-piezas caballo blanco f1 1
+check-piezas caballo blanco h3 1
+check-piezas caballo blanco c2 1
+check-piezas caballo blanco c4 1
+check-piezas caballo blanco e2 1
+check-piezas caballo blanco f2 1
+check-piezas caballo blanco c6 1
+check-piezas caballo blanco e3 1
+check-piezas caballo negro b8 1
+check-piezas caballo negro c8 1
+check-piezas caballo negro e8 1
+check-piezas caballo negro f8 1
+check-piezas caballo negro g8 1
+check-piezas caballo negro c7 1
+check-piezas caballo negro c5 1
+check-piezas caballo negro e7 1
+check-piezas caballo negro e1 1
+check-piezas caballo negro d6 1
+check-piezas caballo negro e6 1

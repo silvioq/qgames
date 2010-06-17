@@ -1,0 +1,24 @@
+# Juego obtenido de  http://www.opengames.com.ar/1191.pgn
+# Entre  ["Buddy"] y ["Silvio"]
+nuevo-juego JustaDeCaballos
+
+1. e1-f3 g8-f6 2. d1-c3 c8-b6 3. f1-g3 f8-g6 
+4. d2-b3 b8-c6 5. b1-d2 d8-b7 6. e2-d4 f7-g5 
+7. f3xg5 e6xg5 8. c1-e2 g6-h4 9. d2-f3 c7-e6 
+10. d4xe6 g5xe6 11. f3xh4 b7-a5 12. b3-d4 c6xd4 
+13. c2xd4 e6xd4 14. e2xd4 e8-c7 15. g1-e2 b6-c4 
+16. e3xc4 d6xc4 17. g3-f1 d7-e5 18. e2-f4 c4-a3 
+19. h4-g6 a3-b1 
+check-piezas caballo blanco g6 1
+check-piezas caballo blanco d4 1
+check-piezas caballo blanco c3 1
+check-piezas caballo blanco f1 1
+check-piezas caballo blanco f4 1
+check-piezas caballo blanco f2 1
+check-piezas caballo blanco d3 1
+check-piezas caballo negro a5 1
+check-piezas caballo negro c7 1
+check-piezas caballo negro f6 1
+check-piezas caballo negro e5 1
+check-piezas caballo negro e7 1
+check-piezas caballo negro b1 1

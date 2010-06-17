@@ -1,0 +1,17 @@
+# Juego obtenido de  http://www.opengames.com.ar/1210.pgn
+# Entre  ["Silvio"] y ["marcelo"]
+nuevo-juego JustaDeCaballos
+
+1. e1-f3 b8-c6 2. d1-c3 g8-f6 3. f1-g3 c6-e5 
+4. f3xe5 d7xe5 5. d3xe5 f7xe5 6. c1-d3 e5xd3 
+7. f2xd3 d8-c6 8. g3-e4 d6xe4 9. d2xe4 f6xe4 
+10. c3xe4 e7-d5 11. e3xd5 c7xd5 12. b1-c3 d5xc3 
+13. e2xc3 c6-d4 14. d3-b4 d4xc2 15. b4xc2 c8-d6 
+16. c3-d5 f8-g6 17. d5-b6 d6xe4 18. b6-c8 
+check-piezas caballo blanco g1 1
+check-piezas caballo blanco c8 1
+check-piezas caballo blanco c2 1
+check-piezas caballo negro e4 1
+check-piezas caballo negro e8 1
+check-piezas caballo negro g6 1
+check-piezas caballo negro e6 1

@@ -1,0 +1,25 @@
+# Juego obtenido de  http://www.opengames.com.ar/800.pgn
+# Entre  ["Fernando Rojas S.B."] y ["Silvio"]
+nuevo-juego JustaDeCaballos
+
+1. d2-b3 d8-c6 2. g1-f3 e8-f6 3. b1-d2 f8-g6 
+4. d1-c3 c8-b6 5. f1-g3 f7-g5 6. f3xg5 e6xg5 
+7. e1-g2 c7-e6 8. b3-d4 e6xd4 9. e2xd4 d7-e5 
+10. d3xe5 g6xe5 11. c1-e2 b6-c4 12. e3xc4 e5-d3 
+13. c4xd6 d3-e1 
+check-piezas caballo blanco d2 1
+check-piezas caballo blanco e2 1
+check-piezas caballo blanco c3 1
+check-piezas caballo blanco g2 1
+check-piezas caballo blanco g3 1
+check-piezas caballo blanco c2 1
+check-piezas caballo blanco d4 1
+check-piezas caballo blanco f2 1
+check-piezas caballo blanco d6 1
+check-piezas caballo negro b8 1
+check-piezas caballo negro c6 1
+check-piezas caballo negro f6 1
+check-piezas caballo negro e1 1
+check-piezas caballo negro g8 1
+check-piezas caballo negro e7 1
+check-piezas caballo negro g5 1

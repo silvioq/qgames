@@ -1,0 +1,24 @@
+# Juego obtenido de  http://www.opengames.com.ar/477.pgn
+# Entre  ["JUAN CARLOS ORNELAS MARAVILLA"] y ["Sojuzgado"]
+nuevo-juego JustaDeCaballos
+
+1. d3-b4 d7-c5 2. c2-d4 f7-g5 3. d4xe6 d8xe6 
+4. b4-d5 e7xd5 5. e3xd5 c7xd5 6. f2-d3 f8-d7 
+7. d3xc5 d7xc5 8. b1-c3 d5-b4 9. f1-g3 c8-b6 
+10. d2-e4 c5xe4 
+check-piezas caballo blanco c3 1
+check-piezas caballo blanco c1 1
+check-piezas caballo blanco d1 1
+check-piezas caballo blanco e1 1
+check-piezas caballo blanco g3 1
+check-piezas caballo blanco g1 1
+check-piezas caballo blanco e2 1
+check-piezas caballo negro b8 1
+check-piezas caballo negro b6 1
+check-piezas caballo negro e6 1
+check-piezas caballo negro e8 1
+check-piezas caballo negro e4 1
+check-piezas caballo negro g8 1
+check-piezas caballo negro b4 1
+check-piezas caballo negro g5 1
+check-piezas caballo negro d6 1

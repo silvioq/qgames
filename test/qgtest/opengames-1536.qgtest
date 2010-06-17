@@ -1,0 +1,28 @@
+# Juego obtenido de  http://www.opengames.com.ar/1536.pgn
+# Entre  ["ariza"] y ["Oscar Gomez"]
+nuevo-juego JustaDeCaballos
+
+1. f2-g4 c7-b5 2. d1-c3 e8-c7 3. c2-b4 d8-c6 
+4. e1-c2 c6-d4 5. f1-g3 e7-f5 6. g3-h5 d4xc2 
+7. e3xc2 c8-b6 8. b1-a3 b5-d4 9. c2xd4 f5-h4 
+10. d3-e1 f8-g6 11. g1-f3 e6xd4 12. h5-g7 
+check-piezas caballo blanco a3 1
+check-piezas caballo blanco c1 1
+check-piezas caballo blanco c3 1
+check-piezas caballo blanco g7 1
+check-piezas caballo blanco f3 1
+check-piezas caballo blanco b4 1
+check-piezas caballo blanco d2 1
+check-piezas caballo blanco e2 1
+check-piezas caballo blanco g4 1
+check-piezas caballo blanco e1 1
+check-piezas caballo negro b8 1
+check-piezas caballo negro b6 1
+check-piezas caballo negro c7 1
+check-piezas caballo negro g6 1
+check-piezas caballo negro g8 1
+check-piezas caballo negro d7 1
+check-piezas caballo negro h4 1
+check-piezas caballo negro f7 1
+check-piezas caballo negro d6 1
+check-piezas caballo negro d4 1

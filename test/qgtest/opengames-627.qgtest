@@ -1,0 +1,27 @@
+# Juego obtenido de  http://www.opengames.com.ar/627.pgn
+# Entre  ["ariza"] y ["Ramiro"]
+nuevo-juego JustaDeCaballos
+
+1. g1-f3 c7-b5 2. b1-c3 f7-g5 3. f3xg5 e6xg5 
+4. e2-f4 f8-e6 5. f4-h5 g8-h6 6. f2-g4 h6xg4 
+check-piezas caballo blanco c3 1
+check-piezas caballo blanco c1 1
+check-piezas caballo blanco d1 1
+check-piezas caballo blanco e1 1
+check-piezas caballo blanco f1 1
+check-piezas caballo blanco c2 1
+check-piezas caballo blanco d2 1
+check-piezas caballo blanco h5 1
+check-piezas caballo blanco d3 1
+check-piezas caballo blanco e3 1
+check-piezas caballo negro b8 1
+check-piezas caballo negro c8 1
+check-piezas caballo negro d8 1
+check-piezas caballo negro e8 1
+check-piezas caballo negro e6 1
+check-piezas caballo negro g4 1
+check-piezas caballo negro b5 1
+check-piezas caballo negro d7 1
+check-piezas caballo negro e7 1
+check-piezas caballo negro d6 1
+check-piezas caballo negro g5 1

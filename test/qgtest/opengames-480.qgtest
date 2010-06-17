@@ -1,0 +1,22 @@
+# Juego obtenido de  http://www.opengames.com.ar/480.pgn
+# Entre  ["JUAN CARLOS ORNELAS MARAVILLA"] y ["Silvio"]
+nuevo-juego JustaDeCaballos
+
+1. e3-g4 e8-f6 2. g4xf6 g8xf6 3. e2-f4 b8-c6 
+4. f4xe6 d8xe6 5. f1-e3 c8-b6 6. g1-f3 d7-e5 
+7. f3xe5 f7xe5 8. d3xe5 c6xe5 9. f2-g4 e5xg4 
+10. e3xg4 f6xg4 11. e1-f3 e6-g5 12. b1-a3 g5-h3 
+13. d2-c4 h3-g1 
+check-piezas caballo blanco a3 1
+check-piezas caballo blanco c1 1
+check-piezas caballo blanco d1 1
+check-piezas caballo blanco f3 1
+check-piezas caballo blanco c2 1
+check-piezas caballo blanco c4 1
+check-piezas caballo negro b6 1
+check-piezas caballo negro g1 1
+check-piezas caballo negro f8 1
+check-piezas caballo negro g4 1
+check-piezas caballo negro c7 1
+check-piezas caballo negro e7 1
+check-piezas caballo negro d6 1

@@ -1,0 +1,24 @@
+# Juego obtenido de  http://www.opengames.com.ar/402.pgn
+# Entre  ["incoherente"] y ["ariza"]
+nuevo-juego JustaDeCaballos
+
+1. d2-f3 e7-c6 2. f3-d4 c8-e7 3. d1-c3 g8-f6 
+4. g1-h3 f8-g6 5. d4xe6 d8xe6 6. c3-a4 g6-h4 
+7. b1-c3 f6-d5 8. f1-d2 e7-g6 9. c3xd5 c7xd5 
+10. e3xd5 d6-c8 11. d3-f4 e6xf4 12. h3xf4 g6xf4 
+13. e2xf4 f7-e5 14. f4-e6 h4-f5 15. e6-f8 
+check-piezas caballo blanco c1 1
+check-piezas caballo blanco a4 1
+check-piezas caballo blanco e1 1
+check-piezas caballo blanco d2 1
+check-piezas caballo blanco c2 1
+check-piezas caballo blanco f8 1
+check-piezas caballo blanco f2 1
+check-piezas caballo blanco d5 1
+check-piezas caballo negro b8 1
+check-piezas caballo negro e8 1
+check-piezas caballo negro f5 1
+check-piezas caballo negro d7 1
+check-piezas caballo negro c6 1
+check-piezas caballo negro e5 1
+check-piezas caballo negro c8 1

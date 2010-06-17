@@ -1,0 +1,28 @@
+# Juego obtenido de  http://www.opengames.com.ar/1203.pgn
+# Entre  ["Oscar Gomez"] y ["Alexis Augoustis"]
+nuevo-juego JustaDeCaballos
+
+1. f1-g3 e8-g7 2. c1-b3 d8-b7 3. e2-d4 c8-b6 
+4. e1-f3 f8-h7 5. d1-c3 h7-g5 6. c2-b4 g5xf3 
+7. g1xf3 d7-c5 8. d3-e5 f7-g5 9. f3xg5 e6xg5 
+10. d4-c6 
+check-piezas caballo blanco b1 1
+check-piezas caballo blanco b3 1
+check-piezas caballo blanco c3 1
+check-piezas caballo blanco g3 1
+check-piezas caballo blanco b4 1
+check-piezas caballo blanco d2 1
+check-piezas caballo blanco c6 1
+check-piezas caballo blanco f2 1
+check-piezas caballo blanco e5 1
+check-piezas caballo blanco e3 1
+check-piezas caballo negro b8 1
+check-piezas caballo negro b6 1
+check-piezas caballo negro b7 1
+check-piezas caballo negro g7 1
+check-piezas caballo negro g8 1
+check-piezas caballo negro c7 1
+check-piezas caballo negro c5 1
+check-piezas caballo negro e7 1
+check-piezas caballo negro d6 1
+check-piezas caballo negro g5 1
