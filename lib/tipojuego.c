@@ -82,13 +82,17 @@ int         tipojuego_valido( Tipojuego* tj ){ return TJVALIDO(tj); }
 int         tipojuego_genera_dimensiones( Tipojuego* tj, int dimc, char** dimv ){
 
     // genera el tablero
+    if( !TJVALIDO(tj) ) return 0;
     if( !tj->tableros ){
       tj->tableros = list_nueva( NULL );
     }
     tj->tablero_actual =  tj->tableros->entradas + 1;
     Tablero* tab = tablero_new( tj, tj->tablero_actual );
     list_agrega( tj->tableros, tab );
-    tablero_genera_dimensiones( tab, dimc, dimv );
+    if( !tablero_genera_dimensiones( tab, dimc, dimv ) ){
+        TJSETERROR( tj, "Generacion de dimensiones en tablero con error", 0 );
+        return 0;
+    };
     return  tj->tablero_actual;
 }
 

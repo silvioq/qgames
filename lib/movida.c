@@ -207,7 +207,7 @@ Posicion*  movida_ejecuta( Movida* mov ){
                 if( acc->tpieza ) p->tpieza = acc->tpieza;
                 break;
             case ACCION_ASIGNA_ATT:
-                pieza_set_att( p, acc->att_key, acc->att_val );
+                if( !pieza_set_att( p, acc->att_key, acc->att_val ) ) return NULL;
                 break;
             default:
                 

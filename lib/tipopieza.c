@@ -9,6 +9,7 @@
 #include  <string.h>
 #include  <stdio.h>
 
+#include  "log.h"
 #include  "qgames.h"
 #include  "tipojuego.h"
 

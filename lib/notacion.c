@@ -8,7 +8,6 @@
 #include  <stdio.h>
 #include  <stdlib.h>
 #include  <string.h>
-#include  <assert.h>
 #include  <stdarg.h>
 #include  <qgames.h>
 
@@ -62,6 +61,11 @@ void    notacion_resolver_movidas( Tipojuego* tjuego, _list* movs, char* prefix 
     while( mmm = list_siguiente( movs ) ){
         if( mmm->notacion ) continue;
         char*  nom = notacion_resolver_mov( tjuego->notacion, mmm, def );
+        if( !nom ){ 
+            mmm->notacion = strdup( "error" ); 
+            continue ; 
+        }
+          
         AGREGAR_PREFIJO(nom);
         mmm->notacion = nom;
     }
@@ -79,6 +83,10 @@ void    notacion_resolver_movidas( Tipojuego* tjuego, _list* movs, char* prefix 
             if( strcmp( mmm->notacion, mmm2->notacion ) == 0 ){
                 tiene_iguales = 1;
                 char*  nom = notacion_resolver_mov( tjuego->notacion, mmm2, rep );
+                if( !nom ){ 
+                    mmm->notacion = strdup( "error" ); 
+                    continue ; 
+                }
                 AGREGAR_PREFIJO(nom);
                 free( mmm2->notacion );
                 mmm2->notacion = nom;
@@ -87,6 +95,10 @@ void    notacion_resolver_movidas( Tipojuego* tjuego, _list* movs, char* prefix 
         }
         if( tiene_iguales ){
             char*  nom = notacion_resolver_mov( tjuego->notacion, mmm, rep );
+            if( !nom ){ 
+                mmm->notacion = strdup( "error" ); 
+                continue ; 
+            }
             AGREGAR_PREFIJO(nom);
             free( mmm->notacion );
             mmm->notacion = nom;
@@ -136,7 +148,7 @@ char*   notacion_resolver_tpieza( Notacion* nott, int color, Tipopieza* tpieza){
 */
 
 char*   notacion_resolver_mov( Notacion* nott, Movida* mov, char* def ){
-    assert( def );
+    if( !def ) return NULL;
     if( mov->tmov > 0 ){
         char*  tmov = notacion_resolver_tmov( nott, mov->tmov );
         if( tmov ) return strdup( tmov );
@@ -187,7 +199,8 @@ char*   notacion_resolver_mov( Notacion* nott, Movida* mov, char* def ){
                 strcat( ret, " " );
                 break;
             default:
-                assert( 0 );
+                LOGPRINT( 1, "Tipo de notacion incorrecta %d", (*defchar) );
+                return NULL;
         }
         defchar ++;
     }

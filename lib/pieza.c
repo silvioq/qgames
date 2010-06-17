@@ -9,7 +9,6 @@
 #include  <stdio.h>
 #include  <stdlib.h>
 #include  <string.h>
-#include  <assert.h>
 #include  <stdarg.h>
 #include  <qgames.h>
 
@@ -108,7 +107,7 @@ Pieza*   pieza_dup( Pieza* pieza ){
         exit( EXIT_FAILURE );
     }
 */
-void     pieza_set_att( Pieza* p, int att, int val ){
+int      pieza_set_att( Pieza* p, int att, int val ){
 
     if( !p->atributos ){
         int i ;
@@ -117,7 +116,10 @@ void     pieza_set_att( Pieza* p, int att, int val ){
             list_agrega( p->atributos, p->tpieza->att_default->data[i] );
         }
     }
-    assert( att < p->atributos->entradas );
+    if( att >= p->atributos->entradas ){
+        LOGPRINT( 1, "Error atributo incorrecto", 0 );
+        return 0;
+    };
     p->atributos->data[att] = (void*)(long)val;
 }
 

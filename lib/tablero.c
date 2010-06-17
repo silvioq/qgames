@@ -8,11 +8,11 @@
 #include  <stdio.h>
 #include  <stdlib.h>
 #include  <string.h>
-#include  <assert.h>
 
 #include  "qgames.h"
 #include  "tipojuego.h"
 #include  "graphdef.h"
+#include  "log.h"
 
 
 /*  
@@ -32,14 +32,14 @@ Tablero*   tablero_new( Tipojuego* tj , int numero ){
 #define  ES_SEPARADOR(c) ((c) &&  strchr(SEPARADORES,(c)))
 
 
-void       tablero_genera_dimensiones( Tablero* tab, int dimc, char** dimv ){
+int        tablero_genera_dimensiones( Tablero* tab, int dimc, char** dimv ){
 
     int i;
     int dimint[MAXDIMS];
     char* dimp[MAXDIMS];
     if( tab->dimensiones ){
-        printf( "Error al setear dimensiones ya cargadas\n" );
-        assert( 0 );
+        LOGPRINT( 1, "Error al setear dimensiones ya cargadas", 0 );
+        return 0;
     }
 
     tab->dimensiones = list_nueva( NULL );
@@ -103,6 +103,7 @@ void       tablero_genera_dimensiones( Tablero* tab, int dimc, char** dimv ){
             break;
         }
     }
+    return 1;
     
 }
 

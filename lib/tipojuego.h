@@ -251,7 +251,7 @@ Simbolo*    tipojuego_get_simbolo( Tipojuego* tj, char* sim );
 
 /* Funciones de manejo de tablero */
 Tablero*   tablero_new( Tipojuego* tj, int numero );
-void       tablero_genera_dimensiones( Tablero* tab, int dimc, char** dimv );
+int        tablero_genera_dimensiones( Tablero* tab, int dimc, char** dimv );
 Graphdef*  tablero_get_graphdef( Tablero* t );
 
 
