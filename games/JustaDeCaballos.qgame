@@ -1,0 +1,86 @@
+# El gametype es el nombre de juego que usaremos!
+gametype:    JustaDeCaballos
+
+# Cada color se define aparte o no
+color:       blanco 
+color:       negro 
+
+# Board se puede definir como una lista de dimensiones.
+# Tambien podria estar en blanco y comenzar con las definiciones
+# de casillero de una.
+board:       "a b c d e f g h" "1 2 3 4 5 6 7 8"
+
+# Directions tiene el nombre de la direccion. Opcionalmente podria
+# tener n numeros que hace la representacion 'n' dimensional.
+directions:  n  0  1 
+directions:  s  0 -1 
+directions:  e  1  0  
+directions:  o -1  0 
+
+# Simetria ... un color y dos direcciones
+symmetry:    negro   s    n
+symmetry:    negro   n    s
+
+# Zona. Tiene el nombre de zona (obligatorio), luego
+# cero, uno o mas colores, indicando a que colores aplica y finalmente
+# una lista de casilleros.
+zone:        objetivo      blanco  a8  b8  c8  d8  e8  f8  g8  h8
+zone:        objetivo      negro   a1  b1  c1  d1  e1  f1  g1  h1
+
+#
+# La definicion de movida de caballo simplifica la declaracion de
+# la movida
+
+define:     movida_caballo direccion
+            direccion
+            parar if !en_tablero?
+            captura_y_juega if !ocupado_propio?
+
+
+piece:      caballo
+move:       
+            movida_caballo 'n; n; e'
+move:       
+            movida_caballo 'n; n; o'
+move:       
+            movida_caballo 's; s; e'
+move:       
+            movida_caballo 's; s; o'
+move:       
+            movida_caballo 'e; e; s'
+move:       
+            movida_caballo 'o; o; s'
+move:     
+            movida_caballo 'e; e; n'
+move:      
+            movida_caballo 'o; o; n' 
+
+
+
+# Listo con la definicion de piezas ... mas cosas
+#
+# Se vienen los finales. Son tambien distintos mini programas!
+ending:
+            empata if repite_posicion? 3 
+            gana   if capturadas_enemigo  12
+            gana   if en-zona? objetivo
+
+
+sequence:   blanco negro
+start:      caballo  negro   b8  c8  d8  e8  f8  g8
+start:      caballo  negro       c7  d7  e7  f7
+start:      caballo  negro           d6  e6
+
+start:      caballo  blanco          d3  e3
+start:      caballo  blanco      c2  d2  e2  f2
+start:      caballo  blanco  b1  c1  d1  e1  f1  g1
+  
+
+notation:   captured-mark   x
+notation:   mark           "-"
+notation:   default    origin             mark    target         
+
+# Aca vienen las definiciones de tablero ... simplemente voy a hacer
+# un damero de dimensiones estandares
+graph-board: checkerboard   384 384    $FFFFFF $A0A0A0 
+graph-piece: standard-knight   caballo  48 48
