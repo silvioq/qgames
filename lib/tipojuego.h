@@ -23,6 +23,7 @@ typedef   struct   StrGraphdef  Graphdef;
 
 #define   TJJAQUEMATE(tj)  (tj->flags & JAQUEMATE)
 #define   TJVALIDO(tj)     (tj->flags & VALIDO)
+// #define   TJVALIDO(tj)     (1)
 #define   TJINVALIDAR(tj)  (tj->flags &= ~ VALIDO)
 
 

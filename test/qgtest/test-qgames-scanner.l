@@ -12,6 +12,8 @@
 #include  "config.h"
 #include  <qgames.h>
 #include  <qgames_analyzer.h>
+#include <time.h>
+#include <sys/time.h>
 #include  "list.h"
 #include  "log.h"
 
@@ -21,6 +23,7 @@ void   add_movida( char* );
 int    inciar_chequeo( int );
 void   count_piezas_add_parameter( char* );
 int    chequear();
+void   show_benchmark();
 void   chequear_resultado(int);
 void   check_count_piezas(int);
 void   chequear_count_movidas(int);
@@ -30,6 +33,10 @@ Partida*  partida    = NULL;
 Tipojuego* tjuego    = NULL;
 _list*    tipojuegos = NULL;
 _list*    checklist  = NULL;
+extern  int benchmark ;
+
+static  double   time_scanning = 0.0;
+static  double   time_moves    = 0.0;
 
 typedef  struct strCheck{
     char*   casillero;
@@ -65,6 +72,7 @@ RESULT       ({DRAW}|{BWIN}|{WWIN}|\*)
 <INITIAL>check{BAR}result       { BEGIN(check_result); }  
 <INITIAL>show{BAR}movidas       { partida_movidas_posibles_ascii( partida ) ; }
 <INITIAL>show{BAR}tablero       { partida_tablero_ascii( partida ) ; }
+<INITIAL>show{BAR}benchmark     { show_benchmark() ; }
 <INITIAL>verbose                { BEGIN(verbose_state); }
 
 <nombre_juego>{WORD}            { nuevo_juego( yytext ); BEGIN(INITIAL); }
@@ -96,6 +104,7 @@ RESULT       ({DRAW}|{BWIN}|{WWIN}|\*)
 
 <*>[ \t\r]+                     /* ignore whitespace */
 <*><<EOF>>                      { 
+                                   if( partida ) partida_free( partida );
                                    yyterminate( );
                                 }
 <INITIAL>\n                     /* Ignora para inicial */
@@ -119,16 +128,21 @@ int    nuevo_juego( char* t ){
     }
 
     if( !tjuego ){
+        clock_t  inicio;
+        clock_t  final ;
         char* filename = malloc( strlen( t ) + 25 );
         sprintf( filename, "../../games/%s.qgame", t );
         LOGPRINT( 5, "Voy a abrir %s", filename );
+        inicio = clock();
         tjuego = qgz_parse_filename( filename, 0 );
         if( !tjuego ) {
             LOGPRINT( 2, "Error al analizar %s %d", filename, yylineno );
             exit( EXIT_FAILURE );
         }
+        final = clock();
         list_agrega( tipojuegos, tjuego );
         free( filename );
+        time_scanning += ((double) (final - inicio)) / CLOCKS_PER_SEC;
     }
 
     if( partida ) partida_free( partida );
@@ -139,6 +153,9 @@ int    nuevo_juego( char* t ){
 
 
 void   add_movida( char* movs ){
+    clock_t  inicio;
+    clock_t  final ;
+    inicio = clock();
     if( !partida ){
         LOGPRINT( 2, "No fue inicializada la partida (%d)", yylineno );
         exit( EXIT_FAILURE );
@@ -148,6 +165,8 @@ void   add_movida( char* movs ){
         LOGPRINT( 2, "Error al intentar mover %s (%d)", movs, yylineno );
         exit( EXIT_FAILURE ) ;
     }
+    final = clock();
+    time_moves += ((double) (final - inicio)) / CLOCKS_PER_SEC;
 }
 
 void  free_struct(strcheck* str){
@@ -241,6 +260,10 @@ void   chequear_movida_valida(char* mov){
         LOGPRINT( 2, "Movida %s invalida (%d)", mov, yylineno );
         exit( EXIT_FAILURE );
     }
+}
+
+void  show_benchmark(){
+    printf( "Analisis: %.6f Movidas: %.6f\n", time_scanning, time_moves );
 }
 
 
