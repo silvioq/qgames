@@ -42,7 +42,6 @@ int        posicion_movidas_posibles( Posicion* pos );
  * a las cuales se le puede hacer jaquemate
  * */
 int        posicion_en_jaque( Posicion* pos, Tipopieza* tpieza, int color );
-
 void       posicion_mueve_pieza( Posicion* pos, Pieza* pieza, Casillero* destino );
 Pieza*     posicion_get_pieza( Posicion* pos, Pieza* pieza );
 

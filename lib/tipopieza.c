@@ -38,6 +38,7 @@ int         tipopieza_add_att(Tipopieza* tp, char* att, int default_value ){
     }
     list_agrega( tp->att_nombres, strdup(att) );
     list_agrega( tp->att_default, (void*)(long)default_value );
+    tp->att_count ++;
     return 1;
 }
 

@@ -91,6 +91,7 @@ typedef   struct   StrVinculo {
 } Vinculo;
 
 
+#define   TIPOPIEZA_MAXATT  8
 
 typedef   struct   StrTipopieza {
     char*       nombre;

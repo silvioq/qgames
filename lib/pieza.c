@@ -24,27 +24,19 @@
  * */
 
 void     pieza_init( Pieza* pieza, Tipopieza* tpieza, Casillero* cas, int color ){
-    memset( pieza, 0, sizeof( Pieza ) );
-    pieza->tpieza = tpieza;
+    pieza->tpieza    = tpieza;
     pieza->casillero = cas;
     pieza->color     = color;
+    pieza->flags     = 0;
 }
 
-/*
- * Para borrar una pieza, hay que ser prolijos
- * */
-void   pieza_att_free( Pieza* p ){
-  if( p->atributos ){
-      list_free( p->atributos );
-  }
-}
 
 /*
  * Devuelvo o calcula el hash de la pieza, lo que me sirve para
  * ver si es igual o distinta a las demas 
  * */
 char*   pieza_hash( Pieza* p ){
-    if( p->hash_calculado ) return p->hash;
+    if( p->flags & PIEZA_HASH_CALCULADO ) return p->hash;
     md5_state_t md5;
     md5_init( &md5 );
     md5_append( &md5, p->tpieza->nombre, strlen( p->tpieza->nombre ) );
@@ -56,13 +48,11 @@ char*   pieza_hash( Pieza* p ){
         md5_append( &md5, p->casillero->nombre, strlen( p->tpieza->nombre ) );
     }
 
-    if( p->atributos ){
-        int i;
-        for( i = 0; i < p->atributos->entradas; i ++ ){
-            md5_append( &md5, (void*)(& (p->atributos->data[i] )), sizeof( int ) );
-        }
+    if( p->flags & PIEZA_ATT_INIT ){
+        md5_append( &md5, (void*)p->atts, sizeof( int ) * p->tpieza->att_count );
     }
     md5_finish( &md5, p->hash );
+    p->flags |= PIEZA_HASH_CALCULADO;
     return  p->hash;
 }
 
@@ -74,23 +64,18 @@ int     pieza_equal( Pieza* p1, Pieza* p2 ){
 /*
  * El duplicado de la pieza hace una pieza exactamente igual ... pero nueva!
  * */
-
+/*
 void   pieza_copy( Pieza* pieza_dest, Pieza* pieza_ori ){
     pieza_dest->tpieza    = pieza_ori->tpieza;
     pieza_dest->casillero = pieza_ori->casillero;
     pieza_dest->color     = pieza_ori->color;
     pieza_dest->number    = pieza_ori->number;
-    if( pieza_dest->hash_calculado ) memcpy( pieza_dest->hash,  pieza_ori->hash, 16 );
-    pieza_dest->hash_calculado = pieza_ori->hash_calculado;
-
-    if( pieza_ori->atributos ){
-        pieza_dest->atributos = list_nueva( NULL );
-        int i;
-        for( i = 0; i < pieza_ori->atributos->entradas; i ++ ){
-            list_agrega( pieza_dest->atributos, pieza_ori->atributos->data[i] );
-        }
-    } else { pieza_dest->atributos = NULL; }
-}
+    pieza_dest->flags     = pieza_ori->flags;
+    if( pieza_dest->flags & PIEZA_HASH_CALCULADO ) 
+        memcpy( pieza_dest->hash,  pieza_ori->hash, 16 );
+    if( pieza_dest->flags & PIEZA_ATT_INIT ) 
+        memcpy( pieza_dest->atts, pieza_ori->atts, TIPOPIEZA_MAXATT ) ;
+}*/
 
 /*
     int x = tipopieza_get_att( p->tpieza, att );
@@ -101,28 +86,24 @@ void   pieza_copy( Pieza* pieza_dest, Pieza* pieza_ori ){
 */
 int      pieza_set_att( Pieza* p, int att, int val ){
 
-    if( !p->atributos ){
+    if( !(p->flags & PIEZA_ATT_INIT) ){
         int i ;
-        p->atributos = list_nueva( NULL );
         for( i = 0; i < p->tpieza->att_default->entradas ; i ++ ){
-            list_agrega( p->atributos, p->tpieza->att_default->data[i] );
+            p->atts[i] = p->tpieza->att_default->data[i];
         }
     }
-    if( att >= p->atributos->entradas ){
-        LOGPRINT( 1, "Error atributo incorrecto", 0 );
+    if( att >= p->tpieza->att_count ){
+        LOGPRINT( 1, "Error atributo incorrecto att: %d att_count %d", att, p->tpieza->att_count );
         return 0;
     };
-    p->atributos->data[att] = (void*)(long)val;
+    p->atts[att] = val;
+    return 1;
 }
 
 
 
 int      pieza_get_att( Pieza* p, int att ){
-    if( !p->atributos ) return 0;
-/*
-    int x = tipopieza_get_att( p->tpieza, att );
-    if( x == NOT_FOUND ) return 0;
-    if( x >= p->atributos->entradas ) return 0; */
-    if( att >= p->atributos->entradas ) return 0;
-    return (int)(long)p->atributos->data[att];
+    if( !(p->flags & PIEZA_ATT_INIT) ) return 0;
+    if( att >= p->tpieza->att_count ) return 0;
+    return p->atts[att];
 }

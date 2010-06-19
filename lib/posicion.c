@@ -73,15 +73,36 @@ void      posicion_free( Posicion* pos ){
         posicion_free_movidas( pos );
         list_free( pos->movidas );
     }
-    if( pos->piezas ){
+    if( pos->piezas ) free( pos->piezas );
+/*    if( pos->piezas ){
         int i;
         for( i = 0; i < pos->piezas_count; i ++ ){
             pieza_att_free( &pos->piezas[i] );
         }
-    }
+    }*/
     free(pos);
 }
 
+/*
+ * Esta funcion es muy simple, pero es fundamental.
+ * Solo agrega una pieza a la posicion.
+ * */
+#define  PIEZAS_ALLOC 50
+Pieza*      posicion_add_pieza( Posicion* pos ){
+  Pieza* pie;
+  if( !pos->piezas ){
+      pos->piezas = malloc( sizeof( Pieza ) * PIEZAS_ALLOC );
+      pos->piezas_count = 0;
+      pos->piezas_alloc = PIEZAS_ALLOC;
+  } else if ( pos->piezas_count >= pos->piezas_alloc ){
+      pos->piezas_alloc += PIEZAS_ALLOC;
+      pos->piezas = realloc( pos->piezas, sizeof( Pieza ) * pos->piezas_alloc );
+  }  
+  pie = & pos->piezas[pos->piezas_count];
+  pie->number = pos->piezas_count;
+  pos->piezas_count ++;
+  return pie;
+}
 
 Pieza*     posicion_get_pieza( Posicion* pos, Pieza* pieza ){
     if( !pos->piezas ) return  NULL;
@@ -115,26 +136,6 @@ void        posicion_descartar_por_jaques( Posicion* pos, _list* movs, int color
 }
 
 
-/*
- * Esta funcion es muy simple, pero es fundamental.
- * Solo agrega una pieza a la posicion.
- * */
-#define  PIEZAS_ALLOC 50
-Pieza*      posicion_add_pieza( Posicion* pos ){
-  Pieza* pie;
-  if( !pos->piezas ){
-      pos->piezas = malloc( sizeof( Pieza ) * PIEZAS_ALLOC );
-      pos->piezas_count = 0;
-      pos->piezas_alloc = PIEZAS_ALLOC;
-  } else if ( pos->piezas_count >= pos->piezas_alloc ){
-      pos->piezas_alloc += PIEZAS_ALLOC;
-      pos->piezas = realloc( pos->piezas, sizeof( Pieza ) * pos->piezas_alloc );
-  }  
-  pie = & pos->piezas[pos->piezas_count];
-  pie->number = pos->piezas_count;
-  pos->piezas_count ++;
-  return pie;
-}
 
 /*
  * Esta funcion devuelve 1, si, una vez ejecutada la movida, 
@@ -229,6 +230,9 @@ int        posicion_analiza_movidas( Posicion* pos, char tipoanalisis, int color
                 }
             }
             if( existe ) continue;
+            LOGPRINT( 6, "Analizando reglas para pieza %s (%d) en POZO (%s)", 
+                  pp->tpieza->nombre, pp->number, 
+                  tipojuego_get_colorname( pos->tjuego, color ) );
             piezas_arr[piezas_cnt] = pp; piezas_cnt ++;
             int  c;
             for( c = 0; c < pos->tjuego->casilleros->entradas; c ++ ){
@@ -369,12 +373,19 @@ Posicion*   posicion_dup( Posicion* pos ){
     Posicion* pnew = posicion_new( pos->tjuego );
     pnew->pos_anterior = pos->pos_anterior;
     pnew->mov_anterior = pos->mov_anterior;
+#if 0
     int p;
     for( p = 0; p < pos->piezas_count; p ++ ){
         Pieza* pie = & pos->piezas[p];
         Pieza* pienew = posicion_add_pieza( pnew );
         pieza_copy( pienew, pie );
     }
+#else
+    pnew->piezas_count = pos->piezas_count;
+    pnew->piezas_alloc = pos->piezas_alloc;
+    pnew->piezas = malloc( sizeof( Pieza ) * pos->piezas_alloc );
+    memcpy( pnew->piezas, pos->piezas, sizeof( Pieza ) * pos->piezas_count );
+#endif
     return  pnew;
 }
 
