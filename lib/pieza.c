@@ -23,24 +23,20 @@
  * Crea una pieza nueva
  * */
 
-Pieza*   pieza_new( Tipopieza* tpieza, Casillero* cas, int color ){
-    Pieza *p;
-    p = (Pieza*)malloc( sizeof( Pieza ) );
-    memset( p, 0, sizeof( Pieza ) );
-    p->tpieza = tpieza;
-    p->casillero = cas;
-    p->color     = color;
-    return p;
+void     pieza_init( Pieza* pieza, Tipopieza* tpieza, Casillero* cas, int color ){
+    memset( pieza, 0, sizeof( Pieza ) );
+    pieza->tpieza = tpieza;
+    pieza->casillero = cas;
+    pieza->color     = color;
 }
 
 /*
  * Para borrar una pieza, hay que ser prolijos
  * */
-void   pieza_free( Pieza* p ){
+void   pieza_att_free( Pieza* p ){
   if( p->atributos ){
       list_free( p->atributos );
   }
-  free( p );
 }
 
 /*
@@ -79,25 +75,21 @@ int     pieza_equal( Pieza* p1, Pieza* p2 ){
  * El duplicado de la pieza hace una pieza exactamente igual ... pero nueva!
  * */
 
-Pieza*   pieza_dup( Pieza* pieza ){
-    Pieza *p;
-    p = (Pieza*)malloc( sizeof( Pieza ) );
-    memset( p, 0, sizeof( Pieza ) );
-    p->tpieza    = pieza->tpieza;
-    p->casillero = pieza->casillero;
-    p->color     = pieza->color;
-    p->number    = pieza->number;
-    memcpy( p->hash,  pieza->hash, 16 );
-    p->hash_calculado = p->hash_calculado;
+void   pieza_copy( Pieza* pieza_dest, Pieza* pieza_ori ){
+    pieza_dest->tpieza    = pieza_ori->tpieza;
+    pieza_dest->casillero = pieza_ori->casillero;
+    pieza_dest->color     = pieza_ori->color;
+    pieza_dest->number    = pieza_ori->number;
+    if( pieza_dest->hash_calculado ) memcpy( pieza_dest->hash,  pieza_ori->hash, 16 );
+    pieza_dest->hash_calculado = pieza_ori->hash_calculado;
 
-    if( pieza->atributos ){
-        p->atributos = list_nueva( NULL );
+    if( pieza_ori->atributos ){
+        pieza_dest->atributos = list_nueva( NULL );
         int i;
-        for( i = 0; i < pieza->atributos->entradas; i ++ ){
-            list_agrega( p->atributos, pieza->atributos->data[i] );
+        for( i = 0; i < pieza_ori->atributos->entradas; i ++ ){
+            list_agrega( pieza_dest->atributos, pieza_ori->atributos->data[i] );
         }
-    }
-    return p;
+    } else { pieza_dest->atributos = NULL; }
 }
 
 /*

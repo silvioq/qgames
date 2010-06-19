@@ -10,15 +10,19 @@
 
 typedef  struct  StrPosicion {
     Tipojuego*  tjuego;
-    _list*      piezas;
     _list*      movidas;
     Posicion*   pos_anterior;
     Movida*     mov_anterior;
+
+    Pieza*      piezas;
+    int         piezas_count;
+    int         piezas_alloc;
+
 } _Posicion;
 
 
 Posicion*   posicion_new( Tipojuego* tjuego );
-void        posicion_add_pieza( Posicion* pos, Pieza* pie );
+Pieza*      posicion_add_pieza( Posicion* pos );
 Posicion*   posicion_dup( Posicion* pos );
 void        posicion_free( Posicion* pos );
 

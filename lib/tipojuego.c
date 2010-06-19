@@ -314,8 +314,8 @@ int         tipojuego_add_pieza( Tipojuego* tj, char* tpieza, char* casillero, c
     col = GETCOLOR( tj, color );
     if( !TJVALIDO(tj) ) return 0;
   
-    p = pieza_new( tp, cas, col );
-    posicion_add_pieza( tj->inicial, p );
+    p = posicion_add_pieza( tj->inicial );
+    pieza_init( p, tp, cas, col );
     return 1;
 }
 

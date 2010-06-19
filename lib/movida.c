@@ -194,7 +194,7 @@ Posicion*  movida_ejecuta( Movida* mov ){
     int i;
     for( i = 0; i < mov->acciones->entradas; i ++ ){
         Accion* acc = (Accion*) mov->acciones->data[i];
-        Pieza*  p = (Pieza*)pos->piezas->data[acc->pieza_number];
+        Pieza*  p = & pos->piezas[acc->pieza_number];
         switch( acc->tipo ){
             case ACCION_MUEVE:
                 posicion_mueve_pieza( pos, p, acc->destino );
@@ -260,7 +260,7 @@ Casillero*   movida_casillero_destino( Movida* mov ){
  * pieza de la estructura, para posteriores usos
  * */
 Pieza*       movida_pieza( Movida* mov ){
-    return mov->pos->piezas->data[mov->piece_number];
+    return &(mov->pos->piezas[mov->piece_number]);
 }
 
 

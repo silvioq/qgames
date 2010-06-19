@@ -111,8 +111,8 @@ int    analizador_atacado( Analizador* z, Casillero* cas ){
     if( !CASILLERO_VALIDO(ccc) ) return 0;
     Posicion* pos = posicion_dup( z->pos );
     if( TIPOJUEGO_CAPTURAIMPLICITA(z->pos->tjuego ) ){
-        list_inicio( pos->piezas );
-        while( p = (Pieza*)list_siguiente(pos->piezas) ){
+        for( i = 0; i < pos->piezas_count; i ++ ){
+            p = & pos->piezas[i];
             if( p->number != z->pieza->number && p->casillero == ccc ) p->casillero = OUTOFBOARD ;
         }
     }
@@ -170,13 +170,14 @@ int    analizador_origen_ant( Analizador* z, Casillero* cas ){
 int    analizador_cuenta_piezas( Analizador* z, Casillero* cas, int owner, Tipopieza* tpieza ){
 
     Pieza* p;
-    int  total = 0;
+    int  total = 0, i;
     LOGPRINT( 6, "Pregunta por cuentapiezas al casillero %s owner = %d tipo pieza %s", 
             ( cas ? cas->nombre : "Sin casillero" ),
             owner, 
             ( tpieza ? tpieza->nombre : "Sin tpieza" ) );              
-    list_inicio( z->pos->piezas );
-    while( p = (Pieza*) list_siguiente( z->pos->piezas ) ){
+
+    for( i = 0; i < z->pos->piezas_count; i ++ ){
+        p = &(z->pos->piezas[i] );
         // Controlo si me pasaron el casillero
         if( cas && cas != p->casillero ) continue;
         if( (!cas) && !CASILLERO_VALIDO( p->casillero ) ) continue;
@@ -218,8 +219,8 @@ int    analizador_ocupado( Analizador* z, Casillero* cas, int owner, Tipopieza* 
         return 0;
     }
     int i;
-    for( i = 0; i < z->pos->piezas->entradas; i ++ ){
-        Pieza* pp = (Pieza*)z->pos->piezas->data[i];
+    for( i = 0; i < z->pos->piezas_count; i ++ ){
+        Pieza* pp = &(z->pos->piezas[i]);
         if( pp == z->pieza ) continue;
         if( !pp ) continue;
         if( tpieza && tpieza != pp->tpieza ) continue;
@@ -273,8 +274,8 @@ int    analizador_enzona( Analizador* z, int zona, int color, Tipopieza* tpieza 
     int  colorcheck = ( color == PROPIO ? z->color : color );
 
     if( z->tipo_analisis == ANALISIS_FINAL ){
-        for( i = 0; i < z->pos->piezas->entradas; i ++ ){
-            Pieza* ppp = (Pieza*)z->pos->piezas->data[i];
+        for( i = 0; i < z->pos->piezas_count; i ++ ){
+            Pieza* ppp = &(z->pos->piezas[i]);
             if( !CASILLERO_VALIDO(ppp->casillero ) ) continue;
             if( ppp->color != colorcheck ) continue;
             if( tpieza && ppp->tpieza != tpieza ) continue;
@@ -373,8 +374,8 @@ int    analizador_mueve  ( Analizador* z, char fromto_flags, void* from, void* t
     if( !CASILLERO_VALIDO( cas_to ) ) return STATUS_OUTOFBOARD;
 
     int hay_piezas = 0;
-    for( i = 0; i < z->pos->piezas->entradas; i ++ ){
-        Pieza* pp = (Pieza*)z->pos->piezas->data[i];
+    for( i = 0; i < z->pos->piezas_count; i ++ ){
+        Pieza* pp = &(z->pos->piezas[i]);
         if( !pp ) continue;
         if( pp == z->pieza ) continue;
         if( pp->casillero == cas_from ){
@@ -402,8 +403,8 @@ int    analizador_captura  ( Analizador* z, Casillero* cas  ){
     if( !z->movidas ) z->movidas = list_nueva( NULL );
     if( !z->mov_actual ) z->mov_actual = movida_new( z->pos, z->pieza, z->tmov );
     int i;
-    for( i = 0; i < z->pos->piezas->entradas; i ++ ){
-        Pieza* pp = (Pieza*)z->pos->piezas->data[i];
+    for( i = 0; i < z->pos->piezas_count; i ++ ){
+        Pieza* pp = &(z->pos->piezas[i]);
         if( !pp ) continue;
         if( pp == z->pieza ) continue;
         if( pp->casillero == ccc){

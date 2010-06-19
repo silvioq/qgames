@@ -384,8 +384,8 @@ int         partida_get_png( Partida* par, int flags, int movida, void** png ){
     }
 
     // Ahora las piezas
-    for( i = 0; i < pos->piezas->entradas; i ++ ){
-        Pieza* p = (Pieza*) pos->piezas->data[i];
+    for( i = 0; i < pos->piezas_count; i ++ ){
+        Pieza* p = & pos->piezas[i];
         int  posx, posy;
         if( !CASILLERO_VALIDO( p->casillero ) ) continue;
         gdImagePtr gdp = graph_tpieza_get_gd( p->tpieza, p->color );

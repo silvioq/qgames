@@ -19,12 +19,13 @@ typedef  struct  StrPieza {
 } Pieza;
 
 
-Pieza*   pieza_new( Tipopieza* tpieza, Casillero* cas, int color );
-Pieza*   pieza_dup( Pieza* pieza );
+void     pieza_init( Pieza* pieza, Tipopieza* tpieza, Casillero* cas, int color );
+void     pieza_copy( Pieza* pieza_dest, Pieza* pieza_ori );
 int      pieza_equal( Pieza* p1, Pieza* p2 );
 char*    pieza_hash( Pieza* p1 );
 int      pieza_set_att( Pieza* p, int att, int val );
 int      pieza_get_att( Pieza* p, int att );
+int      pieza_free_att( Pieza* p );
 
 
 #endif

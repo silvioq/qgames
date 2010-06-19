@@ -459,8 +459,8 @@ int         partida_count_piezas  ( Partida* par, char* casillero, char* tpieza 
 
 
     int i;
-    for( i = 0; i < par->pos->piezas->entradas; i ++ ){
-         Pieza* pie = (Pieza*) par->pos->piezas->data[i];
+    for( i = 0; i < par->pos->piezas_count; i ++ ){
+         Pieza* pie = &(par->pos->piezas[i]);
          if( pie ){
               if( tpieza && tp != pie->tpieza ) continue;
               if( !cas ){
@@ -479,8 +479,8 @@ int         partida_count_piezas  ( Partida* par, char* casillero, char* tpieza 
 void        partida_tablero_ascii ( Partida* par ){
     int i;
     printf( "Partida: %s (%s)\n", par->id, par->tjuego->nombre );
-    for( i = 0; i < par->pos->piezas->entradas; i ++ ){
-        Pieza* pie = (Pieza*) par->pos->piezas->data[i];
+    for( i = 0; i < par->pos->piezas_count; i ++ ){
+        Pieza* pie = &( par->pos->piezas[i]);
         if( CASILLERO_VALIDO( pie->casillero ) ){
             printf( "%s %s en %s\n", pie->tpieza->nombre,
                 tipojuego_get_colorname( par->tjuego, pie->color ),
@@ -495,8 +495,8 @@ void        partida_tablero_ascii ( Partida* par ){
 int         partida_tablero_count ( Partida* par ){
     int ret, i;
     ret = 0;
-    for( i = 0; i < par->pos->piezas->entradas; i ++ ){
-        Pieza* pie = (Pieza*) par->pos->piezas->data[i];
+    for( i = 0; i < par->pos->piezas_count; i ++ ){
+        Pieza* pie = &(par->pos->piezas[i]);
         if( CASILLERO_VALIDO( pie->casillero ) ) ret ++;
     }
     return ret;
@@ -505,8 +505,8 @@ int         partida_tablero_count ( Partida* par ){
 
 int         partida_tablero_data  ( Partida* par, int num, char** casillero, char** pieza, char** color ){
     int i; int cont = 0;
-    for( i = 0; i < par->pos->piezas->entradas; i ++ ){
-        Pieza* pie = (Pieza*) par->pos->piezas->data[i];
+    for( i = 0; i < par->pos->piezas_count; i ++ ){
+        Pieza* pie = &(par->pos->piezas[i]);
         if( CASILLERO_VALIDO( pie->casillero ) ){
             if( cont == num ){
                 if( casillero ) *casillero = pie->casillero->nombre;
@@ -819,7 +819,7 @@ Partida*    partida_load( Tipojuego* tjuego, void* data, int size ){
         par->pos = pos;
     }
 
-    par->pieza_continua = ( piece_num == (uint16_t)-1 ? NULL : par->pos->piezas->data[piece_num] );
+    par->pieza_continua = ( piece_num == (uint16_t)-1 ? NULL : &( par->pos->piezas[piece_num] ) );
 
     // Finalmente, analizamos si hay movidas calculadas
     if( PARTIDAMOVCALC(par) && !PARTIDATERMINADA( par) ){

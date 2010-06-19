@@ -75,11 +75,9 @@ void      posicion_free( Posicion* pos ){
     }
     if( pos->piezas ){
         int i;
-        for( i = 0; i < pos->piezas->entradas; i ++ ){
-            Pieza* pieza = pos->piezas->data[i];
-            if( pieza )pieza_free( pieza );
+        for( i = 0; i < pos->piezas_count; i ++ ){
+            pieza_att_free( &pos->piezas[i] );
         }
-        list_free( pos->piezas );
     }
     free(pos);
 }
@@ -87,7 +85,7 @@ void      posicion_free( Posicion* pos ){
 
 Pieza*     posicion_get_pieza( Posicion* pos, Pieza* pieza ){
     if( !pos->piezas ) return  NULL;
-    return (Pieza*)pos->piezas->data[pieza->number];
+    return &pos->piezas[pieza->number];
 }
 
 /*
@@ -121,11 +119,21 @@ void        posicion_descartar_por_jaques( Posicion* pos, _list* movs, int color
  * Esta funcion es muy simple, pero es fundamental.
  * Solo agrega una pieza a la posicion.
  * */
-
-void        posicion_add_pieza( Posicion* pos, Pieza* pie ){
-  if( !pos->piezas ) pos->piezas = list_nueva( NULL );
-  list_agrega( pos->piezas, pie );
-  pie->number = pos->piezas->entradas - 1;
+#define  PIEZAS_ALLOC 50
+Pieza*      posicion_add_pieza( Posicion* pos ){
+  Pieza* pie;
+  if( !pos->piezas ){
+      pos->piezas = malloc( sizeof( Pieza ) * PIEZAS_ALLOC );
+      pos->piezas_count = 0;
+      pos->piezas_alloc = PIEZAS_ALLOC;
+  } else if ( pos->piezas_count >= pos->piezas_alloc ){
+      pos->piezas_alloc += PIEZAS_ALLOC;
+      pos->piezas = realloc( pos->piezas, sizeof( Pieza ) * pos->piezas_alloc );
+  }  
+  pie = & pos->piezas[pos->piezas_count];
+  pie->number = pos->piezas_count;
+  pos->piezas_count ++;
+  return pie;
 }
 
 /*
@@ -137,9 +145,8 @@ int         posicion_en_jaque( Posicion* pos, Tipopieza* tpieza, int color ){
     if( !TJJAQUEMATE(pos->tjuego) ) return 0; 
     Pieza* pieza;
 
-    for( i = 0 ; i < pos->piezas->entradas; i ++ ){
-        pieza = (Pieza*)pos->piezas->data[i];
-        if( !pieza ) continue;
+    for( i = 0 ; i < pos->piezas_count; i ++ ){
+        pieza = &(pos->piezas[i] );
         if( !TJJAQUEMATE(pieza->tpieza) ) continue;
         if( tpieza && pieza->tpieza != tpieza ) continue;
         if( pieza->color != color ) continue;
@@ -210,8 +217,8 @@ int        posicion_analiza_movidas( Posicion* pos, char tipoanalisis, int color
         int  i;
         Pieza* piezas_arr[1024];
         int    piezas_cnt = 0;
-        for( i = 0; i < pos->piezas->entradas; i ++ ){
-            Pieza* pp = (Pieza*) pos->piezas->data[i];
+        for( i = 0; i < pos->piezas_count; i ++ ){
+            Pieza* pp = &pos->piezas[i];
             if( pp->casillero != ENPOZO ) continue;
             if( pp->color != color ) continue;
             int j; int existe = 0;
@@ -249,8 +256,8 @@ int        posicion_analiza_movidas( Posicion* pos, char tipoanalisis, int color
     // 4. Vamos por las piezas en el tablero
     if( !pieza ){
         int i;
-        for( i = 0; i < pos->piezas->entradas; i ++ ){
-            Pieza* pp = (Pieza*) pos->piezas->data[i];
+        for( i = 0; i < pos->piezas_count; i ++ ){
+            Pieza* pp = & pos->piezas[i];
             int  r;
             if( pp->casillero == ENPOZO ) continue;
             if( pp->casillero == ENCAPTURA ) continue;
@@ -333,8 +340,8 @@ int        posicion_analiza_final( Posicion* pos, int  color_actual, int color_s
         if( rule->flags & RULEFLAG_PIEZAS ){
             analizado = 1;
             int p;
-            for( p = 0; p < pos->piezas->entradas; p ++ ){
-                Pieza* pieza = (Pieza*)pos->piezas->data[i];
+            for( p = 0; p < pos->piezas_count; p ++ ){
+                Pieza* pieza = & pos->piezas[i];
                 if( pieza->color != color_actual ) continue;
                 int res = analizador_evalua_final( rule, pos, pieza, pieza->casillero, color_actual, color_sig, resultado );
                 if( res == STATUS_ERROR ) return FINAL_ENJUEGO;
@@ -363,10 +370,10 @@ Posicion*   posicion_dup( Posicion* pos ){
     pnew->pos_anterior = pos->pos_anterior;
     pnew->mov_anterior = pos->mov_anterior;
     int p;
-    for( p = 0; p < pos->piezas->entradas; p ++ ){
-        Pieza* pie = (Pieza*)pos->piezas->data[p];
-        Pieza* pienew = pieza_dup( pie );
-        posicion_add_pieza( pnew, pienew );
+    for( p = 0; p < pos->piezas_count; p ++ ){
+        Pieza* pie = & pos->piezas[p];
+        Pieza* pienew = posicion_add_pieza( pnew );
+        pieza_copy( pienew, pie );
     }
     return  pnew;
 }
