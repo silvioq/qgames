@@ -276,7 +276,6 @@ int        casillero_posicion_establecida( Casillero* cas );
 
 int        casillero_check_dims( Casillero* cas, int max_dims, int pos[MAXDIMS] );
 
-Casillero* casillero_aplica_direccion( Casillero* cas, Direccion* dir );
 
 
 Direccion* direccion_new( char* dir );

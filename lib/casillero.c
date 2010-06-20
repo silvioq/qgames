@@ -171,16 +171,3 @@ int        casillero_posicion_establecida( Casillero* cas ){
     return( cas->posicion[0] != -1 );
 }
 
-/*
- * Dado un casillero, devuelve el casillero destino tras moverse
- * en la dirección indicada por parámetro
- * */
-Casillero* casillero_aplica_direccion( Casillero* cas, Direccion* dir ){
-    int i;
-    for( i = 0; i < cas->vinculos->entradas; i ++ ){
-        Vinculo* v = cas->vinculos->data[i];
-        if( v->origen == cas && v->direccion == dir ) return v->destino;
-    }
-    return NULL;
-
-}
