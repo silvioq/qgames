@@ -17,8 +17,8 @@
 #include  "tipojuego.h"
 #include  "pieza.h"
 #include  "movida.h"
-#include  "analizador.h"
 #include  "posicion.h"
+#include  "analizador.h"
 
 #include  "log.h"
 
@@ -46,7 +46,7 @@ void  posicion_add_movida( Posicion* pos, Movida* mov ){
     list_agrega( pos->movidas, mov );
 }
 
-void  posicion_add_movidas( Posicion* pos, _list* movs ){
+static void  posicion_add_movidas( Posicion* pos, _list* movs ){
     int i;
     for( i = 0; i < movs->entradas; i ++ ){
         Movida* m = (Movida*) movs->data[i];
@@ -63,46 +63,20 @@ void  posicion_add_movidas( Posicion* pos, _list* movs ){
 Posicion*   posicion_new( Tipojuego* tj ){
   Posicion* pos;
   pos = malloc( sizeof( Posicion ) );
-  memset( pos, 0, sizeof( Posicion ) );
-  pos->tjuego = tj;
+  posicion_init( pos, tj );
   return  pos;
 }
 
+void        posicion_init( Posicion* pos, Tipojuego* tj ){
+  memset( pos, 0, sizeof( Posicion ) );
+  pos->tjuego = tj;
+}
+
 void      posicion_free( Posicion* pos ){
-    if( pos->movidas ){
-        posicion_free_movidas( pos );
-        list_free( pos->movidas );
-    }
-    if( pos->piezas ) free( pos->piezas );
-/*    if( pos->piezas ){
-        int i;
-        for( i = 0; i < pos->piezas_count; i ++ ){
-            pieza_att_free( &pos->piezas[i] );
-        }
-    }*/
+    posicion_free_data( pos );
     free(pos);
 }
 
-/*
- * Esta funcion es muy simple, pero es fundamental.
- * Solo agrega una pieza a la posicion.
- * */
-#define  PIEZAS_ALLOC 50
-Pieza*      posicion_add_pieza( Posicion* pos ){
-  Pieza* pie;
-  if( !pos->piezas ){
-      pos->piezas = malloc( sizeof( Pieza ) * PIEZAS_ALLOC );
-      pos->piezas_count = 0;
-      pos->piezas_alloc = PIEZAS_ALLOC;
-  } else if ( pos->piezas_count >= pos->piezas_alloc ){
-      pos->piezas_alloc += PIEZAS_ALLOC;
-      pos->piezas = realloc( pos->piezas, sizeof( Pieza ) * pos->piezas_alloc );
-  }  
-  pie = & pos->piezas[pos->piezas_count];
-  pie->number = pos->piezas_count;
-  pos->piezas_count ++;
-  return pie;
-}
 
 Pieza*     posicion_get_pieza( Posicion* pos, Pieza* pieza ){
     if( !pos->piezas ) return  NULL;
@@ -371,23 +345,10 @@ int        posicion_analiza_final( Posicion* pos, int  color_actual, int color_s
 
 Posicion*   posicion_dup( Posicion* pos ){
     Posicion* pnew = posicion_new( pos->tjuego );
-    pnew->pos_anterior = pos->pos_anterior;
-    pnew->mov_anterior = pos->mov_anterior;
-#if 0
-    int p;
-    for( p = 0; p < pos->piezas_count; p ++ ){
-        Pieza* pie = & pos->piezas[p];
-        Pieza* pienew = posicion_add_pieza( pnew );
-        pieza_copy( pienew, pie );
-    }
-#else
-    pnew->piezas_count = pos->piezas_count;
-    pnew->piezas_alloc = pos->piezas_alloc;
-    pnew->piezas = malloc( sizeof( Pieza ) * pos->piezas_alloc );
-    memcpy( pnew->piezas, pos->piezas, sizeof( Pieza ) * pos->piezas_count );
-#endif
+    posicion_copy( pnew, pos );
     return  pnew;
 }
+
 
 /*
  * Vamos a cambiar de lugar una pieza

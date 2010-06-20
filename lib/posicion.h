@@ -22,7 +22,8 @@ typedef  struct  StrPosicion {
 
 
 Posicion*   posicion_new( Tipojuego* tjuego );
-Pieza*      posicion_add_pieza( Posicion* pos );
+void        posicion_init( Posicion* pos, Tipojuego* tjuego );
+static inline Pieza*  posicion_add_pieza( Posicion* pos );
 Posicion*   posicion_dup( Posicion* pos );
 void        posicion_free( Posicion* pos );
 
@@ -47,7 +48,51 @@ Pieza*     posicion_get_pieza( Posicion* pos, Pieza* pieza );
 
 /* ---------------------------------------------------------------------------------------- */
 void       posicion_add_movida( Posicion* pos, Movida* mov );
-void       posicion_add_movidas( Posicion* pos, _list* movs );
 void       posicion_free_movidas( Posicion* pos );
+
+
+/* ---------------------------------------------------------------------------------------- */
+/*
+ * Esta funcion es muy simple, pero es fundamental.
+ * Solo agrega una pieza a la posicion.
+ * Definimos la funcion como static inline para mejorar la performance
+ * */
+#define  PIEZAS_ALLOC 50
+static inline Pieza*      posicion_add_pieza( Posicion* pos ){
+  Pieza* pie;
+  if( !pos->piezas ){
+      pos->piezas = malloc( sizeof( Pieza ) * PIEZAS_ALLOC );
+      pos->piezas_count = 0;
+      pos->piezas_alloc = PIEZAS_ALLOC;
+  } else if ( pos->piezas_count >= pos->piezas_alloc ){
+      pos->piezas_alloc += PIEZAS_ALLOC;
+      pos->piezas = realloc( pos->piezas, sizeof( Pieza ) * pos->piezas_alloc );
+  }  
+  pie = & pos->piezas[pos->piezas_count];
+  pie->number = pos->piezas_count;
+  pos->piezas_count ++;
+  return pie;
+}
+
+/*
+ * Copia de una posicion. Se copian los campos realmente necesarios
+ * */
+static inline void     posicion_copy( Posicion* pos_dest, Posicion* pos_ori ){
+    pos_dest->tjuego       = pos_ori->tjuego;
+    pos_dest->pos_anterior = pos_ori->pos_anterior;
+    pos_dest->mov_anterior = pos_ori->mov_anterior;
+    pos_dest->piezas_count = pos_ori->piezas_count;
+    pos_dest->piezas_alloc = pos_ori->piezas_alloc;
+    pos_dest->piezas = malloc( sizeof( Pieza ) * pos_ori->piezas_alloc );
+    memcpy( pos_dest->piezas, pos_ori->piezas, sizeof( Pieza ) * pos_ori->piezas_count );
+}
+
+static  inline  void  posicion_free_data(Posicion* pos){
+    if( pos->movidas ){
+        posicion_free_movidas( pos );
+        list_free( pos->movidas );
+    }
+    if( pos->piezas ) free( pos->piezas );
+}
 
 #endif

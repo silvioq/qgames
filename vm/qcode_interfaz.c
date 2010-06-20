@@ -33,7 +33,7 @@
     } else if( val == SINCASILLERO ){         \
         ret = NULL;\
     } else { \
-      ret = (Casillero*)  z->pos->tjuego->casilleros->data[val]; \
+      ret = (Casillero*)  ZPOSICION(z)->tjuego->casilleros->data[val]; \
     } \
     ret; })
 
@@ -41,7 +41,7 @@
     Direccion* ret = NULL; \
     int val = d; \
     if( val != -1 ){         \
-      ret = (Direccion*)  z->pos->tjuego->direcciones->data[val]; \
+      ret = (Direccion*)  ZPOSICION(z)->tjuego->direcciones->data[val]; \
     } \
     ret; })
 
@@ -49,7 +49,7 @@
     Tipopieza* ret = NULL; \
     int val = d; \
     if( val != -1 ){         \
-      ret = (Tipopieza*)  z->pos->tjuego->tipo_piezas->data[val]; \
+      ret = (Tipopieza*)  ZPOSICION(z)->tjuego->tipo_piezas->data[val]; \
     } \
     ret; })
 
@@ -245,7 +245,7 @@ void  code_initialize( QCode** qcode ){
 int    code_execute_rule( void* z, int pc ){
     zgeneral = (Analizador*)z;
     long  ret;
-    QCode* q = ((Analizador*)z)->pos->tjuego->qcode;
+    QCode* q = ZPOSICION(zgeneral)->tjuego->qcode;
     // q->flags |= QCODE_FLAG_DEBUG;
     int r = qcode_runargs( q, &ret, pc, 0, NULL );
     if( r == 0 ) return 0;

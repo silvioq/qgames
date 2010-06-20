@@ -12,9 +12,10 @@
 
 #define    CON_TRANSFORMACION  0x1
 
+#define    ZPOSICION(z) (&(z->pos))
 
 typedef  struct  StrAnalizador {
-    Posicion*  pos;
+    Posicion   pos;
     Pieza*     pieza;
     Casillero* cas;
     Casillero* cas_ori;           // Casillero original

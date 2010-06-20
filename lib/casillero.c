@@ -128,7 +128,7 @@ int    casillero_add_vinculo( Casillero* ori, Direccion* dir, Casillero* des ){
 }
 
 
-Vinculo*   casillero_busca_vinculo( Casillero* cas, Direccion* dir, char orides ){
+static inline Vinculo*   casillero_busca_vinculo( Casillero* cas, Direccion* dir, char orides ){
 
     Vinculo* v;
 

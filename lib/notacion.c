@@ -16,8 +16,8 @@
 #include  "simbolos.h"
 #include  "pieza.h"
 #include  "movida.h"
-#include  "analizador.h"
 #include  "posicion.h"
+#include  "analizador.h"
 #include  "notacion.h"
 
 #include  "log.h"
