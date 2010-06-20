@@ -265,8 +265,8 @@ int         tipojuego_code_ahogado( Tipojuego* tj, char* color ){
         if( !TJVALIDO( tj ) ) return 0;
     } else
        col = -1;
-    qcode_op( tj->qcode, QCSTI, 16, col );      // t16 = col
-    qcode_op( tj->qcode, QCPSH, 16, 0 );        // PSH t16
+    qcode_op( tj->qcode, QCSTI,  1, col );      // r1  = col
+    qcode_op( tj->qcode, QCPSH,  1, 0 );        // PSH r1
     qcode_op( tj->qcode, QCPSH,  3, 0 );        // PSH r3
     qcode_opnlab( tj->qcode, QCCLX, "ahogado" );
     return 1;
@@ -281,10 +281,10 @@ int         tipojuego_code_enzona ( Tipojuego* tj, char* zona, char* tpieza ){
     if( !TJVALIDO(tj) ) return 0;
     tp = ( tpieza ? GETTIPOPIEZA( tj, tpieza ) : - 1 );
     if( !TJVALIDO( tj ) ) return 0;
-    qcode_op( tj->qcode, QCSTI, 16, tp );       // t16 = tp
-    qcode_op( tj->qcode, QCPSH, 16, 0 );        // PSH t16
-    qcode_op( tj->qcode, QCSTI, 16, za );       // t16 = za
-    qcode_op( tj->qcode, QCPSH, 16, 0 );        // PSH t16
+    qcode_op( tj->qcode, QCSTI,  1, tp );       // r1  = tp
+    qcode_op( tj->qcode, QCPSH,  1, 0 );        // PSH r1 
+    qcode_op( tj->qcode, QCSTI,  1, za );       // r1  = za
+    qcode_op( tj->qcode, QCPSH,  1, 0 );        // PSH r1 
     qcode_op( tj->qcode, QCPSH,  3, 0 );        // PSH r3
     qcode_opnlab( tj->qcode, QCCLX, "enzona" );
     return 1;
@@ -300,8 +300,8 @@ int         tipojuego_code_atacado( Tipojuego* tj, char* casillero ){
     } else {
         cas = SINCASILLERO;
     }
-    qcode_op( tj->qcode, QCSTI, 16, cas );      // t16 = cas
-    qcode_op( tj->qcode, QCPSH, 16, 0 );        // PSH t16
+    qcode_op( tj->qcode, QCSTI,  1, cas );      // r1 = cas
+    qcode_op( tj->qcode, QCPSH,  1, 0 );        // PSH r1
     qcode_op( tj->qcode, QCPSH,  3, 0 );        // PSH r3
     qcode_opnlab( tj->qcode, QCCLX, "atacado" );
     return 1;
@@ -352,10 +352,10 @@ int         tipojuego_code_transforma( Tipojuego* tj, int owner, char* color, ch
     } else {
         tp = -1;
     }
-    qcode_op( tj->qcode, QCSTI, 16, own );      // t16 = own
-    qcode_op( tj->qcode, QCPSH, 16, 0 );        // PSH t16
-    qcode_op( tj->qcode, QCSTI, 16, tp  );      // t16 = tp 
-    qcode_op( tj->qcode, QCPSH, 16, 0 );        // PSH t16
+    qcode_op( tj->qcode, QCSTI,  1, own );      // r1 = own
+    qcode_op( tj->qcode, QCPSH,  1, 0 );        // PSH r1
+    qcode_op( tj->qcode, QCSTI,  1, tp  );      // r1 = tp 
+    qcode_op( tj->qcode, QCPSH,  1, 0 );        // PSH r1
     qcode_op( tj->qcode, QCPSH,  3, 0 );        // PSH r3
     qcode_opnlab( tj->qcode, QCCLX, "transforma" );
     RET_IF_STATUS;                              // Retorna si el valor es distinto de cero
@@ -499,8 +499,8 @@ int         tipojuego_code_casillero( Tipojuego* tj, char* casillero ){
     } else {
         cas = SINCASILLERO;
     }
-    qcode_op( tj->qcode, QCSTI, 16, cas );      // t16 = cas     
-    qcode_op( tj->qcode, QCPSH, 16, 0 );        // PSH t16
+    qcode_op( tj->qcode, QCSTI,  1, cas );      // r1 = cas     
+    qcode_op( tj->qcode, QCPSH,  1, 0 );        // PSH r1
     qcode_op( tj->qcode, QCPSH,  3, 0 );        // PSH r3
     qcode_opnlab( tj->qcode, QCCLX, "casillero" );
     RET_IF_STATUS;                              // Retorna si el valor es distinto de cero
@@ -529,8 +529,8 @@ int         tipojuego_code_direccion( Tipojuego* tj, char* direccion ){
     if( !TJVALIDO( tj ) ) return 0;
     rule->flags |= RULEFLAG_DIRECCION;
 
-    qcode_op( tj->qcode, QCSTI, 16, dir );      // t16 = dir     
-    qcode_op( tj->qcode, QCPSH, 16, 0 );        // PSH t16
+    qcode_op( tj->qcode, QCSTI,  1, dir );      // r1 = dir     
+    qcode_op( tj->qcode, QCPSH,  1, 0 );        // PSH r1
     qcode_op( tj->qcode, QCPSH,  3, 0 );        // PSH r3
     qcode_opnlab( tj->qcode, QCCLX, "direccion" );
     RET_IF_STATUS;                              // Retorna si el valor es distinto de cero
@@ -546,10 +546,10 @@ int         tipojuego_code_final  ( Tipojuego* tj, char* color, int resultado ){
     } else
        col = -1;
 
-    qcode_op( tj->qcode, QCSTI, 16, resultado );// t16 = resultado
-    qcode_op( tj->qcode, QCPSH, 16, 0 );        // PSH t16
-    qcode_op( tj->qcode, QCSTI, 16, col );      // t16 = col
-    qcode_op( tj->qcode, QCPSH, 16, 0 );        // PSH t16
+    qcode_op( tj->qcode, QCSTI,  1, resultado );// r1 = resultado
+    qcode_op( tj->qcode, QCPSH,  1, 0 );        // PSH r1
+    qcode_op( tj->qcode, QCSTI,  1, col );      // r1 = col
+    qcode_op( tj->qcode, QCPSH,  1, 0 );        // PSH r1
     qcode_op( tj->qcode, QCPSH,  3, 0 );        // PSH r3
     qcode_opnlab( tj->qcode, QCCLX, "final" );
     RET_IF_STATUS;                              // Retorna si el valor es distinto de cero
