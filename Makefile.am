@@ -1,4 +1,4 @@
-SUBDIRS = tools vm parser lib test ifaces
+SUBDIRS = tools vm parser src lib bin test
 
 EXTRA_DIST = $(srcdir)/tools/*.sh
 dist_games_DATA = $(srcdir)/games/*.qgame

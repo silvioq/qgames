@@ -33,7 +33,7 @@ POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
 bin_PROGRAMS = qgames-ncurses$(EXEEXT) qgames-console$(EXEEXT)
-subdir = ifaces
+subdir = bin
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/configure.ac
@@ -45,13 +45,13 @@ CONFIG_CLEAN_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 binPROGRAMS_INSTALL = $(INSTALL_PROGRAM)
 PROGRAMS = $(bin_PROGRAMS)
-am_qgames_console_OBJECTS = qgames-console.$(OBJEXT) list.$(OBJEXT)
+am_qgames_console_OBJECTS = qgames-console.$(OBJEXT)
 qgames_console_OBJECTS = $(am_qgames_console_OBJECTS)
 am__DEPENDENCIES_1 =
 qgames_console_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) \
 	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) \
 	$(qgames_console_LDFLAGS) $(LDFLAGS) -o $@
-am_qgames_ncurses_OBJECTS = qgames-ncurses.$(OBJEXT) list.$(OBJEXT)
+am_qgames_ncurses_OBJECTS = qgames-ncurses.$(OBJEXT)
 qgames_ncurses_OBJECTS = $(am_qgames_ncurses_OBJECTS)
 qgames_ncurses_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) \
 	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) \
@@ -192,11 +192,11 @@ sysconfdir = @sysconfdir@
 target_alias = @target_alias@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-qgames_ncurses_SOURCES = qgames-ncurses.c ../common/list.c  
+qgames_ncurses_SOURCES = qgames-ncurses.c  
 qgames_ncurses_LDFLAGS = -lmenu @CURSES_LIBS@ @GD_LIBS@ @PNG_LIBS@
 qgames_ncurses_DEPENDENCIES = $(DEPENDENCIES)
 qgames_ncurses_LDADD = $(DEPENDENCIES)
-qgames_console_SOURCES = qgames-console.c ../common/list.c  
+qgames_console_SOURCES = qgames-console.c
 qgames_console_LDFLAGS = @GD_LIBS@ @PNG_LIBS@
 qgames_console_DEPENDENCIES = $(DEPENDENCIES)
 qgames_console_LDADD = $(DEPENDENCIES)
@@ -214,9 +214,9 @@ $(srcdir)/Makefile.in:  $(srcdir)/Makefile.am  $(am__configure_deps)
 	      exit 1;; \
 	  esac; \
 	done; \
-	echo ' cd $(top_srcdir) && $(AUTOMAKE) --gnu  ifaces/Makefile'; \
+	echo ' cd $(top_srcdir) && $(AUTOMAKE) --gnu  bin/Makefile'; \
 	cd $(top_srcdir) && \
-	  $(AUTOMAKE) --gnu  ifaces/Makefile
+	  $(AUTOMAKE) --gnu  bin/Makefile
 .PRECIOUS: Makefile
 Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
 	@case '$?' in \
@@ -275,7 +275,6 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/list.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/qgames-console.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/qgames-ncurses.Po@am__quote@
 
@@ -299,20 +298,6 @@ distclean-compile:
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='$<' object='$@' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(LTCOMPILE) -c -o $@ $<
-
-list.o: ../common/list.c
-@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT list.o -MD -MP -MF $(DEPDIR)/list.Tpo -c -o list.o `test -f '../common/list.c' || echo '$(srcdir)/'`../common/list.c
-@am__fastdepCC_TRUE@	mv -f $(DEPDIR)/list.Tpo $(DEPDIR)/list.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='../common/list.c' object='list.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o list.o `test -f '../common/list.c' || echo '$(srcdir)/'`../common/list.c
-
-list.obj: ../common/list.c
-@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT list.obj -MD -MP -MF $(DEPDIR)/list.Tpo -c -o list.obj `if test -f '../common/list.c'; then $(CYGPATH_W) '../common/list.c'; else $(CYGPATH_W) '$(srcdir)/../common/list.c'; fi`
-@am__fastdepCC_TRUE@	mv -f $(DEPDIR)/list.Tpo $(DEPDIR)/list.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='../common/list.c' object='list.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o list.obj `if test -f '../common/list.c'; then $(CYGPATH_W) '../common/list.c'; else $(CYGPATH_W) '$(srcdir)/../common/list.c'; fi`
 
 mostlyclean-libtool:
 	-rm -f *.lo
