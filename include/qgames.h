@@ -123,6 +123,12 @@ int    tipojuego_graph_tipopieza_cus   ( Tipojuego* tj, char* tpieza, char* colo
 int    tipojuego_graph_casillero_std   ( Tipojuego* tj, char* casillero, int resaltado, int color );
 void   tipojuego_graph_casillero_cus   ( Tipojuego* tj, char* casillero, char* file );
 
+/*
+ * Esta funcion establece el directorio por defecto donde estan las
+ * imagenes de piezas por defecto
+ * */
+void   qgames_graph_image_dir( const char* imagedir );
+
 
 /*
  * Estas funciones devuelven el PNG asociado a un elemento

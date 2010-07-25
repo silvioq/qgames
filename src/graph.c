@@ -1,10 +1,25 @@
-/*
-  This software is provided 'as-is', without any express or implied
-  warranty.  In no event will the authors be held liable for any damages
-  arising from the use of this software.
-  Silvio Quadri 2010.
-*/
-
+/****************************************************************************
+ * Copyright (c) 2009-2010 Silvio Quadri                                    *
+ *                                                                          *
+ * Permission is hereby granted, free of charge, to any person obtaining a  *
+ * copy of this software and associated documentation files (the            *
+ * "Software"), to deal in the Software without restriction, including      *
+ * without limitation the rights to use, copy, modify, merge, publish,      *
+ * distribute, distribute with modifications, sublicense, and/or sell       *
+ * copies of the Software, and to permit persons to whom the Software is    *
+ * furnished to do so, subject to the following conditions:                 *
+ *                                                                          *
+ * The above copyright notice and this permission notice shall be included  *
+ * in all copies or substantial portions of the Software.                   *
+ *                                                                          *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS  *
+ * OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF               *
+ * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.   *
+ * IN NO EVENT SHALL THE ABOVE COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,   *
+ * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR    *
+ * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR    *
+ * THE USE OR OTHER DEALINGS IN THE SOFTWARE.                               *
+ ****************************************************************************/
 
 #include  <stdio.h>
 #include  <stdlib.h>
@@ -22,10 +37,12 @@
 #include  "graphdef.h"
 #include  "errno.h"
 
+#if  GRAPH_ENABLED
+static char* qgames_image_dir = IMGDIR;
+
 /*
  * Esta funcion arma un tablero tipo damero (checkerboard)
  * */
-#if  GRAPH_ENABLED
 gdImagePtr  graph_dibujar_checkerboard( int w, int h, int cw, int ch, int f, int b ){
     int i, j;
     gdImagePtr  gd = gdImageCreateTrueColor( w, h );
@@ -147,7 +164,7 @@ gdImagePtr  graph_tpieza_get_gd( Tipopieza* tp, int color ){
 
     sprintf( size, "%dx%d", g->w, g->h );
     colorname = tipojuego_get_colorname( tp->tipojuego, color );
-    sprintf( filename, "%s/%s/%s-%s.png", IMGDIR, size, piece, colorname );
+    sprintf( filename, "%s/%s/%s-%s.png", qgames_image_dir, size, piece, colorname );
     FILE* f = fopen( filename, "r" );
     if( !f ){
         LOGPRINT( 2, "Error al abrir %s (%d - %s)", filename, errno, strerror(errno) );
@@ -285,8 +302,8 @@ int    tipojuego_get_tpieza_png( Tipojuego* tj, char* color, char* tpieza, void*
     LOGPRINT( 2, "No compilado con el modulo GD tpieza = %s", tpieza );
     return 0;
 }
+
 /*
- *
  * Esta es la funcion que libera lo alocado por la librería GD
  *
  * */
@@ -420,6 +437,22 @@ int         partida_get_png( Partida* par, int flags, int movida, void** png ){
     return 0;
 #endif
     
+}
+
+
+
+
+/*
+ * Esta funcion establece el directorio por defecto donde estan las
+ * imagenes de piezas por defecto
+ * */
+void   qgames_graph_image_dir( const char* imagedir ){
+#if GRAPH_ENABLED
+    LOGPRINT( 5, "Se esta seteando a %s el directorio de imagenes", imagedir );
+    qgames_image_dir = (char*)imagedir;
+#else
+    LOGPRINT( 2, "Lo siento, no estan disponibles las funciones graficas (%s)", imagedir );
+#endif
 }
 
 

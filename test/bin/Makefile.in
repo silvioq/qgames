@@ -208,7 +208,7 @@ test_dump_DEPENDENCIES = $(DEPENDENCIES)
 test_dump_LDADD = $(DEPENDENCIES)
 test_graph_DEPENDENCIES = $(DEPENDENCIES)
 test_graph_LDADD = $(DEPENDENCIES)
-AM_CFLAGS = -I$(top_srcdir)/include -I$(top_srcdir)/common -I$(top_srcdir)/qcode/src
+AM_CFLAGS = -I$(top_srcdir)/include -I$(top_srcdir)/common -I$(top_srcdir)/qcode/src -DTEST_IMGDIR=\"$(top_srcdir)/images\"
 AM_LDFLAGS = @GD_LIBS@ @PNG_LIBS@
 TESTS = $(check_PROGRAMS)
 all: all-am
