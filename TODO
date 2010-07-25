@@ -9,8 +9,7 @@ Version 2.9.5
 * Cambiar la definicion de archivo qgames para que este 100% en ingles
 * Las funciones del parser que se exportan, tienen que pasar a la 
   libreria principal, emprolijando un poco la cosa
-* Poner una licencia compatible
-
+* Rotular todos los fuentes con la licencia MIT
 
 Juegos
 
@@ -18,7 +17,7 @@ Juegos
 * Revuelta Campesina
 
 Ecosistema QGames
-* qgames-factory: una utilidad para simplificar el salvado de los
+* qgames-server : una utilidad para simplificar el salvado de los
                   dumps y la gestion de los tipos de juegos.
                   Seria deseable que tenga una interaccion del tipo
                   webservice
