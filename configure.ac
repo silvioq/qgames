@@ -27,6 +27,8 @@ AC_CHECK_LIB(gd,gdImageCreate,[GD_LIBS="-lgd"],[
 AC_CHECK_HEADERS([png.h])
 AC_CHECK_LIB(png,png_read_info,[PNG_LIBS="-lpng"])
 
+gl_VISIBILITY
+
 
 AC_SUBST([CURSES_LIBS])
 AC_SUBST([GD_LIBS])

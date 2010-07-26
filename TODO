@@ -2,6 +2,9 @@
 Desarrollo corto plazo (version 2.9.4)
 
 * Compilar como librería y comenzar con el ecosistema QGames (casi listo)
+* Hace falta armar las funciones "visibles" y dejar todas las invisibles
+  teniendo en cuenta de que hay que crear un nuevo qgames.h y poner los 
+  actuales dentro del directorio src
 * Benchmarking
 * Dar visibilidad a las funciones. http://gcc.gnu.org/wiki/Visibility y 
   http://www.gnu.org/software/hello/manual/gnulib/Exported-Symbols-of-Shared-Libraries.html
