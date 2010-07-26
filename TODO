@@ -3,12 +3,12 @@ Desarrollo corto plazo (version 2.9.4)
 
 * Compilar como librería y comenzar con el ecosistema QGames (casi listo)
 * Benchmarking
+* Dar visibilidad a las funciones. http://gcc.gnu.org/wiki/Visibility y 
+  http://www.gnu.org/software/hello/manual/gnulib/Exported-Symbols-of-Shared-Libraries.html
 
 Version 2.9.5
 
 * Cambiar la definicion de archivo qgames para que este 100% en ingles
-* Las funciones del parser que se exportan, tienen que pasar a la 
-  libreria principal, emprolijando un poco la cosa
 * Rotular todos los fuentes con la licencia MIT
 
 Juegos
