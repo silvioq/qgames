@@ -89,7 +89,7 @@ int      pieza_set_att( Pieza* p, int att, int val ){
     if( !(p->flags & PIEZA_ATT_INIT) ){
         int i ;
         for( i = 0; i < p->tpieza->att_default->entradas ; i ++ ){
-            p->atts[i] = p->tpieza->att_default->data[i];
+            p->atts[i] = (int)(long)p->tpieza->att_default->data[i];
         }
     }
     if( att >= p->tpieza->att_count ){
