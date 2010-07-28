@@ -77,7 +77,7 @@ int         tipojuego_get_tipomov  ( Tipojuego* tj, char* tipomov );
 int         tipojuego_get_dimensiones( Tipojuego* tj );
 int         tipojuego_get_dimlen( Tipojuego* tj, int dim );
 int         qg_tipojuego_get_casillero_bycell( Tipojuego* tj, char** casillero, int   pos[MAXDIMS] );
-int         tipojuego_get_cell_bycasillero( Tipojuego* tj, char* casillero,  int** pos );
+int         qg_tipojuego_get_cell_bycasillero( Tipojuego* tj, char* casillero,  int** pos );
 
 
 /* 
@@ -154,7 +154,7 @@ Partida*    qg_tipojuego_create_partida( Tipojuego* tj, char* id );
 char*       partida_id( Partida* par );
 
 int         partida_mover         ( Partida* par, int mov );
-int         partida_mover_notacion( Partida* par, char* mov );
+int         qg_partida_mover_notacion( Partida* par, char* mov );
 int         qg_partida_mover_serie   ( Partida* par, char* serie );
 int         partida_mover_pgn     ( Partida* par, char* pgn );
 
@@ -171,9 +171,9 @@ int         partida_movida_valida ( Partida* par, char* notacion );
 
 void        partida_tablero_ascii ( Partida* par );
 int         partida_tablero_count ( Partida* par );
-int         partida_tablero_data  ( Partida* par, int num, char** casillero, char** pieza, char** color );
+int         qg_partida_tablero_data  ( Partida* par, int num, char** casillero, char** pieza, char** color );
 
-char*       partida_pgn( Partida* par ); // free luego!
+char*       qg_partida_pgn( Partida* par ); // free luego!
 
 
 int         partida_dump( Partida* par, void** data, int* size );

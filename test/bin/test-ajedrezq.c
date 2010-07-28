@@ -123,7 +123,7 @@ int   ajedrez_check(){
     qgames_free_png( ajedrez_png );  
     assert( size == 10773 );
 
-    assert( partida_mover_notacion( partida, "e4" ) );
+    assert( qg_partida_mover_notacion( partida, "e4" ) );
     size = partida_get_png( partida, 0, LAST_MOVE, &ajedrez_png );
     assert( size > 0 );
     fpng = fopen( "../../tmp/ajedrez-01.png", "w" );
@@ -156,7 +156,7 @@ int   ajedrez_check(){
     assert( size2 > size );
 
     printf( "." );
-    assert( partida_mover_notacion( partida, "e5" ) );
+    assert( qg_partida_mover_notacion( partida, "e5" ) );
     size = partida_get_png( partida, 0, LAST_MOVE, &ajedrez_png );
     assert( size > 0 );
     fpng = fopen( "../../tmp/ajedrez-02.png", "w" );
@@ -214,14 +214,14 @@ int   los_alamos(){
     printf( "." );
     assert( losalamos = qgz_parse_filename( filename, 0 ) );
     assert( partida = qg_tipojuego_create_partida( losalamos, "x" ) );
-    assert( partida_mover_notacion( partida, "e3" ) );
+    assert( qg_partida_mover_notacion( partida, "e3" ) );
 
     printf( "." );
     char* prueba1 = "1. d3 d4 2. Qf4 Kd5";
     assert( partida = qg_tipojuego_create_partida( losalamos, "x" ) );
     assert( partida_mover_pgn( partida, prueba1 ) );
     assert( partida_movidas_count( partida ) > 10 );
-    assert( partida_mover_notacion( partida, "Qf3" ) );
+    assert( qg_partida_mover_notacion( partida, "Qf3" ) );
     assert( partida_final( partida, NULL ) == FINAL_ENJUEGO );
 
 
@@ -233,7 +233,7 @@ int   los_alamos(){
         partida_movidas_posibles_ascii( partida );
     }
     assert( partida_movidas_count( partida ) == 21 );
-    assert( partida_mover_notacion( partida, "Qxe5" ) );
+    assert( qg_partida_mover_notacion( partida, "Qxe5" ) );
     assert( partida_final( partida, NULL ) == 1 );
 
     printf( "." );
@@ -241,7 +241,7 @@ int   los_alamos(){
     assert( partida = qg_tipojuego_create_partida( losalamos, "x" ) );
     assert( partida_mover_pgn( partida, prueba3 ) );
     assert( partida_movidas_count( partida ) == 1 );
-    assert( partida_mover_notacion( partida, "Nxf4" ) );
+    assert( qg_partida_mover_notacion( partida, "Nxf4" ) );
     assert( partida_final( partida, NULL ) == FINAL_ENJUEGO );
     
     printf( "." );
@@ -251,15 +251,15 @@ int   los_alamos(){
     assert( partida_movida_valida( partida, "bxa6=R" ) );
     assert( partida_movida_valida( partida, "bxa6=Q" ) );
     assert( partida_movida_valida( partida, "bxa6=N" ) );
-    assert( partida_mover_notacion( partida, "bxa6=N" ) );
+    assert( qg_partida_mover_notacion( partida, "bxa6=N" ) );
     assert( partida_count_piezas( partida, NULL, "caballo" ) == 5 );
 
     printf( "." );
     char* prueba5 = "1. a3 Nc4 2. a4 Nb6 3. Ra3 Nc4 4. f3 Nb6 5. f4 Nc4";
     assert( partida = qg_tipojuego_create_partida( losalamos, "x" ) );
     assert( partida_mover_pgn( partida, prueba5 ) );
-    assert( partida_mover_notacion( partida, "Rf1-f3" ) );
-    assert( partida_mover_notacion( partida, "Nb6" ) );
+    assert( qg_partida_mover_notacion( partida, "Rf1-f3" ) );
+    assert( qg_partida_mover_notacion( partida, "Nb6" ) );
     assert( partida_movidas_count( partida ) == 20 );
     assert( partida_movida_valida( partida, "Ra3-b3" ) );
     assert( partida_movida_valida( partida, "Ra3-c3" ) );
@@ -321,17 +321,17 @@ int  main(int argc, char** argv) {
     assert( strcmp( notacion, "Kd1" ) == 0 ) ;
     
     // No puede mover a b3, porque lo amenazan
-    assert( !partida_mover_notacion( partida, "Kb3" ) );
+    assert( !qg_partida_mover_notacion( partida, "Kb3" ) );
     // No puede mover a d3, porque lo amenazan
-    assert( !partida_mover_notacion( partida, "Kd3" ) );
+    assert( !qg_partida_mover_notacion( partida, "Kd3" ) );
     // En c3 hay un peon
-    assert( !partida_mover_notacion( partida, "Kc3" ) );
+    assert( !qg_partida_mover_notacion( partida, "Kc3" ) );
 
     printf( "." );
     char* prueba2 = " 1. c3 bxc3 2. dxc3 dxc3 3. e3 cxb2 4. Kxb2 Kb4 5. a3";
     assert( partida = qg_tipojuego_create_partida( aje, "x" ) );
     assert( partida_mover_pgn( partida, prueba2 ) );
-    assert( !partida_mover_notacion( partida, "Kxa3" ) );
+    assert( !qg_partida_mover_notacion( partida, "Kxa3" ) );
     assert( partida_final( partida, NULL ) == FINAL_ENJUEGO );
 
     printf( "." );
@@ -340,7 +340,7 @@ int  main(int argc, char** argv) {
     assert( partida_mover_pgn( partida, prueba3 ) );
     assert( partida_final( partida, NULL ) == FINAL_ENJUEGO );
     assert( partida_movidas_count( partida ) > 0 );
-    assert( partida_mover_notacion( partida, "Kd5" ) );
+    assert( qg_partida_mover_notacion( partida, "Kd5" ) );
     assert( partida_final( partida, NULL ) == FINAL_ENJUEGO );
 
     printf( "." );

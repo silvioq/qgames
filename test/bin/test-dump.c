@@ -97,7 +97,7 @@ int  main(int argc, char** argv) {
     free( data );
     assert( size == 40 );
 
-    assert( partida_mover_notacion( p1, "e4" ) );
+    assert( qg_partida_mover_notacion( p1, "e4" ) );
     assert( partida_dump( p1, &data, &size ) );
     assert( size > 60 );
     free( data );

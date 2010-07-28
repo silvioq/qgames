@@ -100,7 +100,7 @@ void  jugar_partida(Partida* par){
                 continue;
             }
         } else {
-            if( !partida_mover_notacion( par, line ) ){
+            if( !qg_partida_mover_notacion( par, line ) ){
                 printf( "No se puede mover %s\n", line );
                 continue;
             }

@@ -134,9 +134,9 @@ int  imprimir_tablero( Partida* par, int linea ){
     char* pieza, * casillero, *color;
     pie = 0;
 
-    while( partida_tablero_data( par, pie, &casillero, &pieza, &color ) ){
+    while( qg_partida_tablero_data( par, pie, &casillero, &pieza, &color ) ){
         int*  dim;
-        assert( tipojuego_get_cell_bycasillero( tj, casillero, &dim ) );
+        assert( qg_tipojuego_get_cell_bycasillero( tj, casillero, &dim ) );
         if( color[0] == 'b' ){
             wattron( tablerito, A_BOLD );
         } else {
@@ -242,7 +242,7 @@ void  jugar_partida(Partida* par){
     char* res = NULL;
 
     while(xx = seleccionar_menu(par,1,w + 3)){
-        partida_mover_notacion( par, xx );
+        qg_partida_mover_notacion( par, xx );
         
         free( xx );
         imprimir_tablero( par, 1 );
@@ -269,7 +269,7 @@ void  jugar_partida(Partida* par){
                 continue;
             }
         } else {
-            if( !partida_mover_notacion( par, line ) ){
+            if( !qg_partida_mover_notacion( par, line ) ){
                 printf( "No se puede mover %s\n", line );
                 continue;
             }
@@ -278,7 +278,7 @@ void  jugar_partida(Partida* par){
         partida_movidas_posibles_ascii( par );
     } */
     finalizar_pantalla();
-    printf( partida_pgn( par ) );
+    printf( qg_partida_pgn( par ) );
     printf( "\n" );
 };
 

@@ -66,19 +66,19 @@ int  main(int argc, char** argv) {
     assert( 10 == partida_count_piezas( partida, CASILLERO_POZO, NULL ) );
     assert( 0 == partida_count_piezas( partida, "c1", NULL ) );
     assert( 0 == partida_count_piezas( partida, "b1", NULL ) );
-    assert( partida_mover_notacion( partida, "c1" ) ); 
+    assert( qg_partida_mover_notacion( partida, "c1" ) ); 
     assert( 1 == partida_count_piezas( partida, "c1", NULL ) );
     assert( 0 == partida_count_piezas( partida, "b1", NULL ) );
 
     assert( partida_final( partida, NULL ) == FINAL_ENJUEGO );
-    assert( partida_mover_notacion( partida, "c1" ) == 0 ); 
-    assert( partida_mover_notacion( partida, "b1" )  ); 
+    assert( qg_partida_mover_notacion( partida, "c1" ) == 0 ); 
+    assert( qg_partida_mover_notacion( partida, "b1" )  ); 
     assert( partida_final( partida, NULL ) == FINAL_ENJUEGO );
-    assert( partida_mover_notacion( partida, "c2" )  ); 
+    assert( qg_partida_mover_notacion( partida, "c2" )  ); 
     assert( partida_final( partida, NULL ) == FINAL_ENJUEGO );
-    assert( partida_mover_notacion( partida, "b2" )  ); 
+    assert( qg_partida_mover_notacion( partida, "b2" )  ); 
     assert( partida_final( partida, NULL ) == FINAL_ENJUEGO );
-    assert( partida_mover_notacion( partida, "c3" )  ); 
+    assert( qg_partida_mover_notacion( partida, "c3" )  ); 
     assert( partida_final( partida, NULL ) != FINAL_ENJUEGO );
     assert( partida_final( partida, NULL ) == 1 );
 

@@ -128,6 +128,7 @@ int       partida_analizar_movidas( Partida* par );
 int       partida_analizar_finales( Partida* par );
 int       partida_count_piezas    ( Partida* par, char* casillero, char* tipopieza );
 int       partida_movidas_data    ( Partida* par, int num, char** notacion );
+char*     partida_pgn( Partida* par ); // free luego!
 
 Movida*   partida_ultimo_movimiento( Partida* par );
 void      partida_free( Partida* par );
