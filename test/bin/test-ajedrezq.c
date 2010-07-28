@@ -248,9 +248,9 @@ int   los_alamos(){
     char* prueba4 = "1. a3 e4 2. a4 e3 3. axb5 exf2";
     assert( partida = qg_tipojuego_create_partida( losalamos, "x" ) );
     assert( qg_partida_mover_pgn( partida, prueba4 ) );
-    assert( partida_movida_valida( partida, "bxa6=R" ) );
-    assert( partida_movida_valida( partida, "bxa6=Q" ) );
-    assert( partida_movida_valida( partida, "bxa6=N" ) );
+    assert( qg_partida_movida_valida( partida, "bxa6=R" ) );
+    assert( qg_partida_movida_valida( partida, "bxa6=Q" ) );
+    assert( qg_partida_movida_valida( partida, "bxa6=N" ) );
     assert( qg_partida_mover_notacion( partida, "bxa6=N" ) );
     assert( qg_partida_count_piezas( partida, NULL, "caballo" ) == 5 );
 
@@ -261,15 +261,15 @@ int   los_alamos(){
     assert( qg_partida_mover_notacion( partida, "Rf1-f3" ) );
     assert( qg_partida_mover_notacion( partida, "Nb6" ) );
     assert( qg_partida_movidas_count( partida ) == 20 );
-    assert( partida_movida_valida( partida, "Ra3-b3" ) );
-    assert( partida_movida_valida( partida, "Ra3-c3" ) );
-    assert( partida_movida_valida( partida, "Ra3-d3" ) );
-    assert( partida_movida_valida( partida, "Ra3-e3" ) );
-    assert( partida_movida_valida( partida, "Rf3-b3" ) );
-    assert( partida_movida_valida( partida, "Rf3-c3" ) );
-    assert( partida_movida_valida( partida, "Rf3-d3" ) );
-    assert( partida_movida_valida( partida, "Rf3-e3" ) );
-    assert( !partida_movida_valida( partida, "Re3" ) );
+    assert( qg_partida_movida_valida( partida, "Ra3-b3" ) );
+    assert( qg_partida_movida_valida( partida, "Ra3-c3" ) );
+    assert( qg_partida_movida_valida( partida, "Ra3-d3" ) );
+    assert( qg_partida_movida_valida( partida, "Ra3-e3" ) );
+    assert( qg_partida_movida_valida( partida, "Rf3-b3" ) );
+    assert( qg_partida_movida_valida( partida, "Rf3-c3" ) );
+    assert( qg_partida_movida_valida( partida, "Rf3-d3" ) );
+    assert( qg_partida_movida_valida( partida, "Rf3-e3" ) );
+    assert( !qg_partida_movida_valida( partida, "Re3" ) );
     
 }
 
@@ -313,11 +313,11 @@ int  main(int argc, char** argv) {
     assert( qg_partida_mover_pgn( partida, prueba1 ) );
     assert( qg_partida_movidas_count( partida ) == 9 );
     assert( 11 == qg_partida_count_piezas( partida, NULL, NULL ) );
-    partida_movidas_data( partida, 0, &notacion );
+    qg_partida_movidas_data( partida, 0, &notacion );
     assert( strcmp( notacion, "Kc1" ) == 0 ) ;
-    partida_movidas_data( partida, 1, &notacion );
+    qg_partida_movidas_data( partida, 1, &notacion );
     assert( strcmp( notacion, "Kb1" ) == 0 ) ;
-    partida_movidas_data( partida, 2, &notacion );
+    qg_partida_movidas_data( partida, 2, &notacion );
     assert( strcmp( notacion, "Kd1" ) == 0 ) ;
     
     // No puede mover a b3, porque lo amenazan

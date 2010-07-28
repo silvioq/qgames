@@ -105,6 +105,9 @@ DLL_PUBLIC   int         qg_partida_movidas_count ( Partida* par ){
 DLL_PUBLIC   int         qg_partida_movidas_data  ( Partida* par, int num, char** notacion ){
     return     partida_movidas_data  ( par, num, notacion );
 }
+DLL_PUBLIC   int         qg_partida_movida_valida ( Partida* par, char* notacion ){
+    return     partida_movida_valida( par, notacion );
+}
 DLL_PUBLIC   int         qg_partida_tablero_data  ( Partida* par, int num, char** casillero, char** pieza, char** color ){
     return     partida_tablero_data( par, num, casillero, pieza, color );
 }

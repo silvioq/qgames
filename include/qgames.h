@@ -166,7 +166,7 @@ void        qg_partida_free( Partida* par );
 
 int         qg_partida_movidas_count ( Partida* par );
 int         qg_partida_movidas_data  ( Partida* par, int num, char** notacion );
-int         partida_movida_valida ( Partida* par, char* notacion );
+int         qg_partida_movida_valida ( Partida* par, char* notacion );
 
 void        qg_partida_tablero_ascii ( Partida* par );
 void        qg_partida_movidas_posibles_ascii( Partida* par );
