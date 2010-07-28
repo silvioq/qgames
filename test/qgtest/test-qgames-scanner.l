@@ -86,8 +86,8 @@ RESULT       ({DRAW}|{BWIN}|{WWIN}|\*)
 <INITIAL>check{BAR}piezas       { iniciar_chequeo( ); BEGIN(check_piezas); }
 <INITIAL>check{BAR}movidas?     { BEGIN(check_movida); }  
 <INITIAL>check{BAR}result       { BEGIN(check_result); }  
-<INITIAL>show{BAR}movidas       { partida_movidas_posibles_ascii( partida ) ; }
-<INITIAL>show{BAR}tablero       { partida_tablero_ascii( partida ) ; }
+<INITIAL>show{BAR}movidas       { qg_partida_movidas_posibles_ascii( partida ) ; }
+<INITIAL>show{BAR}tablero       { qg_partida_tablero_ascii( partida ) ; }
 <INITIAL>show{BAR}benchmark     { show_benchmark() ; }
 <INITIAL>verbose                { BEGIN(verbose_state); }
 
@@ -120,7 +120,7 @@ RESULT       ({DRAW}|{BWIN}|{WWIN}|\*)
 
 <*>[ \t\r]+                     /* ignore whitespace */
 <*><<EOF>>                      { 
-                                   if( partida ) partida_free( partida );
+                                   if( partida ) qg_partida_free( partida );
                                    yyterminate( );
                                 }
 <INITIAL>\n                     /* Ignora para inicial */
@@ -137,7 +137,7 @@ int    nuevo_juego( char* t ){
     tjuego = NULL;
     int i;
     for( i = 0; i < tipojuegos->entradas; i ++ ){
-        if( strcmp( t, tipojuego_get_nombre( ((Tipojuego*)tipojuegos->data[i]) ) ) == 0 ){
+        if( strcmp( t, qg_tipojuego_get_nombre( ((Tipojuego*)tipojuegos->data[i]) ) ) == 0 ){
             tjuego = (Tipojuego*)tipojuegos->data[i];
             break;
         }
@@ -161,7 +161,7 @@ int    nuevo_juego( char* t ){
         time_scanning += ((double) (final - inicio)) / CLOCKS_PER_SEC;
     }
 
-    if( partida ) partida_free( partida );
+    if( partida ) qg_partida_free( partida );
     partida = qg_tipojuego_create_partida( tjuego, NULL );
     LOGPRINT( 5, "Partida de %s creada", t );
 
@@ -205,11 +205,11 @@ void   count_piezas_add_parameter( char* param ){
     strcheck* str = malloc(sizeof( strcheck ) );
     LOGPRINT( 5, "Agrega parametro %s", param );
     memset( str, 0, sizeof( strcheck ) );
-    if( tipojuego_get_casillero( tjuego, param ) != NOT_FOUND ){
+    if( qg_tipojuego_get_casillero( tjuego, param ) != NOT_FOUND ){
         str->casillero = strdup( param );
-    } else if( tipojuego_get_tipopieza( tjuego, param ) != NOT_FOUND ){
+    } else if( qg_tipojuego_get_tipopieza( tjuego, param ) != NOT_FOUND ){
         str->tipopieza = strdup( param );
-    } else if( tipojuego_get_color( tjuego, param ) != NOT_FOUND ){
+    } else if( qg_tipojuego_get_color( tjuego, param ) != NOT_FOUND ){
         str->color = strdup( param );
     } else {
         LOGPRINT( 2, "Parametro %s no reconocido (%d)", param, yylineno );
@@ -223,7 +223,7 @@ void   count_piezas_add_parameter( char* param ){
 
 void  chequear_resultado(int resultado){
     char* restxt;
-    int res = partida_final( partida, &restxt );
+    int res = qg_partida_final( partida, &restxt );
     if( res == resultado ) return ;
     LOGPRINT( 2, "Resultado inesperado %d != %d (%s) (%d)", resultado, res, restxt, yylineno );
     exit( EXIT_FAILURE );
@@ -231,13 +231,13 @@ void  chequear_resultado(int resultado){
 
 void  check_count_piezas(int resultado){
     int  contador = 0;
-    int  total    = partida_tablero_count( partida );
+    int  total    = qg_partida_tablero_count( partida );
     int  i;
     for( i = 0; i < total; i ++ ){
         char* casillero, *tipopieza, *color;
         strcheck* strc;
         int       valido = 1;
-        partida_tablero_data( partida, i, &casillero, &tipopieza, &color );
+        qg_partida_tablero_data( partida, i, &casillero, &tipopieza, &color );
         list_inicio( checklist );
         while( strc = list_siguiente( checklist ) ){
             if( strc->color && strcmp( color, strc->color ) != 0 ){
@@ -262,7 +262,7 @@ void  check_count_piezas(int resultado){
 }
 
 void   chequear_count_movidas(int movs){
-    int  count = partida_movidas_count( partida );
+    int  count = qg_partida_movidas_count( partida );
     LOGPRINT( 5, "Comparando cantidad movidas %d con %d", count, movs );
     if( movs != count ){
         LOGPRINT( 2, "Resultado inesperado %d != %d en count movidas (%d)", movs, count, yylineno );
@@ -272,7 +272,7 @@ void   chequear_count_movidas(int movs){
 
 void   chequear_movida_valida(char* mov){
     LOGPRINT( 5, "Verificando movida valida %s", mov );
-    if( !partida_movida_valida( partida, mov ) ){
+    if( !qg_partida_movida_valida( partida, mov ) ){
         LOGPRINT( 2, "Movida %s invalida (%d)", mov, yylineno );
         exit( EXIT_FAILURE );
     }

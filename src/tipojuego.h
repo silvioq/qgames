@@ -292,6 +292,18 @@ static inline int    tipojuego_get_casillero( Tipojuego* tj, char* cas ){
 }
 
 
+/*
+ * Devuelve el numero de tipo de pieza.
+ * En el caso de no ser encontrado, devuelve NOT_FOUND
+ * */
+static inline int         tipojuego_get_tipopieza( Tipojuego* tj, char* tpieza ){
+    Simbolo*  sym;
+    sym = tipojuego_get_simbolo( tj, tpieza );
+    if( !sym ) return NOT_FOUND;
+    if( sym->tipo != SIM_TIPOPIEZA ) return NOT_FOUND;
+    return  sym->ref;
+}
+
 
 
 

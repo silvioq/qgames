@@ -335,12 +335,6 @@ int         tipojuego_add_pieza( Tipojuego* tj, char* tpieza, char* casillero, c
     return 1;
 }
 
-/*
- * Devuelve el nombre del tipo juego ...
- * */
-const char* tipojuego_get_nombre   ( Tipojuego* tj ){
-    return (const char*) tj->nombre;
-}
 
 
 int         tipojuego_get_direccion( Tipojuego* tj, char* dir ){
@@ -351,13 +345,6 @@ int         tipojuego_get_direccion( Tipojuego* tj, char* dir ){
     return  sym->ref;
 }
 
-int         tipojuego_get_tipopieza( Tipojuego* tj, char* tpieza ){
-    Simbolo*  sym;
-    sym = tipojuego_get_simbolo( tj, tpieza );
-    if( !sym ) return NOT_FOUND;
-    if( sym->tipo != SIM_TIPOPIEZA ) return NOT_FOUND;
-    return  sym->ref;
-}
 
 int         tipojuego_get_att( Tipojuego* tj, char* tpieza, char* att ){
     Simbolo*  sym;

@@ -19,6 +19,9 @@
 #include  "log.h"
 #include "../parser/pgn_scanner.h"
 
+/*
+ * FIXME: Esto tiene que salir!
+ * */
 void DLL_LOCAL x(){
     qgz_parse_filename();
 }
@@ -63,6 +66,15 @@ DLL_PUBLIC  int         qg_tipojuego_get_color    ( Tipojuego* tj, char* color )
 }
 DLL_PUBLIC  int         qg_tipojuego_get_casillero( Tipojuego* tj, char* cas ){
     return  tipojuego_get_casillero(tj, cas);
+}
+DLL_PUBLIC  int         qg_tipojuego_get_tipopieza( Tipojuego* tj, char* tpieza ){
+    return  tipojuego_get_tipopieza( tj, tpieza );
+}
+/*
+ * Devuelve el nombre del tipo juego ...
+ * */
+const char* qg_tipojuego_get_nombre   ( Tipojuego* tj ){
+    return (const char*) tj->nombre;
 }
 
 
