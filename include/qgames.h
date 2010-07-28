@@ -34,7 +34,7 @@ typedef   struct  StrPosicion   Posicion;
 typedef   struct  StrPartida    Partida;
 
 
-Tipojuego*  tipojuego_new( char* nombre );
+Tipojuego*  qg_tipojuego_new( char* nombre );
 int         tipojuego_valido( Tipojuego* tj );
 int         tipojuego_add_tablero  ( Tipojuego* tj );
 int         tipojuego_genera_dimensiones( Tipojuego* tj, int dimc, char** dimv );

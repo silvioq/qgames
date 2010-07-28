@@ -797,7 +797,7 @@ instruction_gametype:
             yyerror( "Ya fue definido el tipo juego" );
             YYERROR;
         } else {
-            tipojuego = tipojuego_new( ((char*)$2) );
+            tipojuego = qg_tipojuego_new( ((char*)$2) );
             free((void*)$2);
         }
     };

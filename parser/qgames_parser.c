@@ -2755,7 +2755,7 @@ yyreduce:
             yyerror( "Ya fue definido el tipo juego" );
             YYERROR;
         } else {
-            tipojuego = tipojuego_new( ((char*)(yyvsp[(2) - (2)])) );
+            tipojuego = qg_tipojuego_new( ((char*)(yyvsp[(2) - (2)])) );
             free((void*)(yyvsp[(2) - (2)]));
         }
     }

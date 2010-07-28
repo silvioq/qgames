@@ -238,6 +238,11 @@ typedef  struct  StrZonadef{
     (Tablero*) tj->tableros->data[num - 1]; \
   })
 
+/* Funciones del tipo de juego */
+Tipojuego*  tipojuego_new( char* nombre );
+
+
+
 /* Funciones de acceso a datos de tipojuego */
 Casillero*  tipojuego_get_casillero_by_num( Tipojuego* tj, int nro );
 Casillero*  tipojuego_get_casillero_by_relpos( Tipojuego* tj, int tablero, int dims[MAXDIMS] );

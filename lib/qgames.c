@@ -1,38 +1,21 @@
 
-#include <stdio.h>
-#include <qgames.h>
+#include  <stdlib.h>
+#include  <stdio.h>
+#include  <string.h>
+#include  <stdarg.h>
+#include  <qgames.h>
+#include  <qgames_code.h>
 
-#if HAVE_VISIBILITY
-  #if defined _WIN32 || defined __CYGWIN__
-    #ifdef BUILDING_DLL
-      #ifdef __GNUC__
-        #define DLL_PUBLIC __attribute__((dllexport))
-      #else
-        #define DLL_PUBLIC __declspec(dllexport) // Note: actually gcc seems to also supports this syntax.
-      #endif
-    #else
-      #ifdef __GNUC__
-        #define DLL_PUBLIC __attribute__((dllimport))
-      #else
-        #define DLL_PUBLIC __declspec(dllimport) // Note: actually gcc seems to also supports this syntax.
-      #endif
-    #endif
-    #define DLL_LOCAL
-  #else
-    #if __GNUC__ >= 4
-      #define DLL_PUBLIC __attribute__ ((visibility("default")))
-      #define DLL_LOCAL  __attribute__ ((visibility("hidden")))
-    #else
-      #define DLL_PUBLIC
-      #define DLL_LOCAL
-    #endif
-  #endif
-#else
-  #define DLL_PUBLIC
-  #define DLL_LOCAL
-#endif
-
-
+#include  "config.h"
+#include  "qgames_core.h"
+#include  "list.h"
+#include  "tipojuego.h"
+#include  "graphdef.h"
+#include  "simbolos.h"
+#include  "pieza.h"
+#include  "movida.h"
+#include  "partida.h"
+#include  "posicion.h"
 
 Partida* DLL_LOCAL x(){
     qgz_parse_filename();
@@ -41,3 +24,12 @@ Partida* DLL_LOCAL x(){
     return tipojuego_create_partida( NULL, NULL );
 }
 
+/*  
+ * El inicio de todo tipo juego es su creación ... algo muy sencillo
+ * por cierto.
+ * Hay que crear la tabla de simbolos, agregar el nombre y no mucho más
+ * por el momento
+ * */
+DLL_PUBLIC Tipojuego*   qg_tipojuego_new( char* nombre ){
+    return tipojuego_new( nombre );
+}

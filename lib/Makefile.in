@@ -205,10 +205,7 @@ libqgames_la_SOURCES = ../common/list.c ../common/list.h \
 
 
 # libqgames_la_SOURCES =  libqgames-core.a $(top_builddir)/parser/libpgn-parser.a
-AM_CFLAGS = -I$(top_srcdir)/include -I$(top_srcdir)/common -I$(top_srcdir)/vm \
-	-DDATADIR='"$(datadir)"' -DIMGDIR='"$(imagesdir)"' \
-	-fPIC
-
+AM_CFLAGS = -I$(top_srcdir)/include -I$(top_srcdir)/common -I$(top_srcdir)/src -I$(top_srcdir)/vm 
 AM_LDFLAGS = @GD_LIBS@ @PNG_LIBS@
 libqgames_la_LIBADD = \
 	$(top_builddir)/parser/libpgn-parser.a \
@@ -520,6 +517,8 @@ uninstall-am: uninstall-libLTLIBRARIES
 	mostlyclean-generic mostlyclean-libtool pdf pdf-am ps ps-am \
 	tags uninstall uninstall-am uninstall-libLTLIBRARIES
 
+	-fPIC \
+  $(CFLAG_VISIBILITY) 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:
