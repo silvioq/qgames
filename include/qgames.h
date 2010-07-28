@@ -161,8 +161,8 @@ int         partida_mover_pgn     ( Partida* par, char* pgn );
 
 #define   FINAL_EMPATE   0
 #define   FINAL_ENJUEGO  -1
-int         partida_final         ( Partida* par, char** resultado );
-void        partida_free( Partida* par );
+int         qg_partida_final         ( Partida* par, char** resultado );
+void        qg_partida_free( Partida* par );
 
 void        partida_movidas_posibles_ascii( Partida* par );
 int         partida_movidas_count ( Partida* par );

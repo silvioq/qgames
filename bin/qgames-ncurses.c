@@ -246,7 +246,7 @@ void  jugar_partida(Partida* par){
         
         free( xx );
         imprimir_tablero( par, 1 );
-        if( partida_final( par, &res ) != FINAL_ENJUEGO ) break;
+        if( qg_partida_final( par, &res ) != FINAL_ENJUEGO ) break;
     }
 
     if( res ){
@@ -292,7 +292,7 @@ Partida*  procesar_partida( char* m, char* filename ){
     ret = qg_partida_mover_serie( par, m );
     final = clock();
     LOGPRINT( 5, "Total %s: %.6f", filename, ((double) (final - inicio)) / CLOCKS_PER_SEC );
-    if( !ret ){ partida_free( par ); return NULL ; }
+    if( !ret ){ qg_partida_free( par ); return NULL ; }
     return  par;
 }
 
@@ -346,11 +346,11 @@ Partida*  check_game(char* pgnfile, int flags){
         esperado = FINAL_ENJUEGO;
     } else {
         LOGPRINT( 2, "Resultado esperado incorrecto %s", pgntag_result );
-        partida_free( par );
+        qg_partida_free( par );
         return 0;
     }
 
-    result = partida_final( par, &res );
+    result = qg_partida_final( par, &res );
     if( abandonado && ( result != FINAL_ENJUEGO )  ){
         LOGPRINT( 2, "Resultado con error => %d (term:%s res:%s)", result, pgntag_termination, pgntag_result );
         ret = 0;
@@ -367,7 +367,7 @@ Partida*  check_game(char* pgnfile, int flags){
        
     if( ret ) return par;
     else { 
-        partida_free( par );
+        qg_partida_free( par );
         return NULL;
     }
     
@@ -426,7 +426,7 @@ int  main(int argc, char** argv) {
     if( ret && par ){
         jugar_partida(par);
     }
-    if( par )    partida_free( par );
+    if( par )    qg_partida_free( par );
 
     if( ret ) return EXIT_SUCCESS; else return EXIT_FAILURE;
 }

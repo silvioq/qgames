@@ -589,25 +589,9 @@ int         partida_movidas_count ( Partida* par ){
     return partida_analizar_movidas( par );
 }
 
-/*
- * Devuelve el final de la partida ... en el caso
- * que haya terminado
- * */
 
-int         partida_final         ( Partida* par, char** resultado ){
-    if( resultado ){
-      *resultado = par->resultado;
-    }
-    if( PARTIDAESTADO(par) == TERMINADA ){
-        if( PARTIDATABLAS(par) ){
-            return  FINAL_EMPATE;
-        } else {
-            return  par->color_ganador;
-        }
-    } else return  FINAL_ENJUEGO;
     
 
-}
 
 
 /*
