@@ -2190,7 +2190,7 @@ void   add_movida( char* movs ){
         exit( EXIT_FAILURE );
     }
     LOGPRINT( 5, "Agrega movida %s", movs );
-    if( !partida_mover_serie( partida, movs ) ){
+    if( !qg_partida_mover_serie( partida, movs ) ){
         LOGPRINT( 2, "Error al intentar mover %s (%d)", movs, yylineno );
         exit( EXIT_FAILURE ) ;
     }

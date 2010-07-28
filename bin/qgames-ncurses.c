@@ -274,7 +274,7 @@ Partida*  procesar_partida( char* m, char* filename ){
     inicio = clock();
     Partida* par = qg_tipojuego_create_partida( tj, NULL );
     if( !m ) return  par;
-    ret = partida_mover_serie( par, m );
+    ret = qg_partida_mover_serie( par, m );
     final = clock();
     LOGPRINT( 5, "Total %s: %.6f", filename, ((double) (final - inicio)) / CLOCKS_PER_SEC );
     if( !ret ){ partida_free( par ); return NULL ; }

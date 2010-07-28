@@ -36,3 +36,7 @@ DLL_PUBLIC Tipojuego*   qg_tipojuego_new( char* nombre ){
 DLL_PUBLIC Partida*     qg_tipojuego_create_partida( Tipojuego* tj, char* id ){
    return  partida_new( tj, id );
 }
+
+DLL_PUBLIC int          qg_partida_mover_serie   ( Partida* par, char* serie ){
+   return  partida_mover_serie ( par, serie );
+}

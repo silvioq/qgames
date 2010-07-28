@@ -155,7 +155,7 @@ char*       partida_id( Partida* par );
 
 int         partida_mover         ( Partida* par, int mov );
 int         partida_mover_notacion( Partida* par, char* mov );
-int         partida_mover_serie   ( Partida* par, char* serie );
+int         qg_partida_mover_serie   ( Partida* par, char* serie );
 int         partida_mover_pgn     ( Partida* par, char* pgn );
 
 

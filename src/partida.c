@@ -371,10 +371,6 @@ int       partida_mover_notacion( Partida* par, char* mov ){
  * y ejecuta los movimientos establecidos
  * */
 int         partida_mover_pgn     ( Partida* par, char* pgn ){
-    if( PARTIDATERMINADA(par)){
-        LOGPRINT(2,"Partida %s terminada", par->id );
-        return 0;
-    }
     int i = pgnscan_string( pgn );
     if( !i ){
         LOGPRINT( 2, "Error al analizar PGN: %s", pgnerror );
@@ -385,7 +381,12 @@ int         partida_mover_pgn     ( Partida* par, char* pgn ){
 
 
 int         partida_mover_serie ( Partida* par, char* serie ){
+    if( PARTIDATERMINADA(par)){
+        LOGPRINT(2,"Partida %s terminada", par->id );
+        return 0;
+    }
     char*  movepoint = serie;
+
     while( 1 ) {
         int  i  = 0;
         char   move[256];

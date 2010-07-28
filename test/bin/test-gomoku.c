@@ -21,12 +21,6 @@
  * THE USE OR OTHER DEALINGS IN THE SOFTWARE.                               *
  ****************************************************************************/
 
-/*
- *
- * QGames. Testeo del gomoku!
- * Silvio Quadri (c) 2009
- *
- * */
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -72,7 +66,7 @@ int  check_game( char* fname ){
 
     inicio = clock();
     assert( par = qg_tipojuego_create_partida( gomoku, "x" ) );
-    ret = partida_mover_serie( par, pgnmoves );
+    ret = qg_partida_mover_serie( par, pgnmoves );
     final = clock();
 
     LOGPRINT( 5, "Total %s: %.6f", fname, ((double) (final - inicio)) / CLOCKS_PER_SEC );
