@@ -70,7 +70,7 @@ int         tipojuego_get_direccion( Tipojuego* tj, char* dir );
 int         tipojuego_get_tipopieza( Tipojuego* tj, char* tpieza );
 int         tipojuego_get_att      ( Tipojuego* tj, char* tpieza, char* att );
 int         tipojuego_get_zona     ( Tipojuego* tj, char* zona );
-int         tipojuego_get_color    ( Tipojuego* tj, char* color );
+int         qg_tipojuego_get_color    ( Tipojuego* tj, char* color );
 int         tipojuego_get_tipomov  ( Tipojuego* tj, char* tipomov );
 
 

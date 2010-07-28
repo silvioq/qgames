@@ -388,13 +388,7 @@ int         tipojuego_get_zona     ( Tipojuego* tj, char* zona ){
     return  sym->ref;
 }
 
-int         tipojuego_get_color    ( Tipojuego* tj, char* color ){
-    Simbolo*  sym;
-    sym = tipojuego_get_simbolo( tj, color );
-    if( !sym ) return NOT_FOUND;
-    if( sym->tipo != SIM_COLOR ) return NOT_FOUND;
-    return  sym->ref;
-}
+
 int         tipojuego_get_tipomov  ( Tipojuego* tj, char* tipomov ){
     Simbolo*  sym;
     sym = tipojuego_get_simbolo( tj, tipomov );

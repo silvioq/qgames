@@ -56,7 +56,10 @@ DLL_PUBLIC int         qg_tipojuego_get_cell_bycasillero( Tipojuego* tj, char* c
 /* 
  * Muy sencillo ... determino si el tipo de juego es o no es valido
  * */
-int         qg_tipojuego_valido( Tipojuego* tj ){ return TJVALIDO(tj); }
+DLL_PUBLIC  int         qg_tipojuego_valido( Tipojuego* tj ){ return TJVALIDO(tj); }
+DLL_PUBLIC  int         qg_tipojuego_get_color    ( Tipojuego* tj, char* color ){
+    return  tipojuego_get_color( tj, color );
+}
 
 
 

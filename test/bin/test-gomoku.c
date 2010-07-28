@@ -135,9 +135,9 @@ int  main(int argc, char** argv) {
     assert( tipojuego_get_casillero( gomoku, "c3" ) != NOT_FOUND );
     printf( "." );
 
-    assert( tipojuego_get_color( gomoku, "rojo" ) == NOT_FOUND );
-    assert( tipojuego_get_color( gomoku, "blanco" ) == 1 );
-    assert( tipojuego_get_color( gomoku, "negro" )  == 2 ) ;
+    assert( qg_tipojuego_get_color( gomoku, "rojo" ) == NOT_FOUND );
+    assert( qg_tipojuego_get_color( gomoku, "blanco" ) == 1 );
+    assert( qg_tipojuego_get_color( gomoku, "negro" )  == 2 ) ;
     printf( "." );
 
     assert( partida = qg_tipojuego_create_partida( gomoku, "x" ) );

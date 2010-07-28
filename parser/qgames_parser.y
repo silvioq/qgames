@@ -227,7 +227,7 @@ instexpr_cantidad_piezas:
             int i;
             char* cas = NULL; char* color = NULL; char *tpieza = NULL;
             for( i = 0; i < qgz_param_count; i ++ ){
-                if( NOT_FOUND != tipojuego_get_color( tipojuego, qgz_param_list[i].str ) ){
+                if( NOT_FOUND != qg_tipojuego_get_color( tipojuego, qgz_param_list[i].str ) ){
                     if( color ){ yyerror( "Color definido mas de una vez en cuentapiezas" ); YYERROR; }
                     color = qgz_param_list[i].str ;
                 } else if( NOT_FOUND != tipojuego_get_casillero( tipojuego,  qgz_param_list[i].str ) ){
@@ -369,7 +369,7 @@ instexpr_ocupado:
         CHECK_TIPOJUEGO;
         if( tipojuego_get_casillero( tipojuego, nombre ) != NOT_FOUND ){
              if( !tipojuego_code_ocupado( tipojuego, nombre, CUALQUIERA, NULL, NULL ) ) YYERROR;
-        } else if( tipojuego_get_color( tipojuego, nombre ) != NOT_FOUND ){
+        } else if( qg_tipojuego_get_color( tipojuego, nombre ) != NOT_FOUND ){
              if( !tipojuego_code_ocupado( tipojuego, NULL, CUALQUIERA, nombre, NULL ) ) YYERROR;
         } else if( tipojuego_get_tipopieza( tipojuego, nombre ) != NOT_FOUND ){
              if( !tipojuego_code_ocupado( tipojuego, NULL, CUALQUIERA, NULL, nombre ) ) YYERROR;
@@ -507,7 +507,7 @@ instaction_movs:
                     int    i;
                     char*  color = NULL;
                     for( i = 0; i < qgz_param_count; i ++ ){
-                        int x = tipojuego_get_color( tipojuego, qgz_param_list[i].str );
+                        int x = qg_tipojuego_get_color( tipojuego, qgz_param_list[i].str );
                         if( x != NOT_FOUND ){
                             color = qgz_param_list[i].str;
                             break;
@@ -517,7 +517,7 @@ instaction_movs:
                         if( NOT_FOUND != tipojuego_get_tipopieza( tipojuego, qgz_param_list[i].str ) ){
                             qgzprintf( "Se va a transformar a %s %s", qgz_param_list[i].str, color );
                             if( !tipojuego_code_transforma( tipojuego, NOCOLOR, color, qgz_param_list[i].str ) ) YYERROR;
-                        } else if ( NOT_FOUND != tipojuego_get_color( tipojuego, qgz_param_list[i].str ) ){
+                        } else if ( NOT_FOUND != qg_tipojuego_get_color( tipojuego, qgz_param_list[i].str ) ){
                             qgzprintf( "Parametro incorrecto en transforma: %s", qgz_param_list[i].str ); 
                             yyerror( "Error de parametros en transforma, debe ser color o tipo de pieza" );
                         }
@@ -925,10 +925,10 @@ instruction_notation:
             yyerror( "Notacion mal formada (tipo de pieza incorrecta)" );
             YYERROR;
         }
-        if( NOT_FOUND != tipojuego_get_color( tipojuego, (char*)$3 ) ){
+        if( NOT_FOUND != qg_tipojuego_get_color( tipojuego, (char*)$3 ) ){
             color = (char*)$3;
             abbr  = (char*)$4;
-        } else if ( NOT_FOUND != tipojuego_get_color( tipojuego, (char*)$4 ) ){
+        } else if ( NOT_FOUND != qg_tipojuego_get_color( tipojuego, (char*)$4 ) ){
             color = (char*)$4;
             abbr  = (char*)$3;
         } else {
@@ -985,7 +985,7 @@ instruction_sequence_list:
         int  i;
         for( i = 0; i < qgz_param_count; i ++ ){
             char* val1 =  (char*)qgz_param_list[i].par;
-            int  color = tipojuego_get_color( tipojuego, val1 );
+            int  color = qg_tipojuego_get_color( tipojuego, val1 );
             if( color && i < qgz_param_count - 1 ){
                 char* val2 = (char*)qgz_param_list[i+1].par;
                 int  tmov = tipojuego_get_tipomov( tipojuego, val2 );

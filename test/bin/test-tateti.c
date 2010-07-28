@@ -56,9 +56,9 @@ int  main(int argc, char** argv) {
     assert( tipojuego_get_casillero( tateti, "c3" ) != NOT_FOUND );
     printf( "." );
 
-    assert( tipojuego_get_color( tateti, "rojo" ) == NOT_FOUND );
-    assert( tipojuego_get_color( tateti, "blanco" ) == 1 );
-    assert( tipojuego_get_color( tateti, "negro" )  == 2 ) ;
+    assert( qg_tipojuego_get_color( tateti, "rojo" ) == NOT_FOUND );
+    assert( qg_tipojuego_get_color( tateti, "blanco" ) == 1 );
+    assert( qg_tipojuego_get_color( tateti, "negro" )  == 2 ) ;
     printf( "." );
 
     assert( partida = qg_tipojuego_create_partida( tateti, "x" ) );
@@ -82,7 +82,7 @@ int  main(int argc, char** argv) {
     assert( partida_final( partida, NULL ) != FINAL_ENJUEGO );
     assert( partida_final( partida, NULL ) == 1 );
 
-    partida_free( partida );
+    qg_partida_free( partida );
     printf( "." );
 
     char* ahogado = "1. b2 c1 2. b1 b3 3. c3 a1 4. a2 c2 5. a3 1/2-1/2";
@@ -90,7 +90,7 @@ int  main(int argc, char** argv) {
     assert( partida_mover_pgn( partida, ahogado ) );
     printf( "." );
     assert( partida_final( partida, NULL ) == FINAL_EMPATE );
-    partida_free( partida );
+    qg_partida_free( partida );
     
 
     char* blancas = "1. b2 b1 2. a3 c1 3. a1 c3 4. a2 1-0";
@@ -98,7 +98,7 @@ int  main(int argc, char** argv) {
     assert( partida_mover_pgn( partida, blancas ) );
     printf( "." );
     assert( partida_final( partida, NULL ) == 1 );
-    partida_free( partida );
+    qg_partida_free( partida );
 
     printf( "." );
     assert( qg_tipojuego_valido( tateti2 ) );

@@ -17,6 +17,8 @@ typedef   struct   StrRegla     Regla;
 typedef   struct   StrSimbolo   Simbolo;
 typedef   struct   StrGraphdef  Graphdef;
 
+#include  "simbolos.h"
+
 #define   ENDEFINCION       0x1
 #define   VALIDO            0x2
 #define   JAQUEMATE         0x4
@@ -261,7 +263,17 @@ Tablero*   tablero_new( Tipojuego* tj, int numero );
 int        tablero_genera_dimensiones( Tablero* tab, int dimc, char** dimv );
 Graphdef*  tablero_get_graphdef( Tablero* t );
 
-
+/*
+ * Funcion que devuelve el numero de color a partir
+ * de su nombre
+ * */
+static inline int   tipojuego_get_color( Tipojuego* tj, char* color ){
+    Simbolo*  sym;
+    sym = tipojuego_get_simbolo( tj, color );
+    if( !sym ) return NOT_FOUND;
+    if( sym->tipo != SIM_COLOR ) return NOT_FOUND;
+    return  sym->ref;
+}
 
 
 /* Funciones de manejo de direcciones */
