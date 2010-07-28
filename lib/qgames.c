@@ -20,7 +20,6 @@
 void DLL_LOCAL x(){
     qgz_parse_filename();
     pgnscan_string();
-    tipojuego_get_tablero_png(NULL,NULL,NULL,NULL);
 }
 
 /*  
