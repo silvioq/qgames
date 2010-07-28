@@ -13,7 +13,6 @@
 
 
 
-
 typedef  struct StrParam {
   int   typ;
   union {
@@ -1083,7 +1082,7 @@ game_definition:
 
 
 
-int   qgz_parse( FILE* f, char* filename, int flags ){
+int   parser_qgames( FILE* f, char* filename, int flags ){
 
     FILE* ff;
 
@@ -1157,19 +1156,19 @@ void  init_parameters(){ qgz_param_count = 0; }
  * Estos son los analizadores. Ojo, son no reentrantes ... deberia 
  * yo manejar algun tipo de semaforo!
  * */
-Tipojuego*  qgz_parse_filename( char* filename, int flags ){
+Tipojuego*  parser_qgames_filename( char* filename, int flags ){
     int  ret;
-    ret = qgz_parse( NULL, filename, flags );
+    ret = parser_qgames( NULL, filename, flags );
     return( ret ? tipojuego : NULL );
 }
 
-Tipojuego*  qgz_parse_file    ( FILE* file, int flags ){
+Tipojuego*  parser_qgames_file    ( FILE* file, int flags ){
     int  ret;
-    ret = qgz_parse( file, NULL, flags );
+    ret = parser_qgames( file, NULL, flags );
     return( ret ? tipojuego : NULL );
 }
-Tipojuego*  qgz_parse_string  ( char* string, int flags ){
-    fprintf( stderr, "qgz_parse_string no implementado\n" );
+Tipojuego*  parser_qgames_string  ( char* string, int flags ){
+    fprintf( stderr, "parser_qgames_string no implementado\n" );
     exit( EXIT_FAILURE );
 }
 
