@@ -221,7 +221,7 @@ char*  seleccionar_menu( Partida* par, int linea, int col ){
     }
 
     for( i = 0; i < cant; i ++ ){
-        free( item_name(items[i]) );
+        free( (void*)item_name(items[i]) );
         free( items[i] );
     }
     unpost_menu( menu );
