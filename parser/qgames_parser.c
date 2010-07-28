@@ -2305,7 +2305,7 @@ yyreduce:
                     qgzprintf( "Casillero %s no esperado", (char*)(yyvsp[(1) - (1)]) );
                     yyerror( "Casillero no esperado" );
                     YYERROR;
-                } else if( tipojuego_get_att( tipojuego, last_pieza, (char*)(yyvsp[(1) - (1)]) ) != NOT_FOUND ) {
+                } else if( qg_tipojuego_get_att( tipojuego, last_pieza, (char*)(yyvsp[(1) - (1)]) ) != NOT_FOUND ) {
                       if( !tipojuego_code_evalua_att( tipojuego, (char*)(yyvsp[(1) - (1)]) ) ) YYERROR;
                 } else {
                    int  len = strlen( (char*)(yyvsp[(1) - (1)]) );
@@ -2313,7 +2313,7 @@ yyreduce:
                    if( len > 0 && ((char*)((yyvsp[(1) - (1)])))[len-1] == '?' ){
                       char* sin_pregunta = strdup( (char*) (yyvsp[(1) - (1)]) );
                       sin_pregunta[len-1] = 0;
-                      if( tipojuego_get_att( tipojuego, last_pieza, sin_pregunta ) != NOT_FOUND ){
+                      if( qg_tipojuego_get_att( tipojuego, last_pieza, sin_pregunta ) != NOT_FOUND ){
                           hay_algo = 1;
                           if( !tipojuego_code_evalua_att( tipojuego, sin_pregunta ) ) YYERROR;
                       }

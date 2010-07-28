@@ -1,9 +1,25 @@
-/*
-  This software is provided 'as-is', without any express or implied
-  warranty.  In no event will the authors be held liable for any damages
-  arising from the use of this software.
-  Silvio Quadri 2009.
-*/
+/****************************************************************************
+ * Copyright (c) 2009-2010 Silvio Quadri                                    *
+ *                                                                          *
+ * Permission is hereby granted, free of charge, to any person obtaining a  *
+ * copy of this software and associated documentation files (the            *
+ * "Software"), to deal in the Software without restriction, including      *
+ * without limitation the rights to use, copy, modify, merge, publish,      *
+ * distribute, distribute with modifications, sublicense, and/or sell       *
+ * copies of the Software, and to permit persons to whom the Software is    *
+ * furnished to do so, subject to the following conditions:                 *
+ *                                                                          *
+ * The above copyright notice and this permission notice shall be included  *
+ * in all copies or substantial portions of the Software.                   *
+ *                                                                          *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS  *
+ * OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF               *
+ * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.   *
+ * IN NO EVENT SHALL THE ABOVE COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,   *
+ * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR    *
+ * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR    *
+ * THE USE OR OTHER DEALINGS IN THE SOFTWARE.                               *
+ ****************************************************************************/
 
 #ifndef  TIPOJUEGO_H
 #define  TIPOJUEGO_H  1
@@ -27,6 +43,7 @@ typedef   struct   StrGraphdef  Graphdef;
 #define   TJVALIDO(tj)     (tj->flags & VALIDO)
 // #define   TJVALIDO(tj)     (1)
 #define   TJINVALIDAR(tj)  (tj->flags &= ~ VALIDO)
+
 
 
 typedef   struct   StrTipojuego {
@@ -240,6 +257,8 @@ typedef  struct  StrZonadef{
     (Tablero*) tj->tableros->data[num - 1]; \
   })
 
+
+
 /* Funciones del tipo de juego */
 Tipojuego*  tipojuego_new( char* nombre );
 
@@ -255,6 +274,7 @@ int         tipojuego_casillero_en_zona( Tipojuego* tj, Casillero* cas, int zona
 Direccion*  tipojuego_dir_by_sym( Tipojuego*, Direccion* dir, int color );
 
 Simbolo*    tipojuego_get_simbolo( Tipojuego* tj, char* sim );
+#include  "tipojuego_gets_inline.h"
 
 #define     TIPOJUEGO_CAPTURAIMPLICITA(tj) 1
 
@@ -265,55 +285,6 @@ Graphdef*  tablero_get_graphdef( Tablero* t );
 
 
 
-
-/*
- * Funcion que devuelve el numero de color a partir
- * de su nombre
- * */
-static inline int   tipojuego_get_color( Tipojuego* tj, char* color ){
-    Simbolo*  sym;
-    sym = tipojuego_get_simbolo( tj, color );
-    if( !sym ) return NOT_FOUND;
-    if( sym->tipo != SIM_COLOR ) return NOT_FOUND;
-    return  sym->ref;
-}
-
-/*
- * Devuelve el numero de casillero.
- * En el caso de no ser encontrado, devuelve NOT_FOUND
- * */
-
-static inline int    tipojuego_get_casillero( Tipojuego* tj, char* cas ){
-    Simbolo*  sym;
-    sym = tipojuego_get_simbolo( tj, cas );
-    if( !sym ) return NOT_FOUND;
-    if( sym->tipo != SIM_CASILLERO ) return NOT_FOUND;
-    return  sym->ref;
-}
-
-
-/*
- * Devuelve el numero de tipo de pieza.
- * En el caso de no ser encontrado, devuelve NOT_FOUND
- * */
-static inline int         tipojuego_get_tipopieza( Tipojuego* tj, char* tpieza ){
-    Simbolo*  sym;
-    sym = tipojuego_get_simbolo( tj, tpieza );
-    if( !sym ) return NOT_FOUND;
-    if( sym->tipo != SIM_TIPOPIEZA ) return NOT_FOUND;
-    return  sym->ref;
-}
-
-/*
- * Devuelve el numero de la direccion
- * */
-static inline int         tipojuego_get_direccion( Tipojuego* tj, char* dir ){
-    Simbolo*  sym;
-    sym = tipojuego_get_simbolo( tj, dir );
-    if( !sym ) return NOT_FOUND;
-    if( sym->tipo != SIM_DIRECCION ) return NOT_FOUND;
-    return  sym->ref;
-}
 
 
 

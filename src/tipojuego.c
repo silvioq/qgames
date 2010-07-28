@@ -339,14 +339,6 @@ int         tipojuego_add_pieza( Tipojuego* tj, char* tpieza, char* casillero, c
 
 
 
-int         tipojuego_get_att( Tipojuego* tj, char* tpieza, char* att ){
-    Simbolo*  sym;
-    sym = tipojuego_get_simbolo( tj, tpieza );
-    if( !sym ) return NOT_FOUND;
-    if( sym->tipo != SIM_TIPOPIEZA ) return NOT_FOUND;
-    Tipopieza* x = (Tipopieza*) tj->tipo_piezas->data[sym->ref];
-    return tipopieza_get_att( x, att );
-}
 
 int         tipojuego_get_zona     ( Tipojuego* tj, char* zona ){
     Simbolo*  sym;

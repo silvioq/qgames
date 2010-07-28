@@ -95,6 +95,9 @@ DLL_PUBLIC  int         qg_tipojuego_get_tipopieza( Tipojuego* tj, char* tpieza 
 DLL_PUBLIC  int         qg_tipojuego_get_direccion( Tipojuego* tj, char* dir ){
     return  tipojuego_get_direccion( tj, dir );
 }
+DLL_PUBLIC  int         qg_tipojuego_get_att      ( Tipojuego* tj, char* tpieza, char* att ){
+    return  tipojuego_get_att( tj, tpieza, att );
+}
 /*
  * Devuelve el nombre del tipo juego ...
  * */
