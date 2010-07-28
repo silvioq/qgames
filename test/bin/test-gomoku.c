@@ -73,7 +73,7 @@ int  check_game( char* fname ){
 
     if( !ret ){
         LOGPRINT( 2, "Error al analizar partida %s", pgnmoves );
-        partida_free( par );
+        qg_partida_free( par );
         return 0;
     }
 
@@ -89,11 +89,11 @@ int  check_game( char* fname ){
         esperado = FINAL_ENJUEGO;
     } else {
         LOGPRINT( 2, "Resultado esperado incorrecto %s", pgntag_result );
-        partida_free( par );
+        qg_partida_free( par );
         return 0;
     }
 
-    result = partida_final( par, &res );
+    result = qg_partida_final( par, &res );
     if( abandonado && ( result != FINAL_ENJUEGO )  ){
         LOGPRINT( 2, "Resultado con error => %d (term:%s res:%s)", result, pgntag_termination, pgntag_result );
         ret = 0;
@@ -108,7 +108,7 @@ int  check_game( char* fname ){
         ret = 1;
     }
         
-    partida_free( par );
+    qg_partida_free( par );
     return ret;
     
 }
@@ -149,16 +149,16 @@ int  main(int argc, char** argv) {
     assert( 1 == qg_partida_count_piezas( partida, "c1", NULL ) );
     assert( 0 == qg_partida_count_piezas( partida, "b1", NULL ) );
 
-    assert( partida_final( partida, NULL ) == FINAL_ENJUEGO );
+    assert( qg_partida_final( partida, NULL ) == FINAL_ENJUEGO );
     assert( qg_partida_mover_notacion( partida, "c1" ) == 0 ); 
     assert( qg_partida_mover_notacion( partida, "b1" )  ); 
-    assert( partida_final( partida, NULL ) == FINAL_ENJUEGO );
+    assert( qg_partida_final( partida, NULL ) == FINAL_ENJUEGO );
     assert( qg_partida_mover_notacion( partida, "c2" )  ); 
-    assert( partida_final( partida, NULL ) == FINAL_ENJUEGO );
+    assert( qg_partida_final( partida, NULL ) == FINAL_ENJUEGO );
     assert( qg_partida_mover_notacion( partida, "b2" )  ); 
-    assert( partida_final( partida, NULL ) == FINAL_ENJUEGO );
+    assert( qg_partida_final( partida, NULL ) == FINAL_ENJUEGO );
 
-    partida_free( partida );
+    qg_partida_free( partida );
     printf( "." );
 
 #if GRAPH_ENABLED
@@ -171,7 +171,7 @@ int  main(int argc, char** argv) {
     void * gomoku_png;
     FILE*  fpng; 
     int i;
-    int size = tipojuego_get_tablero_png( gomoku, BOARD_ACTUAL, 0, &gomoku_png );
+    int size = qg_tipojuego_get_tablero_png( gomoku, BOARD_ACTUAL, 0, &gomoku_png );
     printf( "." );
     assert( size );
 
@@ -183,7 +183,7 @@ int  main(int argc, char** argv) {
     assert( md5_mem( gomoku_png, size ) == -1645013337 );
     qgames_free_png( gomoku_png );
 
-    size = tipojuego_get_tablero_png( gomoku, BOARD_ACTUAL, GETPNG_ROTADO, &gomoku_png );
+    size = qg_tipojuego_get_tablero_png( gomoku, BOARD_ACTUAL, GETPNG_ROTADO, &gomoku_png );
     printf( "." );
     assert( size );
 
@@ -197,7 +197,7 @@ int  main(int argc, char** argv) {
 
     printf( "." );
     partida = qg_tipojuego_create_partida( gomoku, NULL );
-    size = partida_get_png( partida, 0, LAST_MOVE, &gomoku_png );
+    size = qg_partida_get_png( partida, 0, LAST_MOVE, &gomoku_png );
     assert( size > 0 );
     fpng = fopen( "../../tmp/gomoku-inicio.png", "w" );
     assert( fwrite( gomoku_png, size, 1, fpng ) );
@@ -205,15 +205,15 @@ int  main(int argc, char** argv) {
     qgames_free_png( gomoku_png );
     assert( size == 1585 );
     for( i = 0; i < 10; i ++ ){
-        assert( partida_mover( partida, 34 ) );
+        assert( qg_partida_mover( partida, 34 ) );
     }
-    size = partida_get_png( partida, GETPNG_HIGHLIGHT_BLUE, LAST_MOVE, &gomoku_png );
+    size = qg_partida_get_png( partida, GETPNG_HIGHLIGHT_BLUE, LAST_MOVE, &gomoku_png );
     assert( size > 0 );
     fpng = fopen( "../../tmp/gomoku-01.png", "w" );
     assert( fwrite( gomoku_png, size, 1, fpng ) );
     fclose( fpng ); 
 
-    size = partida_get_png( partida, GETPNG_HIGHLIGHT_GREEN | GETPNG_ROTADO, LAST_MOVE, &gomoku_png );
+    size = qg_partida_get_png( partida, GETPNG_HIGHLIGHT_GREEN | GETPNG_ROTADO, LAST_MOVE, &gomoku_png );
     assert( size > 0 );
     fpng = fopen( "../../tmp/gomoku-01-r.png", "w" );
     assert( fwrite( gomoku_png, size, 1, fpng ) );

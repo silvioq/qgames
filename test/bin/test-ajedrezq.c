@@ -63,7 +63,7 @@ int   ajedrez_check(){
 
 #if GRAPH_ENABLED
     qgames_graph_image_dir( TEST_IMGDIR );
-    size = tipojuego_get_tablero_png( ajedrez, BOARD_ACTUAL, 0, &ajedrez_png );
+    size = qg_tipojuego_get_tablero_png( ajedrez, BOARD_ACTUAL, 0, &ajedrez_png );
     printf( "." );
     assert( size );
 
@@ -79,7 +79,7 @@ int   ajedrez_check(){
     qgames_free_png( ajedrez_png );  
 
     printf( "." );
-    size = tipojuego_get_tablero_png( ajedrez, BOARD_ACTUAL, GETPNG_ROTADO, &ajedrez_png );
+    size = qg_tipojuego_get_tablero_png( ajedrez, BOARD_ACTUAL, GETPNG_ROTADO, &ajedrez_png );
     fpng = fopen( "../../tmp/ajedrez-r.png", "w" );
     assert( fwrite( ajedrez_png, size, 1, fpng ) );
     fclose( fpng ); 
@@ -89,7 +89,7 @@ int   ajedrez_check(){
     qgames_free_png( ajedrez_png );  
 
     printf( "." );
-    size = tipojuego_get_tpieza_png( ajedrez, "blanco", "peon", &ajedrez_png );
+    size = qg_tipojuego_get_tpieza_png( ajedrez, "blanco", "peon", &ajedrez_png );
     fpng = fopen( "../../tmp/ajedrez-peon.png", "w" );
     assert( fwrite( ajedrez_png, size, 1, fpng ) );
     fclose( fpng ); 
@@ -98,7 +98,7 @@ int   ajedrez_check(){
 
 
     printf( "." );
-    size = tipojuego_get_tpieza_png( ajedrez, "negro", "rey", &ajedrez_png );
+    size = qg_tipojuego_get_tpieza_png( ajedrez, "negro", "rey", &ajedrez_png );
     fpng = fopen( "../../tmp/ajedrez-rey.png", "w" );
     assert( fwrite( ajedrez_png, size, 1, fpng ) );
     fclose( fpng ); 
@@ -107,7 +107,7 @@ int   ajedrez_check(){
 
     printf( "." );
     partida = qg_tipojuego_create_partida( ajedrez, NULL );
-    size = partida_get_png( partida, 0, LAST_MOVE, &ajedrez_png );
+    size = qg_partida_get_png( partida, 0, LAST_MOVE, &ajedrez_png );
     assert( size > 0 );
     fpng = fopen( "../../tmp/ajedrez-inicio.png", "w" );
     assert( fwrite( ajedrez_png, size, 1, fpng ) );
@@ -115,7 +115,7 @@ int   ajedrez_check(){
     qgames_free_png( ajedrez_png );  
     assert( size == 10759 );
 
-    size = partida_get_png( partida, GETPNG_ROTADO, LAST_MOVE, &ajedrez_png );
+    size = qg_partida_get_png( partida, GETPNG_ROTADO, LAST_MOVE, &ajedrez_png );
     assert( size > 0 );
     fpng = fopen( "../../tmp/ajedrez-inicio-r.png", "w" );
     assert( fwrite( ajedrez_png, size, 1, fpng ) );
@@ -124,14 +124,14 @@ int   ajedrez_check(){
     assert( size == 10773 );
 
     assert( qg_partida_mover_notacion( partida, "e4" ) );
-    size = partida_get_png( partida, 0, LAST_MOVE, &ajedrez_png );
+    size = qg_partida_get_png( partida, 0, LAST_MOVE, &ajedrez_png );
     assert( size > 0 );
     fpng = fopen( "../../tmp/ajedrez-01.png", "w" );
     assert( fwrite( ajedrez_png, size, 1, fpng ) );
     fclose( fpng ); 
     qgames_free_png( ajedrez_png );  
 
-    size2 = partida_get_png( partida, GETPNG_HIGHLIGHT_RED, LAST_MOVE, &ajedrez_png );
+    size2 = qg_partida_get_png( partida, GETPNG_HIGHLIGHT_RED, LAST_MOVE, &ajedrez_png );
     assert( size2 > 0 );
     fpng = fopen( "../../tmp/ajedrez-01-h.png", "w" );
     assert( fwrite( ajedrez_png, size2, 1, fpng ) );
@@ -140,14 +140,14 @@ int   ajedrez_check(){
     assert( size2 > size );
     size1 = size2;
 
-    size = partida_get_png( partida, GETPNG_ROTADO, LAST_MOVE, &ajedrez_png );
+    size = qg_partida_get_png( partida, GETPNG_ROTADO, LAST_MOVE, &ajedrez_png );
     assert( size > 0 );
     fpng = fopen( "../../tmp/ajedrez-01-r.png", "w" );
     assert( fwrite( ajedrez_png, size, 1, fpng ) );
     fclose( fpng ); 
     qgames_free_png( ajedrez_png );  
 
-    size2 = partida_get_png( partida, GETPNG_HIGHLIGHT_RED | GETPNG_ROTADO, LAST_MOVE, &ajedrez_png );
+    size2 = qg_partida_get_png( partida, GETPNG_HIGHLIGHT_RED | GETPNG_ROTADO, LAST_MOVE, &ajedrez_png );
     assert( size2 > 0 );
     fpng = fopen( "../../tmp/ajedrez-01-rh.png", "w" );
     assert( fwrite( ajedrez_png, size2, 1, fpng ) );
@@ -157,14 +157,14 @@ int   ajedrez_check(){
 
     printf( "." );
     assert( qg_partida_mover_notacion( partida, "e5" ) );
-    size = partida_get_png( partida, 0, LAST_MOVE, &ajedrez_png );
+    size = qg_partida_get_png( partida, 0, LAST_MOVE, &ajedrez_png );
     assert( size > 0 );
     fpng = fopen( "../../tmp/ajedrez-02.png", "w" );
     assert( fwrite( ajedrez_png, size, 1, fpng ) );
     fclose( fpng ); 
     qgames_free_png( ajedrez_png );  
 
-    size2 = partida_get_png( partida, GETPNG_HIGHLIGHT_RED, LAST_MOVE, &ajedrez_png );
+    size2 = qg_partida_get_png( partida, GETPNG_HIGHLIGHT_RED, LAST_MOVE, &ajedrez_png );
     assert( size2 > 0 );
     fpng = fopen( "../../tmp/ajedrez-02-h.png", "w" );
     assert( fwrite( ajedrez_png, size2, 1, fpng ) );
@@ -172,14 +172,14 @@ int   ajedrez_check(){
     qgames_free_png( ajedrez_png );  
     assert( size2 > size );
 
-    size = partida_get_png( partida, GETPNG_ROTADO, LAST_MOVE, &ajedrez_png );
+    size = qg_partida_get_png( partida, GETPNG_ROTADO, LAST_MOVE, &ajedrez_png );
     assert( size > 0 );
     fpng = fopen( "../../tmp/ajedrez-02-r.png", "w" );
     assert( fwrite( ajedrez_png, size, 1, fpng ) );
     fclose( fpng ); 
     qgames_free_png( ajedrez_png );  
 
-    size2 = partida_get_png( partida, GETPNG_HIGHLIGHT_RED | GETPNG_ROTADO, LAST_MOVE, &ajedrez_png );
+    size2 = qg_partida_get_png( partida, GETPNG_HIGHLIGHT_RED | GETPNG_ROTADO, LAST_MOVE, &ajedrez_png );
     assert( size2 > 0 );
     fpng = fopen( "../../tmp/ajedrez-02-rh.png", "w" );
     assert( fwrite( ajedrez_png, size2, 1, fpng ) );
@@ -189,7 +189,7 @@ int   ajedrez_check(){
 
     /* Ahora vuelvo a dibujar la movida 1 deberia estar viendo lo mismo
        que vi oportunamente */
-    size2 = partida_get_png( partida, GETPNG_HIGHLIGHT_RED, 1, &ajedrez_png );
+    size2 = qg_partida_get_png( partida, GETPNG_HIGHLIGHT_RED, 1, &ajedrez_png );
     assert( size2 > 0 );
     fpng = fopen( "../../tmp/ajedrez-01-old.png", "w" );
     assert( fwrite( ajedrez_png, size2, 1, fpng ) );
@@ -199,7 +199,7 @@ int   ajedrez_check(){
 #else
     // Si no tengo los graficos habilitados, esto tiene que volver con
     // cero
-    assert( tipojuego_get_tablero_png( ajedrez, BOARD_ACTUAL, 0, NULL ) == 0 );
+    assert( qg_tipojuego_get_tablero_png( ajedrez, BOARD_ACTUAL, 0, NULL ) == 0 );
 #endif
     
     
@@ -220,7 +220,7 @@ int   los_alamos(){
     char* prueba1 = "1. d3 d4 2. Qf4 Kd5";
     assert( partida = qg_tipojuego_create_partida( losalamos, "x" ) );
     assert( qg_partida_mover_pgn( partida, prueba1 ) );
-    assert( partida_movidas_count( partida ) > 10 );
+    assert( qg_partida_movidas_count( partida ) > 10 );
     assert( qg_partida_mover_notacion( partida, "Qf3" ) );
     assert( qg_partida_final( partida, NULL ) == FINAL_ENJUEGO );
 
@@ -229,10 +229,10 @@ int   los_alamos(){
     char* prueba2 = " 1. d3 a4 2. Qe3 a3 3. d4 axb2";
     assert( partida = qg_tipojuego_create_partida( losalamos, "x" ) );
     assert( qg_partida_mover_pgn( partida, prueba2 ) );
-    if( partida_movidas_count( partida ) != 21 ){
-        partida_movidas_posibles_ascii( partida );
+    if( qg_partida_movidas_count( partida ) != 21 ){
+        qg_partida_movidas_posibles_ascii( partida );
     }
-    assert( partida_movidas_count( partida ) == 21 );
+    assert( qg_partida_movidas_count( partida ) == 21 );
     assert( qg_partida_mover_notacion( partida, "Qxe5" ) );
     assert( qg_partida_final( partida, NULL ) == 1 );
 
@@ -240,7 +240,7 @@ int   los_alamos(){
     char* prueba3 = "d3 e4 2. Qf4";
     assert( partida = qg_tipojuego_create_partida( losalamos, "x" ) );
     assert( qg_partida_mover_pgn( partida, prueba3 ) );
-    assert( partida_movidas_count( partida ) == 1 );
+    assert( qg_partida_movidas_count( partida ) == 1 );
     assert( qg_partida_mover_notacion( partida, "Nxf4" ) );
     assert( qg_partida_final( partida, NULL ) == FINAL_ENJUEGO );
     
@@ -260,7 +260,7 @@ int   los_alamos(){
     assert( qg_partida_mover_pgn( partida, prueba5 ) );
     assert( qg_partida_mover_notacion( partida, "Rf1-f3" ) );
     assert( qg_partida_mover_notacion( partida, "Nb6" ) );
-    assert( partida_movidas_count( partida ) == 20 );
+    assert( qg_partida_movidas_count( partida ) == 20 );
     assert( partida_movida_valida( partida, "Ra3-b3" ) );
     assert( partida_movida_valida( partida, "Ra3-c3" ) );
     assert( partida_movida_valida( partida, "Ra3-d3" ) );
@@ -311,7 +311,7 @@ int  main(int argc, char** argv) {
 
     char* prueba1 = "1. c3 bxc3 2. Kc2 Kb5";
     assert( qg_partida_mover_pgn( partida, prueba1 ) );
-    assert( partida_movidas_count( partida ) == 9 );
+    assert( qg_partida_movidas_count( partida ) == 9 );
     assert( 11 == qg_partida_count_piezas( partida, NULL, NULL ) );
     partida_movidas_data( partida, 0, &notacion );
     assert( strcmp( notacion, "Kc1" ) == 0 ) ;
@@ -339,7 +339,7 @@ int  main(int argc, char** argv) {
     assert( partida = qg_tipojuego_create_partida( aje, "x" ) );
     assert( qg_partida_mover_pgn( partida, prueba3 ) );
     assert( qg_partida_final( partida, NULL ) == FINAL_ENJUEGO );
-    assert( partida_movidas_count( partida ) > 0 );
+    assert( qg_partida_movidas_count( partida ) > 0 );
     assert( qg_partida_mover_notacion( partida, "Kd5" ) );
     assert( qg_partida_final( partida, NULL ) == FINAL_ENJUEGO );
 

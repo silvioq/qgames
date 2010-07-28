@@ -307,7 +307,7 @@ int    tipojuego_get_tpieza_png( Tipojuego* tj, char* color, char* tpieza, void*
  * Esta es la funcion que libera lo alocado por la librería GD
  *
  * */
-void   qgames_free_png( void* png ){
+void   graph_free_png( void* png ){
 #if GRAPH_ENABLED
     gdFree( png );
 #endif
@@ -446,7 +446,7 @@ int         partida_get_png( Partida* par, int flags, int movida, void** png ){
  * Esta funcion establece el directorio por defecto donde estan las
  * imagenes de piezas por defecto
  * */
-void   qgames_graph_image_dir( const char* imagedir ){
+void   graph_image_dir( const char* imagedir ){
 #if GRAPH_ENABLED
     LOGPRINT( 5, "Se esta seteando a %s el directorio de imagenes", imagedir );
     qgames_image_dir = (char*)imagedir;
