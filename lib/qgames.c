@@ -92,6 +92,9 @@ DLL_PUBLIC  int         qg_tipojuego_get_casillero( Tipojuego* tj, char* cas ){
 DLL_PUBLIC  int         qg_tipojuego_get_tipopieza( Tipojuego* tj, char* tpieza ){
     return  tipojuego_get_tipopieza( tj, tpieza );
 }
+DLL_PUBLIC  int         qg_tipojuego_get_direccion( Tipojuego* tj, char* dir ){
+    return  tipojuego_get_direccion( tj, dir );
+}
 /*
  * Devuelve el nombre del tipo juego ...
  * */

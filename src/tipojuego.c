@@ -337,13 +337,6 @@ int         tipojuego_add_pieza( Tipojuego* tj, char* tpieza, char* casillero, c
 
 
 
-int         tipojuego_get_direccion( Tipojuego* tj, char* dir ){
-    Simbolo*  sym;
-    sym = tipojuego_get_simbolo( tj, dir );
-    if( !sym ) return NOT_FOUND;
-    if( sym->tipo != SIM_DIRECCION ) return NOT_FOUND;
-    return  sym->ref;
-}
 
 
 int         tipojuego_get_att( Tipojuego* tj, char* tpieza, char* att ){

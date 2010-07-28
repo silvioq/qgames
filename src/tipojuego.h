@@ -304,7 +304,16 @@ static inline int         tipojuego_get_tipopieza( Tipojuego* tj, char* tpieza )
     return  sym->ref;
 }
 
-
+/*
+ * Devuelve el numero de la direccion
+ * */
+static inline int         tipojuego_get_direccion( Tipojuego* tj, char* dir ){
+    Simbolo*  sym;
+    sym = tipojuego_get_simbolo( tj, dir );
+    if( !sym ) return NOT_FOUND;
+    if( sym->tipo != SIM_DIRECCION ) return NOT_FOUND;
+    return  sym->ref;
+}
 
 
 
