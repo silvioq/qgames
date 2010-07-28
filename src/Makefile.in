@@ -191,7 +191,7 @@ top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 noinst_LIBRARIES = libqgames-core.a
 libqgames_core_a_SOURCES = \
-								tipojuego.c  tipojuego.h  simbolos.h \
+								tipojuego.c  tipojuego.h  simbolos.h tipojuego_get_inlines.h \
                 graph.c   graphdef.h  \
 								tablero.c  casillero.c  vinculo.c  direccion.c   tipopieza.c   \
 								notacion.c  notacion.h \
