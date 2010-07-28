@@ -24,6 +24,10 @@
 #ifndef  QGAMES_ANALYZER_H
 #define  QGAMES_ANALYZER_H
 
+
+/*
+ * Estos son los flags para el scanner y el parser qgames
+ * */
 #define  QGZ_DEBUG    1
 #define  QGZ_VERBOSE  2
 
