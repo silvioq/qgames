@@ -47,7 +47,7 @@ const  char*  defname_actual( );
 
 #define  CHECK_TIPOJUEGO   \
     if( !tipojuego ){ yyerror( "gametype no definido aun" ); YYERROR; }\
-    if( !tipojuego_valido( tipojuego ) ){ yyerror( "tipojuego no es valido" ); YYERROR; }
+    if( !qg_tipojuego_valido( tipojuego ) ){ yyerror( "tipojuego no es valido" ); YYERROR; }
 #define  CHECK_LAST_PIEZA   \
     if( !last_pieza ){ yyerror( "pieza no definida" ); YYERROR; }
 

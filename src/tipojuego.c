@@ -89,10 +89,6 @@ Tipojuego*   tipojuego_new( char* nombre ){
 
 }
 
-/* 
- * Muy sencillo ... determino si el tipo de juego es o no es valido
- * */
-int         tipojuego_valido( Tipojuego* tj ){ return TJVALIDO(tj); }
 
 /*
  * Genera un tablero y las dimensiones
