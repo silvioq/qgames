@@ -60,6 +60,9 @@ DLL_PUBLIC  int         qg_tipojuego_valido( Tipojuego* tj ){ return TJVALIDO(tj
 DLL_PUBLIC  int         qg_tipojuego_get_color    ( Tipojuego* tj, char* color ){
     return  tipojuego_get_color( tj, color );
 }
+DLL_PUBLIC  int         qg_tipojuego_get_casillero( Tipojuego* tj, char* cas ){
+    return  tipojuego_get_casillero(tj, cas);
+}
 
 
 

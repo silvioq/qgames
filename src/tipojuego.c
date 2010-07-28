@@ -342,18 +342,6 @@ const char* tipojuego_get_nombre   ( Tipojuego* tj ){
     return (const char*) tj->nombre;
 }
 
-/*
- * Devuelve el numero de casillero.
- * En el caso de no ser encontrado, devuelve NOT_FOUND
- * */
-
-int         tipojuego_get_casillero( Tipojuego* tj, char* cas ){
-    Simbolo*  sym;
-    sym = tipojuego_get_simbolo( tj, cas );
-    if( !sym ) return NOT_FOUND;
-    if( sym->tipo != SIM_CASILLERO ) return NOT_FOUND;
-    return  sym->ref;
-}
 
 int         tipojuego_get_direccion( Tipojuego* tj, char* dir ){
     Simbolo*  sym;

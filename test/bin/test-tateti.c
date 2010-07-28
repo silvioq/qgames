@@ -44,16 +44,16 @@ int  main(int argc, char** argv) {
 
     printf( "." );
 
-    assert( tipojuego_get_casillero( tateti, "a4" ) == NOT_FOUND );
-    assert( tipojuego_get_casillero( tateti, "a1" ) != NOT_FOUND );
-    assert( tipojuego_get_casillero( tateti, "a2" ) != NOT_FOUND );
-    assert( tipojuego_get_casillero( tateti, "a3" ) != NOT_FOUND );
-    assert( tipojuego_get_casillero( tateti, "b1" ) != NOT_FOUND );
-    assert( tipojuego_get_casillero( tateti, "b2" ) != NOT_FOUND );
-    assert( tipojuego_get_casillero( tateti, "b3" ) != NOT_FOUND );
-    assert( tipojuego_get_casillero( tateti, "c1" ) != NOT_FOUND );
-    assert( tipojuego_get_casillero( tateti, "c2" ) != NOT_FOUND );
-    assert( tipojuego_get_casillero( tateti, "c3" ) != NOT_FOUND );
+    assert( qg_tipojuego_get_casillero( tateti, "a4" ) == NOT_FOUND );
+    assert( qg_tipojuego_get_casillero( tateti, "a1" ) != NOT_FOUND );
+    assert( qg_tipojuego_get_casillero( tateti, "a2" ) != NOT_FOUND );
+    assert( qg_tipojuego_get_casillero( tateti, "a3" ) != NOT_FOUND );
+    assert( qg_tipojuego_get_casillero( tateti, "b1" ) != NOT_FOUND );
+    assert( qg_tipojuego_get_casillero( tateti, "b2" ) != NOT_FOUND );
+    assert( qg_tipojuego_get_casillero( tateti, "b3" ) != NOT_FOUND );
+    assert( qg_tipojuego_get_casillero( tateti, "c1" ) != NOT_FOUND );
+    assert( qg_tipojuego_get_casillero( tateti, "c2" ) != NOT_FOUND );
+    assert( qg_tipojuego_get_casillero( tateti, "c3" ) != NOT_FOUND );
     printf( "." );
 
     assert( qg_tipojuego_get_color( tateti, "rojo" ) == NOT_FOUND );

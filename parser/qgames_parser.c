@@ -2019,7 +2019,7 @@ yyreduce:
                 if( NOT_FOUND != qg_tipojuego_get_color( tipojuego, qgz_param_list[i].str ) ){
                     if( color ){ yyerror( "Color definido mas de una vez en cuentapiezas" ); YYERROR; }
                     color = qgz_param_list[i].str ;
-                } else if( NOT_FOUND != tipojuego_get_casillero( tipojuego,  qgz_param_list[i].str ) ){
+                } else if( NOT_FOUND != qg_tipojuego_get_casillero( tipojuego,  qgz_param_list[i].str ) ){
                     if( cas ) { yyerror( "Casillero definido mas de una vez en cuentapiezas" ); YYERROR; }
                     cas = qgz_param_list[i].str ;
                 } else if( NOT_FOUND != tipojuego_get_tipopieza( tipojuego, qgz_param_list[i].str ) ){
@@ -2081,7 +2081,7 @@ yyreduce:
 #line 272 "qgames_parser.y"
     {
             CHECK_TIPOJUEGO;
-            if( NOT_FOUND != tipojuego_get_casillero( tipojuego, ((char*)(yyvsp[(2) - (2)])) ) ){
+            if( NOT_FOUND != qg_tipojuego_get_casillero( tipojuego, ((char*)(yyvsp[(2) - (2)])) ) ){
                 if( !tipojuego_code_destino_ant( tipojuego, ((char*)(yyvsp[(2) - (2)])) ) ) YYERROR;
             } else {
                 qgzprintf( "Debe ser un casillero %s", ((char*)(yyvsp[(2) - (2)])) );
@@ -2103,7 +2103,7 @@ yyreduce:
 #line 286 "qgames_parser.y"
     {
             CHECK_TIPOJUEGO;
-            if( NOT_FOUND != tipojuego_get_casillero( tipojuego, ((char*)(yyvsp[(2) - (2)])) ) ){
+            if( NOT_FOUND != qg_tipojuego_get_casillero( tipojuego, ((char*)(yyvsp[(2) - (2)])) ) ){
                 if( !tipojuego_code_origen_ant( tipojuego, ((char*)(yyvsp[(2) - (2)])) ) ) YYERROR;
             } else {
                 qgzprintf( "Debe ser un casillero %s", ((char*)(yyvsp[(2) - (2)])) );
@@ -2205,7 +2205,7 @@ yyreduce:
     {
         char* nombre = (char*)(yyvsp[(2) - (2)]);
         CHECK_TIPOJUEGO;
-        if( tipojuego_get_casillero( tipojuego, nombre ) != NOT_FOUND ){
+        if( qg_tipojuego_get_casillero( tipojuego, nombre ) != NOT_FOUND ){
              if( !tipojuego_code_ocupado( tipojuego, nombre, CUALQUIERA, NULL, NULL ) ) YYERROR;
         } else if( qg_tipojuego_get_color( tipojuego, nombre ) != NOT_FOUND ){
              if( !tipojuego_code_ocupado( tipojuego, NULL, CUALQUIERA, nombre, NULL ) ) YYERROR;
@@ -2282,7 +2282,7 @@ yyreduce:
                     yyerror( "Direccion no esperada" );
                     YYERROR;
             } else {
-                if( tipojuego_get_casillero( tipojuego, (char*)(yyvsp[(1) - (1)]) ) != NOT_FOUND ){
+                if( qg_tipojuego_get_casillero( tipojuego, (char*)(yyvsp[(1) - (1)]) ) != NOT_FOUND ){
                     qgzprintf( "Casillero %s no esperado", (char*)(yyvsp[(1) - (1)]) );
                     yyerror( "Casillero no esperado" );
                     YYERROR;
@@ -2484,7 +2484,7 @@ yyreduce:
 #line 583 "qgames_parser.y"
     { 
                           CHECK_TIPOJUEGO;
-                          if( NOT_FOUND == tipojuego_get_casillero( tipojuego, (char*)(yyvsp[(3) - (3)]) ) ){
+                          if( NOT_FOUND == qg_tipojuego_get_casillero( tipojuego, (char*)(yyvsp[(3) - (3)]) ) ){
                               qgzprintf( "%s debe ser un casillero", (char*)(yyvsp[(3) - (3)]) );
                               yyerror( "Debe ser un casillero" );
                               YYERROR;
@@ -2521,7 +2521,7 @@ yyreduce:
 #line 606 "qgames_parser.y"
     {
                           CHECK_TIPOJUEGO;
-                          if( NOT_FOUND == tipojuego_get_casillero( tipojuego, (char*)(yyvsp[(1) - (1)]) ) ){
+                          if( NOT_FOUND == qg_tipojuego_get_casillero( tipojuego, (char*)(yyvsp[(1) - (1)]) ) ){
                               qgzprintf( "%s debe ser un casillero", (char*)(yyvsp[(1) - (1)]) );
                               yyerror( "Debe ser un casillero" );
                               YYERROR;
@@ -2611,7 +2611,7 @@ yyreduce:
             // qgzprintf( "Reconociendo %s", (char*)$1 );
             if( tipojuego_get_direccion( tipojuego, (char*)(yyvsp[(1) - (1)]) ) != NOT_FOUND ){
                     if( !tipojuego_code_direccion( tipojuego, (char*)(yyvsp[(1) - (1)]) ) ) YYERROR;
-            } else if( tipojuego_get_casillero( tipojuego, (char*)(yyvsp[(1) - (1)]) ) != NOT_FOUND ){
+            } else if( qg_tipojuego_get_casillero( tipojuego, (char*)(yyvsp[(1) - (1)]) ) != NOT_FOUND ){
                     if( !tipojuego_code_casillero( tipojuego, (char*)(yyvsp[(1) - (1)]) ) ) YYERROR;
             } else {
                     qgzprintf( "%s no es nada", (char*)(yyvsp[(1) - (1)]) );

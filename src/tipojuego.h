@@ -263,6 +263,9 @@ Tablero*   tablero_new( Tipojuego* tj, int numero );
 int        tablero_genera_dimensiones( Tablero* tab, int dimc, char** dimv );
 Graphdef*  tablero_get_graphdef( Tablero* t );
 
+
+
+
 /*
  * Funcion que devuelve el numero de color a partir
  * de su nombre
@@ -274,6 +277,24 @@ static inline int   tipojuego_get_color( Tipojuego* tj, char* color ){
     if( sym->tipo != SIM_COLOR ) return NOT_FOUND;
     return  sym->ref;
 }
+
+/*
+ * Devuelve el numero de casillero.
+ * En el caso de no ser encontrado, devuelve NOT_FOUND
+ * */
+
+static inline int    tipojuego_get_casillero( Tipojuego* tj, char* cas ){
+    Simbolo*  sym;
+    sym = tipojuego_get_simbolo( tj, cas );
+    if( !sym ) return NOT_FOUND;
+    if( sym->tipo != SIM_CASILLERO ) return NOT_FOUND;
+    return  sym->ref;
+}
+
+
+
+
+
 
 
 /* Funciones de manejo de direcciones */
