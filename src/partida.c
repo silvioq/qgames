@@ -768,7 +768,7 @@ Partida*    partida_load( Tipojuego* tjuego, void* data, int size ){
     memcpy( aux, point, len8 );
     aux[len8] = 0;
     point += len8;
-    par = tipojuego_create_partida( tjuego, aux );
+    par = partida_new( tjuego, aux );
 
     // ahora vienen 25 bytes ... controlo primero de no pasarme.
     if( point + 25 > ((char*)data) + size ){

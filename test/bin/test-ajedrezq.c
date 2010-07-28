@@ -106,7 +106,7 @@ int   ajedrez_check(){
     qgames_free_png( ajedrez_png );  
 
     printf( "." );
-    partida = tipojuego_create_partida( ajedrez, NULL );
+    partida = qg_tipojuego_create_partida( ajedrez, NULL );
     size = partida_get_png( partida, 0, LAST_MOVE, &ajedrez_png );
     assert( size > 0 );
     fpng = fopen( "../../tmp/ajedrez-inicio.png", "w" );
@@ -213,12 +213,12 @@ int   los_alamos(){
 
     printf( "." );
     assert( losalamos = qgz_parse_filename( filename, 0 ) );
-    assert( partida = tipojuego_create_partida( losalamos, "x" ) );
+    assert( partida = qg_tipojuego_create_partida( losalamos, "x" ) );
     assert( partida_mover_notacion( partida, "e3" ) );
 
     printf( "." );
     char* prueba1 = "1. d3 d4 2. Qf4 Kd5";
-    assert( partida = tipojuego_create_partida( losalamos, "x" ) );
+    assert( partida = qg_tipojuego_create_partida( losalamos, "x" ) );
     assert( partida_mover_pgn( partida, prueba1 ) );
     assert( partida_movidas_count( partida ) > 10 );
     assert( partida_mover_notacion( partida, "Qf3" ) );
@@ -227,7 +227,7 @@ int   los_alamos(){
 
     printf( "." );
     char* prueba2 = " 1. d3 a4 2. Qe3 a3 3. d4 axb2";
-    assert( partida = tipojuego_create_partida( losalamos, "x" ) );
+    assert( partida = qg_tipojuego_create_partida( losalamos, "x" ) );
     assert( partida_mover_pgn( partida, prueba2 ) );
     if( partida_movidas_count( partida ) != 21 ){
         partida_movidas_posibles_ascii( partida );
@@ -238,7 +238,7 @@ int   los_alamos(){
 
     printf( "." );
     char* prueba3 = "d3 e4 2. Qf4";
-    assert( partida = tipojuego_create_partida( losalamos, "x" ) );
+    assert( partida = qg_tipojuego_create_partida( losalamos, "x" ) );
     assert( partida_mover_pgn( partida, prueba3 ) );
     assert( partida_movidas_count( partida ) == 1 );
     assert( partida_mover_notacion( partida, "Nxf4" ) );
@@ -246,7 +246,7 @@ int   los_alamos(){
     
     printf( "." );
     char* prueba4 = "1. a3 e4 2. a4 e3 3. axb5 exf2";
-    assert( partida = tipojuego_create_partida( losalamos, "x" ) );
+    assert( partida = qg_tipojuego_create_partida( losalamos, "x" ) );
     assert( partida_mover_pgn( partida, prueba4 ) );
     assert( partida_movida_valida( partida, "bxa6=R" ) );
     assert( partida_movida_valida( partida, "bxa6=Q" ) );
@@ -256,7 +256,7 @@ int   los_alamos(){
 
     printf( "." );
     char* prueba5 = "1. a3 Nc4 2. a4 Nb6 3. Ra3 Nc4 4. f3 Nb6 5. f4 Nc4";
-    assert( partida = tipojuego_create_partida( losalamos, "x" ) );
+    assert( partida = qg_tipojuego_create_partida( losalamos, "x" ) );
     assert( partida_mover_pgn( partida, prueba5 ) );
     assert( partida_mover_notacion( partida, "Rf1-f3" ) );
     assert( partida_mover_notacion( partida, "Nb6" ) );
@@ -303,7 +303,7 @@ int  main(int argc, char** argv) {
     assert( tipojuego_get_color( aje, "negro" )  == 2 ) ;
     printf( "." );
 
-    assert( partida = tipojuego_create_partida( aje, "x" ) );
+    assert( partida = qg_tipojuego_create_partida( aje, "x" ) );
     assert( 12 == partida_count_piezas( partida, NULL, NULL ) );
     assert( 1 == partida_count_piezas( partida, "c1", NULL ) );
     assert( 0 == partida_count_piezas( partida, "b1", NULL ) );
@@ -329,14 +329,14 @@ int  main(int argc, char** argv) {
 
     printf( "." );
     char* prueba2 = " 1. c3 bxc3 2. dxc3 dxc3 3. e3 cxb2 4. Kxb2 Kb4 5. a3";
-    assert( partida = tipojuego_create_partida( aje, "x" ) );
+    assert( partida = qg_tipojuego_create_partida( aje, "x" ) );
     assert( partida_mover_pgn( partida, prueba2 ) );
     assert( !partida_mover_notacion( partida, "Kxa3" ) );
     assert( partida_final( partida, NULL ) == FINAL_ENJUEGO );
 
     printf( "." );
     char* prueba3 = "1. c3 bxc3 2. dxc3 dxc3 3. bxc3 a3 4. Kd2 Kd5 5. Ke3 Kc5 6. Kxe4 Kb5"; // 7. Kd5";
-    assert( partida = tipojuego_create_partida( aje, "x" ) );
+    assert( partida = qg_tipojuego_create_partida( aje, "x" ) );
     assert( partida_mover_pgn( partida, prueba3 ) );
     assert( partida_final( partida, NULL ) == FINAL_ENJUEGO );
     assert( partida_movidas_count( partida ) > 0 );
@@ -346,7 +346,7 @@ int  main(int argc, char** argv) {
     printf( "." );
     char* prueba4 = "1. c3 bxc3 2. Kc2 cxd2 3. Kxd2 Kb4 4. a3 Kb3 5. Kc1 Ka2 6. Kd2 Kxb2 7. e3 "
                     "dxe3 8. Kxe3 Kxa3 9. Kxe4 Kb4 10. Ke5 a3 11. Kd4 a2 12. Ke4 a1 ";
-    assert( partida = tipojuego_create_partida( aje, "x" ) );
+    assert( partida = qg_tipojuego_create_partida( aje, "x" ) );
     assert( partida_mover_pgn( partida, prueba4 ) );
     assert( partida_final( partida, NULL ) == 2 ); // gana el negro
 

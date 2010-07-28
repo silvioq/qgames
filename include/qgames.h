@@ -150,7 +150,7 @@ void   qgames_free_pgn( void* );
 /*
  * A partir de aca, comenzamos con la partida
  * */
-Partida*    tipojuego_create_partida( Tipojuego* tj, char* id );
+Partida*    qg_tipojuego_create_partida( Tipojuego* tj, char* id );
 char*       partida_id( Partida* par );
 
 int         partida_mover         ( Partida* par, int mov );

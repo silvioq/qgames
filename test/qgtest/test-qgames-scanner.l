@@ -146,7 +146,7 @@ int    nuevo_juego( char* t ){
     }
 
     if( partida ) partida_free( partida );
-    partida = tipojuego_create_partida( tjuego, NULL );
+    partida = qg_tipojuego_create_partida( tjuego, NULL );
     LOGPRINT( 5, "Partida de %s creada", t );
 
 }

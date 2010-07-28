@@ -70,7 +70,7 @@ int  main(int argc, char** argv) {
     assert( gomoku  = qgz_parse_filename( file2   , 0 ) );
     
 
-    p1 = tipojuego_create_partida( ajedrez, "id" );
+    p1 = qg_tipojuego_create_partida( ajedrez, "id" );
     assert( partida_dump( p1, &data, &size ));
     free( data );
     assert( size == 40 );
@@ -82,7 +82,7 @@ int  main(int argc, char** argv) {
     partida_free( p1 ); 
 
    
-    p1 = tipojuego_create_partida( ajedrez, NULL );
+    p1 = qg_tipojuego_create_partida( ajedrez, NULL );
     assert( partida_dump( p1, &data, &size ));
     assert( size > 60  );
     free( data );

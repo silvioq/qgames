@@ -74,7 +74,7 @@ int  main(int argc, char** argv) {
     
 
    
-    p1 = tipojuego_create_partida( ajedrez, NULL );
+    p1 = qg_tipojuego_create_partida( ajedrez, NULL );
     assert( partida_mover_pgn( p1, pgn ) );
 
     i = 0;

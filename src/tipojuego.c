@@ -615,9 +615,6 @@ void   tipojuego_set_notacion_marca( Tipojuego* tj, char* marca, char* captura )
 
 
 
-Partida*   tipojuego_create_partida( Tipojuego* tj, char* id ){
-   return  partida_new( tj, id );
-}
 
 /*
  *

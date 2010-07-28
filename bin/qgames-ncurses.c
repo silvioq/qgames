@@ -272,7 +272,7 @@ Partida*  procesar_partida( char* m, char* filename ){
     clock_t  inicio, final;
     int ret;
     inicio = clock();
-    Partida* par = tipojuego_create_partida( tj, NULL );
+    Partida* par = qg_tipojuego_create_partida( tj, NULL );
     if( !m ) return  par;
     ret = partida_mover_serie( par, m );
     final = clock();
@@ -406,7 +406,7 @@ int  main(int argc, char** argv) {
         }
     }
 
-    if( ret && tj && !par ) par = tipojuego_create_partida( tj, NULL );
+    if( ret && tj && !par ) par = qg_tipojuego_create_partida( tj, NULL );
 
     if( ret && par ){
         jugar_partida(par);

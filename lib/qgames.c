@@ -17,11 +17,10 @@
 #include  "partida.h"
 #include  "posicion.h"
 
-Partida* DLL_LOCAL x(){
+void DLL_LOCAL x(){
     qgz_parse_filename();
     pgnscan_string();
     tipojuego_get_tablero_png(NULL,NULL,NULL,NULL);
-    return tipojuego_create_partida( NULL, NULL );
 }
 
 /*  
@@ -32,4 +31,8 @@ Partida* DLL_LOCAL x(){
  * */
 DLL_PUBLIC Tipojuego*   qg_tipojuego_new( char* nombre ){
     return tipojuego_new( nombre );
+}
+
+DLL_PUBLIC Partida*     qg_tipojuego_create_partida( Tipojuego* tj, char* id ){
+   return  partida_new( tj, id );
 }
