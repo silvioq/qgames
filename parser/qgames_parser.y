@@ -329,14 +329,14 @@ instexpr_enzona:
             char*  tpieza = NULL;
             if( NOT_FOUND != qg_tipojuego_get_tipopieza( tipojuego, ((char*)$2) ) ){
                 tpieza = ((char*)$2);
-            } else if( NOT_FOUND != tipojuego_get_zona( tipojuego, ((char*)$2) ) ) {
+            } else if( NOT_FOUND != qg_tipojuego_get_zona( tipojuego, ((char*)$2) ) ) {
                 zona  = ((char*)$2);
             } else {
                 qgzprintf( "%s debe ser un tipo de pieza o una zona", ((char*)$2 ) );
                 yyerror( "Instruccion enzona mal formada" );
             }
 
-            if( tpieza && ( NOT_FOUND != tipojuego_get_zona( tipojuego, ((char*)$3)  ) ) ){
+            if( tpieza && ( NOT_FOUND != qg_tipojuego_get_zona( tipojuego, ((char*)$3)  ) ) ){
                 zona  = ((char*)$3);
             } 
             if( zona && ( NOT_FOUND != qg_tipojuego_get_tipopieza( tipojuego, ((char*)$3) ) ) ){
@@ -349,7 +349,7 @@ instexpr_enzona:
     } |
     TOK_ENZONA   word_or_string {
             CHECK_TIPOJUEGO;
-            if( NOT_FOUND != tipojuego_get_zona( tipojuego, ((char*)$2) ) ) {
+            if( NOT_FOUND != qg_tipojuego_get_zona( tipojuego, ((char*)$2) ) ) {
                 if( !tipojuego_code_enzona( tipojuego, (char*)$2, NULL ) ) YYERROR;
             } else { 
                 qgzprintf( "%s debe ser una zona", ((char*)$2 ) );
@@ -1040,7 +1040,7 @@ instruction_zone:
             CHECK_TIPOJUEGO;
             char* color = (char*)$3;
             char* zona  = (char*)$2;
-            if( tipojuego_get_zona( tipojuego, zona ) == NOT_FOUND ){
+            if( qg_tipojuego_get_zona( tipojuego, zona ) == NOT_FOUND ){
                 qgzprintf( "Nueva zona %s para %s", zona, color );
                 tipojuego_add_zona( tipojuego, zona );
             } else {

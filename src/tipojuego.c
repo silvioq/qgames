@@ -340,13 +340,6 @@ int         tipojuego_add_pieza( Tipojuego* tj, char* tpieza, char* casillero, c
 
 
 
-int         tipojuego_get_zona     ( Tipojuego* tj, char* zona ){
-    Simbolo*  sym;
-    sym = tipojuego_get_simbolo( tj, zona );
-    if( !sym ) return NOT_FOUND;
-    if( sym->tipo != SIM_ZONA ) return NOT_FOUND;
-    return  sym->ref;
-}
 
 
 int         tipojuego_get_tipomov  ( Tipojuego* tj, char* tipomov ){

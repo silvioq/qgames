@@ -79,3 +79,15 @@ static inline int         tipojuego_get_att( Tipojuego* tj, char* tpieza, char* 
     Tipopieza* x = (Tipopieza*) tj->tipo_piezas->data[sym->ref];
     return tipopieza_get_att( x, att );
 }
+
+/*
+ * Devuelve el numero de zona de la lista.
+ * Si no la encuentra, retorna NOT_FOUND
+ * */
+static inline int         tipojuego_get_zona     ( Tipojuego* tj, char* zona ){
+    Simbolo*  sym;
+    sym = tipojuego_get_simbolo( tj, zona );
+    if( !sym ) return NOT_FOUND;
+    if( sym->tipo != SIM_ZONA ) return NOT_FOUND;
+    return  sym->ref;
+}

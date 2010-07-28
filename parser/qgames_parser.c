@@ -2148,14 +2148,14 @@ yyreduce:
             char*  tpieza = NULL;
             if( NOT_FOUND != qg_tipojuego_get_tipopieza( tipojuego, ((char*)(yyvsp[(2) - (3)])) ) ){
                 tpieza = ((char*)(yyvsp[(2) - (3)]));
-            } else if( NOT_FOUND != tipojuego_get_zona( tipojuego, ((char*)(yyvsp[(2) - (3)])) ) ) {
+            } else if( NOT_FOUND != qg_tipojuego_get_zona( tipojuego, ((char*)(yyvsp[(2) - (3)])) ) ) {
                 zona  = ((char*)(yyvsp[(2) - (3)]));
             } else {
                 qgzprintf( "%s debe ser un tipo de pieza o una zona", ((char*)(yyvsp[(2) - (3)]) ) );
                 yyerror( "Instruccion enzona mal formada" );
             }
 
-            if( tpieza && ( NOT_FOUND != tipojuego_get_zona( tipojuego, ((char*)(yyvsp[(3) - (3)]))  ) ) ){
+            if( tpieza && ( NOT_FOUND != qg_tipojuego_get_zona( tipojuego, ((char*)(yyvsp[(3) - (3)]))  ) ) ){
                 zona  = ((char*)(yyvsp[(3) - (3)]));
             } 
             if( zona && ( NOT_FOUND != qg_tipojuego_get_tipopieza( tipojuego, ((char*)(yyvsp[(3) - (3)])) ) ) ){
@@ -2172,7 +2172,7 @@ yyreduce:
 #line 350 "qgames_parser.y"
     {
             CHECK_TIPOJUEGO;
-            if( NOT_FOUND != tipojuego_get_zona( tipojuego, ((char*)(yyvsp[(2) - (2)])) ) ) {
+            if( NOT_FOUND != qg_tipojuego_get_zona( tipojuego, ((char*)(yyvsp[(2) - (2)])) ) ) {
                 if( !tipojuego_code_enzona( tipojuego, (char*)(yyvsp[(2) - (2)]), NULL ) ) YYERROR;
             } else { 
                 qgzprintf( "%s debe ser una zona", ((char*)(yyvsp[(2) - (2)]) ) );
@@ -3148,7 +3148,7 @@ yyreduce:
             CHECK_TIPOJUEGO;
             char* color = (char*)(yyvsp[(3) - (5)]);
             char* zona  = (char*)(yyvsp[(2) - (5)]);
-            if( tipojuego_get_zona( tipojuego, zona ) == NOT_FOUND ){
+            if( qg_tipojuego_get_zona( tipojuego, zona ) == NOT_FOUND ){
                 qgzprintf( "Nueva zona %s para %s", zona, color );
                 tipojuego_add_zona( tipojuego, zona );
             } else {
