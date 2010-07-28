@@ -70,34 +70,34 @@ int  main(int argc, char** argv) {
     assert( 1 == partida_count_piezas( partida, "c1", NULL ) );
     assert( 0 == partida_count_piezas( partida, "b1", NULL ) );
 
-    assert( partida_final( partida, NULL ) == FINAL_ENJUEGO );
+    assert( qg_partida_final( partida, NULL ) == FINAL_ENJUEGO );
     assert( qg_partida_mover_notacion( partida, "c1" ) == 0 ); 
     assert( qg_partida_mover_notacion( partida, "b1" )  ); 
-    assert( partida_final( partida, NULL ) == FINAL_ENJUEGO );
+    assert( qg_partida_final( partida, NULL ) == FINAL_ENJUEGO );
     assert( qg_partida_mover_notacion( partida, "c2" )  ); 
-    assert( partida_final( partida, NULL ) == FINAL_ENJUEGO );
+    assert( qg_partida_final( partida, NULL ) == FINAL_ENJUEGO );
     assert( qg_partida_mover_notacion( partida, "b2" )  ); 
-    assert( partida_final( partida, NULL ) == FINAL_ENJUEGO );
+    assert( qg_partida_final( partida, NULL ) == FINAL_ENJUEGO );
     assert( qg_partida_mover_notacion( partida, "c3" )  ); 
-    assert( partida_final( partida, NULL ) != FINAL_ENJUEGO );
-    assert( partida_final( partida, NULL ) == 1 );
+    assert( qg_partida_final( partida, NULL ) != FINAL_ENJUEGO );
+    assert( qg_partida_final( partida, NULL ) == 1 );
 
     qg_partida_free( partida );
     printf( "." );
 
     char* ahogado = "1. b2 c1 2. b1 b3 3. c3 a1 4. a2 c2 5. a3 1/2-1/2";
     assert( partida = qg_tipojuego_create_partida( tateti, "x" ) );
-    assert( partida_mover_pgn( partida, ahogado ) );
+    assert( qg_partida_mover_pgn( partida, ahogado ) );
     printf( "." );
-    assert( partida_final( partida, NULL ) == FINAL_EMPATE );
+    assert( qg_partida_final( partida, NULL ) == FINAL_EMPATE );
     qg_partida_free( partida );
     
 
     char* blancas = "1. b2 b1 2. a3 c1 3. a1 c3 4. a2 1-0";
     assert( partida = qg_tipojuego_create_partida( tateti, "x" ) );
-    assert( partida_mover_pgn( partida, blancas ) );
+    assert( qg_partida_mover_pgn( partida, blancas ) );
     printf( "." );
-    assert( partida_final( partida, NULL ) == 1 );
+    assert( qg_partida_final( partida, NULL ) == 1 );
     qg_partida_free( partida );
 
     printf( "." );

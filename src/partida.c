@@ -38,7 +38,6 @@
 #include "movida.h"
 #include "posicion.h"
 #include "partida.h"
-#include "../parser/pgn_scanner.h"
 
 #include "log.h"
 
@@ -366,18 +365,6 @@ int       partida_mover_notacion( Partida* par, char* mov ){
 }
 
 
-/* 
- * Esta funcion parsea la entrada como si fuera un archivo pgn
- * y ejecuta los movimientos establecidos
- * */
-int         partida_mover_pgn     ( Partida* par, char* pgn ){
-    int i = pgnscan_string( pgn );
-    if( !i ){
-        LOGPRINT( 2, "Error al analizar PGN: %s", pgnerror );
-        return 0;
-    }
-    return  partida_mover_serie( par, pgnmoves );
-}
 
 
 int         partida_mover_serie ( Partida* par, char* serie ){

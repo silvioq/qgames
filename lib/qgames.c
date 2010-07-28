@@ -16,10 +16,11 @@
 #include  "movida.h"
 #include  "partida.h"
 #include  "posicion.h"
+#include  "log.h"
+#include "../parser/pgn_scanner.h"
 
 void DLL_LOCAL x(){
     qgz_parse_filename();
-    pgnscan_string();
 }
 
 /*  
@@ -115,6 +116,18 @@ DLL_PUBLIC   char*       qg_partida_pgn( Partida* par ){
 }
 DLL_PUBLIC   int         qg_partida_mover         ( Partida* par, int mov ){
     return  partida_mover( par, mov );
+}
+/* 
+ * Esta funcion parsea la entrada como si fuera un archivo pgn
+ * y ejecuta los movimientos establecidos
+ * */
+DLL_PUBLIC   int         qg_partida_mover_pgn     ( Partida* par, char* pgn ){
+    int i = pgnscan_string( pgn );
+    if( !i ){
+        LOGPRINT( 2, "Error al analizar PGN: %s", pgnerror );
+        return 0;
+    }
+    return  partida_mover_serie( par, pgnmoves );
 }
 
 /*

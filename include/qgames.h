@@ -156,7 +156,7 @@ char*       partida_id( Partida* par );
 int         qg_partida_mover         ( Partida* par, int mov );
 int         qg_partida_mover_notacion( Partida* par, char* mov );
 int         qg_partida_mover_serie   ( Partida* par, char* serie );
-int         partida_mover_pgn     ( Partida* par, char* pgn );
+int         qg_partida_mover_pgn     ( Partida* par, char* pgn );
 
 
 #define   FINAL_EMPATE   0
