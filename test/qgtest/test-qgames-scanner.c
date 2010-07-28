@@ -655,12 +655,28 @@ int yy_flex_debug = 0;
 char *yytext;
 #line 1 "test-qgames-scanner.l"
 #line 2 "test-qgames-scanner.l"
-/*
-  This software is provided 'as-is', without any express or implied
-  warranty.  In no event will the authors be held liable for any damages
-  arising from the use of this software.
-  Silvio Quadri 2010.
-*/
+/****************************************************************************
+ * Copyright (c) 2009-2010 Silvio Quadri                                    *
+ *                                                                          *
+ * Permission is hereby granted, free of charge, to any person obtaining a  *
+ * copy of this software and associated documentation files (the            *
+ * "Software"), to deal in the Software without restriction, including      *
+ * without limitation the rights to use, copy, modify, merge, publish,      *
+ * distribute, distribute with modifications, sublicense, and/or sell       *
+ * copies of the Software, and to permit persons to whom the Software is    *
+ * furnished to do so, subject to the following conditions:                 *
+ *                                                                          *
+ * The above copyright notice and this permission notice shall be included  *
+ * in all copies or substantial portions of the Software.                   *
+ *                                                                          *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS  *
+ * OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF               *
+ * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.   *
+ * IN NO EVENT SHALL THE ABOVE COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,   *
+ * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR    *
+ * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR    *
+ * THE USE OR OTHER DEALINGS IN THE SOFTWARE.                               *
+ ****************************************************************************/
 
 #include  <stdio.h>
 #include  <stdlib.h>
@@ -702,7 +718,7 @@ typedef  struct strCheck{
 } strcheck;
 
 
-#line 706 "test-qgames-scanner.c"
+#line 722 "test-qgames-scanner.c"
 
 #define INITIAL 0
 #define check_movida 1
@@ -860,10 +876,10 @@ YY_DECL
 	register char *yy_cp, *yy_bp;
 	register int yy_act;
     
-#line 67 "test-qgames-scanner.l"
+#line 83 "test-qgames-scanner.l"
 
 
-#line 867 "test-qgames-scanner.c"
+#line 883 "test-qgames-scanner.c"
 
 	if ( !(yy_init) )
 		{
@@ -954,134 +970,134 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 69 "test-qgames-scanner.l"
+#line 85 "test-qgames-scanner.l"
 { BEGIN(nombre_juego); }
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 70 "test-qgames-scanner.l"
+#line 86 "test-qgames-scanner.l"
 { iniciar_chequeo( ); BEGIN(check_piezas); }
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 71 "test-qgames-scanner.l"
+#line 87 "test-qgames-scanner.l"
 { BEGIN(check_movida); }  
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 72 "test-qgames-scanner.l"
+#line 88 "test-qgames-scanner.l"
 { BEGIN(check_result); }  
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 73 "test-qgames-scanner.l"
+#line 89 "test-qgames-scanner.l"
 { partida_movidas_posibles_ascii( partida ) ; }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 74 "test-qgames-scanner.l"
+#line 90 "test-qgames-scanner.l"
 { partida_tablero_ascii( partida ) ; }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 75 "test-qgames-scanner.l"
+#line 91 "test-qgames-scanner.l"
 { show_benchmark() ; }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 76 "test-qgames-scanner.l"
+#line 92 "test-qgames-scanner.l"
 { BEGIN(verbose_state); }
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 78 "test-qgames-scanner.l"
+#line 94 "test-qgames-scanner.l"
 { nuevo_juego( yytext ); BEGIN(INITIAL); }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 80 "test-qgames-scanner.l"
+#line 96 "test-qgames-scanner.l"
 { yyless( 0 ); BEGIN(check_result); }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 81 "test-qgames-scanner.l"
+#line 97 "test-qgames-scanner.l"
 /* no hago nada */
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 82 "test-qgames-scanner.l"
+#line 98 "test-qgames-scanner.l"
 /* no hago nada */
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 83 "test-qgames-scanner.l"
+#line 99 "test-qgames-scanner.l"
 { add_movida( yytext ); }
 	YY_BREAK
 case 14:
 /* rule 14 can match eol */
 YY_RULE_SETUP
-#line 84 "test-qgames-scanner.l"
+#line 100 "test-qgames-scanner.l"
 /* no hago nada */
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 86 "test-qgames-scanner.l"
+#line 102 "test-qgames-scanner.l"
 { count_piezas_add_parameter( yytext ); }
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 87 "test-qgames-scanner.l"
+#line 103 "test-qgames-scanner.l"
 { check_count_piezas( atol(yytext) ); BEGIN(INITIAL); }
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 89 "test-qgames-scanner.l"
+#line 105 "test-qgames-scanner.l"
 { chequear_movida_valida( yytext ); }
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 90 "test-qgames-scanner.l"
+#line 106 "test-qgames-scanner.l"
 { chequear_count_movidas( atol(yytext) ); }
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 92 "test-qgames-scanner.l"
+#line 108 "test-qgames-scanner.l"
 { chequear_resultado(1); BEGIN(INITIAL); }
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 93 "test-qgames-scanner.l"
+#line 109 "test-qgames-scanner.l"
 { chequear_resultado(2); BEGIN(INITIAL); }
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 94 "test-qgames-scanner.l"
+#line 110 "test-qgames-scanner.l"
 { chequear_resultado(FINAL_EMPATE); BEGIN(INITIAL); }
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 95 "test-qgames-scanner.l"
+#line 111 "test-qgames-scanner.l"
 { chequear_resultado(FINAL_ENJUEGO); BEGIN(INITIAL); }
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 97 "test-qgames-scanner.l"
+#line 113 "test-qgames-scanner.l"
 { loglevel = atol( yytext ); BEGIN(INITIAL); }
 	YY_BREAK
 case 24:
 /* rule 24 can match eol */
 YY_RULE_SETUP
-#line 99 "test-qgames-scanner.l"
+#line 115 "test-qgames-scanner.l"
 { BEGIN(INITIAL); }
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 102 "test-qgames-scanner.l"
+#line 118 "test-qgames-scanner.l"
 /* ignora comentario */
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 105 "test-qgames-scanner.l"
+#line 121 "test-qgames-scanner.l"
 /* ignore whitespace */
 	YY_BREAK
 case YY_STATE_EOF(INITIAL):
@@ -1090,7 +1106,7 @@ case YY_STATE_EOF(check_result):
 case YY_STATE_EOF(check_piezas):
 case YY_STATE_EOF(nombre_juego):
 case YY_STATE_EOF(verbose_state):
-#line 106 "test-qgames-scanner.l"
+#line 122 "test-qgames-scanner.l"
 { 
                                    if( partida ) partida_free( partida );
                                    yyterminate( );
@@ -1099,12 +1115,12 @@ case YY_STATE_EOF(verbose_state):
 case 27:
 /* rule 27 can match eol */
 YY_RULE_SETUP
-#line 110 "test-qgames-scanner.l"
+#line 126 "test-qgames-scanner.l"
 /* Ignora para inicial */
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 111 "test-qgames-scanner.l"
+#line 127 "test-qgames-scanner.l"
 {
                                   LOGPRINT( 2, "Caracter no esperado '%c' (%d)", yytext[0], yylineno );
                                   exit( EXIT_FAILURE );
@@ -1112,10 +1128,10 @@ YY_RULE_SETUP
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 116 "test-qgames-scanner.l"
+#line 132 "test-qgames-scanner.l"
 ECHO;
 	YY_BREAK
-#line 1119 "test-qgames-scanner.c"
+#line 1135 "test-qgames-scanner.c"
 
 	case YY_END_OF_BUFFER:
 		{
@@ -2124,7 +2140,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 116 "test-qgames-scanner.l"
+#line 132 "test-qgames-scanner.l"
 
 
 
@@ -2159,7 +2175,7 @@ int    nuevo_juego( char* t ){
     }
 
     if( partida ) partida_free( partida );
-    partida = tipojuego_create_partida( tjuego, NULL );
+    partida = qg_tipojuego_create_partida( tjuego, NULL );
     LOGPRINT( 5, "Partida de %s creada", t );
 
 }
