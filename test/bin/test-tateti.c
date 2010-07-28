@@ -101,11 +101,11 @@ int  main(int argc, char** argv) {
     partida_free( partida );
 
     printf( "." );
-    assert( tipojuego_valido( tateti2 ) );
+    assert( qg_tipojuego_valido( tateti2 ) );
     assert( tipojuego_code_casillero( tateti2, "a1" ) );
-    assert( tipojuego_valido( tateti2 ) );
+    assert( qg_tipojuego_valido( tateti2 ) );
     assert( !tipojuego_code_casillero( tateti2, "a4" ) );
-    assert( !tipojuego_valido( tateti2 ) );
+    assert( !qg_tipojuego_valido( tateti2 ) );
 
     printf( "\n" );
     return  EXIT_SUCCESS;
