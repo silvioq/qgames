@@ -114,14 +114,14 @@ int  imprimir_tablero( Partida* par, int linea ){
     if( !tablero_h ){
         dim[0] = 0;
         dim[1] = 0;
-        while( tipojuego_get_casillero_bycell( tj, NULL, dim ) ){
+        while( qg_tipojuego_get_casillero_bycell( tj, NULL, dim ) ){
             dim[1] = ++tablero_h;
         }
     }
     if( !tablero_w ){
         dim[0] = 0;
         dim[1] = 0;
-        while( tipojuego_get_casillero_bycell( tj, NULL, dim ) ){
+        while( qg_tipojuego_get_casillero_bycell( tj, NULL, dim ) ){
             dim[0] = ++tablero_w;
         }
     }
@@ -156,7 +156,7 @@ char*  seleccionar_menu( Partida* par, int linea, int col ){
     ITEM ** items;
     MENU*   menu;
     WINDOW* menuwin;
-    int cant = partida_movidas_count( par );
+    int cant = qg_partida_movidas_count( par );
     int i;
     char* ret;
     int  srow, scol;
@@ -164,7 +164,7 @@ char*  seleccionar_menu( Partida* par, int linea, int col ){
     items = malloc( sizeof( ITEM ) * ( cant + 1 ) );
     for( i = 0; i < cant; i ++ ){
         char* notacion;
-        assert( partida_movidas_data( par, i, &notacion ) );
+        assert( qg_partida_movidas_data( par, i, &notacion ) );
         items[i] = new_item( strdup( notacion ), NULL );
     }
     items[i] = NULL;

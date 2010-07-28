@@ -37,6 +37,20 @@ DLL_PUBLIC Partida*     qg_tipojuego_create_partida( Tipojuego* tj, char* id ){
     return  partida_new( tj, id );
 }
 
+DLL_PUBLIC int         qg_tipojuego_get_casillero_bycell( Tipojuego* tj, char** casillero, int pos[MAXDIMS] ){
+    Casillero* cas = tipojuego_get_casillero_by_relpos( tj, tj->tablero_actual, pos );
+    if( !cas ) return 0;
+    if( casillero ){
+        *casillero = cas->nombre;
+    }
+    return 1;
+}
+
+
+
+
+
+
 DLL_PUBLIC int          qg_partida_mover_serie   ( Partida* par, char* serie ){
     return  partida_mover_serie ( par, serie );
 }
@@ -60,4 +74,15 @@ DLL_PUBLIC int          qg_partida_final         ( Partida* par, char** resultad
             return  par->color_ganador;
         }
     } else return  FINAL_ENJUEGO;
+}
+
+/*
+ * Devuelve la cantidad de movidas que hay generadas
+ * */
+DLL_PUBLIC   int         qg_partida_movidas_count ( Partida* par ){
+    if( PARTIDATERMINADA(par) ) return 0;
+    return partida_analizar_movidas( par );
+}
+DLL_PUBLIC   int         qg_partida_movidas_data  ( Partida* par, int num, char** notacion ){
+    return     partida_movidas_data  ( par, num, notacion );
 }

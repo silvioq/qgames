@@ -579,15 +579,6 @@ int         partida_movida_valida ( Partida* par, char* notacion ){
     return 0;
 }
 
-/*
- * Devuelve la cantidad de movidas que hay generadas
- * */
-int         partida_movidas_count ( Partida* par ){
-    if( PARTIDATERMINADA(par) ){ 
-        return 0;
-    }
-    return partida_analizar_movidas( par );
-}
 
 
     

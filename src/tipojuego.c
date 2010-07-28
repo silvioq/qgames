@@ -414,14 +414,6 @@ int         tipojuego_get_dimensiones( Tipojuego* tj ){
     return  TABLERO_ACTUAL(tj)->dimc;
 }
 
-int         tipojuego_get_casillero_bycell( Tipojuego* tj, char** casillero, int pos[MAXDIMS] ){
-    Casillero* cas = tipojuego_get_casillero_by_relpos( tj, tj->tablero_actual, pos );
-    if( !cas ) return 0;
-    if( casillero ){
-        *casillero = cas->nombre;
-    }
-    return 1;
-}
     
 int         tipojuego_get_cell_bycasillero( Tipojuego* tj, char* casillero,  int** pos){
     int  ccc = tipojuego_get_casillero( tj, casillero );
