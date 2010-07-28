@@ -252,7 +252,7 @@ int   los_alamos(){
     assert( partida_movida_valida( partida, "bxa6=Q" ) );
     assert( partida_movida_valida( partida, "bxa6=N" ) );
     assert( qg_partida_mover_notacion( partida, "bxa6=N" ) );
-    assert( partida_count_piezas( partida, NULL, "caballo" ) == 5 );
+    assert( qg_partida_count_piezas( partida, NULL, "caballo" ) == 5 );
 
     printf( "." );
     char* prueba5 = "1. a3 Nc4 2. a4 Nb6 3. Ra3 Nc4 4. f3 Nb6 5. f4 Nc4";
@@ -304,15 +304,15 @@ int  main(int argc, char** argv) {
     printf( "." );
 
     assert( partida = qg_tipojuego_create_partida( aje, "x" ) );
-    assert( 12 == partida_count_piezas( partida, NULL, NULL ) );
-    assert( 1 == partida_count_piezas( partida, "c1", NULL ) );
-    assert( 0 == partida_count_piezas( partida, "b1", NULL ) );
+    assert( 12 == qg_partida_count_piezas( partida, NULL, NULL ) );
+    assert( 1 == qg_partida_count_piezas( partida, "c1", NULL ) );
+    assert( 0 == qg_partida_count_piezas( partida, "b1", NULL ) );
     printf( "." );
 
     char* prueba1 = "1. c3 bxc3 2. Kc2 Kb5";
     assert( qg_partida_mover_pgn( partida, prueba1 ) );
     assert( partida_movidas_count( partida ) == 9 );
-    assert( 11 == partida_count_piezas( partida, NULL, NULL ) );
+    assert( 11 == qg_partida_count_piezas( partida, NULL, NULL ) );
     partida_movidas_data( partida, 0, &notacion );
     assert( strcmp( notacion, "Kc1" ) == 0 ) ;
     partida_movidas_data( partida, 1, &notacion );

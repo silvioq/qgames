@@ -117,6 +117,9 @@ DLL_PUBLIC   char*       qg_partida_pgn( Partida* par ){
 DLL_PUBLIC   int         qg_partida_mover         ( Partida* par, int mov ){
     return  partida_mover( par, mov );
 }
+DLL_PUBLIC   int         qg_partida_count_piezas    ( Partida* par, char* casillero, char* tipopieza ){
+    return  partida_count_piezas( par, casillero, tipopieza );
+}
 /* 
  * Esta funcion parsea la entrada como si fuera un archivo pgn
  * y ejecuta los movimientos establecidos

@@ -171,6 +171,7 @@ int         partida_movida_valida ( Partida* par, char* notacion );
 void        qg_partida_tablero_ascii ( Partida* par );
 void        qg_partida_movidas_posibles_ascii( Partida* par );
 int         partida_tablero_count ( Partida* par );
+int         qg_partida_count_piezas    ( Partida* par, char* casillero, char* tipopieza );
 int         qg_partida_tablero_data  ( Partida* par, int num, char** casillero, char** pieza, char** color );
 
 char*       qg_partida_pgn( Partida* par ); // free luego!
