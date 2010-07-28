@@ -91,3 +91,11 @@ static inline int         tipojuego_get_zona     ( Tipojuego* tj, char* zona ){
     if( sym->tipo != SIM_ZONA ) return NOT_FOUND;
     return  sym->ref;
 }
+
+static inline int         tipojuego_get_tipomov  ( Tipojuego* tj, char* tipomov ){
+    Simbolo*  sym;
+    sym = tipojuego_get_simbolo( tj, tipomov );
+    if( !sym ) return NOT_FOUND;
+    if( sym->tipo != SIM_TIPOMOV ) return NOT_FOUND;
+    return  sym->ref;
+}

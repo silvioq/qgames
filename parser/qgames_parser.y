@@ -926,7 +926,7 @@ instruction_notation:
         CHECK_TIPOJUEGO;
         if( NOT_FOUND != qg_tipojuego_get_tipopieza( tipojuego, (char*)$2 ) ){
             if( !tipojuego_add_notacion_tpieza( tipojuego, (char*)$2, NULL, (char*)$3 ) ) YYERROR ;
-        } else if ( NOT_FOUND != tipojuego_get_tipomov( tipojuego, (char*)$2 ) ){
+        } else if ( NOT_FOUND != qg_tipojuego_get_tipomov( tipojuego, (char*)$2 ) ){
             if( !tipojuego_add_notacion_tmov( tipojuego, (char*)$2, (char*)$3 ) ) YYERROR ;
         } else {
             qgzprintf( "%s debe ser un tipo de pieza o un tipo de movimiento", (char*)$2 );
@@ -1007,7 +1007,7 @@ instruction_sequence_list:
             int  color = qg_tipojuego_get_color( tipojuego, val1 );
             if( color && i < qgz_param_count - 1 ){
                 char* val2 = (char*)qgz_param_list[i+1].par;
-                int  tmov = tipojuego_get_tipomov( tipojuego, val2 );
+                int  tmov = qg_tipojuego_get_tipomov( tipojuego, val2 );
                 if( tmov != NOT_FOUND ){
                     if( !tipojuego_add_secuencia( tipojuego, val1, val2 ) ) YYERROR;
                     i ++;

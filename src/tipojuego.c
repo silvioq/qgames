@@ -341,15 +341,6 @@ int         tipojuego_add_pieza( Tipojuego* tj, char* tpieza, char* casillero, c
 
 
 
-
-int         tipojuego_get_tipomov  ( Tipojuego* tj, char* tipomov ){
-    Simbolo*  sym;
-    sym = tipojuego_get_simbolo( tj, tipomov );
-    if( !sym ) return NOT_FOUND;
-    if( sym->tipo != SIM_TIPOMOV ) return NOT_FOUND;
-    return  sym->ref;
-}
-
 /*
  * Devuelve la cantidad de dimensiones que tiene el tablero actual
  * */
