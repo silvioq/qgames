@@ -75,10 +75,10 @@ int  main(int argc, char** argv) {
 
    
     p1 = qg_tipojuego_create_partida( ajedrez, NULL );
-    assert( partida_mover_pgn( p1, pgn ) );
+    assert( qg_partida_mover_pgn( p1, pgn ) );
 
     i = 0;
-    while( size = partida_get_png( p1, GETPNG_HIGHLIGHT_RED, i, &datapng ) ){
+    while( size = qg_partida_get_png( p1, GETPNG_HIGHLIGHT_RED, i, &datapng ) ){
         printf( "." );
         static char  filename[256];
         FILE* fpng;
@@ -91,7 +91,7 @@ int  main(int argc, char** argv) {
     }
     assert( i == 62 * 2 );
 
-    partida_free( p1 ); 
+    qg_partida_free( p1 ); 
     puts( "" );
     return 0;
 

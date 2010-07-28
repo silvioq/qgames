@@ -111,6 +111,9 @@ DLL_PUBLIC   int         qg_partida_movida_valida ( Partida* par, char* notacion
 DLL_PUBLIC   int         qg_partida_tablero_data  ( Partida* par, int num, char** casillero, char** pieza, char** color ){
     return     partida_tablero_data( par, num, casillero, pieza, color );
 }
+DLL_PUBLIC   int         qg_partida_tablero_count ( Partida* par ){
+    return     partida_tablero_count(par);
+}
 DLL_PUBLIC   int       qg_partida_mover_notacion( Partida* par, char* mov ){
     return     partida_mover_notacion( par, mov );
 }
@@ -183,5 +186,11 @@ DLL_PUBLIC   int    qg_tipojuego_get_tablero_png( Tipojuego* tj, int board_numbe
 DLL_PUBLIC   int    qg_tipojuego_get_tpieza_png( Tipojuego* tj, char* color, char* tpieza, void** png ){
     return  tipojuego_get_tpieza_png( tj, color, tpieza, png );
 }
-DLL_PUBLIC   void   qgames_free_png( void* png){ graph_free_png( png ); }
-DLL_PUBLIC   void   qgames_graph_image_dir( const char* imagedir ){ graph_image_dir( imagedir ); }
+DLL_PUBLIC   void        qgames_free_png( void* png){ graph_free_png( png ); }
+DLL_PUBLIC   void        qgames_graph_image_dir( const char* imagedir ){ graph_image_dir( imagedir ); }
+DLL_PUBLIC   int         qg_partida_dump( Partida* par, void** data, int* size ){
+    return  partida_dump( par, data, size );
+}
+DLL_PUBLIC   Partida*    qg_partida_load( Tipojuego* tj, void* data, int size ){
+    return  partida_load( tj, data, size );
+}

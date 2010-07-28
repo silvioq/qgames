@@ -134,5 +134,10 @@ char*     partida_pgn( Partida* par ); // free luego!
 Movida*   partida_ultimo_movimiento( Partida* par );
 void      partida_free( Partida* par );
 
+/*
+ * Load y dump de las partidas
+ * */
+int         partida_dump( Partida* par, void** data, int* size );
+Partida*    partida_load( Tipojuego* tj, void* data, int size );
 
 #endif
