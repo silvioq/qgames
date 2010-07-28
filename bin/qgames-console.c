@@ -89,13 +89,13 @@ static char * getline (const char *prompt)
 
 void  jugar_partida(Partida* par){
 
-    partida_tablero_ascii( par );
-    partida_movidas_posibles_ascii( par );
+    qg_partida_tablero_ascii( par );
+    qg_partida_movidas_posibles_ascii( par );
     while( 1 ){
         char* line;
         line = getline( "# " );
         if( isnumeric( line ) ){
-            if( !partida_mover( par, atol( line ) ) ){
+            if( !qg_partida_mover( par, atol( line ) ) ){
                 printf( "No se puede mover %d\n", atol( line ) );
                 continue;
             }
@@ -105,8 +105,8 @@ void  jugar_partida(Partida* par){
                 continue;
             }
         }
-        partida_tablero_ascii( par );
-        partida_movidas_posibles_ascii( par );
+        qg_partida_tablero_ascii( par );
+        qg_partida_movidas_posibles_ascii( par );
     }
 };
 

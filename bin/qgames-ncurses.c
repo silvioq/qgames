@@ -259,24 +259,6 @@ void  jugar_partida(Partida* par){
         }
         borrar_win( w );
     }
-/*    
-    while( 1 ){
-        char* line;
-        // line = getline( "# " );
-        if( isnumeric( line ) ){
-            if( !partida_mover( par, atol( line ) ) ){
-                printf( "No se puede mover %d\n", atol( line ) );
-                continue;
-            }
-        } else {
-            if( !qg_partida_mover_notacion( par, line ) ){
-                printf( "No se puede mover %s\n", line );
-                continue;
-            }
-        }
-        partida_tablero_ascii( par );
-        partida_movidas_posibles_ascii( par );
-    } */
     finalizar_pantalla();
     printf( qg_partida_pgn( par ) );
     printf( "\n" );

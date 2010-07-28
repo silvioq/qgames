@@ -124,6 +124,7 @@ typedef  struct  StrPartida {
 Partida*  partida_new( Tipojuego* tjuego, char* id_par );
 
 int       partida_mover_serie ( Partida* par, char* serie );
+int       partida_mover       ( Partida* par, int mov );
 int       partida_analizar_movidas( Partida* par );
 int       partida_analizar_finales( Partida* par );
 int       partida_count_piezas    ( Partida* par, char* casillero, char* tipopieza );

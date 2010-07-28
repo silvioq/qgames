@@ -103,3 +103,43 @@ DLL_PUBLIC   int       qg_partida_mover_notacion( Partida* par, char* mov ){
 DLL_PUBLIC   char*       qg_partida_pgn( Partida* par ){
     return  partida_pgn( par );
 }
+DLL_PUBLIC   int         qg_partida_mover         ( Partida* par, int mov ){
+    return  partida_mover( par, mov );
+}
+
+/*
+ * Esta funcion especial imprime en la consola de texto
+ * las posiciones de las piezas 
+ * */
+DLL_PUBLIC   void        qg_partida_tablero_ascii ( Partida* par ){
+    int i;
+    printf( "Partida: %s (%s)\n", par->id, par->tjuego->nombre );
+    for( i = 0; i < par->pos->piezas_count; i ++ ){
+        Pieza* pie = &( par->pos->piezas[i]);
+        if( CASILLERO_VALIDO( pie->casillero ) ){
+            printf( "%s %s en %s\n", pie->tpieza->nombre,
+                tipojuego_get_colorname( par->tjuego, pie->color ),
+                pie->casillero->nombre );
+        }
+    }
+}
+
+/*
+ * Esta funcion especial imprime en la consola de texto
+ * las posibles movidas que pueden realizarse en la 
+ * posicion actual
+ * */
+DLL_PUBLIC    void        qg_partida_movidas_posibles_ascii( Partida* par ){
+    int cant, i;
+    if( PARTIDATERMINADA(par) ){
+        printf( "Partida terminada %s\n", par->resultado );
+        return;
+    }
+    cant = partida_analizar_movidas( par );
+    for( i = 0; i < cant; i ++ ){
+        Movida* mov = (Movida*) par->pos->movidas->data[i];
+        if( ( i % 4 == 0 ) && i > 0 ){ printf( "\n" ); };
+        printf( "%2d) %-16s", i, mov->notacion );
+    }
+    printf( "\n" );
+}

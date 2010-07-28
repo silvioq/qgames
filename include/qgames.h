@@ -153,7 +153,7 @@ void   qgames_free_pgn( void* );
 Partida*    qg_tipojuego_create_partida( Tipojuego* tj, char* id );
 char*       partida_id( Partida* par );
 
-int         partida_mover         ( Partida* par, int mov );
+int         qg_partida_mover         ( Partida* par, int mov );
 int         qg_partida_mover_notacion( Partida* par, char* mov );
 int         qg_partida_mover_serie   ( Partida* par, char* serie );
 int         partida_mover_pgn     ( Partida* par, char* pgn );
@@ -164,12 +164,12 @@ int         partida_mover_pgn     ( Partida* par, char* pgn );
 int         qg_partida_final         ( Partida* par, char** resultado );
 void        qg_partida_free( Partida* par );
 
-void        partida_movidas_posibles_ascii( Partida* par );
 int         qg_partida_movidas_count ( Partida* par );
 int         qg_partida_movidas_data  ( Partida* par, int num, char** notacion );
 int         partida_movida_valida ( Partida* par, char* notacion );
 
-void        partida_tablero_ascii ( Partida* par );
+void        qg_partida_tablero_ascii ( Partida* par );
+void        qg_partida_movidas_posibles_ascii( Partida* par );
 int         partida_tablero_count ( Partida* par );
 int         qg_partida_tablero_data  ( Partida* par, int num, char** casillero, char** pieza, char** color );
 
