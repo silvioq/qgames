@@ -141,10 +141,6 @@ Partida*  partida_new( Tipojuego* tjuego, char* id_par ){
     return  par;    
 }
 
-/*
- * Devolvemos el id de partida
- * */
-char* partida_id( Partida* par ){ return par->id ; }
 
 /*
  * Vamos a liberar todo lo que hay
