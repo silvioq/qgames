@@ -1,3 +1,7 @@
+2010-07-29 Silvio Quadri <silvioq@gmail.com>
+  * Se cambia la interfaz de la libreria qgames, para normalizar
+	  las llamadas de las funciones
+
 2010-06-20 Silvio Quadri <silvioq@gmail.com>
 	* Se agrega Justa de Caballos
 	* Agregamos varias mejoras para los tiempos de respuesta
