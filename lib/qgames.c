@@ -61,6 +61,9 @@ DLL_PUBLIC Tipojuego*   qg_tipojuego_new( char* nombre ){
 DLL_PUBLIC Partida*     qg_tipojuego_create_partida( Tipojuego* tj, char* id ){
     return  partida_new( tj, id );
 }
+DLL_PUBLIC  int         qg_tipojuego_genera_dimensiones( Tipojuego* tj, int dimc, char** dimv ){
+    return  tipojuego_genera_dimensiones( tj, dimc, dimv );
+}
 
 DLL_PUBLIC int         qg_tipojuego_get_casillero_bycell( Tipojuego* tj, char** casillero, int pos[MAXDIMS] ){
     Casillero* cas = tipojuego_get_casillero_by_relpos( tj, tj->tablero_actual, pos );

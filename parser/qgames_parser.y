@@ -744,8 +744,8 @@ instruction_board:
                      char*  dims[MAX_PARAMS]; int i;
                      for( i = 0; i < qgz_param_count; i ++ ){
                         dims[i] = ((char*)qgz_param_list[i].par);
-                      }
-                     tipojuego_genera_dimensiones( tipojuego, qgz_param_count, dims );
+                     }
+                     qg_tipojuego_genera_dimensiones( tipojuego, qgz_param_count, dims );
                    };
 
 instruction_color:

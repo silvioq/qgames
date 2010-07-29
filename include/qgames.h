@@ -36,8 +36,8 @@ typedef   struct  StrPartida    Partida;
 
 Tipojuego*  qg_tipojuego_new( char* nombre );
 int         qg_tipojuego_valido( Tipojuego* tj );
-int         tipojuego_add_tablero  ( Tipojuego* tj );
-int         tipojuego_genera_dimensiones( Tipojuego* tj, int dimc, char** dimv );
+int         qg_tipojuego_add_tablero  ( Tipojuego* tj );
+int         qg_tipojuego_genera_dimensiones( Tipojuego* tj, int dimc, char** dimv );
 int         tipojuego_add_casillero( Tipojuego* tj, char* casillero );
 int         tipojuego_add_direccion( Tipojuego* tj, char* direccion );
 int         tipojuego_add_direccion_rel( Tipojuego* tj, char* direccion, ... );
