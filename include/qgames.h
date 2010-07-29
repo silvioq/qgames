@@ -74,8 +74,6 @@ int         qg_tipojuego_get_color    ( Tipojuego* tj, char* color );
 int         qg_tipojuego_get_tipomov  ( Tipojuego* tj, char* tipomov );
 
 
-int         tipojuego_get_dimensiones( Tipojuego* tj );
-int         tipojuego_get_dimlen( Tipojuego* tj, int dim );
 int         qg_tipojuego_get_casillero_bycell( Tipojuego* tj, char** casillero, int   pos[MAXDIMS] );
 int         qg_tipojuego_get_cell_bycasillero( Tipojuego* tj, char* casillero,  int** pos );
 

@@ -388,7 +388,7 @@ int  main(int argc, char** argv) {
             par = check_game( "-", flags );
             if( par ) ret = 1; else ret = 0;
         } else {
-            ret = qgz_parse_file( stdin, flags );
+            ret = (int)(long)qgz_parse_file( stdin, flags );
         }
     } else {
         char* filename = argv[optind];

@@ -273,6 +273,7 @@ Casillero*  tipojuego_get_casillero_by_num( Tipojuego* tj, int nro );
 Casillero*  tipojuego_get_casillero_by_relpos( Tipojuego* tj, int tablero, int dims[MAXDIMS] );
 char*       tipojuego_get_colorname( Tipojuego* tj, int color );
 int         tipojuego_get_coloroponente( Tipojuego* tj, int color );
+int         tipojuego_get_dimensiones( Tipojuego* tj );
 
 int         tipojuego_casillero_en_zona( Tipojuego* tj, Casillero* cas, int zona, int color );
 Direccion*  tipojuego_dir_by_sym( Tipojuego*, Direccion* dir, int color );

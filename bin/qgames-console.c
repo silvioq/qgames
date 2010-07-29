@@ -235,7 +235,7 @@ int  main(int argc, char** argv) {
         if( interactivo ) usage(argv[0]);
         ret = pgnscan_file( stdin );
         if( !ret ){
-            ret = qgz_parse_file( stdin, flags );
+            ret = (int)(long)qgz_parse_file( stdin, flags );
         } else {
             par = check_game( "-", flags );
             if( par ) ret = 1; else ret = 0;
