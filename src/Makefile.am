@@ -1,7 +1,7 @@
 noinst_LIBRARIES = libqgames-core.a
 
 libqgames_core_a_SOURCES =  \
-								tipojuego.c  tipojuego.h  simbolos.h tipojuego_get_inlines.h \
+								tipojuego.c  tipojuego.h  simbolos.h tipojuego_gets_inline.h \
                 graph.c   graphdef.h  \
 								tablero.c  casillero.c  vinculo.c  direccion.c   tipopieza.c   \
 								notacion.c  notacion.h \
