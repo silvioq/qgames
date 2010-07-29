@@ -31,8 +31,9 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
-check_PROGRAMS = test-tateti$(EXEEXT) test-gomoku$(EXEEXT) \
-	test-ajedrezq$(EXEEXT) test-dump$(EXEEXT) test-graph$(EXEEXT)
+check_PROGRAMS = test-generic$(EXEEXT) test-tateti$(EXEEXT) \
+	test-gomoku$(EXEEXT) test-ajedrezq$(EXEEXT) test-dump$(EXEEXT) \
+	test-graph$(EXEEXT)
 subdir = test/bin
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
@@ -47,6 +48,8 @@ test_ajedrezq_OBJECTS = $(am_test_ajedrezq_OBJECTS)
 am__DEPENDENCIES_1 =
 am_test_dump_OBJECTS = test-dump.$(OBJEXT)
 test_dump_OBJECTS = $(am_test_dump_OBJECTS)
+test_generic_SOURCES = test-generic.c
+test_generic_OBJECTS = test-generic.$(OBJEXT)
 am_test_gomoku_OBJECTS = test-gomoku.$(OBJEXT)
 test_gomoku_OBJECTS = $(am_test_gomoku_OBJECTS)
 am_test_graph_OBJECTS = test-graph.$(OBJEXT)
@@ -65,11 +68,11 @@ CCLD = $(CC)
 LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
 	--mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) \
 	$(LDFLAGS) -o $@
-SOURCES = $(test_ajedrezq_SOURCES) $(test_dump_SOURCES) \
+SOURCES = $(test_ajedrezq_SOURCES) $(test_dump_SOURCES) test-generic.c \
 	$(test_gomoku_SOURCES) $(test_graph_SOURCES) \
 	$(test_tateti_SOURCES)
 DIST_SOURCES = $(test_ajedrezq_SOURCES) $(test_dump_SOURCES) \
-	$(test_gomoku_SOURCES) $(test_graph_SOURCES) \
+	test-generic.c $(test_gomoku_SOURCES) $(test_graph_SOURCES) \
 	$(test_tateti_SOURCES)
 ETAGS = etags
 CTAGS = ctags
@@ -210,6 +213,8 @@ test_dump_DEPENDENCIES = $(DEPENDENCIES)
 test_dump_LDADD = $(DEPENDENCIES)
 test_graph_DEPENDENCIES = $(DEPENDENCIES)
 test_graph_LDADD = $(DEPENDENCIES)
+test_generic_DEPENDENCIES = $(DEPENDENCIES)
+test_generic_LDADD = $(DEPENDENCIES)
 AM_CFLAGS = -I$(top_srcdir)/include -I$(top_srcdir)/common -I$(top_srcdir)/qcode/src -DTEST_IMGDIR=\"$(top_srcdir)/images\"
 AM_LDFLAGS = @GD_LIBS@ @PNG_LIBS@
 TESTS = $(check_PROGRAMS)
@@ -259,6 +264,9 @@ test-ajedrezq$(EXEEXT): $(test_ajedrezq_OBJECTS) $(test_ajedrezq_DEPENDENCIES)
 test-dump$(EXEEXT): $(test_dump_OBJECTS) $(test_dump_DEPENDENCIES) 
 	@rm -f test-dump$(EXEEXT)
 	$(LINK) $(test_dump_OBJECTS) $(test_dump_LDADD) $(LIBS)
+test-generic$(EXEEXT): $(test_generic_OBJECTS) $(test_generic_DEPENDENCIES) 
+	@rm -f test-generic$(EXEEXT)
+	$(LINK) $(test_generic_OBJECTS) $(test_generic_LDADD) $(LIBS)
 test-gomoku$(EXEEXT): $(test_gomoku_OBJECTS) $(test_gomoku_DEPENDENCIES) 
 	@rm -f test-gomoku$(EXEEXT)
 	$(LINK) $(test_gomoku_OBJECTS) $(test_gomoku_LDADD) $(LIBS)
@@ -277,6 +285,7 @@ distclean-compile:
 
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-ajedrezq.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-dump.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-generic.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-gomoku.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-graph.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-tateti.Po@am__quote@

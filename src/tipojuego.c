@@ -117,9 +117,8 @@ int         tipojuego_genera_dimensiones( Tipojuego* tj, int dimc, char** dimv )
  * */
 int         tipojuego_add_casillero( Tipojuego* tj, char* casillero ){
     if( tipojuego_get_simbolo( tj, casillero ) ){
-        // FIXME: Esto debe dar un error
-        printf( "Casillero %s existente (File %s - linea %d)\n", casillero, __FILE__, __LINE__ );
-        exit( EXIT_FAILURE );
+        TJSETERROR( tj, "Casillero existente", casillero );
+        return 0;
     }
     if( !tj->casilleros )  tj->casilleros = list_nueva( NULL );
     Casillero*  cas = casillero_new( casillero, tj->tablero_actual, tj->casilleros->entradas );
@@ -134,9 +133,8 @@ int         tipojuego_add_casillero( Tipojuego* tj, char* casillero ){
  * */
 int         tipojuego_add_direccion( Tipojuego* tj, char* direccion ){
     if( tipojuego_get_simbolo( tj, direccion ) ){
-        // FIXME: Esto debe dar un error
-        printf( "Direccion %s existente (File %s - linea %d)\n", direccion, __FILE__, __LINE__ );
-        exit( EXIT_FAILURE );
+        TJSETERROR( tj, "Direccion existente", direccion );
+        return 0;
     }
     if( !tj->direcciones )  tj->direcciones = list_nueva( NULL );
     Direccion* dir = direccion_new( direccion );
