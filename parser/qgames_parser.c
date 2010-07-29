@@ -2689,11 +2689,11 @@ yyreduce:
 #line 763 "qgames_parser.y"
     {
                       int  dirs[MAX_PARAMS]; int i; 
-                      tipojuego_add_direccion( tipojuego, ((char*)(yyvsp[(2) - (4)])) );
+                      qg_tipojuego_add_direccion( tipojuego, ((char*)(yyvsp[(2) - (4)])) );
                       for( i = 0; i < qgz_param_count; i ++ ){
                           dirs[i] = qgz_param_list[i].par;
                       }
-                      if( !tipojuego_add_direccion_arr( tipojuego, ((char*)(yyvsp[(2) - (4)])), dirs ) ) YYERROR;
+                      if( !qg_tipojuego_add_direccion_arr( tipojuego, ((char*)(yyvsp[(2) - (4)])), dirs ) ) YYERROR;
                     }
     break;
 

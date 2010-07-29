@@ -762,11 +762,11 @@ instruction_direction:
     TOK_DIRECTION    word_or_string { CHECK_TIPOJUEGO; init_parameters(); } number_list 
                     {
                       int  dirs[MAX_PARAMS]; int i; 
-                      tipojuego_add_direccion( tipojuego, ((char*)$2) );
+                      qg_tipojuego_add_direccion( tipojuego, ((char*)$2) );
                       for( i = 0; i < qgz_param_count; i ++ ){
                           dirs[i] = qgz_param_list[i].par;
                       }
-                      if( !tipojuego_add_direccion_arr( tipojuego, ((char*)$2), dirs ) ) YYERROR;
+                      if( !qg_tipojuego_add_direccion_arr( tipojuego, ((char*)$2), dirs ) ) YYERROR;
                     };
 
 instruction_drop_prelude:

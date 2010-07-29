@@ -114,6 +114,13 @@ const char* qg_tipojuego_get_nombre   ( Tipojuego* tj ){
 DLL_PUBLIC  int        qg_tipojuego_add_casillero( Tipojuego* tj, char* casillero ){
     return  tipojuego_add_casillero( tj, casillero );
 }
+DLL_PUBLIC  int         qg_tipojuego_add_direccion( Tipojuego* tj, char* direccion ){
+    return  tipojuego_add_direccion( tj, direccion );
+}
+// DLL_PUBLIC  int         qg_tipojuego_add_direccion_rel( Tipojuego* tj, char* direccion, ... );
+DLL_PUBLIC  int         qg_tipojuego_add_direccion_arr( Tipojuego* tj, char* direccion, int* dirv ){
+    return  tipojuego_add_direccion_arr( tj, direccion, dirv );
+}
 
 
 
