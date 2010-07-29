@@ -114,6 +114,12 @@ const char* qg_tipojuego_get_nombre   ( Tipojuego* tj ){
     return (const char*) tj->nombre;
 }
 
+/*
+ * Agregaciones varias
+ * */
+DLL_PUBLIC  int        qg_tipojuego_add_casillero( Tipojuego* tj, char* casillero ){
+    return  tipojuego_add_casillero( tj, casillero );
+}
 
 
 

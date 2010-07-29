@@ -263,6 +263,7 @@ typedef  struct  StrZonadef{
 Tipojuego*  tipojuego_new( char* nombre );
 
 
+int         tipojuego_add_casillero( Tipojuego* tj, char* casillero );
 
 /* Funciones de acceso a datos de tipojuego */
 Casillero*  tipojuego_get_casillero_by_num( Tipojuego* tj, int nro );
