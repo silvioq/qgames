@@ -41,12 +41,6 @@
 #include  "log.h"
 #include "../parser/pgn_scanner.h"
 
-/*
- * FIXME: Esto tiene que salir!
- * */
-void DLL_LOCAL x(){
-    qgz_parse_filename();
-}
 
 /*  
  * El inicio de todo tipo juego es su creación ... algo muy sencillo
