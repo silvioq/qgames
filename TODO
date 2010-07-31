@@ -14,6 +14,16 @@ Version 2.9.5
 * Cambiar la definicion de archivo qgames para que este 100% en ingles
 * Rotular todos los fuentes con la licencia MIT
 
+Motor de juegos
+
+* Armar un cache de ataques. Se tratara de un vector que tenga
+  los casilleros atacados de acuerdo al color. Hacer el Bench
+  marking de eso
+
+* Armar una estadistica por tipo de juego donde se cuenten los analisis
+  que se hacen en cada partida y alguna otra cosa que pueda ser de 
+  interes.
+
 Juegos
 
 * Ajedrez Benedicto
