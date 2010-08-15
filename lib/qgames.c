@@ -52,6 +52,26 @@ DLL_PUBLIC Tipojuego*   qg_tipojuego_new( char* nombre ){
     return tipojuego_new( nombre );
 }
 
+/*
+ * Devuelve el puntero al directorio path de las definiciones
+ * de juegos
+ * */
+const char* qg_path_games( ){
+
+
+
+}
+/*
+ * Dado un nombre de tipo de juego, lee el archivo estandard
+ * de acuerdo al directorio donde se alojan
+ * */
+DLL_PUBLIC Tipojuego*  qg_tipojuego_open( char* nombre ){
+    char  filename[512];
+    sprintf( filename, "%s/%s.qgame", qg_path_games(), nombre );
+    return  qgz_parse_filename( filename );
+}
+
+
 DLL_PUBLIC Partida*     qg_tipojuego_create_partida( Tipojuego* tj, char* id ){
     return  partida_new( tj, id );
 }
