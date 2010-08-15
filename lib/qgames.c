@@ -57,9 +57,7 @@ DLL_PUBLIC Tipojuego*   qg_tipojuego_new( char* nombre ){
  * de juegos
  * */
 const char* qg_path_games( ){
-
-
-
+    return  tipojuego_path_def;
 }
 /*
  * Dado un nombre de tipo de juego, lee el archivo estandard

@@ -54,7 +54,7 @@ int  simbolo_id = 0;
  * Lugar donde se almacenan las definiciones por defecto
  * de los tipos de juego
  * */
-static const char* tipojuego_path_def = DATADIR;
+const char* tipojuego_path_def = DATADIR;
 
 void   free_simbolo( Simbolo* s ){
     free( s->nombre );

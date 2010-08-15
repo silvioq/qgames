@@ -261,7 +261,7 @@ typedef  struct  StrZonadef{
 
 /* Funciones del tipo de juego */
 Tipojuego*  tipojuego_new( char* nombre );
-const char* tipojuego_path_def;
+extern      const char* tipojuego_path_def;
 
 
 int         tipojuego_add_casillero( Tipojuego* tj, char* casillero );
