@@ -27,6 +27,7 @@
 #include  <stdarg.h>
 #include  <qgames.h>
 #include  <qgames_code.h>
+#include  <qgames_analyzer.h>
 
 #include  "config.h"
 #include  "qgames_core.h"
@@ -66,7 +67,7 @@ const char* qg_path_games( ){
 DLL_PUBLIC Tipojuego*  qg_tipojuego_open( char* nombre ){
     char  filename[512];
     sprintf( filename, "%s/%s.qgame", qg_path_games(), nombre );
-    return  qgz_parse_filename( filename );
+    return  qgz_parse_filename( filename, 0 );
 }
 
 
