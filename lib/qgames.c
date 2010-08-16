@@ -151,6 +151,9 @@ DLL_PUBLIC int          qg_partida_mover_serie   ( Partida* par, char* serie ){
 DLL_PUBLIC void         qg_partida_free( Partida* par ){
     partida_free( par );
 }
+DLL_PUBLIC char*        qg_partida_id( Partida* par ){
+    return  par->id;
+} 
 
 /*
  * Devuelve el final de la partida ... en el caso

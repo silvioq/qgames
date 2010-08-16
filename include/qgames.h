@@ -155,6 +155,7 @@ void   qgames_free_pgn( void* );
  * */
 Partida*    qg_tipojuego_create_partida( Tipojuego* tj, char* id );
 
+char*       qg_partida_id( Partida* par );
 int         qg_partida_mover         ( Partida* par, int mov );
 int         qg_partida_mover_notacion( Partida* par, char* mov );
 int         qg_partida_mover_serie   ( Partida* par, char* serie );
