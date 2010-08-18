@@ -154,6 +154,7 @@ void   qgames_free_pgn( void* );
  * A partir de aca, comenzamos con la partida
  * */
 Partida*    qg_tipojuego_create_partida( Tipojuego* tj, char* id );
+void        qg_partida_free          ( Partida* par );
 
 char*       qg_partida_id( Partida* par );
 int         qg_partida_mover         ( Partida* par, int mov );
@@ -165,8 +166,8 @@ int         qg_partida_mover_pgn     ( Partida* par, char* pgn );
 #define   FINAL_EMPATE   0
 #define   FINAL_ENJUEGO  -1
 int         qg_partida_final         ( Partida* par, char** resultado );
-void        qg_partida_free          ( Partida* par );
 const char* qg_partida_color         ( Partida* par );  // Color que mueve
+int         qg_partida_es_continuacion( Partida* par );
 
 int         qg_partida_movidas_count ( Partida* par );
 int         qg_partida_movidas_data  ( Partida* par, int num, char** notacion );

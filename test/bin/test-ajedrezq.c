@@ -123,7 +123,10 @@ int   ajedrez_check(){
     qgames_free_png( ajedrez_png );  
     assert( size == 10773 );
 
+    assert( !qg_partida_es_continuacion( partida )  );
     assert( qg_partida_mover_notacion( partida, "e4" ) );
+    assert( !qg_partida_es_continuacion( partida )  );
+    assert( strcmp( "negro", qg_partida_color( partida ) ) == 0 );
     size = qg_partida_get_png( partida, 0, LAST_MOVE, &ajedrez_png );
     assert( size > 0 );
     fpng = fopen( "../../tmp/ajedrez-01.png", "w" );
@@ -157,6 +160,7 @@ int   ajedrez_check(){
 
     printf( "." );
     assert( qg_partida_mover_notacion( partida, "e5" ) );
+    assert( !qg_partida_es_continuacion( partida )  );
     size = qg_partida_get_png( partida, 0, LAST_MOVE, &ajedrez_png );
     assert( size > 0 );
     fpng = fopen( "../../tmp/ajedrez-02.png", "w" );
@@ -251,7 +255,10 @@ int   los_alamos(){
     assert( qg_partida_movida_valida( partida, "bxa6=R" ) );
     assert( qg_partida_movida_valida( partida, "bxa6=Q" ) );
     assert( qg_partida_movida_valida( partida, "bxa6=N" ) );
+    assert( strcmp( "blanco", qg_partida_color( partida ) ) == 0 );
     assert( qg_partida_mover_notacion( partida, "bxa6=N" ) );
+    assert( !qg_partida_es_continuacion( partida )  );
+    assert( strcmp( "negro", qg_partida_color( partida ) ) == 0 );
     assert( qg_partida_count_piezas( partida, NULL, "caballo" ) == 5 );
 
     printf( "." );

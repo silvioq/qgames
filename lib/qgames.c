@@ -154,6 +154,13 @@ DLL_PUBLIC const char* qg_partida_color         ( Partida* par ){
         return NULL;
     }
 }
+/*
+ * Devuelve verdadero o falso, dependiendo si la partida esta en continuacion
+ * o no
+ * */
+DLL_PUBLIC int         qg_partida_es_continuacion( Partida* par ){
+    return  PARTIDACONT( par );
+}
 
 
 DLL_PUBLIC int          qg_partida_mover_serie   ( Partida* par, char* serie ){
