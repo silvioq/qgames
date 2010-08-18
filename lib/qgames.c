@@ -143,6 +143,17 @@ DLL_PUBLIC  int         qg_tipojuego_add_direccion_arr( Tipojuego* tj, char* dir
 
 
 
+/*
+ * Esta funcion devuelve el color actual que mueve en la partida
+ * */
+DLL_PUBLIC const char* qg_partida_color         ( Partida* par ){
+    int c = par->color;
+    if( c ){
+        return (const char*) tipojuego_get_colorname( par->tjuego, c );
+    } else {
+        return NULL;
+    }
+}
 
 
 DLL_PUBLIC int          qg_partida_mover_serie   ( Partida* par, char* serie ){

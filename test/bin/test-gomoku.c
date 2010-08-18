@@ -141,17 +141,21 @@ int  main(int argc, char** argv) {
     printf( "." );
 
     assert( partida = qg_tipojuego_create_partida( gomoku, "x" ) );
+    assert( strcmp( "blanco", qg_partida_color( partida ) ) == 0 );
     assert( 0 == qg_partida_count_piezas( partida, NULL, NULL ) );
     assert( 99 * 2 == qg_partida_count_piezas( partida, CASILLERO_POZO, NULL ) );
     assert( 0 == qg_partida_count_piezas( partida, "c1", NULL ) );
     assert( 0 == qg_partida_count_piezas( partida, "b1", NULL ) );
     assert( qg_partida_mover_notacion( partida, "c1" ) ); 
+    assert( strcmp( "negro", qg_partida_color( partida ) ) == 0 );
     assert( 1 == qg_partida_count_piezas( partida, "c1", NULL ) );
     assert( 0 == qg_partida_count_piezas( partida, "b1", NULL ) );
 
     assert( qg_partida_final( partida, NULL ) == FINAL_ENJUEGO );
     assert( qg_partida_mover_notacion( partida, "c1" ) == 0 ); 
+    assert( strcmp( "negro", qg_partida_color( partida ) ) == 0 );
     assert( qg_partida_mover_notacion( partida, "b1" )  ); 
+    assert( strcmp( "blanco", qg_partida_color( partida ) ) == 0 );
     assert( qg_partida_final( partida, NULL ) == FINAL_ENJUEGO );
     assert( qg_partida_mover_notacion( partida, "c2" )  ); 
     assert( qg_partida_final( partida, NULL ) == FINAL_ENJUEGO );
