@@ -281,6 +281,24 @@ DLL_PUBLIC    int         qg_partida_movhist_count( Partida* par ){
     return   par->movimientos->entradas;
 }
 
+/*
+ * Dado una movida historica (comenzando con la movida cero), y un numero
+ * de destino (que tambien comienza con el cero), devuelve el casillero
+ * correspondiente
+ * */
+const char* qg_partida_movhist_destino      ( Partida* par, int mov, int dest ){
+    Movida* mmm = partida_get_movimiento( par, mov );
+    if( !mmm ) return NULL;
+    int i, contador = 0;
+    for( i = 0; i < mmm->acciones->entradas; i ++ ){
+        Accion* acc = mmm->acciones->data[i];
+        if( acc->destino ){
+            if( dest == contador ) return acc->destino->nombre;
+            contador ++;
+        }
+    }
+    return  NULL;
+}
 
 
 

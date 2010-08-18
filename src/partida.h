@@ -132,6 +132,7 @@ int       partida_movidas_data    ( Partida* par, int num, char** notacion );
 char*     partida_pgn( Partida* par ); // free luego!
 
 Movida*   partida_ultimo_movimiento( Partida* par );
+Movida*   partida_get_movimiento( Partida* par, int movhist );  /* Devuelve el n movimiento, comenzando por el cero */
 void      partida_free( Partida* par );
 
 /*

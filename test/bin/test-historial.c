@@ -35,6 +35,7 @@
 
 #include <sys/types.h>
 #include <time.h>
+#include "log.h"
 
 #include <qgames.h>
 #include <qgames_analyzer.h>
@@ -48,8 +49,24 @@ int  main( int argc, char** argv ){
     assert( qg_partida_movhist_count( partida ) == 0 );
     assert( qg_partida_mover_notacion( partida, "e4" ) );
     assert( qg_partida_movhist_count( partida ) == 1 );
+
+    assert( strcmp( "e4", qg_partida_movhist_destino( partida, 0, 0 ) ) == 0 );
+    assert( strcmp( "negro", qg_partida_color( partida ) ) == 0 );
+    assert( qg_partida_movhist_destino( partida, 0, 1 ) == NULL  );
+    assert( qg_partida_movhist_destino( partida, 1, 0 ) == NULL  );
     
 
+    assert( qg_partida_mover_notacion( partida, "e5" ) );
+    assert( qg_partida_movhist_count( partida ) == 2 );
+    assert( strcmp( "e4", qg_partida_movhist_destino( partida, 0, 0 ) ) == 0 );
+    assert( qg_partida_movhist_destino( partida, 0, 1 ) == NULL  );
+    assert( strcmp( "e5", qg_partida_movhist_destino( partida, 1, 0 ) ) == 0 );
+    assert( qg_partida_movhist_destino( partida, 1, 1 ) == NULL  );
+    assert( strcmp( "blanco", qg_partida_color( partida ) ) == 0 );
 
+    assert( qg_partida_mover_pgn( partida, "2. Nf3 Nf6 3. Bc4 Bc5 4. 0-0" ) );
+    assert( qg_partida_movhist_count( partida ) == 7 );
+    assert( strcmp( "f1", qg_partida_movhist_destino( partida, 6, 0 ) ) == 0 );
+    assert( strcmp( "g1", qg_partida_movhist_destino( partida, 6, 1 ) ) == 0 );
     exit( EXIT_SUCCESS );
 }

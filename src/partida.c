@@ -232,6 +232,18 @@ Movida*     partida_ultimo_movimiento( Partida* par ){
 }
 
 /*
+ *
+ * Devuelvo el enesimo movimiento, teniendo en cuenta que el primero
+ * es el 0
+ *
+ * */
+Movida*  partida_get_movimiento( Partida* par, int movhist ){
+    if( !par->movimientos ) return NULL;
+    if( movhist >= par->movimientos->entradas ) return NULL;
+    return (Movida*)(par->movimientos->data[movhist]);
+}
+
+/*
  * Devuelve un PGN con lo que haya en la partida
  * */
 
