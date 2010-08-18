@@ -272,6 +272,17 @@ DLL_PUBLIC    void        qg_partida_movidas_posibles_ascii( Partida* par ){
     printf( "\n" );
 }
 
+/*
+ * Devuelve la cantidad de movidas historicas de la partida
+ * */
+
+DLL_PUBLIC    int         qg_partida_movhist_count( Partida* par ){
+    if( !par->movimientos ) return 0;
+    return   par->movimientos->entradas;
+}
+
+
+
 
 DLL_PUBLIC   int         qg_partida_get_png( Partida* par, int flags, int movida, void** png ){
      return partida_get_png( par, flags, movida, png );

@@ -169,15 +169,29 @@ int         qg_partida_final         ( Partida* par, char** resultado );
 const char* qg_partida_color         ( Partida* par );  // Color que mueve
 int         qg_partida_es_continuacion( Partida* par );
 
+/*
+ * Esta serie de funciones permiten consultar las movidas posibles
+ * */
 int         qg_partida_movidas_count ( Partida* par );
 int         qg_partida_movidas_data  ( Partida* par, int num, char** notacion );
 int         qg_partida_movida_valida ( Partida* par, char* notacion );
-
-void        qg_partida_tablero_ascii ( Partida* par );
 void        qg_partida_movidas_posibles_ascii( Partida* par );
+
+/*
+ * Esta serie de funciones permiten consultar el estado actual
+ * del tablero
+ * */
+void        qg_partida_tablero_ascii ( Partida* par );
 int         qg_partida_tablero_count ( Partida* par );
 int         qg_partida_count_piezas    ( Partida* par, char* casillero, char* tipopieza );
 int         qg_partida_tablero_data  ( Partida* par, int num, char** casillero, char** pieza, char** color );
+
+/*
+ * Acceso a los movimientos historicos
+ * */
+int         qg_partida_movhist_count( Partida* par );
+int         qg_partida_movhist_destino_count( Partida* par, int mov );
+const char* qg_partida_movhist_destino      ( Partida* par, int mov, int dest );
 
 char*       qg_partida_pgn( Partida* par ); // free luego!
 
