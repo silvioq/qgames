@@ -3,7 +3,7 @@ lib_LTLIBRARIES = libqgames.la
 libqgames_la_SOURCES = ../common/list.c ../common/list.h \
 								../common/md5.c ../common/md5.h \
 								../common/log.c ../common/log.h \
-								qgames.c  qgames_analyzer.c
+								qgames.c qgames-posibles.c  qgames_analyzer.c
 
 # libqgames_la_SOURCES =  libqgames-core.a $(top_builddir)/parser/libpgn-parser.a
 

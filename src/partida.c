@@ -521,21 +521,6 @@ int         partida_tablero_data  ( Partida* par, int num, char** casillero, cha
 
 
 
-/* 
- * Devuelve el dato de notacion de la partida pasada como parametro
- * */
-int         partida_movidas_data  ( Partida* par, int num, char** notacion ){
-    if( PARTIDATERMINADA(par) ){ 
-        return 0;
-    }
-    int cant = partida_analizar_movidas( par );
-    if( num >= cant ) return 0;
-    if( notacion ){
-        Movida* mov = (Movida*) par->pos->movidas->data[num];
-        *notacion = mov->notacion;
-    }
-    return 1;
-}
 
 int         partida_movida_valida ( Partida* par, char* notacion ){
     if( PARTIDATERMINADA(par) ) return 0;

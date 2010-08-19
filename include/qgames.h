@@ -176,6 +176,7 @@ int         qg_partida_movidas_count ( Partida* par );
 int         qg_partida_movidas_data  ( Partida* par, int num, char** notacion );
 int         qg_partida_movida_valida ( Partida* par, char* notacion );
 void        qg_partida_movidas_posibles_ascii( Partida* par );
+int         qg_partida_movidas_capturas( Partida* par, int nummov, int numpie, char** casillero, char** pieza, char ** color );
 
 /*
  * Esta serie de funciones permiten consultar el estado actual

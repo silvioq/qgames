@@ -191,19 +191,6 @@ DLL_PUBLIC int          qg_partida_final         ( Partida* par, char** resultad
     } else return  FINAL_ENJUEGO;
 }
 
-/*
- * Devuelve la cantidad de movidas que hay generadas
- * */
-DLL_PUBLIC   int         qg_partida_movidas_count ( Partida* par ){
-    if( PARTIDATERMINADA(par) ) return 0;
-    return partida_analizar_movidas( par );
-}
-DLL_PUBLIC   int         qg_partida_movidas_data  ( Partida* par, int num, char** notacion ){
-    return     partida_movidas_data  ( par, num, notacion );
-}
-DLL_PUBLIC   int         qg_partida_movida_valida ( Partida* par, char* notacion ){
-    return     partida_movida_valida( par, notacion );
-}
 DLL_PUBLIC   int         qg_partida_tablero_data  ( Partida* par, int num, char** casillero, char** pieza, char** color ){
     return     partida_tablero_data( par, num, casillero, pieza, color );
 }
@@ -252,25 +239,6 @@ DLL_PUBLIC   void        qg_partida_tablero_ascii ( Partida* par ){
     }
 }
 
-/*
- * Esta funcion especial imprime en la consola de texto
- * las posibles movidas que pueden realizarse en la 
- * posicion actual
- * */
-DLL_PUBLIC    void        qg_partida_movidas_posibles_ascii( Partida* par ){
-    int cant, i;
-    if( PARTIDATERMINADA(par) ){
-        printf( "Partida terminada %s\n", par->resultado );
-        return;
-    }
-    cant = partida_analizar_movidas( par );
-    for( i = 0; i < cant; i ++ ){
-        Movida* mov = (Movida*) par->pos->movidas->data[i];
-        if( ( i % 4 == 0 ) && i > 0 ){ printf( "\n" ); };
-        printf( "%2d) %-16s", i, mov->notacion );
-    }
-    printf( "\n" );
-}
 
 /*
  * Devuelve la cantidad de movidas historicas de la partida
