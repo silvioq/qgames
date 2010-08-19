@@ -1,10 +1,12 @@
 
-check_PROGRAMS = test-generic test-tateti test-gomoku test-ajedrezq test-dump test-graph test-historial
+check_PROGRAMS = test-generic test-tateti test-gomoku test-ajedrezq test-dump test-graph test-historial test-movidas-posibles-data
 test_tateti_SOURCES = test-tateti.c
 test_gomoku_SOURCES = test-gomoku.c
 test_ajedrezq_SOURCES = test-ajedrezq.c
 test_dump_SOURCES = test-dump.c
 test_graph_SOURCES = test-graph.c
+test_historial_SOURCES = test-historial.c
+test_movidas_posibles_data_SOURCES = test-movidas-posibles-data.c
 
 test_tateti_DEPENDENCIES = $(DEPENDENCIES)
 test_tateti_LDADD        = $(DEPENDENCIES)
@@ -26,6 +28,9 @@ test_generic_LDADD        = $(DEPENDENCIES)
 
 test_historial_DEPENDENCIES = $(DEPENDENCIES)
 test_historial_LDADD        = $(DEPENDENCIES)
+
+test_movidas_posibles_data_DEPENDENCIES = $(DEPENDENCIES)
+test_movidas_posibles_data_LDADD        = $(DEPENDENCIES)
 
 AM_CFLAGS = -I$(top_srcdir)/include -I$(top_srcdir)/common -I$(top_srcdir)/qcode/src -DTEST_IMGDIR=\"$(top_srcdir)/images\"
 AM_LDFLAGS      = @GD_LIBS@ @PNG_LIBS@

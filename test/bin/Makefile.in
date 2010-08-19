@@ -33,7 +33,8 @@ build_triplet = @build@
 host_triplet = @host@
 check_PROGRAMS = test-generic$(EXEEXT) test-tateti$(EXEEXT) \
 	test-gomoku$(EXEEXT) test-ajedrezq$(EXEEXT) test-dump$(EXEEXT) \
-	test-graph$(EXEEXT) test-historial$(EXEEXT)
+	test-graph$(EXEEXT) test-historial$(EXEEXT) \
+	test-movidas-posibles-data$(EXEEXT)
 subdir = test/bin
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
@@ -54,8 +55,12 @@ am_test_gomoku_OBJECTS = test-gomoku.$(OBJEXT)
 test_gomoku_OBJECTS = $(am_test_gomoku_OBJECTS)
 am_test_graph_OBJECTS = test-graph.$(OBJEXT)
 test_graph_OBJECTS = $(am_test_graph_OBJECTS)
-test_historial_SOURCES = test-historial.c
-test_historial_OBJECTS = test-historial.$(OBJEXT)
+am_test_historial_OBJECTS = test-historial.$(OBJEXT)
+test_historial_OBJECTS = $(am_test_historial_OBJECTS)
+am_test_movidas_posibles_data_OBJECTS =  \
+	test-movidas-posibles-data.$(OBJEXT)
+test_movidas_posibles_data_OBJECTS =  \
+	$(am_test_movidas_posibles_data_OBJECTS)
 am_test_tateti_OBJECTS = test-tateti.$(OBJEXT)
 test_tateti_OBJECTS = $(am_test_tateti_OBJECTS)
 DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
@@ -71,11 +76,13 @@ LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
 	--mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) \
 	$(LDFLAGS) -o $@
 SOURCES = $(test_ajedrezq_SOURCES) $(test_dump_SOURCES) test-generic.c \
-	$(test_gomoku_SOURCES) $(test_graph_SOURCES) test-historial.c \
-	$(test_tateti_SOURCES)
+	$(test_gomoku_SOURCES) $(test_graph_SOURCES) \
+	$(test_historial_SOURCES) \
+	$(test_movidas_posibles_data_SOURCES) $(test_tateti_SOURCES)
 DIST_SOURCES = $(test_ajedrezq_SOURCES) $(test_dump_SOURCES) \
 	test-generic.c $(test_gomoku_SOURCES) $(test_graph_SOURCES) \
-	test-historial.c $(test_tateti_SOURCES)
+	$(test_historial_SOURCES) \
+	$(test_movidas_posibles_data_SOURCES) $(test_tateti_SOURCES)
 ETAGS = etags
 CTAGS = ctags
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
@@ -205,6 +212,8 @@ test_gomoku_SOURCES = test-gomoku.c
 test_ajedrezq_SOURCES = test-ajedrezq.c
 test_dump_SOURCES = test-dump.c
 test_graph_SOURCES = test-graph.c
+test_historial_SOURCES = test-historial.c
+test_movidas_posibles_data_SOURCES = test-movidas-posibles-data.c
 test_tateti_DEPENDENCIES = $(DEPENDENCIES)
 test_tateti_LDADD = $(DEPENDENCIES)
 test_ajedrezq_DEPENDENCIES = $(DEPENDENCIES)
@@ -219,6 +228,8 @@ test_generic_DEPENDENCIES = $(DEPENDENCIES)
 test_generic_LDADD = $(DEPENDENCIES)
 test_historial_DEPENDENCIES = $(DEPENDENCIES)
 test_historial_LDADD = $(DEPENDENCIES)
+test_movidas_posibles_data_DEPENDENCIES = $(DEPENDENCIES)
+test_movidas_posibles_data_LDADD = $(DEPENDENCIES)
 AM_CFLAGS = -I$(top_srcdir)/include -I$(top_srcdir)/common -I$(top_srcdir)/qcode/src -DTEST_IMGDIR=\"$(top_srcdir)/images\"
 AM_LDFLAGS = @GD_LIBS@ @PNG_LIBS@
 TESTS = $(check_PROGRAMS)
@@ -280,6 +291,9 @@ test-graph$(EXEEXT): $(test_graph_OBJECTS) $(test_graph_DEPENDENCIES)
 test-historial$(EXEEXT): $(test_historial_OBJECTS) $(test_historial_DEPENDENCIES) 
 	@rm -f test-historial$(EXEEXT)
 	$(LINK) $(test_historial_OBJECTS) $(test_historial_LDADD) $(LIBS)
+test-movidas-posibles-data$(EXEEXT): $(test_movidas_posibles_data_OBJECTS) $(test_movidas_posibles_data_DEPENDENCIES) 
+	@rm -f test-movidas-posibles-data$(EXEEXT)
+	$(LINK) $(test_movidas_posibles_data_OBJECTS) $(test_movidas_posibles_data_LDADD) $(LIBS)
 test-tateti$(EXEEXT): $(test_tateti_OBJECTS) $(test_tateti_DEPENDENCIES) 
 	@rm -f test-tateti$(EXEEXT)
 	$(LINK) $(test_tateti_OBJECTS) $(test_tateti_LDADD) $(LIBS)
@@ -296,6 +310,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-gomoku.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-graph.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-historial.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-movidas-posibles-data.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-tateti.Po@am__quote@
 
 .c.o:
