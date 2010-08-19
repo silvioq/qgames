@@ -93,3 +93,32 @@ DLL_PUBLIC    void        qg_partida_movidas_posibles_ascii( Partida* par ){
     }
     printf( "\n" );
 }
+
+
+/*
+ * Esta funcion devuelve informacion acerca de la enesima pieza capturada
+ * */
+DLL_PUBLIC    int         qg_partida_movidas_capturas( Partida* par, int nummov, int numpie, 
+        char** casillero, char** pieza, char ** color ){
+    if( PARTIDATERMINADA(par) ){ 
+        return 0;
+    }
+    int cant = partida_analizar_movidas( par );
+    if( nummov >= cant ) return 0;
+    Movida* mov = par->pos->movidas->data[nummov];
+    int i, contador = 0 ;
+    for( i = 0; i < mov->acciones->entradas; i ++ ){
+        Accion* acc = mov->acciones->data[i];
+        if( acc->tipo == ACCION_CAPTURA ){
+            if( contador == numpie ){
+                Pieza* p = &(par->pos->piezas[acc->pieza_number]);
+                if( casillero ) *casillero = p->casillero->nombre;
+                if( color ) *color         = tipojuego_get_colorname( par->tjuego, p->color );
+                if( pieza ) *pieza         = p->tpieza->nombre;
+                return 1;
+            }
+            contador ++;
+        }
+    }
+    return 0;
+}
