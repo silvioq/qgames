@@ -122,3 +122,27 @@ DLL_PUBLIC    int         qg_partida_movidas_capturas( Partida* par, int nummov,
     }
     return 0;
 }
+
+/*
+ * Devuelve informacion acerca de la pieza que vamos a mover
+ * */
+
+DLL_PUBLIC    int         qg_partida_movidas_pieza ( Partida* par, int nummov, 
+                  char** tpieza, char** color, char** origen, char** destino ){
+    if( PARTIDATERMINADA(par) ){ 
+        return 0;
+    }
+    int cant = partida_analizar_movidas( par );
+    if( nummov >= cant ) return 0;
+    Movida* mov = par->pos->movidas->data[nummov];
+    Pieza* p = movida_pieza( mov );
+    if( p ){
+        Casillero* o = movida_casillero_origen( mov );
+        Casillero* d = movida_casillero_destino( mov );
+        if( tpieza  ) *tpieza  = p->tpieza->nombre;
+        if( color   ) *color   = tipojuego_get_colorname( par->tjuego, p->color );
+        if( origen  ) *origen  = ( o == ENPOZO ? ":pozo" : o->nombre );
+        if( destino ) *destino = ( CASILLERO_VALIDO( d ) ? d->nombre : NULL );
+        return 1;
+    } else return 0;
+}

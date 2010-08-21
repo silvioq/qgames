@@ -48,17 +48,36 @@ int  main( int argc, char** argv ){
 
     int  movidas = qg_partida_movidas_count( partida );
     int  i;
+    int  esta = 0;
     assert( movidas == 20 ); // son 20
     for( i = 0 ; i < movidas ; i ++ ){
-        assert( qg_partida_movidas_data( partida, i, NULL ) );
+        char* n;
+        assert( qg_partida_movidas_data( partida, i, &n ) );
         assert( !qg_partida_movidas_capturas( partida, i, 0, NULL, NULL, NULL ) );
+        if( strcmp( "d4", n ) == 0 ){
+            char* p, *c, *o, *d;
+            assert( qg_partida_movidas_pieza( partida, i, &p, &c, &o, &d ) );
+            assert( strcmp( "peon", p ) == 0 ) ;
+            assert( strcmp( "blanco", c ) == 0 ) ;
+            assert( strcmp( "d2", o ) == 0 ) ;
+            assert( strcmp( "d4", d ) == 0 ) ;
+            esta = 1;
+        } else if( strcmp( "Nf3", n ) == 0 ){
+            char* p, *c, *o, *d;
+            assert( qg_partida_movidas_pieza( partida, i, &p, &c, &o, &d ) );
+            assert( strcmp( "caballo", p ) == 0 ) ;
+            assert( strcmp( "blanco", c ) == 0 ) ;
+            assert( strcmp( "g1", o ) == 0 ) ;
+            assert( strcmp( "f3", d ) == 0 ) ;
+        }
     }
     assert( !qg_partida_movidas_data( partida, i, NULL ) );
     assert( !qg_partida_movidas_capturas( partida, i, 0, NULL, NULL, NULL ) );
+    assert( esta );
 
     assert( qg_partida_mover_pgn( partida, "e4 d5" ) );
     movidas = qg_partida_movidas_count( partida );
-    int  esta = 0;
+    esta = 0;
     for( i = 0; i < movidas; i ++ ){
         char* n;
         assert( qg_partida_movidas_data( partida, i, &n ) );
@@ -67,7 +86,6 @@ int  main( int argc, char** argv ){
             assert( qg_partida_movidas_capturas( partida, i, 0, NULL, NULL, NULL ) ); 
             assert( !qg_partida_movidas_capturas( partida, i, 1, NULL, NULL, NULL ) ); 
         } else {
-            printf( "mov: %s\n", n );
             assert( !qg_partida_movidas_capturas( partida, i, 0, NULL, NULL, NULL ) ); 
         }
     }
