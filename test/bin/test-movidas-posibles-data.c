@@ -42,6 +42,8 @@
 
 int  main( int argc, char** argv ){
     Tipojuego* ajedrez = qg_tipojuego_open( "Ajedrez" );
+    Tipojuego* pente = qg_tipojuego_open( "Pente" );
+
     Partida* partida;
     assert( ajedrez );
     assert( partida = qg_tipojuego_create_partida( ajedrez, NULL ) );
@@ -90,6 +92,64 @@ int  main( int argc, char** argv ){
         }
     }
     assert( esta );
+    qg_partida_free( partida );
+
+
+    // Ahora comenzamos con el pente, que tiene pozo y capturas!
+    assert( partida = qg_tipojuego_create_partida( pente, NULL ) );
+    movidas = qg_partida_movidas_count( partida );
+    assert( movidas == 13 * 13 );
+    assert( strcmp( qg_partida_color( partida ), "blanco" ) == 0 );
+    for( i = 0 ; i < movidas ; i ++ ){
+        char* n;
+        assert( qg_partida_movidas_data( partida, i, &n ) );
+        if( strcmp( "d4", n ) == 0 ){
+            char* p, *c, *o, *d;
+            assert( qg_partida_movidas_pieza( partida, i, &p, &c, &o, &d ) );
+            assert( strcmp( "gema", p ) == 0 ) ;
+            assert( strcmp( "blanco", c ) == 0 ) ;
+            assert( o == CASILLERO_POZO ) ;
+            assert( strcmp( "d4", d ) == 0 ) ;
+            esta = 1;
+            assert( !qg_partida_movidas_capturas( partida, i, 0, NULL, NULL, NULL ) ); 
+        }
+    }
+    assert( esta );
+    assert( qg_partida_mover_pgn( partida, "1.d4 d5 2. e5 d6" ) ); // Ahora, el blanco puede comer dos
+    movidas = qg_partida_movidas_count( partida );
+    assert( movidas == 13 * 13 - 4 );
+    assert( strcmp( qg_partida_color( partida ), "blanco" ) == 0 );
+
+    for( i = 0 ; i < movidas ; i ++ ){
+        char* n;
+        assert( qg_partida_movidas_data( partida, i, &n ) );
+        assert( strcmp( "d4", n ) != 0 ); // Aca hay una pieza y no puede mover
+        if( strcmp( "d7", n ) == 0 ){
+            char* p, *c, *o, *d;
+            assert( qg_partida_movidas_pieza( partida, i, &p, &c, &o, &d ) );
+            assert( strcmp( "gema", p ) == 0 ) ;
+            assert( strcmp( "blanco", c ) == 0 ) ;
+            assert( o == CASILLERO_POZO ) ;
+            assert( strcmp( "d7", d ) == 0 ) ;
+            esta = 1;
+            assert( qg_partida_movidas_capturas( partida, i, 0, &d, &p, &c ) ); 
+            assert( strcmp( "negro", c ) == 0 );
+            assert( strcmp( "gema", p ) == 0 );
+            assert( strcmp( "d6", d ) == 0 );
+            assert( qg_partida_movidas_capturas( partida, i, 1, &d, &p, &c ) ); 
+            assert( strcmp( "negro", c ) == 0 );
+            assert( strcmp( "gema", p ) == 0 );
+            assert( strcmp( "d5", d ) == 0 );
+            assert( !qg_partida_movidas_capturas( partida, i, 2, NULL, NULL, NULL ) ); 
+
+        } else {
+            assert( !qg_partida_movidas_capturas( partida, i, 0, NULL, NULL, NULL ) ); 
+        }
+      
+    }
+    assert( esta );
+    
+    
     
 
   
