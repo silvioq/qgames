@@ -128,7 +128,7 @@ DLL_PUBLIC    int         qg_partida_movidas_capturas( Partida* par, int nummov,
  * */
 
 DLL_PUBLIC    int         qg_partida_movidas_pieza ( Partida* par, int nummov, 
-                  char** tpieza, char** color, char** origen, char** destino ){
+                  char** origen, char** tpieza, char** color, char** destino ){
     if( PARTIDATERMINADA(par) ){ 
         return 0;
     }

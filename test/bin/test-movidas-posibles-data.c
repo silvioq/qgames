@@ -58,7 +58,7 @@ int  main( int argc, char** argv ){
         assert( !qg_partida_movidas_capturas( partida, i, 0, NULL, NULL, NULL ) );
         if( strcmp( "d4", n ) == 0 ){
             char* p, *c, *o, *d;
-            assert( qg_partida_movidas_pieza( partida, i, &p, &c, &o, &d ) );
+            assert( qg_partida_movidas_pieza( partida, i, &o, &p, &c, &d ) );
             assert( strcmp( "peon", p ) == 0 ) ;
             assert( strcmp( "blanco", c ) == 0 ) ;
             assert( strcmp( "d2", o ) == 0 ) ;
@@ -66,7 +66,7 @@ int  main( int argc, char** argv ){
             esta = 1;
         } else if( strcmp( "Nf3", n ) == 0 ){
             char* p, *c, *o, *d;
-            assert( qg_partida_movidas_pieza( partida, i, &p, &c, &o, &d ) );
+            assert( qg_partida_movidas_pieza( partida, i, &o, &p, &c, &d ) );
             assert( strcmp( "caballo", p ) == 0 ) ;
             assert( strcmp( "blanco", c ) == 0 ) ;
             assert( strcmp( "g1", o ) == 0 ) ;
@@ -105,7 +105,7 @@ int  main( int argc, char** argv ){
         assert( qg_partida_movidas_data( partida, i, &n ) );
         if( strcmp( "d4", n ) == 0 ){
             char* p, *c, *o, *d;
-            assert( qg_partida_movidas_pieza( partida, i, &p, &c, &o, &d ) );
+            assert( qg_partida_movidas_pieza( partida, i, &o, &p, &c, &d ) );
             assert( strcmp( "gema", p ) == 0 ) ;
             assert( strcmp( "blanco", c ) == 0 ) ;
             assert( o == CASILLERO_POZO ) ;
@@ -126,7 +126,7 @@ int  main( int argc, char** argv ){
         assert( strcmp( "d4", n ) != 0 ); // Aca hay una pieza y no puede mover
         if( strcmp( "d7", n ) == 0 ){
             char* p, *c, *o, *d;
-            assert( qg_partida_movidas_pieza( partida, i, &p, &c, &o, &d ) );
+            assert( qg_partida_movidas_pieza( partida, i, &o, &p, &c, &d ) );
             assert( strcmp( "gema", p ) == 0 ) ;
             assert( strcmp( "blanco", c ) == 0 ) ;
             assert( o == CASILLERO_POZO ) ;
