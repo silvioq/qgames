@@ -141,7 +141,7 @@ DLL_PUBLIC    int         qg_partida_movidas_pieza ( Partida* par, int nummov,
         Casillero* d = movida_casillero_destino( mov );
         if( tpieza  ) *tpieza  = p->tpieza->nombre;
         if( color   ) *color   = tipojuego_get_colorname( par->tjuego, p->color );
-        if( origen  ) *origen  = ( o == ENPOZO ? ":pozo" : o->nombre );
+        if( origen  ) *origen  = ( o == ENPOZO ? CASILLERO_POZO : o->nombre );
         if( destino ) *destino = ( CASILLERO_VALIDO( d ) ? d->nombre : NULL );
         return 1;
     } else return 0;
