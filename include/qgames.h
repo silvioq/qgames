@@ -174,7 +174,9 @@ int         qg_partida_es_continuacion( Partida* par );
  * */
 int         qg_partida_movidas_count ( Partida* par );
 int         qg_partida_movidas_data  ( Partida* par, int num, char** notacion );
-int         qg_partida_movidas_pieza ( Partida* par, int num, char** origen, char** tpieza, char** color , char** destino);
+int         qg_partida_movidas_pieza ( Partida* par, int num, 
+                                            char** origen, char** tpieza, char** color, 
+                                            char** destino, char** ttpieza, char** tcolor );
 int         qg_partida_movidas_crea  ( Partida* par, int nummov, int numcr, char** casillero,  char** tpieza, char** color );
 int         qg_partida_movida_valida ( Partida* par, char* notacion );
 void        qg_partida_movidas_posibles_ascii( Partida* par );

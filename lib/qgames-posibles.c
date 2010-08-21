@@ -125,10 +125,17 @@ DLL_PUBLIC    int         qg_partida_movidas_capturas( Partida* par, int nummov,
 
 /*
  * Devuelve informacion acerca de la pieza que vamos a mover
+ * origen:  Casillero origen donde se encuentra actualmente la pieza
+ * tpieza:  Tipo de pieza
+ * color :  Color de la pieza
+ * destino: Casillero destino donde se dirigira la pieza
+ * ttpieza: Tipo de pieza en la que se transformara (null si no se transforma)
+ * tcolor:  Color en el que se transformar (null si no se transforma)
  * */
 
 DLL_PUBLIC    int         qg_partida_movidas_pieza ( Partida* par, int nummov, 
-                  char** origen, char** tpieza, char** color, char** destino ){
+                                            char** origen, char** tpieza, char** color, 
+                                            char** destino, char** ttpieza, char** tcolor ){
     if( PARTIDATERMINADA(par) ){ 
         return 0;
     }
@@ -143,6 +150,23 @@ DLL_PUBLIC    int         qg_partida_movidas_pieza ( Partida* par, int nummov,
         if( color   ) *color   = tipojuego_get_colorname( par->tjuego, p->color );
         if( origen  ) *origen  = ( o == ENPOZO ? CASILLERO_POZO : o->nombre );
         if( destino ) *destino = ( CASILLERO_VALIDO( d ) ? d->nombre : NULL );
+        if( ttpieza || tcolor ){  // Esta recorrida la hago en el caso que me lo hayan pedido
+            int i, transf = 0;
+            for( i = 0; i < mov->acciones->entradas; i ++ ){
+                Accion* acc = mov->acciones->data[i];
+                if( acc->tipo == ACCION_TRANSFORMA && acc->pieza_number == p->number ){
+                    if( ttpieza ) *ttpieza = acc->tpieza->nombre;
+                    if( tcolor  ) *tcolor  = tipojuego_get_colorname( par->tjuego, acc->color );
+                    transf = 1;
+                    break;
+                }
+            }
+            // Si no hay transformacion, nulifico.
+            if( !transf ){
+                if( ttpieza ) *ttpieza = NULL;
+                if( tcolor )  *tcolor  = NULL;
+            }
+        }
         return 1;
     } else return 0;
 }
