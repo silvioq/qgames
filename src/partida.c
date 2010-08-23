@@ -696,8 +696,6 @@ Partida*    partida_load( Tipojuego* tjuego, void* data, int size ){
 
     /* El primer paso es controlar que el tipo de juego corresponda
        con lo que tiene la data */
-
-    
     len8 = point[0]; 
     point ++;
     memcpy( aux, point, len8 );
@@ -792,3 +790,19 @@ Partida*    partida_load( Tipojuego* tjuego, void* data, int size ){
 }
 
 
+/*
+ * Esta funcion toma un espacio de memoria y recrea
+ * la partida
+ * */
+const char* partida_load_tj( void* data, int size ){
+    static  char aux[256];
+    char* point = data;
+    uint8_t len8;
+    point += sizeof( uint16_t );
+    len8 = point[0]; 
+    point ++;
+    memcpy( aux, point, len8 );
+    aux[len8] = 0;
+    // FIXME: Esto de devolver un valor estatico, solo puede traer problemas
+    return aux;
+}

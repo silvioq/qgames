@@ -113,6 +113,7 @@ int  main(int argc, char** argv) {
     // printf( "El tamaño es %d\n", size );
     assert( size == 4089 );
 
+    assert( strcmp( "Ajedrez", qg_partida_load_tj( data, size ) ) == 0 );
     assert( p2 = qg_partida_load( ajedrez, data, size ) );
     assert( !qg_partida_load( gomoku, data, size ) );
     assert( qg_partida_movidas_count( p2 ) == 15 );

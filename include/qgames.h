@@ -203,6 +203,7 @@ char*       qg_partida_pgn( Partida* par ); // free luego!
 
 int         qg_partida_dump( Partida* par, void** data, int* size );
 Partida*    qg_partida_load( Tipojuego* tj, void* data, int size );
+const char* qg_partida_load_tj( void* data, int size );
 
 /*
  * Esta funcion devuelve la imagen de la partida

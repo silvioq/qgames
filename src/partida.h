@@ -139,5 +139,6 @@ void      partida_free( Partida* par );
  * */
 int         partida_dump( Partida* par, void** data, int* size );
 Partida*    partida_load( Tipojuego* tj, void* data, int size );
+const char* partida_load_tj( void* data, int size );
 
 #endif

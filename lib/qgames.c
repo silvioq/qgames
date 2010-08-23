@@ -284,6 +284,9 @@ DLL_PUBLIC   void        qgames_graph_image_dir( const char* imagedir ){ graph_i
 DLL_PUBLIC   int         qg_partida_dump( Partida* par, void** data, int* size ){
     return  partida_dump( par, data, size );
 }
+DLL_PUBLIC   const char* qg_partida_load_tj( void* data, int size ){
+    return  partida_load_tj( data, size );
+}
 DLL_PUBLIC   Partida*    qg_partida_load( Tipojuego* tj, void* data, int size ){
     return  partida_load( tj, data, size );
 }
