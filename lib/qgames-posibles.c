@@ -124,6 +124,38 @@ DLL_PUBLIC    int         qg_partida_movidas_capturas( Partida* par, int nummov,
 }
 
 /*
+ * Esta funcion devuelve la informacion acerca de la "enesima" pieza a crear
+ * tras la jugada 
+ * */
+
+DLL_PUBLIC    int         qg_partida_movidas_crea  ( Partida* par, int nummov, int numcr, 
+      char** casillero,  char** tpieza, char** color ){
+
+    if( PARTIDATERMINADA(par) ){ 
+        return 0;
+    }
+    int cant = partida_analizar_movidas( par );
+    if( nummov >= cant ) return 0;
+    Movida* mov = par->pos->movidas->data[nummov];
+    int i, contador = 0 ;
+    for( i = 0; i < mov->acciones->entradas; i ++ ){
+        Accion* acc = mov->acciones->data[i];
+        if( acc->tipo == ACCION_CREA ){
+            if( contador == numcr ){
+                if( casillero ) *casillero = acc->destino;
+                if( color )  *color        = tipojuego_get_colorname( par->tjuego, acc->color );
+                if( tpieza ) *tpieza       = acc->tpieza->nombre;
+                return 1;
+            }
+            contador ++;
+        }
+    }
+    return 0;
+
+
+}
+
+/*
  * Devuelve informacion acerca de la pieza que vamos a mover
  * origen:  Casillero origen donde se encuentra actualmente la pieza
  * tpieza:  Tipo de pieza
