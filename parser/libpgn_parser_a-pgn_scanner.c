@@ -2111,6 +2111,7 @@ int   pgnscan_string(char* scan){
     YY_BUFFER_STATE buf = pgn_scan_string(scan );
     pgn_switch_to_buffer(buf );
     int ret = pgnlex();
+    pgn_delete_buffer(buf );
     return pgnerror ? 0 : 1;
 }
 

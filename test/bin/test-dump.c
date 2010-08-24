@@ -125,6 +125,7 @@ int  main(int argc, char** argv) {
     // printf( "El tamaño es %d\n", size );
     assert( size == 4592 );
     qg_partida_free( p1 ); 
+    qg_partida_free( p2 ); 
 
     /* Agrego este control ... intento trabajar varias veces con el dump */
 

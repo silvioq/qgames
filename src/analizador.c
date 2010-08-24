@@ -49,6 +49,7 @@ _list*   analizador_evalua_movidas( Regla* regla, Posicion* pos, Pieza* pieza, C
 
     if( z->flags & CON_TRANSFORMACION ) movida_split_transformaciones( z->movidas );
 
+    if( z->mov_actual ) movida_free( z->mov_actual );
     movidas = z->movidas;
     
     LOGPRINT( 6, "Fin analisis pieza casillero %s %p %s Movidas %p", 
