@@ -158,6 +158,7 @@ int  main(int argc, char** argv) {
     assert( qg_partida_mover_pgn( p1, "5. 0-0 Be7" ) );
     assert( qg_partida_dump( p1, &data, &size ));
     qg_partida_free( p1 ); 
+    free( data );
 
     return 0;
 }
