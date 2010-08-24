@@ -124,13 +124,40 @@ int  main(int argc, char** argv) {
     assert( qg_partida_dump( p1, &data, &size ));
     // printf( "El tamaño es %d\n", size );
     assert( size == 4592 );
-/*
-    FILE* f = fopen( "x", "w" );
-    fwrite( data, 1, size, f );
-    fclose( f ); 
-*/
-    free( data );
     qg_partida_free( p1 ); 
+
+    /* Agrego este control ... intento trabajar varias veces con el dump */
+
+    p1 = qg_tipojuego_create_partida( ajedrez, NULL );
+    free( data );
+    assert( qg_partida_mover_pgn( p1, "1. e4 e5" ) );
+    assert( qg_partida_dump( p1, &data, &size ));
+    qg_partida_free( p1 ); 
+    
+    assert( p1 = qg_partida_load( ajedrez, data, size ) );
+    free( data );
+    assert( qg_partida_mover_pgn( p1, "2. Nf3 Nc6" ) );
+    assert( qg_partida_dump( p1, &data, &size ));
+    qg_partida_free( p1 ); 
+
+    assert( p1 = qg_partida_load( ajedrez, data, size ) );
+    free( data );
+    assert( qg_partida_mover_pgn( p1, "3. Bb5 a3" ) );
+    assert( qg_partida_dump( p1, &data, &size ));
+    qg_partida_free( p1 ); 
+       
+    assert( p1 = qg_partida_load( ajedrez, data, size ) );
+    free( data );
+    assert( qg_partida_mover_pgn( p1, "4. Ba4 Nf6" ) );
+    assert( qg_partida_dump( p1, &data, &size ));
+    qg_partida_free( p1 ); 
+
+    assert( p1 = qg_partida_load( ajedrez, data, size ) );
+    free( data );
+    assert( qg_partida_mover_pgn( p1, "5. 0-0 Be7" ) );
+    assert( qg_partida_dump( p1, &data, &size ));
+    qg_partida_free( p1 ); 
+
     return 0;
 }
 
