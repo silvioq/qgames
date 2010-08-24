@@ -432,6 +432,7 @@ Movida*      movida_load( Posicion* pos, void* data, int size ){
     mov->acciones = list_nueva( NULL );
     for( i = 0; i < max ; i ++ ){
         Accion* acc = malloc( sizeof( Accion ) );
+        memset( acc, 0, sizeof( Accion ) );
         acc->tipo = point[0];
         point ++;
         if( ((char*)data) + size <= point ){

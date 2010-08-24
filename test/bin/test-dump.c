@@ -142,7 +142,7 @@ int  main(int argc, char** argv) {
 
     assert( p1 = qg_partida_load( ajedrez, data, size ) );
     free( data );
-    assert( qg_partida_mover_pgn( p1, "3. Bb5 a3" ) );
+    assert( qg_partida_mover_pgn( p1, "3. Bb5 a6" ) );
     assert( qg_partida_dump( p1, &data, &size ));
     qg_partida_free( p1 ); 
        
