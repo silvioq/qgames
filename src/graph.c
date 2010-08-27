@@ -430,7 +430,7 @@ int         partida_get_png( Partida* par, int flags, int movida, void** png ){
     }
     int size = 0;
     if( png ) *png = gdImagePngPtr( gd, &size );
-    gdFree( gd );
+    gdImageDestroy( gd );
     return size;
     
 #else
