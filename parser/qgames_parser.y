@@ -548,10 +548,12 @@ instaction_asigna_att:
     TOK_ASIGNA_ATT  word_or_string  TOK_NUMBER {
           CHECK_TIPOJUEGO;
           if( !tipojuego_code_asigna_att( tipojuego, (char*)$2, $3 ) ) YYERROR;
+          free( (char*)$2 );
     } |
     TOK_ASIGNA_ATT  word_or_string ',' TOK_NUMBER {
           CHECK_TIPOJUEGO;
           if( !tipojuego_code_asigna_att( tipojuego, (char*)$2, $4 ) ) YYERROR;
+          free( (char*)$2 );
     } 
 
 
@@ -731,6 +733,7 @@ instruction_attr:
                    {  CHECK_TIPOJUEGO ;
                       CHECK_LAST_PIEZA;
                       if( !tipojuego_add_tpieza_att( tipojuego, last_pieza, ((char*)$2), $3 ) ) YYERROR;
+                      free( (char*)$2);
                     }
                  ;
 
@@ -767,6 +770,7 @@ instruction_direction:
                           dirs[i] = qgz_param_list[i].par;
                       }
                       if( !qg_tipojuego_add_direccion_arr( tipojuego, ((char*)$2), dirs ) ) YYERROR;
+                      free( (char*)$2);
                     };
 
 instruction_drop_prelude:
@@ -989,6 +993,8 @@ instruction_start:
         for( i = 0; i < $4; i ++ ){
             if( !tipojuego_add_pieza( tipojuego, ((char*)$2), CASILLERO_POZO, ((char*)$3) ) ) YYERROR;
         }
+        free( (char*)$2 );
+        free( (char*)$3 );
     } |
     TOK_START        word_or_string  word_or_string { init_parameters(); } word_or_string_list  {
         CHECK_TIPOJUEGO;
@@ -996,6 +1002,8 @@ instruction_start:
         for( i = 0; i < qgz_param_count; i ++ ){
           if( !tipojuego_add_pieza( tipojuego, ((char*)$2), (char*)qgz_param_list[i].par, ((char*)$3) ) ) YYERROR;
         }
+        free( (char*)$2 );
+        free( (char*)$3 );
     } ;
 
 instruction_sequence_list:
@@ -1170,7 +1178,13 @@ void  add_parameter( int  type, long param ){
   qgz_param_count ++;
 }
 
-void  init_parameters(){ qgz_param_count = 0; }
+void  init_parameters(){ 
+    int i;
+    for( i = 0; i < qgz_param_count; i ++ ){
+        if( qgz_param_list[i].typ == TOK_STRING ) free( qgz_param_list[i].str ) ;
+    }
+    qgz_param_count = 0; 
+}
 
 /*
  * Estos son los analizadores. Ojo, son no reentrantes ... deberia 

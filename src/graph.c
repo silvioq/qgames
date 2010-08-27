@@ -349,7 +349,7 @@ int         partida_get_png( Partida* par, int flags, int movida, void** png ){
         return 0;
     } else if ( movida == par->movimientos->entradas ) {
         pos = par->pos;
-        mov = par->movimientos->data[movida];
+        mov = par->movimientos->data[movida-1];
     } else {
         mov = (Movida*) par->movimientos->data[movida];
         pos = mov->pos;
@@ -430,6 +430,7 @@ int         partida_get_png( Partida* par, int flags, int movida, void** png ){
     }
     int size = 0;
     if( png ) *png = gdImagePngPtr( gd, &size );
+    gdFree( gd );
     return size;
     
 #else
