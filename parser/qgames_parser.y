@@ -346,6 +346,8 @@ instexpr_enzona:
                 yyerror( "Instruccion enzona mal formada" );
             }
             if( !tipojuego_code_enzona( tipojuego, zona, tpieza ) ) YYERROR;
+            free( (char*) $2 );
+            free( (char*) $3 );
     } |
     TOK_ENZONA   word_or_string {
             CHECK_TIPOJUEGO;
@@ -355,6 +357,7 @@ instexpr_enzona:
                 qgzprintf( "%s debe ser una zona", ((char*)$2 ) );
                 yyerror( "Instruccion enzona mal formada" );
             }
+            free( (char*) $2 );
     } ; 
 
 instexpr_jaquemate:
@@ -640,10 +643,12 @@ instaction_set_marca:
     TOK_MARCA   TOK_NUMBER   instaction_marca_casillero  { 
                         CHECK_TIPOJUEGO; 
                         if( !tipojuego_code_setmarca( tipojuego, $2, (char*)$3 ) ) YYERROR;
+                        if( (char*)$3 ) free( (char*)$3 );
     } |
     TOK_MARCA   instaction_marca_casillero               { 
                         CHECK_TIPOJUEGO; 
                         if( !tipojuego_code_setmarca( tipojuego,  0, (char*)$2 ) ) YYERROR;
+                        if( (char*)$2 ) free( (char*)$2 );
     } ;
 
 
@@ -708,6 +713,7 @@ instaction:
                     yyerror( "Comando no reconocido" );
                     YYERROR;
             }
+            free( (char*)$1 );
     } ; 
 
 /* --------------------------------------------------------------------------- */
