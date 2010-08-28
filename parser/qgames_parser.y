@@ -214,6 +214,7 @@ instexpr_ahogado:
     TOK_AHOGADO  word_or_string {
             CHECK_TIPOJUEGO;
             if( !tipojuego_code_ahogado( tipojuego, (char*)$2 ) ) YYERROR;
+            free(  (char*)$2 );
     };
 
 instexpr_atacado:
@@ -297,6 +298,7 @@ instexpr_movidas_anteriores:
                 yyerror( "Debe ser un casillero");
                 YYERROR;
             }
+            free( (char*)$2 );
     } |
     TOK_ORIGEN_ANT    {
             CHECK_TIPOJUEGO;
@@ -311,6 +313,7 @@ instexpr_movidas_anteriores:
                 yyerror( "Debe ser un casillero");
                 YYERROR;
             }
+            free( (char*)$2 );
     };
                 
 
@@ -481,6 +484,7 @@ instexpr:
                     yyerror( "Comando no reconocido" );
                     YYERROR;
                   }
+                  free( (char*)$1 );
                 }
             }
     };
@@ -613,6 +617,7 @@ instaction_mueve:
                           } else {
                               if( !tipojuego_code_mueve( tipojuego, FROM_AQUI | TO_CASILLERO, 0, (char*)$3 ) ) YYERROR;
                           }
+                          free( (char*)$3 );
      } |
     TOK_MUEVE   TOK_PIEZAS_EN_CAS  instaction_get_marca   { 
                           CHECK_TIPOJUEGO;
@@ -805,6 +810,7 @@ instruction_move:
         CHECK_LAST_PIEZA;
         change_to_code_mode(); 
         tipojuego_start_code( tipojuego, MOVE, last_pieza, (char*)($1) );
+        free( (char*)($1) );
     }  code_list {
         tipojuego_end_code( tipojuego ) ;
     };
@@ -885,6 +891,7 @@ instruction_graph:
             yyerror( "Debe ser un tipo de pieza" ); YYERROR;
         }
         if( !tipojuego_graph_tipopieza_std( tipojuego, ((char*)$3), $2, graph_dim1, graph_dim2 ) ) YYERROR;
+        free( (char*)$3 );
     } |
     TOK_GRAPH_PIECE   word_or_string  instruction_graph_standard  instruction_graph_dimensions  {
         CHECK_TIPOJUEGO;
@@ -893,6 +900,7 @@ instruction_graph:
             yyerror( "Debe ser un tipo de pieza" ); YYERROR;
         }
         if( !tipojuego_graph_tipopieza_std( tipojuego, ((char*)$2), $3, graph_dim1, graph_dim2 ) ) YYERROR;
+        free( (char*)$2 );
     } |
     TOK_GRAPH_PIECE   word_or_string  word_or_string               { NOT_IMPLEMENTED_WARN( "graph-piece string" ); } |
     TOK_GRAPH_SQUARE  word_or_string  word_or_string               { NOT_IMPLEMENTED_WARN( "graph-square file" ); } |
@@ -943,6 +951,8 @@ instruction_notation:
             yyerror( "Notacion mal formada" );
             YYERROR;
         }
+        free( (char*)$2 );
+        free( (char*)$3 );
      } |
     TOK_NOTATION    word_or_string      word_or_string  word_or_string { 
         CHECK_TIPOJUEGO;
@@ -990,6 +1000,7 @@ instruction_piece:
         tipojuego_add_tipopieza( tipojuego, ((char*)$2) ); 
         if( last_pieza ) free( last_pieza );
         last_pieza = strdup( ((char*)$2) );
+        free( (char*)$2 );
     };
 
 instruction_start:
@@ -1151,6 +1162,9 @@ int   parser_qgames( FILE* f, char* filename, int flags ){
     }
     if( ff ) fclose( ff );
     if( qgz_verbose )printf( "Total analizado: %d lineas\n", qgzlineno );
+    
+    // Desinicializo los parametros.
+    init_parameters( );
     return 1;
 }
 

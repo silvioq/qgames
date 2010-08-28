@@ -431,7 +431,7 @@ int    tipojuego_add_notacion_tpieza( Tipojuego* tj, char* tpieza, char* color, 
     NotacionData* not_data = malloc( sizeof( NotacionData ) );
     not_data->valor = (long)(tj->tipo_piezas->data[tp]);
     not_data->color = col;
-    not_data->notacion = abbr;
+    not_data->notacion = strdup( abbr );
     INIT_NOTACION(tj);
     if( !tj->notacion->notacion_tpiezas ) tj->notacion->notacion_tpiezas = list_nueva( NULL );
     list_agrega( tj->notacion->notacion_tpiezas , not_data );
@@ -444,7 +444,7 @@ int    tipojuego_add_notacion_tmov( Tipojuego* tj, char* tmov, char* notacion ){
     if( !TJVALIDO( tj ) ) return 0;
     NotacionData* not_data = malloc( sizeof( NotacionData ) );
     not_data->valor = tm;
-    not_data->notacion = notacion;
+    not_data->notacion = strdup( notacion );
     INIT_NOTACION(tj);
     if( !tj->notacion->notacion_tmovs ) tj->notacion->notacion_tmovs = list_nueva( NULL );
     list_agrega( tj->notacion->notacion_tmovs , not_data );
