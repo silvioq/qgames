@@ -144,12 +144,24 @@ const char* qg_tipojuego_get_nombre   ( Tipojuego* tj ){
  * Devuelve el nombre del color de acuerdo a su numero
  * */
 
-const char*  qg_tipojuego_info_color( Tipojuego* tj, int color ){
+DLL_PUBLIC   const char*  qg_tipojuego_info_color( Tipojuego* tj, int color ){
     if( color == 0 || color > tj->colores ) return NULL;
     return  tipojuego_get_colorname( tj, color );
 }
 
-const char*  qg_tipojuego_info_tpieza( Tipojuego* tj, int tpieza ){
+DLL_PUBLIC   int          qg_tipojuego_info_color_rotado( Tipojuego* tj, int color ){
+    if( color == 0 || color > tj->colores ) return 0;
+    int i = 0;
+    if( !tj->simetrias ) return 0;
+    for( i = 0; i < tj->simetrias->entradas; i ++ ){
+        Simetria* s = tj->simetrias->data[i];
+        if( s->color == color ) return 1;
+    }
+    return 0;
+}
+
+
+DLL_PUBLIC   const char*  qg_tipojuego_info_tpieza( Tipojuego* tj, int tpieza ){
     if( tpieza == 0 || tpieza > tj->tipo_piezas->entradas ) return NULL;
     Tipopieza* tp = (Tipopieza*)(tj->tipo_piezas->data[tpieza-1]);
     return  (const char*)(tp->nombre);

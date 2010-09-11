@@ -69,6 +69,9 @@ int   ajedrez_check(){
     assert( strcmp( "alfil", qg_tipojuego_info_tpieza( ajedrez, 2 ) ) == 0 );
     assert( qg_tipojuego_info_color( ajedrez, 0 ) == NULL );
     assert( qg_tipojuego_info_color( ajedrez, 7 ) == NULL );
+
+    assert( !qg_tipojuego_info_color_rotado( ajedrez, 1 ) );
+    assert( qg_tipojuego_info_color_rotado( ajedrez, 2 ) );
     
 
 #if GRAPH_ENABLED

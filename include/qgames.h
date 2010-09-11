@@ -88,6 +88,7 @@ int         qg_tipojuego_get_cell_bycasillero( Tipojuego* tj, char* casillero,  
  * */
 const char*  qg_tipojuego_get_nombre   ( Tipojuego* tj );
 const char*  qg_tipojuego_info_color( Tipojuego* tj, int color );
+int          qg_tipojuego_info_color_rotado( Tipojuego* tj, int color );
 const char*  qg_tipojuego_info_tpieza( Tipojuego* tj, int tpieza );
 
 

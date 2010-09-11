@@ -143,6 +143,8 @@ int  main(int argc, char** argv) {
     assert( strcmp( "gema", qg_tipojuego_info_tpieza( gomoku, 1 ) ) == 0 );
     assert( qg_tipojuego_info_tpieza( gomoku, 2 ) == NULL );
     assert( qg_tipojuego_info_tpieza( gomoku, 0 ) == NULL );
+    assert( !qg_tipojuego_info_color_rotado( gomoku, 1 ) );
+    assert( !qg_tipojuego_info_color_rotado( gomoku, 2 ) );
     printf( "." );
 
     assert( partida = qg_tipojuego_create_partida( gomoku, "x" ) );
