@@ -307,12 +307,12 @@ typedef  struct StrParam {
 } str_param;
 
 
-int    qgz_verbose  = 0;
+static  int    qgz_verbose  = 0;
 
-str_param*  qgz_param_list  = NULL;
-int    qgz_param_count = 0;
-void  add_parameter( int  type, long param );
-void  init_parameters( );
+static  str_param*  qgz_param_list  = NULL;
+static  int    qgz_param_count = 0;
+static  void  add_parameter( int  type, long param );
+static  void  init_parameters( );
 
 #define  MAX_PARAMS   32
 
@@ -322,10 +322,10 @@ void  init_parameters( );
 extern  int  qgzlineno;
 extern FILE* qgzin;
 
-Tipojuego*   tipojuego  = NULL;
-char*        last_pieza = NULL;
-long         html_color1, html_color2;
-long         graph_dim1, graph_dim2;
+static  Tipojuego*   tipojuego  = NULL;
+static  char*        last_pieza = NULL;
+static  long         html_color1, html_color2;
+static  long         graph_dim1, graph_dim2;
 
 const  char*  defname_actual( );
 
@@ -3468,7 +3468,7 @@ int   parser_qgames( FILE* f, char* filename, int flags ){
 /*
  * Agrega un parametro
  * */
-void  add_parameter( int  type, long param ){
+static  void  add_parameter( int  type, long param ){
   if( !qgz_param_list ){
     qgz_param_list = malloc( sizeof( str_param  ) * MAX_PARAMS );
   }
@@ -3492,7 +3492,7 @@ void  add_parameter( int  type, long param ){
   qgz_param_count ++;
 }
 
-void  init_parameters(){ 
+static  void  init_parameters(){ 
     int i;
     for( i = 0; i < qgz_param_count; i ++ ){
         if( qgz_param_list[i].typ == TOK_STRING ) free( qgz_param_list[i].str ) ;
