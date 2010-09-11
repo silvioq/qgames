@@ -39,6 +39,7 @@ Tipojuego*  qg_tipojuego_open( char* nombre );
 
 
 const char* qg_path_games( ); 
+void        qg_path_set( const char* );
 
 int         qg_tipojuego_valido( Tipojuego* tj );
 int         qg_tipojuego_add_tablero  ( Tipojuego* tj );

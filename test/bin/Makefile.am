@@ -32,6 +32,8 @@ test_historial_LDADD        = $(DEPENDENCIES)
 test_movidas_posibles_data_DEPENDENCIES = $(DEPENDENCIES)
 test_movidas_posibles_data_LDADD        = $(DEPENDENCIES)
 
-AM_CFLAGS = -I$(top_srcdir)/include -I$(top_srcdir)/common -I$(top_srcdir)/qcode/src -DTEST_IMGDIR=\"$(top_srcdir)/images\"
+AM_CFLAGS = -I$(top_srcdir)/include -I$(top_srcdir)/common -I$(top_srcdir)/qcode/src \
+				-DTEST_IMGDIR=\"$(top_srcdir)/images\"  \
+				-DTEST_GAMESDIR=\"$(top_srcdir)/games\"
 AM_LDFLAGS      = @GD_LIBS@ @PNG_LIBS@
 TESTS = $(check_PROGRAMS)

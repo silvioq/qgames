@@ -38,6 +38,7 @@ int  main(int argc, char** argv) {
         }
     }
 
+    qg_path_set( TEST_GAMESDIR );
     if( optind == argc ){
         qgtest_file( stdin );
     } else {

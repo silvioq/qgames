@@ -60,6 +60,18 @@ DLL_PUBLIC Tipojuego*   qg_tipojuego_new( char* nombre ){
 const char* qg_path_games( ){
     return  tipojuego_path_def;
 }
+
+/*
+ * Permite setear el directorio por defecto
+ * donde se tomaran los archivso de definiciones
+ * de juego
+ * */
+
+void   qg_path_set( const char* path ){
+    tipojuego_path_def = path;
+}
+
+
 /*
  * Dado un nombre de tipo de juego, lee el archivo estandard
  * de acuerdo al directorio donde se alojan

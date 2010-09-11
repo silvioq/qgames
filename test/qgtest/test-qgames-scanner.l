@@ -146,18 +146,14 @@ int    nuevo_juego( char* t ){
     if( !tjuego ){
         clock_t  inicio;
         clock_t  final ;
-        char* filename = malloc( strlen( t ) + 25 );
-        sprintf( filename, "../../games/%s.qgame", t );
-        LOGPRINT( 5, "Voy a abrir %s", filename );
         inicio = clock();
-        tjuego = qgz_parse_filename( filename, 0 );
+        tjuego = qg_tipojuego_open( t );
         if( !tjuego ) {
-            LOGPRINT( 2, "Error al analizar %s %d", filename, yylineno );
+            LOGPRINT( 2, "Error al analizar %s %d", t, yylineno );
             exit( EXIT_FAILURE );
         }
         final = clock();
         list_agrega( tipojuegos, tjuego );
-        free( filename );
         time_scanning += ((double) (final - inicio)) / CLOCKS_PER_SEC;
     }
 

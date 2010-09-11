@@ -41,6 +41,7 @@
 #include <qgames_analyzer.h>
 
 int  main( int argc, char** argv ){
+    qg_path_set( TEST_GAMESDIR );
     Tipojuego* ajedrez = qg_tipojuego_open( "Ajedrez" );
     Tipojuego* pente = qg_tipojuego_open( "Pente" );
 

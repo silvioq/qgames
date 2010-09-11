@@ -116,8 +116,10 @@ int  check_game( char* fname ){
 int  main(int argc, char** argv) {
     Partida*   partida;
     int  count = 0;
-    char *filename = "../../games/Gomoku.qgame";
-    assert( gomoku = qgz_parse_filename( filename, 0 ) );
+    // char *filename = "../../games/Gomoku.qgame";
+    // assert( gomoku = qgz_parse_filename( filename, 0 ) );
+    qg_path_set( TEST_GAMESDIR );
+    assert( gomoku = qg_tipojuego_open( "Gomoku" ) );
 
     loglevel = 2;
 

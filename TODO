@@ -7,12 +7,6 @@ Desarrollo corto plazo (version 2.9.4)
 * Dar visibilidad a las funciones. http://gcc.gnu.org/wiki/Visibility y 
   http://www.gnu.org/software/hello/manual/gnulib/Exported-Symbols-of-Shared-Libraries.html
 
-
-Tests
-
-* Utilizar el directorio donde van las definiciones de juego por defecto.
-  Para ello, permitir modificarlo en tiempo de ejecución.
-
 Version 2.9.5
 
 * Cambiar la definicion de archivo qgames para que este 100% en ingles
