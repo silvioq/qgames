@@ -150,7 +150,7 @@ const char*  qg_tipojuego_info_color( Tipojuego* tj, int color ){
 }
 
 const char*  qg_tipojuego_info_tpieza( Tipojuego* tj, int tpieza ){
-    if( tpieza == 0 || tpieza >= tj->tipo_piezas->entradas ) return NULL;
+    if( tpieza == 0 || tpieza > tj->tipo_piezas->entradas ) return NULL;
     Tipopieza* tp = (Tipopieza*)(tj->tipo_piezas->data[tpieza-1]);
     return  (const char*)(tp->nombre);
 }

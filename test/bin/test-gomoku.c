@@ -140,6 +140,9 @@ int  main(int argc, char** argv) {
     assert( qg_tipojuego_get_color( gomoku, "rojo" ) == NOT_FOUND );
     assert( qg_tipojuego_get_color( gomoku, "blanco" ) == 1 );
     assert( qg_tipojuego_get_color( gomoku, "negro" )  == 2 ) ;
+    assert( strcmp( "gema", qg_tipojuego_info_tpieza( gomoku, 1 ) ) == 0 );
+    assert( qg_tipojuego_info_tpieza( gomoku, 2 ) == NULL );
+    assert( qg_tipojuego_info_tpieza( gomoku, 0 ) == NULL );
     printf( "." );
 
     assert( partida = qg_tipojuego_create_partida( gomoku, "x" ) );
