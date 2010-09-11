@@ -60,6 +60,10 @@ int   ajedrez_check(){
 
     printf( "." );
     assert( ajedrez = qgz_parse_filename( filename, 0 ) );
+    assert( strcmp( "blanco", qg_tipojuego_info_color( ajedrez, 1 ) ) == 0 );
+    assert( strcmp( "negro",  qg_tipojuego_info_color( ajedrez, 2 ) ) == 0 );
+    assert( qg_tipojuego_info_color( ajedrez, 3 ) == NULL );
+    assert( qg_tipojuego_info_color( ajedrez, 0 ) == NULL );
 
 #if GRAPH_ENABLED
     qgames_graph_image_dir( TEST_IMGDIR );
@@ -360,8 +364,6 @@ int  main(int argc, char** argv) {
     los_alamos() ;
 
     ajedrez_check();
-
-
     printf( "\n" );
 
     return  EXIT_SUCCESS;

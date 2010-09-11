@@ -70,7 +70,6 @@ int         tipojuego_add_pieza( Tipojuego* tj, char* tpieza, char* casillero, c
 
 
 #define   NOT_FOUND   -1
-const char* qg_tipojuego_get_nombre   ( Tipojuego* tj );
 int         qg_tipojuego_get_casillero( Tipojuego* tj, char* cas );
 int         qg_tipojuego_get_direccion( Tipojuego* tj, char* dir );
 int         qg_tipojuego_get_tipopieza( Tipojuego* tj, char* tpieza );
@@ -82,6 +81,15 @@ int         qg_tipojuego_get_tipomov  ( Tipojuego* tj, char* tipomov );
 
 int         qg_tipojuego_get_casillero_bycell( Tipojuego* tj, char** casillero, int   pos[MAXDIMS] );
 int         qg_tipojuego_get_cell_bycasillero( Tipojuego* tj, char* casillero,  int** pos );
+
+
+/*
+ * Informacion devuelta para el tipojuego
+ * */
+const char*  qg_tipojuego_get_nombre   ( Tipojuego* tj );
+const char*  qg_tipojuego_info_color( Tipojuego* tj, int color );
+const char*  qg_tipojuego_info_tpieza( Tipojuego* tj, int tpieza );
+
 
 
 /* 
@@ -178,10 +186,12 @@ int         qg_partida_movidas_data  ( Partida* par, int num, char** notacion );
 int         qg_partida_movidas_pieza ( Partida* par, int num, 
                                             char** origen, char** tpieza, char** color, 
                                             char** destino, char** ttpieza, char** tcolor );
-int         qg_partida_movidas_crea  ( Partida* par, int nummov, int numcr, char** casillero,  char** tpieza, char** color );
+int         qg_partida_movidas_crea  ( Partida* par, int nummov, int numcr, 
+                                        char** casillero,  char** tpieza, char** color );
 int         qg_partida_movida_valida ( Partida* par, char* notacion );
 void        qg_partida_movidas_posibles_ascii( Partida* par );
-int         qg_partida_movidas_capturas( Partida* par, int nummov, int numpie, char** casillero, char** pieza, char ** color );
+int         qg_partida_movidas_capturas( Partida* par, int nummov, int numpie, 
+                                        char** casillero, char** pieza, char ** color );
 
 /*
  * Esta serie de funciones permiten consultar el estado actual

@@ -272,7 +272,7 @@ int         tipojuego_add_direccion_arr( Tipojuego* tj, char* direccion, int* di
 /* Funciones de acceso a datos de tipojuego */
 Casillero*  tipojuego_get_casillero_by_num( Tipojuego* tj, int nro );
 Casillero*  tipojuego_get_casillero_by_relpos( Tipojuego* tj, int tablero, int dims[MAXDIMS] );
-char*       tipojuego_get_colorname( Tipojuego* tj, int color );
+const char* tipojuego_get_colorname( Tipojuego* tj, int color );
 int         tipojuego_get_coloroponente( Tipojuego* tj, int color );
 int         tipojuego_get_dimensiones( Tipojuego* tj );
 

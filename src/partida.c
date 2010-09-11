@@ -511,7 +511,7 @@ int         partida_tablero_data  ( Partida* par, int num, char** casillero, cha
             if( cont == num ){
                 if( casillero ) *casillero = pie->casillero->nombre;
                 if( pieza )     *pieza     = pie->tpieza->nombre;
-                if( color )     *color     = tipojuego_get_colorname( par->tjuego, pie->color );
+                if( color )     *color     = (char*) tipojuego_get_colorname( par->tjuego, pie->color );
                 return 1;
             } else cont ++;
         }

@@ -113,7 +113,7 @@ DLL_PUBLIC    int         qg_partida_movidas_capturas( Partida* par, int nummov,
             if( contador == numpie ){
                 Pieza* p = &(par->pos->piezas[acc->pieza_number]);
                 if( casillero ) *casillero = p->casillero->nombre;
-                if( color ) *color         = tipojuego_get_colorname( par->tjuego, p->color );
+                if( color ) *color         = (char*)tipojuego_get_colorname( par->tjuego, p->color );
                 if( pieza ) *pieza         = p->tpieza->nombre;
                 return 1;
             }
@@ -142,8 +142,8 @@ DLL_PUBLIC    int         qg_partida_movidas_crea  ( Partida* par, int nummov, i
         Accion* acc = mov->acciones->data[i];
         if( acc->tipo == ACCION_CREA ){
             if( contador == numcr ){
-                if( casillero ) *casillero = acc->destino;
-                if( color )  *color        = tipojuego_get_colorname( par->tjuego, acc->color );
+                if( casillero ) *casillero = acc->destino->nombre;
+                if( color )  *color        = (char*) tipojuego_get_colorname( par->tjuego, acc->color );
                 if( tpieza ) *tpieza       = acc->tpieza->nombre;
                 return 1;
             }
@@ -179,7 +179,7 @@ DLL_PUBLIC    int         qg_partida_movidas_pieza ( Partida* par, int nummov,
         Casillero* o = movida_casillero_origen( mov );
         Casillero* d = movida_casillero_destino( mov );
         if( tpieza  ) *tpieza  = p->tpieza->nombre;
-        if( color   ) *color   = tipojuego_get_colorname( par->tjuego, p->color );
+        if( color   ) *color   = (char*)tipojuego_get_colorname( par->tjuego, p->color );
         if( origen  ) *origen  = ( o == ENPOZO ? CASILLERO_POZO : o->nombre );
         if( destino ) *destino = ( CASILLERO_VALIDO( d ) ? d->nombre : NULL );
         if( ttpieza || tcolor ){  // Esta recorrida la hago en el caso que me lo hayan pedido
@@ -188,7 +188,7 @@ DLL_PUBLIC    int         qg_partida_movidas_pieza ( Partida* par, int nummov,
                 Accion* acc = mov->acciones->data[i];
                 if( acc->tipo == ACCION_TRANSFORMA && acc->pieza_number == p->number ){
                     if( ttpieza ) *ttpieza = acc->tpieza->nombre;
-                    if( tcolor  ) *tcolor  = tipojuego_get_colorname( par->tjuego, acc->color );
+                    if( tcolor  ) *tcolor  = (char*)tipojuego_get_colorname( par->tjuego, acc->color );
                     transf = 1;
                     break;
                 }

@@ -132,12 +132,25 @@ DLL_PUBLIC  int         qg_tipojuego_get_zona     ( Tipojuego* tj, char* zona ){
 DLL_PUBLIC  int         qg_tipojuego_get_tipomov  ( Tipojuego* tj, char* tipomov ){
     return  tipojuego_get_tipomov( tj, tipomov );
 }
+
 /*
  * Devuelve el nombre del tipo juego ...
  * */
 const char* qg_tipojuego_get_nombre   ( Tipojuego* tj ){
     return (const char*) tj->nombre;
 }
+
+/*
+ * Devuelve el nombre del color de acuerdo a su numero
+ * */
+
+const char*  qg_tipojuego_info_color( Tipojuego* tj, int color ){
+    if( color == 0 || color > tj->colores ) return NULL;
+    return  tipojuego_get_colorname( tj, color );
+}
+
+
+
 
 /*
  * Agregaciones varias

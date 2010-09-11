@@ -641,7 +641,7 @@ Direccion*  tipojuego_dir_by_sym( Tipojuego* tj, Direccion* dir, int color ){
  *
  * */
 
-char*       tipojuego_get_colorname( Tipojuego* tj, int color ){
+const char*   tipojuego_get_colorname( Tipojuego* tj, int color ){
     int i;
     static char color_no_encontrado[15];
     if( !TJVALIDO( tj ) ) return NULL;
