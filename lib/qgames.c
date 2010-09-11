@@ -149,6 +149,11 @@ const char*  qg_tipojuego_info_color( Tipojuego* tj, int color ){
     return  tipojuego_get_colorname( tj, color );
 }
 
+const char*  qg_tipojuego_info_tpieza( Tipojuego* tj, int tpieza ){
+    if( tpieza == 0 || tpieza >= tj->tipo_piezas->entradas ) return NULL;
+    Tipopieza* tp = (Tipopieza*)(tj->tipo_piezas->data[tpieza-1]);
+    return  (const char*)(tp->nombre);
+}
 
 
 
@@ -164,6 +169,9 @@ DLL_PUBLIC  int         qg_tipojuego_add_direccion( Tipojuego* tj, char* direcci
 // DLL_PUBLIC  int         qg_tipojuego_add_direccion_rel( Tipojuego* tj, char* direccion, ... );
 DLL_PUBLIC  int         qg_tipojuego_add_direccion_arr( Tipojuego* tj, char* direccion, int* dirv ){
     return  tipojuego_add_direccion_arr( tj, direccion, dirv );
+}
+DLL_PUBLIC  int         qg_tipojuego_add_color ( Tipojuego* tj, char* color ){
+    return  tipojuego_add_color( tj, color );
 }
 
 

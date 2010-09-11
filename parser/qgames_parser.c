@@ -2689,7 +2689,7 @@ yyreduce:
     { int i;
                      for( i = 0; i < qgz_param_count; i ++ ){
                        char* col = ((char*)qgz_param_list[i].par);
-                       tipojuego_add_color( tipojuego, col );
+                       qg_tipojuego_add_color( tipojuego, col );
                      }
                    }
     break;

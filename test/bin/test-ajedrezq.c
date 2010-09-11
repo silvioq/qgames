@@ -65,6 +65,12 @@ int   ajedrez_check(){
     assert( qg_tipojuego_info_color( ajedrez, 3 ) == NULL );
     assert( qg_tipojuego_info_color( ajedrez, 0 ) == NULL );
 
+    assert( strcmp( "torre", qg_tipojuego_info_tpieza( ajedrez, 1 ) ) == 0 );
+    assert( strcmp( "alfil", qg_tipojuego_info_tpieza( ajedrez, 2 ) ) == 0 );
+    assert( qg_tipojuego_info_color( ajedrez, 0 ) == NULL );
+    assert( qg_tipojuego_info_color( ajedrez, 7 ) == NULL );
+    
+
 #if GRAPH_ENABLED
     qgames_graph_image_dir( TEST_IMGDIR );
     size = qg_tipojuego_get_tablero_png( ajedrez, BOARD_ACTUAL, 0, &ajedrez_png );
