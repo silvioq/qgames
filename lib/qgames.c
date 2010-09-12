@@ -140,6 +140,14 @@ const char* qg_tipojuego_get_nombre   ( Tipojuego* tj ){
     return (const char*) tj->nombre;
 }
 
+DLL_PUBLIC int         qg_tipojuego_get_dims( Tipojuego* tj ){
+    if( !qg_tipojuego_valido( tj ) ) return 0;
+    if( !tj->tablero_actual ) return 0;
+    int  dimensiones = ((Tablero*) tj->tableros->data[tj->tablero_actual - 1] )->dimc;
+    return  dimensiones;
+}
+
+
 /*
  * Devuelve el nombre del color de acuerdo a su numero
  * */
@@ -166,6 +174,14 @@ DLL_PUBLIC   const char*  qg_tipojuego_info_tpieza( Tipojuego* tj, int tpieza ){
     Tipopieza* tp = (Tipopieza*)(tj->tipo_piezas->data[tpieza-1]);
     return  (const char*)(tp->nombre);
 }
+
+DLL_PUBLIC   const char*  qg_tipojuego_info_casillero( Tipojuego* tj, int cas, int** pos ){
+    if( cas == 0 || cas > tj->casilleros->entradas ) return NULL;
+    Casillero* c = (Casillero*)(tj->casilleros->data[cas-1]);
+    if( pos ) *pos = c->posicion;
+    return  (const char*)(c->nombre);
+}
+
 
 
 

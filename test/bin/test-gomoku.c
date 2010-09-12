@@ -115,7 +115,7 @@ int  check_game( char* fname ){
 
 int  main(int argc, char** argv) {
     Partida*   partida;
-    int  count = 0;
+    int  count = 0, i, cas;
     // char *filename = "../../games/Gomoku.qgame";
     // assert( gomoku = qgz_parse_filename( filename, 0 ) );
     qg_path_set( TEST_GAMESDIR );
@@ -136,6 +136,16 @@ int  main(int argc, char** argv) {
     assert( qg_tipojuego_get_casillero( gomoku, "c2" ) != NOT_FOUND );
     assert( qg_tipojuego_get_casillero( gomoku, "c3" ) != NOT_FOUND );
     printf( "." );
+    assert( ( cas = qg_tipojuego_get_casillero( gomoku, "a13" ) ) != NOT_FOUND );
+    printf( "cas=%d => resuelve %s\n", cas,  qg_tipojuego_info_casillero( gomoku, cas, NULL ) );
+    assert( strcmp( qg_tipojuego_info_casillero( gomoku, cas + 1, NULL ), "a13" ) == 0 );
+
+    assert( qg_tipojuego_get_dims( gomoku ) == 2 );
+    printf( "." );
+
+    for( i = 1; i <= 13 * 13; i ++ ){
+        assert( qg_tipojuego_info_casillero( gomoku, i, NULL ) );
+    }
 
     assert( qg_tipojuego_get_color( gomoku, "rojo" ) == NOT_FOUND );
     assert( qg_tipojuego_get_color( gomoku, "blanco" ) == 1 );
@@ -184,7 +194,6 @@ int  main(int argc, char** argv) {
 
     void * gomoku_png;
     FILE*  fpng; 
-    int i;
     int size = qg_tipojuego_get_tablero_png( gomoku, BOARD_ACTUAL, 0, &gomoku_png );
     printf( "." );
     assert( size );
