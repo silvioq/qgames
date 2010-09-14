@@ -292,13 +292,15 @@ int    tipojuego_get_tablero_png( Tipojuego* tj, int board_number, int flags, vo
 /*
  * Bueno, vamos a ver si podemos obtener la pieza
  * */
-int    tipojuego_get_tpieza_png( Tipojuego* tj, char* color, char* tpieza, void** png ){
+int    tipojuego_get_tpieza_png( Tipojuego* tj, char* color, char* tpieza, void** png, int* width, int* height ){
 #if GRAPH_ENABLED
     Tipopieza* tp = tj->tipo_piezas->data[ GETTIPOPIEZA(tj,tpieza) ];
     int  col      = GETCOLOR(tj,color);
     gdImagePtr gd = graph_tpieza_get_gd( tp, col );
     int  size = 0;
     if( png ) *png = gdImagePngPtr( gd, &size );
+    if( width ) *width = gdImageSX( gd );
+    if( height ) *height = gdImageSY( gd );
     return size;
 #endif
     LOGPRINT( 2, "No compilado con el modulo GD tpieza = %s", tpieza );

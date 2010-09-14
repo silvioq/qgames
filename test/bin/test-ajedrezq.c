@@ -107,20 +107,24 @@ int   ajedrez_check(){
     qgames_free_png( ajedrez_png );  
 
     printf( "." );
-    size = qg_tipojuego_get_tpieza_png( ajedrez, "blanco", "peon", &ajedrez_png );
+    size = qg_tipojuego_get_tpieza_png( ajedrez, "blanco", "peon", &ajedrez_png, &w, &h );
     fpng = fopen( "../../tmp/ajedrez-peon.png", "w" );
     assert( fwrite( ajedrez_png, size, 1, fpng ) );
     fclose( fpng ); 
     assert( size == 298 );
+    assert( w == 48 );
+    assert( h == 48 );
     qgames_free_png( ajedrez_png );  
 
 
     printf( "." );
-    size = qg_tipojuego_get_tpieza_png( ajedrez, "negro", "rey", &ajedrez_png );
+    size = qg_tipojuego_get_tpieza_png( ajedrez, "negro", "rey", &ajedrez_png, &w, &h );
     fpng = fopen( "../../tmp/ajedrez-rey.png", "w" );
     assert( fwrite( ajedrez_png, size, 1, fpng ) );
     fclose( fpng ); 
     assert( size == 433 );
+    assert( w == 48 );
+    assert( h == 48 );
     qgames_free_png( ajedrez_png );  
 
     printf( "." );
