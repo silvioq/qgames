@@ -132,7 +132,7 @@ gdImagePtr  graph_tpieza_get_gd( Tipopieza* tp, int color ){
     }
 
     char* piece;
-    char* colorname;
+    const char* colorname;
     char  size[24];
     char  filename[1024];
     switch( g->std ){
@@ -272,13 +272,15 @@ gdImagePtr    graph_get_tablero_png( Tipojuego* tj, int board_number, int flags 
 #endif
 
 
-int    tipojuego_get_tablero_png( Tipojuego* tj, int board_number, int flags, void** png ){
+int    tipojuego_get_tablero_png( Tipojuego* tj, int board_number, int flags, void** png, int*width, int* height ){
 #if GRAPH_ENABLED
     int size;
-    if( board_number == BOARD_ACTUAL ) return tipojuego_get_tablero_png( tj, tj->tablero_actual, flags, png );
+    if( board_number == BOARD_ACTUAL ) return tipojuego_get_tablero_png( tj, tj->tablero_actual, flags, png, width, height );
     gdImagePtr gd = graph_get_tablero_png( tj, board_number, flags );
 
     if( png ) *png = gdImagePngPtr( gd, &size );
+    if( width ) *width = gdImageSX( gd );
+    if( height ) *height = gdImageSY( gd );
     return size;
 #else
     LOGPRINT( 2, "No compilado con el modulo GD board = %d", board_number );

@@ -57,6 +57,7 @@ int   ajedrez_check(){
     void * ajedrez_png;
     FILE*  fpng; 
     int  size, size2, size1;
+    int  w, h;
 
     printf( "." );
     assert( ajedrez = qgz_parse_filename( filename, 0 ) );
@@ -76,9 +77,11 @@ int   ajedrez_check(){
 
 #if GRAPH_ENABLED
     qgames_graph_image_dir( TEST_IMGDIR );
-    size = qg_tipojuego_get_tablero_png( ajedrez, BOARD_ACTUAL, 0, &ajedrez_png );
+    size = qg_tipojuego_get_tablero_png( ajedrez, BOARD_ACTUAL, 0, &ajedrez_png, &w, &h );
     printf( "." );
     assert( size );
+    assert( w == 384 );
+    assert( h == 384 );
 
     fpng = fopen( "../../tmp/ajedrez.png", "w" );
     assert( fwrite( ajedrez_png, size, 1, fpng ) );
@@ -92,9 +95,11 @@ int   ajedrez_check(){
     qgames_free_png( ajedrez_png );  
 
     printf( "." );
-    size = qg_tipojuego_get_tablero_png( ajedrez, BOARD_ACTUAL, GETPNG_ROTADO, &ajedrez_png );
+    size = qg_tipojuego_get_tablero_png( ajedrez, BOARD_ACTUAL, GETPNG_ROTADO, &ajedrez_png, &w, &h );
     fpng = fopen( "../../tmp/ajedrez-r.png", "w" );
     assert( fwrite( ajedrez_png, size, 1, fpng ) );
+    assert( w == 384 );
+    assert( h == 384 );
     fclose( fpng ); 
     
     assert( size == 1426 );
@@ -216,7 +221,7 @@ int   ajedrez_check(){
 #else
     // Si no tengo los graficos habilitados, esto tiene que volver con
     // cero
-    assert( qg_tipojuego_get_tablero_png( ajedrez, BOARD_ACTUAL, 0, NULL ) == 0 );
+    assert( qg_tipojuego_get_tablero_png( ajedrez, BOARD_ACTUAL, 0, NULL, NULL, NULL ) == 0 );
 #endif
     
     

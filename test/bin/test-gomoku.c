@@ -194,9 +194,12 @@ int  main(int argc, char** argv) {
 
     void * gomoku_png;
     FILE*  fpng; 
-    int size = qg_tipojuego_get_tablero_png( gomoku, BOARD_ACTUAL, 0, &gomoku_png );
+    int h, w;
+    int size = qg_tipojuego_get_tablero_png( gomoku, BOARD_ACTUAL, 0, &gomoku_png, &w, &h );
     printf( "." );
     assert( size );
+    assert( w == 396 );
+    assert( h == 396 );
 
     fpng = fopen( "../../tmp/gomoku.png", "w" );
     assert( fwrite( gomoku_png, size, 1, fpng ) );
@@ -206,7 +209,7 @@ int  main(int argc, char** argv) {
     assert( md5_mem( gomoku_png, size ) == -1645013337 );
     qgames_free_png( gomoku_png );
 
-    size = qg_tipojuego_get_tablero_png( gomoku, BOARD_ACTUAL, GETPNG_ROTADO, &gomoku_png );
+    size = qg_tipojuego_get_tablero_png( gomoku, BOARD_ACTUAL, GETPNG_ROTADO, &gomoku_png, NULL, NULL );
     printf( "." );
     assert( size );
 

@@ -334,8 +334,8 @@ const char* qg_partida_movhist_destino      ( Partida* par, int mov, int dest ){
 DLL_PUBLIC   int         qg_partida_get_png( Partida* par, int flags, int movida, void** png ){
      return partida_get_png( par, flags, movida, png );
 }
-DLL_PUBLIC   int    qg_tipojuego_get_tablero_png( Tipojuego* tj, int board_number, int flags, void** png ){
-    return  tipojuego_get_tablero_png( tj, board_number, flags, png );
+DLL_PUBLIC   int    qg_tipojuego_get_tablero_png( Tipojuego* tj, int board_number, int flags, void** png, int* width, int* height ){
+    return  tipojuego_get_tablero_png( tj, board_number, flags, png, width, height );
 }
 DLL_PUBLIC   int    qg_tipojuego_get_tpieza_png( Tipojuego* tj, char* color, char* tpieza, void** png ){
     return  tipojuego_get_tpieza_png( tj, color, tpieza, png );
