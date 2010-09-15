@@ -379,6 +379,14 @@ int  main(int argc, char** argv) {
     assert( qg_partida_mover_pgn( partida, prueba4 ) );
     assert( qg_partida_final( partida, NULL ) == 2 ); // gana el negro
 
+    // Controlo que no falle el tema de los graficos
+#if GRAPH_ENABLED
+    assert( qg_tipojuego_get_tablero_png( aje, BOARD_ACTUAL, 0, NULL, NULL, NULL ) == 0 );
+#endif
+    
+
+
+
     los_alamos() ;
 
     ajedrez_check();

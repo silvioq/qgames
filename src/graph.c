@@ -277,6 +277,7 @@ int    tipojuego_get_tablero_png( Tipojuego* tj, int board_number, int flags, vo
     int size;
     if( board_number == BOARD_ACTUAL ) return tipojuego_get_tablero_png( tj, tj->tablero_actual, flags, png, width, height );
     gdImagePtr gd = graph_get_tablero_png( tj, board_number, flags );
+    if( !gd ) return 0;
 
     if( png ) *png = gdImagePngPtr( gd, &size );
     if( width ) *width = gdImageSX( gd );

@@ -137,7 +137,6 @@ int  main(int argc, char** argv) {
     assert( qg_tipojuego_get_casillero( gomoku, "c3" ) != NOT_FOUND );
     printf( "." );
     assert( ( cas = qg_tipojuego_get_casillero( gomoku, "a13" ) ) != NOT_FOUND );
-    printf( "cas=%d => resuelve %s\n", cas,  qg_tipojuego_info_casillero( gomoku, cas, NULL ) );
     assert( strcmp( qg_tipojuego_info_casillero( gomoku, cas + 1, NULL ), "a13" ) == 0 );
 
     assert( qg_tipojuego_get_dims( gomoku ) == 2 );
