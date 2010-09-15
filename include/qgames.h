@@ -155,7 +155,7 @@ void   qgames_graph_image_dir( const char* imagedir );
  *
  * */
 int    qg_tipojuego_get_tablero_png( Tipojuego* tj, int board_number, int flags, void** png, int* width, int* height );
-int    qg_tipojuego_get_tpieza_png( Tipojuego* tj, char* color, char* tpieza, void** png, int* width, int* height );
+int    qg_tipojuego_get_tpieza_png( Tipojuego* tj, const char* color, const char* tpieza, void** png, int* width, int* height );
 void   qgames_free_pgn( void* );
 
 
