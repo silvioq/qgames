@@ -33,6 +33,7 @@ typedef struct  StrGraphdef {
 #if HAVE_GD_H
     gdImagePtr  gd;
     gdImagePtr  gd_r;   // Rotado
+    gdImagePtr  gd_c;   // Capturada
 #endif
 } _Graphdef;
 

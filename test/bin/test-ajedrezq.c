@@ -107,7 +107,7 @@ int   ajedrez_check(){
     qgames_free_png( ajedrez_png );  
 
     printf( "." );
-    size = qg_tipojuego_get_tpieza_png( ajedrez, "blanco", "peon", &ajedrez_png, &w, &h );
+    size = qg_tipojuego_get_tpieza_png( ajedrez, "blanco", "peon", 0, &ajedrez_png, &w, &h );
     fpng = fopen( "../../tmp/ajedrez-peon.png", "w" );
     assert( fwrite( ajedrez_png, size, 1, fpng ) );
     fclose( fpng ); 
@@ -116,15 +116,32 @@ int   ajedrez_check(){
     assert( h == 48 );
     qgames_free_png( ajedrez_png );  
 
+    printf( "." );
+    size = qg_tipojuego_get_tpieza_png( ajedrez, "blanco", "peon", GETPNG_PIEZA_CAPTURADA, &ajedrez_png, &w, &h );
+    fpng = fopen( "../../tmp/ajedrez-peon-capturado.png", "w" );
+    assert( fwrite( ajedrez_png, size, 1, fpng ) );
+    fclose( fpng ); 
+    assert( w == 24 );
+    assert( h == 24 );
+    qgames_free_png( ajedrez_png );  
 
     printf( "." );
-    size = qg_tipojuego_get_tpieza_png( ajedrez, "negro", "rey", &ajedrez_png, &w, &h );
+    size = qg_tipojuego_get_tpieza_png( ajedrez, "negro", "rey", 0, &ajedrez_png, &w, &h );
     fpng = fopen( "../../tmp/ajedrez-rey.png", "w" );
     assert( fwrite( ajedrez_png, size, 1, fpng ) );
     fclose( fpng ); 
     assert( size == 433 );
     assert( w == 48 );
     assert( h == 48 );
+    qgames_free_png( ajedrez_png );  
+
+    printf( "." );
+    size = qg_tipojuego_get_tpieza_png( ajedrez, "negro", "rey", GETPNG_PIEZA_CAPTURADA, &ajedrez_png, &w, &h );
+    fpng = fopen( "../../tmp/ajedrez-rey-capturado.png", "w" );
+    assert( fwrite( ajedrez_png, size, 1, fpng ) );
+    fclose( fpng ); 
+    assert( w == 24 );
+    assert( h == 24 );
     qgames_free_png( ajedrez_png );  
 
     printf( "." );

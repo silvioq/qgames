@@ -293,20 +293,43 @@ int    tipojuego_get_tablero_png( Tipojuego* tj, int board_number, int flags, vo
 /*
  * Bueno, vamos a ver si podemos obtener la pieza
  * */
-int    tipojuego_get_tpieza_png( Tipojuego* tj, char* color, char* tpieza, void** png, int* width, int* height ){
+int    tipojuego_get_tpieza_png( Tipojuego* tj, char* color, char* tpieza, int flags, void** png, int* width, int* height ){
 #if GRAPH_ENABLED
     Tipopieza* tp = tj->tipo_piezas->data[ GETTIPOPIEZA(tj,tpieza) ];
     int  col      = GETCOLOR(tj,color);
     gdImagePtr gd = graph_tpieza_get_gd( tp, col );
     int  size = 0;
-    if( png ) *png = gdImagePngPtr( gd, &size );
-    if( width ) *width = gdImageSX( gd );
-    if( height ) *height = gdImageSY( gd );
-    return size;
+
+    if( flags == GETPNG_PIEZA_CAPTURADA ){
+        gdImagePtr gd2 = gdImageCreate( gdImageSX( gd ) / 2, gdImageSY( gd ) / 2 );
+
+        int transp = gdImageColorAllocate( gd2, 0, 255, 0 );
+        gdImageColorTransparent( gd2, transp );
+        gdImageFill( gd2, 0, 0 , transp );
+
+        gdImageCopyResized( gd2, gd, 0, 0, 0, 0,
+          gdImageSX(gd2), gdImageSY(gd2),
+          gdImageSX(gd), gdImageSY(gd) );
+        
+        if( png ) *png = gdImagePngPtr( gd2, &size );
+        if( width ) *width = gdImageSX( gd2 );
+        if( height ) *height = gdImageSY( gd2 );
+        gdImageDestroy( gd2 );
+        return size;
+    } else {
+        if( png ) *png = gdImagePngPtr( gd, &size );
+        if( width ) *width = gdImageSX( gd );
+        if( height ) *height = gdImageSY( gd );
+        return size;
+    }
 #endif
     LOGPRINT( 2, "No compilado con el modulo GD tpieza = %s", tpieza );
     return 0;
 }
+
+
+
+
 
 /*
  * Esta es la funcion que libera lo alocado por la librería GD

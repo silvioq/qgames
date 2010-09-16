@@ -154,8 +154,10 @@ void   qgames_graph_image_dir( const char* imagedir );
  * Los flags, pueden tener GETPNG_ROTADO.
  *
  * */
-int    qg_tipojuego_get_tablero_png( Tipojuego* tj, int board_number, int flags, void** png, int* width, int* height );
-int    qg_tipojuego_get_tpieza_png( Tipojuego* tj, const char* color, const char* tpieza, void** png, int* width, int* height );
+int    qg_tipojuego_get_tablero_png( Tipojuego* tj, int board_number, int flags, 
+                                          void** png, int* width, int* height );
+int    qg_tipojuego_get_tpieza_png( Tipojuego* tj, const char* color, const char* tpieza, int flags, 
+                                          void** png, int* width, int* height );
 void   qgames_free_pgn( void* );
 
 
@@ -239,6 +241,7 @@ const char* qg_partida_load_tj( void* data, int size );
 #define  GETPNG_HIGHLIGHT_RED         0x08
 #define  GETPNG_HIGHLIGHTED(flag)   ( flag & ( GETPNG_HIGHLIGHT_GREEN | GETPNG_HIGHLIGHT_BLUE | GETPNG_HIGHLIGHT_RED ))
 #define  GETPNG_HIGHLIGHT_YELLOW    ( GETPNG_HIGHLIGHT_GREEN | GETPNG_HIGHLIGHT_RED )
+#define  GETPNG_PIEZA_CAPTURADA       0x10
 
 int         qg_partida_get_png( Partida* par, int flags, int movida, void** png );
 
