@@ -55,7 +55,6 @@ gdImagePtr  graph_dibujar_checkerboard( int w, int h, int cw, int ch, int f, int
         int color_f = ( i % 2 == 0 ? fondo : frente );
         for( j = 0; j < canty; j ++ ){
             if( color_f == frente ){
-                LOGPRINT( 5, "y1=%d y2=%d",  h - ch * ( j + 1 ),  h - ch * j - 1 );
                 gdImageFilledRectangle( gd, cw * i,             h - ch * ( j + 1 ) ,
                                             cw * ( i + 1 ) - 1, h - ch * j - 1, 
                                         frente );
