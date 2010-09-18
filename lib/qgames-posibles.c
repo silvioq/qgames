@@ -53,6 +53,23 @@ DLL_PUBLIC   int         qg_partida_movidas_count ( Partida* par ){
     if( PARTIDATERMINADA(par) ) return 0;
     return partida_analizar_movidas( par );
 }
+
+/*
+ * Devuelve verdadero en el caso que las movidas posibles de una partida
+ * hayan sido analizadas previmante. Esto permite efectuar el control
+ * del estado de la partida para sucesivos dump.
+ * Ejemplo:
+ *   analizada = qg_partida_movidas_analizadas( partida );
+ *   printf( "La cantidad de movidas posibles es %d\n", qg_partida_movidas_count( partida ) ); 
+ *   if( !analizada ) save_dump_partida( partida );
+ *
+ * En este ejemplo, se controla la marca de analizada de la partida. Si no estaba
+ * analizada previamente, se salva el dump, ya que el mismo cambio
+ * */
+DLL_PUBLIC   int         qg_partida_movidas_analizadas( Partida* par ){
+    return  PARTIDAMOVCALC( par );
+}
+
 /* 
  * Devuelve el dato de notacion de la partida pasada como parametro
  * */

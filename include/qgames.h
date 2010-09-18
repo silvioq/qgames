@@ -186,6 +186,7 @@ int         qg_partida_es_continuacion( Partida* par );
 /*
  * Esta serie de funciones permiten consultar las movidas posibles
  * */
+int         qg_partida_movidas_analizadas( Partida* par );
 int         qg_partida_movidas_count ( Partida* par );
 int         qg_partida_movidas_data  ( Partida* par, int num, char** notacion );
 int         qg_partida_movidas_pieza ( Partida* par, int num, 

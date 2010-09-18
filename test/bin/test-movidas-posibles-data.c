@@ -41,6 +41,9 @@
 #include <qgames_analyzer.h>
 
 int  main( int argc, char** argv ){
+    int  i, contador;
+    int  esta = 0;
+
     qg_path_set( TEST_GAMESDIR );
     Tipojuego* ajedrez = qg_tipojuego_open( "Ajedrez" );
     Tipojuego* pente = qg_tipojuego_open( "Pente" );
@@ -48,10 +51,11 @@ int  main( int argc, char** argv ){
     Partida* partida;
     assert( ajedrez );
     assert( partida = qg_tipojuego_create_partida( ajedrez, NULL ) );
+    assert( !qg_partida_movidas_analizadas( partida ) );
 
     int  movidas = qg_partida_movidas_count( partida );
-    int  i, contador;
-    int  esta = 0;
+    assert( qg_partida_movidas_analizadas( partida ) );
+
     assert( movidas == 20 ); // son 20
     for( i = 0 ; i < movidas ; i ++ ){
         char* n;
