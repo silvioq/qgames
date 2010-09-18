@@ -196,7 +196,8 @@ long  code_wrapper_final( QCodeVM* vm ){
 
 
 
-Analizador* zgeneral;
+static  Analizador* zgeneral;
+
 long  code_wrapper_initz( QCodeVM* vm ){
     return  (long)zgeneral;
 }
