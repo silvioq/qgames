@@ -1,0 +1,36 @@
+# Juego obtenido de  http://www.opengames.com.ar/2747.pgn
+# Entre  ["ERICH GONZALEZ"] y ["Pavel Sladovník"]
+nuevo-juego Ajedrez
+
+1. e4 c5 2. Nf3 d6 3. Nc3 Nf6 4. d4 cxd4 
+5. Nxd4 a6 6. Be2 e5 7. Nb3 Be7 8. 0-0 0-0 
+9. Kh1 Nc6 10. f3 b5 11. Be3 Na5 12. Nxa5 Qxa5 
+13. Qd2 Qc7 14. Ra1-c1 Qb7 15. Kg1 Be6 16. b3 Ra8-c8 
+check-piezas torre blanco c1 1
+check-piezas torre blanco f1 1
+check-piezas torre negro c8 1
+check-piezas torre negro f8 1
+check-piezas caballo blanco c3 1
+check-piezas caballo negro f6 1
+check-piezas alfil blanco e3 1
+check-piezas alfil blanco e2 1
+check-piezas alfil negro e6 1
+check-piezas alfil negro e7 1
+check-piezas dama blanco d2 1
+check-piezas rey blanco g1 1
+check-piezas dama negro b7 1
+check-piezas rey negro g8 1
+check-piezas peon blanco a2 1
+check-piezas peon blanco b3 1
+check-piezas peon blanco c2 1
+check-piezas peon blanco e4 1
+check-piezas peon blanco f3 1
+check-piezas peon blanco g2 1
+check-piezas peon blanco h2 1
+check-piezas peon negro a6 1
+check-piezas peon negro b5 1
+check-piezas peon negro d6 1
+check-piezas peon negro e5 1
+check-piezas peon negro f7 1
+check-piezas peon negro g7 1
+check-piezas peon negro h7 1

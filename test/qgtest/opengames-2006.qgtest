@@ -1,0 +1,30 @@
+# Juego obtenido de  http://www.opengames.com.ar/2006.pgn
+# Entre  ["JOSE TECHERA"] y ["sergio"]
+nuevo-juego Ajedrez
+
+1. e4 c5 2. Nf3 d6 3. Bc4 e6 4. Nc3 a6 5. a4 Nf6 
+6. d3 Nc6 7. Bg5 Be7 8. Qd2 0-0 9. 0-0 Nd4 
+10. Nxd4 cxd4 11. Ne2 Qb6 12. c3 dxc3 13. bxc3 Qa5 
+14. Nc1 b5 15. Bb3 Bb7 16. Bc2 Ra8-c8 17. Ne2 Qc7 
+18. axb5 axb5 19. Rf1-b1 d5 20. Rxb5 dxe4 
+21. Ra7 Rb8 22. Bf4 Qc6 23. Nd4 Qd7 24. Bxb8 Rxb8 
+25. Ba4 Qc8 26. Qb2 exd3 27. Rb5xb7 Rxb7 
+28. Rxb7 Bf8 29. Rb8 Qa6 30. Qb4 
+check-piezas torre blanco b8 1
+check-piezas caballo blanco d4 1
+check-piezas caballo negro f6 1
+check-piezas alfil blanco a4 1
+check-piezas alfil negro f8 1
+check-piezas dama blanco b4 1
+check-piezas rey blanco g1 1
+check-piezas dama negro a6 1
+check-piezas rey negro g8 1
+check-piezas peon blanco c3 1
+check-piezas peon blanco f2 1
+check-piezas peon blanco g2 1
+check-piezas peon blanco h2 1
+check-piezas peon negro d3 1
+check-piezas peon negro e6 1
+check-piezas peon negro f7 1
+check-piezas peon negro g7 1
+check-piezas peon negro h7 1
