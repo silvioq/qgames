@@ -332,12 +332,14 @@ int         tipojuego_code_jaquemate( Tipojuego* tj, char* tpieza  ){
 }
 
 
-int         tipojuego_code_transforma( Tipojuego* tj, int owner, char* color, char* tpieza  ){
+int         tipojuego_code_transforma( Tipojuego* tj, int owner, char* color, char* tpieza, int flags  ){
     int  own = NOCOLOR;
     int  tp ;
     if( !TJVALIDO(tj) ) return 0;
 
-    assert( owner == PROPIO || owner == ENEMIGO || owner == NOCOLOR );
+    if( owner != PROPIO && owner != ENEMIGO && owner != NOCOLOR && owner != CAMBIOCOLOR ){
+        return 0;
+    }
 
     if( owner == NOCOLOR && color ){
         own = GETCOLOR(tj, color );
@@ -352,6 +354,8 @@ int         tipojuego_code_transforma( Tipojuego* tj, int owner, char* color, ch
     } else {
         tp = -1;
     }
+    qcode_op( tj->qcode, QCSTI,  1, flags );    // r1 = flags
+    qcode_op( tj->qcode, QCPSH,  1, 0 );        // PSH r1
     qcode_op( tj->qcode, QCSTI,  1, own );      // r1 = own
     qcode_op( tj->qcode, QCPSH,  1, 0 );        // PSH r1
     qcode_op( tj->qcode, QCSTI,  1, tp  );      // r1 = tp 
@@ -480,6 +484,16 @@ int        tipojuego_code_setmarca( Tipojuego* tj, int marca, char* casillero ){
     qcode_op( tj->qcode, QCPSH, 1, 0 );        // PSH r1
     qcode_op( tj->qcode, QCPSH, 3, 0 );        // PSH r3
     qcode_opnlab( tj->qcode, QCCLX, "setmarca" );
+    RET_IF_STATUS;                              // Retorna si el valor es distinto de cero
+    return 1;
+}
+
+int       tipojuego_code_gotomarca( Tipojuego* tj, int marca ){
+    if( !TJVALIDO(tj)) return 0;
+    qcode_op( tj->qcode, QCSTI, 1, marca );    // r1 = marca
+    qcode_op( tj->qcode, QCPSH, 1, 0 );        // PSH r1
+    qcode_op( tj->qcode, QCPSH, 3, 0 );        // PSH r3
+    qcode_opnlab( tj->qcode, QCCLX, "gotomarca" );
     RET_IF_STATUS;                              // Retorna si el valor es distinto de cero
     return 1;
 }

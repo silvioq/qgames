@@ -1,0 +1,38 @@
+# Juego obtenido de  http://www.opengames.com.ar/1970.pgn
+# Entre  ["Silvio"] y ["Buddy"]
+nuevo-juego AjedrezBenedicto
+
+1. e4 c6 2. Qf3 Nf6 3. Qc3 Qb6 4. Nd5 Na6 
+5. Qd8 
+check-piezas torre blanco a1 1
+check-piezas torre blanco h1 1
+check-piezas torre negro a8 1
+check-piezas torre negro h8 1
+check-piezas caballo blanco b1 1
+check-piezas caballo blanco g1 1
+check-piezas caballo negro a6 1
+check-piezas alfil blanco c1 1
+check-piezas alfil blanco f1 1
+check-piezas alfil negro f8 1
+check-piezas dama blanco c3 1
+check-piezas rey blanco e1 1
+check-piezas peon blanco a2 1
+check-piezas peon blanco c2 1
+check-piezas peon blanco d2 1
+check-piezas peon blanco g2 1
+check-piezas peon blanco h2 1
+check-piezas peon negro a7 1
+check-piezas peon negro b7 1
+check-piezas peon negro g7 1
+check-piezas peon negro h7 1
+check-piezas peon blanco f7 1
+check-piezas peon negro e4 1
+check-piezas caballo blanco d5 1
+check-piezas peon negro f2 1
+check-piezas peon negro b2 1
+check-piezas peon negro c6 1
+check-piezas peon blanco e7 1
+check-piezas dama blanco d8 1
+check-piezas peon blanco d7 1
+check-piezas rey blanco e8 1
+check-piezas alfil blanco c8 1

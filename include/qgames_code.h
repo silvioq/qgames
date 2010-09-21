@@ -54,11 +54,20 @@ void        tipojuego_code_op_false( Tipojuego* tj );
 int         tipojuego_code_direccion( Tipojuego* tj, char* direccion );
 int         tipojuego_code_casillero( Tipojuego* tj, char* casillero );
 int         tipojuego_code_setmarca ( Tipojuego* tj, int marca, char* casillero );
+int         tipojuego_code_gotomarca ( Tipojuego* tj, int marca );
 int         tipojuego_code_asigna_att( Tipojuego* tj, char* att, int val );
 int         tipojuego_code_evalua_att( Tipojuego* tj, char* att );
 int         tipojuego_code_juega  ( Tipojuego* tj, char* casillero, int captura );
 int         tipojuego_code_captura( Tipojuego* tj, char* casillero );
-int         tipojuego_code_transforma( Tipojuego* tj, int owner, char* color, char* tpieza );
+
+/**
+ * @owner   ENEMIGO , PROPIO , CAMBIACOLOR
+ * @color   Color a transformar
+ * @tpieza  Tipo de pieza a cambiar
+ * @flags   FROM_CASILLERO: Indica que las piezas a transformar son las
+ *                          que ocupan el casillero actual
+ **/
+int         tipojuego_code_transforma( Tipojuego* tj, int owner, char* color, char* tpieza, int flags );
 void        tipojuego_code_para   ( Tipojuego* tj );
 
 /*
@@ -77,6 +86,7 @@ int         tipojuego_code_mueve  ( Tipojuego* tj, char fromto_flags, void* from
 /* Definiciones para los dueños o colores */
 #define   ENEMIGO       -1
 #define   PROPIO        -2
+#define   CAMBIOCOLOR   -3
 #define   CUALQUIERA     0
 #define   NOCOLOR        0
 int         tipojuego_code_ahogado( Tipojuego* tj, char* color );

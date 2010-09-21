@@ -75,7 +75,8 @@ long  code_wrapper_transforma( QCodeVM* vm ){
     Tipopieza*  t = ZGETTIPOPIEZA( z, qcode_pop( vm ) );
     if( (long)t == -1 ) t = NULL;
     int  owner    = (int)qcode_pop(vm);
-    return (long)analizador_transforma(z,owner,t );
+    int  flags    = (int)qcode_pop(vm);
+    return (long)analizador_transforma(z,owner,t, flags );
 }
 
 
@@ -119,6 +120,12 @@ long  code_wrapper_setmarca( QCodeVM* vm ){
     int  marca    = qcode_pop( vm );
     Casillero*  c = ZGETCASILLERO( z, qcode_pop( vm ) );
     return (long)analizador_setmarca( z, marca, c );
+}
+
+long  code_wrapper_gotomarca( QCodeVM* vm ){
+    Analizador* z = (Analizador*)qcode_pop( vm );
+    int  marca    = qcode_pop( vm );
+    return (long)analizador_gotomarca( z, marca );
 }
 
 long  code_wrapper_captura( QCodeVM* vm ){
@@ -222,6 +229,7 @@ void  code_initialize( QCode** qcode ){
     qcode_xcrlab( q, "enzona",    (qcode_extfunc)code_wrapper_enzona );
     qcode_xcrlab( q, "evalua_att",   (qcode_extfunc)code_wrapper_evalua_att );
     qcode_xcrlab( q, "final"    , (qcode_extfunc)code_wrapper_final );
+    qcode_xcrlab( q, "gotomarca" ,(qcode_extfunc)code_wrapper_gotomarca );
     qcode_xcrlab( q, "jaquemate", (qcode_extfunc)code_wrapper_jaquemate );
     qcode_xcrlab( q, "juega",     (qcode_extfunc)code_wrapper_juega );
     qcode_xcrlab( q, "mueve",     (qcode_extfunc)code_wrapper_mueve );

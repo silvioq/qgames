@@ -1,0 +1,38 @@
+# Juego obtenido de  http://www.opengames.com.ar/1023.pgn
+# Entre  ["victor"] y ["Silvio"]
+nuevo-juego AjedrezBenedicto
+
+1. Nf3 d5 2. b3 g6 3. a4 Bg7 4. c4 Bg4 5. e3 Ne5 
+6. Qc2 Nd3 
+check-piezas torre blanco h1 1
+check-piezas torre negro a8 1
+check-piezas torre negro h8 1
+check-piezas caballo blanco b1 1
+check-piezas caballo negro b8 1
+check-piezas caballo negro g8 1
+check-piezas alfil blanco f1 1
+check-piezas alfil negro g4 1
+check-piezas alfil negro g7 1
+check-piezas dama blanco c2 1
+check-piezas dama negro d8 1
+check-piezas rey negro e8 1
+check-piezas peon blanco a4 1
+check-piezas peon blanco b3 1
+check-piezas peon blanco d2 1
+check-piezas peon blanco e3 1
+check-piezas peon blanco g2 1
+check-piezas peon blanco h2 1
+check-piezas peon negro a7 1
+check-piezas peon negro b7 1
+check-piezas peon negro c7 1
+check-piezas peon negro e7 1
+check-piezas peon negro f7 1
+check-piezas peon negro h7 1
+check-piezas torre negro a1 1
+check-piezas peon blanco d5 1
+check-piezas caballo negro d3 1
+check-piezas peon blanco g6 1
+check-piezas peon blanco c4 1
+check-piezas rey negro e1 1
+check-piezas alfil negro c1 1
+check-piezas peon negro f2 1

@@ -1,0 +1,38 @@
+# Juego obtenido de  http://www.opengames.com.ar/463.pgn
+# Entre  ["incoherente"] y ["Alonso"]
+nuevo-juego AjedrezBenedicto
+
+1. Nc3 c6 2. d3 b5 3. b4 a5 4. Bb2 b3 5. Qc1 b4 
+6. Qd2 a4 7. Ne4 d5 8. Qf4 
+check-piezas torre blanco a1 1
+check-piezas torre blanco h1 1
+check-piezas torre negro a8 1
+check-piezas torre negro h8 1
+check-piezas caballo blanco g1 1
+check-piezas caballo negro g8 1
+check-piezas alfil blanco b2 1
+check-piezas alfil blanco f1 1
+check-piezas alfil negro c8 1
+check-piezas alfil negro f8 1
+check-piezas dama blanco f4 1
+check-piezas rey blanco e1 1
+check-piezas dama negro d8 1
+check-piezas rey negro e8 1
+check-piezas peon blanco d3 1
+check-piezas peon blanco e2 1
+check-piezas peon blanco f2 1
+check-piezas peon blanco g2 1
+check-piezas peon blanco h2 1
+check-piezas peon negro a4 1
+check-piezas peon negro b4 1
+check-piezas peon negro c6 1
+check-piezas peon negro d5 1
+check-piezas peon negro e7 1
+check-piezas peon negro g7 1
+check-piezas peon negro h7 1
+check-piezas peon negro b3 1
+check-piezas peon negro a2 1
+check-piezas peon blanco c2 1
+check-piezas caballo blanco b8 1
+check-piezas peon blanco f7 1
+check-piezas caballo blanco e4 1

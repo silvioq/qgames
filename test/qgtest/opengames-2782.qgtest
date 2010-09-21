@@ -1,0 +1,37 @@
+# Juego obtenido de  http://www.opengames.com.ar/2782.pgn
+# Entre  ["Oscar Gomez"] y ["ChristiaN[20]"]
+nuevo-juego AjedrezBenedicto
+
+1. Nc3 d5 2. b3 d4 3. Bb2 e5 4. e3 Bc5 5. Bb5 
+check-piezas torre blanco a1 1
+check-piezas torre blanco h1 1
+check-piezas torre negro a8 1
+check-piezas torre negro h8 1
+check-piezas caballo blanco g1 1
+check-piezas caballo negro b8 1
+check-piezas caballo negro g8 1
+check-piezas alfil blanco b2 1
+check-piezas alfil blanco b5 1
+check-piezas alfil negro c8 1
+check-piezas alfil negro c5 1
+check-piezas dama blanco d1 1
+check-piezas rey blanco e1 1
+check-piezas dama negro d8 1
+check-piezas peon blanco a2 1
+check-piezas peon blanco b3 1
+check-piezas peon blanco c2 1
+check-piezas peon blanco d2 1
+check-piezas peon blanco e3 1
+check-piezas peon blanco f2 1
+check-piezas peon blanco g2 1
+check-piezas peon blanco h2 1
+check-piezas peon negro a7 1
+check-piezas peon negro b7 1
+check-piezas peon negro c7 1
+check-piezas peon negro e5 1
+check-piezas peon negro f7 1
+check-piezas peon negro g7 1
+check-piezas peon negro h7 1
+check-piezas caballo blanco c3 1
+check-piezas peon negro d4 1
+check-piezas rey blanco e8 1

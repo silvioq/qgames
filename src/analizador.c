@@ -266,6 +266,23 @@ int    analizador_setmarca( Analizador* z, int marca, Casillero* cas){
 }
 
 /*
+ * Esta funcion setea la marca pasada como parametro, con el casillero
+ * definido. Si el casillero es nulo, entonces tomara el actual
+ * */
+int    analizador_gotomarca( Analizador* z, int marca){
+    CHECK_STATUS;
+    if( !z->marcas ){ 
+        LOGPRINT( 1, "Marca no seteada %d", marca );
+    }
+    if( marca >= MARCAS_Q ){
+        LOGPRINT( 1, "Error cantidad de marcas pedidas %d >= %d", marca, MARCAS_Q );
+        return  STATUS_ERROR;
+    }
+    if( z->marcas[marca] ) z->cas = z->marcas[marca];
+    return  STATUS_NORMAL;
+}
+
+/*
  * Esta funcion revisa si en la zona especificada, se encuentra alguna pieza
  * del color pasado como parametro.
  * color: Dueño. Puede ser ENEMIGO, PROPIO, CUALQUIERA o un color
@@ -476,23 +493,56 @@ int    analizador_jaquemate( Analizador* z, Tipopieza* tpieza ){
     return 0;
 }
 
-int    analizador_transforma( Analizador* z, int owner, Tipopieza* tpieza ){
+int    analizador_transforma( Analizador* z, int owner, Tipopieza* tpieza, int flags ){
     CHECK_STATUS;
     int color;
-    if( owner == ENEMIGO ){
-        color = z->color + 1;
-        if( color > z->pos.tjuego->colores ) color = 1;
-    } else if ( owner == PROPIO ){
-        color = z->color;
-    } else if ( owner == NOCOLOR ){
-        color = z->color;
-    } else if ( owner > 0 ){
-        color = owner;
-    }
+
     if( !z->mov_actual ) z->mov_actual = movida_new( &z->pos, z->pieza, z->tmov );
-    z->flags |= CON_TRANSFORMACION;
-    LOGPRINT( 6, "transformando %s en %s", z->pieza->tpieza->nombre, tpieza->nombre );
-    movida_accion_transforma( z->mov_actual, z->pieza, color, tpieza );
+    if( !flags ){
+        if( owner == ENEMIGO ){
+            color = z->color + 1;
+            if( color > z->pos.tjuego->colores ) color = 1;
+        } else if ( owner == CAMBIOCOLOR ){
+            color = z->pieza->color + 1;
+            if( color > z->pos.tjuego->colores ) color = 1;
+        } else if ( owner == PROPIO ){
+            color = z->color;
+        } else if ( owner == NOCOLOR ){
+            color = z->color;
+        } else if ( owner > 0 ){
+            color = owner;
+        }
+        z->flags |= CON_TRANSFORMACION;
+        LOGPRINT( 6, "transformando %s en %s", z->pieza->tpieza->nombre, tpieza->nombre );
+        movida_accion_transforma( z->mov_actual, z->pieza, color, tpieza );
+    } else if( flags == FROM_AQUI ) {
+        int i;
+        for( i = 0; i < z->pos.piezas_count; i ++ ){
+            Pieza* pp = &(z->pos.piezas[i]);
+            if( !pp ) continue;
+            if( pp == z->pieza ) continue;
+            if( pp->casillero == z->cas ){
+                if( owner == ENEMIGO ){
+                    color = z->color + 1;
+                    if( color > z->pos.tjuego->colores ) color = 1;
+                } else if ( owner == CAMBIOCOLOR ){
+                    color = pp->color + 1;
+                    if( color > z->pos.tjuego->colores ) color = 1;
+                } else if ( owner == PROPIO ){
+                    color = z->color;
+                } else if ( owner == NOCOLOR ){
+                    color = z->color;
+                } else if ( owner > 0 ){
+                    color = owner;
+                }
+                z->flags |= CON_TRANSFORMACION;
+                movida_accion_transforma( z->mov_actual, pp, color, tpieza );
+                LOGPRINT( 6, "transformando %s", pp->tpieza->nombre );
+            }
+        }
+    } else {
+        return  STATUS_ERROR;
+    }
     return  STATUS_NORMAL;
 }
 

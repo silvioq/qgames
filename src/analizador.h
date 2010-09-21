@@ -55,7 +55,7 @@ int      analizador_evalua_final  ( Regla* regla, Posicion* pos, Pieza* pieza, C
 int    analizador_juega  ( Analizador* z, Casillero* cas, int con_captura );
 int    analizador_mueve  ( Analizador* z, char fromto_flags, void* from, void* to );
 int    analizador_captura( Analizador* z, Casillero* cas );
-int    analizador_transforma( Analizador*z, int owner, Tipopieza* tp);
+int    analizador_transforma( Analizador*z, int owner, Tipopieza* tp, int flags);
 int    analizador_asigna_att( Analizador* z, int att, int val );
 int    analizador_evalua_att( Analizador* z, int att );
 
@@ -83,6 +83,7 @@ int    analizador_ahogado( Analizador* z );
 int    analizador_entablero( Analizador* z );
 int    analizador_enzona( Analizador* z, int zona, int color, Tipopieza* tpieza );
 int    analizador_setmarca( Analizador* z, int marca, Casillero* cas);
+int    analizador_gotomarca( Analizador* z, int marca);
 int    analizador_jaquemate( Analizador* z, Tipopieza* tpieza );
 
 

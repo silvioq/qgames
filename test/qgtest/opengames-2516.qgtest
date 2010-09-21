@@ -1,0 +1,38 @@
+# Juego obtenido de  http://www.opengames.com.ar/2516.pgn
+# Entre  ["Buddy"] y ["Silvio"]
+nuevo-juego AjedrezBenedicto
+
+1. e4 e5 2. Bc4 d5 3. Na3 b5 4. Nb1 Qf6 5. Qf3 Be7 
+6. b3 Bg4 7. Be2 Qf4 8. Bd1 Qe3 
+check-piezas torre blanco a1 1
+check-piezas torre blanco h1 1
+check-piezas torre negro a8 1
+check-piezas torre negro h8 1
+check-piezas caballo blanco b1 1
+check-piezas caballo blanco g1 1
+check-piezas caballo negro b8 1
+check-piezas caballo negro g8 1
+check-piezas alfil blanco c1 1
+check-piezas alfil negro g4 1
+check-piezas alfil negro e7 1
+check-piezas rey negro e8 1
+check-piezas peon blanco a2 1
+check-piezas peon blanco c2 1
+check-piezas peon blanco g2 1
+check-piezas peon negro a7 1
+check-piezas peon negro c7 1
+check-piezas peon negro d5 1
+check-piezas peon negro e5 1
+check-piezas peon negro g7 1
+check-piezas peon negro h7 1
+check-piezas peon negro f7 1
+check-piezas dama negro e3 1
+check-piezas alfil blanco d1 1
+check-piezas peon blanco b5 1
+check-piezas peon negro h2 1
+check-piezas peon negro d2 1
+check-piezas peon negro e4 1
+check-piezas peon negro f2 1
+check-piezas rey negro e1 1
+check-piezas dama negro f3 1
+check-piezas peon negro b3 1

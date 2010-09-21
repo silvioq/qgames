@@ -1,0 +1,298 @@
+# El gametype es el nombre de juego que usaremos!
+gametype:    AjedrezBenedicto
+
+# Cada color se define aparte o no
+color:       blanco 
+color:       negro 
+
+# Board se puede definir como una lista de dimensiones.
+# Tambien podria estar en blanco y comenzar con las definiciones
+# de casillero de una.
+board:       "a b c d e f g h" "1 2 3 4 5 6 7 8"
+
+# Directions tiene el nombre de la direccion. Opcionalmente podria
+# tener n numeros que hace la representacion 'n' dimensional.
+directions:  n  0  1 
+directions:  s  0 -1 
+directions:  e  1  0  
+directions:  o -1  0 
+
+# Simetria ... un color y dos direcciones
+symmetry:    negro   s    n
+symmetry:    negro   n    s
+
+# Zona. Tiene el nombre de zona (obligatorio), luego
+# cero, uno o mas colores, indicando a que colores aplica y finalmente
+# una lista de casilleros.
+zone:        peones  blanco  a3  b3  c3  d3  e3  f3  g3  h3
+zone:        peones  negro   a6  b6  c6  d6  e6  f6  g6  h6
+zone:        coronacion  blanco  a8  b8  c8  d8  e8  f8  g8  h8
+zone:        coronacion  negro   a1  b1  c1  d1  e1  f1  g1  h1
+
+movetype:    enroque_corto
+movetype:    enroque_largo
+
+# Este define permite cambiar el color de la pieza
+# amenazada
+define:      flip direccion
+             marca  1  aqui
+             direccion
+             while  en_tablero? && !ocupado_propio? do
+               if ocupado_enemigo?
+                 cambia_color  aqui
+                 break
+               end
+               direccion
+             end
+             goto-marca  1
+
+define:      flip-uno direccion
+             marca  1  aqui
+             direccion
+             if  en_tablero? &&  ocupado_enemigo
+               cambia_color  aqui
+             end
+             goto-marca  1
+
+define:      flip-caballo
+            flip-uno 'n; n; e'
+            flip-uno 'n; n; o'
+            flip-uno 's; s; e'
+            flip-uno 's; s; o'
+            flip-uno 'e; e; s'
+            flip-uno 'o; o; s'
+            flip-uno 'e; e; n'
+            flip-uno 'o; o; n'
+
+define:     flip-alfil
+                flip 'n; e'
+                flip 's; e'
+                flip 'n; o'
+                flip 's; o'
+
+define:     flip-torre
+                flip 'n' 
+                flip 's' 
+                flip 'o' 
+                flip 'e' 
+
+define:     flip-dama
+              flip-alfil; flip-torre
+
+define:     flip-peon
+              flip-uno 'n; e'
+              flip-uno 'n; o'
+
+define:     flip-rey
+              flip-uno 'n'
+              flip-uno 's'
+              flip-uno 'e'
+              flip-uno 'o'
+              flip-uno 'n; e'
+              flip-uno 'n; o'
+              flip-uno 's; e'
+              flip-uno 's; o'
+
+
+# Toda esta parte tiene que ver con
+# las definiciones para hacer mas facil 
+# la generacion de los miniprogramas
+# de movimiento
+#
+
+define:     movida_torre direccion 
+            direccion
+            while en_tablero? && !ocupado?  do
+              asigna_atributo  ya_movido , true
+              flip-torre
+              juega
+              direccion
+            end
+
+define:     movida_rey  direccion
+            direccion
+            parar if !en_tablero?
+            parar if ocupado?
+            asigna_atributo 'ya_movido', true
+            flip-rey
+            juega
+
+define:     movida_caballo  direccion
+            direccion
+            parar if !en_tablero?
+            parar if ocupado?
+            flip-caballo
+            juega
+
+define:     movida_dama  direccion
+            direccion
+            while en_tablero? && !ocupado?  do
+              flip-dama
+              juega
+              direccion
+            end
+
+define:     movida_alfil  direccion
+            direccion
+            while en_tablero? && !ocupado?  do
+              flip-alfil
+              juega
+              direccion
+            end
+
+
+# Listo, ahora si ... se vienen las definiciones de piezas
+#
+piece:      torre
+attribute:  ya_movido   false
+move:       
+            movida_torre n
+move:       
+            movida_torre s
+move:       
+            movida_torre e
+move:       
+            movida_torre o
+
+piece:      alfil
+move:       
+            movida_alfil "n; e"
+move:       
+            movida_alfil "s; e"
+move:       
+            movida_alfil "s; o"
+move:       
+            movida_alfil "n; o"
+
+piece:      dama
+move:       
+            movida_dama "n"
+move:       
+            movida_dama "s"
+move:       
+            movida_dama "o"
+move:       
+            movida_dama "e"
+move:       
+            movida_dama "n; e"
+move:       
+            movida_dama "s; e"
+move:       
+            movida_dama "s; o"
+move:       
+            movida_dama "n; o"
+
+piece:      caballo
+move:       
+            movida_caballo 'n; n; e'
+move:       
+            movida_caballo 'n; n; o'
+move:       
+            movida_caballo 's; s; e'
+move:       
+            movida_caballo 's; s; o'
+move:       
+            movida_caballo 'e; e; s'
+move:       
+            movida_caballo 'o; o; s'
+move:     
+            movida_caballo 'e; e; n'
+move:      
+            movida_caballo 'o; o; n' 
+
+
+piece:      "peon"
+move:       
+            n
+            parar if !en_tablero?
+            parar if ocupado? 
+            if  en_zona? coronacion
+               transforma 'caballo'
+               flip-caballo
+               juega
+               transforma 'torre'
+               flip-torre
+               juega
+               transforma 'alfil'
+               flip-alfil
+               juega
+               transforma 'dama'
+               flip-dama
+               juega
+            end
+            flip-peon
+            juega
+            if en_zona? 'peones'
+              n
+              flip-peon
+              juega if !ocupado?
+            end
+
+piece:      rey            
+attribute:  ya_movido   false
+move:
+            movida_rey "n" 
+move:
+            movida_rey "s"
+move:
+            movida_rey "e"
+move:
+            movida_rey "o"
+move:
+            movida_rey "n; e;"
+move:
+            movida_rey "n; o;"
+move:
+            movida_rey "s; o;"
+move:
+            movida_rey "s; e;"
+
+
+
+# Listo con la definicion de piezas ... mas cosas
+#
+# Se vienen los finales. Son tambien distintos mini programas!
+ending:    
+            gana if cantidad-piezas-enemigo "rey" = 0
+ending:     
+            empata if ahogado?
+ending:
+            empata if repite_posicion? 3 
+
+sequence:   blanco negro
+start:      torre    blanco  a1  h1
+start:      torre    negro   a8  h8
+start:      caballo  blanco  b1  g1
+start:      caballo  negro   b8  g8
+start:      alfil    blanco  c1  f1
+start:      alfil    negro   c8  f8
+start:      dama     blanco  d1
+start:      dama     negro   d8
+start:      rey      blanco  e1
+start:      rey      negro   e8
+start:      peon     blanco  a2  b2  c2  d2
+start:      peon     blanco  e2  f2  g2  h2
+start:      peon     negro   a7  b7  c7  d7
+start:      peon     negro   e7  f7  g7  h7
+  
+
+notation:   rey     K
+notation:   dama    Q
+notation:   torre   R
+notation:   alfil   B
+notation:   caballo N
+notation:   peon    ""
+notation:   captured-mark   x
+notation:   mark           "-"
+notation:   default   piece-name  captured-mark      target
+notation:   onrepeat  piece-name  origin             mark    target         
+
+# Aca vienen las definiciones de tablero ... simplemente voy a hacer
+# un damero de dimensiones estandares
+graph-board: checkerboard   384 384    $FFFFFF $F0A0A0 
+graph-piece: standard-king     rey      48 48
+graph-piece: standard-queen    dama     48 48
+graph-piece: standard-bishop   alfil    48 48
+graph-piece: standard-knight   caballo  48 48
+graph-piece: standard-rook     torre    48 48
+graph-piece: standard-pawn     peon     48 48

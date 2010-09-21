@@ -1,0 +1,37 @@
+# Juego obtenido de  http://www.opengames.com.ar/1613.pgn
+# Entre  ["pepe"] y ["Rebeca Gómez Féliz"]
+nuevo-juego AjedrezBenedicto
+
+1. Nc3 Nh6 2. d3 Na6 3. Nd5 g6 4. Nf6 
+check-piezas torre blanco a1 1
+check-piezas torre blanco h1 1
+check-piezas torre negro a8 1
+check-piezas torre negro h8 1
+check-piezas caballo blanco f6 1
+check-piezas caballo blanco g1 1
+check-piezas caballo negro a6 1
+check-piezas caballo negro h6 1
+check-piezas alfil blanco c1 1
+check-piezas alfil blanco f1 1
+check-piezas alfil negro c8 1
+check-piezas alfil negro f8 1
+check-piezas dama blanco d1 1
+check-piezas rey blanco e1 1
+check-piezas dama negro d8 1
+check-piezas peon blanco a2 1
+check-piezas peon blanco b2 1
+check-piezas peon blanco c2 1
+check-piezas peon blanco d3 1
+check-piezas peon blanco e2 1
+check-piezas peon blanco f2 1
+check-piezas peon blanco g2 1
+check-piezas peon blanco h2 1
+check-piezas peon negro a7 1
+check-piezas peon negro b7 1
+check-piezas peon negro f7 1
+check-piezas peon negro g6 1
+check-piezas peon blanco e7 1
+check-piezas peon blanco c7 1
+check-piezas rey blanco e8 1
+check-piezas peon blanco h7 1
+check-piezas peon blanco d7 1

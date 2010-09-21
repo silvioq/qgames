@@ -59,6 +59,7 @@ extern FILE* qgzin;
 
 static  Tipojuego*   tipojuego  = NULL;
 static  char*        last_pieza = NULL;
+static  long         last_block = 0;
 static  long         html_color1, html_color2;
 static  long         graph_dim1, graph_dim2;
 
@@ -141,6 +142,7 @@ void  qgzprintf( char* format, ... ){
 %token    TOK_AQUI
 %token    TOK_ASIGNA_ATT
 %token    TOK_ATACADO_ENEMIGO
+%token    TOK_CAMBIA_COLOR
 %token    TOK_CAPTURA        TOK_CAPTURA_SI        TOK_CAPTURA_Y_JUEGA   TOK_CAPTURA_Y_JUEGA_SI
 %token    TOK_CAPTURADAS_ENEMIGO   TOK_CAPTURADAS_PROPIO
 %token    TOK_CASILLERO_INICIAL
@@ -151,7 +153,7 @@ void  qgzprintf( char* format, ... ){
 %token    TOK_GANA      TOK_GANA_SI
 %token    TOK_JAQUEMATE
 %token    TOK_JUEGA     TOK_JUEGA_SI
-%token    TOK_MARCA
+%token    TOK_GOTO_MARCA  TOK_MARCA
 %token    TOK_MUEVE     TOK_MUEVE_SI
 %token    TOK_IF
 %token    TOK_OCUPADO
@@ -166,7 +168,7 @@ void  qgzprintf( char* format, ... ){
 
 %token    TOK_AND       TOK_OR          TOK_NOT
 %token    TOK_EQUAL     TOK_DEQUAL
-%token    TOK_WHILE     TOK_DO   TOK_END
+%token    TOK_WHILE     TOK_DO   TOK_END  TOK_BREAK
 
 %token    TOK_GRAPH_BOARD
 %token    TOK_GRAPH_PIECE
@@ -542,13 +544,32 @@ instaction_movs:
                     for( i = 0; i < qgz_param_count; i ++ ){
                         if( NOT_FOUND != qg_tipojuego_get_tipopieza( tipojuego, qgz_param_list[i].str ) ){
                             qgzprintf( "Se va a transformar a %s %s", qgz_param_list[i].str, color );
-                            if( !tipojuego_code_transforma( tipojuego, NOCOLOR, color, qgz_param_list[i].str ) ) YYERROR;
+                            if( !tipojuego_code_transforma( tipojuego, NOCOLOR, color, qgz_param_list[i].str, 0 ) ) YYERROR;
                         } else if ( NOT_FOUND != qg_tipojuego_get_color( tipojuego, qgz_param_list[i].str ) ){
                             qgzprintf( "Parametro incorrecto en transforma: %s", qgz_param_list[i].str ); 
                             yyerror( "Error de parametros en transforma, debe ser color o tipo de pieza" );
                         }
                     }
+    } |
+    TOK_CAMBIA_COLOR  TOK_AQUI {
+            CHECK_TIPOJUEGO ;
+            if( !tipojuego_code_transforma( tipojuego, CAMBIOCOLOR, NULL, NULL, FROM_AQUI ) ) YYERROR; 
+    } |
+    TOK_CAMBIA_COLOR  word_or_string  TOK_AQUI {
+            CHECK_TIPOJUEGO ;
+            if( !tipojuego_code_transforma( tipojuego, NOCOLOR, (char*)$2, NULL, FROM_AQUI ) ) YYERROR; 
+            free( (char*)$2 );
+    } |
+    TOK_CAMBIA_COLOR  {
+            CHECK_TIPOJUEGO ;
+            if( !tipojuego_code_transforma( tipojuego, CAMBIOCOLOR, NULL, NULL, 0 ) ) YYERROR; 
+    } |
+    TOK_CAMBIA_COLOR  word_or_string  {
+            CHECK_TIPOJUEGO ;
+            if( !tipojuego_code_transforma( tipojuego, NOCOLOR, (char*)$2, NULL, 0 ) ) YYERROR; 
+            free( (char*)$2 );
     };
+    
 
 
 instaction_asigna_att:
@@ -658,12 +679,19 @@ instaction_set_marca:
 
 
 instaction_get_marca:
-    TOK_MARCA   TOK_NUMBER                               { $$ = $1; } |
+    TOK_MARCA   TOK_NUMBER                               { $$ = $2; } |
     TOK_MARCA                                            { $$ = 0; };
 
 
 instaction_goto_marca:
-    instaction_get_marca                                 { NOT_IMPLEMENTED_WARN( "marca" ); } ;
+    TOK_GOTO_MARCA   TOK_NUMBER                         {
+                        CHECK_TIPOJUEGO; 
+                        tipojuego_code_gotomarca( tipojuego, $2 );
+    } |
+    TOK_GOTO_MARCA  {
+                        CHECK_TIPOJUEGO; 
+                        tipojuego_code_gotomarca( tipojuego, 0 );
+    };
 
 
 
@@ -679,10 +707,22 @@ instaction_if:
             tipojuego_code_end_condblock( tipojuego );
     } TOK_END ;
 
+instaction_break:
+    TOK_BREAK {
+            CHECK_TIPOJUEGO;
+            if( !last_block ){
+                yyerror( "Break por fuera de bloque" );
+                YYERROR;
+            }
+            tipojuego_code_break_block( tipojuego, last_block );
+    }
+
 instaction_while:
     TOK_WHILE  {
             CHECK_TIPOJUEGO;
             $$ = tipojuego_code_start_block( tipojuego );
+            // FIXME: Debe usar un stack de bloques.
+            last_block = $$;
     } instexpr TOK_DO {
             tipojuego_code_start_condblock( tipojuego );
     }  code_list TOK_END {
@@ -696,6 +736,7 @@ instaction_while:
 
 instaction:
     instaction_asigna_att |
+    instaction_break  |
     instaction_juega |
     instaction_final |
     instaction_if    |

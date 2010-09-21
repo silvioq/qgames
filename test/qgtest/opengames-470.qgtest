@@ -1,0 +1,37 @@
+# Juego obtenido de  http://www.opengames.com.ar/470.pgn
+# Entre  ["Alonso"] y ["Sojuzgado"]
+nuevo-juego AjedrezBenedicto
+
+1. c4 b5 2. a4 c3 3. Qc2 c6 4. Qg6 b4 
+check-piezas torre blanco a1 1
+check-piezas torre blanco h1 1
+check-piezas torre negro a8 1
+check-piezas torre negro h8 1
+check-piezas caballo blanco b1 1
+check-piezas caballo blanco g1 1
+check-piezas caballo negro b8 1
+check-piezas caballo negro g8 1
+check-piezas alfil blanco c1 1
+check-piezas alfil blanco f1 1
+check-piezas alfil negro c8 1
+check-piezas alfil negro f8 1
+check-piezas dama blanco g6 1
+check-piezas rey blanco e1 1
+check-piezas dama negro d8 1
+check-piezas rey negro e8 1
+check-piezas peon blanco a4 1
+check-piezas peon blanco e2 1
+check-piezas peon blanco f2 1
+check-piezas peon blanco g2 1
+check-piezas peon blanco h2 1
+check-piezas peon negro a7 1
+check-piezas peon negro d7 1
+check-piezas peon negro e7 1
+check-piezas peon blanco h7 1
+check-piezas peon blanco d2 1
+check-piezas peon blanco b2 1
+check-piezas peon negro b4 1
+check-piezas peon blanco f7 1
+check-piezas peon blanco g7 1
+check-piezas peon blanco c6 1
+check-piezas peon negro c3 1
