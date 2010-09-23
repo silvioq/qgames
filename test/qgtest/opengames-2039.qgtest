@@ -1,0 +1,7 @@
+# Juego obtenido de  http://www.opengames.com.ar/2039.pgn
+# Entre  ["Leandro Ezequiel Argentino"] y ["Silvio"]
+nuevo-juego Gomoku
+
+1. g7 h8 
+check-piezas gema blanco g7 1
+check-piezas gema negro h8 1

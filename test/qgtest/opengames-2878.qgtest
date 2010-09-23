@@ -1,0 +1,34 @@
+# Juego obtenido de  http://www.opengames.com.ar/2878.pgn
+# Entre  ["Francisco González Christen"] y ["marcelo"]
+nuevo-juego Gomoku
+
+1. e9 f8 2. e8 e7 3. f7 d8 4. d9 c10 5. g9 c9 
+6. f6 b10 7. a11 d6 8. d7 c7 9. c8 b8 10. e5 c5 
+11. b4 b6 12. h8 g8 13. g7 d4 14. i9 
+check-piezas gema blanco e9 1
+check-piezas gema blanco e8 1
+check-piezas gema blanco f7 1
+check-piezas gema blanco d9 1
+check-piezas gema blanco g9 1
+check-piezas gema blanco f6 1
+check-piezas gema blanco a11 1
+check-piezas gema blanco d7 1
+check-piezas gema blanco c8 1
+check-piezas gema blanco e5 1
+check-piezas gema blanco b4 1
+check-piezas gema blanco h8 1
+check-piezas gema blanco g7 1
+check-piezas gema blanco i9 1
+check-piezas gema negro f8 1
+check-piezas gema negro e7 1
+check-piezas gema negro d8 1
+check-piezas gema negro c10 1
+check-piezas gema negro c9 1
+check-piezas gema negro b10 1
+check-piezas gema negro d6 1
+check-piezas gema negro c7 1
+check-piezas gema negro b8 1
+check-piezas gema negro c5 1
+check-piezas gema negro b6 1
+check-piezas gema negro g8 1
+check-piezas gema negro d4 1

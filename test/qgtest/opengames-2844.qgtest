@@ -1,0 +1,41 @@
+# Juego obtenido de  http://www.opengames.com.ar/2844.pgn
+# Entre  ["ricdos"] y ["marcelo"]
+nuevo-juego Gomoku
+
+1. f8 g7 2. g8 h8 3. f6 f7 4. h7 e7 5. g6 e6 
+6. e8 d7 7. c7 d8 8. d6 e5 9. c8 d9 10. d5 d10 
+11. d11 e4 12. e3 i9 13. f4 j10 14. k11 h9 
+15. i6 g9 16. f9 j5 17. e10 
+check-piezas gema blanco f8 1
+check-piezas gema blanco g8 1
+check-piezas gema blanco f6 1
+check-piezas gema blanco h7 1
+check-piezas gema blanco g6 1
+check-piezas gema blanco e8 1
+check-piezas gema blanco c7 1
+check-piezas gema blanco d6 1
+check-piezas gema blanco c8 1
+check-piezas gema blanco d5 1
+check-piezas gema blanco d11 1
+check-piezas gema blanco e3 1
+check-piezas gema blanco f4 1
+check-piezas gema blanco k11 1
+check-piezas gema blanco i6 1
+check-piezas gema blanco f9 1
+check-piezas gema blanco e10 1
+check-piezas gema negro g7 1
+check-piezas gema negro h8 1
+check-piezas gema negro f7 1
+check-piezas gema negro e7 1
+check-piezas gema negro e6 1
+check-piezas gema negro d7 1
+check-piezas gema negro d8 1
+check-piezas gema negro e5 1
+check-piezas gema negro d9 1
+check-piezas gema negro d10 1
+check-piezas gema negro e4 1
+check-piezas gema negro i9 1
+check-piezas gema negro j10 1
+check-piezas gema negro h9 1
+check-piezas gema negro g9 1
+check-piezas gema negro j5 1

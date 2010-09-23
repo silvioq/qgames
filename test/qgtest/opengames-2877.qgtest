@@ -1,0 +1,24 @@
+# Juego obtenido de  http://www.opengames.com.ar/2877.pgn
+# Entre  ["Francisco González Christen"] y ["Francisco González Ramírez"]
+nuevo-juego Gomoku
+
+1. e9 g4 2. g7 f8 3. g9 g8 4. h8 f10 5. i9 f6 
+6. h9 f9 7. f7 e10 8. h10 h7 9. i6 d11 
+check-piezas gema blanco e9 1
+check-piezas gema blanco g7 1
+check-piezas gema blanco g9 1
+check-piezas gema blanco h8 1
+check-piezas gema blanco i9 1
+check-piezas gema blanco h9 1
+check-piezas gema blanco f7 1
+check-piezas gema blanco h10 1
+check-piezas gema blanco i6 1
+check-piezas gema negro g4 1
+check-piezas gema negro f8 1
+check-piezas gema negro g8 1
+check-piezas gema negro f10 1
+check-piezas gema negro f6 1
+check-piezas gema negro f9 1
+check-piezas gema negro e10 1
+check-piezas gema negro h7 1
+check-piezas gema negro d11 1
