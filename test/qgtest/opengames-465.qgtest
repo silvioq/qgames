@@ -1,0 +1,38 @@
+# Juego obtenido de  http://www.opengames.com.ar/465.pgn
+# Entre  ["Alonso"] y ["Silvio"]
+nuevo-juego AjedrezBenedicto
+
+1. c4 e5 2. b4 Nc6 3. a3 Bc5 4. d4 b6 5. d5 b3 
+6. Be3 Qg5 7. f4 Bf2 
+check-piezas torre blanco a1 1
+check-piezas torre blanco h1 1
+check-piezas torre negro a8 1
+check-piezas torre negro h8 1
+check-piezas caballo blanco b1 1
+check-piezas caballo negro g8 1
+check-piezas alfil blanco f1 1
+check-piezas alfil negro c8 1
+check-piezas dama blanco d1 1
+check-piezas rey negro e8 1
+check-piezas peon blanco a3 1
+check-piezas peon blanco c4 1
+check-piezas peon blanco d5 1
+check-piezas peon blanco e2 1
+check-piezas peon blanco h2 1
+check-piezas peon negro a7 1
+check-piezas peon negro b6 1
+check-piezas peon negro c7 1
+check-piezas peon negro d7 1
+check-piezas peon negro f7 1
+check-piezas peon negro g7 1
+check-piezas peon negro h7 1
+check-piezas peon negro b3 1
+check-piezas caballo blanco c6 1
+check-piezas peon blanco f4 1
+check-piezas alfil negro f2 1
+check-piezas peon negro g2 1
+check-piezas dama blanco g5 1
+check-piezas peon blanco e5 1
+check-piezas caballo negro g1 1
+check-piezas rey negro e1 1
+check-piezas alfil negro c5 1

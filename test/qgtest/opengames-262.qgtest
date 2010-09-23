@@ -1,0 +1,37 @@
+# Juego obtenido de  http://www.opengames.com.ar/262.pgn
+# Entre  ["incoherente"] y ["Marco Antonio Boza "]
+nuevo-juego AjedrezBenedicto
+
+1. Nc3 b5 2. b4 a6 3. Nf3 g5 4. Ne5 Bg7 5. f8=Q 
+check-piezas torre blanco a1 1
+check-piezas torre blanco h1 1
+check-piezas torre negro a8 1
+check-piezas torre negro h8 1
+check-piezas caballo blanco c3 1
+check-piezas caballo negro b8 1
+check-piezas alfil blanco c1 1
+check-piezas alfil blanco f1 1
+check-piezas alfil negro c8 1
+check-piezas dama blanco d1 1
+check-piezas rey blanco e1 1
+check-piezas dama negro d8 1
+check-piezas peon blanco a2 1
+check-piezas peon blanco b4 1
+check-piezas peon blanco c2 1
+check-piezas peon blanco d2 1
+check-piezas peon blanco e2 1
+check-piezas peon blanco f2 1
+check-piezas peon blanco g2 1
+check-piezas peon blanco h2 1
+check-piezas peon negro a6 1
+check-piezas peon negro b5 1
+check-piezas peon negro c7 1
+check-piezas peon negro g5 1
+check-piezas peon negro h7 1
+check-piezas peon blanco d7 1
+check-piezas caballo negro e5 1
+check-piezas dama blanco f8 1
+check-piezas caballo blanco g8 1
+check-piezas rey blanco e8 1
+check-piezas alfil blanco g7 1
+check-piezas peon blanco e7 1

@@ -1,0 +1,37 @@
+# Juego obtenido de  http://www.opengames.com.ar/355.pgn
+# Entre  ["Silvio"] y ["ariza"]
+nuevo-juego AjedrezBenedicto
+
+1. e4 e6 2. Nc3 h6 3. Bc4 d5 4. e7 Bg4 5. Qd7 
+check-piezas torre blanco a1 1
+check-piezas torre blanco h1 1
+check-piezas torre negro a8 1
+check-piezas torre negro h8 1
+check-piezas caballo blanco c3 1
+check-piezas caballo blanco g1 1
+check-piezas caballo negro b8 1
+check-piezas caballo negro g8 1
+check-piezas alfil blanco c1 1
+check-piezas rey blanco e1 1
+check-piezas peon blanco a2 1
+check-piezas peon blanco b2 1
+check-piezas peon blanco c2 1
+check-piezas peon blanco d2 1
+check-piezas peon blanco f2 1
+check-piezas peon blanco g2 1
+check-piezas peon blanco h2 1
+check-piezas peon negro a7 1
+check-piezas peon negro b7 1
+check-piezas peon negro f7 1
+check-piezas peon negro g7 1
+check-piezas peon negro h6 1
+check-piezas peon blanco e7 1
+check-piezas peon negro e4 1
+check-piezas alfil negro c4 1
+check-piezas alfil blanco f8 1
+check-piezas dama blanco d7 1
+check-piezas dama negro d1 1
+check-piezas rey blanco e8 1
+check-piezas alfil blanco g4 1
+check-piezas peon blanco d5 1
+check-piezas peon blanco c7 1

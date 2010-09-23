@@ -1,0 +1,38 @@
+# Juego obtenido de  http://www.opengames.com.ar/87.pgn
+# Entre  ["Silvio"] y ["Sojuzgado"]
+nuevo-juego AjedrezBenedicto
+
+1. e4 c6 2. Bc4 Nf6 3. Nc3 b5 4. Nd5 Bb3 
+5. Qh5 Bc4 6. Qe5 Qc7 7. Ng4 d6 8. Nd5-f6 
+check-piezas torre blanco a1 1
+check-piezas torre blanco h1 1
+check-piezas torre negro a8 1
+check-piezas torre negro h8 1
+check-piezas caballo blanco g1 1
+check-piezas alfil blanco c1 1
+check-piezas alfil negro c8 1
+check-piezas alfil negro f8 1
+check-piezas rey blanco e1 1
+check-piezas dama negro c7 1
+check-piezas peon blanco b2 1
+check-piezas peon blanco d2 1
+check-piezas peon blanco f2 1
+check-piezas peon blanco g2 1
+check-piezas peon blanco h2 1
+check-piezas peon negro a7 1
+check-piezas peon negro b5 1
+check-piezas peon negro c6 1
+check-piezas peon negro d6 1
+check-piezas peon negro g7 1
+check-piezas peon blanco f7 1
+check-piezas peon blanco e4 1
+check-piezas alfil negro c4 1
+check-piezas peon blanco e7 1
+check-piezas caballo blanco g4 1
+check-piezas peon negro c2 1
+check-piezas peon negro a2 1
+check-piezas peon blanco h7 1
+check-piezas caballo blanco f6 1
+check-piezas caballo negro b8 1
+check-piezas dama negro e5 1
+check-piezas rey blanco e8 1

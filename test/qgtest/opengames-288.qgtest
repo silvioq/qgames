@@ -1,0 +1,39 @@
+# Juego obtenido de  http://www.opengames.com.ar/288.pgn
+# Entre  ["incoherente"] y ["Sojuzgado"]
+nuevo-juego AjedrezBenedicto
+
+1. Nc3 Nc6 2. e3 b6 3. g4 h5 4. Nd5 Nb4 5. Bd3 g3 
+6. Qf3 Bb7 7. c8=Q Nc7 8. Qb8 Nc6 9. Na6 Qc7 
+10. Qd5 Nf6 11. Be4 Bc8 12. Qd6 Kd8 13. Nd5 
+check-piezas torre blanco a1 1
+check-piezas torre blanco h1 1
+check-piezas torre negro h8 1
+check-piezas caballo blanco g1 1
+check-piezas alfil blanco c1 1
+check-piezas alfil blanco e4 1
+check-piezas alfil negro f8 1
+check-piezas rey blanco e1 1
+check-piezas rey negro d8 1
+check-piezas peon blanco b2 1
+check-piezas peon blanco d2 1
+check-piezas peon blanco e3 1
+check-piezas peon negro g7 1
+check-piezas peon blanco c2 1
+check-piezas peon negro h2 1
+check-piezas peon blanco f7 1
+check-piezas peon blanco f2 1
+check-piezas torre blanco a8 1
+check-piezas peon negro a7 1
+check-piezas dama negro b8 1
+check-piezas alfil negro c8 1
+check-piezas caballo blanco c6 1
+check-piezas peon blanco a2 1
+check-piezas peon negro h5 1
+check-piezas dama blanco d6 1
+check-piezas caballo negro a6 1
+check-piezas peon blanco g3 1
+check-piezas caballo blanco d5 1
+check-piezas peon negro d7 1
+check-piezas peon blanco e7 1
+check-piezas dama blanco c7 1
+check-piezas peon blanco b6 1
