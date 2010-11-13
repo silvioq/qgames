@@ -52,7 +52,7 @@ void        tipojuego_code_op_equal( Tipojuego* tj, long val );
 void        tipojuego_code_op_false( Tipojuego* tj );
 
 int         tipojuego_code_direccion( Tipojuego* tj, char* direccion );
-int         qg_tipojuego_code_casillero( Tipojuego* tj, char* casillero );
+int         tipojuego_code_casillero( Tipojuego* tj, char* casillero );
 int         tipojuego_code_setmarca ( Tipojuego* tj, int marca, char* casillero );
 int         tipojuego_code_gotomarca ( Tipojuego* tj, int marca );
 int         tipojuego_code_asigna_att( Tipojuego* tj, char* att, int val );

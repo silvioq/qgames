@@ -6,12 +6,14 @@ Desarrollo corto plazo (version 2.9.4)
   actuales dentro del directorio src
 * Dar visibilidad a las funciones. http://gcc.gnu.org/wiki/Visibility y 
   http://www.gnu.org/software/hello/manual/gnulib/Exported-Symbols-of-Shared-Libraries.html
+* Nueva funcion para el logo
 
 Version 2.9.5
 
 * Cambiar la definicion de archivo qgames para que este 100% en ingles
 * Rotular todos los fuentes con la licencia MIT
 * Benchmarking
+* Quitar el archivo "qgames_code.h" de los include
 
 Motor de juegos
 
@@ -27,6 +29,7 @@ Juegos
 
 * Revuelta Campesina
 * Los tres mosqueteros (solo por curiosidad (http://es.wikipedia.org/wiki/Los_tres_mosqueteros_%28juego%29)
+* Africa University
 
 Ecosistema QGames
 * qgames-server : una utilidad para simplificar el salvado de los

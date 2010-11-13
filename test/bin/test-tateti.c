@@ -34,11 +34,11 @@
 
 
 int  main(int argc, char** argv) {
-    Tipojuego* tateti, *tateti2;
+    Tipojuego* tateti;
     Partida*   partida;
     char *filename = "../../games/TaTeTi.qgame";
-    assert( tateti = qgz_parse_filename( filename, 0 ) );
-    assert( tateti2 = qgz_parse_filename( filename, 0 ) );
+    qg_path_set( TEST_GAMESDIR );
+    assert( tateti = qg_tipojuego_open( "TaTeTi" ) );
 
     loglevel = 2;
 
@@ -100,12 +100,6 @@ int  main(int argc, char** argv) {
     assert( qg_partida_final( partida, NULL ) == 1 );
     qg_partida_free( partida );
 
-    printf( "." );
-    assert( qg_tipojuego_valido( tateti2 ) );
-    assert( tipojuego_code_casillero( tateti2, "a1" ) );
-    assert( qg_tipojuego_valido( tateti2 ) );
-    assert( !tipojuego_code_casillero( tateti2, "a4" ) );
-    assert( !qg_tipojuego_valido( tateti2 ) );
 
     printf( "\n" );
     return  EXIT_SUCCESS;

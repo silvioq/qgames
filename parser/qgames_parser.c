@@ -300,7 +300,7 @@
 #include  <errno.h>
 #include  <qgames.h>
 #include  <qgames_analyzer.h>
-#include  <qgames_code.h>
+#include  "qgames_code_impl.h"
 
 
 

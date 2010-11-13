@@ -1,5 +1,11 @@
 
-check_PROGRAMS = test-generic test-tateti test-gomoku test-ajedrezq test-dump test-graph test-historial test-movidas-posibles-data
+check_PROGRAMS = test-generic \
+		test-tateti test-gomoku \
+		test-ajedrezq test-dump \
+		test-graph test-historial \
+		test-movidas-posibles-data \
+		test-juego-valido
+
 test_tateti_SOURCES = test-tateti.c
 test_gomoku_SOURCES = test-gomoku.c
 test_ajedrezq_SOURCES = test-ajedrezq.c
@@ -7,6 +13,7 @@ test_dump_SOURCES = test-dump.c
 test_graph_SOURCES = test-graph.c
 test_historial_SOURCES = test-historial.c
 test_movidas_posibles_data_SOURCES = test-movidas-posibles-data.c
+test_juego_valido_SOURCES = test-juego-valido.c
 
 test_tateti_DEPENDENCIES = $(DEPENDENCIES)
 test_tateti_LDADD        = $(DEPENDENCIES)
@@ -31,6 +38,20 @@ test_historial_LDADD        = $(DEPENDENCIES)
 
 test_movidas_posibles_data_DEPENDENCIES = $(DEPENDENCIES)
 test_movidas_posibles_data_LDADD        = $(DEPENDENCIES)
+
+test_juego_valido_DEPENDENCIES = $(DEPENDENCIES)
+test_juego_valido_LDADD        = $(DEPENDENCIES) $(top_builddir)/vm/libqcode.a $(top_builddir)/src/libqgames-core.a
+
+# test_juego_valido_DEPENDENCIES  =  \
+# 	$(top_builddir)/parser/libpgn-parser.a \
+# 	$(top_builddir)/parser/libqgames-parser.a \
+# 	$(top_builddir)/src/libqgames-core.a \
+# 	$(top_builddir)/vm/libqcode.a
+# test_juego_valido_LDADD         =  \
+# 	$(top_builddir)/parser/libpgn-parser.a \
+# 	$(top_builddir)/parser/libqgames-parser.a \
+# 	$(top_builddir)/src/libqgames-core.a \
+# 	$(top_builddir)/vm/libqcode.a
 
 AM_CFLAGS = -I$(top_srcdir)/include -I$(top_srcdir)/common -I$(top_srcdir)/qcode/src \
 				-DTEST_IMGDIR=\"$(top_srcdir)/images\"  \
