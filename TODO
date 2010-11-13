@@ -13,7 +13,6 @@ Version 2.9.5
 * Cambiar la definicion de archivo qgames para que este 100% en ingles
 * Rotular todos los fuentes con la licencia MIT
 * Benchmarking
-* Quitar el archivo "qgames_code.h" de los include
 
 Motor de juegos
 
