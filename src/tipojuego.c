@@ -27,7 +27,7 @@
 #include  <string.h>
 #include  <stdarg.h>
 #include  <qgames.h>
-#include  <qgames_code.h>
+// #include  <qgames_code.h>
 
 #include  "config.h"
 #include  "qgames_core.h"

@@ -27,7 +27,6 @@
 #include <unistd.h>
 #include <assert.h>
 #include <qgames.h>
-#include <qgames_code.h>
 #include <qgames_analyzer.h>
 
 #include "log.h"

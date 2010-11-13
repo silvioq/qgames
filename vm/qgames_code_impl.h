@@ -30,10 +30,11 @@
  * Toda esta parte es para definir el codigo
  * */
 
-
+// Tipos de reglas
 #define   DROP  'D'
 #define   MOVE  'M'
 #define   END   'E'
+
 int         tipojuego_start_code(  Tipojuego* tj, char tiporegla, char* tipopieza, char* tipomov );
 #define     tipojuego_start_codeend(tj) tipojuego_start_code( tj, END, NULL, NULL )
 void        tipojuego_end_code( Tipojuego* tj );

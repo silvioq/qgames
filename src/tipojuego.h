@@ -128,6 +128,11 @@ typedef   struct   StrTipopieza {
 #define  RULEFLAG_PIEZAS      0x2
 #define  RULEFLAG_DIRECCION   0x4
 
+// Tipos de reglas
+#define   DROP  'D'
+#define   MOVE  'M'
+#define   END   'E'
+
 typedef   struct  StrRegla {
     Tipopieza*  tpieza;
     int         tmov;

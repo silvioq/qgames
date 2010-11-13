@@ -12,7 +12,7 @@
 #include  <assert.h>
 #include  <stdarg.h>
 #include  <qgames.h>
-#include  <qgames_code.h>
+#include  "qgames_code_impl.h"
 
 #include  "list.h"
 #include  "tipojuego.h"
