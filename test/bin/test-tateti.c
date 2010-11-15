@@ -35,7 +35,6 @@
 int  main(int argc, char** argv) {
     Tipojuego* tateti;
     Partida*   partida;
-    char *filename = "../../games/TaTeTi.qgame";
     qg_path_set( TEST_GAMESDIR );
     assert( tateti = qg_tipojuego_open( "TaTeTi" ) );
 
