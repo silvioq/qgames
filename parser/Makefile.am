@@ -6,13 +6,13 @@ libqgames_parser_a_SOURCES = qgames_parser.y qgames_parser.h qgames_scanner.l sy
 libpgn_parser_a_SOURCES = pgn_scanner.l pgn_scanner.h
 
 AM_YFLAGS = -d -v -p qgz
-AM_LFLAGS = --prefix qgz -o lex.yy.c
+AM_LFLAGS = -Pqgz -olex.yy.c
 AM_CFLAGS = -I$(top_srcdir)/include -I$(top_srcdir)/common -I$(top_srcdir)/vm \
 		-fPIC  \
   $(CFLAG_VISIBILITY) 
 		
 
-libpgn_parser_a_LFLAGS = --prefix pgn -o lex.yy.c
+libpgn_parser_a_LFLAGS = -Ppgn -olex.yy.c
 
 
 test_pgn_SOURCES = test-pgn.c
