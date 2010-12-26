@@ -1,6 +1,7 @@
 %{
 
 #include <stdio.h>
+#include <string.h>
 #include "symtable.h"
 #include "qgames_parser.h"
 #include "qgames.h"

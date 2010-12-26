@@ -1495,6 +1495,7 @@ char *yytext;
 #line 2 "qgames_scanner.l"
 
 #include <stdio.h>
+#include <string.h>
 #include "symtable.h"
 #include "qgames_parser.h"
 #include "qgames.h"
@@ -1540,7 +1541,7 @@ char       string_ret ; // donde retorna
 #define define_head 5
 #define params 6
 
-#line 1544 "qgames_scanner.c"
+#line 1545 "qgames_scanner.c"
 
 /* Macros after this point can all be overridden by user definitions in
  * section 1.
@@ -1705,12 +1706,12 @@ YY_DECL
 	register char *yy_cp, *yy_bp;
 	register int yy_act;
 
-#line 54 "qgames_scanner.l"
+#line 55 "qgames_scanner.l"
 
 
 
 
-#line 1714 "qgames_scanner.c"
+#line 1715 "qgames_scanner.c"
 
 	if ( yy_init )
 		{
@@ -1804,19 +1805,19 @@ do_action:	/* This label is used only to access EOF actions. */
 	{ /* beginning of action switch */
 case 1:
 YY_RULE_SETUP
-#line 58 "qgames_scanner.l"
+#line 59 "qgames_scanner.l"
 { string_ret = YYSTATE; BEGIN(string); qgzlval = 0; }
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 59 "qgames_scanner.l"
+#line 60 "qgames_scanner.l"
 { qgzlval = (long)strdup(yytext); 
                       return TOK_STRING;
                     }
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 62 "qgames_scanner.l"
+#line 63 "qgames_scanner.l"
 { BEGIN(string_ret); 
                       if( !qgzlval ){ 
                           qgzlval = (long)strdup(""); 
@@ -1825,19 +1826,19 @@ YY_RULE_SETUP
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 68 "qgames_scanner.l"
+#line 69 "qgames_scanner.l"
 { string_ret = YYSTATE; BEGIN(string2); qgzlval = 0;  }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 69 "qgames_scanner.l"
+#line 70 "qgames_scanner.l"
 { qgzlval = (long)strdup(yytext); 
                       return TOK_STRING;
                     }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 72 "qgames_scanner.l"
+#line 73 "qgames_scanner.l"
 { BEGIN(string_ret); 
                       if( !qgzlval ){ 
                           qgzlval = (long)strdup(""); 
@@ -1846,7 +1847,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 78 "qgames_scanner.l"
+#line 79 "qgames_scanner.l"
 { 
                     if( yyleng == 4 ){
                           qgzlval = HEXTOI(yytext[1]) * 16 * 16 * 16 * 16 + 
@@ -1865,22 +1866,22 @@ YY_RULE_SETUP
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 95 "qgames_scanner.l"
+#line 96 "qgames_scanner.l"
 { BEGIN(INITIAL); yyless(0); return  TOK_SEPARATOR; }
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 96 "qgames_scanner.l"
+#line 97 "qgames_scanner.l"
 { generate_define(); BEGIN(INITIAL); yyless(0); return  TOK_SEPARATOR; }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 97 "qgames_scanner.l"
+#line 98 "qgames_scanner.l"
 { define_body[define_bodyc++] = yytext[0]; }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 99 "qgames_scanner.l"
+#line 100 "qgames_scanner.l"
 { if( !define_created) 
                           create_define( yytext );
                       else{
@@ -1890,207 +1891,207 @@ YY_RULE_SETUP
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 105 "qgames_scanner.l"
+#line 106 "qgames_scanner.l"
 { BEGIN(define); }
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 106 "qgames_scanner.l"
+#line 107 "qgames_scanner.l"
 
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 109 "qgames_scanner.l"
+#line 110 "qgames_scanner.l"
 { return  TOK_ATTR;      }
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 110 "qgames_scanner.l"
+#line 111 "qgames_scanner.l"
 { return  TOK_BOARD ;    }
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 111 "qgames_scanner.l"
+#line 112 "qgames_scanner.l"
 { return  TOK_CAPTURED_MARK; }
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 112 "qgames_scanner.l"
+#line 113 "qgames_scanner.l"
 { return  TOK_COLOR;     }
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 113 "qgames_scanner.l"
+#line 114 "qgames_scanner.l"
 { return  TOK_CHECKERBOARD; }
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 114 "qgames_scanner.l"
+#line 115 "qgames_scanner.l"
 { return  TOK_DEFAULT;   }
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 115 "qgames_scanner.l"
+#line 116 "qgames_scanner.l"
 { return  TOK_DIRECTION; }
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 116 "qgames_scanner.l"
+#line 117 "qgames_scanner.l"
 { return  TOK_DROP;      }
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 117 "qgames_scanner.l"
+#line 118 "qgames_scanner.l"
 { return  TOK_ENDING;    }
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 118 "qgames_scanner.l"
+#line 119 "qgames_scanner.l"
 { return  TOK_GAMETYPE;  }
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 119 "qgames_scanner.l"
+#line 120 "qgames_scanner.l"
 { return  TOK_GRAPH_BOARD; }
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 120 "qgames_scanner.l"
+#line 121 "qgames_scanner.l"
 { return  TOK_GRAPH_PIECE; }
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 121 "qgames_scanner.l"
+#line 122 "qgames_scanner.l"
 { return  TOK_GRAPH_SQUARE; }
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 122 "qgames_scanner.l"
+#line 123 "qgames_scanner.l"
 { return  TOK_GRID;    }
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 123 "qgames_scanner.l"
+#line 124 "qgames_scanner.l"
 { return  TOK_HIGHLIGHTED;  }
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 124 "qgames_scanner.l"
+#line 125 "qgames_scanner.l"
 { return  TOK_INTERSECTIONS; }
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 125 "qgames_scanner.l"
+#line 126 "qgames_scanner.l"
 { return  TOK_MARK;      }
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 126 "qgames_scanner.l"
+#line 127 "qgames_scanner.l"
 { return  TOK_MOVE;      }
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 127 "qgames_scanner.l"
+#line 128 "qgames_scanner.l"
 { return  TOK_MOVETYPE;  }
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 128 "qgames_scanner.l"
+#line 129 "qgames_scanner.l"
 { return  TOK_NOTATION;  }
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 129 "qgames_scanner.l"
+#line 130 "qgames_scanner.l"
 { return TOK_ORIGIN;    }
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
-#line 130 "qgames_scanner.l"
+#line 131 "qgames_scanner.l"
 { return TOK_ONREPEAT;  }
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
-#line 131 "qgames_scanner.l"
+#line 132 "qgames_scanner.l"
 { return TOK_PIECE;     }
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
-#line 132 "qgames_scanner.l"
+#line 133 "qgames_scanner.l"
 { return TOK_PIECE_NAME; }
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
-#line 133 "qgames_scanner.l"
+#line 134 "qgames_scanner.l"
 { return TOK_REPEAT;    }
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
-#line 134 "qgames_scanner.l"
+#line 135 "qgames_scanner.l"
 { return TOK_SEQUENCE;  }
 	YY_BREAK
 case 40:
 YY_RULE_SETUP
-#line 135 "qgames_scanner.l"
+#line 136 "qgames_scanner.l"
 { return TOK_SYMMETRY;  }
 	YY_BREAK
 case 41:
 YY_RULE_SETUP
-#line 136 "qgames_scanner.l"
+#line 137 "qgames_scanner.l"
 { return TOK_START;     }
 	YY_BREAK
 case 42:
 YY_RULE_SETUP
-#line 137 "qgames_scanner.l"
+#line 138 "qgames_scanner.l"
 { return  TOK_STANDARD_GEM      ; }
 	YY_BREAK
 case 43:
 YY_RULE_SETUP
-#line 138 "qgames_scanner.l"
+#line 139 "qgames_scanner.l"
 { return  TOK_STANDARD_BISHOP   ; }
 	YY_BREAK
 case 44:
 YY_RULE_SETUP
-#line 139 "qgames_scanner.l"
+#line 140 "qgames_scanner.l"
 { return  TOK_STANDARD_KING     ; }
 	YY_BREAK
 case 45:
 YY_RULE_SETUP
-#line 140 "qgames_scanner.l"
+#line 141 "qgames_scanner.l"
 { return  TOK_STANDARD_KNIGHT   ; }
 	YY_BREAK
 case 46:
 YY_RULE_SETUP
-#line 141 "qgames_scanner.l"
+#line 142 "qgames_scanner.l"
 { return  TOK_STANDARD_PAWN     ; }
 	YY_BREAK
 case 47:
 YY_RULE_SETUP
-#line 142 "qgames_scanner.l"
+#line 143 "qgames_scanner.l"
 { return  TOK_STANDARD_QUEEN    ; }
 	YY_BREAK
 case 48:
 YY_RULE_SETUP
-#line 143 "qgames_scanner.l"
+#line 144 "qgames_scanner.l"
 { return  TOK_STANDARD_ROOK     ; }
 	YY_BREAK
 case 49:
 YY_RULE_SETUP
-#line 144 "qgames_scanner.l"
+#line 145 "qgames_scanner.l"
 { return TOK_TARGET;    }
 	YY_BREAK
 case 50:
 YY_RULE_SETUP
-#line 145 "qgames_scanner.l"
+#line 146 "qgames_scanner.l"
 { return TOK_ZONE;      }
 	YY_BREAK
 case 51:
 YY_RULE_SETUP
-#line 147 "qgames_scanner.l"
+#line 148 "qgames_scanner.l"
 { define_created = 0; BEGIN(define_head);   }
 	YY_BREAK
 case 52:
 YY_RULE_SETUP
-#line 149 "qgames_scanner.l"
+#line 150 "qgames_scanner.l"
 { 
                             char* str = strdup( ((char*)yytext) + 1 );
                             str[yyleng - 2] = 0;
@@ -2104,7 +2105,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 53:
 YY_RULE_SETUP
-#line 159 "qgames_scanner.l"
+#line 160 "qgames_scanner.l"
 { 
                             char* str = strdup( ((char*)yytext) + 1 );
                             str[yyleng - 2] = 0;
@@ -2118,7 +2119,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 54:
 YY_RULE_SETUP
-#line 169 "qgames_scanner.l"
+#line 170 "qgames_scanner.l"
 { if( !add_parameter_to_def( yytext ) ) yyterminate();
                             if( parmcount == totalparm ){
                                 if( ! switch_to_define( ) )yyterminate();
@@ -2127,292 +2128,292 @@ YY_RULE_SETUP
 	YY_BREAK
 case 55:
 YY_RULE_SETUP
-#line 174 "qgames_scanner.l"
+#line 175 "qgames_scanner.l"
 // No hago nada!
 	YY_BREAK
 case 56:
 YY_RULE_SETUP
-#line 177 "qgames_scanner.l"
+#line 178 "qgames_scanner.l"
 { return TOK_AND;       }
 	YY_BREAK
 case 57:
 YY_RULE_SETUP
-#line 178 "qgames_scanner.l"
+#line 179 "qgames_scanner.l"
 { return TOK_DEQUAL;    }
 	YY_BREAK
 case 58:
 YY_RULE_SETUP
-#line 179 "qgames_scanner.l"
+#line 180 "qgames_scanner.l"
 { return TOK_EQUAL;     }
 	YY_BREAK
 case 59:
 YY_RULE_SETUP
-#line 180 "qgames_scanner.l"
+#line 181 "qgames_scanner.l"
 { return TOK_AND;       }
 	YY_BREAK
 case 60:
 YY_RULE_SETUP
-#line 181 "qgames_scanner.l"
+#line 182 "qgames_scanner.l"
 { return TOK_NOT;       }
 	YY_BREAK
 case 61:
 YY_RULE_SETUP
-#line 182 "qgames_scanner.l"
+#line 183 "qgames_scanner.l"
 { return TOK_NOT;       }
 	YY_BREAK
 case 62:
 YY_RULE_SETUP
-#line 184 "qgames_scanner.l"
+#line 185 "qgames_scanner.l"
 { return  TOK_AHOGADO;   }
 	YY_BREAK
 case 63:
 YY_RULE_SETUP
-#line 185 "qgames_scanner.l"
+#line 186 "qgames_scanner.l"
 { return  TOK_AQUI;      }
 	YY_BREAK
 case 64:
 YY_RULE_SETUP
-#line 186 "qgames_scanner.l"
+#line 187 "qgames_scanner.l"
 { return  TOK_ASIGNA_ATT; }
 	YY_BREAK
 case 65:
 YY_RULE_SETUP
-#line 187 "qgames_scanner.l"
+#line 188 "qgames_scanner.l"
 { return  TOK_ASIGNA_ATT; }
 	YY_BREAK
 case 66:
 YY_RULE_SETUP
-#line 188 "qgames_scanner.l"
+#line 189 "qgames_scanner.l"
 { return  TOK_ATACADO_ENEMIGO; }
 	YY_BREAK
 case 67:
 YY_RULE_SETUP
-#line 189 "qgames_scanner.l"
+#line 190 "qgames_scanner.l"
 { return  TOK_CAMBIA_COLOR; }
 	YY_BREAK
 case 68:
 YY_RULE_SETUP
-#line 190 "qgames_scanner.l"
+#line 191 "qgames_scanner.l"
 { return  TOK_CANTIDAD_PIEZAS; }
 	YY_BREAK
 case 69:
 YY_RULE_SETUP
-#line 191 "qgames_scanner.l"
+#line 192 "qgames_scanner.l"
 { return  TOK_CANTIDAD_PIEZAS_PROPIAS; }
 	YY_BREAK
 case 70:
 YY_RULE_SETUP
-#line 192 "qgames_scanner.l"
+#line 193 "qgames_scanner.l"
 { return  TOK_CANTIDAD_PIEZAS_ENEMIGAS; }
 	YY_BREAK
 case 71:
 YY_RULE_SETUP
-#line 193 "qgames_scanner.l"
+#line 194 "qgames_scanner.l"
 { return  TOK_CAPTURA; }
 	YY_BREAK
 case 72:
 YY_RULE_SETUP
-#line 194 "qgames_scanner.l"
+#line 195 "qgames_scanner.l"
 { return  TOK_CAPTURA_Y_JUEGA; }
 	YY_BREAK
 case 73:
 YY_RULE_SETUP
-#line 195 "qgames_scanner.l"
+#line 196 "qgames_scanner.l"
 { return  TOK_CAPTURA_Y_JUEGA_SI; }
 	YY_BREAK
 case 74:
 YY_RULE_SETUP
-#line 196 "qgames_scanner.l"
+#line 197 "qgames_scanner.l"
 { return  TOK_CAPTURA_Y_JUEGA_SI; }
 	YY_BREAK
 case 75:
 YY_RULE_SETUP
-#line 197 "qgames_scanner.l"
+#line 198 "qgames_scanner.l"
 { return  TOK_CAPTURADAS_ENEMIGO; }
 	YY_BREAK
 case 76:
 YY_RULE_SETUP
-#line 198 "qgames_scanner.l"
+#line 199 "qgames_scanner.l"
 { return  TOK_CAPTURADAS_PROPIO; }
 	YY_BREAK
 case 77:
 YY_RULE_SETUP
-#line 199 "qgames_scanner.l"
+#line 200 "qgames_scanner.l"
 { return  TOK_CASILLERO_INICIAL; }
 	YY_BREAK
 case 78:
 YY_RULE_SETUP
-#line 200 "qgames_scanner.l"
+#line 201 "qgames_scanner.l"
 { return  TOK_DESTINO_ANT; }
 	YY_BREAK
 case 79:
 YY_RULE_SETUP
-#line 201 "qgames_scanner.l"
+#line 202 "qgames_scanner.l"
 { return TOK_EMPATA;    }
 	YY_BREAK
 case 80:
 YY_RULE_SETUP
-#line 202 "qgames_scanner.l"
+#line 203 "qgames_scanner.l"
 { return TOK_EMPATA_SI; }
 	YY_BREAK
 case 81:
 YY_RULE_SETUP
-#line 203 "qgames_scanner.l"
+#line 204 "qgames_scanner.l"
 { return TOK_EMPATA_SI; }
 	YY_BREAK
 case 82:
 YY_RULE_SETUP
-#line 204 "qgames_scanner.l"
+#line 205 "qgames_scanner.l"
 { return TOK_ENTABLERO; }
 	YY_BREAK
 case 83:
 YY_RULE_SETUP
-#line 205 "qgames_scanner.l"
+#line 206 "qgames_scanner.l"
 { return TOK_ENZONA;    }
 	YY_BREAK
 case 84:
 YY_RULE_SETUP
-#line 206 "qgames_scanner.l"
+#line 207 "qgames_scanner.l"
 { return TOK_GANA;      }
 	YY_BREAK
 case 85:
 YY_RULE_SETUP
-#line 207 "qgames_scanner.l"
+#line 208 "qgames_scanner.l"
 { return TOK_GANA_SI;   }
 	YY_BREAK
 case 86:
 YY_RULE_SETUP
-#line 208 "qgames_scanner.l"
+#line 209 "qgames_scanner.l"
 { return TOK_GANA_SI;   }
 	YY_BREAK
 case 87:
 YY_RULE_SETUP
-#line 209 "qgames_scanner.l"
+#line 210 "qgames_scanner.l"
 { return TOK_GOTO_MARCA; }
 	YY_BREAK
 case 88:
 YY_RULE_SETUP
-#line 210 "qgames_scanner.l"
+#line 211 "qgames_scanner.l"
 { return TOK_MARCA;     }
 	YY_BREAK
 case 89:
 YY_RULE_SETUP
-#line 211 "qgames_scanner.l"
+#line 212 "qgames_scanner.l"
 { return TOK_MUEVE;     }
 	YY_BREAK
 case 90:
 YY_RULE_SETUP
-#line 212 "qgames_scanner.l"
+#line 213 "qgames_scanner.l"
 { return TOK_MUEVE;     }
 	YY_BREAK
 case 91:
 YY_RULE_SETUP
-#line 213 "qgames_scanner.l"
+#line 214 "qgames_scanner.l"
 { return TOK_JAQUEMATE; }
 	YY_BREAK
 case 92:
 YY_RULE_SETUP
-#line 214 "qgames_scanner.l"
+#line 215 "qgames_scanner.l"
 { return TOK_JUEGA;     } 
 	YY_BREAK
 case 93:
 YY_RULE_SETUP
-#line 215 "qgames_scanner.l"
+#line 216 "qgames_scanner.l"
 { return TOK_JUEGA_SI;  }
 	YY_BREAK
 case 94:
 YY_RULE_SETUP
-#line 216 "qgames_scanner.l"
+#line 217 "qgames_scanner.l"
 { return TOK_JUEGA_SI;  }
 	YY_BREAK
 case 95:
 YY_RULE_SETUP
-#line 217 "qgames_scanner.l"
+#line 218 "qgames_scanner.l"
 { return TOK_OCUPADO;   }
 	YY_BREAK
 case 96:
 YY_RULE_SETUP
-#line 218 "qgames_scanner.l"
+#line 219 "qgames_scanner.l"
 { return  TOK_OCUPADOENEMIGO;   }
 	YY_BREAK
 case 97:
 YY_RULE_SETUP
-#line 219 "qgames_scanner.l"
+#line 220 "qgames_scanner.l"
 { return  TOK_OCUPADOPROPIO;   }
 	YY_BREAK
 case 98:
 YY_RULE_SETUP
-#line 220 "qgames_scanner.l"
+#line 221 "qgames_scanner.l"
 { return  TOK_ORIGEN_ANT; }
 	YY_BREAK
 case 99:
 YY_RULE_SETUP
-#line 221 "qgames_scanner.l"
+#line 222 "qgames_scanner.l"
 { return  TOK_PARA;        }
 	YY_BREAK
 case 100:
 YY_RULE_SETUP
-#line 222 "qgames_scanner.l"
+#line 223 "qgames_scanner.l"
 { return  TOK_PARA_SI;     }
 	YY_BREAK
 case 101:
 YY_RULE_SETUP
-#line 223 "qgames_scanner.l"
+#line 224 "qgames_scanner.l"
 { return  TOK_PARA_SI;     }
 	YY_BREAK
 case 102:
 YY_RULE_SETUP
-#line 224 "qgames_scanner.l"
+#line 225 "qgames_scanner.l"
 { return  TOK_PIERDE;      }
 	YY_BREAK
 case 103:
 YY_RULE_SETUP
-#line 225 "qgames_scanner.l"
+#line 226 "qgames_scanner.l"
 { return  TOK_PIERDE_SI;   }
 	YY_BREAK
 case 104:
 YY_RULE_SETUP
-#line 226 "qgames_scanner.l"
+#line 227 "qgames_scanner.l"
 { return  TOK_PIEZAS_EN_CAS; }
 	YY_BREAK
 case 105:
 YY_RULE_SETUP
-#line 227 "qgames_scanner.l"
+#line 228 "qgames_scanner.l"
 { return  TOK_TRANSFORMA;  }
 	YY_BREAK
 case 106:
 YY_RULE_SETUP
-#line 228 "qgames_scanner.l"
+#line 229 "qgames_scanner.l"
 { return  TOK_REPITEPOS; }
 	YY_BREAK
 case 107:
 YY_RULE_SETUP
-#line 230 "qgames_scanner.l"
+#line 231 "qgames_scanner.l"
 { return TOK_DO;        }
 	YY_BREAK
 case 108:
 YY_RULE_SETUP
-#line 231 "qgames_scanner.l"
+#line 232 "qgames_scanner.l"
 { return TOK_BREAK;     }
 	YY_BREAK
 case 109:
 YY_RULE_SETUP
-#line 232 "qgames_scanner.l"
+#line 233 "qgames_scanner.l"
 { return TOK_IF;        }
 	YY_BREAK
 case 110:
 YY_RULE_SETUP
-#line 233 "qgames_scanner.l"
+#line 234 "qgames_scanner.l"
 { return TOK_END;       }
 	YY_BREAK
 case 111:
 YY_RULE_SETUP
-#line 234 "qgames_scanner.l"
+#line 235 "qgames_scanner.l"
 { return  TOK_WHILE;       }
 	YY_BREAK
 case 112:
 YY_RULE_SETUP
-#line 237 "qgames_scanner.l"
+#line 238 "qgames_scanner.l"
 { 
                                     qgzlval = atol(yytext); 
                                     return TOK_NUMBER;
@@ -2420,17 +2421,17 @@ YY_RULE_SETUP
 	YY_BREAK
 case 113:
 YY_RULE_SETUP
-#line 242 "qgames_scanner.l"
+#line 243 "qgames_scanner.l"
 { qgzlval = 1; return TOK_NUMBER; }
 	YY_BREAK
 case 114:
 YY_RULE_SETUP
-#line 243 "qgames_scanner.l"
+#line 244 "qgames_scanner.l"
 { qgzlval = 0; return TOK_NUMBER; }
 	YY_BREAK
 case 115:
 YY_RULE_SETUP
-#line 244 "qgames_scanner.l"
+#line 245 "qgames_scanner.l"
 { 
                                     qgzlval = (long)strdup(yytext); 
                                     ((char*)(long)qgzlval)[yyleng] = 0;
@@ -2440,32 +2441,32 @@ YY_RULE_SETUP
 	YY_BREAK
 case 116:
 YY_RULE_SETUP
-#line 251 "qgames_scanner.l"
+#line 252 "qgames_scanner.l"
 /* ignore whitespace */
 	YY_BREAK
 case 117:
 YY_RULE_SETUP
-#line 252 "qgames_scanner.l"
+#line 253 "qgames_scanner.l"
 /* ignora comentario */ 
 	YY_BREAK
 case 118:
 YY_RULE_SETUP
-#line 255 "qgames_scanner.l"
+#line 256 "qgames_scanner.l"
 { return  TOK_SEPARATOR ; }
 	YY_BREAK
 case 119:
 YY_RULE_SETUP
-#line 257 "qgames_scanner.l"
+#line 258 "qgames_scanner.l"
 { return  TOK_SEPCODE; }
 	YY_BREAK
 case 120:
 YY_RULE_SETUP
-#line 258 "qgames_scanner.l"
+#line 259 "qgames_scanner.l"
 { return  TOK_SEPCODE; }
 	YY_BREAK
 case 121:
 YY_RULE_SETUP
-#line 259 "qgames_scanner.l"
+#line 260 "qgames_scanner.l"
 {
                   int  argc = ( symt ? symtable_argc( symt, yytext ) : -1 );
                   if( argc == 0 ){
@@ -2486,7 +2487,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 122:
 YY_RULE_SETUP
-#line 276 "qgames_scanner.l"
+#line 277 "qgames_scanner.l"
 { return (int) yytext[0]; }
 	YY_BREAK
 case YY_STATE_EOF(INITIAL):
@@ -2496,7 +2497,7 @@ case YY_STATE_EOF(code):
 case YY_STATE_EOF(define):
 case YY_STATE_EOF(define_head):
 case YY_STATE_EOF(params):
-#line 278 "qgames_scanner.l"
+#line 279 "qgames_scanner.l"
 { if( sp_buffer == 0 ){
                       yyterminate();
                   } else {  
@@ -2511,15 +2512,15 @@ case YY_STATE_EOF(params):
 	YY_BREAK
 case 123:
 YY_RULE_SETUP
-#line 290 "qgames_scanner.l"
+#line 291 "qgames_scanner.l"
 
 	YY_BREAK
 case 124:
 YY_RULE_SETUP
-#line 293 "qgames_scanner.l"
+#line 294 "qgames_scanner.l"
 ECHO;
 	YY_BREAK
-#line 2523 "qgames_scanner.c"
+#line 2524 "qgames_scanner.c"
 
 	case YY_END_OF_BUFFER:
 		{
@@ -3407,7 +3408,7 @@ int main()
 	return 0;
 	}
 #endif
-#line 293 "qgames_scanner.l"
+#line 294 "qgames_scanner.l"
 
 
 
