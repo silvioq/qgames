@@ -1,0 +1,20 @@
+# Juego obtenido de  http://www.opengames.com.ar/2436.pgn
+# Entre  ["Oscar Gomez"] y ["Jonathan Alfonso Del Monte"]
+nuevo-juego RevueltaCampesina
+
+1. d4 Nf6 2. f3 Nd6 3. e4 Nc4 4. b3 Ne3 5. Kd2 Nxg2 
+6. c4 Nh4 7. Ke3 Nc6 8. a3 Ng2 9. Kd3 Na5 
+10. b4 
+check-piezas rey blanco d3 1
+check-piezas rey negro e8 1
+check-piezas peon blanco a3 1
+check-piezas peon blanco b4 1
+check-piezas peon blanco c4 1
+check-piezas peon blanco d4 1
+check-piezas peon blanco e4 1
+check-piezas peon blanco f3 1
+check-piezas peon blanco h2 1
+check-piezas peon negro e7 1
+check-piezas caballo negro g2 1
+check-piezas caballo negro a5 1
+check-piezas caballo negro f6 1

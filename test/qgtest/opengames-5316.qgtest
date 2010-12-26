@@ -1,0 +1,18 @@
+# Juego obtenido de  http://www.opengames.com.ar/5316.pgn
+# Entre  ["Buddy"] y ["Rodrigo"]
+nuevo-juego RevueltaCampesina
+
+1. d4 Nb6 2. b3 Nd5 3. Kd2 Ng8-f6 4. f3 Kd7 
+5. c4 Nf4 6. g3 Ng2 7. e4 Nc6 8. Kc3 Ne1 
+9. e5 Nh5 10. f4 Nf3 11. d5 Nd8 12. c5 Nxh2 
+13. f5 Nxg3 14. c6 Kc8 15. f6 Ne4 16. Kd4 Nxf6 
+17. exf6 exf6 18. b4 Nf7 19. b5 f5 20. b6 f4 
+21. Kc5 Ng4 22. d6 Nxd6 23. Kxd6 f3 24. a4 f2 
+25. a5 f1=Q 
+check-piezas rey blanco d6 1
+check-piezas rey negro c8 1
+check-piezas peon blanco a5 1
+check-piezas peon blanco b6 1
+check-piezas peon blanco c6 1
+check-piezas caballo negro g4 1
+check-piezas dama negro f1 1

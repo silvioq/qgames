@@ -1,0 +1,19 @@
+# Juego obtenido de  http://www.opengames.com.ar/2073.pgn
+# Entre  ["Silvio"] y ["ingesparza"]
+nuevo-juego RevueltaCampesina
+
+1. e4 e5 2. g3 Nd6 3. d3 Nc6 4. Kd2 
+check-piezas rey blanco d2 1
+check-piezas rey negro e8 1
+check-piezas peon blanco a2 1
+check-piezas peon blanco b2 1
+check-piezas peon blanco c2 1
+check-piezas peon blanco d3 1
+check-piezas peon blanco e4 1
+check-piezas peon blanco f2 1
+check-piezas peon blanco g3 1
+check-piezas peon blanco h2 1
+check-piezas peon negro e5 1
+check-piezas caballo negro d6 1
+check-piezas caballo negro c6 1
+check-piezas caballo negro g8 1

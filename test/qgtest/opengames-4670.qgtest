@@ -1,0 +1,18 @@
+# Juego obtenido de  http://www.opengames.com.ar/4670.pgn
+# Entre  ["Juan Antonio"] y ["Rodrigo"]
+nuevo-juego RevueltaCampesina
+
+1. e4 Nd6 2. f3 Nc6 3. a4 Nb4 4. c3 Nd3 5. Kd1 Nxb2 
+6. Ke2 Nxa4 7. d4 Nxc3 8. Kd3 Na4 9. e5 Nf5 
+10. Ke4 e6 11. g4 Nf5-e7 12. h4 Nc3 13. Kd3 Nc3-d5 
+14. g5 Ng6 15. h5 Ng6-f4 16. Ke4 Nxh5 17. g6 Nh6 
+check-piezas rey blanco e4 1
+check-piezas rey negro e8 1
+check-piezas peon blanco d4 1
+check-piezas peon blanco e5 1
+check-piezas peon blanco f3 1
+check-piezas peon blanco g6 1
+check-piezas peon negro e6 1
+check-piezas caballo negro h5 1
+check-piezas caballo negro d5 1
+check-piezas caballo negro h6 1

@@ -1,0 +1,19 @@
+# Juego obtenido de  http://www.opengames.com.ar/4016.pgn
+# Entre  ["ricdos"] y ["Leonard Fusselman"]
+nuevo-juego RevueltaCampesina
+
+1. e4 Na6 2. Ke2 Nb4 3. a3 Nxc2 4. a4 Kf7 
+5. f4 Nd6 6. Kd3 
+check-piezas rey blanco d3 1
+check-piezas rey negro f7 1
+check-piezas peon blanco a4 1
+check-piezas peon blanco b2 1
+check-piezas peon blanco d2 1
+check-piezas peon blanco e4 1
+check-piezas peon blanco f4 1
+check-piezas peon blanco g2 1
+check-piezas peon blanco h2 1
+check-piezas peon negro e7 1
+check-piezas caballo negro d6 1
+check-piezas caballo negro c2 1
+check-piezas caballo negro g8 1

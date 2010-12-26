@@ -1,0 +1,19 @@
+# Juego obtenido de  http://www.opengames.com.ar/2076.pgn
+# Entre  ["Ariakas"] y ["Silvio"]
+nuevo-juego RevueltaCampesina
+
+1. g4 Nd6 2. f4 Kd7 3. d3 Nf6 4. h3 Nc6 5. e4 Nd4 
+check-piezas rey blanco e1 1
+check-piezas rey negro d7 1
+check-piezas peon blanco a2 1
+check-piezas peon blanco b2 1
+check-piezas peon blanco c2 1
+check-piezas peon blanco d3 1
+check-piezas peon blanco e4 1
+check-piezas peon blanco f4 1
+check-piezas peon blanco g4 1
+check-piezas peon blanco h3 1
+check-piezas peon negro e7 1
+check-piezas caballo negro d6 1
+check-piezas caballo negro d4 1
+check-piezas caballo negro f6 1

@@ -1,0 +1,20 @@
+# Juego obtenido de  http://www.opengames.com.ar/4068.pgn
+# Entre  ["Sergio"] y ["PeRRo VoLaDoR"]
+nuevo-juego RevueltaCampesina
+
+1. d4 Nf6 2. f3 Nd6 3. e4 Nc4 4. Ke2 Nxb2 
+5. h4 Nb8-d7 6. g4 Nc4 7. Kd3 Nd7-b6 8. e5 Nf6-d5 
+9. h5 Kf8 10. a4 Nb2 11. Ke4 e6 12. a5 Nb6-c4 
+check-piezas rey blanco e4 1
+check-piezas rey negro f8 1
+check-piezas peon blanco a5 1
+check-piezas peon blanco c2 1
+check-piezas peon blanco d4 1
+check-piezas peon blanco e5 1
+check-piezas peon blanco f3 1
+check-piezas peon blanco g4 1
+check-piezas peon blanco h5 1
+check-piezas peon negro e6 1
+check-piezas caballo negro b2 1
+check-piezas caballo negro c4 1
+check-piezas caballo negro d5 1

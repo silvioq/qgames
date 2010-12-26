@@ -1,0 +1,19 @@
+# Juego obtenido de  http://www.opengames.com.ar/4271.pgn
+# Entre  ["oscar aristides"] y ["Rodrigo"]
+nuevo-juego RevueltaCampesina
+
+1. d4 Nc6 
+check-piezas rey blanco e1 1
+check-piezas rey negro e8 1
+check-piezas peon blanco a2 1
+check-piezas peon blanco b2 1
+check-piezas peon blanco c2 1
+check-piezas peon blanco d4 1
+check-piezas peon blanco e2 1
+check-piezas peon blanco f2 1
+check-piezas peon blanco g2 1
+check-piezas peon blanco h2 1
+check-piezas peon negro e7 1
+check-piezas caballo negro c8 1
+check-piezas caballo negro c6 1
+check-piezas caballo negro g8 1

@@ -1,0 +1,20 @@
+# Juego obtenido de  http://www.opengames.com.ar/4592.pgn
+# Entre  ["zoar"] y ["Rodrigo"]
+nuevo-juego RevueltaCampesina
+
+1. e3 Nc6 2. c3 Nb6 3. Ke2 Nf6 4. h4 Ne5 
+5. b3 Nb6-d5 6. a4 Ne4 7. f3 Ng3 8. Kf2 Nh5 
+9. b4 Nc4 10. Ke2 Nc4xe3 11. dxe3 Nxc3 12. Kd3 Nxa4 
+13. Kd4 Ng3 14. Ke5 Nc3 15. Kf4 Ng3-e2 16. Kg5 Nd5 
+17. b5 Ne2-c3 18. e4 Nb6 19. h5 Kf7 20. h6 Nxb5 
+21. g4 Nd7 22. f4 Nf8 23. f5 Nd4 24. e5 Kg8 
+25. Kf4 Ne2 26. Ke3 Kh7 27. g5 Ng3 28. Kf4 Ne2 
+29. Ke3 Nc3 30. Kd4 Nb5 31. Kd5 Nc7 32. Kc6 Ne8 
+33. Kd5 Nc7 34. Ke4 Nf8-e6 35. f6 Nxg5 36. Kf5 exf6 
+37. exf6 
+check-piezas rey blanco f5 1
+check-piezas rey negro h7 1
+check-piezas peon blanco f6 1
+check-piezas peon blanco h6 1
+check-piezas caballo negro g5 1
+check-piezas caballo negro c7 1

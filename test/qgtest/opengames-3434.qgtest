@@ -1,0 +1,21 @@
+# Juego obtenido de  http://www.opengames.com.ar/3434.pgn
+# Entre  ["JGA"] y ["Sojuzgado"]
+nuevo-juego RevueltaCampesina
+
+1. d4 Nd6 2. b3 Nc6 3. a4 Nxd4 4. Kd2 Kd7 
+5. a5 Kc6 6. h4 Kb5 7. Kd3 Nd4-f5 8. h5 Kxa5 
+9. g4 Ng7 10. f4 Kb6 11. e4 Kc6 12. e5 Nf7 
+13. Ke4 Kc5 14. c3 e6 15. Kd3 Ne7 16. b4 Kc6 
+17. c4 Nh6 18. g5 Ng4 19. h6 Ng7-f5 20. h7 Ng6 
+21. Kc3 Nf2 22. Kb3 Nd3 23. Ka4 Nd3xf4 24. Ka5 Nd4 
+25. Ka6 Nd3 26. b5 Kc5 27. Kb7 Nd3xe5 28. Kc7 Nxc4 
+29. Kd7 e5 30. Ke8 Nd6 31. Kd7 e4 
+check-piezas rey blanco d7 1
+check-piezas rey negro c5 1
+check-piezas peon blanco b5 1
+check-piezas peon blanco g5 1
+check-piezas peon blanco h7 1
+check-piezas peon negro e4 1
+check-piezas caballo negro d6 1
+check-piezas caballo negro d4 1
+check-piezas caballo negro g6 1

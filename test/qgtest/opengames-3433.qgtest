@@ -1,0 +1,18 @@
+# Juego obtenido de  http://www.opengames.com.ar/3433.pgn
+# Entre  ["Sojuzgado"] y ["Leonard Fusselman"]
+nuevo-juego RevueltaCampesina
+
+1. d4 Nd6 2. c3 Kd7 3. f3 Nh6 4. e4 Ke6 5. Ke2 Na6 
+6. Kd3 Nh6-f7 7. b4 Nb5 8. a4 Nxc3 9. Kxc3 
+check-piezas rey blanco c3 1
+check-piezas rey negro e6 1
+check-piezas peon blanco a4 1
+check-piezas peon blanco b4 1
+check-piezas peon blanco d4 1
+check-piezas peon blanco e4 1
+check-piezas peon blanco f3 1
+check-piezas peon blanco g2 1
+check-piezas peon blanco h2 1
+check-piezas peon negro e7 1
+check-piezas caballo negro a6 1
+check-piezas caballo negro f7 1

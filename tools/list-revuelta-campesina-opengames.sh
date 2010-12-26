@@ -1,6 +1,6 @@
 #!/bin/bash
 function  list_page(){
-    curl -sf "http://www.opengames.com.ar/es/room/Chess-Juniors/history?page=$1" | \
+    curl -sf "http://www.opengames.com.ar/es/room/Peasant's-Revolt-Social-Room/history?page=$1" | \
     awk "/http:\\/\\/www.opengames.com.ar\\/es\\/[0-9]+/ { match( \$0, \"[0-9]+\" ); print substr(\$0, RSTART, RLENGTH)  }" 
 }
 
@@ -17,7 +17,7 @@ while true; do
             echo "$file existente"
         else
             printf "generando $file"
-            ./download-opengames.sh $partida > $file
+            ./download-opengames.sh $partida RevueltaCampesina > $file
             echo " ... generado"
             sleep 4
         fi

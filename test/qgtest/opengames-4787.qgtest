@@ -1,0 +1,19 @@
+# Juego obtenido de  http://www.opengames.com.ar/4787.pgn
+# Entre  ["RUBEN VARELA"] y ["Buddy"]
+nuevo-juego RevueltaCampesina
+
+1. e4 Nd6 
+check-piezas rey blanco e1 1
+check-piezas rey negro e8 1
+check-piezas peon blanco a2 1
+check-piezas peon blanco b2 1
+check-piezas peon blanco c2 1
+check-piezas peon blanco d2 1
+check-piezas peon blanco e4 1
+check-piezas peon blanco f2 1
+check-piezas peon blanco g2 1
+check-piezas peon blanco h2 1
+check-piezas peon negro e7 1
+check-piezas caballo negro d6 1
+check-piezas caballo negro b8 1
+check-piezas caballo negro g8 1
