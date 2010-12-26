@@ -47,7 +47,6 @@ define:      movida_derecho direccion
 define:     movida_torre direccion 
             direccion
             while en_tablero? && !ocupado_propio?  do
-              asigna_atributo  ya_movido , true
               captura_y_juega
               parar if ocupado_enemigo?
               direccion
