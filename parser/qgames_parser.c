@@ -86,87 +86,88 @@
      TOK_CANTIDAD_PIEZAS_PROPIAS = 267,
      TOK_CANTIDAD_PIEZAS_ENEMIGAS = 268,
      TOK_COLOR = 269,
-     TOK_DEFAULT = 270,
-     TOK_DIRECTION = 271,
-     TOK_DROP = 272,
-     TOK_ENDING = 273,
-     TOK_GAMETYPE = 274,
-     TOK_MARK = 275,
-     TOK_MOVE = 276,
-     TOK_MOVETYPE = 277,
-     TOK_NOTATION = 278,
-     TOK_ONREPEAT = 279,
-     TOK_ORIGIN = 280,
-     TOK_PIECE = 281,
-     TOK_PIECE_NAME = 282,
-     TOK_REPEAT = 283,
-     TOK_SEQUENCE = 284,
-     TOK_START = 285,
-     TOK_SYMMETRY = 286,
-     TOK_TARGET = 287,
-     TOK_ZONE = 288,
-     TOK_SEPCODE = 289,
-     TOK_AHOGADO = 290,
-     TOK_AQUI = 291,
-     TOK_ASIGNA_ATT = 292,
-     TOK_ATACADO_ENEMIGO = 293,
-     TOK_CAMBIA_COLOR = 294,
-     TOK_CAPTURA = 295,
-     TOK_CAPTURA_SI = 296,
-     TOK_CAPTURA_Y_JUEGA = 297,
-     TOK_CAPTURA_Y_JUEGA_SI = 298,
-     TOK_CAPTURADAS_ENEMIGO = 299,
-     TOK_CAPTURADAS_PROPIO = 300,
-     TOK_CASILLERO_INICIAL = 301,
-     TOK_DESTINO_ANT = 302,
-     TOK_EMPATA = 303,
-     TOK_EMPATA_SI = 304,
-     TOK_ENTABLERO = 305,
-     TOK_ENZONA = 306,
-     TOK_GANA = 307,
-     TOK_GANA_SI = 308,
-     TOK_JAQUEMATE = 309,
-     TOK_JUEGA = 310,
-     TOK_JUEGA_SI = 311,
-     TOK_GOTO_MARCA = 312,
-     TOK_MARCA = 313,
-     TOK_MUEVE = 314,
-     TOK_MUEVE_SI = 315,
-     TOK_IF = 316,
-     TOK_OCUPADO = 317,
-     TOK_OCUPADOENEMIGO = 318,
-     TOK_OCUPADOPROPIO = 319,
-     TOK_ORIGEN_ANT = 320,
-     TOK_PARA = 321,
-     TOK_PARA_SI = 322,
-     TOK_PIERDE = 323,
-     TOK_PIERDE_SI = 324,
-     TOK_PIEZAS_EN_CAS = 325,
-     TOK_TRANSFORMA = 326,
-     TOK_REPITEPOS = 327,
-     TOK_AND = 328,
-     TOK_OR = 329,
-     TOK_NOT = 330,
-     TOK_EQUAL = 331,
-     TOK_DEQUAL = 332,
-     TOK_WHILE = 333,
-     TOK_DO = 334,
-     TOK_END = 335,
-     TOK_BREAK = 336,
-     TOK_GRAPH_BOARD = 337,
-     TOK_GRAPH_PIECE = 338,
-     TOK_GRAPH_SQUARE = 339,
-     TOK_GRID = 340,
-     TOK_CHECKERBOARD = 341,
-     TOK_INTERSECTIONS = 342,
-     TOK_HIGHLIGHTED = 343,
-     TOK_STANDARD_GEM = 344,
-     TOK_STANDARD_BISHOP = 345,
-     TOK_STANDARD_KING = 346,
-     TOK_STANDARD_KNIGHT = 347,
-     TOK_STANDARD_PAWN = 348,
-     TOK_STANDARD_QUEEN = 349,
-     TOK_STANDARD_ROOK = 350
+     TOK_CREA = 270,
+     TOK_DEFAULT = 271,
+     TOK_DIRECTION = 272,
+     TOK_DROP = 273,
+     TOK_ENDING = 274,
+     TOK_GAMETYPE = 275,
+     TOK_MARK = 276,
+     TOK_MOVE = 277,
+     TOK_MOVETYPE = 278,
+     TOK_NOTATION = 279,
+     TOK_ONREPEAT = 280,
+     TOK_ORIGIN = 281,
+     TOK_PIECE = 282,
+     TOK_PIECE_NAME = 283,
+     TOK_REPEAT = 284,
+     TOK_SEQUENCE = 285,
+     TOK_START = 286,
+     TOK_SYMMETRY = 287,
+     TOK_TARGET = 288,
+     TOK_ZONE = 289,
+     TOK_SEPCODE = 290,
+     TOK_AHOGADO = 291,
+     TOK_AQUI = 292,
+     TOK_ASIGNA_ATT = 293,
+     TOK_ATACADO_ENEMIGO = 294,
+     TOK_CAMBIA_COLOR = 295,
+     TOK_CAPTURA = 296,
+     TOK_CAPTURA_SI = 297,
+     TOK_CAPTURA_Y_JUEGA = 298,
+     TOK_CAPTURA_Y_JUEGA_SI = 299,
+     TOK_CAPTURADAS_ENEMIGO = 300,
+     TOK_CAPTURADAS_PROPIO = 301,
+     TOK_CASILLERO_INICIAL = 302,
+     TOK_DESTINO_ANT = 303,
+     TOK_EMPATA = 304,
+     TOK_EMPATA_SI = 305,
+     TOK_ENTABLERO = 306,
+     TOK_ENZONA = 307,
+     TOK_GANA = 308,
+     TOK_GANA_SI = 309,
+     TOK_JAQUEMATE = 310,
+     TOK_JUEGA = 311,
+     TOK_JUEGA_SI = 312,
+     TOK_GOTO_MARCA = 313,
+     TOK_MARCA = 314,
+     TOK_MUEVE = 315,
+     TOK_MUEVE_SI = 316,
+     TOK_IF = 317,
+     TOK_OCUPADO = 318,
+     TOK_OCUPADOENEMIGO = 319,
+     TOK_OCUPADOPROPIO = 320,
+     TOK_ORIGEN_ANT = 321,
+     TOK_PARA = 322,
+     TOK_PARA_SI = 323,
+     TOK_PIERDE = 324,
+     TOK_PIERDE_SI = 325,
+     TOK_PIEZAS_EN_CAS = 326,
+     TOK_TRANSFORMA = 327,
+     TOK_REPITEPOS = 328,
+     TOK_AND = 329,
+     TOK_OR = 330,
+     TOK_NOT = 331,
+     TOK_EQUAL = 332,
+     TOK_DEQUAL = 333,
+     TOK_WHILE = 334,
+     TOK_DO = 335,
+     TOK_END = 336,
+     TOK_BREAK = 337,
+     TOK_GRAPH_BOARD = 338,
+     TOK_GRAPH_PIECE = 339,
+     TOK_GRAPH_SQUARE = 340,
+     TOK_GRID = 341,
+     TOK_CHECKERBOARD = 342,
+     TOK_INTERSECTIONS = 343,
+     TOK_HIGHLIGHTED = 344,
+     TOK_STANDARD_GEM = 345,
+     TOK_STANDARD_BISHOP = 346,
+     TOK_STANDARD_KING = 347,
+     TOK_STANDARD_KNIGHT = 348,
+     TOK_STANDARD_PAWN = 349,
+     TOK_STANDARD_QUEEN = 350,
+     TOK_STANDARD_ROOK = 351
    };
 #endif
 /* Tokens.  */
@@ -182,87 +183,88 @@
 #define TOK_CANTIDAD_PIEZAS_PROPIAS 267
 #define TOK_CANTIDAD_PIEZAS_ENEMIGAS 268
 #define TOK_COLOR 269
-#define TOK_DEFAULT 270
-#define TOK_DIRECTION 271
-#define TOK_DROP 272
-#define TOK_ENDING 273
-#define TOK_GAMETYPE 274
-#define TOK_MARK 275
-#define TOK_MOVE 276
-#define TOK_MOVETYPE 277
-#define TOK_NOTATION 278
-#define TOK_ONREPEAT 279
-#define TOK_ORIGIN 280
-#define TOK_PIECE 281
-#define TOK_PIECE_NAME 282
-#define TOK_REPEAT 283
-#define TOK_SEQUENCE 284
-#define TOK_START 285
-#define TOK_SYMMETRY 286
-#define TOK_TARGET 287
-#define TOK_ZONE 288
-#define TOK_SEPCODE 289
-#define TOK_AHOGADO 290
-#define TOK_AQUI 291
-#define TOK_ASIGNA_ATT 292
-#define TOK_ATACADO_ENEMIGO 293
-#define TOK_CAMBIA_COLOR 294
-#define TOK_CAPTURA 295
-#define TOK_CAPTURA_SI 296
-#define TOK_CAPTURA_Y_JUEGA 297
-#define TOK_CAPTURA_Y_JUEGA_SI 298
-#define TOK_CAPTURADAS_ENEMIGO 299
-#define TOK_CAPTURADAS_PROPIO 300
-#define TOK_CASILLERO_INICIAL 301
-#define TOK_DESTINO_ANT 302
-#define TOK_EMPATA 303
-#define TOK_EMPATA_SI 304
-#define TOK_ENTABLERO 305
-#define TOK_ENZONA 306
-#define TOK_GANA 307
-#define TOK_GANA_SI 308
-#define TOK_JAQUEMATE 309
-#define TOK_JUEGA 310
-#define TOK_JUEGA_SI 311
-#define TOK_GOTO_MARCA 312
-#define TOK_MARCA 313
-#define TOK_MUEVE 314
-#define TOK_MUEVE_SI 315
-#define TOK_IF 316
-#define TOK_OCUPADO 317
-#define TOK_OCUPADOENEMIGO 318
-#define TOK_OCUPADOPROPIO 319
-#define TOK_ORIGEN_ANT 320
-#define TOK_PARA 321
-#define TOK_PARA_SI 322
-#define TOK_PIERDE 323
-#define TOK_PIERDE_SI 324
-#define TOK_PIEZAS_EN_CAS 325
-#define TOK_TRANSFORMA 326
-#define TOK_REPITEPOS 327
-#define TOK_AND 328
-#define TOK_OR 329
-#define TOK_NOT 330
-#define TOK_EQUAL 331
-#define TOK_DEQUAL 332
-#define TOK_WHILE 333
-#define TOK_DO 334
-#define TOK_END 335
-#define TOK_BREAK 336
-#define TOK_GRAPH_BOARD 337
-#define TOK_GRAPH_PIECE 338
-#define TOK_GRAPH_SQUARE 339
-#define TOK_GRID 340
-#define TOK_CHECKERBOARD 341
-#define TOK_INTERSECTIONS 342
-#define TOK_HIGHLIGHTED 343
-#define TOK_STANDARD_GEM 344
-#define TOK_STANDARD_BISHOP 345
-#define TOK_STANDARD_KING 346
-#define TOK_STANDARD_KNIGHT 347
-#define TOK_STANDARD_PAWN 348
-#define TOK_STANDARD_QUEEN 349
-#define TOK_STANDARD_ROOK 350
+#define TOK_CREA 270
+#define TOK_DEFAULT 271
+#define TOK_DIRECTION 272
+#define TOK_DROP 273
+#define TOK_ENDING 274
+#define TOK_GAMETYPE 275
+#define TOK_MARK 276
+#define TOK_MOVE 277
+#define TOK_MOVETYPE 278
+#define TOK_NOTATION 279
+#define TOK_ONREPEAT 280
+#define TOK_ORIGIN 281
+#define TOK_PIECE 282
+#define TOK_PIECE_NAME 283
+#define TOK_REPEAT 284
+#define TOK_SEQUENCE 285
+#define TOK_START 286
+#define TOK_SYMMETRY 287
+#define TOK_TARGET 288
+#define TOK_ZONE 289
+#define TOK_SEPCODE 290
+#define TOK_AHOGADO 291
+#define TOK_AQUI 292
+#define TOK_ASIGNA_ATT 293
+#define TOK_ATACADO_ENEMIGO 294
+#define TOK_CAMBIA_COLOR 295
+#define TOK_CAPTURA 296
+#define TOK_CAPTURA_SI 297
+#define TOK_CAPTURA_Y_JUEGA 298
+#define TOK_CAPTURA_Y_JUEGA_SI 299
+#define TOK_CAPTURADAS_ENEMIGO 300
+#define TOK_CAPTURADAS_PROPIO 301
+#define TOK_CASILLERO_INICIAL 302
+#define TOK_DESTINO_ANT 303
+#define TOK_EMPATA 304
+#define TOK_EMPATA_SI 305
+#define TOK_ENTABLERO 306
+#define TOK_ENZONA 307
+#define TOK_GANA 308
+#define TOK_GANA_SI 309
+#define TOK_JAQUEMATE 310
+#define TOK_JUEGA 311
+#define TOK_JUEGA_SI 312
+#define TOK_GOTO_MARCA 313
+#define TOK_MARCA 314
+#define TOK_MUEVE 315
+#define TOK_MUEVE_SI 316
+#define TOK_IF 317
+#define TOK_OCUPADO 318
+#define TOK_OCUPADOENEMIGO 319
+#define TOK_OCUPADOPROPIO 320
+#define TOK_ORIGEN_ANT 321
+#define TOK_PARA 322
+#define TOK_PARA_SI 323
+#define TOK_PIERDE 324
+#define TOK_PIERDE_SI 325
+#define TOK_PIEZAS_EN_CAS 326
+#define TOK_TRANSFORMA 327
+#define TOK_REPITEPOS 328
+#define TOK_AND 329
+#define TOK_OR 330
+#define TOK_NOT 331
+#define TOK_EQUAL 332
+#define TOK_DEQUAL 333
+#define TOK_WHILE 334
+#define TOK_DO 335
+#define TOK_END 336
+#define TOK_BREAK 337
+#define TOK_GRAPH_BOARD 338
+#define TOK_GRAPH_PIECE 339
+#define TOK_GRAPH_SQUARE 340
+#define TOK_GRID 341
+#define TOK_CHECKERBOARD 342
+#define TOK_INTERSECTIONS 343
+#define TOK_HIGHLIGHTED 344
+#define TOK_STANDARD_GEM 345
+#define TOK_STANDARD_BISHOP 346
+#define TOK_STANDARD_KING 347
+#define TOK_STANDARD_KNIGHT 348
+#define TOK_STANDARD_PAWN 349
+#define TOK_STANDARD_QUEEN 350
+#define TOK_STANDARD_ROOK 351
 
 
 
@@ -408,7 +410,7 @@ typedef int YYSTYPE;
 
 
 /* Line 216 of yacc.c.  */
-#line 412 "qgames_parser.c"
+#line 414 "qgames_parser.c"
 
 #ifdef short
 # undef short
@@ -623,20 +625,20 @@ union yyalloc
 /* YYFINAL -- State number of the termination state.  */
 #define YYFINAL  78
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   363
+#define YYLAST   385
 
 /* YYNTOKENS -- Number of terminals.  */
-#define YYNTOKENS  101
+#define YYNTOKENS  102
 /* YYNNTS -- Number of nonterminals.  */
-#define YYNNTS  82
+#define YYNNTS  83
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  208
+#define YYNRULES  211
 /* YYNRULES -- Number of states.  */
-#define YYNSTATES  298
+#define YYNSTATES  304
 
 /* YYTRANSLATE(YYLEX) -- Bison symbol number corresponding to YYLEX.  */
 #define YYUNDEFTOK  2
-#define YYMAXUTOK   350
+#define YYMAXUTOK   351
 
 #define YYTRANSLATE(YYX)						\
   ((unsigned int) (YYX) <= YYMAXUTOK ? yytranslate[YYX] : YYUNDEFTOK)
@@ -648,15 +650,15 @@ static const yytype_uint8 yytranslate[] =
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-      98,    99,     2,     2,    96,     2,     2,     2,     2,     2,
+      99,   100,     2,     2,    97,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,    97,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+       2,    98,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-     100,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+     101,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
@@ -679,7 +681,7 @@ static const yytype_uint8 yytranslate[] =
       65,    66,    67,    68,    69,    70,    71,    72,    73,    74,
       75,    76,    77,    78,    79,    80,    81,    82,    83,    84,
       85,    86,    87,    88,    89,    90,    91,    92,    93,    94,
-      95
+      95,    96
 };
 
 #if YYDEBUG
@@ -693,109 +695,113 @@ static const yytype_uint16 yyprhs[] =
       75,    77,    80,    83,    85,    87,    90,    91,    96,   100,
      104,   108,   112,   114,   116,   118,   120,   122,   124,   126,
      128,   130,   132,   134,   136,   139,   141,   144,   146,   149,
-     151,   152,   156,   159,   163,   165,   168,   172,   177,   179,
-     181,   184,   187,   189,   191,   194,   198,   202,   206,   209,
-     211,   213,   217,   220,   223,   225,   228,   230,   231,   232,
-     239,   241,   242,   243,   251,   253,   255,   257,   259,   261,
-     263,   265,   267,   269,   271,   273,   275,   277,   278,   280,
-     284,   288,   289,   293,   294,   298,   299,   304,   306,   309,
-     310,   315,   317,   320,   321,   326,   327,   332,   335,   339,
-     342,   346,   350,   353,   354,   359,   363,   368,   372,   374,
-     376,   378,   380,   382,   384,   386,   388,   389,   391,   393,
-     395,   400,   404,   409,   414,   418,   422,   426,   430,   433,
-     435,   437,   439,   441,   443,   445,   448,   452,   454,   457,
-     461,   465,   470,   474,   478,   482,   486,   489,   494,   495,
-     501,   503,   504,   508,   510,   511,   516,   521,   522,   528,
-     530,   532,   534,   536,   538,   540,   542,   544,   546,   548,
-     550,   552,   554,   556,   558,   560,   561,   563,   567
+     151,   152,   156,   159,   163,   165,   168,   172,   177,   182,
+     187,   189,   191,   194,   197,   199,   201,   204,   208,   212,
+     216,   219,   221,   223,   227,   230,   233,   235,   238,   240,
+     241,   242,   249,   251,   252,   253,   261,   263,   265,   267,
+     269,   271,   273,   275,   277,   279,   281,   283,   285,   287,
+     289,   290,   292,   296,   300,   301,   305,   306,   310,   311,
+     316,   318,   321,   322,   327,   329,   332,   333,   338,   339,
+     344,   347,   351,   354,   358,   362,   365,   366,   371,   375,
+     380,   384,   386,   388,   390,   392,   394,   396,   398,   400,
+     401,   403,   405,   407,   412,   416,   421,   426,   430,   434,
+     438,   442,   445,   447,   449,   451,   453,   455,   457,   460,
+     464,   466,   469,   473,   477,   482,   486,   490,   494,   498,
+     501,   506,   507,   513,   515,   516,   520,   522,   523,   528,
+     533,   534,   540,   542,   544,   546,   548,   550,   552,   554,
+     556,   558,   560,   562,   564,   566,   568,   570,   572,   573,
+     575,   579
 };
 
 /* YYRHS -- A `-1'-separated list of the rules' RHS.  */
 static const yytype_int16 yyrhs[] =
 {
-     182,     0,    -1,     4,    -1,     5,    -1,   102,    -1,   103,
-     102,    -1,   103,    96,   102,    -1,     3,    -1,   104,     3,
-      -1,    35,    -1,    35,   102,    -1,    38,    -1,    11,    -1,
-      12,    -1,    13,    -1,   107,   103,    -1,   107,     3,    -1,
-      44,    97,     3,    -1,    44,     3,    -1,   107,    -1,    47,
-      -1,    47,   102,    -1,    65,    -1,    65,   102,    -1,    50,
-      -1,    51,   102,   102,    -1,    51,   102,    -1,    54,   102,
-      -1,    62,    -1,    64,    -1,    63,    -1,    62,   102,    -1,
-      72,     3,    -1,    76,    -1,    77,    -1,    75,   118,    -1,
-      -1,   118,    73,   117,   118,    -1,   118,    74,   118,    -1,
-     118,   115,     3,    -1,     3,   115,   118,    -1,    98,   118,
-      99,    -1,   116,    -1,   105,    -1,   106,    -1,   108,    -1,
-     109,    -1,   110,    -1,   111,    -1,   112,    -1,   113,    -1,
-     114,    -1,     4,    -1,    48,    -1,    49,   118,    -1,    52,
-      -1,    53,   118,    -1,    68,    -1,    69,   118,    -1,    46,
-      -1,    -1,    71,   121,   103,    -1,    39,    36,    -1,    39,
-     102,    36,    -1,    39,    -1,    39,   102,    -1,    37,   102,
-       3,    -1,    37,   102,    96,     3,    -1,    55,    -1,    42,
-      -1,    56,   118,    -1,    43,   118,    -1,    40,    -1,    66,
-      -1,    67,   118,    -1,    59,    70,     4,    -1,    59,    70,
-     128,    -1,    59,     4,     4,    -1,    59,   128,    -1,    36,
-      -1,   102,    -1,    58,     3,   126,    -1,    58,   126,    -1,
-      58,     3,    -1,    58,    -1,    57,     3,    -1,    57,    -1,
-      -1,    -1,    61,   118,   131,   139,   132,    80,    -1,    81,
-      -1,    -1,    -1,    78,   135,   118,    79,   136,   139,    80,
-      -1,   122,    -1,   133,    -1,   123,    -1,   119,    -1,   130,
-      -1,   127,    -1,   129,    -1,   120,    -1,   125,    -1,   124,
-      -1,   134,    -1,     4,    -1,   137,    -1,    -1,   138,    -1,
-     139,    34,   138,    -1,     8,   102,     3,    -1,    -1,     9,
-     142,   103,    -1,    -1,    14,   144,   103,    -1,    -1,    16,
-     102,   146,   104,    -1,    17,    -1,    17,   102,    -1,    -1,
-     147,     7,   149,   139,    -1,    21,    -1,    21,   102,    -1,
-      -1,   150,     7,   152,   139,    -1,    -1,    18,     7,   154,
-     139,    -1,    19,   102,    -1,     6,    96,     6,    -1,     6,
-       6,    -1,     3,    96,     3,    -1,     3,   100,     3,    -1,
-       3,     3,    -1,    -1,   158,   156,    96,   157,    -1,   158,
-     156,   157,    -1,   158,   157,    96,   156,    -1,   158,   157,
-     156,    -1,    89,    -1,    90,    -1,    91,    -1,    92,    -1,
-      93,    -1,    94,    -1,    95,    -1,     3,    -1,    -1,    86,
-      -1,    85,    -1,    87,    -1,    82,   161,   162,   159,    -1,
-      82,   161,   102,    -1,    83,   160,   102,   157,    -1,    83,
-     102,   160,   157,    -1,    83,   102,   102,    -1,    84,   102,
-     102,    -1,    84,   102,     6,    -1,    84,   102,    88,    -1,
-      22,   102,    -1,    27,    -1,    25,    -1,    32,    -1,    20,
-      -1,    10,    -1,   165,    -1,   166,   165,    -1,   166,    96,
-     165,    -1,   165,    -1,   167,   165,    -1,   167,    96,   165,
-      -1,    23,   102,   102,    -1,    23,   102,   102,   102,    -1,
-      23,    20,   102,    -1,    23,    10,   102,    -1,    23,    15,
-     167,    -1,    23,    24,   166,    -1,    26,   102,    -1,    30,
-     102,   102,     3,    -1,    -1,    30,   102,   102,   171,   103,
-      -1,   103,    -1,    -1,    29,   174,   172,    -1,   173,    -1,
-      -1,   173,    28,   176,   172,    -1,    31,   102,   102,   102,
-      -1,    -1,    33,   102,   102,   179,   103,    -1,   140,    -1,
-     141,    -1,   143,    -1,   145,    -1,   148,    -1,   153,    -1,
-     155,    -1,   163,    -1,   151,    -1,   164,    -1,   168,    -1,
-     169,    -1,   175,    -1,   170,    -1,   177,    -1,   178,    -1,
-      -1,   180,    -1,   181,     7,   180,    -1,   181,    -1
+     184,     0,    -1,     4,    -1,     5,    -1,   103,    -1,   104,
+     103,    -1,   104,    97,   103,    -1,     3,    -1,   105,     3,
+      -1,    36,    -1,    36,   103,    -1,    39,    -1,    11,    -1,
+      12,    -1,    13,    -1,   108,   104,    -1,   108,     3,    -1,
+      45,    98,     3,    -1,    45,     3,    -1,   108,    -1,    48,
+      -1,    48,   103,    -1,    66,    -1,    66,   103,    -1,    51,
+      -1,    52,   103,   103,    -1,    52,   103,    -1,    55,   103,
+      -1,    63,    -1,    65,    -1,    64,    -1,    63,   103,    -1,
+      73,     3,    -1,    77,    -1,    78,    -1,    76,   119,    -1,
+      -1,   119,    74,   118,   119,    -1,   119,    75,   119,    -1,
+     119,   116,     3,    -1,     3,   116,   119,    -1,    99,   119,
+     100,    -1,   117,    -1,   106,    -1,   107,    -1,   109,    -1,
+     110,    -1,   111,    -1,   112,    -1,   113,    -1,   114,    -1,
+     115,    -1,     4,    -1,    49,    -1,    50,   119,    -1,    53,
+      -1,    54,   119,    -1,    69,    -1,    70,   119,    -1,    47,
+      -1,    -1,    72,   122,   104,    -1,    40,    37,    -1,    40,
+     103,    37,    -1,    40,    -1,    40,   103,    -1,    38,   103,
+       3,    -1,    38,   103,    97,     3,    -1,    15,   103,   103,
+     103,    -1,    15,   103,   103,    37,    -1,    56,    -1,    43,
+      -1,    57,   119,    -1,    44,   119,    -1,    41,    -1,    67,
+      -1,    68,   119,    -1,    60,    71,     4,    -1,    60,    71,
+     130,    -1,    60,     4,     4,    -1,    60,   130,    -1,    37,
+      -1,   103,    -1,    59,     3,   128,    -1,    59,   128,    -1,
+      59,     3,    -1,    59,    -1,    58,     3,    -1,    58,    -1,
+      -1,    -1,    62,   119,   133,   141,   134,    81,    -1,    82,
+      -1,    -1,    -1,    79,   137,   119,    80,   138,   141,    81,
+      -1,   123,    -1,   135,    -1,   124,    -1,   125,    -1,   120,
+      -1,   132,    -1,   129,    -1,   131,    -1,   121,    -1,   127,
+      -1,   126,    -1,   136,    -1,     4,    -1,   139,    -1,    -1,
+     140,    -1,   141,    35,   140,    -1,     8,   103,     3,    -1,
+      -1,     9,   144,   104,    -1,    -1,    14,   146,   104,    -1,
+      -1,    17,   103,   148,   105,    -1,    18,    -1,    18,   103,
+      -1,    -1,   149,     7,   151,   141,    -1,    22,    -1,    22,
+     103,    -1,    -1,   152,     7,   154,   141,    -1,    -1,    19,
+       7,   156,   141,    -1,    20,   103,    -1,     6,    97,     6,
+      -1,     6,     6,    -1,     3,    97,     3,    -1,     3,   101,
+       3,    -1,     3,     3,    -1,    -1,   160,   158,    97,   159,
+      -1,   160,   158,   159,    -1,   160,   159,    97,   158,    -1,
+     160,   159,   158,    -1,    90,    -1,    91,    -1,    92,    -1,
+      93,    -1,    94,    -1,    95,    -1,    96,    -1,     3,    -1,
+      -1,    87,    -1,    86,    -1,    88,    -1,    83,   163,   164,
+     161,    -1,    83,   163,   103,    -1,    84,   162,   103,   159,
+      -1,    84,   103,   162,   159,    -1,    84,   103,   103,    -1,
+      85,   103,   103,    -1,    85,   103,     6,    -1,    85,   103,
+      89,    -1,    23,   103,    -1,    28,    -1,    26,    -1,    33,
+      -1,    21,    -1,    10,    -1,   167,    -1,   168,   167,    -1,
+     168,    97,   167,    -1,   167,    -1,   169,   167,    -1,   169,
+      97,   167,    -1,    24,   103,   103,    -1,    24,   103,   103,
+     103,    -1,    24,    21,   103,    -1,    24,    10,   103,    -1,
+      24,    16,   169,    -1,    24,    25,   168,    -1,    27,   103,
+      -1,    31,   103,   103,     3,    -1,    -1,    31,   103,   103,
+     173,   104,    -1,   104,    -1,    -1,    30,   176,   174,    -1,
+     175,    -1,    -1,   175,    29,   178,   174,    -1,    32,   103,
+     103,   103,    -1,    -1,    34,   103,   103,   181,   104,    -1,
+     142,    -1,   143,    -1,   145,    -1,   147,    -1,   150,    -1,
+     155,    -1,   157,    -1,   165,    -1,   153,    -1,   166,    -1,
+     170,    -1,   171,    -1,   177,    -1,   172,    -1,   179,    -1,
+     180,    -1,    -1,   182,    -1,   183,     7,   182,    -1,   183,
+      -1
 };
 
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint16 yyrline[] =
 {
-       0,   194,   194,   195,   199,   200,   201,   204,   205,   212,
-     216,   223,   229,   234,   239,   248,   268,   273,   278,   283,
-     290,   294,   305,   309,   325,   331,   357,   369,   382,   386,
-     390,   394,   412,   420,   420,   423,   427,   427,   433,   435,
-     439,   446,   447,   448,   449,   450,   451,   452,   453,   454,
-     455,   456,   457,   496,   500,   506,   510,   516,   520,   530,
-     534,   534,   554,   558,   563,   567,   576,   581,   590,   594,
-     598,   604,   610,   617,   621,   632,   643,   647,   648,   655,
-     656,   669,   674,   682,   683,   687,   691,   703,   706,   703,
-     711,   721,   726,   721,   738,   739,   740,   741,   742,   743,
-     744,   745,   746,   747,   748,   749,   767,   767,   771,   772,
-     784,   795,   795,   807,   807,   817,   817,   829,   830,   833,
-     833,   844,   845,   849,   849,   862,   862,   871,   885,   886,
-     890,   891,   892,   895,   898,   899,   900,   901,   904,   905,
-     906,   907,   908,   909,   910,   913,   915,   918,   919,   920,
-     923,   927,   928,   937,   946,   947,   948,   949,   958,   966,
-     967,   968,   969,   970,   973,   974,   975,   978,   979,   980,
-     984,   998,  1024,  1029,  1034,  1035,  1039,  1048,  1057,  1057,
-    1068,  1088,  1088,  1091,  1092,  1092,  1099,  1105,  1105,  1123,
-    1124,  1125,  1126,  1127,  1128,  1129,  1130,  1131,  1132,  1133,
-    1134,  1135,  1136,  1137,  1138,  1138,  1145,  1146,  1150
+       0,   195,   195,   196,   200,   201,   202,   205,   206,   213,
+     217,   224,   230,   235,   240,   249,   269,   274,   279,   284,
+     291,   295,   306,   310,   326,   332,   358,   370,   383,   387,
+     391,   395,   413,   421,   421,   424,   428,   428,   434,   436,
+     440,   447,   448,   449,   450,   451,   452,   453,   454,   455,
+     456,   457,   458,   497,   501,   507,   511,   517,   521,   531,
+     535,   535,   555,   559,   564,   568,   577,   582,   589,   593,
+     600,   604,   608,   614,   620,   627,   631,   642,   653,   657,
+     658,   665,   666,   679,   684,   692,   693,   697,   701,   713,
+     716,   713,   721,   731,   736,   731,   748,   749,   750,   751,
+     752,   753,   754,   755,   756,   757,   758,   759,   760,   778,
+     778,   782,   783,   795,   806,   806,   818,   818,   828,   828,
+     840,   841,   844,   844,   855,   856,   860,   860,   873,   873,
+     882,   896,   897,   901,   902,   903,   906,   909,   910,   911,
+     912,   915,   916,   917,   918,   919,   920,   921,   924,   926,
+     929,   930,   931,   934,   938,   939,   948,   957,   958,   959,
+     960,   969,   977,   978,   979,   980,   981,   984,   985,   986,
+     989,   990,   991,   995,  1009,  1035,  1040,  1045,  1046,  1050,
+    1059,  1068,  1068,  1079,  1099,  1099,  1102,  1103,  1103,  1110,
+    1116,  1116,  1134,  1135,  1136,  1137,  1138,  1139,  1140,  1141,
+    1142,  1143,  1144,  1145,  1146,  1147,  1148,  1149,  1149,  1156,
+    1157,  1161
 };
 #endif
 
@@ -808,16 +814,16 @@ static const char *const yytname[] =
   "TOK_HTMLCOLOR", "TOK_SEPARATOR", "TOK_ATTR", "TOK_BOARD",
   "TOK_CAPTURED_MARK", "TOK_CANTIDAD_PIEZAS",
   "TOK_CANTIDAD_PIEZAS_PROPIAS", "TOK_CANTIDAD_PIEZAS_ENEMIGAS",
-  "TOK_COLOR", "TOK_DEFAULT", "TOK_DIRECTION", "TOK_DROP", "TOK_ENDING",
-  "TOK_GAMETYPE", "TOK_MARK", "TOK_MOVE", "TOK_MOVETYPE", "TOK_NOTATION",
-  "TOK_ONREPEAT", "TOK_ORIGIN", "TOK_PIECE", "TOK_PIECE_NAME",
-  "TOK_REPEAT", "TOK_SEQUENCE", "TOK_START", "TOK_SYMMETRY", "TOK_TARGET",
-  "TOK_ZONE", "TOK_SEPCODE", "TOK_AHOGADO", "TOK_AQUI", "TOK_ASIGNA_ATT",
-  "TOK_ATACADO_ENEMIGO", "TOK_CAMBIA_COLOR", "TOK_CAPTURA",
-  "TOK_CAPTURA_SI", "TOK_CAPTURA_Y_JUEGA", "TOK_CAPTURA_Y_JUEGA_SI",
-  "TOK_CAPTURADAS_ENEMIGO", "TOK_CAPTURADAS_PROPIO",
-  "TOK_CASILLERO_INICIAL", "TOK_DESTINO_ANT", "TOK_EMPATA",
-  "TOK_EMPATA_SI", "TOK_ENTABLERO", "TOK_ENZONA", "TOK_GANA",
+  "TOK_COLOR", "TOK_CREA", "TOK_DEFAULT", "TOK_DIRECTION", "TOK_DROP",
+  "TOK_ENDING", "TOK_GAMETYPE", "TOK_MARK", "TOK_MOVE", "TOK_MOVETYPE",
+  "TOK_NOTATION", "TOK_ONREPEAT", "TOK_ORIGIN", "TOK_PIECE",
+  "TOK_PIECE_NAME", "TOK_REPEAT", "TOK_SEQUENCE", "TOK_START",
+  "TOK_SYMMETRY", "TOK_TARGET", "TOK_ZONE", "TOK_SEPCODE", "TOK_AHOGADO",
+  "TOK_AQUI", "TOK_ASIGNA_ATT", "TOK_ATACADO_ENEMIGO", "TOK_CAMBIA_COLOR",
+  "TOK_CAPTURA", "TOK_CAPTURA_SI", "TOK_CAPTURA_Y_JUEGA",
+  "TOK_CAPTURA_Y_JUEGA_SI", "TOK_CAPTURADAS_ENEMIGO",
+  "TOK_CAPTURADAS_PROPIO", "TOK_CASILLERO_INICIAL", "TOK_DESTINO_ANT",
+  "TOK_EMPATA", "TOK_EMPATA_SI", "TOK_ENTABLERO", "TOK_ENZONA", "TOK_GANA",
   "TOK_GANA_SI", "TOK_JAQUEMATE", "TOK_JUEGA", "TOK_JUEGA_SI",
   "TOK_GOTO_MARCA", "TOK_MARCA", "TOK_MUEVE", "TOK_MUEVE_SI", "TOK_IF",
   "TOK_OCUPADO", "TOK_OCUPADOENEMIGO", "TOK_OCUPADOPROPIO",
@@ -835,19 +841,20 @@ static const char *const yytname[] =
   "instexpr_entablero", "instexpr_enzona", "instexpr_jaquemate",
   "instexpr_ocupado", "instexpr_repitepos", "es_igual_a",
   "instexpr_logical", "@1", "instexpr", "instaction_final",
-  "instaction_movs", "@2", "instaction_asigna_att", "instaction_juega",
-  "instaction_para", "instaction_mueve", "instaction_marca_casillero",
-  "instaction_set_marca", "instaction_get_marca", "instaction_goto_marca",
-  "instaction_if", "@3", "@4", "instaction_break", "instaction_while",
-  "@5", "@6", "instaction", "instcode", "code_list", "instruction_attr",
-  "instruction_board", "@7", "instruction_color", "@8",
-  "instruction_direction", "@9", "instruction_drop_prelude",
-  "instruction_drop", "@10", "instruction_move_prelude",
-  "instruction_move", "@11", "instruction_ending", "@12",
-  "instruction_gametype", "instruction_graph_colors",
-  "instruction_graph_dimensions", "instruction_graph_def_prelude",
-  "instruction_graph_def", "instruction_graph_standard", "board_number",
-  "board_std_type", "instruction_graph", "instruction_movetype",
+  "instaction_movs", "@2", "instaction_asigna_att", "instaction_crea",
+  "instaction_juega", "instaction_para", "instaction_mueve",
+  "instaction_marca_casillero", "instaction_set_marca",
+  "instaction_get_marca", "instaction_goto_marca", "instaction_if", "@3",
+  "@4", "instaction_break", "instaction_while", "@5", "@6", "instaction",
+  "instcode", "code_list", "instruction_attr", "instruction_board", "@7",
+  "instruction_color", "@8", "instruction_direction", "@9",
+  "instruction_drop_prelude", "instruction_drop", "@10",
+  "instruction_move_prelude", "instruction_move", "@11",
+  "instruction_ending", "@12", "instruction_gametype",
+  "instruction_graph_colors", "instruction_graph_dimensions",
+  "instruction_graph_def_prelude", "instruction_graph_def",
+  "instruction_graph_standard", "board_number", "board_std_type",
+  "instruction_graph", "instruction_movetype",
   "instruction_notation_element", "instruction_notation_rep",
   "instruction_notation_def", "instruction_notation", "instruction_piece",
   "instruction_start", "@13", "instruction_sequence_list",
@@ -871,35 +878,36 @@ static const yytype_uint16 yytoknum[] =
      315,   316,   317,   318,   319,   320,   321,   322,   323,   324,
      325,   326,   327,   328,   329,   330,   331,   332,   333,   334,
      335,   336,   337,   338,   339,   340,   341,   342,   343,   344,
-     345,   346,   347,   348,   349,   350,    44,    61,    40,    41,
-     120
+     345,   346,   347,   348,   349,   350,   351,    44,    61,    40,
+      41,   120
 };
 # endif
 
 /* YYR1[YYN] -- Symbol number of symbol that rule YYN derives.  */
 static const yytype_uint8 yyr1[] =
 {
-       0,   101,   102,   102,   103,   103,   103,   104,   104,   105,
-     105,   106,   107,   107,   107,   108,   108,   108,   108,   108,
-     109,   109,   109,   109,   110,   111,   111,   112,   113,   113,
-     113,   113,   114,   115,   115,   116,   117,   116,   116,   116,
-     116,   118,   118,   118,   118,   118,   118,   118,   118,   118,
-     118,   118,   118,   119,   119,   119,   119,   119,   119,   120,
-     121,   120,   120,   120,   120,   120,   122,   122,   123,   123,
-     123,   123,   123,   124,   124,   125,   125,   125,   125,   126,
-     126,   127,   127,   128,   128,   129,   129,   131,   132,   130,
-     133,   135,   136,   134,   137,   137,   137,   137,   137,   137,
-     137,   137,   137,   137,   137,   137,   138,   138,   139,   139,
-     140,   142,   141,   144,   143,   146,   145,   147,   147,   149,
-     148,   150,   150,   152,   151,   154,   153,   155,   156,   156,
-     157,   157,   157,   158,   159,   159,   159,   159,   160,   160,
-     160,   160,   160,   160,   160,   161,   161,   162,   162,   162,
-     163,   163,   163,   163,   163,   163,   163,   163,   164,   165,
-     165,   165,   165,   165,   166,   166,   166,   167,   167,   167,
-     168,   168,   168,   168,   168,   168,   169,   170,   171,   170,
-     172,   174,   173,   175,   176,   175,   177,   179,   178,   180,
-     180,   180,   180,   180,   180,   180,   180,   180,   180,   180,
-     180,   180,   180,   180,   180,   180,   181,   181,   182
+       0,   102,   103,   103,   104,   104,   104,   105,   105,   106,
+     106,   107,   108,   108,   108,   109,   109,   109,   109,   109,
+     110,   110,   110,   110,   111,   112,   112,   113,   114,   114,
+     114,   114,   115,   116,   116,   117,   118,   117,   117,   117,
+     117,   119,   119,   119,   119,   119,   119,   119,   119,   119,
+     119,   119,   119,   120,   120,   120,   120,   120,   120,   121,
+     122,   121,   121,   121,   121,   121,   123,   123,   124,   124,
+     125,   125,   125,   125,   125,   126,   126,   127,   127,   127,
+     127,   128,   128,   129,   129,   130,   130,   131,   131,   133,
+     134,   132,   135,   137,   138,   136,   139,   139,   139,   139,
+     139,   139,   139,   139,   139,   139,   139,   139,   139,   140,
+     140,   141,   141,   142,   144,   143,   146,   145,   148,   147,
+     149,   149,   151,   150,   152,   152,   154,   153,   156,   155,
+     157,   158,   158,   159,   159,   159,   160,   161,   161,   161,
+     161,   162,   162,   162,   162,   162,   162,   162,   163,   163,
+     164,   164,   164,   165,   165,   165,   165,   165,   165,   165,
+     165,   166,   167,   167,   167,   167,   167,   168,   168,   168,
+     169,   169,   169,   170,   170,   170,   170,   170,   170,   171,
+     172,   173,   172,   174,   176,   175,   177,   178,   177,   179,
+     181,   180,   182,   182,   182,   182,   182,   182,   182,   182,
+     182,   182,   182,   182,   182,   182,   182,   182,   182,   183,
+     183,   184
 };
 
 /* YYR2[YYN] -- Number of symbols composing right hand side of rule YYN.  */
@@ -911,21 +919,22 @@ static const yytype_uint8 yyr2[] =
        1,     2,     2,     1,     1,     2,     0,     4,     3,     3,
        3,     3,     1,     1,     1,     1,     1,     1,     1,     1,
        1,     1,     1,     1,     2,     1,     2,     1,     2,     1,
-       0,     3,     2,     3,     1,     2,     3,     4,     1,     1,
-       2,     2,     1,     1,     2,     3,     3,     3,     2,     1,
-       1,     3,     2,     2,     1,     2,     1,     0,     0,     6,
-       1,     0,     0,     7,     1,     1,     1,     1,     1,     1,
-       1,     1,     1,     1,     1,     1,     1,     0,     1,     3,
-       3,     0,     3,     0,     3,     0,     4,     1,     2,     0,
-       4,     1,     2,     0,     4,     0,     4,     2,     3,     2,
-       3,     3,     2,     0,     4,     3,     4,     3,     1,     1,
-       1,     1,     1,     1,     1,     1,     0,     1,     1,     1,
-       4,     3,     4,     4,     3,     3,     3,     3,     2,     1,
-       1,     1,     1,     1,     1,     2,     3,     1,     2,     3,
-       3,     4,     3,     3,     3,     3,     2,     4,     0,     5,
-       1,     0,     3,     1,     0,     4,     4,     0,     5,     1,
+       0,     3,     2,     3,     1,     2,     3,     4,     4,     4,
+       1,     1,     2,     2,     1,     1,     2,     3,     3,     3,
+       2,     1,     1,     3,     2,     2,     1,     2,     1,     0,
+       0,     6,     1,     0,     0,     7,     1,     1,     1,     1,
        1,     1,     1,     1,     1,     1,     1,     1,     1,     1,
-       1,     1,     1,     1,     1,     0,     1,     3,     1
+       0,     1,     3,     3,     0,     3,     0,     3,     0,     4,
+       1,     2,     0,     4,     1,     2,     0,     4,     0,     4,
+       2,     3,     2,     3,     3,     2,     0,     4,     3,     4,
+       3,     1,     1,     1,     1,     1,     1,     1,     1,     0,
+       1,     1,     1,     4,     3,     4,     4,     3,     3,     3,
+       3,     2,     1,     1,     1,     1,     1,     1,     2,     3,
+       1,     2,     3,     3,     4,     3,     3,     3,     3,     2,
+       4,     0,     5,     1,     0,     3,     1,     0,     4,     4,
+       0,     5,     1,     1,     1,     1,     1,     1,     1,     1,
+       1,     1,     1,     1,     1,     1,     1,     1,     0,     1,
+       3,     1
 };
 
 /* YYDEFACT[STATE-NAME] -- Default rule to reduce with in state
@@ -933,101 +942,103 @@ static const yytype_uint8 yyr2[] =
    means the default is an error.  */
 static const yytype_uint8 yydefact[] =
 {
-     205,     0,   111,   113,     0,   117,     0,     0,   121,     0,
-       0,     0,   181,     0,     0,     0,   146,     0,     0,   189,
-     190,   191,   192,     0,   193,     0,   197,   194,   195,   196,
-     198,   199,   200,   202,   183,   201,   203,   204,   206,   208,
-       0,     2,     3,     0,     0,     0,   115,   118,   125,   127,
-     122,   158,     0,     0,     0,     0,     0,   176,     0,     0,
-       0,     0,   145,     0,   138,   139,   140,   141,   142,   143,
-     144,     0,     0,     0,   119,   123,   184,   205,     1,   110,
-       4,   112,   114,     0,   107,   173,   163,   162,   160,   159,
-     161,   167,   174,   172,   164,   175,   170,   180,   182,   178,
-       0,   187,   148,   147,   149,   151,   133,   154,     0,     0,
-     156,   157,   155,   107,   107,     0,   207,     0,     5,     7,
-     116,   105,     0,    64,    72,    69,     0,    59,    53,     0,
-      55,     0,    68,     0,    86,     0,     0,     0,    73,     0,
-      57,     0,    60,    91,    90,    97,   101,    94,    96,   103,
-     102,    99,   100,    98,    95,   104,   106,   108,   126,     0,
-     168,     0,   165,   171,   177,     0,   186,     0,     0,   150,
-       0,   153,   152,   120,   124,   185,     6,     8,     0,    62,
-      65,     0,    52,    12,    13,    14,     9,    11,     0,    20,
-      24,     0,     0,    28,    30,    29,    22,     0,     0,     0,
-      43,    44,    19,    45,    46,    47,    48,    49,    50,    51,
-      42,    71,    54,    56,    70,    85,     0,    79,    80,    82,
-       0,    84,     0,    78,    87,    74,    58,     0,     0,   107,
-     169,   166,   179,   188,     0,     0,     0,   132,     0,     0,
-      66,     0,    63,    33,    34,     0,    10,    18,     0,    21,
-      26,    27,    31,    23,    32,    35,     0,    16,    15,    36,
-       0,     0,    81,    77,    83,    75,    76,   107,    61,     0,
-     109,   129,     0,     0,   135,     0,   137,   130,   131,    67,
-      40,    17,    25,    41,     0,    38,    39,    88,    92,   128,
-     134,   136,    37,     0,   107,    89,     0,    93
+     208,     0,   114,   116,     0,   120,     0,     0,   124,     0,
+       0,     0,   184,     0,     0,     0,   149,     0,     0,   192,
+     193,   194,   195,     0,   196,     0,   200,   197,   198,   199,
+     201,   202,   203,   205,   186,   204,   206,   207,   209,   211,
+       0,     2,     3,     0,     0,     0,   118,   121,   128,   130,
+     125,   161,     0,     0,     0,     0,     0,   179,     0,     0,
+       0,     0,   148,     0,   141,   142,   143,   144,   145,   146,
+     147,     0,     0,     0,   122,   126,   187,   208,     1,   113,
+       4,   115,   117,     0,   110,   176,   166,   165,   163,   162,
+     164,   170,   177,   175,   167,   178,   173,   183,   185,   181,
+       0,   190,   151,   150,   152,   154,   136,   157,     0,     0,
+     159,   160,   158,   110,   110,     0,   210,     0,     5,     7,
+     119,   108,     0,     0,    64,    74,    71,     0,    59,    53,
+       0,    55,     0,    70,     0,    88,     0,     0,     0,    75,
+       0,    57,     0,    60,    93,    92,   100,   104,    96,    98,
+      99,   106,   105,   102,   103,   101,    97,   107,   109,   111,
+     129,     0,   171,     0,   168,   174,   180,     0,   189,     0,
+       0,   153,     0,   156,   155,   123,   127,   188,     6,     8,
+       0,     0,    62,    65,     0,    52,    12,    13,    14,     9,
+      11,     0,    20,    24,     0,     0,    28,    30,    29,    22,
+       0,     0,     0,    43,    44,    19,    45,    46,    47,    48,
+      49,    50,    51,    42,    73,    54,    56,    72,    87,     0,
+      81,    82,    84,     0,    86,     0,    80,    89,    76,    58,
+       0,     0,   110,   172,   169,   182,   191,     0,     0,     0,
+     135,     0,     0,     0,    66,     0,    63,    33,    34,     0,
+      10,    18,     0,    21,    26,    27,    31,    23,    32,    35,
+       0,    16,    15,    36,     0,     0,    83,    79,    85,    77,
+      78,   110,    61,     0,   112,   132,     0,     0,   138,     0,
+     140,   133,   134,    69,    68,    67,    40,    17,    25,    41,
+       0,    38,    39,    90,    94,   131,   137,   139,    37,     0,
+     110,    91,     0,    95
 };
 
 /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_int16 yydefgoto[] =
 {
-      -1,    80,    97,   120,   200,   201,   202,   203,   204,   205,
-     206,   207,   208,   209,   261,   210,   284,   211,   145,   146,
-     227,   147,   148,   149,   150,   219,   151,   223,   152,   153,
-     267,   293,   154,   155,   228,   294,   156,   157,   158,    19,
-      20,    44,    21,    45,    22,    83,    23,    24,   113,    25,
-      26,   114,    27,    84,    28,   235,   171,   168,   169,    72,
-      63,   106,    29,    30,    91,    95,    92,    31,    32,    33,
-     165,    98,    34,    58,    35,   115,    36,    37,   167,    38,
-      39,    40
+      -1,    80,    97,   120,   203,   204,   205,   206,   207,   208,
+     209,   210,   211,   212,   265,   213,   290,   214,   146,   147,
+     230,   148,   149,   150,   151,   152,   222,   153,   226,   154,
+     155,   271,   299,   156,   157,   231,   300,   158,   159,   160,
+      19,    20,    44,    21,    45,    22,    83,    23,    24,   113,
+      25,    26,   114,    27,    84,    28,   238,   173,   170,   171,
+      72,    63,   106,    29,    30,    91,    95,    92,    31,    32,
+      33,   167,    98,    34,    58,    35,   115,    36,    37,   169,
+      38,    39,    40
 };
 
 /* YYPACT[STATE-NUM] -- Index in YYTABLE of the portion describing
    STATE-NUM.  */
-#define YYPACT_NINF -202
+#define YYPACT_NINF -212
 static const yytype_int16 yypact[] =
 {
-     279,    63,  -202,  -202,    63,    63,    47,    63,    63,    63,
-     174,    63,  -202,    63,    63,    63,    58,   119,    63,  -202,
-    -202,  -202,  -202,    68,  -202,    75,  -202,  -202,  -202,  -202,
-    -202,  -202,  -202,  -202,    18,  -202,  -202,  -202,  -202,    77,
-      50,  -202,  -202,    62,    63,    63,  -202,  -202,  -202,  -202,
-    -202,  -202,    63,   209,    63,   209,    63,  -202,    63,    63,
-      63,    63,  -202,    73,  -202,  -202,  -202,  -202,  -202,  -202,
-    -202,   119,    63,    39,  -202,  -202,  -202,   279,  -202,  -202,
-    -202,    29,    29,    84,   213,  -202,  -202,  -202,  -202,  -202,
-    -202,  -202,    66,  -202,  -202,   196,    63,    29,  -202,    89,
-      63,  -202,  -202,  -202,  -202,  -202,  -202,  -202,    91,    91,
-    -202,  -202,  -202,   213,   213,    63,  -202,    63,  -202,  -202,
-      97,  -202,    63,    43,  -202,  -202,   102,  -202,  -202,   102,
-    -202,   102,  -202,   102,    98,    37,    27,   102,  -202,   102,
-    -202,   102,  -202,  -202,  -202,  -202,  -202,  -202,  -202,  -202,
-    -202,  -202,  -202,  -202,  -202,  -202,  -202,  -202,    76,   209,
-    -202,   209,  -202,  -202,  -202,    63,  -202,    63,    46,  -202,
-       8,  -202,  -202,    76,    76,  -202,  -202,  -202,    22,  -202,
-      81,    26,  -202,  -202,  -202,  -202,    63,  -202,    12,    63,
-    -202,    63,    63,    63,  -202,  -202,    63,   104,   102,   102,
-    -202,  -202,    34,  -202,  -202,  -202,  -202,  -202,  -202,  -202,
-    -202,   230,   230,   230,   230,  -202,    52,  -202,  -202,  -202,
-     108,   125,    25,  -202,   230,   230,   230,    63,   102,   213,
-    -202,  -202,    29,    29,    15,    24,    30,  -202,   126,   130,
-    -202,   132,  -202,  -202,  -202,   102,  -202,  -202,   135,  -202,
-      63,  -202,  -202,  -202,  -202,   230,    71,  -202,    29,  -202,
-     102,   139,  -202,  -202,  -202,  -202,  -202,   213,    29,   166,
-    -202,  -202,   137,    91,  -202,   144,  -202,  -202,  -202,  -202,
-     230,  -202,  -202,  -202,   102,   230,  -202,    76,  -202,  -202,
-    -202,  -202,   230,    74,   213,  -202,   -11,  -202
+     300,   107,  -212,  -212,   107,   107,    23,   107,   107,   107,
+     176,   107,  -212,   107,   107,   107,    29,    59,   107,  -212,
+    -212,  -212,  -212,    41,  -212,    43,  -212,  -212,  -212,  -212,
+    -212,  -212,  -212,  -212,    -3,  -212,  -212,  -212,  -212,    50,
+      65,  -212,  -212,    66,   107,   107,  -212,  -212,  -212,  -212,
+    -212,  -212,   107,   157,   107,   157,   107,  -212,   107,   107,
+     107,   107,  -212,    78,  -212,  -212,  -212,  -212,  -212,  -212,
+    -212,    59,   107,    38,  -212,  -212,  -212,   300,  -212,  -212,
+    -212,    20,    20,    72,   234,  -212,  -212,  -212,  -212,  -212,
+    -212,  -212,    28,  -212,  -212,    64,   107,    20,  -212,    74,
+     107,  -212,  -212,  -212,  -212,  -212,  -212,  -212,    81,    81,
+    -212,  -212,  -212,   234,   234,   107,  -212,   107,  -212,  -212,
+      86,  -212,   107,   107,    30,  -212,  -212,   200,  -212,  -212,
+     200,  -212,   200,  -212,   200,    90,    42,    48,   200,  -212,
+     200,  -212,   200,  -212,  -212,  -212,  -212,  -212,  -212,  -212,
+    -212,  -212,  -212,  -212,  -212,  -212,  -212,  -212,  -212,  -212,
+      67,   157,  -212,   157,  -212,  -212,  -212,   107,  -212,   107,
+      88,  -212,     8,  -212,  -212,    67,    67,  -212,  -212,  -212,
+     107,    17,  -212,    61,    91,  -212,  -212,  -212,  -212,   107,
+    -212,    12,   107,  -212,   107,   107,   107,  -212,  -212,   107,
+     103,   200,   200,  -212,  -212,   142,  -212,  -212,  -212,  -212,
+    -212,  -212,  -212,  -212,    54,    54,    54,    54,  -212,    83,
+    -212,  -212,  -212,   104,   130,    19,  -212,    54,    54,    54,
+     107,   200,   234,  -212,  -212,    20,    20,    16,    18,    21,
+    -212,   136,   155,    99,  -212,   167,  -212,  -212,  -212,   200,
+    -212,  -212,   168,  -212,   107,  -212,  -212,  -212,  -212,    54,
+      82,  -212,    20,  -212,   200,   169,  -212,  -212,  -212,  -212,
+    -212,   234,    20,    63,  -212,  -212,   171,    81,  -212,   178,
+    -212,  -212,  -212,  -212,  -212,  -212,    54,  -212,  -212,  -212,
+     200,    54,  -212,    67,  -212,  -212,  -212,  -212,    54,    93,
+     234,  -212,     5,  -212
 };
 
 /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int16 yypgoto[] =
 {
-    -202,    -1,   -26,  -202,  -202,  -202,  -202,  -202,  -202,  -202,
-    -202,  -202,  -202,  -202,   -24,  -202,  -202,  -109,  -202,  -202,
-    -202,  -202,  -202,  -202,  -202,   -55,  -202,   -59,  -202,  -202,
-    -202,  -202,  -202,  -202,  -202,  -202,  -202,   -61,  -112,  -202,
-    -202,  -202,  -202,  -202,  -202,  -202,  -202,  -202,  -202,  -202,
-    -202,  -202,  -202,  -202,  -202,  -201,  -104,  -202,  -202,   100,
-    -202,  -202,  -202,  -202,   -29,  -202,  -202,  -202,  -202,  -202,
-    -202,    57,  -202,  -202,  -202,  -202,  -202,  -202,  -202,    96,
-    -202,  -202
+    -212,    -1,   -43,  -212,  -212,  -212,  -212,  -212,  -212,  -212,
+    -212,  -212,  -212,  -212,    -9,  -212,  -212,  -101,  -212,  -212,
+    -212,  -212,  -212,  -212,  -212,  -212,   -23,  -212,   -26,  -212,
+    -212,  -212,  -212,  -212,  -212,  -212,  -212,  -212,   -32,   -95,
+    -212,  -212,  -212,  -212,  -212,  -212,  -212,  -212,  -212,  -212,
+    -212,  -212,  -212,  -212,  -212,  -212,  -211,  -104,  -212,  -212,
+     131,  -212,  -212,  -212,  -212,   -19,  -212,  -212,  -212,  -212,
+    -212,  -212,    92,  -212,  -212,  -212,  -212,  -212,  -212,  -212,
+     129,  -212,  -212
 };
 
 /* YYTABLE[YYPACT[STATE-NUM]].  What to do in state STATE-NUM.  If
@@ -1037,120 +1048,125 @@ static const yytype_int16 yypgoto[] =
 #define YYTABLE_NINF -1
 static const yytype_uint16 yytable[] =
 {
-      43,   173,   174,    46,    47,   172,    49,    50,    51,    56,
-      57,   237,    59,    60,    61,   247,    71,    73,    81,    82,
-     212,   271,   213,   229,   214,   240,    94,   170,   224,   265,
-     225,   220,   226,    41,    42,   276,   234,   257,    41,    42,
-     216,    41,    42,    41,    42,   110,    76,    41,    42,   170,
-      78,    85,   234,    93,    48,    96,    41,    42,    99,   100,
-     101,    62,   105,   160,   236,    79,   162,    41,    42,   297,
-     107,   109,   112,   217,   291,    74,    86,    41,    42,   179,
-     118,   118,    75,   221,    77,   221,    87,   119,   217,   255,
-     256,    88,   164,    89,   170,   163,   118,   222,    90,   166,
-     177,   215,   243,   244,   238,   181,   182,   254,   239,   248,
-     229,   272,   263,   183,   184,   185,   176,   242,   241,   269,
-     273,   178,   180,    41,    42,   117,   275,   111,   264,   277,
-     230,   274,   231,   278,   218,   279,   280,   186,   281,   232,
-     187,   233,   286,   289,   259,   260,   188,   243,   244,   189,
-     234,   285,   190,   191,   295,   287,   192,   245,   102,   103,
-     104,   262,   159,   266,   193,   194,   195,   196,   270,   290,
-     283,   108,   175,   116,   197,   292,   258,   198,    41,    42,
-       0,     0,   296,     0,    52,   246,     0,     0,   249,    53,
-     250,   251,   252,     0,    54,   253,     0,     0,    55,     0,
-     199,   268,     0,     0,     0,     0,    86,     0,    64,    65,
-      66,    67,    68,    69,    70,   218,    87,   121,     0,    86,
-       0,    88,     0,    89,     0,     0,     0,     0,    90,    87,
-       0,   118,   118,     0,    88,     0,    89,     0,     0,   259,
-     260,    90,   243,   244,     0,   288,     0,     0,     0,   282,
-     122,     0,   123,   124,     0,   125,   126,   118,     0,   127,
-       0,   128,   129,     0,     0,   130,   131,   118,   132,   133,
-     134,   135,   136,     0,   137,     0,     0,     0,     0,   138,
-     139,   140,   141,     0,   142,     0,     0,     1,     2,     0,
-       0,   143,   161,     3,   144,     4,     5,     6,     7,     0,
-       8,     9,    10,   259,   260,    11,   243,   244,    12,    13,
-      14,     0,    15,     0,     0,     0,     0,     0,     0,     0,
+      43,    81,    82,    46,    47,   174,    49,    50,    51,    56,
+      57,   240,    59,    60,    61,   251,    71,    73,   175,   176,
+     244,   172,   275,   269,    41,    42,    76,   237,   280,   215,
+      48,   216,    62,   217,    41,    42,    94,   227,    86,   228,
+     232,   229,    41,    42,   110,   219,    41,    42,    74,    87,
+      75,    85,   223,    93,    88,    96,    89,    77,    99,   100,
+     101,    90,   105,    41,    42,    78,   239,   182,   297,    79,
+     107,   109,   112,   162,    86,   119,   164,   166,   224,   220,
+     118,   118,    41,    42,   172,    87,   303,    41,    42,   179,
+      88,   172,    89,   218,   237,   165,   118,    90,   246,   168,
+     259,   260,   232,    41,    42,   241,   258,   224,   267,   242,
+     252,    41,    42,   276,   245,   277,   178,   117,   279,   225,
+     220,   180,   181,   183,   235,   161,   236,   111,   263,   264,
+     273,   247,   248,   268,   278,   221,   283,   263,   264,   281,
+     247,   248,   233,   294,   234,   261,    41,    42,   286,    64,
+      65,    66,    67,    68,    69,    70,   263,   264,   282,   247,
+     248,   163,   262,   291,   102,   103,   104,    86,   247,   248,
+     285,   287,   292,   296,   301,   249,   293,   295,    87,   243,
+      41,    42,   289,    88,   237,    89,    52,   272,   250,   298,
+      90,   253,    53,   254,   255,   256,   266,    54,   257,   270,
+     274,    55,   108,   184,   185,   302,   116,   177,     0,     0,
+       0,   186,   187,   188,     0,     0,     0,     0,   221,     0,
+       0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
+       0,     0,     0,     0,   118,   118,   189,     0,   121,   190,
+       0,     0,   284,     0,     0,   191,     0,     0,   192,   122,
+       0,   193,   194,   288,     0,   195,     0,     0,     0,     0,
+       0,   118,     0,   196,   197,   198,   199,     0,     0,     0,
+       0,   118,   123,   200,   124,   125,   201,   126,   127,     0,
+       0,   128,     0,   129,   130,     0,     0,   131,   132,     0,
+     133,   134,   135,   136,   137,     0,   138,     0,     0,   202,
+       0,   139,   140,   141,   142,     0,   143,     0,     1,     2,
+       0,     0,     0,   144,     3,     0,   145,     4,     5,     6,
+       7,     0,     8,     9,    10,     0,     0,    11,     0,     0,
+      12,    13,    14,     0,    15,     0,     0,     0,     0,     0,
        0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
        0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
        0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
        0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
-       0,    16,    17,    18
+       0,     0,     0,    16,    17,    18
 };
 
 static const yytype_int16 yycheck[] =
 {
-       1,   113,   114,     4,     5,   109,     7,     8,     9,    10,
-      11,     3,    13,    14,    15,     3,    17,    18,    44,    45,
-     129,     6,   131,    34,   133,     3,    55,     3,   137,     4,
-     139,     4,   141,     4,     5,   236,     6,     3,     4,     5,
-       3,     4,     5,     4,     5,     6,    28,     4,     5,     3,
-       0,    52,     6,    54,     7,    56,     4,     5,    59,    60,
-      61,     3,    63,    92,   168,     3,    95,     4,     5,    80,
-      71,    72,    73,    36,   275,     7,    10,     4,     5,    36,
-      81,    82,     7,    58,     7,    58,    20,     3,    36,   198,
-     199,    25,     3,    27,     3,    96,    97,    70,    32,   100,
-       3,     3,    76,    77,    96,     3,     4,     3,   100,    97,
-      34,    96,     4,    11,    12,    13,   117,    36,    96,   228,
-      96,   122,   123,     4,     5,    96,    96,    88,     3,     3,
-     159,   235,   161,     3,   135,     3,   245,    35,     3,   165,
-      38,   167,     3,     6,    73,    74,    44,    76,    77,    47,
-       6,   260,    50,    51,    80,   267,    54,   181,    85,    86,
-      87,   216,    96,   222,    62,    63,    64,    65,   229,   273,
-      99,    71,   115,    77,    72,   284,   202,    75,     4,     5,
-      -1,    -1,   294,    -1,    10,   186,    -1,    -1,   189,    15,
-     191,   192,   193,    -1,    20,   196,    -1,    -1,    24,    -1,
-      98,   227,    -1,    -1,    -1,    -1,    10,    -1,    89,    90,
-      91,    92,    93,    94,    95,   216,    20,     4,    -1,    10,
-      -1,    25,    -1,    27,    -1,    -1,    -1,    -1,    32,    20,
-      -1,   232,   233,    -1,    25,    -1,    27,    -1,    -1,    73,
-      74,    32,    76,    77,    -1,    79,    -1,    -1,    -1,   250,
-      37,    -1,    39,    40,    -1,    42,    43,   258,    -1,    46,
-      -1,    48,    49,    -1,    -1,    52,    53,   268,    55,    56,
-      57,    58,    59,    -1,    61,    -1,    -1,    -1,    -1,    66,
-      67,    68,    69,    -1,    71,    -1,    -1,     8,     9,    -1,
-      -1,    78,    96,    14,    81,    16,    17,    18,    19,    -1,
-      21,    22,    23,    73,    74,    26,    76,    77,    29,    30,
-      31,    -1,    33,    -1,    -1,    -1,    -1,    -1,    -1,    -1,
+       1,    44,    45,     4,     5,   109,     7,     8,     9,    10,
+      11,     3,    13,    14,    15,     3,    17,    18,   113,   114,
+       3,     3,     6,     4,     4,     5,    29,     6,   239,   130,
+       7,   132,     3,   134,     4,     5,    55,   138,    10,   140,
+      35,   142,     4,     5,     6,     3,     4,     5,     7,    21,
+       7,    52,     4,    54,    26,    56,    28,     7,    59,    60,
+      61,    33,    63,     4,     5,     0,   170,    37,   279,     3,
+      71,    72,    73,    92,    10,     3,    95,     3,    59,    37,
+      81,    82,     4,     5,     3,    21,    81,     4,     5,     3,
+      26,     3,    28,     3,     6,    96,    97,    33,    37,   100,
+     201,   202,    35,     4,     5,    97,     3,    59,     4,   101,
+      98,     4,     5,    97,    97,    97,   117,    97,    97,    71,
+      37,   122,   123,   124,   167,    97,   169,    89,    74,    75,
+     231,    77,    78,     3,   238,   136,    37,    74,    75,     3,
+      77,    78,   161,    80,   163,     3,     4,     5,   249,    90,
+      91,    92,    93,    94,    95,    96,    74,    75,     3,    77,
+      78,    97,   205,   264,    86,    87,    88,    10,    77,    78,
+       3,     3,     3,   277,    81,   184,   271,     6,    21,   180,
+       4,     5,   100,    26,     6,    28,    10,   230,   189,   290,
+      33,   192,    16,   194,   195,   196,   219,    21,   199,   225,
+     232,    25,    71,     3,     4,   300,    77,   115,    -1,    -1,
+      -1,    11,    12,    13,    -1,    -1,    -1,    -1,   219,    -1,
+      -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,
+      -1,    -1,    -1,    -1,   235,   236,    36,    -1,     4,    39,
+      -1,    -1,   243,    -1,    -1,    45,    -1,    -1,    48,    15,
+      -1,    51,    52,   254,    -1,    55,    -1,    -1,    -1,    -1,
+      -1,   262,    -1,    63,    64,    65,    66,    -1,    -1,    -1,
+      -1,   272,    38,    73,    40,    41,    76,    43,    44,    -1,
+      -1,    47,    -1,    49,    50,    -1,    -1,    53,    54,    -1,
+      56,    57,    58,    59,    60,    -1,    62,    -1,    -1,    99,
+      -1,    67,    68,    69,    70,    -1,    72,    -1,     8,     9,
+      -1,    -1,    -1,    79,    14,    -1,    82,    17,    18,    19,
+      20,    -1,    22,    23,    24,    -1,    -1,    27,    -1,    -1,
+      30,    31,    32,    -1,    34,    -1,    -1,    -1,    -1,    -1,
       -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,
       -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,
       -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,
       -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,
-      -1,    82,    83,    84
+      -1,    -1,    -1,    83,    84,    85
 };
 
 /* YYSTOS[STATE-NUM] -- The (internal number of the) accessing
    symbol of state STATE-NUM.  */
 static const yytype_uint8 yystos[] =
 {
-       0,     8,     9,    14,    16,    17,    18,    19,    21,    22,
-      23,    26,    29,    30,    31,    33,    82,    83,    84,   140,
-     141,   143,   145,   147,   148,   150,   151,   153,   155,   163,
-     164,   168,   169,   170,   173,   175,   177,   178,   180,   181,
-     182,     4,     5,   102,   142,   144,   102,   102,     7,   102,
-     102,   102,    10,    15,    20,    24,   102,   102,   174,   102,
-     102,   102,     3,   161,    89,    90,    91,    92,    93,    94,
-      95,   102,   160,   102,     7,     7,    28,     7,     0,     3,
-     102,   103,   103,   146,   154,   102,    10,    20,    25,    27,
-      32,   165,   167,   102,   165,   166,   102,   103,   172,   102,
-     102,   102,    85,    86,    87,   102,   162,   102,   160,   102,
-       6,    88,   102,   149,   152,   176,   180,    96,   102,     3,
-     104,     4,    37,    39,    40,    42,    43,    46,    48,    49,
-      52,    53,    55,    56,    57,    58,    59,    61,    66,    67,
-      68,    69,    71,    78,    81,   119,   120,   122,   123,   124,
-     125,   127,   129,   130,   133,   134,   137,   138,   139,    96,
-     165,    96,   165,   102,     3,   171,   102,   179,   158,   159,
-       3,   157,   157,   139,   139,   172,   102,     3,   102,    36,
-     102,     3,     4,    11,    12,    13,    35,    38,    44,    47,
-      50,    51,    54,    62,    63,    64,    65,    72,    75,    98,
-     105,   106,   107,   108,   109,   110,   111,   112,   113,   114,
-     116,   118,   118,   118,   118,     3,     3,    36,   102,   126,
-       4,    58,    70,   128,   118,   118,   118,   121,   135,    34,
-     165,   165,   103,   103,     6,   156,   157,     3,    96,   100,
-       3,    96,    36,    76,    77,   115,   102,     3,    97,   102,
-     102,   102,   102,   102,     3,   118,   118,     3,   103,    73,
-      74,   115,   126,     4,     3,     4,   128,   131,   103,   118,
-     138,     6,    96,    96,   157,    96,   156,     3,     3,     3,
-     118,     3,   102,    99,   117,   118,     3,   139,    79,     6,
-     157,   156,   118,   132,   136,    80,   139,    80
+       0,     8,     9,    14,    17,    18,    19,    20,    22,    23,
+      24,    27,    30,    31,    32,    34,    83,    84,    85,   142,
+     143,   145,   147,   149,   150,   152,   153,   155,   157,   165,
+     166,   170,   171,   172,   175,   177,   179,   180,   182,   183,
+     184,     4,     5,   103,   144,   146,   103,   103,     7,   103,
+     103,   103,    10,    16,    21,    25,   103,   103,   176,   103,
+     103,   103,     3,   163,    90,    91,    92,    93,    94,    95,
+      96,   103,   162,   103,     7,     7,    29,     7,     0,     3,
+     103,   104,   104,   148,   156,   103,    10,    21,    26,    28,
+      33,   167,   169,   103,   167,   168,   103,   104,   174,   103,
+     103,   103,    86,    87,    88,   103,   164,   103,   162,   103,
+       6,    89,   103,   151,   154,   178,   182,    97,   103,     3,
+     105,     4,    15,    38,    40,    41,    43,    44,    47,    49,
+      50,    53,    54,    56,    57,    58,    59,    60,    62,    67,
+      68,    69,    70,    72,    79,    82,   120,   121,   123,   124,
+     125,   126,   127,   129,   131,   132,   135,   136,   139,   140,
+     141,    97,   167,    97,   167,   103,     3,   173,   103,   181,
+     160,   161,     3,   159,   159,   141,   141,   174,   103,     3,
+     103,   103,    37,   103,     3,     4,    11,    12,    13,    36,
+      39,    45,    48,    51,    52,    55,    63,    64,    65,    66,
+      73,    76,    99,   106,   107,   108,   109,   110,   111,   112,
+     113,   114,   115,   117,   119,   119,   119,   119,     3,     3,
+      37,   103,   128,     4,    59,    71,   130,   119,   119,   119,
+     122,   137,    35,   167,   167,   104,   104,     6,   158,   159,
+       3,    97,   101,   103,     3,    97,    37,    77,    78,   116,
+     103,     3,    98,   103,   103,   103,   103,   103,     3,   119,
+     119,     3,   104,    74,    75,   116,   128,     4,     3,     4,
+     130,   133,   104,   119,   140,     6,    97,    97,   159,    97,
+     158,     3,     3,    37,   103,     3,   119,     3,   103,   100,
+     118,   119,     3,   141,    80,     6,   159,   158,   119,   134,
+     138,    81,   141,    81
 };
 
 #define yyerrok		(yyerrstatus = 0)
@@ -1965,42 +1981,42 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 194 "qgames_parser.y"
-    { (yyval) = (yyvsp[(1) - (1)]); }
-    break;
-
-  case 3:
 #line 195 "qgames_parser.y"
     { (yyval) = (yyvsp[(1) - (1)]); }
     break;
 
+  case 3:
+#line 196 "qgames_parser.y"
+    { (yyval) = (yyvsp[(1) - (1)]); }
+    break;
+
   case 4:
-#line 199 "qgames_parser.y"
+#line 200 "qgames_parser.y"
     { add_parameter( TOK_STRING, (yyvsp[(1) - (1)]) ); }
     break;
 
   case 5:
-#line 200 "qgames_parser.y"
+#line 201 "qgames_parser.y"
     { add_parameter( TOK_STRING, (yyvsp[(2) - (2)]) ); }
     break;
 
   case 6:
-#line 201 "qgames_parser.y"
+#line 202 "qgames_parser.y"
     { add_parameter( TOK_STRING, (yyvsp[(3) - (3)]) ); }
     break;
 
   case 7:
-#line 204 "qgames_parser.y"
+#line 205 "qgames_parser.y"
     { add_parameter( TOK_NUMBER, (yyvsp[(1) - (1)]) ); }
     break;
 
   case 8:
-#line 205 "qgames_parser.y"
+#line 206 "qgames_parser.y"
     { add_parameter( TOK_NUMBER, (yyvsp[(2) - (2)]) ); }
     break;
 
   case 9:
-#line 212 "qgames_parser.y"
+#line 213 "qgames_parser.y"
     { 
             CHECK_TIPOJUEGO;
             if( !tipojuego_code_ahogado( tipojuego, NULL ) ) YYERROR;
@@ -2008,7 +2024,7 @@ yyreduce:
     break;
 
   case 10:
-#line 216 "qgames_parser.y"
+#line 217 "qgames_parser.y"
     {
             CHECK_TIPOJUEGO;
             if( !tipojuego_code_ahogado( tipojuego, (char*)(yyvsp[(2) - (2)]) ) ) YYERROR;
@@ -2017,7 +2033,7 @@ yyreduce:
     break;
 
   case 11:
-#line 223 "qgames_parser.y"
+#line 224 "qgames_parser.y"
     {
             CHECK_TIPOJUEGO;
             if( !tipojuego_code_atacado( tipojuego, NULL ) ) YYERROR;
@@ -2025,7 +2041,7 @@ yyreduce:
     break;
 
   case 12:
-#line 229 "qgames_parser.y"
+#line 230 "qgames_parser.y"
     { 
             CHECK_TIPOJUEGO;
             (yyval) = CUALQUIERA;
@@ -2034,7 +2050,7 @@ yyreduce:
     break;
 
   case 13:
-#line 234 "qgames_parser.y"
+#line 235 "qgames_parser.y"
     { 
             CHECK_TIPOJUEGO;
             (yyval) = PROPIO;
@@ -2043,7 +2059,7 @@ yyreduce:
     break;
 
   case 14:
-#line 239 "qgames_parser.y"
+#line 240 "qgames_parser.y"
     { 
             CHECK_TIPOJUEGO;
             (yyval) = ENEMIGO;
@@ -2052,7 +2068,7 @@ yyreduce:
     break;
 
   case 15:
-#line 248 "qgames_parser.y"
+#line 249 "qgames_parser.y"
     { 
             int i;
             char* cas = NULL; char* color = NULL; char *tpieza = NULL;
@@ -2076,7 +2092,7 @@ yyreduce:
     break;
 
   case 16:
-#line 268 "qgames_parser.y"
+#line 269 "qgames_parser.y"
     {
             CHECK_TIPOJUEGO;
             if( !tipojuego_code_cuenta_piezas( tipojuego, NULL, (yyvsp[(1) - (2)]), NULL, NULL ) ) YYERROR;;
@@ -2085,7 +2101,7 @@ yyreduce:
     break;
 
   case 17:
-#line 273 "qgames_parser.y"
+#line 274 "qgames_parser.y"
     {
             CHECK_TIPOJUEGO;
             if( !tipojuego_code_cuenta_piezas( tipojuego, CASILLERO_CAPTURA, ENEMIGO, NULL, NULL ) ) YYERROR;;
@@ -2094,7 +2110,7 @@ yyreduce:
     break;
 
   case 18:
-#line 278 "qgames_parser.y"
+#line 279 "qgames_parser.y"
     {
             CHECK_TIPOJUEGO;
             if( !tipojuego_code_cuenta_piezas( tipojuego, CASILLERO_CAPTURA, ENEMIGO, NULL, NULL ) ) YYERROR;;
@@ -2103,7 +2119,7 @@ yyreduce:
     break;
 
   case 19:
-#line 283 "qgames_parser.y"
+#line 284 "qgames_parser.y"
     { 
             CHECK_TIPOJUEGO;
             if( !tipojuego_code_cuenta_piezas( tipojuego, NULL, (yyvsp[(1) - (1)]), NULL, NULL ) ) YYERROR;;
@@ -2111,7 +2127,7 @@ yyreduce:
     break;
 
   case 20:
-#line 290 "qgames_parser.y"
+#line 291 "qgames_parser.y"
     {
             CHECK_TIPOJUEGO;
             if( !tipojuego_code_destino_ant( tipojuego, NULL ) ) YYERROR;
@@ -2119,7 +2135,7 @@ yyreduce:
     break;
 
   case 21:
-#line 294 "qgames_parser.y"
+#line 295 "qgames_parser.y"
     {
             CHECK_TIPOJUEGO;
             if( NOT_FOUND != qg_tipojuego_get_casillero( tipojuego, ((char*)(yyvsp[(2) - (2)])) ) ){
@@ -2134,7 +2150,7 @@ yyreduce:
     break;
 
   case 22:
-#line 305 "qgames_parser.y"
+#line 306 "qgames_parser.y"
     {
             CHECK_TIPOJUEGO;
             if( !tipojuego_code_origen_ant( tipojuego, NULL ) ) YYERROR;
@@ -2142,7 +2158,7 @@ yyreduce:
     break;
 
   case 23:
-#line 309 "qgames_parser.y"
+#line 310 "qgames_parser.y"
     {
             CHECK_TIPOJUEGO;
             if( NOT_FOUND != qg_tipojuego_get_casillero( tipojuego, ((char*)(yyvsp[(2) - (2)])) ) ){
@@ -2157,7 +2173,7 @@ yyreduce:
     break;
 
   case 24:
-#line 325 "qgames_parser.y"
+#line 326 "qgames_parser.y"
     {
             CHECK_TIPOJUEGO;
             if( !tipojuego_code_entablero( tipojuego ) ) YYERROR;
@@ -2165,7 +2181,7 @@ yyreduce:
     break;
 
   case 25:
-#line 331 "qgames_parser.y"
+#line 332 "qgames_parser.y"
     {  
             CHECK_TIPOJUEGO;
             char*  zona = NULL;
@@ -2195,7 +2211,7 @@ yyreduce:
     break;
 
   case 26:
-#line 357 "qgames_parser.y"
+#line 358 "qgames_parser.y"
     {
             CHECK_TIPOJUEGO;
             if( NOT_FOUND != qg_tipojuego_get_zona( tipojuego, ((char*)(yyvsp[(2) - (2)])) ) ) {
@@ -2209,7 +2225,7 @@ yyreduce:
     break;
 
   case 27:
-#line 369 "qgames_parser.y"
+#line 370 "qgames_parser.y"
     {
             CHECK_TIPOJUEGO;
             if( NOT_FOUND != qg_tipojuego_get_tipopieza( tipojuego, ((char*)(yyvsp[(2) - (2)])) ) ){
@@ -2223,7 +2239,7 @@ yyreduce:
     break;
 
   case 28:
-#line 382 "qgames_parser.y"
+#line 383 "qgames_parser.y"
     {
         CHECK_TIPOJUEGO;
         if( !tipojuego_code_ocupado( tipojuego, NULL, CUALQUIERA, NULL, NULL ) ) YYERROR;
@@ -2231,7 +2247,7 @@ yyreduce:
     break;
 
   case 29:
-#line 386 "qgames_parser.y"
+#line 387 "qgames_parser.y"
     {
         CHECK_TIPOJUEGO;
         if( !tipojuego_code_ocupado( tipojuego, NULL, PROPIO, NULL, NULL ) ) YYERROR;
@@ -2239,7 +2255,7 @@ yyreduce:
     break;
 
   case 30:
-#line 390 "qgames_parser.y"
+#line 391 "qgames_parser.y"
     {
         CHECK_TIPOJUEGO;
         if( !tipojuego_code_ocupado( tipojuego, NULL, ENEMIGO, NULL, NULL ) ) YYERROR;
@@ -2247,7 +2263,7 @@ yyreduce:
     break;
 
   case 31:
-#line 394 "qgames_parser.y"
+#line 395 "qgames_parser.y"
     {
         char* nombre = (char*)(yyvsp[(2) - (2)]);
         CHECK_TIPOJUEGO;
@@ -2266,7 +2282,7 @@ yyreduce:
     break;
 
   case 32:
-#line 412 "qgames_parser.y"
+#line 413 "qgames_parser.y"
     {
         CHECK_TIPOJUEGO;
         tipojuego_code_op_false( tipojuego );
@@ -2275,7 +2291,7 @@ yyreduce:
     break;
 
   case 35:
-#line 423 "qgames_parser.y"
+#line 424 "qgames_parser.y"
     {
                 CHECK_TIPOJUEGO;
                 tipojuego_code_op_not( tipojuego );
@@ -2283,7 +2299,7 @@ yyreduce:
     break;
 
   case 36:
-#line 427 "qgames_parser.y"
+#line 428 "qgames_parser.y"
     {
                 CHECK_TIPOJUEGO;
                 tipojuego_code_start_condblock( tipojuego );
@@ -2291,19 +2307,19 @@ yyreduce:
     break;
 
   case 37:
-#line 430 "qgames_parser.y"
+#line 431 "qgames_parser.y"
     { 
                 tipojuego_code_end_condblock( tipojuego );
     }
     break;
 
   case 38:
-#line 433 "qgames_parser.y"
+#line 434 "qgames_parser.y"
     { NOT_IMPLEMENTED; }
     break;
 
   case 39:
-#line 435 "qgames_parser.y"
+#line 436 "qgames_parser.y"
     {
                 CHECK_TIPOJUEGO;
                 tipojuego_code_op_equal( tipojuego, (yyvsp[(3) - (3)]) );
@@ -2311,7 +2327,7 @@ yyreduce:
     break;
 
   case 40:
-#line 439 "qgames_parser.y"
+#line 440 "qgames_parser.y"
     {
                 CHECK_TIPOJUEGO;
                 tipojuego_code_op_equal( tipojuego, (yyvsp[(1) - (3)]) );
@@ -2319,7 +2335,7 @@ yyreduce:
     break;
 
   case 52:
-#line 457 "qgames_parser.y"
+#line 458 "qgames_parser.y"
     {    
             CHECK_TIPOJUEGO;
             /* una direccion podria ser */
@@ -2359,7 +2375,7 @@ yyreduce:
     break;
 
   case 53:
-#line 496 "qgames_parser.y"
+#line 497 "qgames_parser.y"
     {  
             CHECK_TIPOJUEGO;
             if( !tipojuego_code_final( tipojuego, NULL, EMPATA ) ) YYERROR;
@@ -2367,7 +2383,7 @@ yyreduce:
     break;
 
   case 54:
-#line 500 "qgames_parser.y"
+#line 501 "qgames_parser.y"
     {  
             CHECK_TIPOJUEGO;
             tipojuego_code_start_condblock( tipojuego );
@@ -2377,7 +2393,7 @@ yyreduce:
     break;
 
   case 55:
-#line 506 "qgames_parser.y"
+#line 507 "qgames_parser.y"
     {  
             CHECK_TIPOJUEGO;
             if( !tipojuego_code_final( tipojuego, NULL, GANA ) ) YYERROR;
@@ -2385,7 +2401,7 @@ yyreduce:
     break;
 
   case 56:
-#line 510 "qgames_parser.y"
+#line 511 "qgames_parser.y"
     {  
             CHECK_TIPOJUEGO;
             tipojuego_code_start_condblock( tipojuego );
@@ -2395,7 +2411,7 @@ yyreduce:
     break;
 
   case 57:
-#line 516 "qgames_parser.y"
+#line 517 "qgames_parser.y"
     {  
             CHECK_TIPOJUEGO;
             if( !tipojuego_code_final( tipojuego, NULL, PIERDE ) ) YYERROR;
@@ -2403,7 +2419,7 @@ yyreduce:
     break;
 
   case 58:
-#line 520 "qgames_parser.y"
+#line 521 "qgames_parser.y"
     {  
             CHECK_TIPOJUEGO;
             tipojuego_code_start_condblock( tipojuego );
@@ -2413,7 +2429,7 @@ yyreduce:
     break;
 
   case 59:
-#line 530 "qgames_parser.y"
+#line 531 "qgames_parser.y"
     { 
             CHECK_TIPOJUEGO;
             tipojuego_code_casillero( tipojuego, NULL );
@@ -2421,12 +2437,12 @@ yyreduce:
     break;
 
   case 60:
-#line 534 "qgames_parser.y"
+#line 535 "qgames_parser.y"
     {  CHECK_TIPOJUEGO; init_parameters(); }
     break;
 
   case 61:
-#line 534 "qgames_parser.y"
+#line 535 "qgames_parser.y"
     {
                     int    i;
                     char*  color = NULL;
@@ -2450,7 +2466,7 @@ yyreduce:
     break;
 
   case 62:
-#line 554 "qgames_parser.y"
+#line 555 "qgames_parser.y"
     {
             CHECK_TIPOJUEGO ;
             if( !tipojuego_code_transforma( tipojuego, CAMBIOCOLOR, NULL, NULL, FROM_AQUI ) ) YYERROR; 
@@ -2458,7 +2474,7 @@ yyreduce:
     break;
 
   case 63:
-#line 558 "qgames_parser.y"
+#line 559 "qgames_parser.y"
     {
             CHECK_TIPOJUEGO ;
             if( !tipojuego_code_transforma( tipojuego, NOCOLOR, (char*)(yyvsp[(2) - (3)]), NULL, FROM_AQUI ) ) YYERROR; 
@@ -2467,7 +2483,7 @@ yyreduce:
     break;
 
   case 64:
-#line 563 "qgames_parser.y"
+#line 564 "qgames_parser.y"
     {
             CHECK_TIPOJUEGO ;
             if( !tipojuego_code_transforma( tipojuego, CAMBIOCOLOR, NULL, NULL, 0 ) ) YYERROR; 
@@ -2475,7 +2491,7 @@ yyreduce:
     break;
 
   case 65:
-#line 567 "qgames_parser.y"
+#line 568 "qgames_parser.y"
     {
             CHECK_TIPOJUEGO ;
             if( !tipojuego_code_transforma( tipojuego, NOCOLOR, (char*)(yyvsp[(2) - (2)]), NULL, 0 ) ) YYERROR; 
@@ -2484,7 +2500,7 @@ yyreduce:
     break;
 
   case 66:
-#line 576 "qgames_parser.y"
+#line 577 "qgames_parser.y"
     {
           CHECK_TIPOJUEGO;
           if( !tipojuego_code_asigna_att( tipojuego, (char*)(yyvsp[(2) - (3)]), (yyvsp[(3) - (3)]) ) ) YYERROR;
@@ -2493,7 +2509,7 @@ yyreduce:
     break;
 
   case 67:
-#line 581 "qgames_parser.y"
+#line 582 "qgames_parser.y"
     {
           CHECK_TIPOJUEGO;
           if( !tipojuego_code_asigna_att( tipojuego, (char*)(yyvsp[(2) - (4)]), (yyvsp[(4) - (4)]) ) ) YYERROR;
@@ -2502,28 +2518,26 @@ yyreduce:
     break;
 
   case 68:
-#line 590 "qgames_parser.y"
+#line 589 "qgames_parser.y"
     {
             CHECK_TIPOJUEGO;
-            if( !tipojuego_code_juega( tipojuego, NULL, 0 ) ) YYERROR;
+            NOT_IMPLEMENTED_WARN( "crea" );
     }
     break;
 
   case 69:
-#line 594 "qgames_parser.y"
+#line 593 "qgames_parser.y"
     {
             CHECK_TIPOJUEGO;
-            if( !tipojuego_code_juega( tipojuego, NULL, 1 ) ) YYERROR;
+            NOT_IMPLEMENTED_WARN( "crea" );
     }
     break;
 
   case 70:
-#line 598 "qgames_parser.y"
+#line 600 "qgames_parser.y"
     {
             CHECK_TIPOJUEGO;
-            tipojuego_code_start_condblock( tipojuego );
             if( !tipojuego_code_juega( tipojuego, NULL, 0 ) ) YYERROR;
-            tipojuego_code_end_condblock( tipojuego );
     }
     break;
 
@@ -2531,30 +2545,48 @@ yyreduce:
 #line 604 "qgames_parser.y"
     {
             CHECK_TIPOJUEGO;
+            if( !tipojuego_code_juega( tipojuego, NULL, 1 ) ) YYERROR;
+    }
+    break;
+
+  case 72:
+#line 608 "qgames_parser.y"
+    {
+            CHECK_TIPOJUEGO;
+            tipojuego_code_start_condblock( tipojuego );
+            if( !tipojuego_code_juega( tipojuego, NULL, 0 ) ) YYERROR;
+            tipojuego_code_end_condblock( tipojuego );
+    }
+    break;
+
+  case 73:
+#line 614 "qgames_parser.y"
+    {
+            CHECK_TIPOJUEGO;
             tipojuego_code_start_condblock( tipojuego );
             if( !tipojuego_code_juega( tipojuego, NULL, 1 ) ) YYERROR;
             tipojuego_code_end_condblock( tipojuego );
     }
     break;
 
-  case 72:
-#line 610 "qgames_parser.y"
+  case 74:
+#line 620 "qgames_parser.y"
     { 
             CHECK_TIPOJUEGO;
             if( !tipojuego_code_captura( tipojuego, NULL ) ) YYERROR;
     }
     break;
 
-  case 73:
-#line 617 "qgames_parser.y"
+  case 75:
+#line 627 "qgames_parser.y"
     {  
             CHECK_TIPOJUEGO;
             tipojuego_code_para( tipojuego );
     }
     break;
 
-  case 74:
-#line 621 "qgames_parser.y"
+  case 76:
+#line 631 "qgames_parser.y"
     { 
             CHECK_TIPOJUEGO;
             tipojuego_code_start_condblock( tipojuego );
@@ -2563,8 +2595,8 @@ yyreduce:
     }
     break;
 
-  case 75:
-#line 632 "qgames_parser.y"
+  case 77:
+#line 642 "qgames_parser.y"
     { 
                           CHECK_TIPOJUEGO;
                           if( NOT_FOUND == qg_tipojuego_get_casillero( tipojuego, (char*)(yyvsp[(3) - (3)]) ) ){
@@ -2578,31 +2610,31 @@ yyreduce:
      }
     break;
 
-  case 76:
-#line 643 "qgames_parser.y"
+  case 78:
+#line 653 "qgames_parser.y"
     { 
                           CHECK_TIPOJUEGO;
                           if( !tipojuego_code_mueve( tipojuego, FROM_AQUI | TO_MARCA, 0, (void*)(yyvsp[(3) - (3)]) ) ) YYERROR;
      }
     break;
 
-  case 77:
-#line 647 "qgames_parser.y"
+  case 79:
+#line 657 "qgames_parser.y"
     { NOT_IMPLEMENTED_WARN( "mueve cas  => casillero" ); }
     break;
 
-  case 78:
-#line 648 "qgames_parser.y"
+  case 80:
+#line 658 "qgames_parser.y"
     { NOT_IMPLEMENTED_WARN( "mueve      => marca" ); }
     break;
 
-  case 79:
-#line 655 "qgames_parser.y"
+  case 81:
+#line 665 "qgames_parser.y"
     { (yyval) = 0; }
     break;
 
-  case 80:
-#line 656 "qgames_parser.y"
+  case 82:
+#line 666 "qgames_parser.y"
     {
                           CHECK_TIPOJUEGO;
                           if( NOT_FOUND == qg_tipojuego_get_casillero( tipojuego, (char*)(yyvsp[(1) - (1)]) ) ){
@@ -2615,8 +2647,8 @@ yyreduce:
     }
     break;
 
-  case 81:
-#line 669 "qgames_parser.y"
+  case 83:
+#line 679 "qgames_parser.y"
     { 
                         CHECK_TIPOJUEGO; 
                         if( !tipojuego_code_setmarca( tipojuego, (yyvsp[(2) - (3)]), (char*)(yyvsp[(3) - (3)]) ) ) YYERROR;
@@ -2624,8 +2656,8 @@ yyreduce:
     }
     break;
 
-  case 82:
-#line 674 "qgames_parser.y"
+  case 84:
+#line 684 "qgames_parser.y"
     { 
                         CHECK_TIPOJUEGO; 
                         if( !tipojuego_code_setmarca( tipojuego,  0, (char*)(yyvsp[(2) - (2)]) ) ) YYERROR;
@@ -2633,49 +2665,49 @@ yyreduce:
     }
     break;
 
-  case 83:
-#line 682 "qgames_parser.y"
+  case 85:
+#line 692 "qgames_parser.y"
     { (yyval) = (yyvsp[(2) - (2)]); }
     break;
 
-  case 84:
-#line 683 "qgames_parser.y"
+  case 86:
+#line 693 "qgames_parser.y"
     { (yyval) = 0; }
     break;
 
-  case 85:
-#line 687 "qgames_parser.y"
+  case 87:
+#line 697 "qgames_parser.y"
     {
                         CHECK_TIPOJUEGO; 
                         tipojuego_code_gotomarca( tipojuego, (yyvsp[(2) - (2)]) );
     }
     break;
 
-  case 86:
-#line 691 "qgames_parser.y"
+  case 88:
+#line 701 "qgames_parser.y"
     {
                         CHECK_TIPOJUEGO; 
                         tipojuego_code_gotomarca( tipojuego, 0 );
     }
     break;
 
-  case 87:
-#line 703 "qgames_parser.y"
+  case 89:
+#line 713 "qgames_parser.y"
     {
             CHECK_TIPOJUEGO;
             tipojuego_code_start_condblock( tipojuego );
     }
     break;
 
-  case 88:
-#line 706 "qgames_parser.y"
+  case 90:
+#line 716 "qgames_parser.y"
     {
             tipojuego_code_end_condblock( tipojuego );
     }
     break;
 
-  case 90:
-#line 711 "qgames_parser.y"
+  case 92:
+#line 721 "qgames_parser.y"
     {
             CHECK_TIPOJUEGO;
             if( !last_block ){
@@ -2686,8 +2718,8 @@ yyreduce:
     }
     break;
 
-  case 91:
-#line 721 "qgames_parser.y"
+  case 93:
+#line 731 "qgames_parser.y"
     {
             CHECK_TIPOJUEGO;
             (yyval) = tipojuego_code_start_block( tipojuego );
@@ -2696,15 +2728,15 @@ yyreduce:
     }
     break;
 
-  case 92:
-#line 726 "qgames_parser.y"
+  case 94:
+#line 736 "qgames_parser.y"
     {
             tipojuego_code_start_condblock( tipojuego );
     }
     break;
 
-  case 93:
-#line 728 "qgames_parser.y"
+  case 95:
+#line 738 "qgames_parser.y"
     {
             tipojuego_code_continue_block( tipojuego, (yyvsp[(2) - (7)]) );
             tipojuego_code_else_condblock( tipojuego );
@@ -2714,8 +2746,8 @@ yyreduce:
     }
     break;
 
-  case 105:
-#line 749 "qgames_parser.y"
+  case 108:
+#line 760 "qgames_parser.y"
     {   
             CHECK_TIPOJUEGO;
             /* una direccion podria ser */
@@ -2733,8 +2765,8 @@ yyreduce:
     }
     break;
 
-  case 110:
-#line 785 "qgames_parser.y"
+  case 113:
+#line 796 "qgames_parser.y"
     {  CHECK_TIPOJUEGO ;
                       CHECK_LAST_PIEZA;
                       if( !tipojuego_add_tpieza_att( tipojuego, last_pieza, ((char*)(yyvsp[(2) - (3)])), (yyvsp[(3) - (3)]) ) ) YYERROR;
@@ -2742,14 +2774,14 @@ yyreduce:
                     }
     break;
 
-  case 111:
-#line 795 "qgames_parser.y"
+  case 114:
+#line 806 "qgames_parser.y"
     { CHECK_TIPOJUEGO; 
                      init_parameters(); }
     break;
 
-  case 112:
-#line 798 "qgames_parser.y"
+  case 115:
+#line 809 "qgames_parser.y"
     {
                      char*  dims[MAX_PARAMS]; int i;
                      for( i = 0; i < qgz_param_count; i ++ ){
@@ -2759,13 +2791,13 @@ yyreduce:
                    }
     break;
 
-  case 113:
-#line 807 "qgames_parser.y"
+  case 116:
+#line 818 "qgames_parser.y"
     { CHECK_TIPOJUEGO; init_parameters(); }
     break;
 
-  case 114:
-#line 808 "qgames_parser.y"
+  case 117:
+#line 819 "qgames_parser.y"
     { int i;
                      for( i = 0; i < qgz_param_count; i ++ ){
                        char* col = ((char*)qgz_param_list[i].par);
@@ -2774,13 +2806,13 @@ yyreduce:
                    }
     break;
 
-  case 115:
-#line 817 "qgames_parser.y"
+  case 118:
+#line 828 "qgames_parser.y"
     { CHECK_TIPOJUEGO; init_parameters(); }
     break;
 
-  case 116:
-#line 818 "qgames_parser.y"
+  case 119:
+#line 829 "qgames_parser.y"
     {
                       int  dirs[MAX_PARAMS]; int i; 
                       qg_tipojuego_add_direccion( tipojuego, ((char*)(yyvsp[(2) - (4)])) );
@@ -2792,18 +2824,18 @@ yyreduce:
                     }
     break;
 
-  case 117:
-#line 829 "qgames_parser.y"
+  case 120:
+#line 840 "qgames_parser.y"
     { (yyval) = 0; }
     break;
 
-  case 118:
-#line 830 "qgames_parser.y"
+  case 121:
+#line 841 "qgames_parser.y"
     { NOT_IMPLEMENTED; }
     break;
 
-  case 119:
-#line 833 "qgames_parser.y"
+  case 122:
+#line 844 "qgames_parser.y"
     {
         CHECK_TIPOJUEGO; 
         CHECK_LAST_PIEZA;
@@ -2812,25 +2844,25 @@ yyreduce:
     }
     break;
 
-  case 120:
-#line 838 "qgames_parser.y"
+  case 123:
+#line 849 "qgames_parser.y"
     {
         tipojuego_end_code( tipojuego ) ;
     }
     break;
 
-  case 121:
-#line 844 "qgames_parser.y"
+  case 124:
+#line 855 "qgames_parser.y"
     { (yyval) = 0; }
     break;
 
-  case 122:
-#line 845 "qgames_parser.y"
+  case 125:
+#line 856 "qgames_parser.y"
     { (yyval) = (yyvsp[(2) - (2)]); }
     break;
 
-  case 123:
-#line 849 "qgames_parser.y"
+  case 126:
+#line 860 "qgames_parser.y"
     {
         CHECK_TIPOJUEGO; 
         CHECK_LAST_PIEZA;
@@ -2840,15 +2872,15 @@ yyreduce:
     }
     break;
 
-  case 124:
-#line 855 "qgames_parser.y"
+  case 127:
+#line 866 "qgames_parser.y"
     {
         tipojuego_end_code( tipojuego ) ;
     }
     break;
 
-  case 125:
-#line 862 "qgames_parser.y"
+  case 128:
+#line 873 "qgames_parser.y"
     { 
             CHECK_TIPOJUEGO; 
             change_to_code_mode(); 
@@ -2856,15 +2888,15 @@ yyreduce:
     }
     break;
 
-  case 126:
-#line 866 "qgames_parser.y"
+  case 129:
+#line 877 "qgames_parser.y"
     {
             tipojuego_end_code( tipojuego ) ;
     }
     break;
 
-  case 127:
-#line 871 "qgames_parser.y"
+  case 130:
+#line 882 "qgames_parser.y"
     { 
         if( tipojuego ){
             yyerror( "Ya fue definido el tipo juego" );
@@ -2876,113 +2908,113 @@ yyreduce:
     }
     break;
 
-  case 128:
-#line 885 "qgames_parser.y"
+  case 131:
+#line 896 "qgames_parser.y"
     { html_color1 = (yyvsp[(1) - (3)]); html_color2 = (yyvsp[(3) - (3)]); }
     break;
 
-  case 129:
-#line 886 "qgames_parser.y"
+  case 132:
+#line 897 "qgames_parser.y"
     { html_color1 = (yyvsp[(1) - (2)]); html_color2 = (yyvsp[(2) - (2)]);
                                       qgzprintf( "Frente: %x Fondo: %x", html_color1, html_color2 ); }
     break;
 
-  case 130:
-#line 890 "qgames_parser.y"
+  case 133:
+#line 901 "qgames_parser.y"
     { graph_dim1 = (yyvsp[(1) - (3)]); graph_dim2 = (yyvsp[(3) - (3)]); }
     break;
 
-  case 131:
-#line 891 "qgames_parser.y"
+  case 134:
+#line 902 "qgames_parser.y"
     { graph_dim1 = (yyvsp[(1) - (3)]); graph_dim2 = (yyvsp[(3) - (3)]); }
     break;
 
-  case 132:
-#line 892 "qgames_parser.y"
+  case 135:
+#line 903 "qgames_parser.y"
     { graph_dim1 = (yyvsp[(1) - (2)]); graph_dim2 = (yyvsp[(2) - (2)]); qgzprintf( "%dx%d", (yyvsp[(1) - (2)]), (yyvsp[(2) - (2)]) ); }
     break;
 
-  case 133:
-#line 895 "qgames_parser.y"
+  case 136:
+#line 906 "qgames_parser.y"
     { graph_dim1 = 0; graph_dim2 = 0; html_color1 = 0; html_color2 = 0; }
     break;
 
-  case 138:
-#line 904 "qgames_parser.y"
+  case 141:
+#line 915 "qgames_parser.y"
     { (yyval) = STANDARD_GEM; }
     break;
 
-  case 139:
-#line 905 "qgames_parser.y"
+  case 142:
+#line 916 "qgames_parser.y"
     { (yyval) = STANDARD_BISHOP; }
     break;
 
-  case 140:
-#line 906 "qgames_parser.y"
+  case 143:
+#line 917 "qgames_parser.y"
     { (yyval) = STANDARD_KING; }
     break;
 
-  case 141:
-#line 907 "qgames_parser.y"
+  case 144:
+#line 918 "qgames_parser.y"
     { (yyval) = STANDARD_KNIGHT; }
     break;
 
-  case 142:
-#line 908 "qgames_parser.y"
+  case 145:
+#line 919 "qgames_parser.y"
     { (yyval) = STANDARD_PAWN; }
     break;
 
-  case 143:
-#line 909 "qgames_parser.y"
+  case 146:
+#line 920 "qgames_parser.y"
     { (yyval) = STANDARD_QUEEN ; }
     break;
 
-  case 144:
-#line 910 "qgames_parser.y"
+  case 147:
+#line 921 "qgames_parser.y"
     { (yyval) = STANDARD_ROOK; }
     break;
 
-  case 145:
-#line 913 "qgames_parser.y"
+  case 148:
+#line 924 "qgames_parser.y"
     { (yyval) = (yyvsp[(1) - (1)]); 
                   qgzprintf( "Tablero %d", (yyvsp[(1) - (1)]) ); }
     break;
 
-  case 146:
-#line 915 "qgames_parser.y"
+  case 149:
+#line 926 "qgames_parser.y"
     { (yyval) = BOARD_ACTUAL; qgzprintf( "Tablero actual" ); }
     break;
 
-  case 147:
-#line 918 "qgames_parser.y"
+  case 150:
+#line 929 "qgames_parser.y"
     { (yyval) = TYPE_CHECKERBOARD; }
     break;
 
-  case 148:
-#line 919 "qgames_parser.y"
+  case 151:
+#line 930 "qgames_parser.y"
     { (yyval) = TYPE_GRID; }
     break;
 
-  case 149:
-#line 920 "qgames_parser.y"
+  case 152:
+#line 931 "qgames_parser.y"
     { (yyval) = TYPE_INTERSECTIONS; }
     break;
 
-  case 150:
-#line 923 "qgames_parser.y"
+  case 153:
+#line 934 "qgames_parser.y"
     { 
         CHECK_TIPOJUEGO;
         if( !tipojuego_graph_tablero_std( tipojuego, (yyvsp[(2) - (4)]), (yyvsp[(3) - (4)]), graph_dim1, graph_dim2, html_color1, html_color2 ) ) YYERROR;
      }
     break;
 
-  case 151:
-#line 927 "qgames_parser.y"
+  case 154:
+#line 938 "qgames_parser.y"
     { NOT_IMPLEMENTED_WARN( "graph-board file" ) }
     break;
 
-  case 152:
-#line 928 "qgames_parser.y"
+  case 155:
+#line 939 "qgames_parser.y"
     {
         CHECK_TIPOJUEGO;
         if( qg_tipojuego_get_tipopieza( tipojuego, ((char*)(yyvsp[(3) - (4)])) ) == NOT_FOUND ){ 
@@ -2994,8 +3026,8 @@ yyreduce:
     }
     break;
 
-  case 153:
-#line 937 "qgames_parser.y"
+  case 156:
+#line 948 "qgames_parser.y"
     {
         CHECK_TIPOJUEGO;
         if( qg_tipojuego_get_tipopieza( tipojuego, ((char*)(yyvsp[(2) - (4)])) ) == NOT_FOUND ){ 
@@ -3007,28 +3039,28 @@ yyreduce:
     }
     break;
 
-  case 154:
-#line 946 "qgames_parser.y"
-    { NOT_IMPLEMENTED_WARN( "graph-piece string" ); }
-    break;
-
-  case 155:
-#line 947 "qgames_parser.y"
-    { NOT_IMPLEMENTED_WARN( "graph-square file" ); }
-    break;
-
-  case 156:
-#line 948 "qgames_parser.y"
-    { NOT_IMPLEMENTED_WARN( "graph-square color" ); }
-    break;
-
   case 157:
-#line 949 "qgames_parser.y"
-    { NOT_IMPLEMENTED_WARN( "graph-square highlighted" ); }
+#line 957 "qgames_parser.y"
+    { NOT_IMPLEMENTED_WARN( "graph-piece string" ); }
     break;
 
   case 158:
 #line 958 "qgames_parser.y"
+    { NOT_IMPLEMENTED_WARN( "graph-square file" ); }
+    break;
+
+  case 159:
+#line 959 "qgames_parser.y"
+    { NOT_IMPLEMENTED_WARN( "graph-square color" ); }
+    break;
+
+  case 160:
+#line 960 "qgames_parser.y"
+    { NOT_IMPLEMENTED_WARN( "graph-square highlighted" ); }
+    break;
+
+  case 161:
+#line 969 "qgames_parser.y"
     {
         CHECK_TIPOJUEGO;
         qgzprintf( "Definiendo %s", ((char*)(yyvsp[(2) - (2)])) );
@@ -3037,63 +3069,63 @@ yyreduce:
     }
     break;
 
-  case 159:
-#line 966 "qgames_parser.y"
+  case 162:
+#line 977 "qgames_parser.y"
     { (yyval) =  NOTACION_PIEZA; }
     break;
 
-  case 160:
-#line 967 "qgames_parser.y"
+  case 163:
+#line 978 "qgames_parser.y"
     { (yyval) =  NOTACION_ORIGEN; }
     break;
 
-  case 161:
-#line 968 "qgames_parser.y"
+  case 164:
+#line 979 "qgames_parser.y"
     { (yyval) =  NOTACION_DESTINO; }
     break;
 
-  case 162:
-#line 969 "qgames_parser.y"
+  case 165:
+#line 980 "qgames_parser.y"
     { (yyval) =  NOTACION_MARCA ; }
     break;
 
-  case 163:
-#line 970 "qgames_parser.y"
+  case 166:
+#line 981 "qgames_parser.y"
     { (yyval) =  NOTACION_CAPTURA; }
     break;
 
-  case 164:
-#line 973 "qgames_parser.y"
+  case 167:
+#line 984 "qgames_parser.y"
     { CHECK_TIPOJUEGO; tipojuego_add_notacion_rep( tipojuego, (yyvsp[(1) - (1)]) ); }
     break;
 
-  case 165:
-#line 974 "qgames_parser.y"
+  case 168:
+#line 985 "qgames_parser.y"
     { CHECK_TIPOJUEGO; tipojuego_add_notacion_rep( tipojuego, (yyvsp[(2) - (2)]) ); }
     break;
 
-  case 166:
-#line 975 "qgames_parser.y"
+  case 169:
+#line 986 "qgames_parser.y"
     { CHECK_TIPOJUEGO; tipojuego_add_notacion_rep( tipojuego, (yyvsp[(3) - (3)]) ); }
     break;
 
-  case 167:
-#line 978 "qgames_parser.y"
+  case 170:
+#line 989 "qgames_parser.y"
     { CHECK_TIPOJUEGO; tipojuego_add_notacion_def( tipojuego, (yyvsp[(1) - (1)]) ); }
     break;
 
-  case 168:
-#line 979 "qgames_parser.y"
+  case 171:
+#line 990 "qgames_parser.y"
     { CHECK_TIPOJUEGO; tipojuego_add_notacion_def( tipojuego, (yyvsp[(2) - (2)]) ); }
     break;
 
-  case 169:
-#line 980 "qgames_parser.y"
+  case 172:
+#line 991 "qgames_parser.y"
     { CHECK_TIPOJUEGO; tipojuego_add_notacion_def( tipojuego, (yyvsp[(3) - (3)]) ); }
     break;
 
-  case 170:
-#line 984 "qgames_parser.y"
+  case 173:
+#line 995 "qgames_parser.y"
     { 
         CHECK_TIPOJUEGO;
         if( NOT_FOUND != qg_tipojuego_get_tipopieza( tipojuego, (char*)(yyvsp[(2) - (3)]) ) ){
@@ -3110,8 +3142,8 @@ yyreduce:
      }
     break;
 
-  case 171:
-#line 998 "qgames_parser.y"
+  case 174:
+#line 1009 "qgames_parser.y"
     { 
         CHECK_TIPOJUEGO;
         char* tpieza; char* color; char* abbr;
@@ -3140,8 +3172,8 @@ yyreduce:
     }
     break;
 
-  case 172:
-#line 1024 "qgames_parser.y"
+  case 175:
+#line 1035 "qgames_parser.y"
     { 
                   CHECK_TIPOJUEGO;
                   tipojuego_set_notacion_marca( tipojuego, (char*)(yyvsp[(3) - (3)]), NULL );
@@ -3149,8 +3181,8 @@ yyreduce:
              }
     break;
 
-  case 173:
-#line 1029 "qgames_parser.y"
+  case 176:
+#line 1040 "qgames_parser.y"
     { 
                   CHECK_TIPOJUEGO;
                   tipojuego_set_notacion_marca( tipojuego, NULL, (char*)(yyvsp[(3) - (3)]) );
@@ -3158,8 +3190,8 @@ yyreduce:
              }
     break;
 
-  case 176:
-#line 1039 "qgames_parser.y"
+  case 179:
+#line 1050 "qgames_parser.y"
     { 
         CHECK_TIPOJUEGO; 
         tipojuego_add_tipopieza( tipojuego, ((char*)(yyvsp[(2) - (2)])) ); 
@@ -3169,8 +3201,8 @@ yyreduce:
     }
     break;
 
-  case 177:
-#line 1048 "qgames_parser.y"
+  case 180:
+#line 1059 "qgames_parser.y"
     {
         CHECK_TIPOJUEGO;
         int i;
@@ -3182,13 +3214,13 @@ yyreduce:
     }
     break;
 
-  case 178:
-#line 1057 "qgames_parser.y"
+  case 181:
+#line 1068 "qgames_parser.y"
     { init_parameters(); }
     break;
 
-  case 179:
-#line 1057 "qgames_parser.y"
+  case 182:
+#line 1068 "qgames_parser.y"
     {
         CHECK_TIPOJUEGO;
         int i;
@@ -3200,8 +3232,8 @@ yyreduce:
     }
     break;
 
-  case 180:
-#line 1068 "qgames_parser.y"
+  case 183:
+#line 1079 "qgames_parser.y"
     {
         CHECK_TIPOJUEGO;
         int  i;
@@ -3222,33 +3254,33 @@ yyreduce:
     }
     break;
 
-  case 181:
-#line 1088 "qgames_parser.y"
+  case 184:
+#line 1099 "qgames_parser.y"
     { init_parameters(); }
     break;
 
-  case 184:
-#line 1092 "qgames_parser.y"
+  case 187:
+#line 1103 "qgames_parser.y"
     {
         if( !tipojuego_add_secuencia_rep( tipojuego ) ) YYERROR;
     }
     break;
 
-  case 186:
-#line 1099 "qgames_parser.y"
+  case 189:
+#line 1110 "qgames_parser.y"
     { 
         CHECK_TIPOJUEGO;
         if( !tipojuego_add_simetria( tipojuego, ((char*)(yyvsp[(2) - (4)])), (char*)(yyvsp[(3) - (4)]), (char*)(yyvsp[(4) - (4)]) ) ) YYERROR;
     }
     break;
 
-  case 187:
-#line 1105 "qgames_parser.y"
+  case 190:
+#line 1116 "qgames_parser.y"
     { init_parameters(); }
     break;
 
-  case 188:
-#line 1105 "qgames_parser.y"
+  case 191:
+#line 1116 "qgames_parser.y"
     { 
             CHECK_TIPOJUEGO;
             char* color = (char*)(yyvsp[(3) - (5)]);
@@ -3269,7 +3301,7 @@ yyreduce:
 
 
 /* Line 1267 of yacc.c.  */
-#line 3273 "qgames_parser.c"
+#line 3305 "qgames_parser.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -3483,7 +3515,7 @@ yyreturn:
 }
 
 
-#line 1154 "qgames_parser.y"
+#line 1165 "qgames_parser.y"
 
 
 /*

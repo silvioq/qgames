@@ -198,6 +198,7 @@ define\:        { define_created = 0; BEGIN(define_head);   }
 <code>capturadas{BAR}enemigo                  { return  TOK_CAPTURADAS_ENEMIGO; }
 <code>capturadas{BAR}propio                   { return  TOK_CAPTURADAS_PROPIO; }
 <code>casillero{BAR}inicial                   { return  TOK_CASILLERO_INICIAL; }
+<code>crea                                    { return  TOK_CREA; }
 <code>destino{BAR}ant(erior)?\??              { return  TOK_DESTINO_ANT; }
 <code>empata                 { return TOK_EMPATA;    }
 <code>empata{BAR}si          { return TOK_EMPATA_SI; }

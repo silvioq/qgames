@@ -116,6 +116,7 @@ void  qgzprintf( char* format, ... ){
 %token    TOK_CAPTURED_MARK
 %token    TOK_CANTIDAD_PIEZAS   TOK_CANTIDAD_PIEZAS_PROPIAS  TOK_CANTIDAD_PIEZAS_ENEMIGAS
 %token    TOK_COLOR
+%token    TOK_CREA
 %token    TOK_DEFAULT
 %token    TOK_DIRECTION
 %token    TOK_DROP
@@ -582,8 +583,17 @@ instaction_asigna_att:
           CHECK_TIPOJUEGO;
           if( !tipojuego_code_asigna_att( tipojuego, (char*)$2, $4 ) ) YYERROR;
           free( (char*)$2 );
-    } 
+    } ;
 
+instaction_crea:
+    TOK_CREA    word_or_string  word_or_string  word_or_string {
+            CHECK_TIPOJUEGO;
+            NOT_IMPLEMENTED_WARN( "crea" );
+    } |
+    TOK_CREA    word_or_string  word_or_string TOK_AQUI  {
+            CHECK_TIPOJUEGO;
+            NOT_IMPLEMENTED_WARN( "crea" );
+    };
 
 
 instaction_juega:
@@ -737,6 +747,7 @@ instaction_while:
 instaction:
     instaction_asigna_att |
     instaction_break  |
+    instaction_crea  |
     instaction_juega |
     instaction_final |
     instaction_if    |

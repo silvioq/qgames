@@ -1,0 +1,62 @@
+# El gametype es el nombre de juego que usaremos!
+gametype:    AfricaUniverity
+
+# Cada color se define aparte o no
+color:       rojo      negro 
+
+# Board se puede definir como una lista de dimensiones.
+# Tambien podria estar en blanco y comenzar con las definiciones
+# de casillero de una.
+board:       "a b c d e f g h i  j  k  l  m  n  o"  "1 2 3 4 5 6 7 8 9 10 11 12 13 14 15"
+
+# Directions tiene el nombre de la direccion. Opcionalmente podria
+# tener n numeros que hace la representacion 'n' dimensional.
+directions:  n  0  1 
+directions:  s  0 -1 
+directions:  e  1  0 
+directions:  o -1  0 
+
+# Aca hay una sola pieza!
+piece:       A
+drop:
+             parar-si ocupado?; parar if !en_tablero?;
+             e; parar-si ocupado?; parar-si !en_tablero?; crea 'A' 'rojo' aqui;
+	           s; parar-si ocupado?; parar-si !en_tablero?; crea 'A' 'rojo' aqui;
+	           s; parar-si ocupado?; parar-si !en_tablero?; crea 'A' 'rojo' aqui;
+	           s; parar-si ocupado?; parar-si !en_tablero?; crea 'A' 'rojo' aqui;
+	           o;                    parar-si !en_tablero?; 
+	           o; parar-si ocupado?; parar-si !en_tablero?; crea 'A' 'rojo' aqui;
+	           n; parar-si ocupado?; parar-si !en_tablero?; crea 'A' 'rojo' aqui;
+	           e; parar-si ocupado?; parar-si !en_tablero?; crea 'A' 'rojo' aqui;
+	           o;                    parar-si !en_tablero?; 
+	           n; parar-si ocupado?; parar-si !en_tablero?; crea 'A' 'rojo' aqui;
+	           n; parar-si ocupado?; parar-si !en_tablero?; crea 'A' 'rojo' aqui;
+	           casillero_inicial; 
+	           juega;
+
+piece:       U
+drop:
+             parar-si ocupado?; parar if !en_tablero?;
+             e; parar-si ocupado?; parar-si !en_tablero?; crea 'U' 'negro' aqui;
+	           n; parar-si ocupado?; parar-si !en_tablero?; crea 'U' 'negro' aqui;
+	           n; parar-si ocupado?; parar-si !en_tablero?; crea 'U' 'negro' aqui;
+	           n; parar-si ocupado?; parar-si !en_tablero?; crea 'U' 'negro' aqui;
+	           o;                    parar-si !en_tablero?;
+	           o; parar-si ocupado?; parar-si !en_tablero?; crea 'U' 'negro' aqui;
+	           s; parar-si ocupado?; parar-si !en_tablero?; crea 'U' 'negro' aqui;
+	           s; parar-si ocupado?; parar-si !en_tablero?; crea 'U' 'negro' aqui;
+	           s; parar-si ocupado?; parar-si !en_tablero?; crea 'U' 'negro' aqui;
+	           casillero_inicial; 
+             juega;
+
+ending:
+             gana-si  ahogado?
+
+ending:
+             empata-si ahogado?
+
+sequence:    rojo negro
+start:       A   rojo     49
+start:       U   negro    49
+
+
