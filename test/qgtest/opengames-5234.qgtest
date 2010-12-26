@@ -1,0 +1,29 @@
+# Juego obtenido de  http://www.opengames.com.ar/5234.pgn
+# Entre  ["Carlos Henrique Gomes Franco Grillo"] y ["JOSE TECHERA"]
+nuevo-juego Ajedrez
+
+1. d4 d5 2. c4 Bf5 3. Nc3 e6 4. Nf3 Bb4 5. Bd2 Nf6 
+6. e3 0-0 7. Be2 a6 8. 0-0 Nc6 9. Rc1 Bxc3 
+10. Bxc3 dxc4 11. Bxc4 b5 12. Bd3 Bxd3 13. Qxd3 Nd5 
+14. Rf1-d1 Nc6-b4 15. Bxb4 Nxb4 16. Qb3 Nd5 
+17. Rc5 f6 18. Rd1-c1 Rf7 19. Ne1 Nb6 20. Nd3 Nc4 
+21. Qc2 Rb8 22. b3 Na3 23. Qb2 b4 24. Nxb4 Nb5 
+25. Nxa6 Rb6 26. a4 Nxd4 27. Nxc7 Nxb3 28. h3 Qd6 
+29. Na8 Nxc1 30. Rc8 Rf8 31. Rxf8 Kxf8 32. Nxb6 Nd3 
+33. Qc3 Ne5 34. a5 Nf7 35. Qc8 Nd8 36. Qd7 Qb8 
+37. g3 e5 38. Nd5 Qb1 39. Kh2 Qb8 40. Qe7 
+check-piezas caballo blanco d5 1
+check-piezas caballo negro d8 1
+check-piezas dama blanco e7 1
+check-piezas rey blanco h2 1
+check-piezas dama negro b8 1
+check-piezas rey negro f8 1
+check-piezas peon blanco a5 1
+check-piezas peon blanco e3 1
+check-piezas peon blanco f2 1
+check-piezas peon blanco g3 1
+check-piezas peon blanco h3 1
+check-piezas peon negro e5 1
+check-piezas peon negro f6 1
+check-piezas peon negro g7 1
+check-piezas peon negro h7 1

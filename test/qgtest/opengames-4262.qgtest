@@ -1,0 +1,30 @@
+# Juego obtenido de  http://www.opengames.com.ar/4262.pgn
+# Entre  ["Jordi Cabré i Carbó"] y ["Jairo"]
+nuevo-juego Ajedrez
+
+1. e4 e5 2. Bc4 Nf6 3. d3 Be7 4. a3 0-0 5. Nc3 c6 
+6. h3 d5 7. Ba2 Na6 8. g4 dxe4 9. Nxe4 Nd5 
+10. g5 f5 11. Nc3 Bxg5 12. Bxg5 Qxg5 13. Nxd5 cxd5 
+14. Bxd5 Kh8 15. Nf3 Qf6 16. Qe2 e4 17. dxe4 fxe4 
+18. Bxe4 Nc5 19. 0-0-0 Qf4 20. Nd2 Nxe4 21. Qxe4 Qxe4 
+22. Nxe4 h6 23. h4 Bf5 24. Nd6 Bh7 25. Rh1-f1 b6 
+26. b4 a5 27. bxa5 Rxa5 28. Nc4 Rc5 29. Ne3 Rf8-c8 
+30. Rd2 Rc3 31. Kb2 b5 32. f4 Be4 33. Re1 Bh7 
+34. f5 Rc3-c5 35. Rf1 Rc8-c6 36. h5 Rb6 37. Rd8 Bg8 
+38. Rf8 Kh7 39. Rd1 Rf6 40. Rxf6 gxf6 41. Rd6 Kg7 
+42. Ng4 Bf7 43. Nxf6 Rxf5 44. Ng4 Rxh5 45. Rd7 Rf5 
+46. Ne3 Re5 47. Ng2 h5 48. Rd4 Bc4 49. Kc3 Rg5 
+50. Ne3 Bf7 51. Kb4 Re5 52. Nd1 Kh6 53. Nc3 Be8 
+54. Rd8 Kg5 55. Nd1 h4 56. Rd3 Bg6 57. Rc3 Re2 
+58. Kxb5 Rxc2 59. Rb3 Ra2 60. Rc3 Kg4 61. Ne3 Kg5 
+62. Rc5 Kf4 63. Nd5 Kg3 64. Rc3 Kg4 65. Ne3 Kf4 
+66. Nd5 Kg4 67. Nf6 Kf4 68. a4 Bf5 69. a5 h3 
+70. Nd5 Ke5 71. Nb4 h2 72. Rc1 Rb2 73. Kc4 Be4 
+74. a6 h1=Q 75. Rxh1 Bxh1 76. Nd3 Kd6 77. Nxb2 Bc6 
+78. Kb4 Kc7 79. Ka5 Bb7 80. a7 Bc6 81. Na4 Ba8 
+82. Kb5 Kb7 
+check-piezas caballo blanco a4 1
+check-piezas alfil negro a8 1
+check-piezas rey blanco b5 1
+check-piezas rey negro b7 1
+check-piezas peon blanco a7 1

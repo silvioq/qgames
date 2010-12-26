@@ -1,0 +1,29 @@
+# Juego obtenido de  http://www.opengames.com.ar/4642.pgn
+# Entre  ["Worff"] y ["AAA"]
+nuevo-juego Ajedrez
+
+1. e4 e6 2. d4 d5 3. Nd2 dxe4 4. Nxe4 Nd7 
+5. Nf3 Ng8-f6 6. Bd3 Nxe4 7. Bxe4 Nf6 8. Bd3 Be7 
+9. 0-0 0-0 10. Ne5 c5 11. dxc5 Bxc5 12. Qe2 Qc7 
+13. Re1 Bd7 14. Bg5 Nd5 15. c4 f6 16. Nxd7 fxg5 
+17. Qxe6 Kh8 18. Nxf8 Rxf8 19. cxd5 
+check-piezas torre blanco a1 1
+check-piezas torre blanco e1 1
+check-piezas torre negro f8 1
+check-piezas alfil blanco d3 1
+check-piezas alfil negro c5 1
+check-piezas dama blanco e6 1
+check-piezas rey blanco g1 1
+check-piezas dama negro c7 1
+check-piezas rey negro h8 1
+check-piezas peon blanco a2 1
+check-piezas peon blanco b2 1
+check-piezas peon blanco d5 1
+check-piezas peon blanco f2 1
+check-piezas peon blanco g2 1
+check-piezas peon blanco h2 1
+check-piezas peon negro a7 1
+check-piezas peon negro b7 1
+check-piezas peon negro g5 1
+check-piezas peon negro g7 1
+check-piezas peon negro h7 1

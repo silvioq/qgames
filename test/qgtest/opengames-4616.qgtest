@@ -1,0 +1,27 @@
+# Juego obtenido de  http://www.opengames.com.ar/4616.pgn
+# Entre  ["Silvio"] y ["Ticfez"]
+nuevo-juego Ajedrez
+
+1. e4 e5 2. Nf3 Nc6 3. Bb5 Ng8-e7 4. 0-0 a6 
+5. Ba4 d6 6. h3 g5 7. d4 g4 8. hxg4 Bxg4 
+9. c3 Rg8 10. Bb3 Ng6 11. Bxf7 Kxf7 12. Ng5 Qxg5 
+13. Bxg5 Bxd1 14. Rxd1 Be7 15. Be3 Nh4 16. g3 exd4 
+17. cxd4 Bf6 18. Nc3 Bxd4 19. Nd5 Bxe3 20. Nxe3 Nd4 
+21. Kh2 Nh4-f3 22. Kg2 Ke6 23. Ra1-c1 c5 
+24. Nf5 Rg4 25. Nxd4 Nxd4 26. f3 Rg7 27. b4 Ne2 
+28. Rc4 Nxg3 29. Kf2 b5 30. Rc4-c1 Rf8 31. Ke3 Rg7-f7 
+32. bxc5 Rxf3 33. Kd4 Ne2 
+check-piezas torre blanco c1 1
+check-piezas torre blanco d1 1
+check-piezas torre negro f8 1
+check-piezas torre negro f3 1
+check-piezas caballo negro e2 1
+check-piezas rey blanco d4 1
+check-piezas rey negro e6 1
+check-piezas peon blanco a2 1
+check-piezas peon blanco c5 1
+check-piezas peon blanco e4 1
+check-piezas peon negro a6 1
+check-piezas peon negro b5 1
+check-piezas peon negro d6 1
+check-piezas peon negro h7 1

@@ -1,0 +1,26 @@
+# Juego obtenido de  http://www.opengames.com.ar/4571.pgn
+# Entre  ["Worff"] y ["JOSE TECHERA"]
+nuevo-juego Ajedrez
+
+1. d4 d5 2. c4 Nf6 3. cxd5 Nxd5 4. e4 Nb6 
+5. Nf3 g6 6. Bb5 c6 7. Be2 Bg7 8. Nc3 0-0 
+9. 0-0 Nb8-d7 10. Qc2 e5 11. Bg5 f6 12. Be3 exd4 
+13. Nxd4 Ne5 14. Qb3 Kh8 15. a4 a5 16. Rf1-d1 Nb6-d7 
+17. Ne6 Qe7 18. Nxf8 Nxf8 19. Rd2 Be6 20. Qb6 Bc4 
+21. Bc5 Qf7 22. Bxf8 Rxf8 23. f4 Bxe2 24. Rxe2 Nc4 
+25. Qd4 f5 26. e5 Re8 27. b3 Nxe5 28. fxe5 Qxb3 
+29. Rb1 Qf7 30. Qc5 Bf8 31. Qxa5 f4 32. e6 Qf5 
+33. Qxf5 gxf5 34. Rxb7 Bc5 35. Kf1 Be3 36. e7 Kg8 
+37. a5 Kf7 38. a6 Rxe7 39. Rxe7 Kxe7 40. a7 
+check-piezas torre blanco e2 1
+check-piezas caballo blanco c3 1
+check-piezas alfil negro e3 1
+check-piezas rey blanco f1 1
+check-piezas rey negro e7 1
+check-piezas peon blanco a7 1
+check-piezas peon blanco g2 1
+check-piezas peon blanco h2 1
+check-piezas peon negro c6 1
+check-piezas peon negro f4 1
+check-piezas peon negro f5 1
+check-piezas peon negro h7 1

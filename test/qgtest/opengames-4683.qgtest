@@ -1,0 +1,33 @@
+# Juego obtenido de  http://www.opengames.com.ar/4683.pgn
+# Entre  ["JOSE TECHERA"] y ["AAA"]
+nuevo-juego Ajedrez
+
+1. e4 e6 2. d4 d5 3. e5 c5 4. c3 Nc6 5. Nf3 Bd7 
+6. Be2 Qb6 7. dxc5 Bxc5 8. 0-0 Rc8 9. Nb1-d2 Qc7 
+10. Nb3 Nxe5 11. Nxe5 Qxe5 12. Nxc5 Rxc5 
+13. Be3 
+check-piezas torre blanco a1 1
+check-piezas torre blanco f1 1
+check-piezas torre negro c5 1
+check-piezas torre negro h8 1
+check-piezas caballo negro g8 1
+check-piezas alfil blanco e3 1
+check-piezas alfil blanco e2 1
+check-piezas alfil negro d7 1
+check-piezas dama blanco d1 1
+check-piezas rey blanco g1 1
+check-piezas dama negro e5 1
+check-piezas rey negro e8 1
+check-piezas peon blanco a2 1
+check-piezas peon blanco b2 1
+check-piezas peon blanco c3 1
+check-piezas peon blanco f2 1
+check-piezas peon blanco g2 1
+check-piezas peon blanco h2 1
+check-piezas peon negro a7 1
+check-piezas peon negro b7 1
+check-piezas peon negro d5 1
+check-piezas peon negro e6 1
+check-piezas peon negro f7 1
+check-piezas peon negro g7 1
+check-piezas peon negro h7 1

@@ -1,0 +1,33 @@
+# Juego obtenido de  http://www.opengames.com.ar/4650.pgn
+# Entre  ["Worff"] y ["bryanvi"]
+nuevo-juego Ajedrez
+
+1. d4 d5 2. c4 dxc4 3. Nf3 Nf6 4. e3 e6 5. Bxc4 Bb4 
+6. Bd2 Bxd2 7. Nb1xd2 c6 8. 0-0 b5 9. Bd3 0-0 
+10. a4 Qb6 11. Ne5 Bb7 12. Ne4 Nb8-d7 13. a5 Qc7 
+14. Nxf6 Nxf6 15. a6 Bc8 16. Rc1 Bxa6 17. Rxc6 Qb7 
+18. Qa1 
+check-piezas torre blanco c6 1
+check-piezas torre blanco f1 1
+check-piezas torre negro a8 1
+check-piezas torre negro f8 1
+check-piezas caballo blanco e5 1
+check-piezas caballo negro f6 1
+check-piezas alfil blanco d3 1
+check-piezas alfil negro a6 1
+check-piezas dama blanco a1 1
+check-piezas rey blanco g1 1
+check-piezas dama negro b7 1
+check-piezas rey negro g8 1
+check-piezas peon blanco b2 1
+check-piezas peon blanco d4 1
+check-piezas peon blanco e3 1
+check-piezas peon blanco f2 1
+check-piezas peon blanco g2 1
+check-piezas peon blanco h2 1
+check-piezas peon negro a7 1
+check-piezas peon negro b5 1
+check-piezas peon negro e6 1
+check-piezas peon negro f7 1
+check-piezas peon negro g7 1
+check-piezas peon negro h7 1

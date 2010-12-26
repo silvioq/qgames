@@ -1,0 +1,32 @@
+# Juego obtenido de  http://www.opengames.com.ar/5238.pgn
+# Entre  ["Juan Antonio"] y ["OLVIDADO"]
+nuevo-juego Ajedrez
+
+1. e4 Nc6 2. Nf3 h5 3. d4 a5 4. Bb5 f6 5. Bxc6 bxc6 
+6. Nc3 Ba6 7. a3 Nh6 8. e5 c5 9. d5 c4 10. Qe2 c6 
+11. dxc6 dxc6 12. Qe4 Rc8 13. e6 Rc7 14. Bf4 Rc8 
+15. 0-0 h4 16. Bxh6 Rxh6 17. Nxh4 g5 18. Nf5 Rh7 
+19. h4 gxh4 20. Ng3 Rc7 21. Qg6 Rf7 22. Qxf7 
+check-piezas torre blanco a1 1
+check-piezas torre blanco f1 1
+check-piezas torre negro c7 1
+check-piezas caballo blanco c3 1
+check-piezas caballo blanco g3 1
+check-piezas alfil negro a6 1
+check-piezas alfil negro f8 1
+check-piezas dama blanco f7 1
+check-piezas rey blanco g1 1
+check-piezas dama negro d8 1
+check-piezas rey negro e8 1
+check-piezas peon blanco a3 1
+check-piezas peon blanco b2 1
+check-piezas peon blanco c2 1
+check-piezas peon blanco e6 1
+check-piezas peon blanco f2 1
+check-piezas peon blanco g2 1
+check-piezas peon negro a5 1
+check-piezas peon negro c4 1
+check-piezas peon negro c6 1
+check-piezas peon negro e7 1
+check-piezas peon negro f6 1
+check-piezas peon negro h4 1

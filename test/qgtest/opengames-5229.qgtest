@@ -1,0 +1,26 @@
+# Juego obtenido de  http://www.opengames.com.ar/5229.pgn
+# Entre  ["Juan Antonio"] y ["Buddy"]
+nuevo-juego Ajedrez
+
+1. e4 d5 2. e5 c5 3. d4 Nc6 4. Nf3 Bg4 5. Be3 e6 
+6. Bb5 Ne7 7. h3 Bh5 8. g4 Bg6 9. dxc5 a6 
+10. Bxc6 Nxc6 11. b3 Qa5 12. Bd2 Qxc5 13. Be3 Qa5 
+14. c3 Be4 15. b4 Qc7 16. 0-0 Bxf3 17. Qxf3 Nxe5 
+18. Qe2 Bd6 19. Bf4 Nc4 20. Bxd6 Nxd6 21. f3 b5 
+22. Rc1 Nc4 23. Rc2 Qg3 24. Kf1 Qxh3 25. Kg1 h5 
+26. Qh2 Qxf3 27. Nd2 Qxg4 28. Kh1 Nxd2 29. Rxd2 Qf3 
+30. Qg2 Qxg2 31. Rxg2 g6 32. a4 Ke7 33. axb5 axb5 
+34. Rxa8 Rxa8 35. Kh2 Ra3 36. Rc2 f6 37. Kg2 g5 
+38. Kf3 d4 39. Ke4 Rxc3 40. Ra2 Kd6 41. Ra6 Rc6 
+42. Ra8 Rc4 43. Rd8 Ke7 44. Rh8 h4 45. Rh7 Kd6 
+46. Ra7 f5 47. Kd3 e5 48. Ra6 Kd5 49. Ra5 Rxb4 
+check-piezas torre blanco a5 1
+check-piezas torre negro b4 1
+check-piezas rey blanco d3 1
+check-piezas rey negro d5 1
+check-piezas peon negro b5 1
+check-piezas peon negro d4 1
+check-piezas peon negro e5 1
+check-piezas peon negro f5 1
+check-piezas peon negro g5 1
+check-piezas peon negro h4 1

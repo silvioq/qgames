@@ -1,0 +1,33 @@
+# Juego obtenido de  http://www.opengames.com.ar/4659.pgn
+# Entre  ["Paulo Aparecido Rezende"] y ["Najib"]
+nuevo-juego Ajedrez
+
+1. d4 Nf6 2. c4 c5 3. d5 d6 4. Nc3 e6 5. e4 Be7 
+6. Bg5 Nxd5 7. exd5 Bxg5 8. dxe6 Bxe6 9. Nf3 0-0 
+10. Be2 Bf6 11. Qc2 Nc6 12. 0-0 Re8 13. a3 Bxc3 
+14. Qxc3 Bg4 15. Ra1-e1 Qa5 16. Qc1 Ra8-d8 
+17. h3 Bf5 18. Nh4 Nd4 19. Bf3 Bd3 20. Rxe8 Rxe8 
+21. Rd1 Bc2 22. Rf1 Qd8 23. Qf4 Re4 
+check-piezas torre blanco f1 1
+check-piezas torre negro e4 1
+check-piezas caballo blanco h4 1
+check-piezas caballo negro d4 1
+check-piezas alfil blanco f3 1
+check-piezas alfil negro c2 1
+check-piezas dama blanco f4 1
+check-piezas rey blanco g1 1
+check-piezas dama negro d8 1
+check-piezas rey negro g8 1
+check-piezas peon blanco a3 1
+check-piezas peon blanco b2 1
+check-piezas peon blanco c4 1
+check-piezas peon blanco f2 1
+check-piezas peon blanco g2 1
+check-piezas peon blanco h3 1
+check-piezas peon negro a7 1
+check-piezas peon negro b7 1
+check-piezas peon negro c5 1
+check-piezas peon negro d6 1
+check-piezas peon negro f7 1
+check-piezas peon negro g7 1
+check-piezas peon negro h7 1

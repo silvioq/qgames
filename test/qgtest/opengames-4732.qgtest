@@ -1,0 +1,23 @@
+# Juego obtenido de  http://www.opengames.com.ar/4732.pgn
+# Entre  ["Silvio"] y ["JOSE TECHERA"]
+nuevo-juego Ajedrez
+
+1. e4 e5 2. Nf3 Nc6 3. Bb5 d6 4. d4 exd4 
+5. Nxd4 Bd7 6. 0-0 Nxd4 7. Bxd7 Qxd7 8. Qxd4 Nf6 
+9. Bg5 Be7 10. Nc3 h6 11. Bh4 c5 12. Qd3 0-0 
+13. Ra1-d1 Ra8-d8 14. e5 dxe5 15. Qxd7 Rxd7 
+16. Rxd7 Nxd7 17. Bxe7 Re8 18. Bd6 a6 19. Ne4 b6 
+20. Rd1 f5 21. Ng3 g6 22. Bc7 Re7 23. f3 b5 
+24. Kf2 c4 25. Ne2 e4 26. fxe4 fxe4 27. Nf4 Rf7 
+28. Ke3 g5 29. Ne6 Nf6 30. Rd8 Kh7 31. h3 Re7 
+32. Nf8 Kg7 33. Bd6 Rf7 34. Be5 Rxf8 35. Rxf8 Kxf8 
+36. Bxf6 Kf7 37. Bd4 Ke6 38. Kxe4 h5 39. g4 hxg4 
+40. hxg4 a5 41. b3 cxb3 42. cxb3 a4 43. Bc5 axb3 
+44. axb3 
+check-piezas alfil blanco c5 1
+check-piezas rey blanco e4 1
+check-piezas rey negro e6 1
+check-piezas peon blanco b3 1
+check-piezas peon blanco g4 1
+check-piezas peon negro b5 1
+check-piezas peon negro g5 1

@@ -1,0 +1,33 @@
+# Juego obtenido de  http://www.opengames.com.ar/5260.pgn
+# Entre  ["Alaa Mattar"] y ["Worff"]
+nuevo-juego Ajedrez
+
+1. e4 e6 2. Nf3 d5 3. exd5 exd5 4. d4 Bd6 
+5. Be3 Nf6 6. Bd3 Nc6 7. c3 0-0 8. Nb1-d2 Ng4 
+9. Qc2 f5 10. 0-0-0 f4 11. Bxh7 Kh8 12. h3 Nf6 
+13. Ng5 fxe3 14. fxe3 Qe7 15. Rd1-e1 Bg3 
+16. Re2 Bh4 17. Nd2-f3 Bxg5 18. Nxg5 Nh5 
+19. Qg6 Ng3 20. Bg8 Nxe2 21. Kd2 Bf5 22. Qh5 Kxg8 
+23. Kxe2 Ra8-e8 
+check-piezas torre blanco h1 1
+check-piezas torre negro e8 1
+check-piezas torre negro f8 1
+check-piezas caballo blanco g5 1
+check-piezas caballo negro c6 1
+check-piezas alfil negro f5 1
+check-piezas dama blanco h5 1
+check-piezas rey blanco e2 1
+check-piezas dama negro e7 1
+check-piezas rey negro g8 1
+check-piezas peon blanco a2 1
+check-piezas peon blanco b2 1
+check-piezas peon blanco c3 1
+check-piezas peon blanco d4 1
+check-piezas peon blanco e3 1
+check-piezas peon blanco g2 1
+check-piezas peon blanco h3 1
+check-piezas peon negro a7 1
+check-piezas peon negro b7 1
+check-piezas peon negro c7 1
+check-piezas peon negro d5 1
+check-piezas peon negro g7 1
