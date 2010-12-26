@@ -151,6 +151,15 @@ long  code_wrapper_mueve( QCodeVM* vm ){
     return (long)analizador_mueve( z, fromto, (void*)from, (void*)to );
 }
 
+long  code_wrapper_crea( QCodeVM* vm ){
+    Analizador* z = (Analizador*)qcode_pop( vm );
+    Casillero*  c = ZGETCASILLERO( z, qcode_pop( vm ) );
+    int  owner    = (int)qcode_pop(vm);
+    Tipopieza*  t = ZGETTIPOPIEZA( z, qcode_pop( vm ) );
+    return (long)analizador_crea( z, owner, t, c );
+}
+
+
 long  code_wrapper_casillero( QCodeVM* vm ){
     Analizador* z = (Analizador*)qcode_pop( vm );
     Casillero*  c = ZGETCASILLERO( z, qcode_pop( vm ) );
@@ -222,6 +231,7 @@ void  code_initialize( QCode** qcode ){
     qcode_xcrlab( q, "atacado",      (qcode_extfunc)code_wrapper_atacado );
     qcode_xcrlab( q, "casillero",    (qcode_extfunc)code_wrapper_casillero );
     qcode_xcrlab( q, "captura",      (qcode_extfunc)code_wrapper_captura );
+    qcode_xcrlab( q, "crea",         (qcode_extfunc)code_wrapper_crea );
     qcode_xcrlab( q, "cuentapiezas", (qcode_extfunc)code_wrapper_cuentapiezas );
     qcode_xcrlab( q, "destino_ant",  (qcode_extfunc)code_wrapper_destino_ant );
     qcode_xcrlab( q, "direccion", (qcode_extfunc)code_wrapper_direccion );

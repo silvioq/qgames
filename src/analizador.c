@@ -345,6 +345,35 @@ int    analizador_juega  ( Analizador* z, Casillero* cas, int con_captura ){
     return  STATUS_NORMAL;
 }
 
+/*
+ * Crea una nueva pieza
+ * */
+int    analizador_crea   ( Analizador* z, int owner, Tipopieza* tp, Casillero* cas ){
+    CHECK_STATUS ;
+    Casillero* ccc = ( cas ? cas : z->cas );
+    int color;
+#if(OUTOFBOARD_ISERROR)
+    if( !CASILLERO_VALIDO( ccc ) ) return STATUS_OUTOFBOARD;
+#else
+    if( !CASILLERO_VALIDO( ccc ) ) return STATUS_NORMAL;
+#endif
+    if( !z->movidas ) z->movidas = list_nueva( NULL );
+    if( !z->mov_actual ) z->mov_actual = movida_new( &z->pos, z->pieza, z->tmov );
+    if( owner == ENEMIGO ){
+         color = z->color + 1;
+         if( color > z->pos.tjuego->colores ) color = 1;
+    } else if ( owner == PROPIO ){
+        color = z->color;
+    } else if ( owner > 0 ){
+        color = owner;
+    } else {
+        LOGPRINT( 1, "Color (Owner) incorrectamente definido %d ", owner );
+        return STATUS_ERROR;
+    }
+    movida_accion_crea( z->mov_actual, tp, color, ccc );
+    return  STATUS_NORMAL;
+}
+
 
 int    analizador_mueve  ( Analizador* z, char fromto_flags, void* from, void* to ){
     Casillero* cas_from;

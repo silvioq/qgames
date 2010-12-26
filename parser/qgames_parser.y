@@ -588,11 +588,53 @@ instaction_asigna_att:
 instaction_crea:
     TOK_CREA    word_or_string  word_or_string  word_or_string {
             CHECK_TIPOJUEGO;
-            NOT_IMPLEMENTED_WARN( "crea" );
+            int tp  = qg_tipojuego_get_tipopieza( tipojuego, ((char*)$2) );
+            if( tp == NOT_FOUND ){
+                qgzprintf( "%s debe ser un tipo de pieza", ((char*)$2) );
+                yyerror( "Debe ser un tipo de pieza" ); YYERROR;
+            }
+            int col = qg_tipojuego_get_color( tipojuego, ((char*)$3) );
+            if( col == NOT_FOUND ){
+                qgzprintf( "%s debe ser un color", ((char*)$3) );
+                yyerror( "Debe ser un color" ); YYERROR;
+            }
+            int cas = qg_tipojuego_get_casillero( tipojuego, ((char*)$4));
+            if( cas == NOT_FOUND ){
+                qgzprintf( "%s debe ser un casillero", ((char*)$4) );
+                yyerror( "Debe ser un casillero" ); YYERROR;
+            }
+            tipojuego_code_crea( tipojuego, ((char*)$2), NOCOLOR, ((char*)$3), ((char*)$4) );
+            free( (char*) $2 );
+            free( (char*) $3 );
+            free( (char*) $4 );
+            
     } |
     TOK_CREA    word_or_string  word_or_string TOK_AQUI  {
             CHECK_TIPOJUEGO;
-            NOT_IMPLEMENTED_WARN( "crea" );
+            int tp  = qg_tipojuego_get_tipopieza( tipojuego, ((char*)$2) );
+            if( tp == NOT_FOUND ){
+                qgzprintf( "%s debe ser un tipo de pieza", ((char*)$2) );
+                yyerror( "Debe ser un tipo de pieza" ); YYERROR;
+            }
+            int col = qg_tipojuego_get_color( tipojuego, ((char*)$3) );
+            if( col == NOT_FOUND ){
+                qgzprintf( "%s debe ser un color", ((char*)$3) );
+                yyerror( "Debe ser un color" ); YYERROR;
+            }
+            tipojuego_code_crea( tipojuego, ((char*)$2), NOCOLOR, ((char*)$3), NULL );
+            free( (char*) $2 );
+            free( (char*) $3 );
+    } |
+    TOK_CREA    word_or_string  TOK_AQUI  {
+            CHECK_TIPOJUEGO;
+            CHECK_TIPOJUEGO;
+            int tp  = qg_tipojuego_get_tipopieza( tipojuego, ((char*)$2) );
+            if( tp == NOT_FOUND ){
+                qgzprintf( "%s debe ser un tipo de pieza", ((char*)$2) );
+                yyerror( "Debe ser un tipo de pieza" ); YYERROR;
+            }
+            tipojuego_code_crea( tipojuego, ((char*)$2), PROPIO, NULL, NULL );
+            free( (char*) $2 );
     };
 
 

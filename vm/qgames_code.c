@@ -415,6 +415,39 @@ int         tipojuego_code_mueve  ( Tipojuego* tj, char fromto_flags, void* from
 }
 
 
+int         tipojuego_code_crea   ( Tipojuego* tj, char* tpieza, int owner, char* color, char* casillero ){
+    if( !TJVALIDO( tj ) ) return 0;
+    int tp = GETTIPOPIEZA(tj, tpieza );
+    long cas = ( casillero ? GETCASILLERO(tj, casillero ) : SINCASILLERO );
+    int  own = NOCOLOR;
+    if( !TJVALIDO(tj) ) return 0;
+
+    if( owner != PROPIO && owner != ENEMIGO && owner != NOCOLOR && owner != CAMBIOCOLOR ){
+        return 0;
+    }
+
+    if( owner == NOCOLOR && color ){
+        own = GETCOLOR(tj, color );
+        if( !TJVALIDO( tj ) ) return 0;
+    } else if( owner != NOCOLOR ){
+        own = owner;
+    }
+
+    if( !TJVALIDO( tj ) ) return 0;
+
+    qcode_op( tj->qcode, QCSTI, 1, tp  );   // r1 = tp           
+    qcode_op( tj->qcode, QCPSH, 1, 0 );     // PSH r1
+    qcode_op( tj->qcode, QCSTI, 1, own );   // r1 = own          
+    qcode_op( tj->qcode, QCPSH, 1, 0 );     // PSH r1
+    qcode_op( tj->qcode, QCSTI, 1, cas );   // r1 = cas          
+    qcode_op( tj->qcode, QCPSH, 1, 0 );     // PSH r1
+    qcode_op( tj->qcode, QCPSH, 3, 0 );        // PSH r3
+    qcode_opnlab( tj->qcode, QCCLX, "crea" );
+    RET_IF_STATUS;                              // Retorna si el valor es distinto de cero
+    return 1;
+}
+
+
 
 int         tipojuego_code_captura( Tipojuego* tj, char* casillero ){
     if( !TJVALIDO( tj ) ) return 0;

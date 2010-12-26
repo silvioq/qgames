@@ -52,6 +52,17 @@ void  movida_accion_mueve  ( Movida* mov, Pieza* p, Casillero* destino ){
     list_agrega( mov->acciones, acc );
 }
 
+void  movida_accion_crea   ( Movida* mov, Tipopieza* tpieza, int color, Casillero* cas ){
+    Accion* acc       = accion_new();
+    acc->tipo         = ACCION_CREA;
+    acc->destino      = cas;
+    acc->tpieza       = tpieza;
+    acc->color        = color;
+    if( !mov->acciones ) mov->acciones = list_nueva( NULL );
+    list_agrega( mov->acciones, acc );
+}
+
+
 /*
  * Esta es la generacion de accion de captura para una movida
  * */
@@ -202,6 +213,10 @@ Posicion*  movida_ejecuta( Movida* mov ){
             case ACCION_CAPTURA:
                 posicion_mueve_pieza( pos, p, ENCAPTURA );
                 break;
+            case ACCION_CREA:
+                p = posicion_add_pieza( pos );
+                pieza_init( p, acc->tpieza, acc->destino, acc->color );
+                break;
             case ACCION_TRANSFORMA:
                 if( acc->color  ) p->color = acc->color;
                 if( acc->tpieza ) p->tpieza = acc->tpieza;
@@ -210,7 +225,6 @@ Posicion*  movida_ejecuta( Movida* mov ){
                 if( !pieza_set_att( p, acc->att_key, acc->att_val ) ) return NULL;
                 break;
             default:
-                
                 LOGPRINT( 1, "Accion no implementada %d", acc->tipo );
                 exit( EXIT_FAILURE );
         }

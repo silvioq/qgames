@@ -46,6 +46,7 @@ Movida*   movida_dup( Movida* mov );
 
 void  movida_accion_mueve  ( Movida* mov, Pieza* p, Casillero* destino );
 void  movida_accion_captura( Movida* mov, Pieza* p );
+void  movida_accion_crea   ( Movida* mov, Tipopieza* tpieza, int color, Casillero* cas );
 void  movida_accion_transforma( Movida* mov, Pieza* p, int color, Tipopieza* tpieza );
 void  movida_accion_asigna_att( Movida* mov, Pieza* p, int att, int val );
 void  movida_free( Movida* mov );
