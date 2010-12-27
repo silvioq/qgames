@@ -1128,17 +1128,22 @@ instruction_sequence_list:
                 char* val2 = (char*)qgz_param_list[i+1].par;
                 int  tmov = qg_tipojuego_get_tipomov( tipojuego, val2 );
                 if( tmov != NOT_FOUND ){
+                    qgzprintf( "color secuencia %s - tipo mov %s",  val1, val2 );
                     if( !tipojuego_add_secuencia( tipojuego, val1, val2 ) ) YYERROR;
                     i ++;
                 } else {
+                    qgzprintf( "color secuencia %s",  val1 );
                     if( !tipojuego_add_secuencia( tipojuego, val1, NULL ) ) YYERROR;
                 }
-            } else if( !tipojuego_add_secuencia( tipojuego, val1, NULL ) ) YYERROR;
+            } else {
+                qgzprintf( "color secuencia %s",  val1 );
+                if( !tipojuego_add_secuencia( tipojuego, val1, NULL ) ) YYERROR;
+            }
         } 
     };
 
 instruction_sequence_prelude:
-    TOK_SEQUENCE { init_parameters(); }  instruction_sequence_list;
+    TOK_SEQUENCE { init_parameters(); qgzprintf( "inicio secuencia %d", TOK_SEQUENCE ); }  instruction_sequence_list;
 
 instruction_sequence:
     instruction_sequence_prelude |
