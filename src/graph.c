@@ -156,21 +156,30 @@ gdImagePtr  graph_tpieza_get_gd( Tipopieza* tp, int color ){
         case  STANDARD_ROOK       :
             piece = "torre";
             break;
+        case  STANDARD_RECT       :
+            piece = NULL;
         default:
             LOGPRINT( 2, "No esta definido pieza estandar %d", g->std );
             return NULL;
     }
 
-    sprintf( size, "%dx%d", g->w, g->h );
-    colorname = tipojuego_get_colorname( tp->tipojuego, color );
-    sprintf( filename, "%s/%s/%s-%s.png", qgames_image_dir, size, piece, colorname );
-    FILE* f = fopen( filename, "r" );
-    if( !f ){
-        LOGPRINT( 2, "Error al abrir %s (%d - %s)", filename, errno, strerror(errno) );
-        return NULL;
+    gdImagePtr gd;
+    if( piece ){
+        sprintf( size, "%dx%d", g->w, g->h );
+        colorname = tipojuego_get_colorname( tp->tipojuego, color );
+        sprintf( filename, "%s/%s/%s-%s.png", qgames_image_dir, size, piece, colorname );
+        FILE* f = fopen( filename, "r" );
+        if( !f ){
+            LOGPRINT( 2, "Error al abrir %s (%d - %s)", filename, errno, strerror(errno) );
+            return NULL;
+        }
+        gd = gdImageCreateFromPng( f );
+        fclose( f );
+    } else {
+        gd = gdImageCreateTrueColor( g->w, g->h );
+        int col = gdImageColorAllocate( gd, g->f >> 16, ( g->f & 0xFF00 ) >> 8 , g->f & 0xFF );
+        gdImageFilledRectangle( gd, 0, 0, g->w, g->h, col );
     }
-    gdImagePtr gd = gdImageCreateFromPng( f );
-    fclose( f );
 
     // Ahora lo que hago es volver a crear una imagen para ponerlo en la 
     // lista para luego poder tomarla como corresponde, ya que las estandares

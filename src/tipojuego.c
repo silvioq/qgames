@@ -506,7 +506,12 @@ int    tipojuego_graph_tablero_std     ( Tipojuego* tj, int board_number, char g
 
 }
 
-int    tipojuego_graph_tipopieza_std   ( Tipojuego* tj, char* tpieza, int stdimg, int width, int height ){
+
+/*
+ * Setea un grafico estandar para el tipo de pieza pasado como parametro
+ * El parametro forecolor solo sera tenido en cuenta para STANDARD_RECT
+ * */
+int    tipojuego_graph_tipopieza_std   ( Tipojuego* tj, char* tpieza, int stdimg, int width, int height, int forecolor ){
     if( !TJVALIDO(tj) ) return 0;
     int tp = GETTIPOPIEZA( tj, tpieza );
     if( !TJVALIDO(tj) ) return 0;
@@ -518,6 +523,7 @@ int    tipojuego_graph_tipopieza_std   ( Tipojuego* tj, char* tpieza, int stdimg
     g->std  = stdimg;
     g->w    = width;
     g->h    = height;
+    g->f    = forecolor;
     list_agrega( tj->graphdefs, g );
     return 1;
 }

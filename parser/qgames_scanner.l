@@ -141,6 +141,7 @@ standard{BAR}king   { return  TOK_STANDARD_KING     ; }
 standard{BAR}knight { return  TOK_STANDARD_KNIGHT   ; }
 standard{BAR}pawn   { return  TOK_STANDARD_PAWN     ; }
 standard{BAR}queen  { return  TOK_STANDARD_QUEEN    ; }
+standard{BAR}rect(angle)?  { return  TOK_STANDARD_RECT; }
 standard{BAR}rook   { return  TOK_STANDARD_ROOK     ; }
 target          { return TOK_TARGET;    }
 zone\:          { return TOK_ZONE;      }
@@ -152,7 +153,7 @@ define\:        { define_created = 0; BEGIN(define_head);   }
                             str[yyleng - 2] = 0;
                             
                             if( !add_parameter_to_def( str ) ) yyterminate();
-                            // free( str );
+                            free( str );
                             if( parmcount == totalparm ){
                                 if( ! switch_to_define( )) yyterminate();
                             }
@@ -162,7 +163,7 @@ define\:        { define_created = 0; BEGIN(define_head);   }
                             str[yyleng - 2] = 0;
                             
                             if( !add_parameter_to_def( str ) ) yyterminate();
-                            // free( str );
+                            free( str );
                             if( parmcount == totalparm ){
                                 if( ! switch_to_define( )) yyterminate();
                             }

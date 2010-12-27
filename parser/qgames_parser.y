@@ -185,6 +185,7 @@ void  qgzprintf( char* format, ... ){
 %token    TOK_STANDARD_KNIGHT
 %token    TOK_STANDARD_PAWN
 %token    TOK_STANDARD_QUEEN
+%token    TOK_STANDARD_RECT
 %token    TOK_STANDARD_ROOK
 
 
@@ -487,8 +488,8 @@ instexpr:
                     yyerror( "Comando no reconocido" );
                     YYERROR;
                   }
-                  free( (char*)$1 );
                 }
+                free( (char*)$1 );
             }
     };
 
@@ -903,8 +904,8 @@ instruction_move:
         CHECK_TIPOJUEGO; 
         CHECK_LAST_PIEZA;
         change_to_code_mode(); 
-        tipojuego_start_code( tipojuego, MOVE, last_pieza, (char*)($1) );
-        free( (char*)($1) );
+        tipojuego_start_code( tipojuego, MOVE, last_pieza, ((char*)$1) );
+        if( $1 ) free( ((char*)$1) );
     }  code_list {
         tipojuego_end_code( tipojuego ) ;
     };
@@ -942,7 +943,7 @@ instruction_graph_colors:
 instruction_graph_dimensions:
     TOK_NUMBER     ','  TOK_NUMBER    { graph_dim1 = $1; graph_dim2 = $3; } |
     TOK_NUMBER     'x'  TOK_NUMBER    { graph_dim1 = $1; graph_dim2 = $3; } |
-    TOK_NUMBER          TOK_NUMBER    { graph_dim1 = $1; graph_dim2 = $2; qgzprintf( "%dx%d", $1, $2 ); };
+    TOK_NUMBER          TOK_NUMBER    { graph_dim1 = $1; graph_dim2 = $2; };
 
 instruction_graph_def_prelude:
     { graph_dim1 = 0; graph_dim2 = 0; html_color1 = 0; html_color2 = 0; } ;
@@ -984,7 +985,7 @@ instruction_graph:
             qgzprintf( "%s debe ser un tipo de pieza", ((char*)$3) );
             yyerror( "Debe ser un tipo de pieza" ); YYERROR;
         }
-        if( !tipojuego_graph_tipopieza_std( tipojuego, ((char*)$3), $2, graph_dim1, graph_dim2 ) ) YYERROR;
+        if( !tipojuego_graph_tipopieza_std( tipojuego, ((char*)$3), $2, graph_dim1, graph_dim2, 0 ) ) YYERROR;
         free( (char*)$3 );
     } |
     TOK_GRAPH_PIECE   word_or_string  instruction_graph_standard  instruction_graph_dimensions  {
@@ -993,7 +994,16 @@ instruction_graph:
             qgzprintf( "%s debe ser un tipo de pieza", ((char*)$2) );
             yyerror( "Debe ser un tipo de pieza" ); YYERROR;
         }
-        if( !tipojuego_graph_tipopieza_std( tipojuego, ((char*)$2), $3, graph_dim1, graph_dim2 ) ) YYERROR;
+        if( !tipojuego_graph_tipopieza_std( tipojuego, ((char*)$2), $3, graph_dim1, graph_dim2, 0 ) ) YYERROR;
+        free( (char*)$2 );
+    } |
+    TOK_GRAPH_PIECE   word_or_string  TOK_STANDARD_RECT   instruction_graph_dimensions TOK_HTMLCOLOR  {
+        CHECK_TIPOJUEGO;
+        if( qg_tipojuego_get_tipopieza( tipojuego, ((char*)$2) ) == NOT_FOUND ){ 
+            qgzprintf( "%s debe ser un tipo de pieza", ((char*)$2) );
+            yyerror( "Debe ser un tipo de pieza" ); YYERROR;
+        }
+        if( !tipojuego_graph_tipopieza_std( tipojuego, ((char*)$2), $3, graph_dim1, graph_dim2, $5 ) ) YYERROR;
         free( (char*)$2 );
     } |
     TOK_GRAPH_PIECE   word_or_string  word_or_string               { NOT_IMPLEMENTED_WARN( "graph-piece string" ); } |
@@ -1157,6 +1167,9 @@ instruction_sym:
     TOK_SYMMETRY     word_or_string  word_or_string  word_or_string { 
         CHECK_TIPOJUEGO;
         if( !tipojuego_add_simetria( tipojuego, ((char*)$2), (char*)$3, (char*)$4 ) ) YYERROR;
+        free( ((char*)$2) );
+        free( ((char*)$3) );
+        free( ((char*)$4) );
     } ;
 
 instruction_zone:
@@ -1175,6 +1188,8 @@ instruction_zone:
             for( i = 0; i < qgz_param_count; i ++ ){
                 tipojuego_add_cas_to_zona( tipojuego, (char*)qgz_param_list[i].par, color, zona );
             }
+            free( ((char*)$2) );
+            free( ((char*)$3) );
     } ;
 
 instruction:

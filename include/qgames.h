@@ -125,6 +125,7 @@ void   tipojuego_set_notacion_marca( Tipojuego* tj, char* marca, char* captura )
 #define   STANDARD_PAWN       5
 #define   STANDARD_QUEEN      6
 #define   STANDARD_ROOK       7
+#define   STANDARD_RECT       8
 
 #define   TYPE_CHECKERBOARD   1
 #define   TYPE_INTERSECTIONS  2
@@ -133,7 +134,7 @@ void   tipojuego_set_notacion_marca( Tipojuego* tj, char* marca, char* captura )
 
 int    tipojuego_graph_tablero_std     ( Tipojuego* tj, int board_number, char graphtype, int width, int height, int forecolor, int backcolor );
 void   tipojuego_graph_tablero_cus     ( Tipojuego* tj, int board_number, char* file  );
-int    tipojuego_graph_tipopieza_std   ( Tipojuego* tj, char* tpieza, int stdimg, int width, int height );
+int    tipojuego_graph_tipopieza_std   ( Tipojuego* tj, char* tpieza, int stdimg, int width, int height, int forecolor );
 int    tipojuego_graph_tipopieza_cus   ( Tipojuego* tj, char* tpieza, char* color, char* file );
 int    tipojuego_graph_casillero_std   ( Tipojuego* tj, char* casillero, int resaltado, int color );
 void   tipojuego_graph_casillero_cus   ( Tipojuego* tj, char* casillero, char* file );
