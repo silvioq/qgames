@@ -55,7 +55,7 @@ ending:
 ending:
              empata-si ahogado?
 
-sequence:    rojo negro
+sequence:    negro  rojo
 start:       A   rojo     49
 start:       U   negro    49
 

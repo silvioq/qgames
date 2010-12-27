@@ -1,0 +1,121 @@
+nuevo-juego  AfricaUniversity
+check-movidas  156
+check-piezas   0
+
+1. l10
+
+check-piezas   9
+check-piezas   negro  9
+
+nuevo-juego  AfricaUniversity
+check-movidas  156
+check-piezas   0
+1. b6 c12 2. e5 f11 3. f12 h7 4. i9 k8 5. g1 j15
+
+check-movidas   24
+
+
+nuevo-juego  AfricaUniversity
+1. b1 b8 2. b9 c15 3. e1 e8 4. f9 g15 5. h1 h8 6. j9 k4 7. k5 k15 8. n1 n8
+9. n9 0-1
+
+nuevo-juego  AfricaUniversity
+1. g4 k4 2. k5 b7 3. c1 d13 4. n4 g11 5. g12 l13 
+1-0
+
+check-piezas A rojo k4 1
+check-piezas A rojo b7 1
+check-piezas A rojo d13 1
+check-piezas A rojo g11 1
+check-piezas A rojo l13 1
+check-piezas U negro g4 1
+check-piezas U negro k5 1
+check-piezas U negro c1 1
+check-piezas U negro n4 1
+check-piezas U negro g12 1
+check-piezas U negro h4 1
+check-piezas U negro h5 1
+check-piezas U negro h6 1
+check-piezas U negro h7 1
+check-piezas U negro f7 1
+check-piezas U negro f6 1
+check-piezas U negro f5 1
+check-piezas U negro f4 1
+check-piezas A rojo l4 1
+check-piezas A rojo l3 1
+check-piezas A rojo l2 1
+check-piezas A rojo l1 1
+check-piezas A rojo j1 1
+check-piezas A rojo j2 1
+check-piezas A rojo k2 1
+check-piezas A rojo j3 1
+check-piezas A rojo j4 1
+check-piezas U negro l5 1
+check-piezas U negro l6 1
+check-piezas U negro l7 1
+check-piezas U negro l8 1
+check-piezas U negro j8 1
+check-piezas U negro j7 1
+check-piezas U negro j6 1
+check-piezas U negro j5 1
+check-piezas A rojo c7 1
+check-piezas A rojo c6 1
+check-piezas A rojo c5 1
+check-piezas A rojo c4 1
+check-piezas A rojo a4 1
+check-piezas A rojo a5 1
+check-piezas A rojo b5 1
+check-piezas A rojo a6 1
+check-piezas A rojo a7 1
+check-piezas U negro d1 1
+check-piezas U negro d2 1
+check-piezas U negro d3 1
+check-piezas U negro d4 1
+check-piezas U negro b4 1
+check-piezas U negro b3 1
+check-piezas U negro b2 1
+check-piezas U negro b1 1
+check-piezas A rojo e13 1
+check-piezas A rojo e12 1
+check-piezas A rojo e11 1
+check-piezas A rojo e10 1
+check-piezas A rojo c10 1
+check-piezas A rojo c11 1
+check-piezas A rojo d11 1
+check-piezas A rojo c12 1
+check-piezas A rojo c13 1
+check-piezas U negro o4 1
+check-piezas U negro o5 1
+check-piezas U negro o6 1
+check-piezas U negro o7 1
+check-piezas U negro m7 1
+check-piezas U negro m6 1
+check-piezas U negro m5 1
+check-piezas U negro m4 1
+check-piezas A rojo h11 1
+check-piezas A rojo h10 1
+check-piezas A rojo h9 1
+check-piezas A rojo h8 1
+check-piezas A rojo f8 1
+check-piezas A rojo f9 1
+check-piezas A rojo g9 1
+check-piezas A rojo f10 1
+check-piezas A rojo f11 1
+check-piezas U negro h12 1
+check-piezas U negro h13 1
+check-piezas U negro h14 1
+check-piezas U negro h15 1
+check-piezas U negro f15 1
+check-piezas U negro f14 1
+check-piezas U negro f13 1
+check-piezas U negro f12 1
+check-piezas A rojo m13 1
+check-piezas A rojo m12 1
+check-piezas A rojo m11 1
+check-piezas A rojo m10 1
+check-piezas A rojo k10 1
+check-piezas A rojo k11 1
+check-piezas A rojo l11 1
+check-piezas A rojo k12 1
+check-piezas A rojo k13 1
+
