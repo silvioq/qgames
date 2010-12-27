@@ -257,7 +257,7 @@ Casillero*   movida_casillero_destino( Movida* mov ){
     int  i;
     list_inicio( mov->acciones );
     while( acc = (Accion*)list_siguiente( mov->acciones ) ){
-        if( acc->destino ){
+        if( acc->destino &&  acc->tipo != ACCION_CREA ){
             if( acc->pieza_number == mov->piece_number ){
                 mov->destino = acc->destino;
                 return acc->destino;
