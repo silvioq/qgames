@@ -3095,7 +3095,7 @@ yyreduce:
             qgzprintf( "%s debe ser un tipo de pieza", ((char*)(yyvsp[(2) - (5)])) );
             yyerror( "Debe ser un tipo de pieza" ); YYERROR;
         }
-        if( !tipojuego_graph_tipopieza_std( tipojuego, ((char*)(yyvsp[(2) - (5)])), (yyvsp[(3) - (5)]), graph_dim1, graph_dim2, (yyvsp[(5) - (5)]) ) ) YYERROR;
+        if( !tipojuego_graph_tipopieza_std( tipojuego, ((char*)(yyvsp[(2) - (5)])), STANDARD_RECT, graph_dim1, graph_dim2, (yyvsp[(5) - (5)]) ) ) YYERROR;
         free( (char*)(yyvsp[(2) - (5)]) );
     }
     break;

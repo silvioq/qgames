@@ -1003,7 +1003,7 @@ instruction_graph:
             qgzprintf( "%s debe ser un tipo de pieza", ((char*)$2) );
             yyerror( "Debe ser un tipo de pieza" ); YYERROR;
         }
-        if( !tipojuego_graph_tipopieza_std( tipojuego, ((char*)$2), $3, graph_dim1, graph_dim2, $5 ) ) YYERROR;
+        if( !tipojuego_graph_tipopieza_std( tipojuego, ((char*)$2), STANDARD_RECT, graph_dim1, graph_dim2, $5 ) ) YYERROR;
         free( (char*)$2 );
     } |
     TOK_GRAPH_PIECE   word_or_string  word_or_string               { NOT_IMPLEMENTED_WARN( "graph-piece string" ); } |

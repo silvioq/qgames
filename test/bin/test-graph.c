@@ -36,11 +36,12 @@
 
 
 int  main(int argc, char** argv) {
-    Tipojuego* ajedrez;
+    Tipojuego* ajedrez, *africa;
     Partida*  p1, *p2;
-    char* filename = "../../games/Ajedrez.qgame";
+    char* filename ;
     int i;
 
+    qg_path_set( TEST_GAMESDIR );
     qgames_graph_image_dir( TEST_IMGDIR );
 
 #if GRAPH_ENABLED
@@ -70,9 +71,7 @@ int  main(int argc, char** argv) {
     int   size;
     void* datapng;
 
-    assert( ajedrez = qgz_parse_filename( filename, 0 ) );
-    
-
+    assert( ajedrez = qg_tipojuego_open( "Ajedrez" ) );
    
     p1 = qg_tipojuego_create_partida( ajedrez, NULL );
     assert( qg_partida_mover_pgn( p1, pgn ) );
@@ -93,6 +92,21 @@ int  main(int argc, char** argv) {
 
     qg_partida_free( p1 ); 
     puts( "" );
+
+    assert( africa = qg_tipojuego_open( "AfricaUniversity" ) );
+    p1 = qg_tipojuego_create_partida( africa, NULL );
+    assert( qg_partida_mover_pgn( p1, "l10 b6" ) );
+    assert( size = qg_partida_get_png( p1, GETPNG_HIGHLIGHT_RED, LAST_MOVE, &datapng ) );
+    {
+        FILE* fpng;
+        filename = "../../tmp/africa.png";
+        fpng = fopen( filename, "w" );
+        assert( fwrite( datapng, size, 1, fpng ) );
+        fclose( fpng ); 
+    }
+    qgames_free_png( datapng );  
+    qg_partida_free( p1 ); 
+
     return 0;
 
 #else

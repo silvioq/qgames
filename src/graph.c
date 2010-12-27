@@ -158,6 +158,7 @@ gdImagePtr  graph_tpieza_get_gd( Tipopieza* tp, int color ){
             break;
         case  STANDARD_RECT       :
             piece = NULL;
+            break;
         default:
             LOGPRINT( 2, "No esta definido pieza estandar %d", g->std );
             return NULL;
