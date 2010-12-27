@@ -24,6 +24,7 @@
 
 #include  <stdio.h>
 #include  <stdlib.h>
+#include  <string.h>
 
 #include  "config.h"
 #include  <qgames.h>
@@ -283,3 +284,4 @@ int    qgtest_file(FILE* f){
     yyin = f;
     return yylex();
 }
+

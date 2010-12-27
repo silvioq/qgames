@@ -166,6 +166,7 @@ void  partida_free( Partida* par ){
         }
         list_free( par->movimientos );
     }
+    if( par->resultado ) free( par->resultado );
     free( par );
 }
 
