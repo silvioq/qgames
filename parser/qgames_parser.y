@@ -122,6 +122,7 @@ void  qgzprintf( char* format, ... ){
 %token    TOK_DROP
 %token    TOK_ENDING
 %token    TOK_GAMETYPE  
+%token    TOK_LOGO
 %token    TOK_MARK
 %token    TOK_MOVE
 %token    TOK_MOVETYPE
@@ -1012,6 +1013,18 @@ instruction_graph:
     TOK_GRAPH_SQUARE  word_or_string  TOK_HIGHLIGHTED              { NOT_IMPLEMENTED_WARN( "graph-square highlighted" ); } ;
 
 
+/* ------------------------------------------------------------------------- */
+/* Defino el logo del juego                                                  */
+/* ------------------------------------------------------------------------- */
+instruction_logo:
+    TOK_LOGO     {
+        CHECK_TIPOJUEGO;
+        init_parameters();
+    }  word_or_string_list     { 
+        NOT_IMPLEMENTED_WARN( "logo moves" ); 
+    } ;
+
+
 
 /* ------------------------------------------------------------------------- */
 /* La definicion de los tipos de movidas                                     */
@@ -1201,6 +1214,7 @@ instruction:
     instruction_ending     |
     instruction_gametype   |
     instruction_graph      |
+    instruction_logo       |
     instruction_move       |
     instruction_movetype   |
     instruction_notation   |

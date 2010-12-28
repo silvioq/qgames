@@ -123,6 +123,7 @@ graph{BAR}square\:  { return  TOK_GRAPH_SQUARE; }
 grid                { return  TOK_GRID;    }
 highlight(ed)?      { return  TOK_HIGHLIGHTED;  }
 intersections?      { return  TOK_INTERSECTIONS; }
+logo\:              { return  TOK_LOGO;      }
 mark                { return  TOK_MARK;      }
 move\:              { return  TOK_MOVE;      }
 movetype\:          { return  TOK_MOVETYPE;  }
