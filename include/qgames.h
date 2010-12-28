@@ -138,6 +138,8 @@ int    tipojuego_graph_tipopieza_std   ( Tipojuego* tj, char* tpieza, int stdimg
 int    tipojuego_graph_tipopieza_cus   ( Tipojuego* tj, char* tpieza, char* color, char* file );
 int    tipojuego_graph_casillero_std   ( Tipojuego* tj, char* casillero, int resaltado, int color );
 void   tipojuego_graph_casillero_cus   ( Tipojuego* tj, char* casillero, char* file );
+int    qg_tipojuego_graph_logofile     ( Tipojuego* tj, char* file );
+int    qg_tipojuego_graph_logomoves    ( Tipojuego* tj, char* moves );
 
 /*
  * Esta funcion establece el directorio por defecto donde estan las
@@ -159,6 +161,7 @@ int    qg_tipojuego_get_tablero_png( Tipojuego* tj, int board_number, int flags,
                                           void** png, int* width, int* height );
 int    qg_tipojuego_get_tpieza_png( Tipojuego* tj, const char* color, const char* tpieza, int flags, 
                                           void** png, int* width, int* height );
+int    qg_tipojuego_get_logo( Tipojuego* tj, void** png, int* width, int* height );
 void   qgames_free_pgn( void* );
 
 
