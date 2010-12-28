@@ -13,6 +13,7 @@
 #define   TIPOGRAPH_TABLERO    1
 #define   TIPOGRAPH_TPIEZA     2
 #define   TIPOGRAPH_CASILLERO  3
+#define   TIPOGRAPH_LOGO       4
 
 typedef struct  StrGraphdef {
     char    tipo;

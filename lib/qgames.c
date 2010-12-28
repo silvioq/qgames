@@ -146,6 +146,22 @@ DLL_PUBLIC int         qg_tipojuego_get_dims( Tipojuego* tj ){
     return  dimensiones;
 }
 
+DLL_PUBLIC int     qg_tipojuego_graph_logofile     ( Tipojuego* tj, char* file ){
+#if  GRAPH_ENABLED
+    if( !tj->graphdefs ) tj->graphdefs = list_nueva( NULL );
+    Graphdef* g = malloc( sizeof( Graphdef ) );
+    memset( g, 0, sizeof( Graphdef ) );
+    g->tipo = TIPOGRAPH_LOGO;
+    g->cus  = strdup( file );
+    list_agrega( tj->graphdefs, g );
+    // TJSETERROR( tj, "Tipojuego con archivo", "archivo" );
+    return 1;
+#else
+    LOGPRINT( 2, "No compilado con el modulo GD juego = %s", qg_tipojuego_get_nombre( tj ) );
+    return 0;
+#endif
+}
+
 
 /*
  * Devuelve el nombre del color de acuerdo a su numero
