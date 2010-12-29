@@ -1021,7 +1021,14 @@ instruction_logo:
         CHECK_TIPOJUEGO;
         init_parameters();
     }  word_or_string_list     { 
-        NOT_IMPLEMENTED_WARN( "logo moves" ); 
+        if( qgz_param_count == 1 && strstr( (char*)(qgz_param_list[0].par ), "png" ) ){
+            qg_tipojuego_graph_logofile( tipojuego, (char*)(qgz_param_list[0].par) );
+        } else {
+            int i;
+            for( i = 0; i < qgz_param_count; i ++ ){
+                qg_tipojuego_graph_logopng( tipojuego, (char*)(qgz_param_list[i].par) );
+            }
+        }
     } ;
 
 
