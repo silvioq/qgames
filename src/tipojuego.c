@@ -532,7 +532,7 @@ int    tipojuego_graph_tipopieza_std   ( Tipojuego* tj, char* tpieza, int stdimg
  * Setea el logo para el tipo de juego, que puede ser un archivo
  * o una serie de movidas establecidas en un PNG
  * */
-int     tipojuego_graph_logo( Tipojuego* tj, char* file, char* png ){
+int     tipojuego_graph_logo( Tipojuego* tj, char* file, char* pgn ){
 #if  GRAPH_ENABLED
     Graphdef* g = NULL;
     if( !TJVALIDO( tj ) ) return 0;
@@ -553,18 +553,18 @@ int     tipojuego_graph_logo( Tipojuego* tj, char* file, char* png ){
         if( file ){
             g->cus  = strdup( file );
         } else {
-            g->cus  = strdup( png );
-            g->std  = STANDARD_FROM_PNG;
+            g->cus  = strdup( pgn );
+            g->std  = STANDARD_FROM_PGN;
         }
         list_agrega( tj->graphdefs, g );
     } else {
-        if( g->std == STANDARD_FROM_PNG && png ){
-            char* pngamp = g->cus ;
-            g->cus = malloc( strlen( pngamp ) + 3 + strlen( png ) );
-            sprintf( g->cus, "%s %s", pngamp, png );
-            free( pngamp );
+        if( g->std == STANDARD_FROM_PGN && pgn ){
+            char* pgnamp = g->cus ;
+            g->cus = malloc( strlen( pgnamp ) + 3 + strlen( pgn ) );
+            sprintf( g->cus, "%s %s", pgnamp, pgn );
+            free( pgnamp );
         } else {
-            TJSETERROR( tj, "Error definicion de logo (ya definido)", g->std );
+            TJSETERROR( tj, "Error definicion de logo (ya definido)", g->cus );
             return 0;
         }
     }

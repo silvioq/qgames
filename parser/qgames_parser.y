@@ -1026,7 +1026,7 @@ instruction_logo:
         } else {
             int i;
             for( i = 0; i < qgz_param_count; i ++ ){
-                qg_tipojuego_graph_logopng( tipojuego, (char*)(qgz_param_list[i].par) );
+                qg_tipojuego_graph_logopgn( tipojuego, (char*)(qgz_param_list[i].par) );
             }
         }
     } ;

@@ -151,8 +151,8 @@ DLL_PUBLIC int     qg_tipojuego_graph_logofile     ( Tipojuego* tj, char* file )
     return  tipojuego_graph_logo( tj, file, NULL );
 }
 
-DLL_PUBLIC int     qg_tipojuego_graph_logopng      ( Tipojuego* tj, char* png ){
-    return  tipojuego_graph_logo( tj, NULL, png );
+DLL_PUBLIC int     qg_tipojuego_graph_logopgn      ( Tipojuego* tj, char* pgn ){
+    return  tipojuego_graph_logo( tj, NULL, pgn );
 }
 
 /*
