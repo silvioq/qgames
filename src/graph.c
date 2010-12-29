@@ -39,11 +39,13 @@
 
 #if  GRAPH_ENABLED
 static char* qgames_image_dir = IMGDIR;
+#define   HIGHLIGHT_SIZE  3.0
+static    gdImagePtr  graph_dibujar_posicion( Tipojuego* tj, int flags, Posicion* pos, Movida* mov );
 
 /*
  * Esta funcion arma un tablero tipo damero (checkerboard)
  * */
-gdImagePtr  graph_dibujar_checkerboard( int w, int h, int cw, int ch, int f, int b ){
+static    gdImagePtr  graph_dibujar_checkerboard( int w, int h, int cw, int ch, int f, int b ){
     int i, j;
     gdImagePtr  gd = gdImageCreateTrueColor( w, h );
     int  fondo  = gdImageColorAllocate( gd, b >> 16, ( b & 0xFF00 ) >> 8 , b & 0xFF );
@@ -278,6 +280,87 @@ gdImagePtr    graph_get_tablero_png( Tipojuego* tj, int board_number, int flags 
     }
     return  gd;
 }
+
+
+
+static    gdImagePtr  graph_dibujar_posicion( Tipojuego* tj, int flags, Posicion* pos, Movida* mov ){
+    int tablero_flags = ( flags & GETPNG_ROTADO );
+    int i;
+    gdImagePtr gdt = graph_get_tablero_png( tj, tj->tablero_actual, tablero_flags );
+    if( !gdt ){
+        LOGPRINT( 2, "No es posible obtener la imagen del tablero para %s", tj->nombre );
+        return  0;
+    }
+    gdImagePtr gd = gdImageCreateTrueColor( gdImageSX( gdt ), gdImageSY( gdt ) );
+    gdImageCopy( gd, gdt, 0, 0, 0, 0, gdImageSX( gdt ), gdImageSY( gdt ) );
+
+    Tablero* tt = tipojuego_get_tablero( tj, tj->tablero_actual ); 
+
+    // Primero las marcas en el tablero, correspondientes al ultimo movimiento
+    if( GETPNG_HIGHLIGHTED( flags ) && mov ){
+        int  marca ;
+        int  rojo, verde, azul;
+        int  posx, posy;
+        rojo  = ( flags & GETPNG_HIGHLIGHT_RED ? 255 : 0 );
+        verde = ( flags & GETPNG_HIGHLIGHT_GREEN ? 255 : 0 );
+        azul  = ( flags & GETPNG_HIGHLIGHT_BLUE ? 255 : 0 );
+        marca = gdImageColorAllocate( gd, rojo, verde, azul );
+        gdImageSetThickness( gd, HIGHLIGHT_SIZE );
+        int i;
+        for( i = 0; i < mov->acciones->entradas; i ++ ){
+            Accion* acc = mov->acciones->data[i];
+            if( acc->destino ){
+                if( flags & GETPNG_ROTADO ){
+                    posx = ( tt->graphdef->w / tt->dimmax[0] ) * ( tt->dimmax[0] - acc->destino->posicion[0] - 1 ) +
+                            tt->graphdef->ox ;
+                    posy = ( tt->graphdef->h / tt->dimmax[1] ) * ( acc->destino->posicion[1] ) + 
+                            tt->graphdef->oy;
+                } else {
+                    posx = ( tt->graphdef->w / tt->dimmax[0] ) * acc->destino->posicion[0] +
+                            tt->graphdef->ox ;
+                    posy = ( tt->graphdef->h / tt->dimmax[1] ) * ( acc->destino->posicion[1] + 1 ) - 
+                            tt->graphdef->oy;
+                    posy = tt->graphdef->h - posy ;
+                }
+            }
+            gdImageRectangle( gd, posx + HIGHLIGHT_SIZE / 2.0, posy + HIGHLIGHT_SIZE / 2.0, 
+                                  posx + ( tt->graphdef->w / tt->dimmax[0] ) - HIGHLIGHT_SIZE / 2.0, 
+                                  posy + ( tt->graphdef->h / tt->dimmax[1] ) - HIGHLIGHT_SIZE / 2.0,
+                                marca );
+            
+        }
+    }
+
+    // Ahora las piezas
+    for( i = 0; i < pos->piezas_count; i ++ ){
+        Pieza* p = & pos->piezas[i];
+        int  posx, posy;
+        if( !CASILLERO_VALIDO( p->casillero ) ) continue;
+        gdImagePtr gdp = graph_tpieza_get_gd( p->tpieza, p->color );
+        if( !gdp ){
+          gdImageDestroy( gd );
+          return 0;
+        }
+        // Aca tengo que entontrar la posicion relativa de la pieza
+        // y colocar el dibujo. No es otra cosa que la posicion
+        // relativa del casillero por el tamaño (tablero->g->w / tablero->dimmax[0])
+        // mas el offset del tablero
+        if( flags & GETPNG_ROTADO ){
+            posx = ( tt->graphdef->w / tt->dimmax[0] ) * ( tt->dimmax[0] - p->casillero->posicion[0] - 1 ) +
+                     tt->graphdef->ox ;
+            posy = ( tt->graphdef->h / tt->dimmax[1] ) * ( p->casillero->posicion[1] ) + 
+                    tt->graphdef->oy;
+        } else {
+            posx = ( tt->graphdef->w / tt->dimmax[0] ) * p->casillero->posicion[0] +
+                     tt->graphdef->ox ;
+            posy = ( tt->graphdef->h / tt->dimmax[1] ) * ( p->casillero->posicion[1] + 1 ) - 
+                    tt->graphdef->oy;
+            posy = tt->graphdef->h - posy  ;
+        }
+        gdImageCopy( gd, gdp, posx, posy, 0, 0, gdImageSX( gdp ), gdImageSY( gdp ) );
+    }
+    return gd;
+}
 #endif
 
 
@@ -361,11 +444,9 @@ void   graph_free_png( void* png ){
  * la variable movida ...
  * */
 
-#define   HIGHLIGHT_SIZE  3.0
 
 int         partida_get_png( Partida* par, int flags, int movida, void** png ){
 #if  GRAPH_ENABLED 
-    int tablero_flags = ( flags & GETPNG_ROTADO );
     int i;
     Posicion* pos;
     Movida* mov;
@@ -392,80 +473,9 @@ int         partida_get_png( Partida* par, int flags, int movida, void** png ){
         pos = mov->pos;
         mov = (Movida*) par->movimientos->data[movida-1];
     }
-    gdImagePtr gdt = graph_get_tablero_png( par->tjuego, par->tjuego->tablero_actual, tablero_flags );
-    if( !gdt ){
-        LOGPRINT( 2, "No es posible obtener la imagen del tablero para %s en partida %s", par->tjuego->nombre,
-                       par->id );
-        return  0;
-    }
-    gdImagePtr gd = gdImageCreateTrueColor( gdImageSX( gdt ), gdImageSY( gdt ) );
-    gdImageCopy( gd, gdt, 0, 0, 0, 0, gdImageSX( gdt ), gdImageSY( gdt ) );
-
-    Tablero* tt = tipojuego_get_tablero( par->tjuego, par->tjuego->tablero_actual ); 
-
-    // Primero las marcas en el tablero, correspondientes al ultimo movimiento
-    if( GETPNG_HIGHLIGHTED( flags ) && mov ){
-        int  marca ;
-        int  rojo, verde, azul;
-        int  posx, posy;
-        rojo  = ( flags & GETPNG_HIGHLIGHT_RED ? 255 : 0 );
-        verde = ( flags & GETPNG_HIGHLIGHT_GREEN ? 255 : 0 );
-        azul  = ( flags & GETPNG_HIGHLIGHT_BLUE ? 255 : 0 );
-        marca = gdImageColorAllocate( gd, rojo, verde, azul );
-        gdImageSetThickness( gd, HIGHLIGHT_SIZE );
-        for( i = 0; i < mov->acciones->entradas; i ++ ){
-            Accion* acc = mov->acciones->data[i];
-            if( acc->destino ){
-                if( flags & GETPNG_ROTADO ){
-                    posx = ( tt->graphdef->w / tt->dimmax[0] ) * ( tt->dimmax[0] - acc->destino->posicion[0] - 1 ) +
-                            tt->graphdef->ox ;
-                    posy = ( tt->graphdef->h / tt->dimmax[1] ) * ( acc->destino->posicion[1] ) + 
-                            tt->graphdef->oy;
-                } else {
-                    posx = ( tt->graphdef->w / tt->dimmax[0] ) * acc->destino->posicion[0] +
-                            tt->graphdef->ox ;
-                    posy = ( tt->graphdef->h / tt->dimmax[1] ) * ( acc->destino->posicion[1] + 1 ) - 
-                            tt->graphdef->oy;
-                    posy = tt->graphdef->h - posy ;
-                }
-            }
-            gdImageRectangle( gd, posx + HIGHLIGHT_SIZE / 2.0, posy + HIGHLIGHT_SIZE / 2.0, 
-                                  posx + ( tt->graphdef->w / tt->dimmax[0] ) - HIGHLIGHT_SIZE / 2.0, 
-                                  posy + ( tt->graphdef->h / tt->dimmax[1] ) - HIGHLIGHT_SIZE / 2.0,
-                                marca );
-            
-        }
-    }
-
-    // Ahora las piezas
-    for( i = 0; i < pos->piezas_count; i ++ ){
-        Pieza* p = & pos->piezas[i];
-        int  posx, posy;
-        if( !CASILLERO_VALIDO( p->casillero ) ) continue;
-        gdImagePtr gdp = graph_tpieza_get_gd( p->tpieza, p->color );
-        if( !gdp ){
-          gdFree( gd );
-          return 0;
-        }
-        // Aca tengo que entontrar la posicion relativa de la pieza
-        // y colocar el dibujo. No es otra cosa que la posicion
-        // relativa del casillero por el tamaño (tablero->g->w / tablero->dimmax[0])
-        // mas el offset del tablero
-        if( flags & GETPNG_ROTADO ){
-            posx = ( tt->graphdef->w / tt->dimmax[0] ) * ( tt->dimmax[0] - p->casillero->posicion[0] - 1 ) +
-                     tt->graphdef->ox ;
-            posy = ( tt->graphdef->h / tt->dimmax[1] ) * ( p->casillero->posicion[1] ) + 
-                    tt->graphdef->oy;
-        } else {
-            posx = ( tt->graphdef->w / tt->dimmax[0] ) * p->casillero->posicion[0] +
-                     tt->graphdef->ox ;
-            posy = ( tt->graphdef->h / tt->dimmax[1] ) * ( p->casillero->posicion[1] + 1 ) - 
-                    tt->graphdef->oy;
-            posy = tt->graphdef->h - posy  ;
-        }
-        gdImageCopy( gd, gdp, posx, posy, 0, 0, gdImageSX( gdp ), gdImageSY( gdp ) );
-    }
     int size = 0;
+    gdImagePtr gd = graph_dibujar_posicion( par->tjuego, flags, pos, mov );
+    if( !gd ) return 0;
     if( png ) *png = gdImagePngPtr( gd, &size );
     gdImageDestroy( gd );
     return size;
@@ -477,6 +487,64 @@ int         partida_get_png( Partida* par, int flags, int movida, void** png ){
     
 }
 
+int    tipojuego_get_logo( Tipojuego* tj, void** png, int* width, int* height ){
+#if GRAPH_ENABLED
+    Graphdef*  g = NULL;
+    gdImagePtr gd = NULL;
+    int i;
+    for( i = 0; i < tj->graphdefs->entradas; i ++ ){
+        Graphdef* g2 = tj->graphdefs->data[i];
+        if( g2->tipo == TIPOGRAPH_LOGO ){
+            g = g2;
+            break;
+        }
+    }
+    if( !g ){
+        LOGPRINT( 5, "Tipojuego %s no tiene definido logo ... va posicion inicial", tj->nombre );
+        g = malloc( sizeof( Graphdef ) );
+        memset( g, 0, sizeof( Graphdef ) );
+        if( !tj->graphdefs ) tj->graphdefs = list_nueva( NULL );
+        g->tipo = TIPOGRAPH_LOGO;
+        list_agrega( tj->graphdefs, g );
+    }
+    if( g->gd ){
+        gd = g->gd;
+    } else {
+        if( !g->cus ){
+            gd = graph_dibujar_posicion( tj, 0, tj->inicial, NULL );
+            g->gd = gd;
+        } else if ( g->std == STANDARD_FROM_PGN )  {
+            Partida* pp = partida_new( tj, "from_logo" );
+            partida_mover_notacion( pp, g->cus );
+            gd = graph_dibujar_posicion( tj, 0, pp->pos, partida_ultimo_movimiento( pp ) );
+            g->gd = gd;
+        } else {
+            FILE* fpng = fopen( g->cus, "r" );
+            if( !fpng ){
+                LOGPRINT( 2, "No puede abrir %s", g->cus );
+                return 0;
+            }
+            gd = gdImageCreateFromPng( fpng );
+            g->gd = gd;
+            fclose( fpng );
+        }
+    }
+
+    if( !gd ){
+        LOGPRINT( 2, "No puede generarse logo para %s", tj->nombre );
+        return 0;
+    }
+    int size = 0;
+    if( png ) *png = gdImagePngPtr( gd, &size );
+    if( width  ) *width  = gdImageSX( gd );
+    if( height ) *height = gdImageSY( gd );
+    return size;
+
+#else
+    LOGPRINT( 2, "No compilado con el modulo GD tjuego = %s", tj->nombre );
+    return 0;
+#endif
+}
 
 
 
