@@ -339,6 +339,7 @@ int   code_execute_rule( void* z, int pc );
 Regla*  code_regla_actual( Tipojuego* tj );
 
 /* Algunas de graficos */
+int     tipojuego_graph_logo( Tipojuego* tj, char* file, char* png );
 
 void   graph_free_png( void* png );
 void   graph_image_dir( const char* imagedir );

@@ -528,6 +528,53 @@ int    tipojuego_graph_tipopieza_std   ( Tipojuego* tj, char* tpieza, int stdimg
     return 1;
 }
 
+/*
+ * Setea el logo para el tipo de juego, que puede ser un archivo
+ * o una serie de movidas establecidas en un PNG
+ * */
+int     tipojuego_graph_logo( Tipojuego* tj, char* file, char* png ){
+#if  GRAPH_ENABLED
+    Graphdef* g = NULL;
+    if( !TJVALIDO( tj ) ) return 0;
+    if( !tj->graphdefs ) tj->graphdefs = list_nueva( NULL );
+    int i;
+    for( i = 0; i < tj->graphdefs->entradas; i ++ ){
+        Graphdef* gg = (Graphdef*)tj->graphdefs->data[i];
+        if( gg->tipo == TIPOGRAPH_LOGO ){
+            g = gg;
+            break;
+        }
+    }
+
+    if( !g ){
+        Graphdef* g = malloc( sizeof( Graphdef ) );
+        memset( g, 0, sizeof( Graphdef ) );
+        g->tipo = TIPOGRAPH_LOGO;
+        if( file ){
+            g->cus  = strdup( file );
+        } else {
+            g->cus  = strdup( png );
+            g->std  = STANDARD_FROM_PNG;
+        }
+        list_agrega( tj->graphdefs, g );
+    } else {
+        if( g->std == STANDARD_FROM_PNG && png ){
+            char* pngamp = g->cus ;
+            g->cus = malloc( strlen( pngamp ) + 3 + strlen( png ) );
+            sprintf( g->cus, "%s %s", pngamp, png );
+            free( pngamp );
+        } else {
+            TJSETERROR( tj, "Error definicion de logo (ya definido)", g->std );
+            return 0;
+        }
+    }
+    return 1;
+#else
+    LOGPRINT( 2, "No compilado con el modulo GD juego = %s", qg_tipojuego_get_nombre( tj ) );
+    return 1;
+#endif
+}
+
 
 /*
  * Esta funcion setea la marca de notacion. La primera
