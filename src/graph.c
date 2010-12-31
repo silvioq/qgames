@@ -517,7 +517,7 @@ int    tipojuego_get_logo( Tipojuego* tj, void** png, int* width, int* height ){
             g->gd = gd;
         } else if ( g->std == STANDARD_FROM_PGN )  {
             Partida* pp = partida_new( tj, "from_logo" );
-            partida_mover_notacion( pp, g->cus );
+            partida_mover_serie( pp, g->cus );
             gd = graph_dibujar_posicion( tj, 0, pp->pos, partida_ultimo_movimiento( pp ) );
             g->gd = gd;
         } else {
