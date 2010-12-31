@@ -33,7 +33,7 @@ build_triplet = @build@
 host_triplet = @host@
 check_PROGRAMS = test-generic$(EXEEXT) test-tateti$(EXEEXT) \
 	test-gomoku$(EXEEXT) test-ajedrezq$(EXEEXT) test-dump$(EXEEXT) \
-	test-graph$(EXEEXT) test-historial$(EXEEXT) \
+	test-graph$(EXEEXT) test-historial$(EXEEXT) test-logo$(EXEEXT) \
 	test-movidas-posibles-data$(EXEEXT) test-juego-valido$(EXEEXT)
 subdir = test/bin
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
@@ -59,6 +59,8 @@ am_test_historial_OBJECTS = test-historial.$(OBJEXT)
 test_historial_OBJECTS = $(am_test_historial_OBJECTS)
 am_test_juego_valido_OBJECTS = test-juego-valido.$(OBJEXT)
 test_juego_valido_OBJECTS = $(am_test_juego_valido_OBJECTS)
+am_test_logo_OBJECTS = test-logo.$(OBJEXT)
+test_logo_OBJECTS = $(am_test_logo_OBJECTS)
 am_test_movidas_posibles_data_OBJECTS =  \
 	test-movidas-posibles-data.$(OBJEXT)
 test_movidas_posibles_data_OBJECTS =  \
@@ -80,11 +82,13 @@ LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
 SOURCES = $(test_ajedrezq_SOURCES) $(test_dump_SOURCES) test-generic.c \
 	$(test_gomoku_SOURCES) $(test_graph_SOURCES) \
 	$(test_historial_SOURCES) $(test_juego_valido_SOURCES) \
-	$(test_movidas_posibles_data_SOURCES) $(test_tateti_SOURCES)
+	$(test_logo_SOURCES) $(test_movidas_posibles_data_SOURCES) \
+	$(test_tateti_SOURCES)
 DIST_SOURCES = $(test_ajedrezq_SOURCES) $(test_dump_SOURCES) \
 	test-generic.c $(test_gomoku_SOURCES) $(test_graph_SOURCES) \
 	$(test_historial_SOURCES) $(test_juego_valido_SOURCES) \
-	$(test_movidas_posibles_data_SOURCES) $(test_tateti_SOURCES)
+	$(test_logo_SOURCES) $(test_movidas_posibles_data_SOURCES) \
+	$(test_tateti_SOURCES)
 ETAGS = etags
 CTAGS = ctags
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
@@ -214,6 +218,7 @@ test_gomoku_SOURCES = test-gomoku.c
 test_ajedrezq_SOURCES = test-ajedrezq.c
 test_dump_SOURCES = test-dump.c
 test_graph_SOURCES = test-graph.c
+test_logo_SOURCES = test-logo.c
 test_historial_SOURCES = test-historial.c
 test_movidas_posibles_data_SOURCES = test-movidas-posibles-data.c
 test_juego_valido_SOURCES = test-juego-valido.c
@@ -227,6 +232,8 @@ test_dump_DEPENDENCIES = $(DEPENDENCIES)
 test_dump_LDADD = $(DEPENDENCIES)
 test_graph_DEPENDENCIES = $(DEPENDENCIES)
 test_graph_LDADD = $(DEPENDENCIES)
+test_logo_DEPENDENCIES = $(DEPENDENCIES)
+test_logo_LDADD = $(DEPENDENCIES)
 test_generic_DEPENDENCIES = $(DEPENDENCIES)
 test_generic_LDADD = $(DEPENDENCIES)
 test_historial_DEPENDENCIES = $(DEPENDENCIES)
@@ -235,17 +242,6 @@ test_movidas_posibles_data_DEPENDENCIES = $(DEPENDENCIES)
 test_movidas_posibles_data_LDADD = $(DEPENDENCIES)
 test_juego_valido_DEPENDENCIES = $(DEPENDENCIES)
 test_juego_valido_LDADD = $(DEPENDENCIES) $(top_builddir)/vm/libqcode.a $(top_builddir)/src/libqgames-core.a
-
-# test_juego_valido_DEPENDENCIES  =  \
-# 	$(top_builddir)/parser/libpgn-parser.a \
-# 	$(top_builddir)/parser/libqgames-parser.a \
-# 	$(top_builddir)/src/libqgames-core.a \
-# 	$(top_builddir)/vm/libqcode.a
-# test_juego_valido_LDADD         =  \
-# 	$(top_builddir)/parser/libpgn-parser.a \
-# 	$(top_builddir)/parser/libqgames-parser.a \
-# 	$(top_builddir)/src/libqgames-core.a \
-# 	$(top_builddir)/vm/libqcode.a
 AM_CFLAGS = -I$(top_srcdir)/include -I$(top_srcdir)/common -I$(top_srcdir)/qcode/src \
 				-DTEST_IMGDIR=\"$(top_srcdir)/images\"  \
 				-DTEST_GAMESDIR=\"$(top_srcdir)/games\"
@@ -313,6 +309,9 @@ test-historial$(EXEEXT): $(test_historial_OBJECTS) $(test_historial_DEPENDENCIES
 test-juego-valido$(EXEEXT): $(test_juego_valido_OBJECTS) $(test_juego_valido_DEPENDENCIES) 
 	@rm -f test-juego-valido$(EXEEXT)
 	$(LINK) $(test_juego_valido_OBJECTS) $(test_juego_valido_LDADD) $(LIBS)
+test-logo$(EXEEXT): $(test_logo_OBJECTS) $(test_logo_DEPENDENCIES) 
+	@rm -f test-logo$(EXEEXT)
+	$(LINK) $(test_logo_OBJECTS) $(test_logo_LDADD) $(LIBS)
 test-movidas-posibles-data$(EXEEXT): $(test_movidas_posibles_data_OBJECTS) $(test_movidas_posibles_data_DEPENDENCIES) 
 	@rm -f test-movidas-posibles-data$(EXEEXT)
 	$(LINK) $(test_movidas_posibles_data_OBJECTS) $(test_movidas_posibles_data_LDADD) $(LIBS)
@@ -333,6 +332,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-graph.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-historial.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-juego-valido.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-logo.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-movidas-posibles-data.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-tateti.Po@am__quote@
 

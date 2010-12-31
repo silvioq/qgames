@@ -348,6 +348,10 @@ DLL_PUBLIC   int    qg_tipojuego_get_tpieza_png( Tipojuego* tj, const char* colo
                                                 void** png, int* width, int* height){
     return  tipojuego_get_tpieza_png( tj,(char*) color,(char*) tpieza, flags, png, width, height );
 }
+DLL_PUBLIC   int    qg_tipojuego_get_logo( Tipojuego* tj, void** png, int* width, int* height ){
+  return     tipojuego_get_logo( tj, png, width, height );
+}
+
 DLL_PUBLIC   void        qgames_free_png( void* png){ graph_free_png( png ); }
 DLL_PUBLIC   void        qgames_graph_image_dir( const char* imagedir ){ graph_image_dir( imagedir ); }
 DLL_PUBLIC   int         qg_partida_dump( Partida* par, void** data, int* size ){

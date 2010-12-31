@@ -492,11 +492,13 @@ int    tipojuego_get_logo( Tipojuego* tj, void** png, int* width, int* height ){
     Graphdef*  g = NULL;
     gdImagePtr gd = NULL;
     int i;
-    for( i = 0; i < tj->graphdefs->entradas; i ++ ){
-        Graphdef* g2 = tj->graphdefs->data[i];
-        if( g2->tipo == TIPOGRAPH_LOGO ){
-            g = g2;
-            break;
+    if( tj->graphdefs ){
+        for( i = 0; i < tj->graphdefs->entradas; i ++ ){
+            Graphdef* g2 = tj->graphdefs->data[i];
+            if( g2->tipo == TIPOGRAPH_LOGO ){
+                g = g2;
+                break;
+            }
         }
     }
     if( !g ){

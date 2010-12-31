@@ -1007,6 +1007,8 @@ instruction_graph:
         if( !tipojuego_graph_tipopieza_std( tipojuego, ((char*)$2), STANDARD_RECT, graph_dim1, graph_dim2, $5 ) ) YYERROR;
         free( (char*)$2 );
     } |
+    TOK_GRAPH_PIECE   word_or_string  word_or_string   TOK_STANDARD_RECT   instruction_graph_dimensions TOK_HTMLCOLOR
+                                                               { NOT_IMPLEMENTED_WARN( "graph-piece standard-rect" ); } |
     TOK_GRAPH_PIECE   word_or_string  word_or_string               { NOT_IMPLEMENTED_WARN( "graph-piece string" ); } |
     TOK_GRAPH_SQUARE  word_or_string  word_or_string               { NOT_IMPLEMENTED_WARN( "graph-square file" ); } |
     TOK_GRAPH_SQUARE  word_or_string  TOK_HTMLCOLOR                { NOT_IMPLEMENTED_WARN( "graph-square color" ); } |

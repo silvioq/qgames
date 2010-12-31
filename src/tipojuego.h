@@ -340,6 +340,7 @@ Regla*  code_regla_actual( Tipojuego* tj );
 
 /* Algunas de graficos */
 int     tipojuego_graph_logo( Tipojuego* tj, char* file, char* pgn );
+int     tipojuego_get_logo( Tipojuego* tj, void** png, int* width, int* height );
 
 void   graph_free_png( void* png );
 void   graph_image_dir( const char* imagedir );
