@@ -62,3 +62,6 @@ start:       U   negro    49
 graph-board: grid   450 450   $000000  $FFEE11
 graph-piece: A  standard-rect  30  30   $FF0000
 graph-piece: U  standard-rect  30  30   $000000
+
+logo:  j7  f10 
+

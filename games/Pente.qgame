@@ -106,5 +106,7 @@ start:       gema   blanco   99
 start:       gema   negro    99
 
 
-graph-board: grid   390 390   $000000  $FFFF00
+graph-board: grid   390 390   $000000  $DDAA00
 graph-piece: standard-gem  gema   30 30
+
+logo: h8 g7 i9
