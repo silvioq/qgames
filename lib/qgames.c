@@ -342,11 +342,7 @@ DLL_PUBLIC   int         qg_partida_movhist_data( Partida* par, int mov, Movdata
     Pieza*  pie = movida_pieza( mmm );
     Casillero* ori = movida_casillero_origen( mmm );
     Casillero* des = movida_casillero_destino( mmm );
-    Pieza*  piecap;
-    Tipopieza * tpieza_tr;
-    int  color_tr;
-    int  es_cap    = movida_es_captura( mmm, &piecap );
-    int  es_tr     = movida_es_transformacion( mmm, &color_tr, &tpieza_tr );
+    int  i;
 
     memset( movdata, 0, sizeof( Movdata ) );
     movdata->numero      = mov;
@@ -356,16 +352,29 @@ DLL_PUBLIC   int         qg_partida_movhist_data( Partida* par, int mov, Movdata
     movdata->color       = (char*) tipojuego_get_colorname( par->tjuego, pie->color );
     movdata->origen      = ( ori ? ori->nombre : NULL );
     movdata->destino     = ( des ? des->nombre : NULL );
-    if( es_cap ){
-        movdata->captura = 1;
-        movdata->captura_pieza = piecap->tpieza->nombre;
-        movdata->captura_color = (char*) tipojuego_get_colorname( par->tjuego, piecap->color );
-        movdata->captura_casillero = ( piecap->casillero ? piecap->casillero->nombre : NULL );
-    }
-    if( es_tr ){
-        movdata->transforma = 1;
-        movdata->transforma_tipo = tpieza_tr->nombre;
-        movdata->transforma_color = (char*) tipojuego_get_colorname( par->tjuego, color_tr );
+    for( i = 0; i < mmm->acciones->entradas; i ++ ){
+        Accion* acc = mmm->acciones->data[i];
+        switch( acc->tipo ){
+            case  ACCION_CREA:
+                movdata->crea ++;
+                break;
+            case  ACCION_CAPTURA:
+                movdata->captura ++;
+                if( movdata->captura == 1 ){
+                    Pieza* piecap = &(mmm->pos->piezas[acc->pieza_number]);
+                    movdata->captura_pieza = piecap->tpieza->nombre;
+                    movdata->captura_color = (char*) tipojuego_get_colorname( par->tjuego, piecap->color );
+                    movdata->captura_casillero = ( piecap->casillero ? piecap->casillero->nombre : NULL );
+                }
+                break;
+            case  ACCION_TRANSFORMA:
+                movdata->transforma ++;
+                if( movdata->transforma == 1 ){
+                    movdata->transforma_tipo = acc->tpieza->nombre;
+                    movdata->transforma_color = (char*) tipojuego_get_colorname( par->tjuego, acc->color );
+                }
+                break;
+        }
     }
     return 1;
 }

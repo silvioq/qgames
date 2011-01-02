@@ -188,34 +188,11 @@ int         qg_partida_final         ( Partida* par, char** resultado );
 const char* qg_partida_color         ( Partida* par );  // Color que mueve
 int         qg_partida_es_continuacion( Partida* par );
 
-/*
- * Esta serie de funciones permiten consultar las movidas posibles
- * */
-int         qg_partida_movidas_analizadas( Partida* par );
-int         qg_partida_movidas_count ( Partida* par );
-int         qg_partida_movidas_data  ( Partida* par, int num, char** notacion );
-int         qg_partida_movidas_pieza ( Partida* par, int num, 
-                                            char** origen, char** tpieza, char** color, 
-                                            char** destino, char** ttpieza, char** tcolor );
-int         qg_partida_movidas_crea  ( Partida* par, int nummov, int numcr, 
-                                        char** casillero,  char** tpieza, char** color );
-int         qg_partida_movida_valida ( Partida* par, char* notacion );
-void        qg_partida_movidas_posibles_ascii( Partida* par );
-int         qg_partida_movidas_capturas( Partida* par, int nummov, int numpie, 
-                                        char** casillero, char** pieza, char ** color );
 
 /*
- * Esta serie de funciones permiten consultar el estado actual
- * del tablero
+ * Estructura para acceso a los datos de la movida
  * */
-void        qg_partida_tablero_ascii ( Partida* par );
-int         qg_partida_tablero_count ( Partida* par, int movida );
-int         qg_partida_count_piezas    ( Partida* par, char* casillero, char* tipopieza );
-int         qg_partida_tablero_data  ( Partida* par, int movida, int num, char** casillero, char** pieza, char** color );
 
-/*
- * Acceso a los movimientos historicos
- * */
 typedef  struct {
     int     numero;
     char*   descripcion;
@@ -231,7 +208,38 @@ typedef  struct {
     int     transforma;
     char*   transforma_tipo;
     char*   transforma_color;
+    int     crea;
 }  Movdata;
+
+/*
+ * Esta serie de funciones permiten consultar las movidas posibles
+ * */
+int         qg_partida_movidas_analizadas( Partida* par );
+int         qg_partida_movidas_count ( Partida* par );
+void        qg_partida_movidas_posibles_ascii( Partida* par );
+int         qg_partida_movida_valida ( Partida* par, char* notacion );
+
+int         qg_partida_movidas_data  ( Partida* par, int num, char** notacion );
+int         qg_partida_movidas_pieza ( Partida* par, int num, 
+                                            char** origen, char** tpieza, char** color, 
+                                            char** destino, char** ttpieza, char** tcolor );
+int         qg_partida_movidas_crea  ( Partida* par, int nummov, int numcr, 
+                                        char** casillero,  char** tpieza, char** color );
+int         qg_partida_movidas_capturas( Partida* par, int nummov, int numpie, 
+                                        char** casillero, char** pieza, char ** color );
+
+/*
+ * Esta serie de funciones permiten consultar el estado actual
+ * del tablero
+ * */
+void        qg_partida_tablero_ascii ( Partida* par );
+int         qg_partida_tablero_count ( Partida* par, int movida );
+int         qg_partida_count_piezas    ( Partida* par, char* casillero, char* tipopieza );
+int         qg_partida_tablero_data  ( Partida* par, int movida, int num, char** casillero, char** pieza, char** color );
+
+/*
+ * Acceso a los movimientos historicos
+ * */
 int         qg_partida_movhist_count( Partida* par );
 int         qg_partida_movhist_data( Partida* par, int mov, Movdata* movdata );
 int         qg_partida_movhist_destino_count( Partida* par, int mov );
