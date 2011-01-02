@@ -99,5 +99,18 @@ int  main( int argc, char** argv ){
     assert( movd.captura == 0 );
     assert( movd.transforma == 0 );
 
+    assert( qg_partida_mover_pgn( partida, "Nxe4" ) );
+    assert( qg_partida_movhist_data( partida, 7, & movd ) );
+    assert( strcmp( movd.origen, "f6" ) == 0 );
+    assert( strcmp( movd.destino, "e4" ) == 0 );
+    assert( strcmp( movd.notacion, "Nxe4" ) == 0 );
+    assert( strcmp( movd.color, "negro" ) == 0 );
+    assert( strcmp( movd.pieza, "caballo" ) == 0 );
+    assert( movd.captura );
+    assert( strcmp( movd.captura_pieza, "peon" ) == 0 );
+    assert( strcmp( movd.captura_color, "blanco" ) == 0 );
+    assert( strcmp( movd.captura_casillero, "e4" ) == 0 );
+    assert( movd.transforma == 0 );
+
     exit( EXIT_SUCCESS );
 }
