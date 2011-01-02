@@ -259,11 +259,11 @@ DLL_PUBLIC int          qg_partida_final         ( Partida* par, char** resultad
     } else return  FINAL_ENJUEGO;
 }
 
-DLL_PUBLIC   int         qg_partida_tablero_data  ( Partida* par, int num, char** casillero, char** pieza, char** color ){
-    return     partida_tablero_data( par, num, casillero, pieza, color );
+DLL_PUBLIC   int         qg_partida_tablero_data  ( Partida* par, int movida, int num, char** casillero, char** pieza, char** color ){
+    return     partida_tablero_data( par, movida, num, casillero, pieza, color );
 }
-DLL_PUBLIC   int         qg_partida_tablero_count ( Partida* par ){
-    return     partida_tablero_count(par);
+DLL_PUBLIC   int         qg_partida_tablero_count ( Partida* par, int movida ){
+    return     partida_tablero_count(par, movida);
 }
 DLL_PUBLIC   int       qg_partida_mover_notacion( Partida* par, char* mov ){
     return     partida_mover_notacion( par, mov );

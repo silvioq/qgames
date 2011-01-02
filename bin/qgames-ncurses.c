@@ -134,7 +134,7 @@ int  imprimir_tablero( Partida* par, int linea ){
     char* pieza, * casillero, *color;
     pie = 0;
 
-    while( qg_partida_tablero_data( par, pie, &casillero, &pieza, &color ) ){
+    while( qg_partida_tablero_data( par, LAST_MOVE, pie, &casillero, &pieza, &color ) ){
         int*  dim;
         assert( qg_tipojuego_get_cell_bycasillero( tj, casillero, &dim ) );
         if( color[0] == 'b' ){

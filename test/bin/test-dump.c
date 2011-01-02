@@ -43,13 +43,13 @@ void  control_igual_partida( Partida* p1, Partida* p2 ){
         assert( strcmp( n1, n2 ) == 0 );
     }
 
-    assert( qg_partida_tablero_count( p1 ) == qg_partida_tablero_count( p2 ) );
-    // printf( "Las piezas son %d == %d\n", qg_partida_tablero_count( p1 ), qg_partida_tablero_count( p2 ) );
-    for( i = 0; i < qg_partida_tablero_count( p2 ); i ++ ){
+    assert( qg_partida_tablero_count( p1, LAST_MOVE ) == qg_partida_tablero_count( p2, LAST_MOVE ) );
+    int p2count = qg_partida_tablero_count( p2, LAST_MOVE );
+    for( i = 0; i < p2count; i ++ ){
         char* cas1, *pie1, *col1;
         char* cas2, *pie2, *col2;
-        qg_partida_tablero_data( p1, i, &cas1, &pie1, &col1 );
-        qg_partida_tablero_data( p2, i, &cas2, &pie2, &col2 );
+        qg_partida_tablero_data( p1, LAST_MOVE, i, &cas1, &pie1, &col1 );
+        qg_partida_tablero_data( p2, LAST_MOVE, i, &cas2, &pie2, &col2 );
         assert( strcmp( cas1, cas2 ) == 0 );
         assert( strcmp( col1, col2 ) == 0 );
         assert( strcmp( pie1, pie2 ) == 0 );

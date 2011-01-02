@@ -2046,13 +2046,13 @@ void  chequear_resultado(int resultado){
 
 void  check_count_piezas(int resultado){
     int  contador = 0;
-    int  total    = qg_partida_tablero_count( partida );
+    int  total    = qg_partida_tablero_count( partida, LAST_MOVE );
     int  i;
     for( i = 0; i < total; i ++ ){
         char* casillero, *tipopieza, *color;
         strcheck* strc;
         int       valido = 1;
-        qg_partida_tablero_data( partida, i, &casillero, &tipopieza, &color );
+        qg_partida_tablero_data( partida, LAST_MOVE, i, &casillero, &tipopieza, &color );
         list_inicio( checklist );
         while( strc = list_siguiente( checklist ) ){
             if( strc->color && strcmp( color, strc->color ) != 0 ){
