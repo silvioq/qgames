@@ -44,6 +44,8 @@ int  main( int argc, char** argv ){
     qg_path_set( TEST_GAMESDIR );
     Tipojuego* ajedrez = qg_tipojuego_open( "Ajedrez" );
     Partida* partida;
+    Movdata  movd;
+
     assert( ajedrez );
     assert( partida = qg_tipojuego_create_partida( ajedrez, NULL ) );
   
@@ -55,7 +57,16 @@ int  main( int argc, char** argv ){
     assert( strcmp( "negro", qg_partida_color( partida ) ) == 0 );
     assert( qg_partida_movhist_destino( partida, 0, 1 ) == NULL  );
     assert( qg_partida_movhist_destino( partida, 1, 0 ) == NULL  );
-    
+
+    assert( !qg_partida_movhist_data( partida, 1, &movd ) );
+    assert( qg_partida_movhist_data( partida, 0, &movd ) );
+    assert( strcmp( movd.origen, "e2" ) == 0 );
+    assert( strcmp( movd.destino, "e4" ) == 0 );
+    assert( strcmp( movd.notacion, "e4" ) == 0 );
+    assert( strcmp( movd.color, "blanco" ) == 0 );
+    assert( strcmp( movd.pieza, "peon" ) == 0 );
+    assert( movd.captura == 0 );
+    assert( movd.transforma == 0 );
 
     assert( qg_partida_mover_notacion( partida, "e5" ) );
     assert( qg_partida_movhist_count( partida ) == 2 );
@@ -65,9 +76,28 @@ int  main( int argc, char** argv ){
     assert( qg_partida_movhist_destino( partida, 1, 1 ) == NULL  );
     assert( strcmp( "blanco", qg_partida_color( partida ) ) == 0 );
 
+    assert( qg_partida_movhist_data( partida, 1, &movd ) );
+    assert( strcmp( movd.origen, "e7" ) == 0 );
+    assert( strcmp( movd.destino, "e5" ) == 0 );
+    assert( strcmp( movd.notacion, "e5" ) == 0 );
+    assert( strcmp( movd.color, "negro" ) == 0 );
+    assert( strcmp( movd.pieza, "peon" ) == 0 );
+    assert( movd.captura == 0 );
+    assert( movd.transforma == 0 );
+
     assert( qg_partida_mover_pgn( partida, "2. Nf3 Nf6 3. Bc4 Bc5 4. 0-0" ) );
     assert( qg_partida_movhist_count( partida ) == 7 );
     assert( strcmp( "f1", qg_partida_movhist_destino( partida, 6, 0 ) ) == 0 );
     assert( strcmp( "g1", qg_partida_movhist_destino( partida, 6, 1 ) ) == 0 );
+
+    assert( qg_partida_movhist_data( partida, 6, & movd ) );
+    assert( strcmp( movd.origen, "e1" ) == 0 );
+    assert( strcmp( movd.destino, "g1" ) == 0 );
+    assert( strcmp( movd.notacion, "0-0" ) == 0 );
+    assert( strcmp( movd.color, "blanco" ) == 0 );
+    assert( strcmp( movd.pieza, "rey" ) == 0 );
+    assert( movd.captura == 0 );
+    assert( movd.transforma == 0 );
+
     exit( EXIT_SUCCESS );
 }

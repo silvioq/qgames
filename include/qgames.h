@@ -216,7 +216,24 @@ int         qg_partida_tablero_data  ( Partida* par, int movida, int num, char**
 /*
  * Acceso a los movimientos historicos
  * */
+typedef  struct {
+    int     numero;
+    char*   descripcion;
+    char*   notacion;
+    char*   pieza;
+    char*   color;
+    char*   origen;
+    char*   destino;
+    int     captura;
+    char*   captura_pieza;
+    char*   captura_casillero;
+    char*   captura_color;
+    int     transforma;
+    char*   transforma_tipo;
+    char*   transforma_color;
+}  Movdata;
 int         qg_partida_movhist_count( Partida* par );
+int         qg_partida_movhist_data( Partida* par, int mov, Movdata* movdata );
 int         qg_partida_movhist_destino_count( Partida* par, int mov );
 const char* qg_partida_movhist_destino      ( Partida* par, int mov, int dest );
 

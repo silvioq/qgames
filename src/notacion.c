@@ -169,12 +169,12 @@ char*   notacion_resolver_mov( Notacion* nott, Movida* mov, char* def ){
                 origen = movida_casillero_origen( mov );
                 if( !CASILLERO_VALIDO( origen ) ) break;
             case  NOTACION_MARCA:
-                if( !movida_es_captura( mov ) ){
+                if( !movida_es_captura( mov, NULL ) ){
                     strcat( ret, ( nott && nott->marca ? nott->marca : "-" ) );
                     break;
                 }
             case  NOTACION_CAPTURA:
-                if( movida_es_captura( mov ) ) strcat( ret, ( nott && nott->captura ? nott->captura : "x" ) );
+                if( movida_es_captura( mov, NULL ) ) strcat( ret, ( nott && nott->captura ? nott->captura : "x" ) );
                 break;  
             case  NOTACION_DESTINO:
                 destino = movida_casillero_destino( mov );
@@ -185,7 +185,7 @@ char*   notacion_resolver_mov( Notacion* nott, Movida* mov, char* def ){
                 if( pieza ){
                     char* p = notacion_resolver_tpieza( nott, pieza->color, pieza->tpieza );
                     if( !p ) p = pieza->tpieza->nombre;
-                    if( p && p[0] == 0 && movida_es_captura( mov ) ){
+                    if( p && p[0] == 0 && movida_es_captura( mov, NULL ) ){
                         origen = movida_casillero_origen( mov );
                         if( CASILLERO_VALIDO( origen ) ){
                             int len = strlen( ret );

@@ -279,12 +279,15 @@ Pieza*       movida_pieza( Movida* mov ){
 
 
 
-int          movida_es_captura( Movida* mov ){
+int          movida_es_captura( Movida* mov, Pieza** pie ){
     Accion* acc;
     if( !mov->acciones ) return 0;
     list_inicio( mov->acciones );
     while( acc = (Accion*)list_siguiente( mov->acciones ) ){
-        if( acc->tipo == ACCION_CAPTURA ) return 1;
+        if( acc->tipo == ACCION_CAPTURA ){
+            if( pie ) *pie = &(mov->pos->piezas[acc->pieza_number]);
+            return 1;
+        }
     }
     return  0;
 }

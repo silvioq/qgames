@@ -322,7 +322,7 @@ DLL_PUBLIC    int         qg_partida_movhist_count( Partida* par ){
  * de destino (que tambien comienza con el cero), devuelve el casillero
  * correspondiente
  * */
-const char* qg_partida_movhist_destino      ( Partida* par, int mov, int dest ){
+DLL_PUBLIC    const char* qg_partida_movhist_destino      ( Partida* par, int mov, int dest ){
     Movida* mmm = partida_get_movimiento( par, mov );
     if( !mmm ) return NULL;
     int i, contador = 0;
@@ -336,6 +336,39 @@ const char* qg_partida_movhist_destino      ( Partida* par, int mov, int dest ){
     return  NULL;
 }
 
+DLL_PUBLIC   int         qg_partida_movhist_data( Partida* par, int mov, Movdata* movdata ){
+    Movida* mmm = partida_get_movimiento( par, mov );
+    if( !mmm ) return 0;
+    Pieza*  pie = movida_pieza( mmm );
+    Casillero* ori = movida_casillero_origen( mmm );
+    Casillero* des = movida_casillero_destino( mmm );
+    Pieza*  piecap;
+    Tipopieza * tpieza_tr;
+    int  color_tr;
+    int  es_cap    = movida_es_captura( mmm, &piecap );
+    int  es_tr     = movida_es_transformacion( mmm, &color_tr, &tpieza_tr );
+
+    memset( movdata, 0, sizeof( Movdata ) );
+    movdata->numero      = mov;
+    movdata->notacion    = mmm->notacion;
+    movdata->descripcion = "Descripcion de la partida";
+    movdata->pieza       = pie->tpieza->nombre;
+    movdata->color       = (char*) tipojuego_get_colorname( par->tjuego, pie->color );
+    movdata->origen      = ( ori ? ori->nombre : NULL );
+    movdata->destino     = ( des ? des->nombre : NULL );
+    if( es_cap ){
+        movdata->captura = 1;
+        movdata->captura_pieza = piecap->tpieza->nombre;
+        movdata->captura_color = (char*) tipojuego_get_colorname( par->tjuego, piecap->color );
+        movdata->captura_casillero = ( piecap->casillero ? piecap->casillero->nombre : NULL );
+    }
+    if( es_tr ){
+        movdata->transforma = 1;
+        movdata->transforma_tipo = tpieza_tr->nombre;
+        movdata->transforma_color = (char*) tipojuego_get_colorname( par->tjuego, color_tr );
+    }
+    return 1;
+}
 
 
 DLL_PUBLIC   int         qg_partida_get_png( Partida* par, int flags, int movida, void** png ){
