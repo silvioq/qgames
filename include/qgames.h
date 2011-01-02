@@ -194,22 +194,36 @@ int         qg_partida_es_continuacion( Partida* par );
  * */
 
 typedef  struct {
+
     int     numero;
     char*   descripcion;
     char*   notacion;
     char*   pieza;
     char*   color;
-    int     movidas;
     char*   origen;
     char*   destino;
+
+    int     movida;
+    char*   movida_pieza;
+    char*   movida_origen;
+    char*   movida_destino;
+    char*   movida_color;
+
     int     captura;
     char*   captura_pieza;
     char*   captura_casillero;
     char*   captura_color;
+
     int     transforma;
     char*   transforma_tipo;
     char*   transforma_color;
+
     int     crea;
+    char*   crea_pieza;
+    char*   crea_casillero;
+    char*   crea_color;
+
+    void*   movida_data;
 }  Movdata;
 
 /*
@@ -243,6 +257,11 @@ int         qg_partida_tablero_data  ( Partida* par, int movida, int num, char**
  * */
 int         qg_partida_movhist_count( Partida* par );
 int         qg_partida_movhist_data( Partida* par, int mov, Movdata* movdata );
+int         qg_partida_movhist_data_movida    ( Partida* par, int nummov, Movdata* movdata );
+int         qg_partida_movhist_data_captura   ( Partida* par, int numcap, Movdata* movdata );
+int         qg_partida_movhist_data_transforma( Partida* par, int numtra, Movdata* movdata );
+int         qg_partida_movhist_data_crea      ( Partida* par, int numcre, Movdata* movdata );
+
 int         qg_partida_movhist_destino_count( Partida* par, int mov );
 const char* qg_partida_movhist_destino      ( Partida* par, int mov, int dest );
 

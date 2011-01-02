@@ -218,3 +218,102 @@ DLL_PUBLIC    int         qg_partida_movidas_pieza ( Partida* par, int nummov,
         return 1;
     } else return 0;
 }
+
+
+/*
+ * Devuelve la cantidad de movidas historicas de la partida
+ * */
+
+DLL_PUBLIC    int         qg_partida_movhist_count( Partida* par ){
+    if( !par->movimientos ) return 0;
+    return   par->movimientos->entradas;
+}
+
+/*
+ * Dado una movida historica (comenzando con la movida cero), y un numero
+ * de destino (que tambien comienza con el cero), devuelve el casillero
+ * correspondiente
+ * */
+DLL_PUBLIC    const char* qg_partida_movhist_destino      ( Partida* par, int mov, int dest ){
+    Movida* mmm = partida_get_movimiento( par, mov );
+    if( !mmm ) return NULL;
+    int i, contador = 0;
+    for( i = 0; i < mmm->acciones->entradas; i ++ ){
+        Accion* acc = mmm->acciones->data[i];
+        if( acc->destino ){
+            if( dest == contador ) return acc->destino->nombre;
+            contador ++;
+        }
+    }
+    return  NULL;
+}
+
+/*
+ * Esta funcion llena la estructura a partir de la movida pasada como parametro
+ * */
+static   set_movdata( Partida* par, Movida* mmm, Movdata* movdata ){
+    Pieza*  pie = movida_pieza( mmm );
+    Casillero* ori = movida_casillero_origen( mmm );
+    Casillero* des = movida_casillero_destino( mmm );
+    int i;
+
+    movdata->movida_data = (void*) mmm;
+    movdata->notacion    = mmm->notacion;
+    movdata->descripcion = "Descripcion de la partida";
+    movdata->pieza       = pie->tpieza->nombre;
+    movdata->color       = (char*) tipojuego_get_colorname( par->tjuego, pie->color );
+    movdata->origen      = ( ori ? ori->nombre : NULL );
+    movdata->destino     = ( des ? des->nombre : NULL );
+    for( i = 0; i < mmm->acciones->entradas; i ++ ){
+        Accion* acc = mmm->acciones->data[i];
+        switch( acc->tipo ){
+            case  ACCION_MUEVE:
+                movdata->movida ++;
+                if( movdata->movida == 1 ){
+                    Pieza* piecap = &(mmm->pos->piezas[acc->pieza_number]);
+                    movdata->movida_pieza = piecap->tpieza->nombre;
+                    movdata->movida_color = (char*) tipojuego_get_colorname( par->tjuego, piecap->color );
+                    movdata->movida_origen = ( piecap->casillero ? piecap->casillero->nombre : NULL );
+                    movdata->movida_destino = ( mmm->destino ? mmm->destino->nombre : NULL );
+                }
+                break;
+            case  ACCION_CREA:
+                movdata->crea ++;
+                if( movdata->crea == 1 ){
+                    Pieza* piecap = &(mmm->pos->piezas[acc->pieza_number]);
+                    movdata->crea_pieza = piecap->tpieza->nombre;
+                    movdata->crea_color = (char*) tipojuego_get_colorname( par->tjuego, piecap->color );
+                    movdata->crea_casillero = ( piecap->casillero ? piecap->casillero->nombre : NULL );
+                }
+                break;
+            case  ACCION_CAPTURA:
+                movdata->captura ++;
+                if( movdata->captura == 1 ){
+                    Pieza* piecap = &(mmm->pos->piezas[acc->pieza_number]);
+                    movdata->captura_pieza = piecap->tpieza->nombre;
+                    movdata->captura_color = (char*) tipojuego_get_colorname( par->tjuego, piecap->color );
+                    movdata->captura_casillero = ( piecap->casillero ? piecap->casillero->nombre : NULL );
+                }
+                break;
+            case  ACCION_TRANSFORMA:
+                movdata->transforma ++;
+                if( movdata->transforma == 1 ){
+                    movdata->transforma_tipo = acc->tpieza->nombre;
+                    movdata->transforma_color = (char*) tipojuego_get_colorname( par->tjuego, acc->color );
+                }
+                break;
+        }
+    }
+}
+
+
+
+DLL_PUBLIC   int         qg_partida_movhist_data( Partida* par, int mov, Movdata* movdata ){
+    Movida* mmm = partida_get_movimiento( par, mov );
+    if( !mmm ) return 0;
+
+    memset( movdata, 0, sizeof( Movdata ) );
+    movdata->numero      = mov;
+    set_movdata( par, mmm, movdata );
+    return 1;
+}
