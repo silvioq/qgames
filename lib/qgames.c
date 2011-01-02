@@ -355,6 +355,9 @@ DLL_PUBLIC   int         qg_partida_movhist_data( Partida* par, int mov, Movdata
     for( i = 0; i < mmm->acciones->entradas; i ++ ){
         Accion* acc = mmm->acciones->data[i];
         switch( acc->tipo ){
+            case  ACCION_MUEVE:
+                movdata->movidas ++;
+                break;
             case  ACCION_CREA:
                 movdata->crea ++;
                 break;

@@ -199,6 +199,7 @@ typedef  struct {
     char*   notacion;
     char*   pieza;
     char*   color;
+    int     movidas;
     char*   origen;
     char*   destino;
     int     captura;

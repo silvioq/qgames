@@ -83,6 +83,7 @@ int  main( int argc, char** argv ){
     assert( strcmp( movd.color, "negro" ) == 0 );
     assert( strcmp( movd.pieza, "peon" ) == 0 );
     assert( movd.captura == 0 );
+    assert( movd.movidas == 1 );
     assert( movd.transforma == 0 );
 
     assert( qg_partida_mover_pgn( partida, "2. Nf3 Nf6 3. Bc4 Bc5 4. 0-0" ) );
@@ -97,6 +98,7 @@ int  main( int argc, char** argv ){
     assert( strcmp( movd.color, "blanco" ) == 0 );
     assert( strcmp( movd.pieza, "rey" ) == 0 );
     assert( movd.captura == 0 );
+    assert( movd.movidas == 2 );
     assert( movd.transforma == 0 );
 
     assert( qg_partida_mover_pgn( partida, "Nxe4" ) );
