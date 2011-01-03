@@ -62,24 +62,20 @@ int  main( int argc, char** argv ){
         assert( qg_partida_movidas_data( partida, i, &movd ) );
         assert( !qg_partida_movidas_capturas( partida, i, 0, NULL, NULL, NULL ) );
         if( strcmp( "d4", movd.notacion ) == 0 ){
-            char* p, *c, *o, *d, *tp, *tc;
-            assert( qg_partida_movidas_pieza( partida, i, &o, &p, &c, &d, &tp, &tc ) );
-            assert( strcmp( "peon", p ) == 0 ) ;
-            assert( strcmp( "blanco", c ) == 0 ) ;
-            assert( strcmp( "d2", o ) == 0 ) ;
-            assert( strcmp( "d4", d ) == 0 ) ;
-            assert( tp == NULL );
-            assert( tc == NULL );
+            assert( strcmp( "peon", movd.pieza ) == 0 ) ;
+            assert( strcmp( "blanco", movd.color ) == 0 ) ;
+            assert( strcmp( "d2", movd.origen ) == 0 ) ;
+            assert( strcmp( "d4", movd.destino ) == 0 ) ;
+            assert( movd.transforma_pieza == NULL );
+            assert( movd.transforma_color == NULL );
             esta = 1;
         } else if( strcmp( "Nf3", movd.notacion ) == 0 ){
-            char* p, *c, *o, *d, *tp, *tc;
-            assert( qg_partida_movidas_pieza( partida, i, &o, &p, &c, &d, &tp, &tc ) );
-            assert( strcmp( "caballo", p ) == 0 ) ;
-            assert( strcmp( "blanco", c ) == 0 ) ;
-            assert( strcmp( "g1", o ) == 0 ) ;
-            assert( strcmp( "f3", d ) == 0 ) ;
-            assert( tp == NULL );
-            assert( tc == NULL );
+            assert( strcmp( "caballo", movd.pieza ) == 0 ) ;
+            assert( strcmp( "blanco", movd.color ) == 0 ) ;
+            assert( strcmp( "g1", movd.origen ) == 0 ) ;
+            assert( strcmp( "f3", movd.destino ) == 0 ) ;
+            assert( movd.transforma_pieza == NULL );
+            assert( movd.transforma_color == NULL );
         }
     }
     assert( !qg_partida_movidas_data( partida, i, NULL ) );
@@ -116,39 +112,39 @@ int  main( int argc, char** argv ){
         Movdata movd;
         assert( qg_partida_movidas_data( partida, i, &movd ) );
         if( strcmp( movd.notacion, "cxb8=Q" ) == 0 ){
-            assert( strcmp( movd.transforma_tipo , "dama" ) == 0 );
+            assert( strcmp( movd.transforma_pieza, "dama" ) == 0 );
             assert( strcmp( movd.transforma_color, "blanco" ) == 0 );
             contador ++;
         } else if( strcmp( movd.notacion, "cxb8=R" ) == 0 ){
-            assert( strcmp( movd.transforma_tipo , "torre" ) == 0 );
+            assert( strcmp( movd.transforma_pieza, "torre" ) == 0 );
             assert( strcmp( movd.transforma_color, "blanco" ) == 0 );
             contador ++;
         } else if( strcmp( movd.notacion, "cxb8=N" ) == 0 ){
-            assert( strcmp( movd.transforma_tipo , "caballo" ) == 0 );
+            assert( strcmp( movd.transforma_pieza, "caballo" ) == 0 );
             assert( strcmp( movd.transforma_color, "blanco" ) == 0 );
             contador ++;
         } else if( strcmp( movd.notacion, "cxb8=B" ) == 0 ){
-            assert( strcmp( movd.transforma_tipo , "alfil" ) == 0 );
+            assert( strcmp( movd.transforma_pieza, "alfil" ) == 0 );
             assert( strcmp( movd.transforma_color, "blanco" ) == 0 );
             contador ++;
         } else if( strcmp( movd.notacion, "cxd8=Q" ) == 0 ){
-            assert( strcmp( movd.transforma_tipo , "dama" ) == 0 );
+            assert( strcmp( movd.transforma_pieza, "dama" ) == 0 );
             assert( strcmp( movd.transforma_color, "blanco" ) == 0 );
             contador ++;
         } else if( strcmp( movd.notacion, "cxd8=R" ) == 0 ){
-            assert( strcmp( movd.transforma_tipo , "torre" ) == 0 );
+            assert( strcmp( movd.transforma_pieza, "torre" ) == 0 );
             assert( strcmp( movd.transforma_color, "blanco" ) == 0 );
             contador ++;
         } else if( strcmp( movd.notacion, "cxd8=N" ) == 0 ){
-            assert( strcmp( movd.transforma_tipo , "caballo" ) == 0 );
+            assert( strcmp( movd.transforma_pieza, "caballo" ) == 0 );
             assert( strcmp( movd.transforma_color, "blanco" ) == 0 );
             contador ++;
         } else if( strcmp( movd.notacion, "cxd8=B" ) == 0 ){
-            assert( strcmp( movd.transforma_tipo , "alfil" ) == 0 );
+            assert( strcmp( movd.transforma_pieza, "alfil" ) == 0 );
             assert( strcmp( movd.transforma_color, "blanco" ) == 0 );
             contador ++;
         } else {
-            assert( movd.transforma_tipo  == NULL );
+            assert( movd.transforma_pieza == NULL );
             assert( movd.transforma_color == NULL );
         }
 
@@ -167,12 +163,10 @@ int  main( int argc, char** argv ){
         Movdata  movd;
         assert( qg_partida_movidas_data( partida, i, &movd ) );
         if( strcmp( "d4", movd.notacion ) == 0 ){
-            char* p, *c, *o, *d;
-            assert( qg_partida_movidas_pieza( partida, i, &o, &p, &c, &d, NULL, NULL ) );
-            assert( strcmp( "gema", p ) == 0 ) ;
-            assert( strcmp( "blanco", c ) == 0 ) ;
-            assert( o == CASILLERO_POZO ) ;
-            assert( strcmp( "d4", d ) == 0 ) ;
+            assert( strcmp( "gema", movd.pieza ) == 0 ) ;
+            assert( strcmp( "blanco", movd.color ) == 0 ) ;
+            assert( movd.origen == CASILLERO_POZO ) ;
+            assert( strcmp( "d4", movd.destino ) == 0 ) ;
             esta = 1;
             assert( !qg_partida_movidas_capturas( partida, i, 0, NULL, NULL, NULL ) ); 
         }
@@ -188,12 +182,11 @@ int  main( int argc, char** argv ){
         assert( qg_partida_movidas_data( partida, i, &movd ) );
         assert( strcmp( "d4", movd.notacion ) != 0 ); // Aca hay una pieza y no puede mover
         if( strcmp( "d7", movd.notacion ) == 0 ){
-            char* p, *c, *o, *d;
-            assert( qg_partida_movidas_pieza( partida, i, &o, &p, &c, &d, NULL, NULL ) );
-            assert( strcmp( "gema", p ) == 0 ) ;
-            assert( strcmp( "blanco", c ) == 0 ) ;
-            assert( o == CASILLERO_POZO ) ;
-            assert( strcmp( "d7", d ) == 0 ) ;
+            char* p, *c, *d;
+            assert( strcmp( "gema", movd.pieza ) == 0 ) ;
+            assert( strcmp( "blanco", movd.color ) == 0 ) ;
+            assert( movd.origen == CASILLERO_POZO ) ;
+            assert( strcmp( "d7", movd.destino ) == 0 ) ;
             esta = 1;
             assert( qg_partida_movidas_capturas( partida, i, 0, &d, &p, &c ) ); 
             assert( strcmp( "negro", c ) == 0 );

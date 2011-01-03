@@ -61,7 +61,7 @@ static   set_movdata( Partida* par, Movida* mmm, Movdata* movdata ){
     movdata->descripcion = "Descripcion de la partida";
     movdata->pieza       = pie->tpieza->nombre;
     movdata->color       = (char*) tipojuego_get_colorname( par->tjuego, pie->color );
-    movdata->origen      = ( ori ? ( ori == (Casillero*)POZO ? "pozo" : ori->nombre ) : NULL );
+    movdata->origen      = ( ori ? ( ori == (Casillero*)POZO ? CASILLERO_POZO : ori->nombre ) : NULL );
     movdata->destino     = ( des ? des->nombre : NULL );
     for( i = 0; i < mmm->acciones->entradas; i ++ ){
         Accion* acc = mmm->acciones->data[i];
@@ -73,7 +73,7 @@ static   set_movdata( Partida* par, Movida* mmm, Movdata* movdata ){
                     movdata->movida_pieza = piecap->tpieza->nombre;
                     movdata->movida_color = (char*) tipojuego_get_colorname( par->tjuego, piecap->color );
                     movdata->movida_origen = ( piecap->casillero ?
-                         ( piecap->casillero == (Casillero*)POZO ? "pozo" :
+                         ( piecap->casillero == (Casillero*)POZO ? CASILLERO_POZO :
                          piecap->casillero->nombre ) : NULL)  ;
                     movdata->movida_destino = ( mmm->destino ? mmm->destino->nombre : NULL );
                 }
@@ -99,7 +99,7 @@ static   set_movdata( Partida* par, Movida* mmm, Movdata* movdata ){
             case  ACCION_TRANSFORMA:
                 movdata->transforma ++;
                 if( movdata->transforma == 1 ){
-                    movdata->transforma_tipo = acc->tpieza->nombre;
+                    movdata->transforma_pieza = acc->tpieza->nombre;
                     movdata->transforma_color = (char*) tipojuego_get_colorname( par->tjuego, acc->color );
                 }
                 break;
@@ -132,15 +132,15 @@ DLL_PUBLIC   int         qg_partida_movidas_analizadas( Partida* par ){
  * Devuelve el dato de notacion de la partida pasada como parametro
  * */
 DLL_PUBLIC   int         qg_partida_movidas_data  ( Partida* par, int num, Movdata* data ){
-    if( PARTIDATERMINADA(par) ){ 
-        return 0;
-    }
+    if( PARTIDATERMINADA(par) ) return 0;
     int cant = partida_analizar_movidas( par );
     if( num >= cant ) return 0;
-    Movida* mov = (Movida*) par->pos->movidas->data[num];
-    memset( data, 0, sizeof( Movdata ));
-    data->numero = num;
-    set_movdata( par, mov, data );
+    if( data ){
+        Movida* mov = (Movida*) par->pos->movidas->data[num];
+        memset( data, 0, sizeof( Movdata ));
+        data->numero = num;
+        set_movdata( par, mov, data );
+    }
     return 1;
 }
 
@@ -228,54 +228,6 @@ DLL_PUBLIC    int         qg_partida_movidas_crea  ( Partida* par, int nummov, i
     return 0;
 
 
-}
-
-/*
- * Devuelve informacion acerca de la pieza que vamos a mover
- * origen:  Casillero origen donde se encuentra actualmente la pieza
- * tpieza:  Tipo de pieza
- * color :  Color de la pieza
- * destino: Casillero destino donde se dirigira la pieza
- * ttpieza: Tipo de pieza en la que se transformara (null si no se transforma)
- * tcolor:  Color en el que se transformar (null si no se transforma)
- * */
-
-DLL_PUBLIC    int         qg_partida_movidas_pieza ( Partida* par, int nummov, 
-                                            char** origen, char** tpieza, char** color, 
-                                            char** destino, char** ttpieza, char** tcolor ){
-    if( PARTIDATERMINADA(par) ){ 
-        return 0;
-    }
-    int cant = partida_analizar_movidas( par );
-    if( nummov >= cant ) return 0;
-    Movida* mov = par->pos->movidas->data[nummov];
-    Pieza* p = movida_pieza( mov );
-    if( p ){
-        Casillero* o = movida_casillero_origen( mov );
-        Casillero* d = movida_casillero_destino( mov );
-        if( tpieza  ) *tpieza  = p->tpieza->nombre;
-        if( color   ) *color   = (char*)tipojuego_get_colorname( par->tjuego, p->color );
-        if( origen  ) *origen  = ( o == ENPOZO ? CASILLERO_POZO : o->nombre );
-        if( destino ) *destino = ( CASILLERO_VALIDO( d ) ? d->nombre : NULL );
-        if( ttpieza || tcolor ){  // Esta recorrida la hago en el caso que me lo hayan pedido
-            int i, transf = 0;
-            for( i = 0; i < mov->acciones->entradas; i ++ ){
-                Accion* acc = mov->acciones->data[i];
-                if( acc->tipo == ACCION_TRANSFORMA && acc->pieza_number == p->number ){
-                    if( ttpieza ) *ttpieza = acc->tpieza->nombre;
-                    if( tcolor  ) *tcolor  = (char*)tipojuego_get_colorname( par->tjuego, acc->color );
-                    transf = 1;
-                    break;
-                }
-            }
-            // Si no hay transformacion, nulifico.
-            if( !transf ){
-                if( ttpieza ) *ttpieza = NULL;
-                if( tcolor )  *tcolor  = NULL;
-            }
-        }
-        return 1;
-    } else return 0;
 }
 
 
