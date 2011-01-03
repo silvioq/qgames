@@ -52,7 +52,6 @@ Tipojuego* ajedrez;
 int   ajedrez_check(){
 
     Partida*   partida;
-    char* notacion;
     char *filename = "../../games/Ajedrez.qgame";
     void * ajedrez_png;
     FILE*  fpng; 
@@ -251,7 +250,6 @@ int   ajedrez_check(){
 int   los_alamos(){
 
     Partida*   partida;
-    char* notacion;
     char *filename = "../../games/AjedrezLosAlamos.qgame";
 
     printf( "." );
@@ -324,11 +322,11 @@ int   los_alamos(){
 
 int  main(int argc, char** argv) {
     Partida*   partida;
-    char* notacion;
     char *filename = "../../games/AjedrezQGames.qgame";
     assert( aje = qgz_parse_filename( filename, 0 ) );
 
     loglevel = 2;
+    Movdata movd;
 
     printf( "." );
 
@@ -359,12 +357,12 @@ int  main(int argc, char** argv) {
     assert( qg_partida_mover_pgn( partida, prueba1 ) );
     assert( qg_partida_movidas_count( partida ) == 9 );
     assert( 11 == qg_partida_count_piezas( partida, NULL, NULL ) );
-    qg_partida_movidas_data( partida, 0, &notacion );
-    assert( strcmp( notacion, "Kc1" ) == 0 ) ;
-    qg_partida_movidas_data( partida, 1, &notacion );
-    assert( strcmp( notacion, "Kb1" ) == 0 ) ;
-    qg_partida_movidas_data( partida, 2, &notacion );
-    assert( strcmp( notacion, "Kd1" ) == 0 ) ;
+    qg_partida_movidas_data( partida, 0, &movd );
+    assert( strcmp( movd.notacion, "Kc1" ) == 0 ) ;
+    qg_partida_movidas_data( partida, 1, &movd );
+    assert( strcmp( movd.notacion, "Kb1" ) == 0 ) ;
+    qg_partida_movidas_data( partida, 2, &movd );
+    assert( strcmp( movd.notacion, "Kd1" ) == 0 ) ;
     
     // No puede mover a b3, porque lo amenazan
     assert( !qg_partida_mover_notacion( partida, "Kb3" ) );

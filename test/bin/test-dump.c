@@ -37,10 +37,10 @@ void  control_igual_partida( Partida* p1, Partida* p2 ){
     assert( qg_partida_movidas_count( p1 ) == qg_partida_movidas_count( p2 ) );
     // printf( "Las movidas son %d == %d\n", partida_movidas_count( p1 ), partida_movidas_count( p2 ) );
     for( i = 0; i < qg_partida_movidas_count( p2 ); i ++ ){
-        char* n1, *n2;
-        qg_partida_movidas_data( p1, i, &n1 );
-        qg_partida_movidas_data( p2, i, &n2 );
-        assert( strcmp( n1, n2 ) == 0 );
+        Movdata mov1, mov2;
+        qg_partida_movidas_data( p1, i, &mov1 );
+        qg_partida_movidas_data( p2, i, &mov2 );
+        assert( strcmp( mov1.notacion, mov2.notacion ) == 0 );
     }
 
     assert( qg_partida_tablero_count( p1, LAST_MOVE ) == qg_partida_tablero_count( p2, LAST_MOVE ) );

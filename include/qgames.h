@@ -234,7 +234,7 @@ int         qg_partida_movidas_count ( Partida* par );
 void        qg_partida_movidas_posibles_ascii( Partida* par );
 int         qg_partida_movida_valida ( Partida* par, char* notacion );
 
-int         qg_partida_movidas_data  ( Partida* par, int num, char** notacion );
+int         qg_partida_movidas_data  ( Partida* par, int num, Movdata* data );
 int         qg_partida_movidas_pieza ( Partida* par, int num, 
                                             char** origen, char** tpieza, char** color, 
                                             char** destino, char** ttpieza, char** tcolor );

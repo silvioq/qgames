@@ -145,8 +145,6 @@ static inline Vinculo*   casillero_busca_vinculo( Casillero* cas, Direccion* dir
     }
 
     return NULL;
-
-
 }
 
 

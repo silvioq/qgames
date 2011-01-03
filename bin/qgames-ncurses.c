@@ -163,9 +163,9 @@ char*  seleccionar_menu( Partida* par, int linea, int col ){
 
     items = malloc( sizeof( ITEM ) * ( cant + 1 ) );
     for( i = 0; i < cant; i ++ ){
-        char* notacion;
-        assert( qg_partida_movidas_data( par, i, &notacion ) );
-        items[i] = new_item( strdup( notacion ), NULL );
+        Movdata  movd;
+        assert( qg_partida_movidas_data( par, i, &movd ) );
+        items[i] = new_item( strdup( movd.notacion ), NULL );
     }
     items[i] = NULL;
     menu = new_menu( items );
