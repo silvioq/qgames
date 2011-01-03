@@ -208,20 +208,24 @@ typedef  struct {
     char*   movida_origen;
     char*   movida_destino;
     char*   movida_color;
+    int     movida_ref;
 
     int     captura;
     char*   captura_pieza;
     char*   captura_casillero;
     char*   captura_color;
+    int     captura_ref;
 
     int     transforma;
     char*   transforma_pieza;
     char*   transforma_color;
+    int     transforma_ref;
 
     int     crea;
     char*   crea_pieza;
     char*   crea_casillero;
     char*   crea_color;
+    int     crea_ref;
 
     void*   movida_data;
 }  Movdata;
@@ -234,11 +238,10 @@ int         qg_partida_movidas_count ( Partida* par );
 void        qg_partida_movidas_posibles_ascii( Partida* par );
 int         qg_partida_movida_valida ( Partida* par, char* notacion );
 
+int         qg_partida_movdata_nextcap( Partida* par, Movdata* data );
 int         qg_partida_movidas_data  ( Partida* par, int num, Movdata* data );
 int         qg_partida_movidas_crea  ( Partida* par, int nummov, int numcr, 
                                         char** casillero,  char** tpieza, char** color );
-int         qg_partida_movidas_capturas( Partida* par, int nummov, int numpie, 
-                                        char** casillero, char** pieza, char ** color );
 
 /*
  * Esta serie de funciones permiten consultar el estado actual

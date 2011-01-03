@@ -76,6 +76,7 @@ static   set_movdata( Partida* par, Movida* mmm, Movdata* movdata ){
                          ( piecap->casillero == (Casillero*)POZO ? CASILLERO_POZO :
                          piecap->casillero->nombre ) : NULL)  ;
                     movdata->movida_destino = ( mmm->destino ? mmm->destino->nombre : NULL );
+                    movdata->movida_ref     = i;
                 }
                 break;
             case  ACCION_CREA:
@@ -85,6 +86,7 @@ static   set_movdata( Partida* par, Movida* mmm, Movdata* movdata ){
                     movdata->crea_pieza = piecap->tpieza->nombre;
                     movdata->crea_color = (char*) tipojuego_get_colorname( par->tjuego, piecap->color );
                     movdata->crea_casillero = ( piecap->casillero ? piecap->casillero->nombre : NULL );
+                    movdata->crea_ref     = i;
                 }
                 break;
             case  ACCION_CAPTURA:
@@ -94,6 +96,7 @@ static   set_movdata( Partida* par, Movida* mmm, Movdata* movdata ){
                     movdata->captura_pieza = piecap->tpieza->nombre;
                     movdata->captura_color = (char*) tipojuego_get_colorname( par->tjuego, piecap->color );
                     movdata->captura_casillero = ( piecap->casillero ? piecap->casillero->nombre : NULL );
+                    movdata->captura_ref       = i;
                 }
                 break;
             case  ACCION_TRANSFORMA:
@@ -101,6 +104,7 @@ static   set_movdata( Partida* par, Movida* mmm, Movdata* movdata ){
                 if( movdata->transforma == 1 ){
                     movdata->transforma_pieza = acc->tpieza->nombre;
                     movdata->transforma_color = (char*) tipojuego_get_colorname( par->tjuego, acc->color );
+                    movdata->transforma_ref     = i;
                 }
                 break;
         }
@@ -144,6 +148,29 @@ DLL_PUBLIC   int         qg_partida_movidas_data  ( Partida* par, int num, Movda
     return 1;
 }
 
+/*
+ * Busca la proxima captura dentro de la estructura de la movida.
+ * */
+DLL_PUBLIC   int         qg_partida_movdata_nextcap( Partida* par, Movdata* movdata ){
+    Movida* mmm = (Movida*)movdata->movida_data;
+    int i;
+    for( i = movdata->captura_ref + 1; i < mmm->acciones->entradas; i ++ ){
+        Accion* acc = mmm->acciones->data[i];
+        Pieza* piecap;
+        switch( acc->tipo ){
+            case  ACCION_CAPTURA:
+               piecap = &(mmm->pos->piezas[acc->pieza_number]);
+               movdata->captura_pieza = piecap->tpieza->nombre;
+               movdata->captura_color = (char*) tipojuego_get_colorname( par->tjuego, piecap->color );
+               movdata->captura_casillero = ( piecap->casillero ? piecap->casillero->nombre : NULL );
+               movdata->captura_ref       = i;
+               return 1;
+        }
+    }
+    movdata->captura_ref       = i; // Para que proximas lecturas directamente salgan sin entrar al for
+    return 0;
+}
+
 
 DLL_PUBLIC   int         qg_partida_movida_valida ( Partida* par, char* notacion ){
     return     partida_movida_valida( par, notacion );
@@ -169,34 +196,6 @@ DLL_PUBLIC    void        qg_partida_movidas_posibles_ascii( Partida* par ){
     printf( "\n" );
 }
 
-
-/*
- * Esta funcion devuelve informacion acerca de la enesima pieza capturada
- * */
-DLL_PUBLIC    int         qg_partida_movidas_capturas( Partida* par, int nummov, int numpie, 
-        char** casillero, char** pieza, char ** color ){
-    if( PARTIDATERMINADA(par) ){ 
-        return 0;
-    }
-    int cant = partida_analizar_movidas( par );
-    if( nummov >= cant ) return 0;
-    Movida* mov = par->pos->movidas->data[nummov];
-    int i, contador = 0 ;
-    for( i = 0; i < mov->acciones->entradas; i ++ ){
-        Accion* acc = mov->acciones->data[i];
-        if( acc->tipo == ACCION_CAPTURA ){
-            if( contador == numpie ){
-                Pieza* p = &(par->pos->piezas[acc->pieza_number]);
-                if( casillero ) *casillero = p->casillero->nombre;
-                if( color ) *color         = (char*)tipojuego_get_colorname( par->tjuego, p->color );
-                if( pieza ) *pieza         = p->tpieza->nombre;
-                return 1;
-            }
-            contador ++;
-        }
-    }
-    return 0;
-}
 
 /*
  * Esta funcion devuelve la informacion acerca de la "enesima" pieza a crear

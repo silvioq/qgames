@@ -60,7 +60,7 @@ int  main( int argc, char** argv ){
     for( i = 0 ; i < movidas ; i ++ ){
         Movdata  movd;
         assert( qg_partida_movidas_data( partida, i, &movd ) );
-        assert( !qg_partida_movidas_capturas( partida, i, 0, NULL, NULL, NULL ) );
+        assert( !movd.captura );
         if( strcmp( "d4", movd.notacion ) == 0 ){
             assert( strcmp( "peon", movd.pieza ) == 0 ) ;
             assert( strcmp( "blanco", movd.color ) == 0 ) ;
@@ -79,7 +79,6 @@ int  main( int argc, char** argv ){
         }
     }
     assert( !qg_partida_movidas_data( partida, i, NULL ) );
-    assert( !qg_partida_movidas_capturas( partida, i, 0, NULL, NULL, NULL ) );
     assert( esta );
 
     assert( qg_partida_mover_pgn( partida, "e4 d5" ) );
@@ -90,10 +89,11 @@ int  main( int argc, char** argv ){
         assert( qg_partida_movidas_data( partida, i, &movd ) );
         if( strcmp( movd.notacion, "exd5" ) == 0 ){
             esta = 1;
-            assert( qg_partida_movidas_capturas( partida, i, 0, NULL, NULL, NULL ) ); 
-            assert( !qg_partida_movidas_capturas( partida, i, 1, NULL, NULL, NULL ) ); 
+            assert( movd.captura ); 
+            assert( !qg_partida_movdata_nextcap( partida, &movd ) );
         } else {
-            assert( !qg_partida_movidas_capturas( partida, i, 0, NULL, NULL, NULL ) ); 
+            assert( !movd.captura ); 
+            assert( !qg_partida_movdata_nextcap( partida, &movd ) );
         }
     }
     assert( esta );
@@ -168,7 +168,8 @@ int  main( int argc, char** argv ){
             assert( movd.origen == CASILLERO_POZO ) ;
             assert( strcmp( "d4", movd.destino ) == 0 ) ;
             esta = 1;
-            assert( !qg_partida_movidas_capturas( partida, i, 0, NULL, NULL, NULL ) ); 
+            assert( !movd.captura ); 
+            assert( !qg_partida_movdata_nextcap( partida, &movd ) );
         }
     }
     assert( esta );
@@ -182,24 +183,23 @@ int  main( int argc, char** argv ){
         assert( qg_partida_movidas_data( partida, i, &movd ) );
         assert( strcmp( "d4", movd.notacion ) != 0 ); // Aca hay una pieza y no puede mover
         if( strcmp( "d7", movd.notacion ) == 0 ){
-            char* p, *c, *d;
             assert( strcmp( "gema", movd.pieza ) == 0 ) ;
             assert( strcmp( "blanco", movd.color ) == 0 ) ;
             assert( movd.origen == CASILLERO_POZO ) ;
             assert( strcmp( "d7", movd.destino ) == 0 ) ;
             esta = 1;
-            assert( qg_partida_movidas_capturas( partida, i, 0, &d, &p, &c ) ); 
-            assert( strcmp( "negro", c ) == 0 );
-            assert( strcmp( "gema", p ) == 0 );
-            assert( strcmp( "d6", d ) == 0 );
-            assert( qg_partida_movidas_capturas( partida, i, 1, &d, &p, &c ) ); 
-            assert( strcmp( "negro", c ) == 0 );
-            assert( strcmp( "gema", p ) == 0 );
-            assert( strcmp( "d5", d ) == 0 );
-            assert( !qg_partida_movidas_capturas( partida, i, 2, NULL, NULL, NULL ) ); 
+            assert( strcmp( "negro", movd.captura_color ) == 0 );
+            assert( strcmp( "gema", movd.captura_pieza ) == 0 );
+            assert( strcmp( "d6", movd.captura_casillero ) == 0 );
+            assert( qg_partida_movdata_nextcap( partida, &movd ) ); 
+            assert( strcmp( "negro", movd.captura_color ) == 0 );
+            assert( strcmp( "gema", movd.captura_pieza ) == 0 );
+            assert( strcmp( "d5", movd.captura_casillero ) == 0 );
+            assert( !qg_partida_movdata_nextcap( partida, &movd ) ); 
 
         } else {
-            assert( !qg_partida_movidas_capturas( partida, i, 0, NULL, NULL, NULL ) ); 
+            assert( !movd.captura ); 
+            assert( !qg_partida_movdata_nextcap( partida, &movd ) );
         }
       
     }
