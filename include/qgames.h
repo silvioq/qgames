@@ -238,10 +238,11 @@ int         qg_partida_movidas_count ( Partida* par );
 void        qg_partida_movidas_posibles_ascii( Partida* par );
 int         qg_partida_movida_valida ( Partida* par, char* notacion );
 
-int         qg_partida_movdata_nextcap( Partida* par, Movdata* data );
+int         qg_partida_movdata_nextcap ( Partida* par, Movdata* movdata );
+int         qg_partida_movdata_nextcrea( Partida* par, Movdata* movdata );
+int         qg_partida_movdata_nextmov ( Partida* par, Movdata* movdata );
+int         qg_partida_movdata_nexttran( Partida* par, Movdata* movdata );
 int         qg_partida_movidas_data  ( Partida* par, int num, Movdata* data );
-int         qg_partida_movidas_crea  ( Partida* par, int nummov, int numcr, 
-                                        char** casillero,  char** tpieza, char** color );
 
 /*
  * Esta serie de funciones permiten consultar el estado actual

@@ -47,6 +47,7 @@ int  main( int argc, char** argv ){
     qg_path_set( TEST_GAMESDIR );
     Tipojuego* ajedrez = qg_tipojuego_open( "Ajedrez" );
     Tipojuego* pente = qg_tipojuego_open( "Pente" );
+    Tipojuego* africa = qg_tipojuego_open( "AfricaUniversity" );
 
     Partida* partida;
     assert( ajedrez );
@@ -150,6 +151,7 @@ int  main( int argc, char** argv ){
 
     }
     assert( contador == 8 );
+    qg_partida_free( partida );
     
 
 
@@ -204,10 +206,52 @@ int  main( int argc, char** argv ){
       
     }
     assert( esta );
+    qg_partida_free( partida );
     
     
+    
+    assert( partida = qg_tipojuego_create_partida( africa, NULL ) );
+    assert( strcmp( qg_partida_color( partida ), "negro" ) == 0 );
+    movidas = qg_partida_movidas_count( partida );
+    for( i = 0; i < movidas; i ++ ){
+        Movdata movd;
+        assert( qg_partida_movidas_data( partida, i, &movd ) );
+        if( strcmp( "b1", movd.notacion ) == 0 ){
+            esta = 1;
+            int j = 0;
+            assert( movd.origen == CASILLERO_POZO );
+            assert( movd.crea   == 8 );
+            assert( strcmp( movd.crea_color, "negro" ) == 0 );
+            assert( strcmp( movd.crea_pieza, "U" ) == 0 );
+            assert( strcmp( movd.crea_casillero, "b1" ) == 0 );
+            while( qg_partida_movdata_nextcrea( partida, &movd ) ) j ++;
+            assert( j == 7 );
+        }
+    }
+    assert( esta );
+
+    assert( qg_partida_mover( partida, 0 ) );
+    assert( strcmp( qg_partida_color( partida ), "rojo" ) == 0 );
+    movidas = qg_partida_movidas_count( partida );
+    for( i = 0; i < movidas; i ++ ){
+        Movdata movd;
+        assert( qg_partida_movidas_data( partida, i, &movd ) );
+        if( strcmp( "e4", movd.notacion ) == 0 ){
+            esta = 1;
+            int j = 0;
+            assert( movd.origen == CASILLERO_POZO );
+            assert( movd.crea   == 9 );
+            assert( strcmp( movd.crea_color, "rojo" ) == 0 );
+            assert( strcmp( movd.crea_pieza, "A" ) == 0 );
+            assert( strcmp( movd.crea_casillero, "e4" ) == 0 );
+            while( qg_partida_movdata_nextcrea( partida, &movd ) ) j ++;
+            assert( j == 8 );
+        }
+    }
     
 
+    assert( esta );
+    qg_partida_free( partida );
   
     exit( EXIT_SUCCESS );
 }

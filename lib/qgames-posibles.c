@@ -82,10 +82,9 @@ static   set_movdata( Partida* par, Movida* mmm, Movdata* movdata ){
             case  ACCION_CREA:
                 movdata->crea ++;
                 if( movdata->crea == 1 ){
-                    Pieza* piecap = &(mmm->pos->piezas[acc->pieza_number]);
-                    movdata->crea_pieza = piecap->tpieza->nombre;
-                    movdata->crea_color = (char*) tipojuego_get_colorname( par->tjuego, piecap->color );
-                    movdata->crea_casillero = ( piecap->casillero ? piecap->casillero->nombre : NULL );
+                    movdata->crea_pieza = acc->tpieza->nombre;
+                    movdata->crea_color = (char*) tipojuego_get_colorname( par->tjuego, acc->color );
+                    movdata->crea_casillero = ( mmm->destino ? mmm->destino->nombre : NULL );
                     movdata->crea_ref     = i;
                 }
                 break;
@@ -168,6 +167,73 @@ DLL_PUBLIC   int         qg_partida_movdata_nextcap( Partida* par, Movdata* movd
         }
     }
     movdata->captura_ref       = i; // Para que proximas lecturas directamente salgan sin entrar al for
+    return 0;
+}
+
+/*
+ * Busca la proxima creacion dentro de la estructura de la movida.
+ * */
+DLL_PUBLIC   int         qg_partida_movdata_nextcrea( Partida* par, Movdata* movdata ){
+    Movida* mmm = (Movida*)movdata->movida_data;
+    int i;
+    for( i = movdata->crea_ref + 1; i < mmm->acciones->entradas; i ++ ){
+        Accion* acc = mmm->acciones->data[i];
+        switch( acc->tipo ){
+            case  ACCION_CREA:
+               movdata->crea_pieza = acc->tpieza->nombre;
+               movdata->crea_color = (char*) tipojuego_get_colorname( par->tjuego, acc->color );
+               movdata->crea_casillero = ( mmm->destino ? mmm->destino->nombre : NULL );
+               movdata->crea_ref     = i;
+               return 1;
+        }
+    }
+    movdata->crea_ref       = i; // Para que proximas lecturas directamente salgan sin entrar al for
+    return 0;
+}
+
+/*
+ * Busca la proxima movida dentro de la estructura de la movida.
+ * */
+DLL_PUBLIC   int         qg_partida_movdata_nextmov( Partida* par, Movdata* movdata ){
+    Movida* mmm = (Movida*)movdata->movida_data;
+    int i;
+    for( i = movdata->crea_ref + 1; i < mmm->acciones->entradas; i ++ ){
+        Accion* acc = mmm->acciones->data[i];
+        Pieza* piecap;
+        switch( acc->tipo ){
+            case  ACCION_MUEVE:
+               movdata->movida_pieza = piecap->tpieza->nombre;
+               movdata->movida_color = (char*) tipojuego_get_colorname( par->tjuego, piecap->color );
+               movdata->movida_origen = ( piecap->casillero ?
+                    ( piecap->casillero == (Casillero*)POZO ? CASILLERO_POZO :
+                    piecap->casillero->nombre ) : NULL)  ;
+               movdata->movida_destino = ( mmm->destino ? mmm->destino->nombre : NULL );
+               movdata->movida_ref     = i;
+               return 1;
+        }
+    }
+    movdata->movida_ref       = i; // Para que proximas lecturas directamente salgan sin entrar al for
+    return 0;
+}
+
+/*
+ * Busca la proxima transformacion dentro de la estructura de la movida.
+ * */
+DLL_PUBLIC    int         qg_partida_movdata_nexttran( Partida* par, Movdata* movdata ){
+    Movida* mmm = (Movida*)movdata->movida_data;
+    int i;
+    for( i = movdata->crea_ref + 1; i < mmm->acciones->entradas; i ++ ){
+        Accion* acc = mmm->acciones->data[i];
+        Pieza* piecap;
+        switch( acc->tipo ){
+            case  ACCION_TRANSFORMA:
+               movdata->transforma_pieza = acc->tpieza->nombre;
+               movdata->transforma_color = (char*) tipojuego_get_colorname( par->tjuego, acc->color );
+               movdata->transforma_ref     = i;
+               return 1;
+        }
+    }
+    movdata->transforma_ref       = i; // Para que proximas lecturas directamente salgan sin entrar al for
     return 0;
 }
 
