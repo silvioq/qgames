@@ -101,7 +101,8 @@ static   set_movdata( Partida* par, Movida* mmm, Movdata* movdata ){
             case  ACCION_TRANSFORMA:
                 movdata->transforma ++;
                 if( movdata->transforma == 1 ){
-                    movdata->transforma_pieza = acc->tpieza->nombre;
+                    Pieza* piecap = &(mmm->pos->piezas[acc->pieza_number]);
+                    movdata->transforma_pieza = ( acc->tpieza ? acc->tpieza : piecap->tpieza )->nombre;
                     movdata->transforma_color = (char*) tipojuego_get_colorname( par->tjuego, acc->color );
                     movdata->transforma_ref     = i;
                 }
@@ -227,7 +228,8 @@ DLL_PUBLIC    int         qg_partida_movdata_nexttran( Partida* par, Movdata* mo
         Pieza* piecap;
         switch( acc->tipo ){
             case  ACCION_TRANSFORMA:
-               movdata->transforma_pieza = acc->tpieza->nombre;
+               piecap = &(mmm->pos->piezas[acc->pieza_number]);
+               movdata->transforma_pieza = ( acc->tpieza ? acc->tpieza : piecap->tpieza )->nombre;
                movdata->transforma_color = (char*) tipojuego_get_colorname( par->tjuego, acc->color );
                movdata->transforma_ref     = i;
                return 1;
