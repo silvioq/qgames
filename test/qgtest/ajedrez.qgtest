@@ -43,10 +43,16 @@ nuevo-juego   Ajedrez
 37. Ke5 Ke3 38. Kf5 Kf2 39. Kg4 Kxg2 
 
 check-piezas  3
+check-captured 29
+check-captured peon negro 7
+check-captured peon blanco 8
 check-movidas Kxh4
 
 40. Kxh4    
 check-piezas  2
+check-captured 30
+check-captured peon negro 8
+check-captured peon blanco 8
 1/2-1/2
 
 nuevo-juego   Ajedrez

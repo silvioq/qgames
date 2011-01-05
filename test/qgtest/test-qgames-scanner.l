@@ -62,6 +62,10 @@ typedef  struct strCheck{
     char*   movida;
 } strcheck;
 
+#define  TCHECK_PIEZAS     'P'
+#define  TCHECK_CAPTURADAS 'C'
+int  tipocheck;
+
 %}
 
 %option batch
@@ -84,7 +88,8 @@ RESULT       ({DRAW}|{BWIN}|{WWIN}|\*)
 %%
 
 <INITIAL>nuevo{BAR}juego        { BEGIN(nombre_juego); }
-<INITIAL>check{BAR}piezas       { iniciar_chequeo( ); BEGIN(check_piezas); }
+<INITIAL>check{BAR}captured     { iniciar_chequeo( TCHECK_CAPTURADAS ); BEGIN(check_piezas); }
+<INITIAL>check{BAR}piezas       { iniciar_chequeo( TCHECK_PIEZAS     ); BEGIN(check_piezas); }
 <INITIAL>check{BAR}movidas?     { BEGIN(check_movida); }  
 <INITIAL>check{BAR}result       { BEGIN(check_result); }  
 <INITIAL>show{BAR}movidas       { qg_partida_movidas_posibles_ascii( partida ) ; }
@@ -191,7 +196,8 @@ void  free_struct(strcheck* str){
 }
 
 
-int   iniciar_chequeo(  ){
+int   iniciar_chequeo( int tcheck ){
+    tipocheck = tcheck;
     LOGPRINT( 5, "Inicio de chequeo, con  lista = %p", checklist );
     if( checklist ) list_free( checklist );
     checklist = list_nueva( (_list_freefunc)free_struct );
@@ -203,13 +209,17 @@ void   count_piezas_add_parameter( char* param ){
     LOGPRINT( 5, "Agrega parametro %s", param );
     memset( str, 0, sizeof( strcheck ) );
     if( qg_tipojuego_get_casillero( tjuego, param ) != NOT_FOUND ){
+        if( tipocheck == TCHECK_CAPTURADAS ){
+            LOGPRINT( 2, "No puede usar parametro casillero %s para control de capturadas (%d)", param, yylineno );
+            exit( EXIT_FAILURE );
+        }
         str->casillero = strdup( param );
     } else if( qg_tipojuego_get_tipopieza( tjuego, param ) != NOT_FOUND ){
         str->tipopieza = strdup( param );
     } else if( qg_tipojuego_get_color( tjuego, param ) != NOT_FOUND ){
         str->color = strdup( param );
     } else {
-        LOGPRINT( 2, "Parametro %s no reconocido (%d)", param, yylineno );
+        LOGPRINT( 2, "parametro %s no reconocido (%d)", param, yylineno );
         exit( EXIT_FAILURE );
     }
     list_agrega( checklist, str );
@@ -228,20 +238,26 @@ void  chequear_resultado(int resultado){
 
 void  check_count_piezas(int resultado){
     int  contador = 0;
-    int  total    = qg_partida_tablero_count( partida, LAST_MOVE );
+    int  total    = ( tipocheck == TCHECK_PIEZAS ? 
+                          qg_partida_tablero_count( partida, LAST_MOVE ) :
+                          qg_partida_tablero_countcap( partida, LAST_MOVE ) );
     int  i;
     for( i = 0; i < total; i ++ ){
-        char* casillero, *tipopieza, *color;
+        char* casillero = "", *tipopieza, *color;
         strcheck* strc;
         int       valido = 1;
-        qg_partida_tablero_data( partida, LAST_MOVE, i, &casillero, &tipopieza, &color );
+        if( tipocheck == TCHECK_PIEZAS ){
+            qg_partida_tablero_data( partida, LAST_MOVE, i, &casillero, &tipopieza, &color );
+        } else {
+            qg_partida_tablero_datacap( partida, LAST_MOVE, i, &tipopieza, &color );
+        }
         list_inicio( checklist );
         while( strc = list_siguiente( checklist ) ){
             if( strc->color && strcmp( color, strc->color ) != 0 ){
                 valido = 0; 
                 break;
             }
-            if( strc->casillero && strcmp( casillero, strc->casillero ) != 0 ){
+            if( tipocheck == TCHECK_PIEZAS && strc->casillero && strcmp( casillero, strc->casillero ) != 0 ){
                 valido = 0; 
                 break;
             }

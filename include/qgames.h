@@ -250,8 +250,10 @@ int         qg_partida_movidas_data  ( Partida* par, int num, Movdata* data );
  * */
 void        qg_partida_tablero_ascii ( Partida* par );
 int         qg_partida_tablero_count ( Partida* par, int movida );
+int         qg_partida_tablero_countcap( Partida* par, int movida );
 int         qg_partida_count_piezas    ( Partida* par, char* casillero, char* tipopieza );
 int         qg_partida_tablero_data  ( Partida* par, int movida, int num, char** casillero, char** pieza, char** color );
+int         qg_partida_tablero_datacap( Partida* par, int movida, int num, char** pieza, char** color );
 
 /*
  * Acceso a los movimientos historicos

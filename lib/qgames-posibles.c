@@ -339,7 +339,10 @@ DLL_PUBLIC   int         qg_partida_movhist_data( Partida* par, int mov, Movdata
     return 1;
 }
 
-
+/*
+ * Devuelve los datos de la pieza "num" en el tablero, para la movida pasada como
+ * parametro
+ * */
 DLL_PUBLIC   int         qg_partida_tablero_data  ( Partida* par, int movida, int num, char** casillero, char** pieza, char** color ){
     int i; int cont = 0;
     Posicion* pos = partida_get_posicion_from_movida( par, movida );
@@ -350,6 +353,28 @@ DLL_PUBLIC   int         qg_partida_tablero_data  ( Partida* par, int movida, in
         if( CASILLERO_VALIDO( pie->casillero ) ){
             if( cont == num ){
                 if( casillero ) *casillero = pie->casillero->nombre;
+                if( pieza )     *pieza     = pie->tpieza->nombre;
+                if( color )     *color     = (char*) tipojuego_get_colorname( par->tjuego, pie->color );
+                return 1;
+            } else cont ++;
+        }
+    }
+    return 0;
+}
+
+/*
+ * Devuelve los datos de la pieza capturada "num" en el tablero, para la movida pasada como
+ * parametro
+ * */
+DLL_PUBLIC   int         qg_partida_tablero_datacap( Partida* par, int movida, int num, char** pieza, char** color ){
+    int i; int cont = 0;
+    Posicion* pos = partida_get_posicion_from_movida( par, movida );
+    if( !pos ) return 0;
+
+    for( i = 0; i < pos->piezas_count; i ++ ){
+        Pieza* pie = &(pos->piezas[i]);
+        if( pie->casillero == ENCAPTURA ){
+            if( cont == num ){
                 if( pieza )     *pieza     = pie->tpieza->nombre;
                 if( color )     *color     = (char*) tipojuego_get_colorname( par->tjuego, pie->color );
                 return 1;
@@ -375,5 +400,20 @@ DLL_PUBLIC   int         qg_partida_tablero_count ( Partida* par, int movida ){
     return ret;
 }
 
+/*
+ * Devuelve la cantidad de piezas capturadas que tiene el tablero
+ * */
+DLL_PUBLIC   int         qg_partida_tablero_countcap( Partida* par, int movida ){
+    int ret, i;
+    ret = 0;
+    Posicion* pos = partida_get_posicion_from_movida( par, movida );
+    if( !pos ) return 0;
+
+    for( i = 0; i < pos->piezas_count; i ++ ){
+        Pieza* pie = &(pos->piezas[i]);
+        if( pie->casillero == ENCAPTURA ) ret ++;
+    }
+    return ret;
+}
 
 
