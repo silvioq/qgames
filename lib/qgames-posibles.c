@@ -203,6 +203,7 @@ DLL_PUBLIC   int         qg_partida_movdata_nextmov( Partida* par, Movdata* movd
         Pieza* piecap;
         switch( acc->tipo ){
             case  ACCION_MUEVE:
+               piecap = &(mmm->pos->piezas[acc->pieza_number]);
                movdata->movida_pieza = piecap->tpieza->nombre;
                movdata->movida_color = (char*) tipojuego_get_colorname( par->tjuego, piecap->color );
                movdata->movida_origen = ( piecap->casillero ?
