@@ -212,7 +212,7 @@ long  code_wrapper_final( QCodeVM* vm ){
 
 
 // FIXME: Esto esta mal. Deberia pasarlo como parametro
-static  Analizador* zgeneral;
+static __thread Analizador* zgeneral;
 
 long  code_wrapper_initz( QCodeVM* vm ){
     return  (long)zgeneral;
