@@ -42,7 +42,6 @@
 #include "log.h"
 
 int   partida_mover_mov( Partida* par, Movida* mov );
-static   Posicion*  partida_get_posicion_from_movida( Partida* par, int movida );
 
 /* 
  * Esta funcion devuelve la proxima secuencia, a partir
@@ -489,7 +488,12 @@ int         partida_count_piezas  ( Partida* par, char* casillero, char* tpieza 
 
 }
 
-static   Posicion*  partida_get_posicion_from_movida( Partida* par, int movida ){
+
+/*
+ * Dada una movida determinada, encuentra la posicion
+ * */
+
+Posicion*  partida_get_posicion_from_movida( Partida* par, int movida ){
     if( movida == 0 ){
         return par->tjuego->inicial ;
     } else if ( movida = LAST_MOVE ){
@@ -512,42 +516,6 @@ static   Posicion*  partida_get_posicion_from_movida( Partida* par, int movida )
 
 
 
-
-/*
- * Devuelve la cantidad de entradas que tiene el tablero
- * */
-int         partida_tablero_count ( Partida* par, int movida ){
-    int ret, i;
-    ret = 0;
-    Posicion* pos = partida_get_posicion_from_movida( par, movida );
-    if( !pos ) return 0;
-
-    for( i = 0; i < pos->piezas_count; i ++ ){
-        Pieza* pie = &(pos->piezas[i]);
-        if( CASILLERO_VALIDO( pie->casillero ) ) ret ++;
-    }
-    return ret;
-}
-
-
-int         partida_tablero_data  ( Partida* par, int movida, int num, char** casillero, char** pieza, char** color ){
-    int i; int cont = 0;
-    Posicion* pos = partida_get_posicion_from_movida( par, movida );
-    if( !pos ) return 0;
-
-    for( i = 0; i < pos->piezas_count; i ++ ){
-        Pieza* pie = &(pos->piezas[i]);
-        if( CASILLERO_VALIDO( pie->casillero ) ){
-            if( cont == num ){
-                if( casillero ) *casillero = pie->casillero->nombre;
-                if( pieza )     *pieza     = pie->tpieza->nombre;
-                if( color )     *color     = (char*) tipojuego_get_colorname( par->tjuego, pie->color );
-                return 1;
-            } else cont ++;
-        }
-    }
-    return 0;
-}
 
 
 

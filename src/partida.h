@@ -122,6 +122,7 @@ typedef  struct  StrPartida {
  * espere durante mucho tiempo ... aqui esta! 
  * */
 Partida*  partida_new( Tipojuego* tjuego, char* id_par );
+void      partida_free( Partida* par );
 
 int       partida_mover_serie ( Partida* par, char* serie );
 int       partida_mover       ( Partida* par, int mov );
@@ -132,7 +133,7 @@ char*     partida_pgn( Partida* par ); // free luego!
 
 Movida*   partida_ultimo_movimiento( Partida* par );
 Movida*   partida_get_movimiento( Partida* par, int movhist );  /* Devuelve el n movimiento, comenzando por el cero */
-void      partida_free( Partida* par );
+Posicion*  partida_get_posicion_from_movida( Partida* par, int movida );
 
 /*
  * Load y dump de las partidas
