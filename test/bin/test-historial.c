@@ -114,5 +114,18 @@ int  main( int argc, char** argv ){
     assert( strcmp( movd.captura_casillero, "e4" ) == 0 );
     assert( movd.transforma == 0 );
 
+    Tipojuego* jubilado = qg_tipojuego_open( "Jubilado" );
+    assert( partida = qg_tipojuego_create_partida( jubilado, NULL ) );
+    assert( qg_partida_mover_pgn( partida, "b4 b6 c4 g6 g4 g5 a3 b5 c5 Kd8 d3 h6 h4 Ke8 hxg5 a6 gxh6 c6 h7 f6 f3 Kf8 a4 d6 h8=R" ) );
+
+    
+    assert( qg_partida_movhist_data( partida, 24, & movd ) );
+    printf( "Movida seleccionada es %s\n", movd.notacion );
+    assert( strcmp( movd.notacion, "h8=R" ) == 0 );
+    assert( movd.transforma );
+    assert( strcmp( movd.transforma_pieza, "torre" ) == 0 );
+    assert( strcmp( movd.transforma_color, "blanco" ) == 0 );
+    assert( !qg_partida_movdata_nextmov( partida, &movd ) );
+
     exit( EXIT_SUCCESS );
 }

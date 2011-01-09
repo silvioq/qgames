@@ -198,7 +198,7 @@ DLL_PUBLIC   int         qg_partida_movdata_nextcrea( Partida* par, Movdata* mov
 DLL_PUBLIC   int         qg_partida_movdata_nextmov( Partida* par, Movdata* movdata ){
     Movida* mmm = (Movida*)movdata->movida_data;
     int i;
-    for( i = movdata->crea_ref + 1; i < mmm->acciones->entradas; i ++ ){
+    for( i = movdata->movida_ref + 1; i < mmm->acciones->entradas; i ++ ){
         Accion* acc = mmm->acciones->data[i];
         Pieza* piecap;
         switch( acc->tipo ){
