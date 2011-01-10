@@ -438,11 +438,8 @@ int   partida_mover_mov( Partida* par, Movida* mov ){
     } else if ( ret > 0 ){
         par->resultado = resultado;
         par->color_ganador = ret;
-        // LOGPRINT( 2, "flags es %d", par->flags );
         par->flags    &= ~ANALIZANDO;
-        // LOGPRINT( 2, "flags es %d", par->flags );
         par->flags    |= TERMINADA;
-        // LOGPRINT( 2, "flags es %d", par->flags );
     } else {
         secuencia_siguiente( par, &(par->color), &(par->tmov) );
     }
@@ -574,6 +571,9 @@ int         partida_dump( Partida* par, void** data, int* size ){
         2 bytes con el numero de pieza q continua
         1 byte con la secuencia
         4 bytes con el flag
+        1 byte con el color ganador
+        1 byte con el tamaño del resultado
+        n bytes con el resultado de la partida
         (8 bytes con el time_t inicio)
         (8 bytes con el time_t final)
         2 bytes con la cantidad de movidas
@@ -582,6 +582,7 @@ int         partida_dump( Partida* par, void** data, int* size ){
            2 bytes con el largo de la movida
            movida
         2 bytes con la cantidad de movidas calculadas
+        1 byte con el color ganador
     */
 
     len16 = QG_MAJOR_VERSION * 256 + QG_MINOR_VERSION;
@@ -617,6 +618,19 @@ int         partida_dump( Partida* par, void** data, int* size ){
 
     // flag
     ADDDATA( ret, len, ((uint32_t)par->flags), aloc );
+
+    // Color ganador
+    len8 = par->color_ganador;
+    ADDDATA( ret, len, len8, aloc );
+
+    // resultado
+    len8 = ( par->resultado ? strlen( par->resultado ) : 0 );
+    ADDDATA( ret, len, len8, aloc );
+    if( par->resultado ){
+        STREXPAND( ret, aloc, len + len8 );
+        memcpy( ((char*)ret) + len, par->resultado, len8 );
+        len += len8;
+    }
 
     // times!
     ADDDATA( ret, len, ((uint64_t)par->inicio), aloc );
@@ -664,6 +678,7 @@ int         partida_dump( Partida* par, void** data, int* size ){
             len += size;
         }
     }
+
   
     *data = ret;
     *size = len;
@@ -736,6 +751,19 @@ Partida*    partida_load( Tipojuego* tjuego, void* data, int size ){
 
     par->flags = (int)(((uint32_t*)point)[0]);
     point += sizeof(uint32_t);
+
+    len8 = point[0];
+    par->color_ganador = len8;
+    point ++;
+
+    len8 = point[0];
+    point ++;
+    if( len8 ){
+        par->resultado = malloc( len8 + 1 );
+        memcpy( par->resultado, point, len8 );
+        par->resultado[len8] = 0;
+        point ++;
+    }
 
     par->inicio = (time_t)(((uint64_t*)point)[0]);
     point += sizeof( uint64_t );

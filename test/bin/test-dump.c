@@ -88,6 +88,7 @@ int  main(int argc, char** argv) {
 
     void* data;
     int   size;
+    char* res;
     assert( ajedrez = qgz_parse_filename( filename, 0 ) );
     assert( gomoku  = qgz_parse_filename( file2   , 0 ) );
     
@@ -95,7 +96,7 @@ int  main(int argc, char** argv) {
     p1 = qg_tipojuego_create_partida( ajedrez, "id" );
     assert( qg_partida_dump( p1, &data, &size ));
     free( data );
-    assert( size == 40 );
+    assert( size == 42 );
 
     assert( qg_partida_mover_notacion( p1, "e4" ) );
     assert( qg_partida_dump( p1, &data, &size ) );
@@ -111,7 +112,7 @@ int  main(int argc, char** argv) {
     assert( qg_partida_mover_pgn( p1, pgn ) );
     assert( qg_partida_dump( p1, &data, &size ));
     // printf( "El tamaño es %d\n", size );
-    assert( size == 4089 );
+    assert( size == 4091 );
 
     assert( strcmp( "Ajedrez", qg_partida_load_tj( data, size ) ) == 0 );
     assert( p2 = qg_partida_load( ajedrez, data, size ) );
@@ -123,7 +124,7 @@ int  main(int argc, char** argv) {
     free( data );
     assert( qg_partida_dump( p1, &data, &size ));
     // printf( "El tamaño es %d\n", size );
-    assert( size == 4592 );
+    assert( size == 4594 );
     qg_partida_free( p1 ); 
     qg_partida_free( p2 ); 
 
@@ -154,10 +155,24 @@ int  main(int argc, char** argv) {
     qg_partida_free( p1 ); 
 
     assert( p1 = qg_partida_load( ajedrez, data, size ) );
+    assert( qg_partida_final( p1, &res ) == FINAL_ENJUEGO );
+    assert( !res );
     free( data );
     assert( qg_partida_mover_pgn( p1, "5. 0-0 Be7" ) );
     assert( qg_partida_dump( p1, &data, &size ));
     qg_partida_free( p1 ); 
+    free( data );
+
+    assert( p1 = qg_tipojuego_create_partida( ajedrez, NULL ) );
+    assert( qg_partida_mover_pgn( p1, "1. g4 e6 2. f3 Qh4" ) );
+    assert( qg_partida_final( p1, &res ) == 2 );
+    assert( strcmp( "negro Gana", res ) == 0 );
+
+    assert( qg_partida_dump( p1, &data, &size ));
+    qg_partida_free( p1 ); 
+    assert( p1 = qg_partida_load( ajedrez, data, size ) );
+    assert( qg_partida_final( p1, &res ) == 2 );
+    assert( strcmp( "negro Gana", res ) == 0 );
     free( data );
 
     return 0;
