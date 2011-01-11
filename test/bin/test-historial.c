@@ -113,6 +113,7 @@ int  main( int argc, char** argv ){
     assert( strcmp( movd.captura_color, "blanco" ) == 0 );
     assert( strcmp( movd.captura_casillero, "e4" ) == 0 );
     assert( movd.transforma == 0 );
+    qg_partida_free( partida );
 
     Tipojuego* jubilado = qg_tipojuego_open( "Jubilado" );
     assert( partida = qg_tipojuego_create_partida( jubilado, NULL ) );
@@ -126,6 +127,13 @@ int  main( int argc, char** argv ){
     assert( strcmp( movd.transforma_pieza, "torre" ) == 0 );
     assert( strcmp( movd.transforma_color, "blanco" ) == 0 );
     assert( !qg_partida_movdata_nextmov( partida, &movd ) );
+    qg_partida_free( partida );
+
+    assert( partida = qg_tipojuego_create_partida( ajedrez, NULL ) );
+    assert( qg_partida_mover_pgn( partida, "1. g4 e6 2. f3 Qh4" ) );
+    assert( qg_partida_final( partida, NULL ) == 2 );
+    assert( qg_partida_movhist_count( partida ) == 4 );
+    qg_partida_free( partida );
 
     exit( EXIT_SUCCESS );
 }

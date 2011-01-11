@@ -167,12 +167,14 @@ int  main(int argc, char** argv) {
     assert( qg_partida_mover_pgn( p1, "1. g4 e6 2. f3 Qh4" ) );
     assert( qg_partida_final( p1, &res ) == 2 );
     assert( strcmp( "negro Gana", res ) == 0 );
+    assert( qg_partida_movhist_count( p1 ) == 4 );
 
     assert( qg_partida_dump( p1, &data, &size ));
     qg_partida_free( p1 ); 
     assert( p1 = qg_partida_load( ajedrez, data, size ) );
     assert( qg_partida_final( p1, &res ) == 2 );
     assert( strcmp( "negro Gana", res ) == 0 );
+    assert( qg_partida_movhist_count( p1 ) == 4 );
     free( data );
 
     return 0;
