@@ -762,7 +762,7 @@ Partida*    partida_load( Tipojuego* tjuego, void* data, int size ){
         par->resultado = malloc( len8 + 1 );
         memcpy( par->resultado, point, len8 );
         par->resultado[len8] = 0;
-        point ++;
+        point += len8;
     }
 
     par->inicio = (time_t)(((uint64_t*)point)[0]);
