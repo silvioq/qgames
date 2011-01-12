@@ -582,7 +582,6 @@ int         partida_dump( Partida* par, void** data, int* size ){
            2 bytes con el largo de la movida
            movida
         2 bytes con la cantidad de movidas calculadas
-        1 byte con el color ganador
     */
 
     len16 = QG_MAJOR_VERSION * 256 + QG_MINOR_VERSION;
