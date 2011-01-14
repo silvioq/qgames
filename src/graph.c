@@ -42,6 +42,22 @@ static char* qgames_image_dir = IMGDIR;
 #define   HIGHLIGHT_SIZE  3.0
 static    gdImagePtr  graph_dibujar_posicion( Tipojuego* tj, int flags, Posicion* pos, Movida* mov );
 
+static    void  set_transparency( gdImagePtr gd ){
+    /*
+    gdImagePtr ggg = *gd;
+    if( gdImageTrueColor( ggg ) == 0 ) return;
+    gdImagePtr gnew = gdImageCreatePaletteFromTrueColor( ggg, 1, 256 );
+    gdImageDestroy( ggg );
+    if( gdImageTrueColor( gnew ) == 1 ){
+        LOGPRINT( 1, "Error horrible, no puede convertirse a paleta %p", gnew );
+    }
+    *gd = gnew;
+    */
+    // if( gdImageTrueColor( gd ) == 0 ) return;
+    gdImageSaveAlpha( gd, 1 );
+    gdImageAlphaBlending( gd, 0 );
+}
+
 /*
  * Esta funcion arma un tablero tipo damero (checkerboard)
  * */
@@ -129,6 +145,7 @@ gdImagePtr  graph_tpieza_get_gd( Tipopieza* tp, int color ){
         g->w  = gdImageSX( g->gd );
         g->h  = gdImageSY( g->gd );
         fclose( fpng );
+        set_transparency( g->gd );
         return  g->gd;
     }
 
@@ -195,6 +212,7 @@ gdImagePtr  graph_tpieza_get_gd( Tipopieza* tp, int color ){
     g0->std    = g->std;
     g0->w      = g->w;
     g0->h      = g->h;
+    set_transparency( gd );
     g0->gd     = gd;
     
     list_agrega( tp->tipojuego->graphdefs, g0 );

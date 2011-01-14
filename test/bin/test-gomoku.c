@@ -243,6 +243,17 @@ int  main(int argc, char** argv) {
     fpng = fopen( "../../tmp/gomoku-01-r.png", "w" );
     assert( fwrite( gomoku_png, size, 1, fpng ) );
     fclose( fpng ); 
+
+    printf( "." );
+    size = qg_tipojuego_get_tpieza_png( gomoku, "blanco", "gema", 0, &gomoku_png, &w, &h );
+    fpng = fopen( "../../tmp/gomoku-gema.png", "w" );
+    assert( fwrite( gomoku_png, size, 1, fpng ) );
+    fclose( fpng ); 
+
+//    assert( size == 298 );
+    assert( w == 30 );
+    assert( h == 30 );
+    qgames_free_png( gomoku_png );  
 #endif
 
     printf( "\n" );
