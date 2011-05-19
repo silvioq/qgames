@@ -163,7 +163,7 @@ int    qg_tipojuego_get_tablero_png( Tipojuego* tj, int board_number, int flags,
 int    qg_tipojuego_get_tpieza_png( Tipojuego* tj, const char* color, const char* tpieza, int flags, 
                                           void** png, int* width, int* height );
 int    qg_tipojuego_get_logo( Tipojuego* tj, void** png, int* width, int* height );
-void   qgames_free_pgn( void* );
+void   qgames_free_png( void* );
 
 
 
