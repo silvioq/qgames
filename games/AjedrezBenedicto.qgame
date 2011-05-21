@@ -246,7 +246,36 @@ move:
             movida_rey "s; o;"
 move:
             movida_rey "s; e;"
+move:       enroque_corto
+            parar if ya_movido?
+            e; parar if ocupado?; parar if atacado_enemigo?
+            marca aqui
+            e; parar if ocupado?; parar if atacado_enemigo?
+            e; parar if ocupado_enemigo?;
+            parar if !ocupado? torre; 
+            parar if ya_movido?;
+            mueve piezas_en_casillero marca
+            flip-torre
+            casillero_inicial; e; e; 
+            asigna_atributo 'ya_movido', true
+            flip-rey
+            juega
 
+move:       enroque_largo
+            parar if ya_movido?
+            o; parar if ocupado?; parar if atacado_enemigo?
+            marca aqui
+            o; parar if ocupado?; parar if atacado_enemigo?
+            o; parar if ocupado?
+            o; parar if ocupado_enemigo?; 
+            parar if !ocupado? torre; 
+            parar if ya_movido?;
+            mueve piezas_en_casillero marca
+            flip-torre
+            casillero_inicial; o; o; 
+            asigna_atributo 'ya_movido', true
+            flip-rey
+            juega
 
 
 # Listo con la definicion de piezas ... mas cosas
@@ -286,6 +315,8 @@ notation:   captured-mark   x
 notation:   mark           "-"
 notation:   default   piece-name  captured-mark      target
 notation:   onrepeat  piece-name  origin             mark    target         
+notation:   enroque_corto   "0-0"
+notation:   enroque_largo   "0-0-0"
 
 # Aca vienen las definiciones de tablero ... simplemente voy a hacer
 # un damero de dimensiones estandares
