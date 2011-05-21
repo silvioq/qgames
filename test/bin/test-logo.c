@@ -59,6 +59,7 @@ int  main(int argc, char** argv) {
 
     while( ent = readdir( d ) ){
         char nombre[256];
+        if( ent->d_name[0] = '.' ) continue;
         strcpy( nombre, ent->d_name );
         char* aux = strstr( nombre, ".qgame" );
         if( !aux ) { continue; }
