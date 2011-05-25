@@ -40,6 +40,8 @@
 #if  GRAPH_ENABLED
 static char* qgames_image_dir = IMGDIR;
 #define   HIGHLIGHT_SIZE  3.0
+#define   LOGO_WIDTH  120
+#define   LOGO_HEIGHT 120
 static    gdImagePtr  graph_dibujar_posicion( Tipojuego* tj, int flags, Posicion* pos, Movida* mov );
 
 static    void  set_transparency( gdImagePtr gd ){
@@ -532,12 +534,22 @@ int    tipojuego_get_logo( Tipojuego* tj, void** png, int* width, int* height ){
     } else {
         if( !g->cus ){
             gd = graph_dibujar_posicion( tj, 0, tj->inicial, NULL );
-            g->gd = gd;
+            g->gd = gdImageCreate( LOGO_WIDTH, LOGO_HEIGHT );
+            gdImageCopyResized( g->gd, gd, 0, 0, 0, 0,
+                LOGO_WIDTH, LOGO_HEIGHT,
+                gdImageSX(gd), gdImageSY(gd) );
+            gdImageDestroy( gd );
+            gd = g->gd;
         } else if ( g->std == STANDARD_FROM_PGN )  {
             Partida* pp = partida_new( tj, "from_logo" );
             partida_mover_serie( pp, g->cus );
             gd = graph_dibujar_posicion( tj, 0, pp->pos, partida_ultimo_movimiento( pp ) );
-            g->gd = gd;
+            g->gd = gdImageCreate( LOGO_WIDTH, LOGO_HEIGHT );
+            gdImageCopyResized( g->gd, gd, 0, 0, 0, 0,
+                LOGO_WIDTH, LOGO_HEIGHT,
+                gdImageSX(gd), gdImageSY(gd) );
+            gdImageDestroy( gd );
+            gd = g->gd;
         } else {
             FILE* fpng = fopen( g->cus, "r" );
             if( !fpng ){
