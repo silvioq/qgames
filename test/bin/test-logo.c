@@ -46,7 +46,7 @@ int  main(int argc, char** argv) {
 
     qg_path_set( TEST_GAMESDIR );
     qgames_graph_image_dir( TEST_IMGDIR );
-    loglevel = 1;
+    loglevel = 2;
 
 #if GRAPH_ENABLED
     const char* dirname = qg_path_games( );
@@ -59,7 +59,7 @@ int  main(int argc, char** argv) {
 
     while( ent = readdir( d ) ){
         char nombre[256];
-        if( ent->d_name[0] = '.' ) continue;
+        if( ent->d_name[0] == '.' ) continue;
         strcpy( nombre, ent->d_name );
         char* aux = strstr( nombre, ".qgame" );
         if( !aux ) { continue; }
@@ -70,8 +70,9 @@ int  main(int argc, char** argv) {
         int size;
         void* datapng;
         /* Controlo que tenga imagen el tablero */
-        size = qg_tipojuego_get_tablero_png( tj, BOARD_ACTUAL, 0, NULL, NULL, NULL );
+        size = qg_tipojuego_get_tablero_png( tj, BOARD_ACTUAL, 0, &datapng, NULL, NULL );
         if( size ){
+            qgames_free_png( datapng );
             size = qg_tipojuego_get_logo( tj, &datapng, NULL, NULL );
             assert( size );
             static char  filename[256];
@@ -81,6 +82,8 @@ int  main(int argc, char** argv) {
             assert( fwrite( datapng, size, 1, fpng ) );
             fclose( fpng ); 
             qgames_free_png( datapng );
+        } else {
+            LOGPRINT( 2, "No hay tablero para %s", nombre );
         }
     }
 
