@@ -122,7 +122,7 @@ Partida*  partida_new( Tipojuego* tjuego, char* id_par ){
             srandom( tv.tv_sec * tv.tv_usec );
             seeded = 1;
         }
-        sprintf( aux, "%d-%d-%d", random(), (long)clock(), xxx );
+        sprintf( aux, "%d-%d-%d", (int)random(), (int)clock(), xxx );
         md5_append( &md5, aux, strlen( aux ) );
         md5_append( &md5, (void*)(&xxx), sizeof( int ) );
         md5_finish( &md5, aux2 );
