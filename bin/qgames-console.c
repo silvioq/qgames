@@ -60,7 +60,7 @@ int isnumeric(char *str)
 
 #if(HAVE_LIBREADLINE)
 
-static char * getline (const char *prompt)
+static char * my_getline (const char *prompt)
 {
   static char *buf = NULL;        /* Always allocated and freed
                                    from inside this function.  */
@@ -72,7 +72,7 @@ static char * getline (const char *prompt)
 }
 
 #else
-static char * getline (const char *prompt)
+static char * my_getline (const char *prompt)
 {
   static char *buf = NULL;        /* Always allocated and freed
                                    from inside this function.  */
@@ -93,10 +93,10 @@ void  jugar_partida(Partida* par){
     qg_partida_movidas_posibles_ascii( par );
     while( 1 ){
         char* line;
-        line = getline( "# " );
+        line = my_getline( "# " );
         if( isnumeric( line ) ){
             if( !qg_partida_mover( par, atol( line ) ) ){
-                printf( "No se puede mover %d\n", atol( line ) );
+                printf( "No se puede mover %d\n", atoi( line ) );
                 continue;
             }
         } else {
