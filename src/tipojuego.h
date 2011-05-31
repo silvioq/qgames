@@ -189,7 +189,7 @@ typedef  struct  StrZonadef{
     tj->error_line = __LINE__; tj->error_file = __FILE__;\
     tj->error_msg = strdup(text);\
     if( add ){ \
-        LOGPRINT( 2, text " (%s)", add  );\
+        LOGPRINT( 2, text " (%s)", add ? add : "" );\
     } else { \
         LOGPRINT( 2, text, 0 );\
     }\
