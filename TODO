@@ -1,4 +1,4 @@
-Desarrollo corto plazo (version 2.9.4)
+Desarrollo corto plazo (version 2.9.5)
 
 * Compilar como librería y comenzar con el ecosistema QGames (casi listo)
 * Hace falta armar las funciones "visibles" y dejar todas las invisibles
@@ -11,7 +11,7 @@ Desarrollo corto plazo (version 2.9.4)
   - qg_tipojuego_graph_logomoves
   - qg_tipojuego_get_logo
 
-Version 2.9.5
+Version 2.9.6
 
 * Cambiar la definicion de archivo qgames para que este 100% en ingles
 * Rotular todos los fuentes con la licencia MIT
