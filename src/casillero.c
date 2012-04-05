@@ -133,7 +133,7 @@ static inline Vinculo*   casillero_busca_vinculo( Casillero* cas, Direccion* dir
     Vinculo* v;
 
     if( ( orides != 'O' ) && ( orides != 'D' ) ){
-        LOGPRINT( 1, "Parametro incorrecto orides=%s", orides );
+        LOGPRINT( 1, "Parametro incorrecto orides=%c", orides );
         return NULL;
     }
 
