@@ -140,7 +140,7 @@ gdImagePtr  graph_tpieza_get_gd( Tipopieza* tp, int color ){
     if( g->cus ){
         FILE* fpng = fopen( g->cus, "r" );
         if( !fpng ){
-            LOGPRINT( 2, "No puede abrir %s", fpng );
+            LOGPRINT( 2, "No puede abrir %s", g->cus );
             return NULL;
         }
         g->gd = gdImageCreateFromPng( fpng );
@@ -243,7 +243,7 @@ gdImagePtr    graph_get_tablero_png( Tipojuego* tj, int board_number, int flags 
         if( !g->gd ){
             FILE* fpng = fopen( g->cus, "r" );
             if( !fpng ){
-                LOGPRINT( 2, "No puede abrir %s", fpng );
+                LOGPRINT( 2, "No puede abrir %s", g->cus );
                 return 0;
             }
             g->gd = gdImageCreateFromPng( fpng );
