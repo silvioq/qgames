@@ -238,6 +238,8 @@ int   ajedrez_check(){
     fclose( fpng ); 
     qgames_free_png( ajedrez_png );  
     assert( size1 == size2 );
+
+    qg_partida_free( partida );
 #else
     // Si no tengo los graficos habilitados, esto tiene que volver con
     // cero
@@ -256,6 +258,7 @@ int   los_alamos(){
     assert( losalamos = qgz_parse_filename( filename, 0 ) );
     assert( partida = qg_tipojuego_create_partida( losalamos, "x" ) );
     assert( qg_partida_mover_notacion( partida, "e3" ) );
+    qg_partida_free( partida );
 
     printf( "." );
     char* prueba1 = "1. d3 d4 2. Qf4 Kd5";
@@ -264,6 +267,7 @@ int   los_alamos(){
     assert( qg_partida_movidas_count( partida ) > 10 );
     assert( qg_partida_mover_notacion( partida, "Qf3" ) );
     assert( qg_partida_final( partida, NULL ) == FINAL_ENJUEGO );
+    qg_partida_free( partida );
 
 
     printf( "." );
@@ -276,6 +280,7 @@ int   los_alamos(){
     assert( qg_partida_movidas_count( partida ) == 21 );
     assert( qg_partida_mover_notacion( partida, "Qxe5" ) );
     assert( qg_partida_final( partida, NULL ) == 1 );
+    qg_partida_free( partida );
 
     printf( "." );
     char* prueba3 = "d3 e4 2. Qf4";
@@ -284,6 +289,7 @@ int   los_alamos(){
     assert( qg_partida_movidas_count( partida ) == 1 );
     assert( qg_partida_mover_notacion( partida, "Nxf4" ) );
     assert( qg_partida_final( partida, NULL ) == FINAL_ENJUEGO );
+    qg_partida_free( partida );
     
     printf( "." );
     char* prueba4 = "1. a3 e4 2. a4 e3 3. axb5 exf2";
@@ -297,6 +303,7 @@ int   los_alamos(){
     assert( !qg_partida_es_continuacion( partida )  );
     assert( strcmp( "negro", qg_partida_color( partida ) ) == 0 );
     assert( qg_partida_count_piezas( partida, NULL, "caballo" ) == 5 );
+    qg_partida_free( partida );
 
     printf( "." );
     char* prueba5 = "1. a3 Nc4 2. a4 Nb6 3. Ra3 Nc4 4. f3 Nb6 5. f4 Nc4";
@@ -314,6 +321,7 @@ int   los_alamos(){
     assert( qg_partida_movida_valida( partida, "Rf3-d3" ) );
     assert( qg_partida_movida_valida( partida, "Rf3-e3" ) );
     assert( !qg_partida_movida_valida( partida, "Re3" ) );
+    qg_partida_free( partida );
     
 }
 
@@ -370,6 +378,7 @@ int  main(int argc, char** argv) {
     assert( !qg_partida_mover_notacion( partida, "Kd3" ) );
     // En c3 hay un peon
     assert( !qg_partida_mover_notacion( partida, "Kc3" ) );
+    qg_partida_free( partida );
 
     printf( "." );
     char* prueba2 = " 1. c3 bxc3 2. dxc3 dxc3 3. e3 cxb2 4. Kxb2 Kb4 5. a3";
@@ -377,6 +386,7 @@ int  main(int argc, char** argv) {
     assert( qg_partida_mover_pgn( partida, prueba2 ) );
     assert( !qg_partida_mover_notacion( partida, "Kxa3" ) );
     assert( qg_partida_final( partida, NULL ) == FINAL_ENJUEGO );
+    qg_partida_free( partida );
 
     printf( "." );
     char* prueba3 = "1. c3 bxc3 2. dxc3 dxc3 3. bxc3 a3 4. Kd2 Kd5 5. Ke3 Kc5 6. Kxe4 Kb5"; // 7. Kd5";
@@ -386,6 +396,7 @@ int  main(int argc, char** argv) {
     assert( qg_partida_movidas_count( partida ) > 0 );
     assert( qg_partida_mover_notacion( partida, "Kd5" ) );
     assert( qg_partida_final( partida, NULL ) == FINAL_ENJUEGO );
+    qg_partida_free( partida );
 
     printf( "." );
     char* prueba4 = "1. c3 bxc3 2. Kc2 cxd2 3. Kxd2 Kb4 4. a3 Kb3 5. Kc1 Ka2 6. Kd2 Kxb2 7. e3 "
@@ -393,6 +404,7 @@ int  main(int argc, char** argv) {
     assert( partida = qg_tipojuego_create_partida( aje, "x" ) );
     assert( qg_partida_mover_pgn( partida, prueba4 ) );
     assert( qg_partida_final( partida, NULL ) == 2 ); // gana el negro
+    qg_partida_free( partida );
 
     // Controlo que no falle el tema de los graficos
 #if GRAPH_ENABLED
