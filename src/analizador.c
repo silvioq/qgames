@@ -583,7 +583,7 @@ int    analizador_asigna_att( Analizador* z, int att, int val ){
 
 int    analizador_evalua_att( Analizador* z, int att ){
     int ret = pieza_get_att( z->pieza, att );
-    LOGPRINT( 6, "Evaluando atributo %s de %s = %d", att, z->pieza->tpieza->nombre, ret );
+    LOGPRINT( 6, "Evaluando atributo %d de %s = %d", att, z->pieza->tpieza->nombre, ret );
     return  ret;
 }
 
