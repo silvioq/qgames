@@ -1,5 +1,6 @@
 %{
 
+#define YYSTYPE long
 #include <stdio.h>
 #include <string.h>
 #include "symtable.h"
@@ -17,7 +18,6 @@ int    defined( char* d );
 int    switch_to_define( );
 
 #define   HEXTOI(x)  ( x >= 'A' && x <= 'F' ? x - 'A' + 10 : ( x >= 'a' && x <= 'f' ? x - 'a' + 10 : x - '0' ) )
-
 
 symtable*  symt = NULL;
 char*  defactual = NULL;
@@ -247,8 +247,8 @@ define\:        { define_created = 0; BEGIN(define_head);   }
 <INITIAL,code>false               { qgzlval = 0; return TOK_NUMBER; }
 <INITIAL>{WORD}                   { 
                                     qgzlval = (long)strdup(yytext); 
-                                    ((char*)(long)qgzlval)[yyleng] = 0;
-                                    qgzprintf( "WORD: %s", (char*)(long)qgzlval  );
+                                    ((char*)qgzlval)[yyleng] = 0;
+                                    qgzprintf( "WORD: %s", (char*)qgzlval  );
                                     return  TOK_WORD; 
                                   }
 
