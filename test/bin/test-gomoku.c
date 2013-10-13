@@ -237,12 +237,14 @@ int  main(int argc, char** argv) {
     fpng = fopen( "../../tmp/gomoku-01.png", "w" );
     assert( fwrite( gomoku_png, size, 1, fpng ) );
     fclose( fpng ); 
+    qgames_free_png( gomoku_png );  
 
     size = qg_partida_get_png( partida, GETPNG_HIGHLIGHT_GREEN | GETPNG_ROTADO, LAST_MOVE, &gomoku_png );
     assert( size > 0 );
     fpng = fopen( "../../tmp/gomoku-01-r.png", "w" );
     assert( fwrite( gomoku_png, size, 1, fpng ) );
     fclose( fpng ); 
+    qgames_free_png( gomoku_png );  
 
     printf( "." );
     size = qg_tipojuego_get_tpieza_png( gomoku, "blanco", "gema", 0, &gomoku_png, &w, &h );
@@ -254,6 +256,7 @@ int  main(int argc, char** argv) {
     assert( w == 30 );
     assert( h == 30 );
     qgames_free_png( gomoku_png );  
+    qg_partida_free( partida );
 #endif
 
     printf( "\n" );
