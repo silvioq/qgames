@@ -57,8 +57,8 @@ static inline void* qcode_debug_alloc(size_t size){
 #define  ALLOC_K  16
 
 
-QCodeLab*  qcode_search_label(QCode* qcode, int label );
-QCodeLab*  qcode_new_label(QCode* qcode, char* label_name );
+static  QCodeLab*  qcode_search_label(QCode* qcode, int label );
+static  QCodeLab*  qcode_new_label(QCode* qcode, char* label_name );
 
 #define  NUMLABEL(numlab, labelname) \
   { numlab = md5_mem( label_name, strlen( label_name ) );\
@@ -231,7 +231,7 @@ int       qcode_slab  ( QCode* qcode, char* label_name ){
  * en forma generica
  *
  * */
-QCodeLab*  qcode_new_label(QCode* qcode, char* label_name ){
+static  QCodeLab*  qcode_new_label(QCode* qcode, char* label_name ){
     int  numlab;
     QCodeLab*  l ;
 
@@ -263,7 +263,7 @@ QCodeLab*  qcode_new_label(QCode* qcode, char* label_name ){
  * Busca una etiqueta a partir del numero ... si
  * no encuentra nada, retorna nulo
  * */
-QCodeLab*  qcode_search_label(QCode* qcode, int label ){
+static  QCodeLab*  qcode_search_label(QCode* qcode, int label ){
     int i;
     for( i = 0; i < qcode->lab_count; i ++ ){
         register QCodeLab* l = &( qcode->lab_list[i] );

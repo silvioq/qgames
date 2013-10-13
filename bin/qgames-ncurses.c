@@ -260,7 +260,7 @@ void  jugar_partida(Partida* par){
         borrar_win( w );
     }
     finalizar_pantalla();
-    printf( qg_partida_pgn( par ) );
+    printf( "%s", qg_partida_pgn( par ) );
     printf( "\n" );
 };
 
