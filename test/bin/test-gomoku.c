@@ -187,7 +187,7 @@ int  main(int argc, char** argv) {
 #if GRAPH_ENABLED
     qgames_graph_image_dir( TEST_IMGDIR );
     // A ver si dibujamos algo ...
-    if( !mkdir( "../../tmp", S_IRWXU | S_IRWXG | S_IRWXO ) ){
+    if( mkdir( "../../tmp", S_IRWXU | S_IRWXG | S_IRWXO ) != 0 ){
         assert( errno == EEXIST );
     }
 
