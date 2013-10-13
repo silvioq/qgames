@@ -17,7 +17,8 @@ libqgames_la_LIBADD = \
 	$(top_builddir)/parser/libpgn-parser.a \
 	$(top_builddir)/parser/libqgames-parser.a \
 	$(top_builddir)/src/libqgames-core.a \
-	$(top_builddir)/vm/libqcode.a
+	$(top_builddir)/vm/libqcode.a \
+  @GD_LIBS@ @PNG_LIBS@
 # 
 #
 libqgames_la_LDFLAGS = -version-info 2:9:0
