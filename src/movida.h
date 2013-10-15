@@ -21,7 +21,7 @@ typedef  struct  StrMovida {
 
 typedef struct StrAccion{
     char        tipo;
-    int         pieza_number;
+    int         piece_number;
     Casillero*  destino;
     int         color;
     Tipopieza*  tpieza;

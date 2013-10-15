@@ -69,7 +69,7 @@ static   set_movdata( Partida* par, Movida* mmm, Movdata* movdata ){
             case  ACCION_MUEVE:
                 movdata->movida ++;
                 if( movdata->movida == 1 ){
-                    Pieza* piecap = &(mmm->pos->piezas[acc->pieza_number]);
+                    Pieza* piecap = &(mmm->pos->piezas[acc->piece_number]);
                     movdata->movida_pieza = piecap->tpieza->nombre;
                     movdata->movida_color = (char*) tipojuego_get_colorname( par->tjuego, piecap->color );
                     movdata->movida_origen = ( piecap->casillero ?
@@ -91,7 +91,7 @@ static   set_movdata( Partida* par, Movida* mmm, Movdata* movdata ){
             case  ACCION_CAPTURA:
                 movdata->captura ++;
                 if( movdata->captura == 1 ){
-                    Pieza* piecap = &(mmm->pos->piezas[acc->pieza_number]);
+                    Pieza* piecap = &(mmm->pos->piezas[acc->piece_number]);
                     movdata->captura_pieza = piecap->tpieza->nombre;
                     movdata->captura_color = (char*) tipojuego_get_colorname( par->tjuego, piecap->color );
                     movdata->captura_casillero = ( piecap->casillero ? piecap->casillero->nombre : NULL );
@@ -101,7 +101,7 @@ static   set_movdata( Partida* par, Movida* mmm, Movdata* movdata ){
             case  ACCION_TRANSFORMA:
                 movdata->transforma ++;
                 if( movdata->transforma == 1 ){
-                    Pieza* piecap = &(mmm->pos->piezas[acc->pieza_number]);
+                    Pieza* piecap = &(mmm->pos->piezas[acc->piece_number]);
                     movdata->transforma_pieza = ( acc->tpieza ? acc->tpieza : piecap->tpieza )->nombre;
                     movdata->transforma_color = (char*) tipojuego_get_colorname( par->tjuego, acc->color );
                     movdata->transforma_ref     = i;
@@ -159,7 +159,7 @@ DLL_PUBLIC   int         qg_partida_movdata_nextcap( Partida* par, Movdata* movd
         Pieza* piecap;
         switch( acc->tipo ){
             case  ACCION_CAPTURA:
-               piecap = &(mmm->pos->piezas[acc->pieza_number]);
+               piecap = &(mmm->pos->piezas[acc->piece_number]);
                movdata->captura_pieza = piecap->tpieza->nombre;
                movdata->captura_color = (char*) tipojuego_get_colorname( par->tjuego, piecap->color );
                movdata->captura_casillero = ( piecap->casillero ? piecap->casillero->nombre : NULL );
@@ -203,7 +203,7 @@ DLL_PUBLIC   int         qg_partida_movdata_nextmov( Partida* par, Movdata* movd
         Pieza* piecap;
         switch( acc->tipo ){
             case  ACCION_MUEVE:
-               piecap = &(mmm->pos->piezas[acc->pieza_number]);
+               piecap = &(mmm->pos->piezas[acc->piece_number]);
                movdata->movida_pieza = piecap->tpieza->nombre;
                movdata->movida_color = (char*) tipojuego_get_colorname( par->tjuego, piecap->color );
                movdata->movida_origen = ( piecap->casillero ?
@@ -229,7 +229,7 @@ DLL_PUBLIC    int         qg_partida_movdata_nexttran( Partida* par, Movdata* mo
         Pieza* piecap;
         switch( acc->tipo ){
             case  ACCION_TRANSFORMA:
-               piecap = &(mmm->pos->piezas[acc->pieza_number]);
+               piecap = &(mmm->pos->piezas[acc->piece_number]);
                movdata->transforma_pieza = ( acc->tpieza ? acc->tpieza : piecap->tpieza )->nombre;
                movdata->transforma_color = (char*) tipojuego_get_colorname( par->tjuego, acc->color );
                movdata->transforma_ref     = i;

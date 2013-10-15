@@ -46,7 +46,7 @@ static inline Accion*   accion_new(){
 void  movida_accion_mueve  ( Movida* mov, Pieza* p, Casillero* destino ){
     Accion* acc       = accion_new();
     acc->tipo         = ACCION_MUEVE;
-    acc->pieza_number = p->number;
+    acc->piece_number = p->number;
     acc->destino      = destino;
     if( !mov->acciones ) mov->acciones = list_nueva( NULL );
     list_agrega( mov->acciones, acc );
@@ -69,7 +69,7 @@ void  movida_accion_crea   ( Movida* mov, Tipopieza* tpieza, int color, Casiller
 void  movida_accion_captura( Movida* mov, Pieza* p ) {
     Accion* acc = accion_new();
     acc->tipo = ACCION_CAPTURA;
-    acc->pieza_number = p->number;
+    acc->piece_number = p->number;
     if( !mov->acciones ) mov->acciones = list_nueva( NULL );
     list_agrega( mov->acciones, acc );
 }
@@ -80,7 +80,7 @@ void  movida_accion_captura( Movida* mov, Pieza* p ) {
 void   movida_accion_transforma( Movida* mov, Pieza* p, int color, Tipopieza* tpieza ){
     Accion* acc = accion_new();
     acc->tipo = ACCION_TRANSFORMA;
-    acc->pieza_number = p->number;
+    acc->piece_number = p->number;
     acc->tpieza       = tpieza;
     acc->color        = color;
     if( !mov->acciones ) mov->acciones = list_nueva( NULL );
@@ -93,7 +93,7 @@ void   movida_accion_transforma( Movida* mov, Pieza* p, int color, Tipopieza* tp
 void  movida_accion_asigna_att( Movida* mov, Pieza* p, int att, int val ){
     Accion* acc = accion_new();
     acc->tipo = ACCION_ASIGNA_ATT;
-    acc->pieza_number = p->number;
+    acc->piece_number = p->number;
     acc->att_key      = att;
     acc->att_val      = val;
     if( !mov->acciones ) mov->acciones = list_nueva( NULL );
@@ -206,7 +206,7 @@ Posicion*  movida_ejecuta( Movida* mov ){
     int i;
     for( i = 0; i < mov->acciones->entradas; i ++ ){
         Accion* acc = (Accion*) mov->acciones->data[i];
-        Pieza*  p = & pos->piezas[acc->pieza_number];
+        Pieza*  p = & pos->piezas[acc->piece_number];
         switch( acc->tipo ){
             case ACCION_MUEVE:
                 posicion_mueve_pieza( pos, p, acc->destino );
@@ -259,7 +259,7 @@ Casillero*   movida_casillero_destino( Movida* mov ){
     list_inicio( mov->acciones );
     while( acc = (Accion*)list_siguiente( mov->acciones ) ){
         if( acc->destino &&  acc->tipo != ACCION_CREA ){
-            if( acc->pieza_number == mov->piece_number ){
+            if( acc->piece_number == mov->piece_number ){
                 mov->destino = acc->destino;
                 return acc->destino;
             }
@@ -286,7 +286,7 @@ int          movida_es_captura( Movida* mov, Pieza** pie ){
     list_inicio( mov->acciones );
     while( acc = (Accion*)list_siguiente( mov->acciones ) ){
         if( acc->tipo == ACCION_CAPTURA ){
-            if( pie ) *pie = &(mov->pos->piezas[acc->pieza_number]);
+            if( pie ) *pie = &(mov->pos->piezas[acc->piece_number]);
             return 1;
         }
     }
@@ -376,7 +376,7 @@ const char*  movida_descripcion( Movida* mov ){
           case ACCION_CAPTURA:
               STREXPAND( ret, aloc, 11 );
               strcat( ret, " captura a " );
-              p = &(mov->pos->piezas[acc->pieza_number]);
+              p = &(mov->pos->piezas[acc->piece_number]);
               c = p->casillero;
               if( c && CASILLERO_VALIDO( c ) ){
                   len = strlen( c->nombre ) + 5;
@@ -491,7 +491,7 @@ int          movida_dump( Movida* mov, void** data, int* size ){
 
     /* Listo! las acciones .... estas son mas faciles ...
         char        tipo;         (char)
-        int         pieza_number; (short)
+        int         piece_number; (short)
         Casillero*  destino;      (short)
         int         color;        (short)
         Tipopieza*  tpieza;       (char)
@@ -502,7 +502,7 @@ int          movida_dump( Movida* mov, void** data, int* size ){
         Accion* acc = mov->acciones->data[i];
         ADDDATA( ret, len, acc->tipo, aloc );
 
-        len16 = acc->pieza_number;
+        len16 = acc->piece_number;
         ADDDATA( ret, len, len16, aloc );
 
         len16 = acc->destino ? acc->destino->number : -1 ;
@@ -574,7 +574,7 @@ Movida*      movida_load( Posicion* pos, void* data, int size ){
         }
 
         len16 = ((uint16_t*)point)[0];
-        acc->pieza_number = len16;
+        acc->piece_number = len16;
         point += 2;
         if( ((char*)data) + size <= point ){
             LOGPRINT( 1, "Error tamaño puntero %p + %d <= %p", data, size, point );
