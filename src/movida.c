@@ -362,6 +362,7 @@ const char*  movida_descripcion( Movida* mov ){
       strcat( ret, c->nombre );
     }
 
+    list_inicio( mov->acciones );
     while( acc = (Accion*)list_siguiente( mov->acciones ) ){
         int  mostrar = 1;
         switch( acc->tipo ){
@@ -377,6 +378,12 @@ const char*  movida_descripcion( Movida* mov ){
               STREXPAND( ret, aloc, 11 );
               strcat( ret, " captura a " );
               p = &(mov->pos->piezas[acc->piece_number]);
+              if( p ){
+                char* pp = p->tpieza->nombre;
+                len = strlen( pp );
+                STREXPAND( ret, aloc, len );
+                strcat( ret, pp );
+              }
               c = p->casillero;
               if( c && CASILLERO_VALIDO( c ) ){
                   len = strlen( c->nombre ) + 5;
