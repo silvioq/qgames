@@ -115,6 +115,7 @@ void  movida_free( Movida* mov ){
         list_free( mov->acciones );
     }
     if( mov->notacion ) free( mov->notacion );
+    if( mov->descripcion ) free( mov->descripcion );
     free( mov );
 }
 
@@ -309,14 +310,15 @@ int          movida_es_transformacion( Movida* mov, int* color, Tipopieza** tp )
         }
     }
     return  0;
-
 }
+
+
 
 
 #define  STREXPAND(str,alloc,count)  \
     if( count > alloc ){ \
         alloc = count + 32;\
-        str = realloc( ret, alloc );\
+        str = realloc( str, alloc );\
     }
 
 #define  ADDDATA( data, len, dato, alloc ){ \
@@ -328,6 +330,119 @@ int          movida_es_transformacion( Movida* mov, int* color, Tipopieza** tp )
     *point = dato ;\
     len += sizeof( dato ); \
   }
+
+/*
+ * Descripcion de la movida
+ * */
+const char*  movida_descripcion( Movida* mov ){
+
+    if( mov->descripcion ) return mov->descripcion;
+
+    int   aloc = 256;
+    int   len  = 0;
+    Accion* acc;
+
+    if( !mov->acciones ){
+      return "";
+    }
+    char* ret = malloc( aloc );
+    ret[0] = 0;
+    Pieza* p = movida_pieza( mov );
+    if( p ){
+      char* pp = p->tpieza->nombre;
+      len = strlen( pp );
+      STREXPAND( ret, aloc, len );
+      strcat( ret, pp );
+    }
+    Casillero* c = movida_casillero_origen( mov );
+    if( c && CASILLERO_VALIDO( c ) ){
+      len = strlen( c->nombre ) + 5;
+      STREXPAND( ret, aloc, len );
+      strcat( ret, " en " );
+      strcat( ret, c->nombre );
+    }
+
+    while( acc = (Accion*)list_siguiente( mov->acciones ) ){
+        int  mostrar = 1;
+        switch( acc->tipo ){
+          case ACCION_MUEVE:
+              STREXPAND( ret, aloc, 9 );
+              strcat( ret, " mueve a "  );
+              c = acc->destino;
+              len = strlen( c->nombre );
+              STREXPAND( ret, aloc, len );
+              strcat( ret, c->nombre );
+              break;
+          case ACCION_CAPTURA:
+              STREXPAND( ret, aloc, 11 );
+              strcat( ret, " captura a " );
+              p = &(mov->pos->piezas[acc->pieza_number]);
+              c = p->casillero;
+              if( c && CASILLERO_VALIDO( c ) ){
+                  len = strlen( c->nombre ) + 5;
+                  STREXPAND( ret, aloc, len );
+                  strcat( ret, " en " );
+                  strcat( ret, c->nombre );
+              }
+              break;
+          case ACCION_TRANSFORMA:
+              STREXPAND( ret, aloc, 11 );
+              strcat( ret, " transforma en" );
+              if( acc->tpieza ){
+                  char* pp = acc->tpieza->nombre;
+                  len = strlen( pp ) + 1;
+                  STREXPAND( ret, aloc, len );
+                  strcat( ret, " " );
+                  strcat( ret, pp );
+              }
+              if( acc->color ){
+                  const char* col = tipojuego_get_colorname( mov->pos->tjuego, acc->color );
+                  len = strlen( col ) + 1;
+                  STREXPAND( ret, aloc, len );
+                  strcat( ret, " " );
+                  strcat( ret, col );
+              }
+              break;
+          case ACCION_CREA:
+              STREXPAND( ret, aloc, 11 );
+              strcat( ret, "crea" );
+              if( acc->tpieza ){
+                  char* pp = acc->tpieza->nombre;
+                  len = strlen( pp ) + 1;
+                  STREXPAND( ret, aloc, len );
+                  strcat( ret, " " );
+                  strcat( ret, pp );
+              }
+              if( acc->color ){
+                  const char* col = tipojuego_get_colorname( mov->pos->tjuego, acc->color );
+                  len = strlen( col ) + 1;
+                  STREXPAND( ret, aloc, len );
+                  strcat( ret, " " );
+                  strcat( ret, col );
+              }
+              c = acc->destino;
+              if( c && CASILLERO_VALIDO( c ) ){
+                  len = strlen( c->nombre ) + 5;
+                  STREXPAND( ret, aloc, len );
+                  strcat( ret, " en " );
+                  strcat( ret, c->nombre );
+              }
+              break;
+          case ACCION_PASAR:
+              STREXPAND( ret, aloc, 6 );
+              strcat( ret, "pasar" );
+              break;
+              
+          default:
+              mostrar = 0;
+              break;
+        }
+        STREXPAND( ret, aloc, 1 );
+        strcat( ret, ";" );
+    }
+    mov->descripcion = ret;
+    return ret;
+}
 
 /*
  * Esta funcion transpasa a binario los datos de una movida
