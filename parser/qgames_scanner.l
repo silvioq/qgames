@@ -5,6 +5,7 @@
 #include <string.h>
 #include "symtable.h"
 #include "qgames_parser.h"
+extern YYSTYPE qgzlval;
 #include "qgames.h"
 
 /*

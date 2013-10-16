@@ -34,8 +34,14 @@
 #include  "../parser/pgn_scanner.h"
 
 #include  <locale.h>
+
+#ifdef __CYGWIN__
+#include  <ncurses/curses.h>
+#include  <ncurses/menu.h>
+#else
 #include  <ncurses.h>
 #include  <menu.h>
+#endif
 
 Tipojuego* tj = NULL;
 static int  tablero_h = 0;
