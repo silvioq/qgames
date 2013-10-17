@@ -6,10 +6,6 @@ Desarrollo corto plazo (version 2.9.5)
   actuales dentro del directorio src
 * Dar visibilidad a las funciones. http://gcc.gnu.org/wiki/Visibility y 
   http://www.gnu.org/software/hello/manual/gnulib/Exported-Symbols-of-Shared-Libraries.html
-* Nueva funcion para el logo
-  - qg_tipojuego_graph_logofile
-  - qg_tipojuego_graph_logomoves
-  - qg_tipojuego_get_logo
 
 Version 2.9.6
 
