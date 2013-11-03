@@ -58,7 +58,7 @@ static   set_movdata( Partida* par, Movida* mmm, Movdata* movdata ){
 
     movdata->movida_data = (void*) mmm;
     movdata->notacion    = mmm->notacion;
-    movdata->descripcion = movida_descripcion( mmm );
+    movdata->descripcion = (char*)movida_descripcion( mmm );
     movdata->pieza       = pie->tpieza->nombre;
     movdata->color       = (char*) tipojuego_get_colorname( par->tjuego, pie->color );
     movdata->origen      = ( ori ? ( ori == (Casillero*)POZO ? CASILLERO_POZO : ori->nombre ) : NULL );

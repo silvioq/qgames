@@ -281,3 +281,5 @@ graph-piece: standard-knight   caballo  48 48
 graph-piece: standard-rook     torre    48 48
 graph-piece: standard-pawn     peon     48 48
 
+logo: e4 e5 f4
+
