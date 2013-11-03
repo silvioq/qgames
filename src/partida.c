@@ -217,31 +217,19 @@ int       partida_analizar_movidas( Partida* par ){
 
 /*
  *
- * Ultimo movimiento realizado.
- *
- * */
-Movida*     partida_ultimo_movimiento( Partida* par ){
-    if( !par->movimientos ){
-        LOGPRINT( 1, "No hay movimientos definidos", 0 );
-        return NULL;
-    }
-    if( par->movimientos->entradas  ){
-        LOGPRINT( 1, "No hay movimientos hechos", 0 );
-        return NULL;
-    }
-    return (Movida*)(par->movimientos->data[par->movimientos->entradas - 1]);
-}
-
-/*
- *
  * Devuelvo el enesimo movimiento, teniendo en cuenta que el primero
  * es el 0
+ * en caso que movhist sea -1, se devolvera el ultimo
  *
  * */
 Movida*  partida_get_movimiento( Partida* par, int movhist ){
     if( !par->movimientos ) return NULL;
     if( movhist >= par->movimientos->entradas ) return NULL;
-    return (Movida*)(par->movimientos->data[movhist]);
+    if( movhist >= 0 ){
+        return (Movida*)(par->movimientos->data[movhist]);
+    } else if( movhist == -1 &&  par->movimientos->entradas > 0 ){
+        return (Movida*)(par->movimientos->data[par->movimientos->entradas-1]);
+    } else return NULL;
 }
 
 /*

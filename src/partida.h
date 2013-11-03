@@ -131,7 +131,7 @@ int       partida_analizar_finales( Partida* par );
 int       partida_count_piezas    ( Partida* par, char* casillero, char* tipopieza );
 char*     partida_pgn( Partida* par ); // free luego!
 
-Movida*   partida_ultimo_movimiento( Partida* par );
+#define   partida_ultimo_movimiento(par) partida_get_movimiento(par,-1)
 Movida*   partida_get_movimiento( Partida* par, int movhist );  /* Devuelve el n movimiento, comenzando por el cero */
 Posicion*  partida_get_posicion_from_movida( Partida* par, int movida );
 
