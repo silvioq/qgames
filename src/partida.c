@@ -224,7 +224,8 @@ int       partida_analizar_movidas( Partida* par ){
  * */
 Movida*  partida_get_movimiento( Partida* par, int movhist ){
     if( !par->movimientos ) return NULL;
-    if( movhist >= par->movimientos->entradas ) return NULL;
+    if( par->movimientos->entradas == 0 ) return NULL;
+    if( movhist >= 0 && movhist >= par->movimientos->entradas ) return NULL;
     if( movhist >= 0 ){
         return (Movida*)(par->movimientos->data[movhist]);
     } else if( movhist == -1 &&  par->movimientos->entradas > 0 ){
