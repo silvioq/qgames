@@ -7,7 +7,9 @@ AM_INIT_AUTOMAKE
 AC_PROG_CC
 AC_PROG_YACC
 AC_PROG_LEX
-AC_PROG_RANLIB
+AC_CONFIG_MACRO_DIR([m4])
+
+LT_INIT([dlopen win32-dll])
 AC_PROG_LIBTOOL
 AC_CONFIG_SRCDIR([configure.ac])
 AC_CONFIG_HEADERS([config.h])     # not even really needed
@@ -28,6 +30,7 @@ AC_CHECK_HEADERS([png.h])
 AC_CHECK_LIB(png,png_read_info,[PNG_LIBS="-lpng"])
 
 gl_VISIBILITY
+AC_SUBST([CFLAG_VISIBILITY],[-fvisibility=hidden])
 
 
 AC_SUBST([CURSES_LIBS])

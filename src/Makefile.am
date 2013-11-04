@@ -1,7 +1,7 @@
-noinst_LIBRARIES = libqgames-core.a
+noinst_LTLIBRARIES = libqgames-core.la
 
-libqgames_core_a_SOURCES =  \
-								tipojuego.c  tipojuego.h  simbolos.h tipojuego_gets_inline.h \
+libqgames_core_la_SOURCES =  \
+		tipojuego.c  tipojuego.h  simbolos.h tipojuego_gets_inline.h \
                 graph.c   graphdef.h  \
 								tablero.c  casillero.c  vinculo.c  direccion.c   tipopieza.c   \
 								notacion.c  notacion.h \
