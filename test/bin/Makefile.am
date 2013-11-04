@@ -23,8 +23,8 @@ test_tateti_LDADD        = $(DEPENDENCIES) @GD_LIBS@ @PNG_LIBS@
 test_ajedrezq_DEPENDENCIES = $(DEPENDENCIES)
 test_ajedrezq_LDADD        = $(DEPENDENCIES) @GD_LIBS@ @PNG_LIBS@
 
-test_gomoku_DEPENDENCIES = $(DEPENDENCIES) $(top_builddir)/parser/libpgn-parser.a
-test_gomoku_LDADD        = $(DEPENDENCIES) $(top_builddir)/parser/libpgn-parser.a @GD_LIBS@ @PNG_LIBS@
+test_gomoku_DEPENDENCIES = $(DEPENDENCIES) $(top_builddir)/parser/libpgn-parser.la
+test_gomoku_LDADD        = $(DEPENDENCIES) $(top_builddir)/parser/libpgn-parser.la @GD_LIBS@ @PNG_LIBS@
 
 test_dump_DEPENDENCIES = $(DEPENDENCIES)
 test_dump_LDADD        = $(DEPENDENCIES) @GD_LIBS@ @PNG_LIBS@
@@ -45,7 +45,7 @@ test_movidas_posibles_data_DEPENDENCIES = $(DEPENDENCIES)
 test_movidas_posibles_data_LDADD        = $(DEPENDENCIES) @GD_LIBS@ @PNG_LIBS@
 
 test_juego_valido_DEPENDENCIES = $(DEPENDENCIES)
-test_juego_valido_LDADD        = $(DEPENDENCIES) $(top_builddir)/vm/libqcode.a $(top_builddir)/src/libqgames-core.a @GD_LIBS@ @PNG_LIBS@
+test_juego_valido_LDADD        = $(DEPENDENCIES) $(top_builddir)/vm/libqcode.la $(top_builddir)/src/libqgames-core.la @GD_LIBS@ @PNG_LIBS@
 
 
 AM_CFLAGS = -I$(top_srcdir)/include -I$(top_srcdir)/common -I$(top_srcdir)/qcode/src \
