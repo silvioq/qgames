@@ -41,7 +41,7 @@
 
 #include "log.h"
 
-int   partida_mover_mov( Partida* par, Movida* mov );
+static int   partida_mover_mov( Partida* par, Movida* mov );
 
 /* 
  * Esta funcion devuelve la proxima secuencia, a partir
@@ -393,7 +393,7 @@ int         partida_mover_serie ( Partida* par, char* serie ){
  * Esta es la verdadera ejecucion de movimientos
  * */
 
-int   partida_mover_mov( Partida* par, Movida* mov ){
+static  int   partida_mover_mov( Partida* par, Movida* mov ){
     Posicion* posnew;
     Movida* movant;
     int  ret;
