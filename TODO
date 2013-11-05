@@ -1,10 +1,7 @@
 Desarrollo corto plazo (version 2.9.5)
 
-* Compilar como librería y comenzar con el ecosistema QGames (casi listo)
-* Hace falta armar las funciones "visibles" y dejar todas las invisibles
-  teniendo en cuenta de que hay que crear un nuevo qgames.h y poner los 
-  actuales dentro del directorio src
-* Dar visibilidad a las funciones. http://gcc.gnu.org/wiki/Visibility y 
+* Hace falta controlar las funciones "visibles"
+  Visibilidad a las funciones. http://gcc.gnu.org/wiki/Visibility y 
   http://www.gnu.org/software/hello/manual/gnulib/Exported-Symbols-of-Shared-Libraries.html
 
 Version 2.9.6
@@ -30,8 +27,7 @@ Juegos
 Ecosistema QGames
 * qgames-server : una utilidad para simplificar el salvado de los
                   dumps y la gestion de los tipos de juegos.
-                  Seria deseable que tenga una interaccion del tipo
-                  webservice
+                  https://github.com/silvioq/qgames-server
 
 * qgames-gtk:     Interfaz grafica basada en Gtk
 * qgames-kde:     Interfaz grafica basada en Qt 
