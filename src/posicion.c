@@ -54,6 +54,27 @@ static void  posicion_add_movidas( Posicion* pos, _list* movs ){
     }
 }
 
+/*
+ * 
+ * Devuelve el hash que identifica univocamente a una posición
+ *
+ * */
+char*  posicion_hash( Posicion* pos ){ 
+    int i;
+    if( pos->flags & POSICION_HASH_CALCULADO ) return pos->hash;
+    md5_state_t md5;
+    md5_init( &md5 );
+    for( i = 0; i < pos->piezas_count ; i ++ ){
+        Pieza* p = pos->piezas[i];
+        char* hash_p = pieza_hash( p );
+        md5_append( &md5, hash_p, 16 );
+    }
+    md5_finish( &md5, pos->hash );
+    pos->flags |= POSICION_HASH_CALCULADO;
+    return  pos->hash;
+}
+
+
 
 /*
  * Una posicion nueva!
@@ -346,6 +367,17 @@ Posicion*   posicion_dup( Posicion* pos ){
     Posicion* pnew = posicion_new( pos->tjuego );
     posicion_copy( pnew, pos );
     return  pnew;
+}
+
+
+/*
+ * Las posiciones son iguales si sus hash lo son
+ *
+ * */ 
+int         posicion_equal( Posicion* pos1, Posicion* pos2 ){
+    char* h1 = posicion_hash( pos1 );
+    char* h2 = posicion_hash( pos2 );
+    return memcmp( pos1, pos2, 16 );
 }
 
 

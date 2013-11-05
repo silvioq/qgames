@@ -8,15 +8,20 @@
 #ifndef  POSICION_H
 #define  POSICION_H  1
 
+#define  POSICION_HASH_CALCULADO  0x01
+
 typedef  struct  StrPosicion {
     Tipojuego*  tjuego;
     _list*      movidas;
+    int         flags;
     Posicion*   pos_anterior;
     Movida*     mov_anterior;
+    char[16]    hash;
 
     Pieza*      piezas;
     int         piezas_count;
     int         piezas_alloc;
+    int         flags;
 
 } _Posicion;
 
@@ -25,7 +30,9 @@ Posicion*   posicion_new( Tipojuego* tjuego );
 void        posicion_init( Posicion* pos, Tipojuego* tjuego );
 static inline Pieza*  posicion_add_pieza( Posicion* pos );
 Posicion*   posicion_dup( Posicion* pos );
+int         posicion_equal( Posicion* pos1, Posicion* pos2 );
 void        posicion_free( Posicion* pos );
+char*       posicion_hash( Posicion* pos );
 
 #define    SIN_ANALISIS              0
 #define    ANALISIS_MOVIDA           1
@@ -79,12 +86,15 @@ static inline Pieza*      posicion_add_pieza( Posicion* pos ){
  * */
 static inline void     posicion_copy( Posicion* pos_dest, Posicion* pos_ori ){
     pos_dest->tjuego       = pos_ori->tjuego;
+    pos_dest->flags        = pos_ori->flags;
     pos_dest->pos_anterior = pos_ori->pos_anterior;
     pos_dest->mov_anterior = pos_ori->mov_anterior;
     pos_dest->piezas_count = pos_ori->piezas_count;
     pos_dest->piezas_alloc = pos_ori->piezas_alloc;
     pos_dest->piezas = malloc( sizeof( Pieza ) * pos_ori->piezas_alloc );
     memcpy( pos_dest->piezas, pos_ori->piezas, sizeof( Pieza ) * pos_ori->piezas_count );
+    if( pos_ori->flags & POSICION_HASH_CALCULADO ) memcpy( pos_des->hash, pos_ori->hash, 16 );
+
 }
 
 static  inline  void  posicion_free_data(Posicion* pos){
