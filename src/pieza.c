@@ -40,6 +40,7 @@ char*   pieza_hash( Pieza* p ){
     md5_state_t md5;
     md5_init( &md5 );
     md5_append( &md5, p->tpieza->nombre, strlen( p->tpieza->nombre ) );
+    md5_append( &md5, (char*)(&(p->color)), sizeof( int ) );
     if( p->casillero == ENPOZO ){
         md5_append( &md5, "CASILLERO-ENPOZO", 16 );
     } else if ( p->casillero == ENCAPTURA ){
