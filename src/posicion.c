@@ -22,6 +22,7 @@
 #include  "log.h"
 
 
+#include  <md5.h>
 
 
 
@@ -65,7 +66,7 @@ char*  posicion_hash( Posicion* pos ){
     md5_state_t md5;
     md5_init( &md5 );
     for( i = 0; i < pos->piezas_count ; i ++ ){
-        Pieza* p = pos->piezas[i];
+        Pieza* p = &(pos->piezas[i]);
         char* hash_p = pieza_hash( p );
         md5_append( &md5, hash_p, 16 );
     }

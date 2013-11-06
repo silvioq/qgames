@@ -274,6 +274,16 @@ int         tipojuego_code_ahogado( Tipojuego* tj, char* color ){
     // RET_IF_STATUS;                              // Retorna si el valor es distinto de cero
 }
 
+
+int         tipojuego_code_repeticion( Tipojuego* tj, int repeticiones ){
+    if( !TJVALIDO( tj ) ) return 0;
+    qcode_op( tj->qcode, QCSTI,  1, repeticiones );      // r1  = col
+    qcode_op( tj->qcode, QCPSH,  1, 0 );        // PSH r1
+    qcode_op( tj->qcode, QCPSH,  3, 0 );        // PSH r3
+    qcode_opnlab( tj->qcode, QCCLX, "repeticiones" );
+}
+
+
 int         tipojuego_code_enzona ( Tipojuego* tj, char* zona, char* tpieza ){
     int  za, tp;
     if( !TJVALIDO( tj ) ) return 0;

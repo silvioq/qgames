@@ -184,6 +184,14 @@ long  code_wrapper_ahogado( QCodeVM* vm ){
     return (long)analizador_ahogado( z );
 }
 
+long  code_wrapper_repeticiones( QCodeVM* vm ){
+    int  r;
+    Analizador* z  = (Analizador*)qcode_pop( vm );
+    int  resperado = (int)qcode_pop(vm);
+    r = analizador_repeticiones( z );
+    return (long) r >= resperado;
+}
+
 long  code_wrapper_entablero( QCodeVM* vm ){
     Analizador* z = (Analizador*)qcode_pop( vm );
     return (long)analizador_entablero( z );
@@ -246,6 +254,7 @@ void  code_initialize( QCode** qcode ){
     qcode_xcrlab( q, "ocupado",   (qcode_extfunc)code_wrapper_ocupado );
     qcode_xcrlab( q, "origen_ant",(qcode_extfunc)code_wrapper_origen_ant );
     qcode_xcrlab( q, "setmarca"  ,(qcode_extfunc)code_wrapper_setmarca );
+    qcode_xcrlab( q, "repeticiones" ,(qcode_extfunc)code_wrapper_repeticiones );
     qcode_xcrlab( q, "transforma",(qcode_extfunc)code_wrapper_transforma );
 
     qcode_xcrlab( q, "dump"     , (qcode_extfunc)code_wrapper_dump );

@@ -608,6 +608,20 @@ int   analizador_ahogado( Analizador* z ){
 
 }
 
+/*
+ * Controla cantidad de repeticiones a partir de la posicion actual
+ */
+int   analizador_repeticiones( Analizador* z ){
+    Posicion* p = &z->pos;
+    int r = 0;
+
+    while( p = p->pos_anterior ){
+        if( posicion_equal( &z->pos, p ) ) r++;
+    }
+
+    return r;
+}
+
 
 
 

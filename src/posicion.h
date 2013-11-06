@@ -16,12 +16,11 @@ typedef  struct  StrPosicion {
     int         flags;
     Posicion*   pos_anterior;
     Movida*     mov_anterior;
-    char[16]    hash;
+    char        hash[16];
 
     Pieza*      piezas;
     int         piezas_count;
     int         piezas_alloc;
-    int         flags;
 
 } _Posicion;
 
@@ -93,7 +92,7 @@ static inline void     posicion_copy( Posicion* pos_dest, Posicion* pos_ori ){
     pos_dest->piezas_alloc = pos_ori->piezas_alloc;
     pos_dest->piezas = malloc( sizeof( Pieza ) * pos_ori->piezas_alloc );
     memcpy( pos_dest->piezas, pos_ori->piezas, sizeof( Pieza ) * pos_ori->piezas_count );
-    if( pos_ori->flags & POSICION_HASH_CALCULADO ) memcpy( pos_des->hash, pos_ori->hash, 16 );
+    if( pos_ori->flags & POSICION_HASH_CALCULADO ) memcpy( pos_dest->hash, pos_ori->hash, 16 );
 
 }
 
