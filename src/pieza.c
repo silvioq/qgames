@@ -42,11 +42,11 @@ char*   pieza_hash( Pieza* p ){
     md5_append( &md5, p->tpieza->nombre, strlen( p->tpieza->nombre ) );
     md5_append( &md5, (char*)(&(p->color)), sizeof( int ) );
     if( p->casillero == ENPOZO ){
-        md5_append( &md5, "CASILLERO-ENPOZO", 16 );
+        md5_append( &md5, "ENPOZO", 6 );
     } else if ( p->casillero == ENCAPTURA ){
-        md5_append( &md5, "CASILLERO-ENCAPTURA", 19 );
+        md5_append( &md5, "ENCAPT", 6 );
     } else {
-        md5_append( &md5, p->casillero->nombre, strlen( p->tpieza->nombre ) );
+        md5_append( &md5, p->casillero->nombre, strlen( p->casillero->nombre ) );
     }
 
     if( p->flags & PIEZA_ATT_INIT ){
@@ -92,6 +92,7 @@ int      pieza_set_att( Pieza* p, int att, int val ){
         for( i = 0; i < p->tpieza->att_default->entradas ; i ++ ){
             p->atts[i] = (int)(long)p->tpieza->att_default->data[i];
         }
+        p->flags |= PIEZA_ATT_INIT;
     }
     if( att >= p->tpieza->att_count ){
         LOGPRINT( 1, "Error atributo incorrecto att: %d att_count %d", att, p->tpieza->att_count );

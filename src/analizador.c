@@ -613,12 +613,22 @@ int   analizador_ahogado( Analizador* z ){
  */
 int   analizador_repeticiones( Analizador* z ){
     Posicion* p = &z->pos;
-    int r = 0;
+
+    // Arranca el contador en uno, ya que es necesario contar la posicion
+    // actual como primer posicion repetida. O sea, la posicion actual
+    // esta repetida contra si misma, asi que ya tenemos una.
+    // En el caso del ajedrez, por ejemplo, deberiamos encontrar
+    // dos posiciones iguales a la actual para declararla tablas.
+    int r = 1;
+
+    if( !( p = p->pos_anterior ) ) return 0;
 
     while( p = p->pos_anterior ){
-        if( posicion_equal( &z->pos, p ) ) r++;
+        if( posicion_equal( &z->pos, p ) )
+            r++;
+        if( ! (p = p->pos_anterior ) ) break;
     }
-
+    LOGPRINT( 6, "Cantidad de repeticiones %d", r );
     return r;
 }
 

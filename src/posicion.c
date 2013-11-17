@@ -69,9 +69,48 @@ char*  posicion_hash( Posicion* pos ){
         Pieza* p = &(pos->piezas[i]);
         char* hash_p = pieza_hash( p );
         md5_append( &md5, hash_p, 16 );
+        LOGPRINT( 6, "Pieza %s en %s - color %d - flags %d", pos->piezas[i].tpieza->nombre, 
+            CASILLERO_VALIDO( pos->piezas[i].casillero ) ? pos->piezas[i].casillero->nombre : "x",
+            pos->piezas[i].color, pos->piezas[i].flags );
+        LOGPRINT( 6, "hash de pieza %02x%02x%02x%02x-" "%02x%02x%02x%02x-" "%02x%02x%02x%02x-" "%02x%02x%02x%02x"
+            ,(unsigned char)(pos->piezas[i].hash[0])
+            ,(unsigned char)(pos->piezas[i].hash[1])
+            ,(unsigned char)(pos->piezas[i].hash[2])
+            ,(unsigned char)(pos->piezas[i].hash[3])
+            ,(unsigned char)(pos->piezas[i].hash[4])
+            ,(unsigned char)(pos->piezas[i].hash[5])
+            ,(unsigned char)(pos->piezas[i].hash[6])
+            ,(unsigned char)(pos->piezas[i].hash[7])
+            ,(unsigned char)(pos->piezas[i].hash[8])
+            ,(unsigned char)(pos->piezas[i].hash[9])
+            ,(unsigned char)(pos->piezas[i].hash[10])
+            ,(unsigned char)(pos->piezas[i].hash[11])
+            ,(unsigned char)(pos->piezas[i].hash[12])
+            ,(unsigned char)(pos->piezas[i].hash[13])
+            ,(unsigned char)(pos->piezas[i].hash[14])
+            ,(unsigned char)(pos->piezas[i].hash[15])
+        );
     }
     md5_finish( &md5, pos->hash );
     pos->flags |= POSICION_HASH_CALCULADO;
+    LOGPRINT( 6, "hash de posicion %02x%02x%02x%02x-" "%02x%02x%02x%02x-" "%02x%02x%02x%02x-" "%02x%02x%02x%02x"
+        ,(unsigned char)(pos->hash[0])
+        ,(unsigned char)(pos->hash[1])
+        ,(unsigned char)(pos->hash[2])
+        ,(unsigned char)(pos->hash[3])
+        ,(unsigned char)(pos->hash[4])
+        ,(unsigned char)(pos->hash[5])
+        ,(unsigned char)(pos->hash[6])
+        ,(unsigned char)(pos->hash[7])
+        ,(unsigned char)(pos->hash[8])
+        ,(unsigned char)(pos->hash[9])
+        ,(unsigned char)(pos->hash[10])
+        ,(unsigned char)(pos->hash[11])
+        ,(unsigned char)(pos->hash[12])
+        ,(unsigned char)(pos->hash[13])
+        ,(unsigned char)(pos->hash[14])
+        ,(unsigned char)(pos->hash[15])
+    );
     return  pos->hash;
 }
 
@@ -378,7 +417,43 @@ Posicion*   posicion_dup( Posicion* pos ){
 int         posicion_equal( Posicion* pos1, Posicion* pos2 ){
     char* h1 = posicion_hash( pos1 );
     char* h2 = posicion_hash( pos2 );
-    return memcmp( pos1, pos2, 16 );
+    LOGPRINT( 6, "hash de posicion 1 %02x%02x%02x%02x-" "%02x%02x%02x%02x-" "%02x%02x%02x%02x-" "%02x%02x%02x%02x"
+        ,(unsigned char)(pos1->hash[0])
+        ,(unsigned char)(pos1->hash[1])
+        ,(unsigned char)(pos1->hash[2])
+        ,(unsigned char)(pos1->hash[3])
+        ,(unsigned char)(pos1->hash[4])
+        ,(unsigned char)(pos1->hash[5])
+        ,(unsigned char)(pos1->hash[6])
+        ,(unsigned char)(pos1->hash[7])
+        ,(unsigned char)(pos1->hash[8])
+        ,(unsigned char)(pos1->hash[9])
+        ,(unsigned char)(pos1->hash[10])
+        ,(unsigned char)(pos1->hash[11])
+        ,(unsigned char)(pos1->hash[12])
+        ,(unsigned char)(pos1->hash[13])
+        ,(unsigned char)(pos1->hash[14])
+        ,(unsigned char)(pos1->hash[15])
+    );
+    LOGPRINT( 6, "hash de posicion 2 %02x%02x%02x%02x-" "%02x%02x%02x%02x-" "%02x%02x%02x%02x-" "%02x%02x%02x%02x"
+        ,(unsigned char)(pos2->hash[0])
+        ,(unsigned char)(pos2->hash[1])
+        ,(unsigned char)(pos2->hash[2])
+        ,(unsigned char)(pos2->hash[3])
+        ,(unsigned char)(pos2->hash[4])
+        ,(unsigned char)(pos2->hash[5])
+        ,(unsigned char)(pos2->hash[6])
+        ,(unsigned char)(pos2->hash[7])
+        ,(unsigned char)(pos2->hash[8])
+        ,(unsigned char)(pos2->hash[9])
+        ,(unsigned char)(pos2->hash[10])
+        ,(unsigned char)(pos2->hash[11])
+        ,(unsigned char)(pos2->hash[12])
+        ,(unsigned char)(pos2->hash[13])
+        ,(unsigned char)(pos2->hash[14])
+        ,(unsigned char)(pos2->hash[15])
+    );
+    return memcmp( h1, h2, 16 ) == 0;
 }
 
 
@@ -387,5 +462,7 @@ int         posicion_equal( Posicion* pos1, Posicion* pos2 ){
  * */
 void       posicion_mueve_pieza( Posicion* pos, Pieza* pieza, Casillero* destino ){
     int i;
+    pos->flags &= (~POSICION_HASH_CALCULADO);
     pieza->casillero = destino;
+    pieza->flags &= (~PIEZA_HASH_CALCULADO);
 }
