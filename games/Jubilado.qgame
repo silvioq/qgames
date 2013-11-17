@@ -47,7 +47,6 @@ define:      movida_derecho direccion
 define:     movida_torre direccion 
             direccion
             while en_tablero? && !ocupado_propio?  do
-              asigna_atributo  ya_movido , true
               captura_y_juega
               parar if ocupado_enemigo?
               direccion
@@ -76,7 +75,6 @@ define:     al_paso direccion
 # Listo, ahora si ... se vienen las definiciones de piezas
 #
 piece:      torre
-attribute:  ya_movido   false
 move:       
             movida_torre n
 move:       
@@ -125,7 +123,6 @@ move:
             al_paso "o" 
 
 piece:      rey            
-attribute:  ya_movido   false
 move:
             movida_rey "n" 
 move:
