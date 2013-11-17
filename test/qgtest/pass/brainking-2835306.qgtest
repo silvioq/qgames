@@ -1,0 +1,20 @@
+# Juego obtenido de  http://brainking.com/es/GetPGN/2835306.pgn?g=2835306
+# Entre  ["Joy"] y ["kuchar"]
+nuevo-juego Ajedrez
+
+1. e4 c5 2. Bc4 d6 3. d3 e6 4. Nc3 a6 5. Nf3 Nf6 6. 0-0 Be7 7. a3 Nc6 8. Bg5 0-0
+9. h3 Nd7 10. Bxe7 Qxe7 11. Ne2 Nd7-e5 12. Nxe5 Nxe5 13. Bb3 Ng6 14. Ng3 b5
+15. a4 b4 16. f4 Qa7 17. f5 Ne5 18. Rf4 c4+ 19. Kh1 cxb3 20. cxb3 a5 21. Qh5 f6
+22. Rh4 h6 23. Rd1 Qf7 24. Qxf7+ Rxf7 25. Ne2 Ba6 26. fxe6 Re7 27. Nd4 Nxd3
+28. Rd2 Nc5 29. Nc6 Rxe6 30. Nxa5 Rxe4 31. Rxe4 Nxe4 32. Rd4 Bd3 33. Nc4 Bxc4
+34. Rxc4 d5 35. Rxb4 Ng3+ 36. Kh2 Ne2 37. g4 d4 38. Kg2 d3
+
+# Blanco abandona
+# a partir de aqui, invento jugadas para encontrar un mate
+
+39. Kh2 d2
+40. a5  d1=Q
+41. a6  Qg1
+
+0-1
+
