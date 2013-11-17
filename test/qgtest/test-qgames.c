@@ -8,6 +8,8 @@
 #include  <stdio.h>
 #include  <stdlib.h>
 #include  <unistd.h>
+#include  <string.h>
+#include  <errno.h>
 
 #include  "log.h"
 
@@ -45,7 +47,7 @@ int  main(int argc, char** argv) {
         char* filename = argv[optind];
         FILE* f = fopen( filename, "r" );
         if( !f ){
-            LOGPRINT( 2, "Error al abrir archivo %s => %s", filename, strerror() );
+            LOGPRINT( 2, "Error al abrir archivo %s => %s", filename, strerror( errno ) );
             exit( EXIT_FAILURE );
         }
         qgtest_file( f );
