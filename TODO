@@ -4,8 +4,9 @@ Desarrollo corto plazo (version 2.9.5)
   Visibilidad a las funciones. http://gcc.gnu.org/wiki/Visibility y 
   http://www.gnu.org/software/hello/manual/gnulib/Exported-Symbols-of-Shared-Libraries.html
 
-Version 2.9.6
+Version 2.9.7
 
+* Documentar el lenguaje qgames
 * Cambiar la definicion de archivo qgames para que este 100% en ingles
 * Rotular todos los fuentes con la licencia MIT
 * Benchmarking
