@@ -10,7 +10,29 @@ Hay dos tipos de instrucciones. Las de definicion del juego y las de las reglas.
 == Reglas
 
 - Funciones:
-ocupado   (casillero = null, color = cualquiera)
+ocupado
+ocupado   casillero
+ocupado   color
+ocupado-enemigo
+ocupado-propio
+
+ahogado
+ahogado   tipoDePieza
+
+atacado
+
+cantidad-piezas           [lista de color, tipoDePieza, casillero]
+cantidad-piezas-propias   [lista de color, tipoDePieza, casillero]
+cantidad-piezas-enemigas  [lista de color, tipoDePieza, casillero]
+
+capturadas
+capturadas-propias
+capturadas-enemigas
+
+# devuelve verdadero o falso si el casillero actual o el pasado especificamente
+# como parametro fue destino anterior en la movida de nuestro adversario
+destino-anterior
+destino-anterior  casillero
 
 
 - Acciones
