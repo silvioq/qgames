@@ -415,7 +415,7 @@ instexpr_repitepos:
     TOK_REPITEPOS   TOK_NUMBER  {
         CHECK_TIPOJUEGO;
         tipojuego_code_op_false( tipojuego );
-        tipojuego_code_repeticion( tipojuego, $1 );
+        tipojuego_code_repeticion( tipojuego, $2 );
     }  
 
 
