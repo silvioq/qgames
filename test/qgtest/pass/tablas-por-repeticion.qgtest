@@ -9,3 +9,9 @@ nuevo-juego  Jubilado
 5.Ke1  Ke8
 
 1/2-1/2
+
+# Testeo de Ajedrez
+nuevo-juego  Ajedrez
+
+1. Nc3 d5 2. f4 Nc6 3. Rb1 Rb8 4. Ra1 Ra8 5. Rb1 Rb8 6. Ra1 Ra8 7. Rb1 Rb8
+1/2-1/2
