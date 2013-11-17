@@ -1,0 +1,11 @@
+# Testeo de Jubilado
+nuevo-juego  Jubilado
+
+# verbose 5
+1.e4   e6
+2.Kd1  Kd8
+3.Ke1  Ke8
+4.Kd1  Kd8
+5.Ke1  Ke8
+
+1/2-1/2
