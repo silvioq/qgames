@@ -10,6 +10,10 @@ Hay dos tipos de instrucciones. Las de definicion del juego y las de las reglas.
 == Reglas
 
 - Funciones:
+
+# devuelve verdadero o falso si en el casillero actual o pasado
+# como parametro esta ocupado. Si pasa color (o enemigo o propio)
+# tiene en cuenta el color de la pieza
 ocupado
 ocupado   casillero
 ocupado   color
@@ -30,14 +34,40 @@ capturadas-propias
 capturadas-enemigas
 
 # devuelve verdadero o falso si el casillero actual o el pasado especificamente
-# como parametro fue destino anterior en la movida de nuestro adversario
+# como parametro fue destino/origen anterior en la movida de nuestro adversario
 destino-anterior
 destino-anterior  casillero
+origen-anterior
+origen-anterior   casillero
+
+# devuelve verdadero o falso si el casillero actual es valido
+en-tablero
+
+# devuelve verdadero o falso si el casillero actual se encuentra en una determinada zona
+en-zona   zona  [tipoDePieza]
+
+# jaquemate. Devuelve verdadero o falso
+jaquemate   tipoDePieza
+
+# devuelve verdadero o falso si la posicion actual se ha repetido
+# una cantidad especifica de veces
+repite-posicion   cantidad
 
 
-- Acciones
+
+- Acciones:
 jugar     (casillero = null, con captura = no)
 para
+
+
+- Control de final:
+empata
+empata-si
+gana
+gana-si
+pierde
+pierde-si
+
 
 
 
