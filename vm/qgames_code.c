@@ -329,6 +329,7 @@ int         tipojuego_code_entablero( Tipojuego* tj ){
 
 int         tipojuego_code_jaquemate( Tipojuego* tj, char* tpieza  ){
     if( !TJVALIDO(tj) ) return 0;
+    if( tj->regla_actual->tregla != END ) return 0;
     tj->flags |= JAQUEMATE;
     tj->regla_actual->flags |= JAQUEMATE;
     int tp = GETTIPOPIEZA(tj, tpieza );
@@ -346,6 +347,7 @@ int         tipojuego_code_transforma( Tipojuego* tj, int owner, char* color, ch
     int  own = NOCOLOR;
     int  tp ;
     if( !TJVALIDO(tj) ) return 0;
+    if( tj->regla_actual->tregla == END ) return 0;
 
     if( owner != PROPIO && owner != ENEMIGO && owner != NOCOLOR && owner != CAMBIOCOLOR ){
         return 0;
@@ -379,6 +381,8 @@ int         tipojuego_code_transforma( Tipojuego* tj, int owner, char* color, ch
 int         tipojuego_code_juega  ( Tipojuego* tj, char* casillero, int captura ){
     long cas;
     if( !TJVALIDO( tj ) ) return 0;
+    if( tj->regla_actual->tregla == END ) return 0;
+
     if( casillero ){
         cas = GETCASILLERO(tj, casillero );
         if( !TJVALIDO( tj ) ) return 0;
@@ -400,6 +404,7 @@ int         tipojuego_code_juega  ( Tipojuego* tj, char* casillero, int captura 
 int         tipojuego_code_mueve  ( Tipojuego* tj, char fromto_flags, void* from, void* to ){
     long from_var, to_var;
     if( !TJVALIDO( tj ) ) return 0;
+    if( tj->regla_actual->tregla == END ) return 0;
     if( (fromto_flags&FROM_MASK)==FROM_CASILLERO) {
         from_var = GETCASILLERO( tj, (char*)from ) ;
         if( !TJVALIDO( tj ) ) return 0;
@@ -427,6 +432,7 @@ int         tipojuego_code_mueve  ( Tipojuego* tj, char fromto_flags, void* from
 
 int         tipojuego_code_crea   ( Tipojuego* tj, char* tpieza, int owner, char* color, char* casillero ){
     if( !TJVALIDO( tj ) ) return 0;
+    if( tj->regla_actual->tregla == END ) return 0;
     int tp = GETTIPOPIEZA(tj, tpieza );
     long cas = ( casillero ? GETCASILLERO(tj, casillero ) : SINCASILLERO );
     int  own = NOCOLOR;
@@ -461,6 +467,7 @@ int         tipojuego_code_crea   ( Tipojuego* tj, char* tpieza, int owner, char
 
 int         tipojuego_code_captura( Tipojuego* tj, char* casillero ){
     if( !TJVALIDO( tj ) ) return 0;
+    if( tj->regla_actual->tregla == END ) return 0;
     long cas = ( casillero ? GETCASILLERO(tj, casillero ) : SINCASILLERO );
     if( !TJVALIDO( tj ) ) return 0;
 
