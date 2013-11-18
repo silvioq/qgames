@@ -839,7 +839,7 @@ instruction_attr:
     TOK_ATTR     word_or_string  TOK_NUMBER
                    {  CHECK_TIPOJUEGO ;
                       CHECK_LAST_PIEZA;
-                      if( !tipojuego_add_tpieza_att( tipojuego, last_pieza, ((char*)$2), $3 ) ) YYERROR;
+                      if( !qg_tipojuego_add_tpieza_att( tipojuego, last_pieza, ((char*)$2), $3 ) ) YYERROR;
                       free( (char*)$2);
                     }
                  ;
@@ -977,7 +977,7 @@ board_std_type:
 instruction_graph:
     TOK_GRAPH_BOARD   board_number  board_std_type   instruction_graph_def     { 
         CHECK_TIPOJUEGO;
-        if( !tipojuego_graph_tablero_std( tipojuego, $2, $3, graph_dim1, graph_dim2, html_color1, html_color2 ) ) YYERROR;
+        if( !qg_tipojuego_graph_tablero_std( tipojuego, $2, $3, graph_dim1, graph_dim2, html_color1, html_color2 ) ) YYERROR;
      } |
     TOK_GRAPH_BOARD   board_number  word_or_string                             { NOT_IMPLEMENTED_WARN( "graph-board file" ) } |
     TOK_GRAPH_PIECE   instruction_graph_standard  word_or_string  instruction_graph_dimensions  {
@@ -986,7 +986,7 @@ instruction_graph:
             qgzprintf( "%s debe ser un tipo de pieza", ((char*)$3) );
             yyerror( "Debe ser un tipo de pieza" ); YYERROR;
         }
-        if( !tipojuego_graph_tipopieza_std( tipojuego, ((char*)$3), $2, graph_dim1, graph_dim2, 0 ) ) YYERROR;
+        if( !qg_tipojuego_graph_tipopieza_std( tipojuego, ((char*)$3), $2, graph_dim1, graph_dim2, 0 ) ) YYERROR;
         free( (char*)$3 );
     } |
     TOK_GRAPH_PIECE   word_or_string  instruction_graph_standard  instruction_graph_dimensions  {
@@ -995,7 +995,7 @@ instruction_graph:
             qgzprintf( "%s debe ser un tipo de pieza", ((char*)$2) );
             yyerror( "Debe ser un tipo de pieza" ); YYERROR;
         }
-        if( !tipojuego_graph_tipopieza_std( tipojuego, ((char*)$2), $3, graph_dim1, graph_dim2, 0 ) ) YYERROR;
+        if( !qg_tipojuego_graph_tipopieza_std( tipojuego, ((char*)$2), $3, graph_dim1, graph_dim2, 0 ) ) YYERROR;
         free( (char*)$2 );
     } |
     TOK_GRAPH_PIECE   word_or_string  TOK_STANDARD_RECT   instruction_graph_dimensions TOK_HTMLCOLOR  {
@@ -1004,7 +1004,7 @@ instruction_graph:
             qgzprintf( "%s debe ser un tipo de pieza", ((char*)$2) );
             yyerror( "Debe ser un tipo de pieza" ); YYERROR;
         }
-        if( !tipojuego_graph_tipopieza_std( tipojuego, ((char*)$2), STANDARD_RECT, graph_dim1, graph_dim2, $5 ) ) YYERROR;
+        if( !qg_tipojuego_graph_tipopieza_std( tipojuego, ((char*)$2), STANDARD_RECT, graph_dim1, graph_dim2, $5 ) ) YYERROR;
         free( (char*)$2 );
     } |
     TOK_GRAPH_PIECE   word_or_string  word_or_string   TOK_STANDARD_RECT   instruction_graph_dimensions TOK_HTMLCOLOR
@@ -1043,7 +1043,7 @@ instruction_movetype:
     TOK_MOVETYPE     word_or_string {
         CHECK_TIPOJUEGO;
         qgzprintf( "Definiendo %s", ((char*)$2) );
-        tipojuego_add_tipo_mov( tipojuego, ((char*)$2) );
+        qg_tipojuego_add_tipo_mov( tipojuego, ((char*)$2) );
         free((void*)$2);
     }
 
@@ -1123,7 +1123,7 @@ instruction_notation:
 instruction_piece:
     TOK_PIECE        word_or_string  { 
         CHECK_TIPOJUEGO; 
-        tipojuego_add_tipopieza( tipojuego, ((char*)$2) ); 
+        qg_tipojuego_add_tipopieza( tipojuego, ((char*)$2) ); 
         if( last_pieza ) free( last_pieza );
         last_pieza = strdup( ((char*)$2) );
         free( (char*)$2 );
@@ -1134,7 +1134,7 @@ instruction_start:
         CHECK_TIPOJUEGO;
         int i;
         for( i = 0; i < $4; i ++ ){
-            if( !tipojuego_add_pieza( tipojuego, ((char*)$2), CASILLERO_POZO, ((char*)$3) ) ) YYERROR;
+            if( !qg_tipojuego_add_pieza( tipojuego, ((char*)$2), CASILLERO_POZO, ((char*)$3) ) ) YYERROR;
         }
         free( (char*)$2 );
         free( (char*)$3 );
@@ -1143,7 +1143,7 @@ instruction_start:
         CHECK_TIPOJUEGO;
         int i;
         for( i = 0; i < qgz_param_count; i ++ ){
-          if( !tipojuego_add_pieza( tipojuego, ((char*)$2), (char*)qgz_param_list[i].par, ((char*)$3) ) ) YYERROR;
+          if( !qg_tipojuego_add_pieza( tipojuego, ((char*)$2), (char*)qgz_param_list[i].par, ((char*)$3) ) ) YYERROR;
         }
         free( (char*)$2 );
         free( (char*)$3 );
@@ -1161,15 +1161,15 @@ instruction_sequence_list:
                 int  tmov = qg_tipojuego_get_tipomov( tipojuego, val2 );
                 if( tmov != NOT_FOUND ){
                     qgzprintf( "color secuencia %s - tipo mov %s",  val1, val2 );
-                    if( !tipojuego_add_secuencia( tipojuego, val1, val2 ) ) YYERROR;
+                    if( !qg_tipojuego_add_secuencia( tipojuego, val1, val2 ) ) YYERROR;
                     i ++;
                 } else {
                     qgzprintf( "color secuencia %s",  val1 );
-                    if( !tipojuego_add_secuencia( tipojuego, val1, NULL ) ) YYERROR;
+                    if( !qg_tipojuego_add_secuencia( tipojuego, val1, NULL ) ) YYERROR;
                 }
             } else {
                 qgzprintf( "color secuencia %s",  val1 );
-                if( !tipojuego_add_secuencia( tipojuego, val1, NULL ) ) YYERROR;
+                if( !qg_tipojuego_add_secuencia( tipojuego, val1, NULL ) ) YYERROR;
             }
         } 
     };
@@ -1180,7 +1180,7 @@ instruction_sequence_prelude:
 instruction_sequence:
     instruction_sequence_prelude |
     instruction_sequence_prelude  TOK_REPEAT {
-        if( !tipojuego_add_secuencia_rep( tipojuego ) ) YYERROR;
+        if( !qg_tipojuego_add_secuencia_rep( tipojuego ) ) YYERROR;
     }
     instruction_sequence_list;
 
@@ -1188,7 +1188,7 @@ instruction_sequence:
 instruction_sym:
     TOK_SYMMETRY     word_or_string  word_or_string  word_or_string { 
         CHECK_TIPOJUEGO;
-        if( !tipojuego_add_simetria( tipojuego, ((char*)$2), (char*)$3, (char*)$4 ) ) YYERROR;
+        if( !qg_tipojuego_add_simetria( tipojuego, ((char*)$2), (char*)$3, (char*)$4 ) ) YYERROR;
         free( ((char*)$2) );
         free( ((char*)$3) );
         free( ((char*)$4) );
@@ -1201,14 +1201,14 @@ instruction_zone:
             char* zona  = (char*)$2;
             if( qg_tipojuego_get_zona( tipojuego, zona ) == NOT_FOUND ){
                 qgzprintf( "Nueva zona %s para %s", zona, color );
-                tipojuego_add_zona( tipojuego, zona );
+                qg_tipojuego_add_zona( tipojuego, zona );
             } else {
                 qgzprintf( "Define zona %s para %s", zona, color );
             }
 
             int i;
             for( i = 0; i < qgz_param_count; i ++ ){
-                tipojuego_add_cas_to_zona( tipojuego, (char*)qgz_param_list[i].par, color, zona );
+                qg_tipojuego_add_cas_to_zona( tipojuego, (char*)qgz_param_list[i].par, color, zona );
             }
             free( ((char*)$2) );
             free( ((char*)$3) );

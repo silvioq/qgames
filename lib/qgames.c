@@ -147,14 +147,6 @@ DLL_PUBLIC int         qg_tipojuego_get_dims( Tipojuego* tj ){
 }
 
 
-DLL_PUBLIC int     qg_tipojuego_graph_logofile     ( Tipojuego* tj, char* file ){
-    return  tipojuego_graph_logo( tj, file, NULL );
-}
-
-DLL_PUBLIC int     qg_tipojuego_graph_logopgn      ( Tipojuego* tj, char* pgn ){
-    return  tipojuego_graph_logo( tj, NULL, pgn );
-}
-
 /*
  * Devuelve el nombre del color de acuerdo a su numero
  * */
@@ -208,7 +200,33 @@ DLL_PUBLIC  int         qg_tipojuego_add_direccion_arr( Tipojuego* tj, char* dir
 DLL_PUBLIC  int         qg_tipojuego_add_color ( Tipojuego* tj, char* color ){
     return  tipojuego_add_color( tj, color );
 }
-
+DLL_PUBLIC  int         qg_tipojuego_add_tipo_mov ( Tipojuego* tj, char* tipo_mov ){
+    return  tipojuego_add_tipo_mov( tj, tipo_mov );
+}
+DLL_PUBLIC  int         qg_tipojuego_add_tipopieza( Tipojuego* tj, char* tpieza ){
+    return  tipojuego_add_tipopieza( tj, tpieza );
+}
+DLL_PUBLIC  int         qg_tipojuego_add_tpieza_att( Tipojuego* tj, char* tpieza, char* att, int default_value ){
+    return  tipojuego_add_tpieza_att( tj, tpieza, att, default_value );
+}
+DLL_PUBLIC  int         qg_tipojuego_add_zona     ( Tipojuego* tj, char* zona ){
+    return  tipojuego_add_zona     ( tj, zona );
+}
+DLL_PUBLIC  int         qg_tipojuego_add_cas_to_zona( Tipojuego* tj, char* cas, char* color, char* zona ){
+    return tipojuego_add_cas_to_zona( tj, cas, color, zona );
+}
+DLL_PUBLIC  int         qg_tipojuego_add_simetria ( Tipojuego* tj, char* color, char* dir1, char* dir2 ){
+    return tipojuego_add_simetria ( tj, color, dir1, dir2 );
+}
+DLL_PUBLIC  int         qg_tipojuego_add_secuencia( Tipojuego* tj, char* color, char* tipomov ){
+    return tipojuego_add_secuencia( tj, color, tipomov );
+}
+DLL_PUBLIC  int         qg_tipojuego_add_secuencia_rep( Tipojuego* tj ){
+    return tipojuego_add_secuencia_rep( tj );
+}
+DLL_PUBLIC  int         qg_tipojuego_add_pieza( Tipojuego* tj, char* tpieza, char* casillero, char* color ){
+    return tipojuego_add_pieza( tj, tpieza, casillero, color );
+}
 
 
 /*
@@ -222,6 +240,43 @@ DLL_PUBLIC const char* qg_partida_color         ( Partida* par ){
         return NULL;
     }
 }
+
+/*
+ * Funciones de definicion de graficacion
+ * */
+
+DLL_PUBLIC int    qg_tipojuego_graph_tablero_std     ( Tipojuego* tj, int board_number, char graphtype, int width, int height, int forecolor, int backcolor ){
+    return tipojuego_graph_tablero_std( tj, board_number, graphtype, width, height, forecolor, backcolor );
+}
+DLL_PUBLIC int    qg_tipojuego_graph_tablero_cus     ( Tipojuego* tj, int board_number, char* file  ){
+    // return tipojuego_graph_tablero_cus( tj, board_number, file  );
+    return 0; // no implementado
+}
+DLL_PUBLIC int    qg_tipojuego_graph_tipopieza_std   ( Tipojuego* tj, char* tpieza, int stdimg, int width, int height, int forecolor ){
+    return tipojuego_graph_tipopieza_std   ( tj, tpieza, stdimg, width, height, forecolor );
+}
+DLL_PUBLIC int    qg_tipojuego_graph_tipopieza_cus   ( Tipojuego* tj, char* tpieza, char* color, char* file ){
+    // return tipojuego_graph_tipopieza_cus ( tj, tpieza, color, file );
+    return 0; // no implementado
+}
+DLL_PUBLIC int    qg_tipojuego_graph_casillero_std   ( Tipojuego* tj, char* casillero, int resaltado, int color ){
+    // return tipojuego_graph_casillero_std   ( tj, casillero, resaltado, color );
+    return 0; // no implementado
+}
+DLL_PUBLIC int    qg_tipojuego_graph_casillero_cus   ( Tipojuego* tj, char* casillero, char* file ){
+    // tipojuego_graph_casillero_cus   ( tj, casillero, file );
+    return 0; // no implementado
+}
+
+DLL_PUBLIC int     qg_tipojuego_graph_logofile     ( Tipojuego* tj, char* file ){
+    return  tipojuego_graph_logo( tj, file, NULL );
+}
+
+DLL_PUBLIC int     qg_tipojuego_graph_logopgn      ( Tipojuego* tj, char* pgn ){
+    return  tipojuego_graph_logo( tj, NULL, pgn );
+}
+
+
 /*
  * Devuelve verdadero o falso, dependiendo si la partida esta en continuacion
  * o no
