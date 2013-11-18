@@ -99,6 +99,8 @@ void  jugar_partida(Partida* par){
                 printf( "No se puede mover %d\n", atoi( line ) );
                 continue;
             }
+        } else if( strcasecmp( line, "quit" ) == 0 ){
+            break;
         } else {
             if( !qg_partida_mover_notacion( par, line ) ){
                 printf( "No se puede mover %s\n", line );
