@@ -242,15 +242,19 @@ int  main(int argc, char** argv) {
         }
     } else {
         char* filename = argv[optind];
-        if( flags & QGZ_VERBOSE ) printf( "Abriendo %s\n", filename );
-        ret = pgnscan_fname( filename );
-        if( !ret ){
-            if( flags & QGZ_VERBOSE ) printf( "Salio por error en pgn %s\n", pgnerror );
-            tj = qgz_parse_filename( filename, flags );
-            ret = tj ? 1 : 0;
+        if( tj = qg_tipojuego_open( filename ) ){
+            ret = 1;
         } else {
-            par = check_game( filename, flags );
-            if( par ) ret = 1; else ret = 0;
+            if( flags & QGZ_VERBOSE ) printf( "Abriendo %s\n", filename );
+            ret = pgnscan_fname( filename );
+            if( !ret ){
+                if( flags & QGZ_VERBOSE ) printf( "Salio por error en pgn %s\n", pgnerror );
+                tj = qgz_parse_filename( filename, flags );
+                ret = tj ? 1 : 0;
+            } else {
+                par = check_game( filename, flags );
+                if( par ) ret = 1; else ret = 0;
+            }
         }
     }
 

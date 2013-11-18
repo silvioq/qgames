@@ -51,7 +51,7 @@ int  tiene_colores = 0;
 void usage(char* prg){
 
     puts( "Uso:" );
-    printf( "  %s [-vp] [filename.qgame | filename.pgn]\n", prg );
+    printf( "  %s [-vp] [gametype | filename.qgame | filename.pgn]\n", prg );
     exit( EXIT_FAILURE );
    
 }
@@ -398,14 +398,18 @@ int  main(int argc, char** argv) {
         }
     } else {
         char* filename = argv[optind];
-        if( flags & QGZ_VERBOSE ) printf( "Abriendo %s\n", filename );
-        ret = pgnscan_fname( filename );
-        if( !ret ){
-            tj = qgz_parse_filename( filename, flags );
-            ret = tj ? 1 : 0;
+        if( tj = qg_tipojuego_open( filename ) ){
+            ret = 1;
         } else {
-            par = check_game( filename, flags );
-            if( par ) ret = 1; else ret = 0;
+            if( flags & QGZ_VERBOSE ) printf( "Abriendo %s\n", filename );
+            ret = pgnscan_fname( filename );
+            if( !ret ){
+                tj = qgz_parse_filename( filename, flags );
+                ret = tj ? 1 : 0;
+            } else {
+                par = check_game( filename, flags );
+                if( par ) ret = 1; else ret = 0;
+            }
         }
     }
 
