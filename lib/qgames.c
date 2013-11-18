@@ -276,6 +276,24 @@ DLL_PUBLIC int     qg_tipojuego_graph_logopgn      ( Tipojuego* tj, char* pgn ){
     return  tipojuego_graph_logo( tj, NULL, pgn );
 }
 
+/*
+ * Funciones de definicion de notacion
+ */
+void   qg_tipojuego_add_notacion_def( Tipojuego* tj, char elemento ){
+    tipojuego_add_notacion_def( tj, elemento );
+}
+void   qg_tipojuego_add_notacion_rep( Tipojuego* tj, char elemento ){
+    tipojuego_add_notacion_rep( tj, elemento );
+}
+int    qg_tipojuego_add_notacion_tmov( Tipojuego* tj, char* tmov, char* notacion ){
+    return tipojuego_add_notacion_tmov( tj, tmov, notacion );
+}
+int    qg_tipojuego_add_notacion_tpieza( Tipojuego* tj, char* tpieza, char* color, char* abbr ){
+    return  tipojuego_add_notacion_tpieza( tj, tpieza, color, abbr );
+}
+void   qg_tipojuego_set_notacion_marca( Tipojuego* tj, char* marca, char* captura ){
+    tipojuego_set_notacion_marca( tj, marca, captura );
+}
 
 /*
  * Devuelve verdadero o falso, dependiendo si la partida esta en continuacion
