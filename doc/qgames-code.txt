@@ -96,12 +96,12 @@ goto-marca   [numero]
 
 
 - Control de final:
-empata
-empata-si
-gana
-gana-si
-pierde
-pierde-si
+draw
+draw-if
+win
+win-if
+lost
+lost-if
 
 
 

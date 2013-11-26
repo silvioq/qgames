@@ -204,14 +204,8 @@ define\:        { define_created = 0; BEGIN(define_head);   }
 <code>casillero{BAR}inicial                   { return  TOK_CASILLERO_INICIAL; }
 <code>crea                                    { return  TOK_CREA; }
 <code>destino{BAR}ant(erior)?\??              { return  TOK_DESTINO_ANT; }
-<code>empata                 { return TOK_EMPATA;    }
-<code>empata{BAR}si          { return TOK_EMPATA_SI; }
-<code>empata{SPACES}if       { return TOK_EMPATA_SI; }
 <code>en{BAR}tablero\??      { return TOK_ENTABLERO; }
 <code>en{BAR}zona\??         { return TOK_ENZONA;    }
-<code>gana                   { return TOK_GANA;      }
-<code>gana{BAR}si            { return TOK_GANA_SI;   }
-<code>gana{SPACES}if         { return TOK_GANA_SI;   }
 <code>goto{BAR}marca         { return TOK_GOTO_MARCA; }
 <code>marca                  { return TOK_MARCA;     }
 <code>mover                  { return TOK_MUEVE;     }
@@ -224,14 +218,22 @@ define\:        { define_created = 0; BEGIN(define_head);   }
 <code>ocupado{BAR}enemigo\??                  { return  TOK_OCUPADOENEMIGO;   }
 <code>ocupado{BAR}propio\??                   { return  TOK_OCUPADOPROPIO;   }
 <code>origen{BAR}ant(erior)?\??               { return  TOK_ORIGEN_ANT; }
+<code>piezas{BAR}en{BAR}casillero             { return  TOK_PIEZAS_EN_CAS; }
 <code>parar?                                  { return  TOK_PARA;        }
 <code>parar?{BAR}si                           { return  TOK_PARA_SI;     }
 <code>parar{SPACES}if                         { return  TOK_PARA_SI;     }
-<code>pierde                                  { return  TOK_PIERDE;      }
-<code>pierde{BAR}si                           { return  TOK_PIERDE_SI;   }
-<code>piezas{BAR}en{BAR}casillero             { return  TOK_PIEZAS_EN_CAS; }
 <code>transformar?           { return  TOK_TRANSFORMA;  }
 <code>repite{BAR}posicion\?? { return  TOK_REPITEPOS; }
+
+<code>win                    { return TOK_GANA;      }
+<code>win{BAR}if             { return TOK_GANA_SI;   }
+<code>win{SPACES}if          { return TOK_GANA_SI;   }
+<code>draw                   { return TOK_EMPATA;    }
+<code>draw{BAR}if            { return TOK_EMPATA_SI; }
+<code>draw{SPACES}if         { return TOK_EMPATA_SI; }
+<code>lost                   { return TOK_PIERDE;    }
+<code>lost{BAR}if            { return TOK_PIERDE_SI; }
+<code>lost{SPACES}if         { return TOK_PIERDE_SI; }
 
 <code>do                  { return TOK_DO;        }
 <code>break               { return TOK_BREAK;     }

@@ -88,11 +88,11 @@ move:
 #
 # Se vienen los finales. Son tambien distintos mini programas!
 ending:     
-            empata-si ahogado?
-            empata-si cantidad-piezas 'peon' = 0
+            draw-if ahogado?
+            draw-if cantidad-piezas 'peon' = 0
 
 ending:    
-            gana-si   en-zona?  peon coronacion
+            win  if en-zona?  peon coronacion
 
 # Primero juega el blanco y luego el negro!
 sequence:   blanco   negro

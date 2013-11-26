@@ -61,9 +61,9 @@ move:
 #
 # Se vienen los finales. Son tambien distintos mini programas!
 ending:
-            empata if repite_posicion? 3 
-            gana   if capturadas_enemigo  12
-            gana   if en-zona? objetivo
+            draw   if repite_posicion? 3 
+            win    if capturadas_enemigo  12
+            win    if en-zona? objetivo
 
 
 sequence:   blanco negro

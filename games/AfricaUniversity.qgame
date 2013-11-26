@@ -50,10 +50,10 @@ drop:
              juega;
 
 ending:
-             gana-si  ahogado?
+             win-if  ahogado?
 
 ending:
-             empata-si ahogado?
+             draw-if ahogado?
 
 sequence:    negro  rojo
 start:       A   rojo     49

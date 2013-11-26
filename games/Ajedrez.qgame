@@ -230,16 +230,16 @@ move:       enroque_largo
 #
 # Se vienen los finales. Son tambien distintos mini programas!
 ending:    
-            gana if jaquemate? "rey"
+            win if jaquemate? "rey"
 ending:     
-            empata if ahogado?
+            draw if ahogado?
 ending:
-            empata if repite_posicion? 3 
+            draw if repite_posicion? 3 
 ending:
-            empata if cantidad_piezas? 2
+            draw if cantidad_piezas? 2
             parar  if !cantidad_piezas? 3
-            empata if cantidad_piezas? alfil = 1
-            empata if cantidad_piezas? caballo = 1
+            draw if cantidad_piezas? alfil = 1
+            draw if cantidad_piezas? caballo = 1
 
 sequence:   blanco negro
 start:      torre    blanco  a1  h1

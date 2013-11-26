@@ -171,17 +171,17 @@ move:
 #
 # Se vienen los finales. Son tambien distintos mini programas!
 ending:
-            gana-si jaquemate? "rey"
+            win-if  jaquemate? "rey"
 
 ending:     
-            empata-si ahogado?
+            draw-if ahogado?
 
 ending:
-            empata-si repite_posicion? 3 
+            draw-if repite_posicion? 3 
 ending:
-            empata-si cantidad_piezas? 2
+            draw-if    cantidad_piezas? 2
             parar-si  !cantidad_piezas? 3
-            empata-si cantidad_piezas caballo = 1
+            draw-if    cantidad_piezas caballo = 1
 
 sequence:   blanco negro
 start:      torre    blanco  a1  f1

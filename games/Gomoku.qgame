@@ -31,7 +31,7 @@ ending:
              n
              parar-si !ocupado_propio?
              n
-             gana-si ocupado_propio?
+             win-if  ocupado_propio?
 
 ending:
              parar-si !ocupado_propio?
@@ -42,7 +42,7 @@ ending:
              e
              parar-si !ocupado_propio?
              e
-             gana-si ocupado_propio?
+             win-if  ocupado_propio?
 
 ending:
              parar-si !ocupado_propio?
@@ -53,7 +53,7 @@ ending:
              ne
              parar-si !ocupado_propio?
              ne
-             gana-si ocupado_propio?
+             win-if  ocupado_propio?
 
 ending:
              parar-si !ocupado_propio?
@@ -64,10 +64,10 @@ ending:
              no
              parar-si !ocupado_propio?
              no
-             gana-si ocupado_propio?
+             win-if  ocupado_propio?
 
 ending:
-             empata-si ahogado?
+             draw-if ahogado?
 
 start:       gema   blanco   99
 start:       gema   negro    99
