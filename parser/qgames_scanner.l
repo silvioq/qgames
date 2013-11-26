@@ -189,7 +189,6 @@ define\:        { define_created = 0; BEGIN(define_head);   }
 <code>aqui                        { return  TOK_AQUI;      }
 <code>atacado\??                  { return  TOK_ATACADO_ENEMIGO; }
 <code>atacado{BAR}enemigo\??      { return  TOK_ATACADO_ENEMIGO; }
-<code>cambiar?{BAR}color          { return  TOK_CAMBIA_COLOR; }
 <code>cantidad{BAR}piezas\??                  { return  TOK_CANTIDAD_PIEZAS; }
 <code>cantidad{BAR}piezas{BAR}propi(a|o)s?    { return  TOK_CANTIDAD_PIEZAS_PROPIAS; }
 <code>cantidad{BAR}piezas{BAR}enemig(a|o)s?   { return  TOK_CANTIDAD_PIEZAS_ENEMIGAS; }
@@ -207,7 +206,6 @@ define\:        { define_created = 0; BEGIN(define_head);   }
 <code>ocupado{BAR}propio\??                   { return  TOK_OCUPADOPROPIO;   }
 <code>origen{BAR}ant(erior)?\??               { return  TOK_ORIGEN_ANT; }
 <code>piezas{BAR}en{BAR}casillero             { return  TOK_PIEZAS_EN_CAS; }
-<code>transformar?           { return  TOK_TRANSFORMA;  }
 <code>repite{BAR}posicion\?? { return  TOK_REPITEPOS; }
 
 <code>assign                                  { return  TOK_ASIGNA_ATT; }
@@ -216,6 +214,7 @@ define\:        { define_created = 0; BEGIN(define_head);   }
 <code>capture{BAR}and{BAR}play                { return  TOK_CAPTURA_Y_JUEGA; }
 <code>capture{BAR}and{BAR}play{BAR}if         { return  TOK_CAPTURA_Y_JUEGA_SI; }
 <code>capture{BAR}and{BAR}play{SPACES}if      { return  TOK_CAPTURA_Y_JUEGA_SI; }
+<code>change{BAR}color                        { return  TOK_CAMBIA_COLOR; }
 <code>create                                  { return  TOK_CREA; }
 <code>move                                    { return  TOK_MUEVE;     }
 <code>play                                    { return  TOK_JUEGA;     } 
@@ -224,6 +223,7 @@ define\:        { define_created = 0; BEGIN(define_head);   }
 <code>stop                                    { return  TOK_PARA;        }
 <code>stop{BAR}if                             { return  TOK_PARA_SI;     }
 <code>stop{SPACES}if                          { return  TOK_PARA_SI;     }
+<code>transform                               { return  TOK_TRANSFORMA;  }
 
 <code>win                    { return TOK_GANA;      }
 <code>win{BAR}if             { return TOK_GANA_SI;   }

@@ -39,7 +39,7 @@ define:      flip direccion
              direccion
              while  en_tablero? && !ocupado_propio? do
                if ocupado_enemigo?
-                 cambia_color  aqui
+                 change-color  aqui
                  break
                end
                direccion
@@ -50,7 +50,7 @@ define:      flip-uno direccion
              marca  1  aqui
              direccion
              if  en_tablero? &&  ocupado_enemigo
-               cambia_color  aqui
+               change-color  aqui
              end
              goto-marca  1
 
@@ -207,16 +207,16 @@ move:
             stop if !en_tablero?
             stop if ocupado? 
             if  en_zona? coronacion
-               transforma 'caballo'
+               transform 'caballo'
                flip-caballo
                play
-               transforma 'torre'
+               transform 'torre'
                flip-torre
                play
-               transforma 'alfil'
+               transform 'alfil'
                flip-alfil
                play
-               transforma 'dama'
+               transform 'dama'
                flip-dama
                play
             end

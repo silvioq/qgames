@@ -92,7 +92,7 @@ move:
             stop if !en_tablero?
             stop if ocupado? 
             if  en_zona? coronacion
-               transforma 'torre'
+               transform 'torre'
             end
             play
             if en_zona? 'peones'
@@ -104,14 +104,14 @@ move:
             n; e; 
             if ocupado_enemigo? 
               if en_zona? coronacion
-                transforma "torre"
+                transform "torre"
               end
               capture-and-play
             end
             casillero_inicial; n; o;
             if ocupado_enemigo? 
               if en_zona? coronacion
-                transforma torre
+                transform torre
               end
               capture-and-play
             end

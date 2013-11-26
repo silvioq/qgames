@@ -126,7 +126,7 @@ move:
             stop-if !en_tablero?
             stop-if ocupado? 
             if en_zona? 'coronacion'
-                transforma 'caballo', 'torre', 'dama'
+                transform 'caballo', 'torre', 'dama'
             end
             play
 
@@ -135,14 +135,14 @@ move:
             n; e; 
             if ocupado_enemigo? 
               if en-zona? coronacion
-                  transforma 'caballo', 'torre', 'dama' 
+                  transform 'caballo', 'torre', 'dama' 
               end
               play
             end
             casillero_inicial; n; o;
             if ocupado_enemigo?
               if en-zona? coronacion
-                  transforma 'caballo', 'torre', 'dama' 
+                  transform 'caballo', 'torre', 'dama' 
               end
               play
             end
