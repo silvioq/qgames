@@ -103,7 +103,7 @@ define:     flip-rey
 define:     movida_torre direccion 
             direccion
             while en_tablero? && !ocupado?  do
-              asigna_atributo  ya_movido , true
+              assign-att  ya_movido , true
               flip-torre
               play
               direccion
@@ -113,7 +113,7 @@ define:     movida_rey  direccion
             direccion
             stop if !en_tablero?
             stop if ocupado?
-            asigna_atributo 'ya_movido', true
+            assign-att 'ya_movido', true
             flip-rey
             play
 
@@ -257,7 +257,7 @@ move:       enroque_corto
             move piezas_en_casillero marca
             flip-torre
             casillero_inicial; e; e; 
-            asigna_atributo 'ya_movido', true
+            assign-att 'ya_movido', true
             flip-rey
             play
 
@@ -273,7 +273,7 @@ move:       enroque_largo
             move piezas_en_casillero marca
             flip-torre
             casillero_inicial; o; o; 
-            asigna_atributo 'ya_movido', true
+            assign-att 'ya_movido', true
             flip-rey
             play
 

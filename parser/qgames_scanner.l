@@ -187,8 +187,6 @@ define\:        { define_created = 0; BEGIN(define_head);   }
 
 <code>ahogado\??                  { return  TOK_AHOGADO;   }
 <code>aqui                        { return  TOK_AQUI;      }
-<code>asigna{BAR}atributo         { return  TOK_ASIGNA_ATT; }
-<code>asigna{BAR}att              { return  TOK_ASIGNA_ATT; }
 <code>atacado\??                  { return  TOK_ATACADO_ENEMIGO; }
 <code>atacado{BAR}enemigo\??      { return  TOK_ATACADO_ENEMIGO; }
 <code>cambiar?{BAR}color          { return  TOK_CAMBIA_COLOR; }
@@ -212,6 +210,8 @@ define\:        { define_created = 0; BEGIN(define_head);   }
 <code>transformar?           { return  TOK_TRANSFORMA;  }
 <code>repite{BAR}posicion\?? { return  TOK_REPITEPOS; }
 
+<code>assign                                  { return  TOK_ASIGNA_ATT; }
+<code>assign{BAR}att                          { return  TOK_ASIGNA_ATT; }
 <code>capture                                 { return  TOK_CAPTURA; }
 <code>capture{BAR}and{BAR}play                { return  TOK_CAPTURA_Y_JUEGA; }
 <code>capture{BAR}and{BAR}play{BAR}if         { return  TOK_CAPTURA_Y_JUEGA_SI; }

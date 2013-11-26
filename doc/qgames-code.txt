@@ -83,6 +83,10 @@ move [casillero-origen]  [destino]
 # especifico)
 move piezas-en-casillero marca
 
+# asigna un atributo a la pieza, para poder
+# ser consultado luego
+assign-att   "atributo", valor
+
 
 # marca el casillero actual
 marca
