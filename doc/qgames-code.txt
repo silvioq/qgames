@@ -26,6 +26,7 @@ ahogado   tipoDePieza
 atacado
 atacado-enemigo
 
+# Cantidad de piezas
 cantidad-piezas           [lista de color, tipoDePieza, casillero]
 cantidad-piezas-propias   [lista de color, tipoDePieza, casillero]
 cantidad-piezas-enemigas  [lista de color, tipoDePieza, casillero]
@@ -57,8 +58,41 @@ repite-posicion   cantidad
 
 
 - Acciones:
-jugar     (casillero = null, con captura = no)
+# Juega la pieza actual al casillero en el que 
+# estamos posicionados
+juega
+juega-si
+
+# Frena la ejecucion del bloque de acciones
 para
+para-si
+
+# captura la pieza que esta en el casillero actual
+captura
+captura-si
+
+# captura la pieza que esta en el casillero actual (si
+# es que hay) y mueve la pieza a la posicion
+captura-y-juega
+
+# mueve una o varias piezas a un destino
+mueve [casillero-origen]  [destino]
+
+# mueve todas las piezas del casillero actual
+# al destino (puede ser una marca o un casillero
+# especifico)
+mueve piezas-en-casillero marca
+
+
+# marca el casillero actual
+marca
+marca aqui
+marca [numero]
+marca [numero] aqui
+
+# pone el cursor de casillero
+goto         [casillero]
+goto-marca   [numero]
 
 
 - Control de final:
