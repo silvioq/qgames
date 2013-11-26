@@ -35,7 +35,7 @@ movetype:    enroque_largo
 # Este define permite cambiar el color de la pieza
 # amenazada
 define:      flip direccion
-             marca  1  aqui
+             mark   1  aqui
              direccion
              while  en_tablero? && !ocupado_propio? do
                if ocupado_enemigo?
@@ -44,15 +44,15 @@ define:      flip direccion
                end
                direccion
              end
-             goto-marca  1
+             goto-mark   1
 
 define:      flip-uno direccion
-             marca  1  aqui
+             mark   1  aqui
              direccion
              if  en_tablero? &&  ocupado_enemigo
                change-color  aqui
              end
-             goto-marca  1
+             goto-mark   1
 
 define:      flip-caballo
             flip-uno 'n; n; e'
@@ -249,12 +249,12 @@ move:
 move:       enroque_corto
             stop if ya_movido?
             e; stop if ocupado?; stop if atacado_enemigo?
-            marca aqui
+            mark  aqui
             e; stop if ocupado?; stop if atacado_enemigo?
             e; stop if ocupado_enemigo?;
             stop if !ocupado? torre; 
             stop if ya_movido?;
-            move piezas_en_casillero marca
+            move piezas_en_casillero mark 
             flip-torre
             casillero_inicial; e; e; 
             assign-att 'ya_movido', true
@@ -264,13 +264,13 @@ move:       enroque_corto
 move:       enroque_largo
             stop if ya_movido?
             o; stop if ocupado?; stop if atacado_enemigo?
-            marca aqui
+            mark  aqui
             o; stop if ocupado?; stop if atacado_enemigo?
             o; stop if ocupado?
             o; stop if ocupado_enemigo?; 
             stop if !ocupado? torre; 
             stop if ya_movido?;
-            move piezas_en_casillero marca
+            move piezas_en_casillero mark 
             flip-torre
             casillero_inicial; o; o; 
             assign-att 'ya_movido', true

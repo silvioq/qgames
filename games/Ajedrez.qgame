@@ -202,12 +202,12 @@ move:
 move:       enroque_corto
             stop if ya_movido?
             e; stop if ocupado?; stop if atacado_enemigo?
-            marca aqui
+            mark  aqui
             e; stop if ocupado?; stop if atacado_enemigo?
             e; stop if ocupado_enemigo?;
             stop if !ocupado? torre; 
             stop if ya_movido?;
-            move  piezas_en_casillero marca
+            move  piezas_en_casillero mark 
             casillero_inicial; e; e; 
             assign-att 'ya_movido', true
             play
@@ -215,13 +215,13 @@ move:       enroque_corto
 move:       enroque_largo
             stop if ya_movido?
             o; stop if ocupado?; stop if atacado_enemigo?
-            marca aqui
+            mark  aqui
             o; stop if ocupado?; stop if atacado_enemigo?
             o; stop if ocupado?
             o; stop if ocupado_enemigo?; 
             stop if !ocupado? torre; 
             stop if ya_movido?;
-            move  piezas_en_casillero marca
+            move  piezas_en_casillero mark 
             casillero_inicial; o; o; 
             assign-att 'ya_movido', true
             play

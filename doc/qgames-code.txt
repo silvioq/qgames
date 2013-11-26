@@ -98,14 +98,14 @@ change-color  [color] aqui
 
 
 # marca el casillero actual
-marca
-marca aqui
-marca [numero]
-marca [numero] aqui
+mark
+mark aqui
+mark [numero]
+mark [numero] aqui
 
 # pone el cursor de casillero
 goto         [casillero]
-goto-marca   [numero]
+goto-mark    [numero]
 
 
 - Control de final:

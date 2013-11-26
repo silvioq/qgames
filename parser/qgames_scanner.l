@@ -198,8 +198,6 @@ define\:        { define_created = 0; BEGIN(define_head);   }
 <code>destino{BAR}ant(erior)?\??              { return  TOK_DESTINO_ANT; }
 <code>en{BAR}tablero\??      { return TOK_ENTABLERO; }
 <code>en{BAR}zona\??         { return TOK_ENZONA;    }
-<code>goto{BAR}marca         { return TOK_GOTO_MARCA; }
-<code>marca                  { return TOK_MARCA;     }
 <code>jaquemate\??           { return TOK_JAQUEMATE; }
 <code>ocupado\??             { return TOK_OCUPADO;   }
 <code>ocupado{BAR}enemigo\??                  { return  TOK_OCUPADOENEMIGO;   }
@@ -216,6 +214,8 @@ define\:        { define_created = 0; BEGIN(define_head);   }
 <code>capture{BAR}and{BAR}play{SPACES}if      { return  TOK_CAPTURA_Y_JUEGA_SI; }
 <code>change{BAR}color                        { return  TOK_CAMBIA_COLOR; }
 <code>create                                  { return  TOK_CREA; }
+<code>goto{BAR}mark                           { return TOK_GOTO_MARCA; }
+<code>mark                                    { return TOK_MARCA;     }
 <code>move                                    { return  TOK_MUEVE;     }
 <code>play                                    { return  TOK_JUEGA;     } 
 <code>play{BAR}if                             { return  TOK_JUEGA_SI;  }
