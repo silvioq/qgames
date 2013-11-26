@@ -66,6 +66,7 @@ int  main(int argc, char** argv) {
         aux[0] = 0;
         LOGPRINT( 5, "Definicion encontrada => %s", nombre );
         Tipojuego* tj = qg_tipojuego_open( nombre );
+        if( !tj ) LOGPRINT( 1, "Error procesando juego %s", nombre );
         assert( tj );
         int size;
         void* datapng;
