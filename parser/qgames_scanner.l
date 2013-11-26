@@ -189,6 +189,7 @@ define\:        { define_created = 0; BEGIN(define_head);   }
 <code>aqui                        { return  TOK_AQUI;      }
 <code>asigna{BAR}atributo         { return  TOK_ASIGNA_ATT; }
 <code>asigna{BAR}att              { return  TOK_ASIGNA_ATT; }
+<code>atacado\??                  { return  TOK_ATACADO_ENEMIGO; }
 <code>atacado{BAR}enemigo\??      { return  TOK_ATACADO_ENEMIGO; }
 <code>cambiar?{BAR}color          { return  TOK_CAMBIA_COLOR; }
 <code>cantidad{BAR}piezas\??                  { return  TOK_CANTIDAD_PIEZAS; }

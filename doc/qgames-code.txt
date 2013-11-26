@@ -24,6 +24,7 @@ ahogado
 ahogado   tipoDePieza
 
 atacado
+atacado-enemigo
 
 cantidad-piezas           [lista de color, tipoDePieza, casillero]
 cantidad-piezas-propias   [lista de color, tipoDePieza, casillero]
