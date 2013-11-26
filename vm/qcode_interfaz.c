@@ -225,10 +225,6 @@ static __thread Analizador* zgeneral;
 long  code_wrapper_initz( QCodeVM* vm ){
     return  (long)zgeneral;
 }
-long  code_wrapper_dump( QCodeVM* vm ){
-    printf( "Dump!\n" );
-    return  vm->r[0];
-}
 
 
 void  code_initialize( QCode** qcode ){
@@ -256,8 +252,6 @@ void  code_initialize( QCode** qcode ){
     qcode_xcrlab( q, "setmarca"  ,(qcode_extfunc)code_wrapper_setmarca );
     qcode_xcrlab( q, "repeticiones" ,(qcode_extfunc)code_wrapper_repeticiones );
     qcode_xcrlab( q, "transforma",(qcode_extfunc)code_wrapper_transforma );
-
-    qcode_xcrlab( q, "dump"     , (qcode_extfunc)code_wrapper_dump );
 
     /* El primer codigo que meto es el tema del analizador */
     int label = qcode_xcrlab( q, "initz", (qcode_extfunc)code_wrapper_initz );

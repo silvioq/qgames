@@ -101,7 +101,6 @@ void        tipojuego_code_op_not( Tipojuego* tj ){
     assert( tj );
     qcode_op( tj->qcode, QCSTO, 1, 0 ); 
     qcode_op( tj->qcode, QCSTI, 2, 0 ); 
-    // qcode_opnlab( tj->qcode, QCCLX, "dump" );
     qcode_op( tj->qcode, QCEQU, 1, 2 );    // EQU r1 , r2
 }
 /*
