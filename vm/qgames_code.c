@@ -270,8 +270,6 @@ int         tipojuego_code_ahogado( Tipojuego* tj, char* color ){
     qcode_op( tj->qcode, QCPSH,  3, 0 );        // PSH r3
     qcode_opnlab( tj->qcode, QCCLX, "ahogado" );
     return 1;
-    // FIXME: Hay que controlar posibles estados erroneos
-    // RET_IF_STATUS;                              // Retorna si el valor es distinto de cero
 }
 
 
