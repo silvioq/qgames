@@ -39,38 +39,38 @@ zone:        coronacion  negro   a1  b1  c1  d1  e1  f1  g1  h1
 define:      movida_derecho direccion 
              direccion
              while en_tablero? && !ocupado_propio?  do
-                captura_y_juega
-                parar if ocupado_enemigo?
+                capture-and-play
+                stop if ocupado_enemigo?
                 direccion
              end
 
 define:     movida_torre direccion 
             direccion
             while en_tablero? && !ocupado_propio?  do
-              captura_y_juega
-              parar if ocupado_enemigo?
+              capture-and-play
+              stop if ocupado_enemigo?
               direccion
             end
 
 define:     movida_rey direccion
             direccion
-            parar if !en_tablero?
-            parar if ocupado_propio?
-            parar if atacado_enemigo?
-            captura_y_juega
+            stop if !en_tablero?
+            stop if ocupado_propio?
+            stop if atacado_enemigo?
+            capture-and-play
 
 define:     al_paso direccion
             direccion
-            parar if !ocupado_enemigo?
-            parar if !destino_anterior?
-            parar if !ocupado? peon 
+            stop if !ocupado_enemigo?
+            stop if !destino_anterior?
+            stop if !ocupado? peon 
             n; n
-            parar if !origen_anterior?
+            stop if !origen_anterior?
             casillero_inicial
             direccion
-            captura
+            capture
             n
-            juega
+            play
 
 # Listo, ahora si ... se vienen las definiciones de piezas
 #
@@ -89,14 +89,14 @@ piece:      "peon"
 # Movida para adelante
 move:       
             n
-            parar if !en_tablero?
-            parar if ocupado? 
+            stop if !en_tablero?
+            stop if ocupado? 
             if  en_zona? coronacion
                transforma 'torre'
             end
-            juega
+            play
             if en_zona? 'peones'
-              n; juega if !ocupado?
+              n; play if !ocupado?
             end
 
 # Captura del peon
@@ -106,14 +106,14 @@ move:
               if en_zona? coronacion
                 transforma "torre"
               end
-              captura_y_juega
+              capture-and-play
             end
             casillero_inicial; n; o;
             if ocupado_enemigo? 
               if en_zona? coronacion
                 transforma torre
               end
-              captura_y_juega
+              capture-and-play
             end
 
 # Al paso

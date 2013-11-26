@@ -60,28 +60,28 @@ repite-posicion   cantidad
 - Acciones:
 # Juega la pieza actual al casillero en el que 
 # estamos posicionados
-juega
-juega-si
+play
+play-if
 
 # Frena la ejecucion del bloque de acciones
-para
-para-si
+stop
+stop-if
 
 # captura la pieza que esta en el casillero actual
-captura
-captura-si
+capture
+capture-if
 
 # captura la pieza que esta en el casillero actual (si
 # es que hay) y mueve la pieza a la posicion
-captura-y-juega
+capture-and-play
 
 # mueve una o varias piezas a un destino
-mueve [casillero-origen]  [destino]
+move [casillero-origen]  [destino]
 
 # mueve todas las piezas del casillero actual
 # al destino (puede ser una marca o un casillero
 # especifico)
-mueve piezas-en-casillero marca
+move piezas-en-casillero marca
 
 
 # marca el casillero actual

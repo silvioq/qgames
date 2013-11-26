@@ -54,22 +54,21 @@ zone:        coronacion  negro   a1  b1  c1  d1  e1  f1
 define:      movida_derecho direccion 
              direccion
              while en_tablero? && !ocupado_propio?  do
-                juega
-                parar-si ocupado_enemigo?
+                play
+                stop-if ocupado_enemigo?
                 direccion
              end
 
 define:     movida_caballo direccion
             direccion
-            parar-si !en_tablero?
-            juega-si !ocupado_propio?
+            stop-if !en_tablero?
+            play-if !ocupado_propio?
 
 define:     movida_rey direccion
             direccion
-            parar-si !en_tablero?
-            parar-si ocupado_propio?
-            # parar-si atacado_enemigo?
-            juega
+            stop-if !en_tablero?
+            stop-if ocupado_propio?
+            play
 
 # Listo, ahora si ... se vienen las definiciones de piezas
 #
@@ -124,12 +123,12 @@ piece:      "peon"
 # Movida para adelante
 move:       
             n; 
-            parar-si !en_tablero?
-            parar-si ocupado? 
+            stop-if !en_tablero?
+            stop-if ocupado? 
             if en_zona? 'coronacion'
                 transforma 'caballo', 'torre', 'dama'
             end
-            juega
+            play
 
 # Captura del peon
 move:
@@ -138,14 +137,14 @@ move:
               if en-zona? coronacion
                   transforma 'caballo', 'torre', 'dama' 
               end
-              juega
+              play
             end
             casillero_inicial; n; o;
             if ocupado_enemigo?
               if en-zona? coronacion
                   transforma 'caballo', 'torre', 'dama' 
               end
-              juega
+              play
             end
 
 
@@ -180,7 +179,7 @@ ending:
             draw-if repite_posicion? 3 
 ending:
             draw-if    cantidad_piezas? 2
-            parar-si  !cantidad_piezas? 3
+            stop-if  !cantidad_piezas? 3
             draw-if    cantidad_piezas caballo = 1
 
 sequence:   blanco negro

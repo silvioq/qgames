@@ -32,11 +32,11 @@ zone:       coronacion  negro   a1  b1  c1  d1  e1  f1  g1  h1
 piece:       peon
 move:
             n; e
-            juega-si  !ocupado-propio?
+            play-if  !ocupado-propio?
             casillero_inicial;  n
-            juega-si  !ocupado?
+            play-if  !ocupado?
             casillero_inicial;  n; o
-            juega-si  !ocupado-propio?
+            play-if  !ocupado-propio?
             
 
 

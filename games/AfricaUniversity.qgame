@@ -19,35 +19,35 @@ directions:  o -1  0
 # Aca hay una sola pieza!
 piece:       A
 drop:
-             parar-si ocupado?; parar if !en_tablero?;
-             e; parar-si ocupado?; parar-si !en_tablero?; crea 'A' 'rojo' aqui;
-	           s; parar-si ocupado?; parar-si !en_tablero?; crea 'A' 'rojo' aqui;
-	           s; parar-si ocupado?; parar-si !en_tablero?; crea 'A' 'rojo' aqui;
-	           s; parar-si ocupado?; parar-si !en_tablero?; crea 'A' 'rojo' aqui;
-	           o;                    parar-si !en_tablero?; 
-	           o; parar-si ocupado?; parar-si !en_tablero?; crea 'A' 'rojo' aqui;
-	           n; parar-si ocupado?; parar-si !en_tablero?; crea 'A' 'rojo' aqui;
-	           e; parar-si ocupado?; parar-si !en_tablero?; crea 'A' 'rojo' aqui;
-	           o;                    parar-si !en_tablero?; 
-	           n; parar-si ocupado?; parar-si !en_tablero?; crea 'A' 'rojo' aqui;
-	           n; parar-si ocupado?; parar-si !en_tablero?; crea 'A' 'rojo' aqui;
+             stop-if ocupado?; stop if !en_tablero?;
+             e; stop-if ocupado?; stop-if !en_tablero?; create 'A' 'rojo' aqui;
+	           s; stop-if ocupado?; stop-if !en_tablero?; create 'A' 'rojo' aqui;
+	           s; stop-if ocupado?; stop-if !en_tablero?; create 'A' 'rojo' aqui;
+	           s; stop-if ocupado?; stop-if !en_tablero?; create 'A' 'rojo' aqui;
+	           o;                    stop-if !en_tablero?; 
+	           o; stop-if ocupado?; stop-if !en_tablero?; create 'A' 'rojo' aqui;
+	           n; stop-if ocupado?; stop-if !en_tablero?; create 'A' 'rojo' aqui;
+	           e; stop-if ocupado?; stop-if !en_tablero?; create 'A' 'rojo' aqui;
+	           o;                    stop-if !en_tablero?; 
+	           n; stop-if ocupado?; stop-if !en_tablero?; create 'A' 'rojo' aqui;
+	           n; stop-if ocupado?; stop-if !en_tablero?; create 'A' 'rojo' aqui;
 	           casillero_inicial; 
-	           juega;
+	           play;
 
 piece:       U
 drop:
-             parar-si ocupado?; parar if !en_tablero?;
-             e; parar-si ocupado?; parar-si !en_tablero?; crea 'U' 'negro' aqui;
-	           n; parar-si ocupado?; parar-si !en_tablero?; crea 'U' 'negro' aqui;
-	           n; parar-si ocupado?; parar-si !en_tablero?; crea 'U' 'negro' aqui;
-	           n; parar-si ocupado?; parar-si !en_tablero?; crea 'U' 'negro' aqui;
-	           o;                    parar-si !en_tablero?;
-	           o; parar-si ocupado?; parar-si !en_tablero?; crea 'U' 'negro' aqui;
-	           s; parar-si ocupado?; parar-si !en_tablero?; crea 'U' 'negro' aqui;
-	           s; parar-si ocupado?; parar-si !en_tablero?; crea 'U' 'negro' aqui;
-	           s; parar-si ocupado?; parar-si !en_tablero?; crea 'U' 'negro' aqui;
+             stop-if ocupado?; stop if !en_tablero?;
+             e; stop-if ocupado?; stop-if !en_tablero?; create 'U' 'negro' aqui;
+	           n; stop-if ocupado?; stop-if !en_tablero?; create 'U' 'negro' aqui;
+	           n; stop-if ocupado?; stop-if !en_tablero?; create 'U' 'negro' aqui;
+	           n; stop-if ocupado?; stop-if !en_tablero?; create 'U' 'negro' aqui;
+	           o;                    stop-if !en_tablero?;
+	           o; stop-if ocupado?; stop-if !en_tablero?; create 'U' 'negro' aqui;
+	           s; stop-if ocupado?; stop-if !en_tablero?; create 'U' 'negro' aqui;
+	           s; stop-if ocupado?; stop-if !en_tablero?; create 'U' 'negro' aqui;
+	           s; stop-if ocupado?; stop-if !en_tablero?; create 'U' 'negro' aqui;
 	           casillero_inicial; 
-             juega;
+             play;
 
 ending:
              win-if  ahogado?

@@ -19,50 +19,50 @@ directions:  no 1 -1
 # Aca hay una sola pieza!
 piece:       gema
 drop:
-             juega-si !ocupado?
+             play  if !ocupado?
 
 
 ending:
-             parar-si !ocupado_propio?
+             stop-if  !ocupado_propio?
              n
-             parar-si !ocupado_propio?
+             stop-if  !ocupado_propio?
              n
-             parar-si !ocupado_propio?
+             stop-if  !ocupado_propio?
              n
-             parar-si !ocupado_propio?
+             stop-if  !ocupado_propio?
              n
              win-if  ocupado_propio?
 
 ending:
-             parar-si !ocupado_propio?
+             stop-if  !ocupado_propio?
              e
-             parar-si !ocupado_propio?
+             stop-if  !ocupado_propio?
              e
-             parar-si !ocupado_propio?
+             stop-if  !ocupado_propio?
              e
-             parar-si !ocupado_propio?
+             stop-if  !ocupado_propio?
              e
              win-if  ocupado_propio?
 
 ending:
-             parar-si !ocupado_propio?
+             stop-if  !ocupado_propio?
              ne
-             parar-si !ocupado_propio?
+             stop-if  !ocupado_propio?
              ne
-             parar-si !ocupado_propio?
+             stop-if  !ocupado_propio?
              ne
-             parar-si !ocupado_propio?
+             stop-if  !ocupado_propio?
              ne
              win-if  ocupado_propio?
 
 ending:
-             parar-si !ocupado_propio?
+             stop-if  !ocupado_propio?
              no
-             parar-si !ocupado_propio?
+             stop-if  !ocupado_propio?
              no
-             parar-si !ocupado_propio?
+             stop-if  !ocupado_propio?
              no
-             parar-si !ocupado_propio?
+             stop-if  !ocupado_propio?
              no
              win-if  ocupado_propio?
 

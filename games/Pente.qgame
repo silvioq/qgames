@@ -30,7 +30,7 @@ define:     captura_dos   direccion
                     direccion
                     if  ocupado_propio?
                         casillero_inicial
-                        direccion; captura; direccion; captura
+                        direccion; capture; direccion; capture
                     end
                 end
             end
@@ -39,7 +39,7 @@ define:     captura_dos   direccion
 # Aca hay una sola pieza!
 piece:       gema
 drop:
-             para-si ocupado?
+            stop-if  ocupado?
             captura_dos  n
             captura_dos  no
             captura_dos  o
@@ -48,51 +48,51 @@ drop:
             captura_dos  se
             captura_dos  e
             captura_dos  ne
-            juega
+            play
              
 
 
 ending:
-             parar-si !ocupado_propio?
+             stop if  !ocupado_propio?
              n
-             parar-si !ocupado_propio?
+             stop if  !ocupado_propio?
              n
-             parar-si !ocupado_propio?
+             stop if  !ocupado_propio?
              n
-             parar-si !ocupado_propio?
+             stop if  !ocupado_propio?
              n
              win-if    ocupado_propio?
 
 ending:
-             parar-si !ocupado_propio?
+             stop if  !ocupado_propio?
              e
-             parar-si !ocupado_propio?
+             stop if  !ocupado_propio?
              e
-             parar-si !ocupado_propio?
+             stop if  !ocupado_propio?
              e
-             parar-si !ocupado_propio?
+             stop if  !ocupado_propio?
              e
              win-if    ocupado_propio?
 
 ending:
-             parar-si !ocupado_propio?
+             stop if  !ocupado_propio?
              ne
-             parar-si !ocupado_propio?
+             stop if  !ocupado_propio?
              ne
-             parar-si !ocupado_propio?
+             stop if  !ocupado_propio?
              ne
-             parar-si !ocupado_propio?
+             stop if  !ocupado_propio?
              ne
              win-if    ocupado_propio?
 
 ending:
-             parar-si !ocupado_propio?
+             stop if  !ocupado_propio?
              no
-             parar-si !ocupado_propio?
+             stop if  !ocupado_propio?
              no
-             parar-si !ocupado_propio?
+             stop if  !ocupado_propio?
              no
-             parar-si !ocupado_propio?
+             stop if  !ocupado_propio?
              no
              win-if    ocupado_propio?
 

@@ -105,30 +105,30 @@ define:     movida_torre direccion
             while en_tablero? && !ocupado?  do
               asigna_atributo  ya_movido , true
               flip-torre
-              juega
+              play
               direccion
             end
 
 define:     movida_rey  direccion
             direccion
-            parar if !en_tablero?
-            parar if ocupado?
+            stop if !en_tablero?
+            stop if ocupado?
             asigna_atributo 'ya_movido', true
             flip-rey
-            juega
+            play
 
 define:     movida_caballo  direccion
             direccion
-            parar if !en_tablero?
-            parar if ocupado?
+            stop if !en_tablero?
+            stop if ocupado?
             flip-caballo
-            juega
+            play
 
 define:     movida_dama  direccion
             direccion
             while en_tablero? && !ocupado?  do
               flip-dama
-              juega
+              play
               direccion
             end
 
@@ -136,7 +136,7 @@ define:     movida_alfil  direccion
             direccion
             while en_tablero? && !ocupado?  do
               flip-alfil
-              juega
+              play
               direccion
             end
 
@@ -204,28 +204,28 @@ move:
 piece:      "peon"
 move:       
             n
-            parar if !en_tablero?
-            parar if ocupado? 
+            stop if !en_tablero?
+            stop if ocupado? 
             if  en_zona? coronacion
                transforma 'caballo'
                flip-caballo
-               juega
+               play
                transforma 'torre'
                flip-torre
-               juega
+               play
                transforma 'alfil'
                flip-alfil
-               juega
+               play
                transforma 'dama'
                flip-dama
-               juega
+               play
             end
             flip-peon
-            juega
+            play
             if en_zona? 'peones'
               n
               flip-peon
-              juega if !ocupado?
+              play if !ocupado?
             end
 
 piece:      rey            
@@ -247,35 +247,35 @@ move:
 move:
             movida_rey "s; e;"
 move:       enroque_corto
-            parar if ya_movido?
-            e; parar if ocupado?; parar if atacado_enemigo?
+            stop if ya_movido?
+            e; stop if ocupado?; stop if atacado_enemigo?
             marca aqui
-            e; parar if ocupado?; parar if atacado_enemigo?
-            e; parar if ocupado_enemigo?;
-            parar if !ocupado? torre; 
-            parar if ya_movido?;
-            mueve piezas_en_casillero marca
+            e; stop if ocupado?; stop if atacado_enemigo?
+            e; stop if ocupado_enemigo?;
+            stop if !ocupado? torre; 
+            stop if ya_movido?;
+            move piezas_en_casillero marca
             flip-torre
             casillero_inicial; e; e; 
             asigna_atributo 'ya_movido', true
             flip-rey
-            juega
+            play
 
 move:       enroque_largo
-            parar if ya_movido?
-            o; parar if ocupado?; parar if atacado_enemigo?
+            stop if ya_movido?
+            o; stop if ocupado?; stop if atacado_enemigo?
             marca aqui
-            o; parar if ocupado?; parar if atacado_enemigo?
-            o; parar if ocupado?
-            o; parar if ocupado_enemigo?; 
-            parar if !ocupado? torre; 
-            parar if ya_movido?;
-            mueve piezas_en_casillero marca
+            o; stop if ocupado?; stop if atacado_enemigo?
+            o; stop if ocupado?
+            o; stop if ocupado_enemigo?; 
+            stop if !ocupado? torre; 
+            stop if ya_movido?;
+            move piezas_en_casillero marca
             flip-torre
             casillero_inicial; o; o; 
             asigna_atributo 'ya_movido', true
             flip-rey
-            juega
+            play
 
 
 # Listo con la definicion de piezas ... mas cosas

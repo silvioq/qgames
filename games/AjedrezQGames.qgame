@@ -43,10 +43,10 @@ zone:        coronacion  negro   a1  b1  c1  d1  e1
 # 
 define:     movida_rey direccion
             direccion
-            parar-si !en_tablero?
-            parar-si ocupado_propio?
-            parar-si atacado_enemigo?
-            juega
+            stop  if !en_tablero?
+            stop  if ocupado_propio?
+            stop  if atacado_enemigo?
+            play
 
 # Listo, ahora si ... se vienen las definiciones de piezas
 #
@@ -54,17 +54,17 @@ piece:      "peon"
 # Movida para adelante
 move:       
             n; 
-            parar-si !en_tablero?
-            parar-si ocupado? 
-            juega
+            stop  if !en_tablero?
+            stop  if ocupado? 
+            play
 
 # Captura del peon
 move:
             n; e; 
-            juega-si ocupado-enemigo?
+            play-if ocupado-enemigo?
             casillero_inicial
             n; o; 
-            juega-si ocupado-enemigo?
+            play-if  ocupado-enemigo?
 
 piece:      rey            
 move:
