@@ -729,6 +729,10 @@ instaction_set_marca:
                         CHECK_TIPOJUEGO; 
                         if( !tipojuego_code_setmarca( tipojuego,  0, (char*)$2 ) ) YYERROR;
                         if( (char*)$2 ) free( (char*)$2 );
+    } | 
+    TOK_MARCA {
+                        CHECK_TIPOJUEGO; 
+                        if( !tipojuego_code_setmarca( tipojuego,  0, 0 ) ) YYERROR;
     } ;
 
 
