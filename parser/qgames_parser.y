@@ -660,6 +660,12 @@ instaction_juega:
             if( !tipojuego_code_juega( tipojuego, NULL, 1 ) ) YYERROR;
             tipojuego_code_end_condblock( tipojuego );
     } |
+    TOK_CAPTURA_SI  instexpr {
+            CHECK_TIPOJUEGO;
+            tipojuego_code_start_condblock( tipojuego );
+            if( !tipojuego_code_captura( tipojuego, NULL ) ) YYERROR;
+            tipojuego_code_end_condblock( tipojuego );
+    } |
     TOK_CAPTURA   { 
             CHECK_TIPOJUEGO;
             if( !tipojuego_code_captura( tipojuego, NULL ) ) YYERROR;
