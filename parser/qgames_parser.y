@@ -282,6 +282,16 @@ instexpr_cantidad_piezas:
             if( !tipojuego_code_cuenta_piezas( tipojuego, CASILLERO_CAPTURA, ENEMIGO, NULL, NULL ) ) YYERROR;;
             tipojuego_code_op_equal( tipojuego, $2 );
     } |
+    TOK_CAPTURADAS_PROPIO '=' TOK_NUMBER {
+            CHECK_TIPOJUEGO;
+            if( !tipojuego_code_cuenta_piezas( tipojuego, CASILLERO_CAPTURA, PROPIO, NULL, NULL ) ) YYERROR;;
+            tipojuego_code_op_equal( tipojuego, $3 );
+    } |
+    TOK_CAPTURADAS_PROPIO  TOK_NUMBER {
+            CHECK_TIPOJUEGO;
+            if( !tipojuego_code_cuenta_piezas( tipojuego, CASILLERO_CAPTURA, PROPIO, NULL, NULL ) ) YYERROR;;
+            tipojuego_code_op_equal( tipojuego, $2 );
+    } |
     cantidad_piezas_preludio                       { 
             CHECK_TIPOJUEGO;
             if( !tipojuego_code_cuenta_piezas( tipojuego, NULL, $1, NULL, NULL ) ) YYERROR;;
