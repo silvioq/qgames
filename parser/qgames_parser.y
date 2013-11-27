@@ -141,7 +141,6 @@ void  qgzprintf( char* format, ... ){
 %token    TOK_SEPCODE
 
 %token    TOK_AHOGADO
-%token    TOK_AQUI
 %token    TOK_ASIGNA_ATT
 %token    TOK_ATACADO_ENEMIGO
 %token    TOK_CAMBIA_COLOR
@@ -554,11 +553,11 @@ instaction_movs:
                         }
                     }
     } |
-    TOK_CAMBIA_COLOR  TOK_AQUI {
+    TOK_CAMBIA_COLOR  TOK_PIEZAS_EN_CAS {
             CHECK_TIPOJUEGO ;
             if( !tipojuego_code_transforma( tipojuego, CAMBIOCOLOR, NULL, NULL, FROM_AQUI ) ) YYERROR; 
     } |
-    TOK_CAMBIA_COLOR  word_or_string  TOK_AQUI {
+    TOK_CAMBIA_COLOR  word_or_string  TOK_PIEZAS_EN_CAS {
             CHECK_TIPOJUEGO ;
             if( !tipojuego_code_transforma( tipojuego, NOCOLOR, (char*)$2, NULL, FROM_AQUI ) ) YYERROR; 
             free( (char*)$2 );
@@ -611,7 +610,7 @@ instaction_crea:
             free( (char*) $4 );
             
     } |
-    TOK_CREA    word_or_string  word_or_string TOK_AQUI  {
+    TOK_CREA    word_or_string  word_or_string {
             CHECK_TIPOJUEGO;
             int tp  = qg_tipojuego_get_tipopieza( tipojuego, ((char*)$2) );
             if( tp == NOT_FOUND ){
@@ -627,7 +626,7 @@ instaction_crea:
             free( (char*) $2 );
             free( (char*) $3 );
     } |
-    TOK_CREA    word_or_string  TOK_AQUI  {
+    TOK_CREA    word_or_string  {
             CHECK_TIPOJUEGO;
             CHECK_TIPOJUEGO;
             int tp  = qg_tipojuego_get_tipopieza( tipojuego, ((char*)$2) );
@@ -683,7 +682,7 @@ instaction_para:
 /* Moviendo las cosas de un lugar a otro                  */
 /* ------------------------------------------------------ */
 instaction_mueve:
-    TOK_MUEVE   TOK_PIEZAS_EN_CAS  TOK_WORD               { 
+    TOK_MUEVE   TOK_PIEZAS_EN_CAS  TOK_WORD               {
                           CHECK_TIPOJUEGO;
                           if( NOT_FOUND == qg_tipojuego_get_casillero( tipojuego, (char*)$3 ) ){
                               qgzprintf( "%s debe ser un casillero", (char*)$3 );
@@ -694,7 +693,7 @@ instaction_mueve:
                           }
                           free( (char*)$3 );
      } |
-    TOK_MUEVE   TOK_PIEZAS_EN_CAS  instaction_get_marca   { 
+    TOK_MUEVE   TOK_PIEZAS_EN_CAS  instaction_get_marca   {
                           CHECK_TIPOJUEGO;
                           if( !tipojuego_code_mueve( tipojuego, FROM_AQUI | TO_MARCA, 0, (void*)$3 ) ) YYERROR;
      } |
@@ -705,28 +704,28 @@ instaction_mueve:
 /* ------------------------------------------------------ */
 /* Marcando un casillero para uso futuro                  */
 /* ------------------------------------------------------ */
-instaction_marca_casillero:
-    TOK_AQUI   { $$ = 0; } |
-    word_or_string  {
-                          CHECK_TIPOJUEGO;
-                          if( NOT_FOUND == qg_tipojuego_get_casillero( tipojuego, (char*)$1 ) ){
-                              qgzprintf( "%s debe ser un casillero", (char*)$1 );
-                              yyerror( "Debe ser un casillero" );
-                              YYERROR;
-                          } else {
-                              $$ = $1;
-                          }
-    };
-
-
 instaction_set_marca:
-    TOK_MARCA   TOK_NUMBER   instaction_marca_casillero  { 
+    TOK_MARCA   TOK_NUMBER   word_or_string  {
                         CHECK_TIPOJUEGO; 
+                        if( NOT_FOUND == qg_tipojuego_get_casillero( tipojuego, (char*)$3 ) ){
+                            qgzprintf( "%s debe ser un casillero", (char*)$3 );
+                            yyerror( "Debe ser un casillero" );
+                            YYERROR;
+                        }
                         if( !tipojuego_code_setmarca( tipojuego, $2, (char*)$3 ) ) YYERROR;
                         if( (char*)$3 ) free( (char*)$3 );
     } |
-    TOK_MARCA   instaction_marca_casillero               { 
+    TOK_MARCA   TOK_NUMBER  {
                         CHECK_TIPOJUEGO; 
+                        if( !tipojuego_code_setmarca( tipojuego, $2, 0 ) ) YYERROR;
+    } |
+    TOK_MARCA   word_or_string               {
+                        CHECK_TIPOJUEGO;
+                        if( NOT_FOUND == qg_tipojuego_get_casillero( tipojuego, (char*)$2 ) ){
+                            qgzprintf( "%s debe ser un casillero", (char*)$2 );
+                            yyerror( "Debe ser un casillero" );
+                            YYERROR;
+                        }
                         if( !tipojuego_code_setmarca( tipojuego,  0, (char*)$2 ) ) YYERROR;
                         if( (char*)$2 ) free( (char*)$2 );
     } | 

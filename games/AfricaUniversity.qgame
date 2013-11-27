@@ -20,32 +20,32 @@ directions:  o -1  0
 piece:       A
 drop:
              stop-if ocupado?; stop if !en_tablero?;
-             e; stop-if ocupado?; stop-if !en_tablero?; create 'A' 'rojo' aqui;
-	           s; stop-if ocupado?; stop-if !en_tablero?; create 'A' 'rojo' aqui;
-	           s; stop-if ocupado?; stop-if !en_tablero?; create 'A' 'rojo' aqui;
-	           s; stop-if ocupado?; stop-if !en_tablero?; create 'A' 'rojo' aqui;
+             e; stop-if ocupado?; stop-if !en_tablero?; create 'A' 'rojo';
+	           s; stop-if ocupado?; stop-if !en_tablero?; create 'A' 'rojo';
+	           s; stop-if ocupado?; stop-if !en_tablero?; create 'A' 'rojo';
+	           s; stop-if ocupado?; stop-if !en_tablero?; create 'A' 'rojo';
 	           o;                    stop-if !en_tablero?; 
-	           o; stop-if ocupado?; stop-if !en_tablero?; create 'A' 'rojo' aqui;
-	           n; stop-if ocupado?; stop-if !en_tablero?; create 'A' 'rojo' aqui;
-	           e; stop-if ocupado?; stop-if !en_tablero?; create 'A' 'rojo' aqui;
+	           o; stop-if ocupado?; stop-if !en_tablero?; create 'A' 'rojo';
+	           n; stop-if ocupado?; stop-if !en_tablero?; create 'A' 'rojo';
+	           e; stop-if ocupado?; stop-if !en_tablero?; create 'A' 'rojo';
 	           o;                    stop-if !en_tablero?; 
-	           n; stop-if ocupado?; stop-if !en_tablero?; create 'A' 'rojo' aqui;
-	           n; stop-if ocupado?; stop-if !en_tablero?; create 'A' 'rojo' aqui;
+	           n; stop-if ocupado?; stop-if !en_tablero?; create 'A' 'rojo';
+	           n; stop-if ocupado?; stop-if !en_tablero?; create 'A' 'rojo';
 	           casillero_inicial; 
 	           play;
 
 piece:       U
 drop:
              stop-if ocupado?; stop if !en_tablero?;
-             e; stop-if ocupado?; stop-if !en_tablero?; create 'U' 'negro' aqui;
-	           n; stop-if ocupado?; stop-if !en_tablero?; create 'U' 'negro' aqui;
-	           n; stop-if ocupado?; stop-if !en_tablero?; create 'U' 'negro' aqui;
-	           n; stop-if ocupado?; stop-if !en_tablero?; create 'U' 'negro' aqui;
+             e; stop-if ocupado?; stop-if !en_tablero?; create 'U' 'negro';
+	           n; stop-if ocupado?; stop-if !en_tablero?; create 'U' 'negro';
+	           n; stop-if ocupado?; stop-if !en_tablero?; create 'U' 'negro';
+	           n; stop-if ocupado?; stop-if !en_tablero?; create 'U' 'negro';
 	           o;                    stop-if !en_tablero?;
-	           o; stop-if ocupado?; stop-if !en_tablero?; create 'U' 'negro' aqui;
-	           s; stop-if ocupado?; stop-if !en_tablero?; create 'U' 'negro' aqui;
-	           s; stop-if ocupado?; stop-if !en_tablero?; create 'U' 'negro' aqui;
-	           s; stop-if ocupado?; stop-if !en_tablero?; create 'U' 'negro' aqui;
+	           o; stop-if ocupado?; stop-if !en_tablero?; create 'U' 'negro';
+	           s; stop-if ocupado?; stop-if !en_tablero?; create 'U' 'negro';
+	           s; stop-if ocupado?; stop-if !en_tablero?; create 'U' 'negro';
+	           s; stop-if ocupado?; stop-if !en_tablero?; create 'U' 'negro';
 	           casillero_inicial; 
              play;
 

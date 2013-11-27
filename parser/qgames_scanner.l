@@ -186,7 +186,6 @@ define\:        { define_created = 0; BEGIN(define_head);   }
 <code>not                 { return TOK_NOT;       }
 
 <code>ahogado\??                  { return  TOK_AHOGADO;   }
-<code>aqui                        { return  TOK_AQUI;      }
 <code>atacado\??                  { return  TOK_ATACADO_ENEMIGO; }
 <code>atacado{BAR}enemigo\??      { return  TOK_ATACADO_ENEMIGO; }
 <code>cantidad{BAR}piezas\??                  { return  TOK_CANTIDAD_PIEZAS; }

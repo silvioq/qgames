@@ -83,6 +83,11 @@ move [casillero-origen]  [destino]
 # especifico)
 move piezas-en-casillero marca
 
+# Crea nueva pieza
+create  [tipo-pieza] [color] [casillero]
+create  [tipo-pieza] [color]
+create  [tipo-pieza]
+
 # asigna un atributo a la pieza, para poder
 # ser consultado luego
 assign-att   "atributo", valor
@@ -91,10 +96,15 @@ assign-att   "atributo", valor
 transform   [lista de tipos de piezas]
 transform   [lista de tipos de piezas con colores]
 transform   [color]
+
+# Cambia color
+# Si esta especificado "piezas-en-casillero", cambiara el color
+# de todas las piezas que se encuentren en el casillero actual
+# Por defecto, cambiara el color de la pieza actual
 change-color
-change-color  aqui
+change-color  piezas-en-casillero
 change-color  [color]
-change-color  [color] aqui
+change-color  [color] piezas-en-casillero
 
 
 # marca el casillero actual
