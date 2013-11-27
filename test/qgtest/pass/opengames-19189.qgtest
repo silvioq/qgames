@@ -1,0 +1,38 @@
+# Juego obtenido de  http://www.opengames.com.ar/19189.pgn
+# Entre  ["Ray Goudie"] y ["Rodrigo"]
+nuevo-juego AjedrezBenedicto
+
+1. e3 e5 2. Qg4 h5 3. h3 Nh6 4. f3 Qh4 
+check-piezas torre blanco a1 1
+check-piezas torre blanco h1 1
+check-piezas torre negro a8 1
+check-piezas torre negro h8 1
+check-piezas caballo blanco b1 1
+check-piezas caballo blanco g1 1
+check-piezas caballo negro b8 1
+check-piezas caballo negro h6 1
+check-piezas alfil blanco c1 1
+check-piezas alfil blanco f1 1
+check-piezas alfil negro c8 1
+check-piezas alfil negro f8 1
+check-piezas dama negro h4 1
+check-piezas rey negro e8 1
+check-piezas peon blanco a2 1
+check-piezas peon blanco b2 1
+check-piezas peon blanco c2 1
+check-piezas peon blanco d2 1
+check-piezas peon blanco e3 1
+check-piezas peon blanco f3 1
+check-piezas peon blanco g2 1
+check-piezas peon negro a7 1
+check-piezas peon negro b7 1
+check-piezas peon negro c7 1
+check-piezas peon negro e5 1
+check-piezas peon negro f7 1
+check-piezas peon negro h5 1
+check-piezas peon blanco d7 1
+check-piezas peon blanco g7 1
+check-piezas rey negro e1 1
+check-piezas peon negro h3 1
+check-piezas dama negro g4 1
+0-1
