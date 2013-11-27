@@ -39,7 +39,7 @@ define:      flip direccion
              direccion
              while  en_tablero? && !ocupado_propio? do
                if ocupado_enemigo?
-                 change-color  piezas-en-casillero
+                 change-color  pieces-in-square
                  break
                end
                direccion
@@ -50,7 +50,7 @@ define:      flip-uno direccion
              mark   1
              direccion
              if  en_tablero? &&  ocupado_enemigo
-               change-color  piezas-en-casillero
+               change-color  pieces-in-square
              end
              goto-mark   1
 
@@ -248,13 +248,13 @@ move:
             movida_rey "s; e;"
 move:       enroque_corto
             stop if ya_movido?
-            e; stop if ocupado?; stop if atacado_enemigo?
+            e; stop if ocupado?; stop if attaked-opp?
             mark
-            e; stop if ocupado?; stop if atacado_enemigo?
+            e; stop if ocupado?; stop if attaked-opp?
             e; stop if ocupado_enemigo?;
             stop if !ocupado? torre; 
             stop if ya_movido?;
-            move piezas_en_casillero mark 
+            move pieces_in_square mark 
             flip-torre
             casillero_inicial; e; e; 
             assign-att 'ya_movido', true
@@ -263,14 +263,14 @@ move:       enroque_corto
 
 move:       enroque_largo
             stop if ya_movido?
-            o; stop if ocupado?; stop if atacado_enemigo?
+            o; stop if ocupado?; stop if attaked-opp?
             mark
-            o; stop if ocupado?; stop if atacado_enemigo?
+            o; stop if ocupado?; stop if attaked-opp?
             o; stop if ocupado?
             o; stop if ocupado_enemigo?; 
             stop if !ocupado? torre; 
             stop if ya_movido?;
-            move piezas_en_casillero mark 
+            move pieces_in_square mark 
             flip-torre
             casillero_inicial; o; o; 
             assign-att 'ya_movido', true
@@ -284,7 +284,7 @@ move:       enroque_largo
 ending:    
             win  if cantidad-piezas-enemigo "rey" = 0
 ending:     
-            draw if ahogado?
+            draw if stalemated?
 ending:
             draw if repite_posicion? 3 
 

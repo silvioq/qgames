@@ -45,7 +45,7 @@ define:     movida_rey direccion
             direccion
             stop  if !en_tablero?
             stop  if ocupado_propio?
-            stop  if atacado_enemigo?
+            stop  if attaked-opp?
             play
 
 # Listo, ahora si ... se vienen las definiciones de piezas
@@ -88,7 +88,7 @@ move:
 #
 # Se vienen los finales. Son tambien distintos mini programas!
 ending:     
-            draw-if ahogado?
+            draw-if stalemated?
             draw-if cantidad-piezas 'peon' = 0
 
 ending:    

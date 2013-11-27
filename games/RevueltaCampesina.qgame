@@ -61,7 +61,7 @@ define:     movida_rey direccion
             direccion
             stop  if !en_tablero?
             stop  if ocupado_propio?
-            stop  if atacado_enemigo?
+            stop  if attaked-opp?
             capture-and-play
 
 define:     al_paso direccion
@@ -197,7 +197,7 @@ move:
 ending:    
             win    if jaquemate? "rey"
 ending:     
-            draw   if ahogado?
+            draw   if stalemated?
 ending:
             draw   if repite_posicion? 3 
 ending:

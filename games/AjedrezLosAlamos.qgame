@@ -173,7 +173,7 @@ ending:
             win-if  jaquemate? "rey"
 
 ending:     
-            draw-if ahogado?
+            draw-if stalemated?
 
 ending:
             draw-if repite_posicion? 3 

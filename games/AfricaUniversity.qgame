@@ -50,10 +50,10 @@ drop:
              play;
 
 ending:
-             win-if  ahogado?
+             win-if  stalemated?
 
 ending:
-             draw-if ahogado?
+             draw-if stalemated?
 
 sequence:    negro  rojo
 start:       A   rojo     49

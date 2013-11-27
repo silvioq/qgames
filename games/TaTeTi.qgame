@@ -51,7 +51,7 @@ ending:
              win-if    ocupado_propio?
 
 ending:
-             draw-if   ahogado?
+             draw-if   stalemated?
 
 start:       gema   blanco   5
 start:       gema   negro    5

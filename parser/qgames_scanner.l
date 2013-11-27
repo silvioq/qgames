@@ -185,9 +185,6 @@ define\:        { define_created = 0; BEGIN(define_head);   }
 <code>\!                  { return TOK_NOT;       }
 <code>not                 { return TOK_NOT;       }
 
-<code>ahogado\??                  { return  TOK_AHOGADO;   }
-<code>atacado\??                  { return  TOK_ATACADO_ENEMIGO; }
-<code>atacado{BAR}enemigo\??      { return  TOK_ATACADO_ENEMIGO; }
 <code>cantidad{BAR}piezas\??                  { return  TOK_CANTIDAD_PIEZAS; }
 <code>cantidad{BAR}piezas{BAR}propi(a|o)s?    { return  TOK_CANTIDAD_PIEZAS_PROPIAS; }
 <code>cantidad{BAR}piezas{BAR}enemig(a|o)s?   { return  TOK_CANTIDAD_PIEZAS_ENEMIGAS; }
@@ -202,8 +199,12 @@ define\:        { define_created = 0; BEGIN(define_head);   }
 <code>ocupado{BAR}enemigo\??                  { return  TOK_OCUPADOENEMIGO;   }
 <code>ocupado{BAR}propio\??                   { return  TOK_OCUPADOPROPIO;   }
 <code>origen{BAR}ant(erior)?\??               { return  TOK_ORIGEN_ANT; }
-<code>piezas{BAR}en{BAR}casillero             { return  TOK_PIEZAS_EN_CAS; }
 <code>repite{BAR}posicion\?? { return  TOK_REPITEPOS; }
+
+<code>attaked\??                              { return  TOK_ATACADO_ENEMIGO; }
+<code>attaked{BAR}opp(onent)?\??              { return  TOK_ATACADO_ENEMIGO; }
+<code>pieces{BAR}in{BAR}square                { return  TOK_PIEZAS_EN_CAS; }
+<code>stalemated\??                           { return  TOK_AHOGADO;   }
 
 <code>assign                                  { return  TOK_ASIGNA_ATT; }
 <code>assign{BAR}att                          { return  TOK_ASIGNA_ATT; }

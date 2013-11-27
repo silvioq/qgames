@@ -100,7 +100,7 @@ ending:
              win-if    capturadas_enemigo  10
 
 ending:
-             draw if   ahogado?
+             draw if   stalemated?
 
 start:       gema   blanco   99
 start:       gema   negro    99

@@ -20,11 +20,12 @@ ocupado   color
 ocupado-enemigo
 ocupado-propio
 
-ahogado
-ahogado   tipoDePieza
+stalemated
+stalemated   tipoDePieza
 
-atacado
-atacado-enemigo
+# Verifica si la casilla actual esta atacado por el oponente.
+attaked
+attaked-opp
 
 # Cantidad de piezas
 cantidad-piezas           [lista de color, tipoDePieza, casillero]

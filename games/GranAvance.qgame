@@ -44,7 +44,7 @@ ending:
              win-if    en-zona?  coronacion
 
 ending:
-             win-if    ahogado?
+             win-if    stalemated?
 
 start:       peon   blanco   a1  b1  c1  d1  e1  f1  g1  h1  
 start:       peon   blanco   a2  b2  c2  d2  e2  f2  g2  h2  

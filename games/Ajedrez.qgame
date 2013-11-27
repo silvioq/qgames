@@ -65,7 +65,7 @@ define:     movida_rey direccion
             direccion
             stop if !en_tablero?
             stop if ocupado_propio?
-            stop if atacado_enemigo?
+            stop if attaked-opp?
             assign-att 'ya_movido', true
             capture-and-play
 
@@ -201,27 +201,27 @@ move:
 
 move:       enroque_corto
             stop if ya_movido?
-            e; stop if ocupado?; stop if atacado_enemigo?
+            e; stop if ocupado?; stop if attaked-opp?
             mark 
-            e; stop if ocupado?; stop if atacado_enemigo?
+            e; stop if ocupado?; stop if attaked-opp?
             e; stop if ocupado_enemigo?;
             stop if !ocupado? torre; 
             stop if ya_movido?;
-            move  piezas_en_casillero mark 
+            move  pieces_in_square mark 
             casillero_inicial; e; e; 
             assign-att 'ya_movido', true
             play
 
 move:       enroque_largo
             stop if ya_movido?
-            o; stop if ocupado?; stop if atacado_enemigo?
+            o; stop if ocupado?; stop if attaked-opp?
             mark
-            o; stop if ocupado?; stop if atacado_enemigo?
+            o; stop if ocupado?; stop if attaked-opp?
             o; stop if ocupado?
             o; stop if ocupado_enemigo?; 
             stop if !ocupado? torre; 
             stop if ya_movido?;
-            move  piezas_en_casillero mark 
+            move  pieces_in_square mark 
             casillero_inicial; o; o; 
             assign-att 'ya_movido', true
             play
@@ -232,7 +232,7 @@ move:       enroque_largo
 ending:    
             win if jaquemate? "rey"
 ending:     
-            draw if ahogado?
+            draw if stalemated?
 ending:
             draw if repite_posicion? 3 
 ending:
