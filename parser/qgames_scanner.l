@@ -188,7 +188,6 @@ define\:        { define_created = 0; BEGIN(define_head);   }
 <code>casillero{BAR}inicial                   { return  TOK_CASILLERO_INICIAL; }
 <code>en{BAR}tablero\??      { return TOK_ENTABLERO; }
 <code>en{BAR}zona\??         { return TOK_ENZONA;    }
-<code>jaquemate\??           { return TOK_JAQUEMATE; }
 <code>repite{BAR}posicion\?? { return  TOK_REPITEPOS; }
 
 <code>attaked\??                              { return  TOK_ATACADO_ENEMIGO; }
@@ -196,6 +195,7 @@ define\:        { define_created = 0; BEGIN(define_head);   }
 <code>captured                                { return  TOK_CAPTURADAS; }
 <code>captured{BAR}opp(onent)?                { return  TOK_CAPTURADAS_ENEMIGO; }
 <code>captured{BAR}own                        { return  TOK_CAPTURADAS_PROPIO; }
+<code>check\-?mated\??                        { return TOK_JAQUEMATE; }
 <code>occuped\??                              { return  TOK_OCUPADO;   }
 <code>occuped{BAR}opp(onent)?\??              { return  TOK_OCUPADO_ENEMIGO;   }
 <code>occuped{BAR}own\??                      { return  TOK_OCUPADO_PROPIO;   }

@@ -145,7 +145,7 @@ move:
 #
 # Se vienen los finales. Son tambien distintos mini programas!
 ending:    
-            win  if jaquemate? "rey"
+            win  if checkmated? "rey"
 ending:     
             draw  if stalemated?
 ending:
