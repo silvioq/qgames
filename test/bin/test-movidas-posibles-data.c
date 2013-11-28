@@ -51,6 +51,8 @@ int  main( int argc, char** argv ){
 
     Partida* partida;
     assert( ajedrez );
+    assert( pente );
+    assert( africa );
     assert( partida = qg_tipojuego_create_partida( ajedrez, NULL ) );
     assert( !qg_partida_movidas_analizadas( partida ) );
 
