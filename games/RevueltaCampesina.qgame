@@ -67,10 +67,10 @@ define:     movida_rey direccion
 define:     al_paso direccion
             direccion
             stop  if !ocupado_enemigo?
-            stop  if !destino_anterior?
+            stop  if !prev-target?
             stop  if !ocupado? peon 
             n; n
-            stop  if !origen_anterior?
+            stop  if !prev-origin?
             casillero_inicial
             direccion
             capture

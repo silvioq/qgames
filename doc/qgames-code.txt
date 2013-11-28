@@ -38,10 +38,10 @@ captured-opponent
 
 # devuelve verdadero o falso si el casillero actual o el pasado especificamente
 # como parametro fue destino/origen anterior en la movida de nuestro adversario
-destino-anterior
-destino-anterior  casillero
-origen-anterior
-origen-anterior   casillero
+previous-target
+previous-target   casillero
+previous-origin
+previous-origin   casillero
 
 # devuelve verdadero o falso si el casillero actual es valido
 en-tablero

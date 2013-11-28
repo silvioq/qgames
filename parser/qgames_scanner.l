@@ -186,14 +186,12 @@ define\:        { define_created = 0; BEGIN(define_head);   }
 <code>not                 { return TOK_NOT;       }
 
 <code>casillero{BAR}inicial                   { return  TOK_CASILLERO_INICIAL; }
-<code>destino{BAR}ant(erior)?\??              { return  TOK_DESTINO_ANT; }
 <code>en{BAR}tablero\??      { return TOK_ENTABLERO; }
 <code>en{BAR}zona\??         { return TOK_ENZONA;    }
 <code>jaquemate\??           { return TOK_JAQUEMATE; }
 <code>ocupado\??             { return TOK_OCUPADO;   }
 <code>ocupado{BAR}enemigo\??                  { return  TOK_OCUPADOENEMIGO;   }
 <code>ocupado{BAR}propio\??                   { return  TOK_OCUPADOPROPIO;   }
-<code>origen{BAR}ant(erior)?\??               { return  TOK_ORIGEN_ANT; }
 <code>repite{BAR}posicion\?? { return  TOK_REPITEPOS; }
 
 <code>attaked\??                              { return  TOK_ATACADO_ENEMIGO; }
@@ -205,6 +203,8 @@ define\:        { define_created = 0; BEGIN(define_head);   }
 <code>piece{BAR}count{BAR}opp(onent)?         { return  TOK_CANTIDAD_PIEZAS_ENEMIGAS; }
 <code>piece{BAR}count{BAR}own                 { return  TOK_CANTIDAD_PIEZAS_PROPIAS; }
 <code>pieces{BAR}in{BAR}square                { return  TOK_PIEZAS_EN_CAS; }
+<code>prev(ious)?{BAR}target\??               { return  TOK_DESTINO_ANT; }
+<code>prev(ious)?{BAR}origin\??               { return  TOK_ORIGEN_ANT; }
 <code>stalemated\??                           { return  TOK_AHOGADO;   }
 
 <code>assign                                  { return  TOK_ASIGNA_ATT; }
