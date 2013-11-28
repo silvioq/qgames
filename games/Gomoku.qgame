@@ -19,52 +19,52 @@ directions:  no 1 -1
 # Aca hay una sola pieza!
 piece:       gema
 drop:
-             play  if !ocupado?
+             play  if !occuped?
 
 
 ending:
-             stop-if  !ocupado_propio?
+             stop-if  !occuped-own?
              n
-             stop-if  !ocupado_propio?
+             stop-if  !occuped-own?
              n
-             stop-if  !ocupado_propio?
+             stop-if  !occuped-own?
              n
-             stop-if  !ocupado_propio?
+             stop-if  !occuped-own?
              n
-             win-if  ocupado_propio?
+             win-if  occuped-own?
 
 ending:
-             stop-if  !ocupado_propio?
+             stop-if  !occuped-own?
              e
-             stop-if  !ocupado_propio?
+             stop-if  !occuped-own?
              e
-             stop-if  !ocupado_propio?
+             stop-if  !occuped-own?
              e
-             stop-if  !ocupado_propio?
+             stop-if  !occuped-own?
              e
-             win-if  ocupado_propio?
+             win-if  occuped-own?
 
 ending:
-             stop-if  !ocupado_propio?
+             stop-if  !occuped-own?
              ne
-             stop-if  !ocupado_propio?
+             stop-if  !occuped-own?
              ne
-             stop-if  !ocupado_propio?
+             stop-if  !occuped-own?
              ne
-             stop-if  !ocupado_propio?
+             stop-if  !occuped-own?
              ne
-             win-if  ocupado_propio?
+             win-if  occuped-own?
 
 ending:
-             stop-if  !ocupado_propio?
+             stop-if  !occuped-own?
              no
-             stop-if  !ocupado_propio?
+             stop-if  !occuped-own?
              no
-             stop-if  !ocupado_propio?
+             stop-if  !occuped-own?
              no
-             stop-if  !ocupado_propio?
+             stop-if  !occuped-own?
              no
-             win-if  ocupado_propio?
+             win-if  occuped-own?
 
 ending:
              draw-if stalemated?

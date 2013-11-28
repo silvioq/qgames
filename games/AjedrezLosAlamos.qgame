@@ -53,21 +53,21 @@ zone:        coronacion  negro   a1  b1  c1  d1  e1  f1
 # 
 define:      movida_derecho direccion 
              direccion
-             while en_tablero? && !ocupado_propio?  do
+             while en_tablero? && !occuped-own?  do
                 play
-                stop-if ocupado_enemigo?
+                stop-if occuped-opponent?
                 direccion
              end
 
 define:     movida_caballo direccion
             direccion
             stop-if !en_tablero?
-            play-if !ocupado_propio?
+            play-if !occuped-own?
 
 define:     movida_rey direccion
             direccion
             stop-if !en_tablero?
-            stop-if ocupado_propio?
+            stop-if occuped-own?
             play
 
 # Listo, ahora si ... se vienen las definiciones de piezas
@@ -124,7 +124,7 @@ piece:      "peon"
 move:       
             n; 
             stop-if !en_tablero?
-            stop-if ocupado? 
+            stop-if occuped? 
             if en_zona? 'coronacion'
                 transform 'caballo', 'torre', 'dama'
             end
@@ -133,14 +133,14 @@ move:
 # Captura del peon
 move:
             n; e; 
-            if ocupado_enemigo? 
+            if occuped-opponent? 
               if en-zona? coronacion
                   transform 'caballo', 'torre', 'dama' 
               end
               play
             end
             casillero_inicial; n; o;
-            if ocupado_enemigo?
+            if occuped-opponent?
               if en-zona? coronacion
                   transform 'caballo', 'torre', 'dama' 
               end

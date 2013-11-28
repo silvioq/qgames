@@ -44,7 +44,7 @@ zone:        coronacion  negro   a1  b1  c1  d1  e1
 define:     movida_rey direccion
             direccion
             stop  if !en_tablero?
-            stop  if ocupado_propio?
+            stop  if occuped-own?
             stop  if attaked-opp?
             play
 
@@ -55,16 +55,16 @@ piece:      "peon"
 move:       
             n; 
             stop  if !en_tablero?
-            stop  if ocupado? 
+            stop  if occuped? 
             play
 
 # Captura del peon
 move:
             n; e; 
-            play-if ocupado-enemigo?
+            play-if occuped-opponent?
             casillero_inicial
             n; o; 
-            play-if  ocupado-enemigo?
+            play-if  occuped-opponent?
 
 piece:      rey            
 move:

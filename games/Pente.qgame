@@ -24,11 +24,11 @@ directions:  so -1 -1
 # enemigas en la direccion pasada como parametro
 define:     captura_dos   direccion
             direccion
-            if  ocupado_enemigo?
+            if  occuped-opponent?
                 direccion
-                if  ocupado_enemigo?
+                if  occuped-opponent?
                     direccion
-                    if  ocupado_propio?
+                    if  occuped-own?
                         casillero_inicial
                         direccion; capture; direccion; capture
                     end
@@ -39,7 +39,7 @@ define:     captura_dos   direccion
 # Aca hay una sola pieza!
 piece:       gema
 drop:
-            stop-if  ocupado?
+            stop-if  occuped?
             captura_dos  n
             captura_dos  no
             captura_dos  o
@@ -53,48 +53,48 @@ drop:
 
 
 ending:
-             stop if  !ocupado_propio?
+             stop if  !occuped-own?
              n
-             stop if  !ocupado_propio?
+             stop if  !occuped-own?
              n
-             stop if  !ocupado_propio?
+             stop if  !occuped-own?
              n
-             stop if  !ocupado_propio?
+             stop if  !occuped-own?
              n
-             win-if    ocupado_propio?
+             win-if    occuped-own?
 
 ending:
-             stop if  !ocupado_propio?
+             stop if  !occuped-own?
              e
-             stop if  !ocupado_propio?
+             stop if  !occuped-own?
              e
-             stop if  !ocupado_propio?
+             stop if  !occuped-own?
              e
-             stop if  !ocupado_propio?
+             stop if  !occuped-own?
              e
-             win-if    ocupado_propio?
+             win-if    occuped-own?
 
 ending:
-             stop if  !ocupado_propio?
+             stop if  !occuped-own?
              ne
-             stop if  !ocupado_propio?
+             stop if  !occuped-own?
              ne
-             stop if  !ocupado_propio?
+             stop if  !occuped-own?
              ne
-             stop if  !ocupado_propio?
+             stop if  !occuped-own?
              ne
-             win-if    ocupado_propio?
+             win-if    occuped-own?
 
 ending:
-             stop if  !ocupado_propio?
+             stop if  !occuped-own?
              no
-             stop if  !ocupado_propio?
+             stop if  !occuped-own?
              no
-             stop if  !ocupado_propio?
+             stop if  !occuped-own?
              no
-             stop if  !ocupado_propio?
+             stop if  !occuped-own?
              no
-             win-if    ocupado_propio?
+             win-if    occuped-own?
 
 ending:  
              win-if    captured-opp  10

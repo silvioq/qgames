@@ -38,32 +38,32 @@ zone:        coronacion  negro   a1  b1  c1  d1  e1  f1  g1  h1
 # 
 define:      movida_derecho direccion 
              direccion
-             while en_tablero? && !ocupado_propio?  do
+             while en_tablero? && !occuped-own?  do
                 capture-and-play
-                stop if ocupado_enemigo?
+                stop if occuped-opponent?
                 direccion
              end
 
 define:     movida_torre direccion 
             direccion
-            while en_tablero? && !ocupado_propio?  do
+            while en_tablero? && !occuped-own?  do
               capture-and-play
-              stop if ocupado_enemigo?
+              stop if occuped-opponent?
               direccion
             end
 
 define:     movida_rey direccion
             direccion
             stop if !en_tablero?
-            stop if ocupado_propio?
+            stop if occuped-own?
             stop if attaked-opp?
             capture-and-play
 
 define:     al_paso direccion
             direccion
-            stop if !ocupado_enemigo?
+            stop if !occuped-opponent?
             stop if !prev-target?
-            stop if !ocupado? peon 
+            stop if !occuped? peon 
             n; n
             stop if !prev-origin?
             casillero_inicial
@@ -90,26 +90,26 @@ piece:      "peon"
 move:       
             n
             stop if !en_tablero?
-            stop if ocupado? 
+            stop if occuped? 
             if  en_zona? coronacion
                transform 'torre'
             end
             play
             if en_zona? 'peones'
-              n; play if !ocupado?
+              n; play if !occuped?
             end
 
 # Captura del peon
 move:
             n; e; 
-            if ocupado_enemigo? 
+            if occuped-opponent? 
               if en_zona? coronacion
                 transform "torre"
               end
               capture-and-play
             end
             casillero_inicial; n; o;
-            if ocupado_enemigo? 
+            if occuped-opponent? 
               if en_zona? coronacion
                 transform torre
               end

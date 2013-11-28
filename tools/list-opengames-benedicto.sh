@@ -12,7 +12,7 @@ while true; do
     fi
     echo pagina: $i ">" $salida
     for partida in $salida; do
-        file="../test/qgtest/opengames-$partida.qgtest"
+        file="../test/qgtest/pass/opengames-$partida.qgtest"
         if [ -f $file ]; then
             echo "$file existente"
         else

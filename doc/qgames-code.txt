@@ -14,11 +14,11 @@ Hay dos tipos de instrucciones. Las de definicion del juego y las de las reglas.
 # devuelve verdadero o falso si en el casillero actual o pasado
 # como parametro esta ocupado. Si pasa color (o enemigo o propio)
 # tiene en cuenta el color de la pieza
-ocupado
-ocupado   casillero
-ocupado   color
-ocupado-enemigo
-ocupado-propio
+occuped
+occuped   casillero
+occuped   color
+occuped-own
+occuped-opponent
 
 stalemated
 stalemated   tipoDePieza

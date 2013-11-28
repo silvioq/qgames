@@ -41,39 +41,39 @@ movetype:    enroque_largo
 # 
 define:      movida_derecho direccion 
              direccion
-             while en_tablero? && !ocupado_propio?  do
+             while en_tablero? && !occuped-own?  do
                 capture-and-play
-                stop if ocupado_enemigo?
+                stop if occuped-opponent?
                 direccion
              end
 
 define:     movida_torre direccion 
             direccion
-            while en_tablero? && !ocupado_propio?  do
+            while en_tablero? && !occuped-own?  do
               assign-att  ya_movido , true
               capture-and-play
-              stop if ocupado_enemigo?
+              stop if occuped-opponent?
               direccion
             end
 
 define:     movida_caballo direccion
             direccion
             stop if !en_tablero?
-            capture-and-play if !ocupado_propio?
+            capture-and-play if !occuped-own?
 
 define:     movida_rey direccion
             direccion
             stop if !en_tablero?
-            stop if ocupado_propio?
+            stop if occuped-own?
             stop if attaked-opp?
             assign-att 'ya_movido', true
             capture-and-play
 
 define:     al_paso direccion
             direccion
-            stop if !ocupado_enemigo?
+            stop if !occuped-opponent?
             stop if !prev-target?
-            stop if !ocupado? peon 
+            stop if !occuped? peon 
             n; n
             stop if !prev-origin?
             casillero_inicial
@@ -147,26 +147,26 @@ piece:      "peon"
 move:       
             n
             stop if !en_tablero?
-            stop if ocupado? 
+            stop if occuped? 
             if  en_zona? coronacion
                transform 'caballo', 'alfil', 'torre', 'dama'
             end
             play
             if en_zona? 'peones'
-              n; play if !ocupado?
+              n; play if !occuped?
             end
 
 # Captura del peon
 move:
             n; e; 
-            if ocupado_enemigo? 
+            if occuped-opponent? 
               if en_zona? coronacion
                 transform 'caballo', 'alfil', 'torre', 'dama'
               end
               capture-and-play
             end
             casillero_inicial; n; o;
-            if ocupado_enemigo? 
+            if occuped-opponent? 
               if en_zona? coronacion
                 transform 'caballo', 'alfil', 'torre', 'dama'
               end
@@ -201,11 +201,11 @@ move:
 
 move:       enroque_corto
             stop if ya_movido?
-            e; stop if ocupado?; stop if attaked-opp?
+            e; stop if occuped?; stop if attaked-opp?
             mark 
-            e; stop if ocupado?; stop if attaked-opp?
-            e; stop if ocupado_enemigo?;
-            stop if !ocupado? torre; 
+            e; stop if occuped?; stop if attaked-opp?
+            e; stop if occuped-opponent?;
+            stop if !occuped? torre; 
             stop if ya_movido?;
             move  pieces_in_square mark 
             casillero_inicial; e; e; 
@@ -214,12 +214,12 @@ move:       enroque_corto
 
 move:       enroque_largo
             stop if ya_movido?
-            o; stop if ocupado?; stop if attaked-opp?
+            o; stop if occuped?; stop if attaked-opp?
             mark
-            o; stop if ocupado?; stop if attaked-opp?
-            o; stop if ocupado?
-            o; stop if ocupado_enemigo?; 
-            stop if !ocupado? torre; 
+            o; stop if occuped?; stop if attaked-opp?
+            o; stop if occuped?
+            o; stop if occuped-opponent?; 
+            stop if !occuped? torre; 
             stop if ya_movido?;
             move  pieces_in_square mark 
             casillero_inicial; o; o; 

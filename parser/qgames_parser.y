@@ -158,8 +158,8 @@ void  qgzprintf( char* format, ... ){
 %token    TOK_MUEVE     TOK_MUEVE_SI
 %token    TOK_IF
 %token    TOK_OCUPADO
-%token    TOK_OCUPADOENEMIGO
-%token    TOK_OCUPADOPROPIO
+%token    TOK_OCUPADO_ENEMIGO
+%token    TOK_OCUPADO_PROPIO
 %token    TOK_ORIGEN_ANT
 %token    TOK_PARA      TOK_PARA_SI
 %token    TOK_PIERDE    TOK_PIERDE_SI
@@ -405,11 +405,11 @@ instexpr_ocupado:
         CHECK_TIPOJUEGO;
         if( !tipojuego_code_ocupado( tipojuego, NULL, CUALQUIERA, NULL, NULL ) ) YYERROR;
     } |
-    TOK_OCUPADOPROPIO   {
+    TOK_OCUPADO_PROPIO   {
         CHECK_TIPOJUEGO;
         if( !tipojuego_code_ocupado( tipojuego, NULL, PROPIO, NULL, NULL ) ) YYERROR;
     } |
-    TOK_OCUPADOENEMIGO   {
+    TOK_OCUPADO_ENEMIGO   {
         CHECK_TIPOJUEGO;
         if( !tipojuego_code_ocupado( tipojuego, NULL, ENEMIGO, NULL, NULL ) ) YYERROR;
     } |
