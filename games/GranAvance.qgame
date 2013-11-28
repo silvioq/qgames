@@ -33,9 +33,9 @@ piece:       peon
 move:
             n; e
             play-if  !occuped-own?
-            casillero_inicial;  n
+            initial-square;  n
             play-if  !occuped?
-            casillero_inicial;  n; o
+            initial-square;  n; o
             play-if  !occuped-own?
             
 

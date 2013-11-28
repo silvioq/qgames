@@ -66,7 +66,7 @@ define:     al_paso direccion
             stop if !occuped? peon 
             n; n
             stop if !prev-origin?
-            casillero_inicial
+            initial-square
             direccion
             capture
             n
@@ -108,7 +108,7 @@ move:
               end
               capture-and-play
             end
-            casillero_inicial; n; o;
+            initial-square; n; o;
             if occuped-opponent? 
               if en_zona? coronacion
                 transform torre

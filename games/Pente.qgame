@@ -29,12 +29,12 @@ define:     captura_dos   direccion
                 if  occuped-opponent?
                     direccion
                     if  occuped-own?
-                        casillero_inicial
+                        initial-square
                         direccion; capture; direccion; capture
                     end
                 end
             end
-            casillero_inicial
+            initial-square
 
 # Aca hay una sola pieza!
 piece:       gema

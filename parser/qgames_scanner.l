@@ -185,7 +185,6 @@ define\:        { define_created = 0; BEGIN(define_head);   }
 <code>\!                  { return TOK_NOT;       }
 <code>not                 { return TOK_NOT;       }
 
-<code>casillero{BAR}inicial                   { return  TOK_CASILLERO_INICIAL; }
 <code>en{BAR}tablero\??      { return TOK_ENTABLERO; }
 <code>en{BAR}zona\??         { return TOK_ENZONA;    }
 <code>repite{BAR}posicion\?? { return  TOK_REPITEPOS; }
@@ -215,8 +214,9 @@ define\:        { define_created = 0; BEGIN(define_head);   }
 <code>capture{BAR}and{BAR}play{SPACES}if      { return  TOK_CAPTURA_Y_JUEGA_SI; }
 <code>change{BAR}color                        { return  TOK_CAMBIA_COLOR; }
 <code>create                                  { return  TOK_CREA; }
-<code>goto{BAR}mark                           { return TOK_GOTO_MARCA; }
-<code>mark                                    { return TOK_MARCA;     }
+<code>goto{BAR}mark                           { return  TOK_GOTO_MARCA; }
+<code>initial-square                          { return  TOK_CASILLERO_INICIAL; }
+<code>mark                                    { return  TOK_MARCA;     }
 <code>move                                    { return  TOK_MUEVE;     }
 <code>play                                    { return  TOK_JUEGA;     } 
 <code>play{BAR}if                             { return  TOK_JUEGA_SI;  }

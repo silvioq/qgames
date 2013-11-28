@@ -139,7 +139,7 @@ move:
               end
               play
             end
-            casillero_inicial; n; o;
+            initial-square; n; o;
             if occuped-opponent?
               if en-zona? coronacion
                   transform 'caballo', 'torre', 'dama' 

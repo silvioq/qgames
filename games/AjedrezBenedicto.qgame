@@ -256,7 +256,7 @@ move:       enroque_corto
             stop if ya_movido?;
             move pieces_in_square mark 
             flip-torre
-            casillero_inicial; e; e; 
+            initial-square; e; e; 
             assign-att 'ya_movido', true
             flip-rey
             play
@@ -272,7 +272,7 @@ move:       enroque_largo
             stop if ya_movido?;
             move pieces_in_square mark 
             flip-torre
-            casillero_inicial; o; o; 
+            initial-square; o; o; 
             assign-att 'ya_movido', true
             flip-rey
             play

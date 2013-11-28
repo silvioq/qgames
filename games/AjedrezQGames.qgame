@@ -62,7 +62,7 @@ move:
 move:
             n; e; 
             play-if occuped-opponent?
-            casillero_inicial
+            initial-square
             n; o; 
             play-if  occuped-opponent?
 

@@ -118,6 +118,9 @@ mark [numero] aqui
 goto         [casillero]
 goto-mark    [numero]
 
+# Vuelve al casillero de origen
+initial-square
+
 
 - Control de final:
 draw

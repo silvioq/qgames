@@ -31,7 +31,7 @@ drop:
 	           o;                    stop-if !en_tablero?; 
 	           n; stop-if occuped?; stop-if !en_tablero?; create 'A' 'rojo';
 	           n; stop-if occuped?; stop-if !en_tablero?; create 'A' 'rojo';
-	           casillero_inicial; 
+	           initial-square; 
 	           play;
 
 piece:       U
@@ -46,7 +46,7 @@ drop:
 	           s; stop-if occuped?; stop-if !en_tablero?; create 'U' 'negro';
 	           s; stop-if occuped?; stop-if !en_tablero?; create 'U' 'negro';
 	           s; stop-if occuped?; stop-if !en_tablero?; create 'U' 'negro';
-	           casillero_inicial; 
+	           initial-square; 
              play;
 
 ending:
