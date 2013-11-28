@@ -1,0 +1,43 @@
+# Juego obtenido de  http://www.opengames.com.ar/18478.pgn
+# Entre  ["Laugenio"] y ["Oscar Gomez"]
+nuevo-juego AjedrezBenedicto
+
+1. e3 b6 2. Ba6 e6 3. Qe2 Ne7 4. Bb7 Ne7-c6 
+5. Qd1 Nb4 6. Kf1 Qg5 7. Qe2 Qh6 8. Qd3 Kd8 
+9. Qd6 
+check-piezas torre blanco a1 1
+check-piezas torre blanco h1 1
+check-piezas torre negro h8 1
+check-piezas caballo blanco b1 1
+check-piezas caballo blanco g1 1
+check-piezas caballo negro b8 1
+check-piezas alfil blanco c1 1
+check-piezas alfil blanco b7 1
+check-piezas dama blanco d6 1
+check-piezas rey blanco f1 1
+check-piezas dama negro h6 1
+check-piezas rey negro d8 1
+check-piezas peon blanco b2 1
+check-piezas peon blanco d2 1
+check-piezas peon blanco f2 1
+check-piezas peon negro a7 1
+check-piezas peon negro f7 1
+check-piezas peon negro g7 1
+check-piezas torre blanco a8 1
+check-piezas peon negro a2 1
+check-piezas peon negro g2 1
+check-piezas peon blanco h7 1
+check-piezas peon blanco c2 1
+check-piezas peon blanco e3 1
+check-piezas alfil negro c8 1
+check-piezas alfil blanco f8 1
+check-piezas peon blanco h2 1
+check-piezas peon blanco c7 1
+check-piezas caballo blanco b4 1
+check-piezas peon blanco d7 1
+check-piezas peon blanco e6 1
+check-piezas peon blanco b6 1
+
+*
+Qh4 e7
+1-0
