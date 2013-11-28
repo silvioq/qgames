@@ -185,8 +185,6 @@ define\:        { define_created = 0; BEGIN(define_head);   }
 <code>\!                  { return TOK_NOT;       }
 <code>not                 { return TOK_NOT;       }
 
-<code>capturadas{BAR}enemigo                  { return  TOK_CAPTURADAS_ENEMIGO; }
-<code>capturadas{BAR}propio                   { return  TOK_CAPTURADAS_PROPIO; }
 <code>casillero{BAR}inicial                   { return  TOK_CASILLERO_INICIAL; }
 <code>destino{BAR}ant(erior)?\??              { return  TOK_DESTINO_ANT; }
 <code>en{BAR}tablero\??      { return TOK_ENTABLERO; }
@@ -200,6 +198,9 @@ define\:        { define_created = 0; BEGIN(define_head);   }
 
 <code>attaked\??                              { return  TOK_ATACADO_ENEMIGO; }
 <code>attaked{BAR}opp(onent)?\??              { return  TOK_ATACADO_ENEMIGO; }
+<code>captured                                { return  TOK_CAPTURADAS; }
+<code>captured{BAR}opp(onent)?                { return  TOK_CAPTURADAS_ENEMIGO; }
+<code>captured{BAR}own                        { return  TOK_CAPTURADAS_PROPIO; }
 <code>piece{BAR}count                         { return  TOK_CANTIDAD_PIEZAS; }
 <code>piece{BAR}count{BAR}opp(onent)?         { return  TOK_CANTIDAD_PIEZAS_ENEMIGAS; }
 <code>piece{BAR}count{BAR}own                 { return  TOK_CANTIDAD_PIEZAS_PROPIAS; }

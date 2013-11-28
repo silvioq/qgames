@@ -32,9 +32,9 @@ piece-count          [lista de color, tipoDePieza, casillero]
 piece-count-own      [lista de color, tipoDePieza, casillero]
 piece-count-opp      [lista de color, tipoDePieza, casillero]
 
-capturadas
-capturadas-propias
-capturadas-enemigas
+captured
+captured-own
+captured-opponent
 
 # devuelve verdadero o falso si el casillero actual o el pasado especificamente
 # como parametro fue destino/origen anterior en la movida de nuestro adversario

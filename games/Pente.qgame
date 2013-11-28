@@ -97,7 +97,7 @@ ending:
              win-if    ocupado_propio?
 
 ending:  
-             win-if    capturadas_enemigo  10
+             win-if    captured-opp  10
 
 ending:
              draw if   stalemated?

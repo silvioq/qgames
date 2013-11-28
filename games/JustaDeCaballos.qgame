@@ -62,7 +62,7 @@ move:
 # Se vienen los finales. Son tambien distintos mini programas!
 ending:
             draw   if repite_posicion? 3 
-            win    if capturadas_enemigo  12
+            win    if captured-opp  12
             win    if en-zona? objetivo
 
 
