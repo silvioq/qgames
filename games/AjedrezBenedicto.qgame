@@ -282,7 +282,7 @@ move:       enroque_largo
 #
 # Se vienen los finales. Son tambien distintos mini programas!
 ending:    
-            win  if cantidad-piezas-enemigo "rey" = 0
+            win  if piece-count-opponent "rey" = 0
 ending:     
             draw if stalemated?
 ending:

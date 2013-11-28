@@ -236,10 +236,10 @@ ending:
 ending:
             draw if repite_posicion? 3 
 ending:
-            draw if cantidad_piezas? 2
-            stop  if !cantidad_piezas? 3
-            draw if cantidad_piezas? alfil = 1
-            draw if cantidad_piezas? caballo = 1
+            draw if  piece-count  2
+            stop if !piece-count  3
+            draw if  piece-count  alfil = 1
+            draw if  piece-count  caballo = 1
 
 sequence:   blanco negro
 start:      torre    blanco  a1  h1

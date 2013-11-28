@@ -185,9 +185,6 @@ define\:        { define_created = 0; BEGIN(define_head);   }
 <code>\!                  { return TOK_NOT;       }
 <code>not                 { return TOK_NOT;       }
 
-<code>cantidad{BAR}piezas\??                  { return  TOK_CANTIDAD_PIEZAS; }
-<code>cantidad{BAR}piezas{BAR}propi(a|o)s?    { return  TOK_CANTIDAD_PIEZAS_PROPIAS; }
-<code>cantidad{BAR}piezas{BAR}enemig(a|o)s?   { return  TOK_CANTIDAD_PIEZAS_ENEMIGAS; }
 <code>capturadas{BAR}enemigo                  { return  TOK_CAPTURADAS_ENEMIGO; }
 <code>capturadas{BAR}propio                   { return  TOK_CAPTURADAS_PROPIO; }
 <code>casillero{BAR}inicial                   { return  TOK_CASILLERO_INICIAL; }
@@ -203,6 +200,9 @@ define\:        { define_created = 0; BEGIN(define_head);   }
 
 <code>attaked\??                              { return  TOK_ATACADO_ENEMIGO; }
 <code>attaked{BAR}opp(onent)?\??              { return  TOK_ATACADO_ENEMIGO; }
+<code>piece{BAR}count                         { return  TOK_CANTIDAD_PIEZAS; }
+<code>piece{BAR}count{BAR}own                 { return  TOK_CANTIDAD_PIEZAS_PROPIAS; }
+<code>piece{BAR}count{BAR}opp(onent)?         { return  TOK_CANTIDAD_PIEZAS_ENEMIGAS; }
 <code>pieces{BAR}in{BAR}square                { return  TOK_PIEZAS_EN_CAS; }
 <code>stalemated\??                           { return  TOK_AHOGADO;   }
 

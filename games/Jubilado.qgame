@@ -151,7 +151,7 @@ ending:
 ending:
             draw  if repite_posicion? 3 
 ending:
-            draw  if cantidad_piezas? 2
+            draw  if piece-count 2
 
 sequence:   blanco negro
 start:      rey      blanco  e1

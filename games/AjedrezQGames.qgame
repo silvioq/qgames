@@ -89,7 +89,7 @@ move:
 # Se vienen los finales. Son tambien distintos mini programas!
 ending:     
             draw-if stalemated?
-            draw-if cantidad-piezas 'peon' = 0
+            draw-if piece-count 'peon' = 0
 
 ending:    
             win  if en-zona?  peon coronacion

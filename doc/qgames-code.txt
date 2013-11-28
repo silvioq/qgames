@@ -28,9 +28,9 @@ attaked
 attaked-opp
 
 # Cantidad de piezas
-cantidad-piezas           [lista de color, tipoDePieza, casillero]
-cantidad-piezas-propias   [lista de color, tipoDePieza, casillero]
-cantidad-piezas-enemigas  [lista de color, tipoDePieza, casillero]
+piece-count          [lista de color, tipoDePieza, casillero]
+piece-count-own      [lista de color, tipoDePieza, casillero]
+piece-count-opp      [lista de color, tipoDePieza, casillero]
 
 capturadas
 capturadas-propias
