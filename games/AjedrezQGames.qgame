@@ -43,7 +43,7 @@ zone:        coronacion  negro   a1  b1  c1  d1  e1
 # 
 define:     movida_rey direccion
             direccion
-            stop  if !en_tablero?
+            stop  if !in-board?
             stop  if occuped-own?
             stop  if attaked-opp?
             play
@@ -54,7 +54,7 @@ piece:      "peon"
 # Movida para adelante
 move:       
             n; 
-            stop  if !en_tablero?
+            stop  if !in-board?
             stop  if occuped? 
             play
 
@@ -92,7 +92,7 @@ ending:
             draw-if piece-count 'peon' = 0
 
 ending:    
-            win  if en-zona?  peon coronacion
+            win  if in-zone?  peon coronacion
 
 # Primero juega el blanco y luego el negro!
 sequence:   blanco   negro

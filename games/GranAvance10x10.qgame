@@ -39,7 +39,7 @@ move:
             play-if  !occuped-own?
 
 ending:
-             win-if    en-zona?  coronacion
+             win-if    in-zone?  coronacion
 
 ending:
              win-if    stalemated?

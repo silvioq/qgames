@@ -38,7 +38,7 @@ zone:        coronacion  negro   a1  b1  c1  d1  e1  f1  g1  h1
 # 
 define:      movida_derecho direccion 
              direccion
-             while en_tablero? && !occuped-own?  do
+             while in-board? && !occuped-own?  do
                 capture-and-play
                 stop  if occuped-opponent?
                 direccion
@@ -46,7 +46,7 @@ define:      movida_derecho direccion
 
 define:     movida_torre direccion 
             direccion
-            while en_tablero? && !occuped-own?  do
+            while in-board? && !occuped-own?  do
               capture-and-play
               stop  if occuped-opponent?
               direccion
@@ -54,12 +54,12 @@ define:     movida_torre direccion
 
 define:     movida_caballo direccion
             direccion
-            stop  if !en_tablero?
+            stop  if !in-board?
             capture-and-play if !occuped-own?
 
 define:     movida_rey direccion
             direccion
-            stop  if !en_tablero?
+            stop  if !in-board?
             stop  if occuped-own?
             stop  if attaked-opp?
             capture-and-play
@@ -139,13 +139,13 @@ move:
 piece:      "peon"
 move:       
             n
-            stop  if !en_tablero?
+            stop  if !in-board?
             stop  if occuped? 
-            if  en_zona? coronacion
+            if  in-zone? coronacion
                transform 'caballo', 'alfil', 'torre', 'dama'
             end
             play
-            if en_zona? 'peones'
+            if in-zone? 'peones'
               n; play if !occuped?
             end
 
@@ -153,14 +153,14 @@ move:
 move:
             n; e; 
             if occuped-opponent? 
-              if en_zona? coronacion
+              if in-zone? coronacion
                 transform 'caballo', 'alfil', 'torre', 'dama'
               end
               capture-and-play
             end
             initial-square; n; o;
             if occuped-opponent? 
-              if en_zona? coronacion
+              if in-zone? coronacion
                 transform 'caballo', 'alfil', 'torre', 'dama'
               end
               capture-and-play
@@ -199,7 +199,7 @@ ending:
 ending:     
             draw   if stalemated?
 ending:
-            draw   if repite_posicion? 3 
+            draw   if pos-repited? 3 
 ending:
             draw   if piece-count 2
             stop   if !piece-count 3

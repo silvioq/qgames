@@ -19,33 +19,33 @@ directions:  o -1  0
 # Aca hay una sola pieza!
 piece:       A
 drop:
-             stop-if occuped?; stop if !en_tablero?;
-             e; stop-if occuped?; stop-if !en_tablero?; create 'A' 'rojo';
-	           s; stop-if occuped?; stop-if !en_tablero?; create 'A' 'rojo';
-	           s; stop-if occuped?; stop-if !en_tablero?; create 'A' 'rojo';
-	           s; stop-if occuped?; stop-if !en_tablero?; create 'A' 'rojo';
-	           o;                    stop-if !en_tablero?; 
-	           o; stop-if occuped?; stop-if !en_tablero?; create 'A' 'rojo';
-	           n; stop-if occuped?; stop-if !en_tablero?; create 'A' 'rojo';
-	           e; stop-if occuped?; stop-if !en_tablero?; create 'A' 'rojo';
-	           o;                    stop-if !en_tablero?; 
-	           n; stop-if occuped?; stop-if !en_tablero?; create 'A' 'rojo';
-	           n; stop-if occuped?; stop-if !en_tablero?; create 'A' 'rojo';
+             stop-if occuped?; stop if !in-board?;
+             e; stop-if occuped?; stop-if !in-board?; create 'A' 'rojo';
+	           s; stop-if occuped?; stop-if !in-board?; create 'A' 'rojo';
+	           s; stop-if occuped?; stop-if !in-board?; create 'A' 'rojo';
+	           s; stop-if occuped?; stop-if !in-board?; create 'A' 'rojo';
+	           o;                    stop-if !in-board?; 
+	           o; stop-if occuped?; stop-if !in-board?; create 'A' 'rojo';
+	           n; stop-if occuped?; stop-if !in-board?; create 'A' 'rojo';
+	           e; stop-if occuped?; stop-if !in-board?; create 'A' 'rojo';
+	           o;                    stop-if !in-board?; 
+	           n; stop-if occuped?; stop-if !in-board?; create 'A' 'rojo';
+	           n; stop-if occuped?; stop-if !in-board?; create 'A' 'rojo';
 	           initial-square; 
 	           play;
 
 piece:       U
 drop:
-             stop-if occuped?; stop if !en_tablero?;
-             e; stop-if occuped?; stop-if !en_tablero?; create 'U' 'negro';
-	           n; stop-if occuped?; stop-if !en_tablero?; create 'U' 'negro';
-	           n; stop-if occuped?; stop-if !en_tablero?; create 'U' 'negro';
-	           n; stop-if occuped?; stop-if !en_tablero?; create 'U' 'negro';
-	           o;                    stop-if !en_tablero?;
-	           o; stop-if occuped?; stop-if !en_tablero?; create 'U' 'negro';
-	           s; stop-if occuped?; stop-if !en_tablero?; create 'U' 'negro';
-	           s; stop-if occuped?; stop-if !en_tablero?; create 'U' 'negro';
-	           s; stop-if occuped?; stop-if !en_tablero?; create 'U' 'negro';
+             stop-if occuped?; stop if !in-board?;
+             e; stop-if occuped?; stop-if !in-board?; create 'U' 'negro';
+	           n; stop-if occuped?; stop-if !in-board?; create 'U' 'negro';
+	           n; stop-if occuped?; stop-if !in-board?; create 'U' 'negro';
+	           n; stop-if occuped?; stop-if !in-board?; create 'U' 'negro';
+	           o;                    stop-if !in-board?;
+	           o; stop-if occuped?; stop-if !in-board?; create 'U' 'negro';
+	           s; stop-if occuped?; stop-if !in-board?; create 'U' 'negro';
+	           s; stop-if occuped?; stop-if !in-board?; create 'U' 'negro';
+	           s; stop-if occuped?; stop-if !in-board?; create 'U' 'negro';
 	           initial-square; 
              play;
 

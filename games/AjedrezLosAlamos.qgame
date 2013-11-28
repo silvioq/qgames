@@ -53,7 +53,7 @@ zone:        coronacion  negro   a1  b1  c1  d1  e1  f1
 # 
 define:      movida_derecho direccion 
              direccion
-             while en_tablero? && !occuped-own?  do
+             while in-board? && !occuped-own?  do
                 play
                 stop-if occuped-opponent?
                 direccion
@@ -61,12 +61,12 @@ define:      movida_derecho direccion
 
 define:     movida_caballo direccion
             direccion
-            stop-if !en_tablero?
+            stop-if !in-board?
             play-if !occuped-own?
 
 define:     movida_rey direccion
             direccion
-            stop-if !en_tablero?
+            stop-if !in-board?
             stop-if occuped-own?
             play
 
@@ -123,9 +123,9 @@ piece:      "peon"
 # Movida para adelante
 move:       
             n; 
-            stop-if !en_tablero?
+            stop-if !in-board?
             stop-if occuped? 
-            if en_zona? 'coronacion'
+            if in-zone? 'coronacion'
                 transform 'caballo', 'torre', 'dama'
             end
             play
@@ -134,14 +134,14 @@ move:
 move:
             n; e; 
             if occuped-opponent? 
-              if en-zona? coronacion
+              if in-zone? coronacion
                   transform 'caballo', 'torre', 'dama' 
               end
               play
             end
             initial-square; n; o;
             if occuped-opponent?
-              if en-zona? coronacion
+              if in-zone? coronacion
                   transform 'caballo', 'torre', 'dama' 
               end
               play
@@ -176,7 +176,7 @@ ending:
             draw-if stalemated?
 
 ending:
-            draw-if repite_posicion? 3 
+            draw-if pos-repited? 3 
 ending:
             draw-if    piece-count 2
             stop-if   !piece-count 3

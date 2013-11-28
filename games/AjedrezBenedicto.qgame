@@ -37,7 +37,7 @@ movetype:    enroque_largo
 define:      flip direccion
              mark   1
              direccion
-             while  en_tablero? && !occuped-own? do
+             while  in-board? && !occuped-own? do
                if occuped-opponent?
                  change-color  pieces-in-square
                  break
@@ -49,7 +49,7 @@ define:      flip direccion
 define:      flip-uno direccion
              mark   1
              direccion
-             if  en_tablero? &&  occuped-opponent
+             if  in-board? &&  occuped-opponent
                change-color  pieces-in-square
              end
              goto-mark   1
@@ -102,7 +102,7 @@ define:     flip-rey
 
 define:     movida_torre direccion 
             direccion
-            while en_tablero? && !occuped?  do
+            while in-board? && !occuped?  do
               assign-att  ya_movido , true
               flip-torre
               play
@@ -111,7 +111,7 @@ define:     movida_torre direccion
 
 define:     movida_rey  direccion
             direccion
-            stop if !en_tablero?
+            stop if !in-board?
             stop if occuped?
             assign-att 'ya_movido', true
             flip-rey
@@ -119,14 +119,14 @@ define:     movida_rey  direccion
 
 define:     movida_caballo  direccion
             direccion
-            stop if !en_tablero?
+            stop if !in-board?
             stop if occuped?
             flip-caballo
             play
 
 define:     movida_dama  direccion
             direccion
-            while en_tablero? && !occuped?  do
+            while in-board? && !occuped?  do
               flip-dama
               play
               direccion
@@ -134,7 +134,7 @@ define:     movida_dama  direccion
 
 define:     movida_alfil  direccion
             direccion
-            while en_tablero? && !occuped?  do
+            while in-board? && !occuped?  do
               flip-alfil
               play
               direccion
@@ -204,9 +204,9 @@ move:
 piece:      "peon"
 move:       
             n
-            stop if !en_tablero?
+            stop if !in-board?
             stop if occuped? 
-            if  en_zona? coronacion
+            if  in-zone? coronacion
                transform 'caballo'
                flip-caballo
                play
@@ -222,7 +222,7 @@ move:
             end
             flip-peon
             play
-            if en_zona? 'peones'
+            if in-zone? 'peones'
               n
               flip-peon
               play if !occuped?
@@ -286,7 +286,7 @@ ending:
 ending:     
             draw if stalemated?
 ending:
-            draw if repite_posicion? 3 
+            draw if pos-repited? 3 
 
 sequence:   blanco negro
 start:      torre    blanco  a1  h1

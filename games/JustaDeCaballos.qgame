@@ -33,7 +33,7 @@ zone:        objetivo      negro   a1  b1  c1  d1  e1  f1  g1  h1
 
 define:     movida_caballo direccion
             direccion
-            stop if !en_tablero?
+            stop if !in-board?
             capture-and-play if !occuped-own?
 
 
@@ -61,9 +61,9 @@ move:
 #
 # Se vienen los finales. Son tambien distintos mini programas!
 ending:
-            draw   if repite_posicion? 3 
+            draw   if pos-repited? 3 
             win    if captured-opp  12
-            win    if en-zona? objetivo
+            win    if in-zone? objetivo
 
 
 sequence:   blanco negro
