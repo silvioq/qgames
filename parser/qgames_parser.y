@@ -272,30 +272,31 @@ instexpr_cantidad_piezas:
             if( !tipojuego_code_cuenta_piezas( tipojuego, NULL, $1, NULL, NULL ) ) YYERROR;;
             tipojuego_code_op_equal( tipojuego, $2 );
     } |
-    TOK_CAPTURADAS_ENEMIGO es_igual_a TOK_NUMBER {
+    cantidad_piezas_preludio  {
+            CHECK_TIPOJUEGO;
+            if( !tipojuego_code_cuenta_piezas( tipojuego, NULL, $1, NULL, NULL ) ) YYERROR;;
+    } |
+    TOK_CAPTURADAS_ENEMIGO {
             CHECK_TIPOJUEGO;
             if( !tipojuego_code_cuenta_piezas( tipojuego, CASILLERO_CAPTURA, ENEMIGO, NULL, NULL ) ) YYERROR;;
-            tipojuego_code_op_equal( tipojuego, $3 );
     } |
     TOK_CAPTURADAS_ENEMIGO  TOK_NUMBER {
             CHECK_TIPOJUEGO;
             if( !tipojuego_code_cuenta_piezas( tipojuego, CASILLERO_CAPTURA, ENEMIGO, NULL, NULL ) ) YYERROR;;
             tipojuego_code_op_equal( tipojuego, $2 );
     } |
-    TOK_CAPTURADAS_PROPIO es_igual_a TOK_NUMBER {
+    TOK_CAPTURADAS_PROPIO {
             CHECK_TIPOJUEGO;
             if( !tipojuego_code_cuenta_piezas( tipojuego, CASILLERO_CAPTURA, PROPIO, NULL, NULL ) ) YYERROR;;
-            tipojuego_code_op_equal( tipojuego, $3 );
     } |
     TOK_CAPTURADAS_PROPIO  TOK_NUMBER {
             CHECK_TIPOJUEGO;
             if( !tipojuego_code_cuenta_piezas( tipojuego, CASILLERO_CAPTURA, PROPIO, NULL, NULL ) ) YYERROR;;
             tipojuego_code_op_equal( tipojuego, $2 );
     } |
-    TOK_CAPTURADAS  es_igual_a TOK_NUMBER {
+    TOK_CAPTURADAS {
             CHECK_TIPOJUEGO;
             if( !tipojuego_code_cuenta_piezas( tipojuego, CASILLERO_CAPTURA, NOCOLOR, NULL, NULL ) ) YYERROR;;
-            tipojuego_code_op_equal( tipojuego, $3 );
     }
     TOK_CAPTURADAS  TOK_NUMBER {
             CHECK_TIPOJUEGO;
