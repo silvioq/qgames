@@ -201,8 +201,8 @@ define\:        { define_created = 0; BEGIN(define_head);   }
 <code>attaked\??                              { return  TOK_ATACADO_ENEMIGO; }
 <code>attaked{BAR}opp(onent)?\??              { return  TOK_ATACADO_ENEMIGO; }
 <code>piece{BAR}count                         { return  TOK_CANTIDAD_PIEZAS; }
-<code>piece{BAR}count{BAR}own                 { return  TOK_CANTIDAD_PIEZAS_PROPIAS; }
 <code>piece{BAR}count{BAR}opp(onent)?         { return  TOK_CANTIDAD_PIEZAS_ENEMIGAS; }
+<code>piece{BAR}count{BAR}own                 { return  TOK_CANTIDAD_PIEZAS_PROPIAS; }
 <code>pieces{BAR}in{BAR}square                { return  TOK_PIEZAS_EN_CAS; }
 <code>stalemated\??                           { return  TOK_AHOGADO;   }
 
