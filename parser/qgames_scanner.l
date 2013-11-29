@@ -192,6 +192,8 @@ define\:        { define_created = 0; BEGIN(define_head);   }
 <code>captured{BAR}opp(onent)?                { return  TOK_CAPTURADAS_ENEMIGO; }
 <code>captured{BAR}own                        { return  TOK_CAPTURADAS_PROPIO; }
 <code>check\-?mated\??                        { return TOK_JAQUEMATE; }
+<code>in{BAR}board\??                         { return  TOK_ENTABLERO; }
+<code>in{BAR}zone\??                          { return  TOK_ENZONA;    }
 <code>occuped\??                              { return  TOK_OCUPADO;   }
 <code>occuped{BAR}opp(onent)?\??              { return  TOK_OCUPADO_ENEMIGO;   }
 <code>occuped{BAR}own\??                      { return  TOK_OCUPADO_PROPIO;   }
@@ -213,8 +215,6 @@ define\:        { define_created = 0; BEGIN(define_head);   }
 <code>create                                  { return  TOK_CREA; }
 <code>goto{BAR}mark                           { return  TOK_GOTO_MARCA; }
 <code>initial-square                          { return  TOK_CASILLERO_INICIAL; }
-<code>in{BAR}board\??                         { return  TOK_ENTABLERO; }
-<code>in{BAR}zone\??                          { return  TOK_ENZONA;    }
 <code>mark                                    { return  TOK_MARCA;     }
 <code>move                                    { return  TOK_MUEVE;     }
 <code>play                                    { return  TOK_JUEGA;     } 
