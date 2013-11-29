@@ -51,7 +51,7 @@ int         qg_tipojuego_add_direccion_arr( Tipojuego* tj, char* direccion, int*
 int         qg_tipojuego_add_link  ( Tipojuego* tj, char* cas_ori, char* dir, char* cas_des );
 int         qg_tipojuego_add_color ( Tipojuego* tj, char* color );
 int         qg_tipojuego_set_control_repeticiones( Tipojuego* tj, int repeticiones );
-int         qg_tipojuego_add_tipo_mov ( Tipojuego* tj, char* tipo_mov );
+int         qg_tipojuego_add_tipo_mov ( Tipojuego* tj, char* tipo_mov, int prioritario );
 int         qg_tipojuego_add_tipopieza( Tipojuego* tj, char* tpieza    );
 int         qg_tipojuego_add_tpieza_att( Tipojuego* tj, char* tpieza, char* att, int default_value );
 int         qg_tipojuego_add_zona     ( Tipojuego* tj, char* zona      );

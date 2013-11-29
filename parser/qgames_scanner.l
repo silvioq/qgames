@@ -133,6 +133,7 @@ origin          { return TOK_ORIGIN;    }
 onrepeat        { return TOK_ONREPEAT;  }
 piece\:         { return TOK_PIECE;     }
 piece{BAR}name  { return TOK_PIECE_NAME; }
+prior(ity)?     { return TOK_PRIORITY ; }
 repeat          { return TOK_REPEAT;    }
 sequence\:      { return TOK_SEQUENCE;  }
 symmetry\:      { return TOK_SYMMETRY;  }
@@ -214,6 +215,9 @@ define\:        { define_created = 0; BEGIN(define_head);   }
 <code>change{BAR}color                        { return  TOK_CAMBIA_COLOR; }
 <code>create                                  { return  TOK_CREA; }
 <code>goto{BAR}mark                           { return  TOK_GOTO_MARCA; }
+<code>keep                                    { return  TOK_CONTINUA; }
+<code>keep{BAR}if                             { return  TOK_CONTINUA_SI; }
+<code>keep{SPACES}if                          { return  TOK_CONTINUA_SI; }
 <code>initial-square                          { return  TOK_CASILLERO_INICIAL; }
 <code>mark                                    { return  TOK_MARCA;     }
 <code>move                                    { return  TOK_MUEVE;     }

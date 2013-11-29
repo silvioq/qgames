@@ -5,6 +5,11 @@ Hay dos tipos de instrucciones. Las de definicion del juego y las de las reglas.
 
 == Definicion del juego
 
+# Define un tipo de movida nuevo.
+# Si está la instrucción priority, indica que el tipo de movida es
+# prioritaria y se intentará ejecutar primeramente
+movetype: tipo_de_movida [priority]
+
 
 
 == Reglas

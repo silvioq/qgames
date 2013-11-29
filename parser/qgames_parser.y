@@ -125,7 +125,7 @@ void  qgzprintf( char* format, ... ){
 %token    TOK_LOGO
 %token    TOK_MARK
 %token    TOK_MOVE
-%token    TOK_MOVETYPE
+%token    TOK_MOVETYPE   TOK_PRIORITY
 %token    TOK_NOTATION
 %token    TOK_ONREPEAT
 %token    TOK_ORIGIN
@@ -156,6 +156,7 @@ void  qgzprintf( char* format, ... ){
 %token    TOK_JUEGA     TOK_JUEGA_SI
 %token    TOK_GOTO_MARCA  TOK_MARCA
 %token    TOK_MUEVE     TOK_MUEVE_SI
+%token    TOK_CONTINUA  TOK_CONTINUA_SI
 %token    TOK_IF
 %token    TOK_OCUPADO
 %token    TOK_OCUPADO_ENEMIGO
@@ -691,6 +692,20 @@ instaction_juega:
             CHECK_TIPOJUEGO;
             if( !tipojuego_code_captura( tipojuego, NULL ) ) YYERROR;
     };
+
+instaction_keep:
+    TOK_CONTINUA{
+            CHECK_TIPOJUEGO;
+            NOT_IMPLEMENTED_WARN( "continua" );
+    } |
+    TOK_CONTINUA  word_or_string {
+            CHECK_TIPOJUEGO;
+            NOT_IMPLEMENTED_WARN( "continua tmov" );
+    } |
+    TOK_CONTINUA_SI instexpr {
+            CHECK_TIPOJUEGO;
+            NOT_IMPLEMENTED_WARN( "continua si" );
+    } ;
  
 
 instaction_para:
@@ -823,6 +838,7 @@ instaction:
     instaction_break  |
     instaction_crea  |
     instaction_juega |
+    instaction_keep  |
     instaction_final |
     instaction_if    |
     instaction_set_marca |
@@ -1073,9 +1089,15 @@ instruction_movetype:
     TOK_MOVETYPE     word_or_string {
         CHECK_TIPOJUEGO;
         qgzprintf( "Definiendo %s", ((char*)$2) );
-        qg_tipojuego_add_tipo_mov( tipojuego, ((char*)$2) );
+        qg_tipojuego_add_tipo_mov( tipojuego, ((char*)$2), 0 );
         free((void*)$2);
-    }
+    } |
+    TOK_MOVETYPE     word_or_string   TOK_PRIORITY {
+        CHECK_TIPOJUEGO;
+        qgzprintf( "Definiendo %s", ((char*)$2) );
+        qg_tipojuego_add_tipo_mov( tipojuego, ((char*)$2), 1 );
+        free((void*)$2);
+    } ;
 
 instruction_notation_element:
     TOK_PIECE_NAME        { $$ =  NOTACION_PIEZA; }   |

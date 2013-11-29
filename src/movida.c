@@ -62,6 +62,18 @@ void  movida_accion_crea   ( Movida* mov, Tipopieza* tpieza, int color, Casiller
     list_agrega( mov->acciones, acc );
 }
 
+/*
+ *  Indica que la movida actual continua
+ */
+void  movida_accion_continua( Movida* mov, int tmov ){
+    Accion* acc       = accion_new();
+    acc->tipo         = ACCION_CONTINUA;
+    acc->tmov_continua = tmov;
+    mov->continua     = 1;
+    if( !mov->acciones ) mov->acciones = list_nueva( NULL );
+    list_agrega( mov->acciones, acc );
+}
+
 
 /*
  * Esta es la generacion de accion de captura para una movida
@@ -439,6 +451,9 @@ const char*  movida_descripcion( Movida* mov ){
               STREXPAND( ret, aloc, 6 );
               strcat( ret, "pasar" );
               break;
+
+          case ACCION_CONTINUA:
+              break;    
               
           default:
               mostrar = 0;
@@ -509,22 +524,28 @@ int          movida_dump( Movida* mov, void** data, int* size ){
         Accion* acc = mov->acciones->data[i];
         ADDDATA( ret, len, acc->tipo, aloc );
 
-        len16 = acc->piece_number;
-        ADDDATA( ret, len, len16, aloc );
+        if( acc->tipo == ACCION_CONTINUA ){
+            len8 = acc->tmov_continua;
+            ADDDATA( ret, len, len8, aloc );
+        } else {
+            len16 = acc->piece_number;
+            ADDDATA( ret, len, len16, aloc );
 
-        len16 = acc->destino ? acc->destino->number : -1 ;
-        ADDDATA( ret, len, len16, aloc );
+            len16 = acc->destino ? acc->destino->number : -1 ;
+            ADDDATA( ret, len, len16, aloc );
 
-        len8 = acc->color;
-        ADDDATA( ret, len, len8, aloc );
+            len8 = acc->color;
+            ADDDATA( ret, len, len8, aloc );
 
-        len8 = acc->tpieza ? acc->tpieza->number : -1 ;
-        ADDDATA( ret, len, len8, aloc );
+            len8 = acc->tpieza ? acc->tpieza->number : -1 ;
+            ADDDATA( ret, len, len8, aloc );
 
-        len8 = acc->att_key;
-        ADDDATA( ret, len, len8, aloc );
+            len8 = acc->att_key;
+            ADDDATA( ret, len, len8, aloc );
 
-        ADDDATA( ret, len, acc->att_val, aloc );
+            ADDDATA( ret, len, acc->att_val, aloc );
+        }
+
     }
 
     *data = ret;
@@ -579,60 +600,69 @@ Movida*      movida_load( Posicion* pos, void* data, int size ){
             movida_free( mov );
             return NULL;
         }
+        if( acc->tipo == ACCION_CONTINUA ){
+            acc->tmov_continua = point[0];
+            point ++;
+            if( ((char*)data) + size <= point ){
+                LOGPRINT( 1, "Error tamaño puntero %p + %d <= %p", data, size, point );
+                movida_free( mov );
+                return NULL;
+            }
+        } else {
+            len16 = ((uint16_t*)point)[0];
+            acc->piece_number = len16;
+            point += 2;
+            if( ((char*)data) + size <= point ){
+                LOGPRINT( 1, "Error tamaño puntero %p + %d <= %p", data, size, point );
+                movida_free( mov );
+                return NULL;
+            }
 
-        len16 = ((uint16_t*)point)[0];
-        acc->piece_number = len16;
-        point += 2;
-        if( ((char*)data) + size <= point ){
-            LOGPRINT( 1, "Error tamaño puntero %p + %d <= %p", data, size, point );
-            movida_free( mov );
-            return NULL;
-        }
+            len16 = ((uint16_t*)point)[0];
+            if( len16 != (uint16_t)-1 ){
+                acc->destino = (Casillero*)(pos->tjuego->casilleros->data[len16]);
+            }
+            point += 2;
+            if( ((char*)data) + size <= point ){
+                LOGPRINT( 1, "Error tamaño puntero %p + %d <= %p", data, size, point );
+                movida_free( mov );
+                return NULL;
+            }
 
-        len16 = ((uint16_t*)point)[0];
-        if( len16 != (uint16_t)-1 ){
-            acc->destino = (Casillero*)(pos->tjuego->casilleros->data[len16]);
-        }
-        point += 2;
-        if( ((char*)data) + size <= point ){
-            LOGPRINT( 1, "Error tamaño puntero %p + %d <= %p", data, size, point );
-            movida_free( mov );
-            return NULL;
-        }
+            acc->color = point[0];
+            point ++;
+            if( ((char*)data) + size <= point ){
+                LOGPRINT( 1, "Error tamaño puntero %p + %d <= %p", data, size, point );
+                movida_free( mov );
+                return NULL;
+            }
 
-        acc->color = point[0];
-        point ++;
-        if( ((char*)data) + size <= point ){
-            LOGPRINT( 1, "Error tamaño puntero %p + %d <= %p", data, size, point );
-            movida_free( mov );
-            return NULL;
-        }
+            len8 = point[0];
+            if( len8 != (uint8_t)-1 ){
+                acc->tpieza = (Tipopieza*)(pos->tjuego->tipo_piezas->data[len8]);
+            }
+            point ++;
+            if( ((char*)data) + size <= point ){
+                LOGPRINT( 1, "Error tamaño puntero %p + %d <= %p", data, size, point );
+                movida_free( mov );
+                return NULL;
+            }
 
-        len8 = point[0];
-        if( len8 != (uint8_t)-1 ){
-            acc->tpieza = (Tipopieza*)(pos->tjuego->tipo_piezas->data[len8]);
-        }
-        point ++;
-        if( ((char*)data) + size <= point ){
-            LOGPRINT( 1, "Error tamaño puntero %p + %d <= %p", data, size, point );
-            movida_free( mov );
-            return NULL;
-        }
-
-        acc->att_key = point[0];
-        point ++;
-        if( ((char*)data) + size <= point ){
-            LOGPRINT( 1, "Error tamaño puntero %p + %d <= %p", data, size, point );
-            movida_free( mov );
-            return NULL;
-        }
-        
-        acc->att_val = ((int*)point)[0];
-        point += sizeof( int );
-        if( ((char*)data) + size < point ){
-            LOGPRINT( 1, "Error tamaño puntero %p + %d <= %p", data, size, point );
-            movida_free( mov );
-            return NULL;
+            acc->att_key = point[0];
+            point ++;
+            if( ((char*)data) + size <= point ){
+                LOGPRINT( 1, "Error tamaño puntero %p + %d <= %p", data, size, point );
+                movida_free( mov );
+                return NULL;
+            }
+            
+            acc->att_val = ((int*)point)[0];
+            point += sizeof( int );
+            if( ((char*)data) + size < point ){
+                LOGPRINT( 1, "Error tamaño puntero %p + %d <= %p", data, size, point );
+                movida_free( mov );
+                return NULL;
+            }
         }
 
         list_agrega( mov->acciones, acc );

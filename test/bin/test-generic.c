@@ -43,7 +43,7 @@ int  main( int argc, char** argv ){
     assert( qg_tipojuego_valido( tj ) );
     qg_tipojuego_add_casillero( tj, "n" );
     assert( qg_tipojuego_valido( tj ) );
-    qg_tipojuego_add_tipo_mov ( tj, "Tipo mov" );
+    qg_tipojuego_add_tipo_mov ( tj, "Tipo mov", 0 );
     qg_tipojuego_add_tipopieza( tj, "Gemagenerica" );
     assert( qg_tipojuego_valido( tj ) );
     assert( qg_tipojuego_add_tpieza_att( tj, "Gemagenerica", "att", 1 ) );
@@ -107,7 +107,7 @@ int  main( int argc, char** argv ){
     qg_tipojuego_add_casillero( tj, "a2" );
     qg_tipojuego_add_color( tj, "verde" );
     qg_tipojuego_add_color( tj, "negro" );
-    assert( qg_tipojuego_add_tipo_mov( tj, "tmov" ) );
+    assert( qg_tipojuego_add_tipo_mov( tj, "tmov", 1 ) );
     assert( qg_tipojuego_add_secuencia( tj, "verde", NULL ) );
     assert( qg_tipojuego_add_secuencia( tj, "verde", "tmov" ) );
     assert( qg_tipojuego_add_secuencia( tj, "negro", NULL ) );

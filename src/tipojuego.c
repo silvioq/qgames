@@ -282,14 +282,14 @@ int         tipojuego_add_tpieza_att( Tipojuego* tj, char* tpieza, char* att, in
  * Esta funcion crea una nuevo tipo de movimiento
  *
  * */
-int         tipojuego_add_tipo_mov( Tipojuego* tj, char* tmov  ){
+int         tipojuego_add_tipo_mov( Tipojuego* tj, char* tmov, int prioridad  ){
     if( !TJVALIDO(tj) ) return 0;
     if( tipojuego_get_simbolo( tj, tmov ) ){
         TJSETERROR( tj, "Tipo de movimiento ya existente", tmov );
         return 0;
     }
     tj->tipomovs ++;
-    SIM_ADD( tj, SIM_TIPOMOV, tmov, tj->tipomovs );
+    SIM_ADD( tj, prioridad ? SIM_TIPOMOVP : SIM_TIPOMOV, tmov, tj->tipomovs );
     return 1;
 }
 

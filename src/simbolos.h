@@ -22,7 +22,8 @@ typedef   struct  StrSimbolo{
 #define   SIM_ZONA       4
 #define   SIM_DIRECCION  5
 #define   SIM_TIPOMOV    6
-#define   SIM_COLOR      7
+#define   SIM_TIPOMOVP   7
+#define   SIM_COLOR      8
 
 extern   int simbolo_id;
 

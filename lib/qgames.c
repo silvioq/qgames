@@ -200,8 +200,8 @@ DLL_PUBLIC  int         qg_tipojuego_add_direccion_arr( Tipojuego* tj, char* dir
 DLL_PUBLIC  int         qg_tipojuego_add_color ( Tipojuego* tj, char* color ){
     return  tipojuego_add_color( tj, color );
 }
-DLL_PUBLIC  int         qg_tipojuego_add_tipo_mov ( Tipojuego* tj, char* tipo_mov ){
-    return  tipojuego_add_tipo_mov( tj, tipo_mov );
+DLL_PUBLIC  int         qg_tipojuego_add_tipo_mov ( Tipojuego* tj, char* tipo_mov, int priority ){
+    return  tipojuego_add_tipo_mov( tj, tipo_mov, priority );
 }
 DLL_PUBLIC  int         qg_tipojuego_add_tipopieza( Tipojuego* tj, char* tpieza ){
     return  tipojuego_add_tipopieza( tj, tpieza );
