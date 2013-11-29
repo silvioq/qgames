@@ -279,7 +279,7 @@ int         tipojuego_add_tpieza_att( Tipojuego* tj, char* tpieza, char* att, in
 }
 
 /*
- * Esta funcion crea una nuevo tipo de juego
+ * Esta funcion crea una nuevo tipo de movimiento
  *
  * */
 int         tipojuego_add_tipo_mov( Tipojuego* tj, char* tmov  ){
