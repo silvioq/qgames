@@ -25,9 +25,9 @@
 char     notacion_default[] =  { NOTACION_ORIGEN, NOTACION_MARCA_IFORIGEN, NOTACION_DESTINO, 0 };
 char     notacion_repetida[] = { NOTACION_ORIGEN, NOTACION_MARCA_IFORIGEN, NOTACION_DESTINO, 0 };
 
-char*   notacion_resolver_tmov( Notacion* nott, int tmov );
-char*   notacion_resolver_tpieza( Notacion* nott, int color, Tipopieza* tpieza );
-char*   notacion_resolver_mov( Notacion* nott, Movida* mov, char* def );
+static  char*   notacion_resolver_tmov( Notacion* nott, int tmov );
+static  char*   notacion_resolver_tpieza( Notacion* nott, int color, Tipopieza* tpieza );
+static  char*   notacion_resolver_mov( Notacion* nott, Movida* mov, char* def );
 
 /*
  * Notacion:
@@ -112,7 +112,7 @@ void    notacion_resolver_movidas( Tipojuego* tjuego, _list* movs, char* prefix 
 
 
 
-char*   notacion_resolver_tmov( Notacion* nott, int tmov ){
+static  char*   notacion_resolver_tmov( Notacion* nott, int tmov ){
     if( nott->notacion_tmovs && tmov ){
         int i;
         for( i = 0; i < nott->notacion_tmovs->entradas; i ++ ){
@@ -123,7 +123,7 @@ char*   notacion_resolver_tmov( Notacion* nott, int tmov ){
     return NULL;
 }
 
-char*   notacion_resolver_tpieza( Notacion* nott, int color, Tipopieza* tpieza){
+static  char*   notacion_resolver_tpieza( Notacion* nott, int color, Tipopieza* tpieza){
     if( nott && nott->notacion_tpiezas && tpieza ){
         int i;
         for( i = 0; i < nott->notacion_tpiezas->entradas; i ++ ){
@@ -147,7 +147,7 @@ char*   notacion_resolver_tpieza( Notacion* nott, int color, Tipopieza* tpieza){
 #define  NOTACION_SPACE             's'
 */
 
-char*   notacion_resolver_mov( Notacion* nott, Movida* mov, char* def ){
+static  char*   notacion_resolver_mov( Notacion* nott, Movida* mov, char* def ){
     if( !def ) return NULL;
     if( mov->tmov > 0 ){
         char*  tmov = notacion_resolver_tmov( nott, mov->tmov );
