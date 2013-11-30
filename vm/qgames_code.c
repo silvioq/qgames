@@ -625,8 +625,6 @@ int         tipojuego_code_final  ( Tipojuego* tj, char* color, int resultado ){
 int         tipojuego_start_code(  Tipojuego* tj, char tiporegla, char* tipopieza, char* tipomov ){
 
   static int  label = 0;
-  Simbolo* sp;
-  Simbolo* sm;
 
   Tipopieza*  tpieza;
   int  tmov;
@@ -642,30 +640,21 @@ int         tipojuego_start_code(  Tipojuego* tj, char tiporegla, char* tipopiez
   assert( ( tiporegla != END  ) || ( !tipomov ) );
 
   if( tipopieza ){
-    sp = tipojuego_get_simbolo( tj, tipopieza );
-    if( !sp ){
+    int tp = GETTIPOPIEZA(tj, tipopieza );
+    if( tp == NOT_FOUND ){
       printf( "Tipo pieza %s inexistente (File %s - linea %d)\n", tipopieza, __FILE__, __LINE__ );
       exit( EXIT_FAILURE );
     }
-    if( sp->tipo != SIM_TIPOPIEZA ){
-      printf( "%s no es tipo pieza (File %s - linea %d)\n", tipopieza, __FILE__, __LINE__ );
-      exit( EXIT_FAILURE );
-    }
-    tpieza = (Tipopieza*)tj->tipo_piezas->data[sp->ref];
+    tpieza = (Tipopieza*)tj->tipo_piezas->data[tp];
   } else tpieza = NULL;
 
   // A ver el tipo de juego
   if( tipomov ){
-    sm   = tipojuego_get_simbolo( tj, tipomov );
-    if( !sm ){
+    tmov   = GETTIPOMOV( tj, tipomov );
+    if( tmov == NOT_FOUND ){
       printf( "Tipo movimiento %s inexistente (File %s - linea %d)\n", tipomov, __FILE__, __LINE__ );
       exit( EXIT_FAILURE );
     }
-    if( sm->tipo != SIM_TIPOMOV && sm->tipo != SIM_TIPOMOVP ){
-      printf( "%s no es tipo movimiento (File %s - linea %d)\n", tipomov, __FILE__, __LINE__ );
-      exit( EXIT_FAILURE );
-    }
-    tmov = sm->ref;
   } else {
     tmov = 0;
   }
