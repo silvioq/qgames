@@ -1,0 +1,143 @@
+# Este minianti ajedrez es un juego extremadamente simple que consite
+# en un tablero de cinco por cinco, con cinco peones por jugador
+# y un rey.
+# El objetivo es obligar al adversario a dejarnos en ahogado o sin
+# piezas
+# Si un peon llega a la ultima linea adversaria, se convierte en rey
+# Este juego, que no aparente tener ninguna complejidad, es
+# útil para controlar los movimientos obligados o prioritarios
+
+gametype:    AntiAjedrezQGames
+
+# Tipo de movida captura, obligatoria
+movetype:    captura   priority
+
+# Cada color se define aparte o no
+color:       blanco 
+color:       negro 
+
+# Board se puede definir como una lista de dimensiones.
+# Tambien podria estar en blanco y comenzar con las definiciones
+# de casillero de una.
+board:       "a b c d e" "1 2 3 4 5"
+
+# Directions tiene el nombre de la direccion. Opcionalmente podria
+# tener n numeros que hace la representacion 'n' dimensional.
+directions:  n  0  1 
+directions:  s  0 -1 
+directions:  e  1  0  
+directions:  o -1  0 
+
+# Simetria ... un color y dos direcciones
+symmetry:    negro   s    n
+symmetry:    negro   n    s
+
+# Zona. Tiene el nombre de zona (obligatorio), luego
+# cero, uno o mas colores, indicando a que colores aplica y finalmente
+# una lista de casilleros.
+zone:        coronacion  blanco  a5  b5  c5  d5  e5
+zone:        coronacion  negro   a1  b1  c1  d1  e1
+
+# Toda esta parte tiene que ver con
+# las definiciones para hacer mas facil 
+# la generacion de los miniprogramas
+# de movimiento
+#
+# El primer define
+# 
+define:     movida_rey direccion
+            direccion
+            stop  if !in-board?
+            stop  if occuped?
+            play
+
+define:     captura_rey direccion
+            direccion
+            stop  if !in-board?
+            play  if occuped-opponent?
+
+# Listo, ahora si ... se vienen las definiciones de piezas
+#
+piece:      rey
+move:
+            movida_rey "n" 
+move:
+            movida_rey "s"
+move:
+            movida_rey "e"
+move:
+            movida_rey "o"
+move:
+            movida_rey "n; e;"
+move:
+            movida_rey "n; o;"
+move:
+            movida_rey "s; o;"
+move:
+            movida_rey "s; e;"
+
+move:       captura
+            captura_rey "n" 
+move:       captura
+            captura_rey "s"
+move:       captura
+            captura_rey "e"
+move:       captura
+            captura_rey "o"
+move:       captura
+            captura_rey "n; e;"
+move:       captura
+            captura_rey "n; o;"
+move:       captura
+            captura_rey "s; o;"
+move:       captura
+            captura_rey "s; e;"
+
+piece:      "peon"
+# Movida para adelante
+move:       
+            n; 
+            stop  if !in-board?
+            stop  if occuped?
+            if in-zone coronacion
+              transform  'rey'
+            end
+            play
+
+# Captura del peon
+move:       captura
+            n; e; 
+            if in-zone coronacion
+              transform  'rey'
+            end
+            play-if occuped-opponent?
+            initial-square
+            n; o; 
+            if in-zone coronacion
+              transform  'rey'
+            end
+            play-if  occuped-opponent?
+
+
+# Listo con la definicion de piezas ... finales
+#
+ending:     
+            lost-if stalemated?
+
+# Primero juega el blanco y luego el negro!
+sequence:   blanco   negro
+
+
+start:      rey      blanco  c1
+start:      rey      negro   c5
+start:      peon     blanco  a2  b2  c2  d2  e2  
+start:      peon     negro   a4  b4  c4  d4  e4
+  
+
+notation:   rey     K
+notation:   peon    ""
+notation:   captured_mark   x
+notation:   mark           "-"
+notation:   default   piece_name  captured_mark  target
+notation:   onrepeat  piece_name  origin         mark       target
+

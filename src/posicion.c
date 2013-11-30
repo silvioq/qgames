@@ -24,6 +24,7 @@
 
 #include  <md5.h>
 
+static  int        posicion_analiza_movidas_int( Posicion* pos, char tipoanalisis, int color, int tipomov, Pieza* pieza );
 
 
 /* ---------------------------------------------------------------------------------------- */
@@ -209,13 +210,18 @@ int         posicion_en_jaque( Posicion* pos, Tipopieza* tpieza, int color ){
 
 /*
  * Aca se viene el analisis de movidas. Esta funcion realiza el siguiente trabajo.
+ * Funcion principal:
  * 1. Chequea los parametros, de tal forma que no entre basura
  * 2. Limpia las movidas que se encuentren en la posicion
- * 3. Verifica las piezas en el pozo e intenta una movida por cada tipo de pieza
+ * 3. Llamada a funcion interna reentrante
+ *
+ * Funcion estatica reentrante
+ * 0. Controla la existencia de movidas prioritarias
+ * 1. Verifica las piezas en el pozo e intenta una movida por cada tipo de pieza
  *    distinta que se halle en el pozo
- * 4. Verifica pieza por pieza en el tablero e intenta una movida por cada una
+ * 2. Verifica pieza por pieza en el tablero e intenta una movida por cada una
  *    de ellas
- * 5. Si se paso una pieza como parametro, ejecuta eso.
+ * 3. Si se paso una pieza como parametro, ejecuta eso.
  *
  * Parametros:
  *   - tipo de analisis
@@ -230,7 +236,8 @@ int         posicion_en_jaque( Posicion* pos, Tipopieza* tpieza, int color ){
 int        posicion_analiza_movidas( Posicion* pos, char tipoanalisis, int color, int tipomov, Pieza* pieza ){
 
     LOGPRINT( 6, "Ingreso a analisis movidas tipoanalisis = %d, color = %d, tipomov = %d", 
-        tipoanalisis, color, tipomov )
+        tipoanalisis, color, tipomov );
+
 
     // 1. chequeo de parametros
     if( !color ){
@@ -247,7 +254,26 @@ int        posicion_analiza_movidas( Posicion* pos, char tipoanalisis, int color
     // 2. Limpiamos las movidas
     posicion_free_movidas( pos );
 
-    // 3. Vamos por las piezas en pozo.
+    // 3. Ingreso a funcion real.
+    return  posicion_analiza_movidas_int( pos, tipoanalisis, color, tipomov, pieza );
+
+}
+
+static  int        posicion_analiza_movidas_int( Posicion* pos, char tipoanalisis, int color, int tipomov, Pieza* pieza ){
+
+    // 0. Antes de nada, controlo la lista de tipos de movimientos prioritarios.
+    //    de haberlos, ejecuto esos primero
+    if( tipomov == 0 && TJCONTMOVP( pos->tjuego ) ){
+        int i;
+        for( i = 0; i < pos->tjuego->simbolos->entradas; i ++ ){
+            Simbolo* s = (Simbolo*) pos->tjuego->simbolos->data[i];
+            if( s->tipo != SIM_TIPOMOVP ) continue;
+            int movs = posicion_analiza_movidas_int( pos, tipoanalisis, color, s->ref, pieza );
+            if( movs > 0 ) return movs;
+        }
+    }
+
+    // 1. Vamos por las piezas en pozo.
     if( !pieza ){
         int  i;
         Pieza* piezas_arr[1024];
@@ -276,7 +302,7 @@ int        posicion_analiza_movidas( Posicion* pos, char tipoanalisis, int color
                 for( r = 0; r < pp->tpieza->rules->entradas; r ++ ){
                     Regla*  regla = (Regla*) pp->tpieza->rules->data[r];
                     if( regla->tregla != DROP ) continue;
-                    if( tipomov && tipomov == regla->tmov ) continue;
+                    if( tipomov && tipomov != regla->tmov ) continue;
                     _list*  movs;
                     movs =  analizador_evalua_movidas( regla, pos, pp, cas, tipoanalisis, 
                                     regla->tmov, color );
@@ -291,7 +317,7 @@ int        posicion_analiza_movidas( Posicion* pos, char tipoanalisis, int color
         }
     }
 
-    // 4. Vamos por las piezas en el tablero
+    // 2. Vamos por las piezas en el tablero
     if( !pieza ){
         int i;
         for( i = 0; i < pos->piezas_count; i ++ ){
@@ -306,7 +332,7 @@ int        posicion_analiza_movidas( Posicion* pos, char tipoanalisis, int color
             for( r = 0; r < pp->tpieza->rules->entradas; r ++ ){
                 Regla*  regla = (Regla*) pp->tpieza->rules->data[r];
                 if( regla->tregla != MOVE ) continue;
-                if( tipomov && tipomov == regla->tmov ) continue;
+                if( tipomov && tipomov != regla->tmov ) continue;
                 _list*  movs;
                 LOGPRINT( 6, "Regla %d", r );
                 movs =  analizador_evalua_movidas( regla, pos, pp, pp->casillero, tipoanalisis, 
@@ -322,7 +348,7 @@ int        posicion_analiza_movidas( Posicion* pos, char tipoanalisis, int color
         }
     }
 
-    // 5. Esta es con la pieza pasada como parametro
+    // 3. Esta es con la pieza pasada como parametro
     if( pieza  ){
         Pieza* pp = pieza;
         int  r;
@@ -330,7 +356,7 @@ int        posicion_analiza_movidas( Posicion* pos, char tipoanalisis, int color
             for( r = 0; r < pp->tpieza->rules->entradas; r ++ ){
                 Regla*  regla = (Regla*) pp->tpieza->rules->data[r];
                 if( regla->tregla != MOVE ) continue;
-                if( tipomov && tipomov == regla->tmov ) continue;
+                if( tipomov && tipomov != regla->tmov ) continue;
                 _list*  movs;
                 movs =  analizador_evalua_movidas( regla, pos, pp, pp->casillero, tipoanalisis, 
                                 regla->tmov, color );

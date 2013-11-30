@@ -555,9 +555,15 @@ instaction_movs:
             CHECK_TIPOJUEGO;
             tipojuego_code_casillero( tipojuego, NULL );
     } |
-    TOK_TRANSFORMA  {  CHECK_TIPOJUEGO; init_parameters(); }  word_or_string_list {
+    TOK_TRANSFORMA  {  
+        CHECK_TIPOJUEGO; 
+        init_parameters(); 
+        qgzprintf( "Inicializa transformacion" );
+        // FIXME: Puede tomar una pieza no definida aun y da error
+    }  word_or_string_list {
                     int    i;
                     char*  color = NULL;
+                    qgzprintf( "Cantidad de paramertos de transformacion : %d", qgz_param_count );
                     for( i = 0; i < qgz_param_count; i ++ ){
                         int x = qg_tipojuego_get_color( tipojuego, qgz_param_list[i].str );
                         if( x != NOT_FOUND ){
@@ -569,7 +575,7 @@ instaction_movs:
                         if( NOT_FOUND != qg_tipojuego_get_tipopieza( tipojuego, qgz_param_list[i].str ) ){
                             qgzprintf( "Se va a transformar a %s %s", qgz_param_list[i].str, color );
                             if( !tipojuego_code_transforma( tipojuego, NOCOLOR, color, qgz_param_list[i].str, 0 ) ) YYERROR;
-                        } else if ( NOT_FOUND != qg_tipojuego_get_color( tipojuego, qgz_param_list[i].str ) ){
+                        } else if ( NOT_FOUND == qg_tipojuego_get_color( tipojuego, qgz_param_list[i].str ) ){
                             qgzprintf( "Parametro incorrecto en transforma: %s", qgz_param_list[i].str ); 
                             yyerror( "Error de parametros en transforma, debe ser color o tipo de pieza" );
                         }

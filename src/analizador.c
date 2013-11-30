@@ -47,7 +47,7 @@ _list*   analizador_evalua_movidas( Regla* regla, Posicion* pos, Pieza* pieza, C
 
     code_execute_rule( z, regla->pc );
 
-    if( z->flags & CON_TRANSFORMACION ) movida_split_transformaciones( z->movidas );
+    if( z->movidas && z->flags & CON_TRANSFORMACION ) movida_split_transformaciones( z->movidas );
 
     if( z->mov_actual ) movida_free( z->mov_actual );
     movidas = z->movidas;

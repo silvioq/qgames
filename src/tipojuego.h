@@ -38,11 +38,14 @@ typedef   struct   StrGraphdef  Graphdef;
 #define   ENDEFINCION       0x1
 #define   VALIDO            0x2
 #define   JAQUEMATE         0x4
+#define   HAY_PRIORITARIOS  0x8
 
 #define   TJJAQUEMATE(tj)  (tj->flags & JAQUEMATE)
 #define   TJVALIDO(tj)     (tj->flags & VALIDO)
+#define   TJCONTMOVP(tj)   (tj->flags & HAY_PRIORITARIOS )
 // #define   TJVALIDO(tj)     (1)
 #define   TJINVALIDAR(tj)  (tj->flags &= ~ VALIDO)
+
 
 
 

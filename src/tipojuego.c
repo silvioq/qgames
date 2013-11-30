@@ -289,6 +289,7 @@ int         tipojuego_add_tipo_mov( Tipojuego* tj, char* tmov, int prioridad  ){
         return 0;
     }
     tj->tipomovs ++;
+    if( prioridad ) tj->flags |= HAY_PRIORITARIOS;
     SIM_ADD( tj, prioridad ? SIM_TIPOMOVP : SIM_TIPOMOV, tmov, tj->tipomovs );
     return 1;
 }
