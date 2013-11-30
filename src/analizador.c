@@ -331,14 +331,6 @@ int    analizador_juega  ( Analizador* z, Casillero* cas, int con_captura ){
     LOGPRINT( 6, "Juega %s en %s captura = %d", z->pieza->tpieza->nombre, ccc->nombre, con_captura );
     if( TIPOJUEGO_CAPTURAIMPLICITA(z->pos.tj) || con_captura ){
         analizador_captura( z, ccc );
-/*        int i;
-        for( i = 0; i < z->pos.piezas->entradas; i ++ ){
-            Pieza* pp = (Pieza*)z->pos.piezas->data[i];
-            if( pp == z->pieza ) continue;
-            if( pp->casillero == ccc){
-                movida_accion_captura( z->mov_actual, pp );
-            }
-        }*/
     }
     list_agrega( z->movidas, z->mov_actual );
     z->mov_actual = NULL;
