@@ -39,8 +39,10 @@
 void usage(char* prg){
 
     puts( "Uso:" );
-    printf( "  %s [-d] [-i] [-v] [-c] [filename.qgame | filename.pgn]\n", prg );
-    printf( "  -i: Interactivo (requiere archivo de definiciones de juego)\n" );
+    printf( "  %s [-d] [-i] [-vv] [-c] [filename.qgame | filename.pgn]\n", prg );
+    printf( "  -i : Interactivo (requiere archivo de definiciones de juego)\n" );
+    printf( "  -v : Modo verbose. Loglevel 5\n" );
+    printf( "  -vv: Modo verbose. Loglevel 6\n" );
     exit( EXIT_FAILURE );
    
 }
@@ -220,7 +222,8 @@ int  main(int argc, char** argv) {
                 break;
             case 'v':
                 flags |= QGZ_VERBOSE;
-                loglevel = 5;
+                if( loglevel == 5 ) loglevel = 6;
+                else loglevel = 5;
                 break;
             case 'c':
                 break;
