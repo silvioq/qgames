@@ -17,6 +17,7 @@
  * 3. Warning
  * 4. Noticia
  * 5. Informacion
+ * 6. Debug
  * */
 
 extern   FILE*  logfile;
@@ -27,10 +28,15 @@ extern   int    loglevel;
 #define QUOTEME(x) QUOTEME_(x)
 #endif
 
+#ifndef  LOGLEVEL_MAX
+#define  LOGLEVEL_MAX  6
+#endif
+
 #define  LOGPRINT( level, fmt, ... )  \
+    if( level <= LOGLEVEL_MAX ){ \
     if( level <= loglevel ){ \
         if( !logfile ) logfile = stdout; \
-        fprintf( logfile, "Lev %02d: %-20s " fmt "\n", level, __FILE__ ":" QUOTEME(__LINE__), __VA_ARGS__ ); \
-    }
+        fprintf( logfile, "Lev %02d: %-20s " fmt "\n", level, __FILE__ ":" QUOTEME(__LINE__), ##__VA_ARGS__ ); \
+    } }
 
 #endif

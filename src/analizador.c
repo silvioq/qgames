@@ -230,13 +230,13 @@ int    analizador_ocupado( Analizador* z, Casillero* cas, int owner, Tipopieza* 
             if( owner == CUALQUIERA ){
                 return  1;
             } else if( owner == PROPIO ){
-                if( z->color == pp->color ){ LOGPRINT( 6, " ... ocupado propio  %d", 1 ); return 1; }
+                if( z->color == pp->color ){ LOGPRINT( 7, " ... ocupado propio" ); return 1; }
             } else if( owner == ENEMIGO ) {
-                if( z->color != pp->color ){ LOGPRINT( 6, " ... ocupado enemigo %d", 1 );return 1; }
-            } else if( pp->color == owner ){ LOGPRINT( 6, " ... ocupado %d", 1 ); return 1; }
+                if( z->color != pp->color ){ LOGPRINT( 7, " ... ocupado enemigo" );return 1; }
+            } else if( pp->color == owner ){ LOGPRINT( 7, " ... ocupado" ); return 1; }
         }
     }
-    LOGPRINT( 6, " ... no ocupado %d", 0 );
+    LOGPRINT( 6, " ... no ocupado" );
     return 0;
 
 }
@@ -299,7 +299,7 @@ int    analizador_enzona( Analizador* z, int zona, int color, Tipopieza* tpieza 
             if( ppp->color != colorcheck ) continue;
             if( tpieza && ppp->tpieza != tpieza ) continue;
             if(  tipojuego_casillero_en_zona( z->pos.tjuego, ppp->casillero, zona, colorcheck ) ){
-                LOGPRINT( 6, "En zona acertó! zona=%d color=%d cas=%s tpieza=%p", zona, colorcheck, ppp->casillero->nombre, tpieza );
+                LOGPRINT( 7, "En zona acertó! zona=%d color=%d cas=%s tpieza=%p", zona, colorcheck, ppp->casillero->nombre, tpieza );
                 return 1;
             }
         }
@@ -468,7 +468,7 @@ int   analizador_direccion( Analizador* z, Direccion* dir ){
     dir2 = tipojuego_dir_by_sym( z->pos.tjuego, dir, z->color );
     v = casillero_busca_vinculo_pororigen( z->cas, dir2 );
     if( !v ){
-        LOGPRINT( 6, "Estoy en %s moviendome hacia %s ... me voy del tablero", z->cas->nombre, dir2->nombre );
+        LOGPRINT( 7, "Estoy en %s moviendome hacia %s ... me voy del tablero", z->cas->nombre, dir2->nombre );
 #if  OUTOFBOARD_ISERROR
         z->status = STATUS_OUTOFBOARD;
         z->cas    = OUTOFBOARD;
@@ -479,7 +479,7 @@ int   analizador_direccion( Analizador* z, Direccion* dir ){
 #endif
     }
 
-    LOGPRINT( 6, "Estoy en %s moviendome hacia %s ... mi destino es %s", 
+    LOGPRINT( 7, "Estoy en %s moviendome hacia %s ... mi destino es %s", 
               z->cas->nombre, dir2->nombre, v->destino->nombre );
     z->cas = v->destino;
     if( z->pieza ) posicion_mueve_pieza( &z->pos, z->pieza, z->cas );
@@ -490,7 +490,7 @@ int   analizador_direccion( Analizador* z, Direccion* dir ){
 int   analizador_casillero( Analizador* z, Casillero* cas ){
     CHECK_STATUS;
   
-    LOGPRINT( 6, "Estoy en %s moviendome hacia %s%s", 
+    LOGPRINT( 7, "Estoy en %s moviendome hacia %s%s", 
             (CASILLERO_VALIDO(z->cas) ? z->cas->nombre : "?" ), 
             (cas ? cas->nombre : z->cas_ori->nombre ),  
             (cas ? ""  : " (original)" ) );
@@ -501,17 +501,17 @@ int   analizador_casillero( Analizador* z, Casillero* cas ){
 
 int    analizador_jaquemate( Analizador* z, Tipopieza* tpieza ){
     int i;
-    LOGPRINT( 6, "jaquemate: Ingresa a controlar jaquemate para pieza %s", tpieza->nombre )
+    LOGPRINT( 7, "jaquemate: Ingresa a controlar jaquemate para pieza %s", tpieza->nombre )
     if( !analizador_ahogado( z ) ) return 0;
-    LOGPRINT( 6, "jaquemate: esta ahogado %s", tpieza->nombre )
+    LOGPRINT( 7, "jaquemate: esta ahogado %s", tpieza->nombre )
     for( i = 1; i <= z->pos.tjuego->colores ; i ++ ){
         if( i == z->color ) continue;
         if( posicion_en_jaque( &z->pos, tpieza, i ) ){
-            LOGPRINT( 6, "jaquemate: la posicion esta en jaquemate para %s", tpieza->nombre );
+            LOGPRINT( 7, "jaquemate: la posicion esta en jaquemate para %s", tpieza->nombre );
             return 1;
         }
     }
-    LOGPRINT( 6, "jaquemate: la posicion no era jaque %s", tpieza->nombre )
+    LOGPRINT( 7, "jaquemate: la posicion no era jaque %s", tpieza->nombre )
     return 0;
 }
 
