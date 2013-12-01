@@ -61,7 +61,6 @@ _list*   analizador_evalua_movidas( Regla* regla, Posicion* pos, Pieza* pieza, C
     posicion_free_data( ZPOSICION(z) );
     free( z );
 
-
     return movidas;
 
 }
@@ -222,7 +221,8 @@ int    analizador_ocupado( Analizador* z, Casillero* cas, int owner, Tipopieza* 
         return 0;
     }
     int i;
-    for( i = 0; i < z->pos.piezas_count; i ++ ){
+    int count = z->pos.piezas_count;
+    for( i = 0; i < count; i ++ ){
         Pieza* pp = &(z->pos.piezas[i]);
         if( pp == z->pieza ) continue;
         if( tpieza && tpieza != pp->tpieza ) continue;
