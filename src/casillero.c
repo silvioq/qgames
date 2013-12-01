@@ -138,8 +138,10 @@ static inline Vinculo*   casillero_busca_vinculo( Casillero* cas, Direccion* dir
     }
 
     if( !cas->vinculos ) return NULL;
-    list_inicio( cas->vinculos );
-    while( ( v = list_siguiente( cas->vinculos ) ) ){
+    int  e = cas->vinculos->entradas;
+    int i;
+    for( i = 0; i < e; i ++ ){
+        v = (Vinculo*)cas->vinculos->data[i];
         if( orides == 'O' && dir == v->direccion && cas == v->origen ) return v;
         if( orides == 'D' && dir == v->direccion && cas == v->destino ) return v;
     }
