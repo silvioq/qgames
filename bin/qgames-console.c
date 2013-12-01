@@ -88,10 +88,26 @@ static char * my_getline (const char *prompt)
 #endif
 
 
+/**************************************************
+ *
+ * Muestra el tablero, linea por linea
+ *
+ ************************************************** */
+void   print_tablero(Partida* par){
+    char* pieza, * casillero, *color;
+    int pie = 0;
+
+    while( qg_partida_tablero_data( par, LAST_MOVE, pie, &casillero, &pieza, &color ) ){
+        printf( "%s %s en %s\n", pieza, color, casillero );
+        pie ++;
+    }
+}
+
+
 
 void  jugar_partida(Partida* par){
 
-    qg_partida_tablero_ascii( par );
+    print_tablero( par );
     qg_partida_movidas_posibles_ascii( par );
     while( 1 ){
         char* line;
@@ -109,7 +125,7 @@ void  jugar_partida(Partida* par){
                 continue;
             }
         }
-        qg_partida_tablero_ascii( par );
+        print_tablero( par );
         qg_partida_movidas_posibles_ascii( par );
     }
 };

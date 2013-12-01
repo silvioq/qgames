@@ -251,7 +251,6 @@ int         qg_partida_movidas_data  ( Partida* par, int num, Movdata* data );
  * Esta serie de funciones permiten consultar el estado actual
  * del tablero
  * */
-void        qg_partida_tablero_ascii ( Partida* par );
 int         qg_partida_tablero_count ( Partida* par, int movida );
 int         qg_partida_tablero_countcap( Partida* par, int movida );
 int         qg_partida_count_piezas    ( Partida* par, char* casillero, char* tipopieza );
