@@ -357,23 +357,6 @@ DLL_PUBLIC   int         qg_partida_mover_pgn     ( Partida* par, char* pgn ){
     return  partida_mover_serie( par, pgnmoves );
 }
 
-/*
- * Esta funcion especial imprime en la consola de texto
- * las posiciones de las piezas 
- * */
-DLL_PUBLIC   void        qg_partida_tablero_ascii ( Partida* par ){
-    int i;
-    printf( "Partida: %s (%s)\n", par->id, par->tjuego->nombre );
-    for( i = 0; i < par->pos->piezas_count; i ++ ){
-        Pieza* pie = &( par->pos->piezas[i]);
-        if( CASILLERO_VALIDO( pie->casillero ) ){
-            printf( "%s %s en %s\n", pie->tpieza->nombre,
-                tipojuego_get_colorname( par->tjuego, pie->color ),
-                pie->casillero->nombre );
-        }
-    }
-}
-
 
 
 

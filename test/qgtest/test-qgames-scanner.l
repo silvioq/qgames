@@ -45,6 +45,7 @@ void   chequear_resultado(int);
 void   check_count_piezas(int);
 void   chequear_count_movidas(int);
 void   chequear_movida_valida(char*);
+void   print_tablero( Partida* par );
 
 Partida*  partida    = NULL;
 Tipojuego* tjuego    = NULL;
@@ -93,7 +94,7 @@ RESULT       ({DRAW}|{BWIN}|{WWIN}|\*)
 <INITIAL>check{BAR}movidas?     { BEGIN(check_movida); }  
 <INITIAL>check{BAR}result       { BEGIN(check_result); }  
 <INITIAL>show{BAR}movidas       { qg_partida_movidas_posibles_ascii( partida ) ; }
-<INITIAL>show{BAR}tablero       { qg_partida_tablero_ascii( partida ) ; }
+<INITIAL>show{BAR}tablero       { print_tablero( partida ) ; }
 <INITIAL>show{BAR}benchmark     { show_benchmark() ; }
 <INITIAL>verbose                { BEGIN(verbose_state); }
 
@@ -295,6 +296,15 @@ void  show_benchmark(){
     printf( "Analisis: %.6f Movidas: %.6f\n", time_scanning, time_moves );
 }
 
+void   print_tablero(Partida* par){
+    char* pieza, * casillero, *color;
+    int pie = 0;
+
+    while( qg_partida_tablero_data( par, LAST_MOVE, pie, &casillero, &pieza, &color ) ){
+        printf( "%s %s en %s\n", pieza, color, casillero );
+        pie ++;
+    }
+}
 
 int    qgtest_file(FILE* f){
     yyin = f;
