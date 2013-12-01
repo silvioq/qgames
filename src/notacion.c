@@ -113,7 +113,7 @@ void    notacion_resolver_movidas( Tipojuego* tjuego, _list* movs, char* prefix 
 
 
 static  char*   notacion_resolver_tmov( Notacion* nott, int tmov ){
-    if( nott->notacion_tmovs && tmov ){
+    if( nott && nott->notacion_tmovs && tmov ){
         int i;
         for( i = 0; i < nott->notacion_tmovs->entradas; i ++ ){
             NotacionData* dat = (NotacionData*) nott->notacion_tmovs->data[i];
