@@ -1,0 +1,82 @@
+# El gametype es el nombre de juego que usaremos!
+# Gran avance consiste en una batalla donde el objetivo
+# es que cualquier peon llegue hasta la linea adversaria
+# La variante con captura, implica que los peones
+# adversarios se pueden capturar al estilo de las damas
+gametype:    GranAvanceCaptura
+
+# Cada color se define aparte o no
+color:       blanco      negro 
+
+# Board se puede definir como una lista de dimensiones.
+# Tambien podria estar en blanco y comenzar con las definiciones
+# de casillero de una.
+# El gran avance es un tablero de ocho por ocho
+board:       "a b c d e f g h"  "1 2 3 4 5 6 7 8"
+
+# Directions tiene el nombre de la direccion. Opcionalmente podria
+# tener n numeros que hace la representacion 'n' dimensional.
+directions:  n  0  1 
+directions:  s  0 -1 
+directions:  e  1  0 
+directions:  o -1  0
+
+# Simetria ... un color y dos direcciones.
+# Para el blanco, el norte es el norte abosulto del tablero, sin 
+# embargo, para el negro "su" norte, es el sur absoluto del tablero.
+# Dicho en palabras mas faciles, el blanco va para arriba y el negro
+# va para abajo!
+symmetry:    negro   s    n
+symmetry:    negro   n    s
+
+# tipo de movimiento
+movetype:    captura
+
+zone:       coronacion  blanco  a8  b8  c8  d8  e8  f8  g8  h8 
+zone:       coronacion  negro   a1  b1  c1  d1  e1  f1  g1  h1  
+
+# Aca hay una sola pieza!
+piece:       peon
+move:
+            n; e
+            play-if  !occuped?
+            initial-square;  n
+            play-if  !occuped?
+            initial-square;  n; o
+            play-if  !occuped?
+            
+move:       captura
+            n; e
+            if occuped-opp?
+              n; e;
+              if in-board? && !occuped?
+                s; o;
+                capture
+                n; e;
+                keep  captura
+              end
+            end
+            initial-square; n; o
+            if occuped-opp?
+              n; o;
+              if in-board? && !occuped?
+                s; e;
+                capture
+                n; o;
+                keep  captura
+              end
+            end
+
+ending:
+            win-if    in-zone?  coronacion
+
+ending:
+            win-if    stalemated?
+
+start:      peon   blanco   a1  b1  c1  d1  e1  f1  g1  h1  
+start:      peon   blanco   a2  b2  c2  d2  e2  f2  g2  h2  
+
+start:      peon   negro    a7  b7  c7  d7  e7  f7  g7  h7  
+start:      peon   negro    a8  b8  c8  d8  e8  f8  g8  h8  
+
+notation:  captured-mark  '-' 

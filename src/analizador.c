@@ -317,7 +317,7 @@ int    analizador_enzona( Analizador* z, int zona, int color, Tipopieza* tpieza 
 #define  OUTOFBOARD_ISERROR 0
 #endif
 
-int    analizador_juega  ( Analizador* z, Casillero* cas, int con_captura ){
+int    analizador_juega  ( Analizador* z, Casillero* cas, int con_captura, int continua ){
     CHECK_STATUS ;
     Casillero* ccc = ( cas ? cas : z->cas );
 #if(OUTOFBOARD_ISERROR)
@@ -328,10 +328,11 @@ int    analizador_juega  ( Analizador* z, Casillero* cas, int con_captura ){
     if( !z->movidas ) z->movidas = list_nueva( NULL );
     if( !z->mov_actual ) z->mov_actual = movida_new( &z->pos, z->pieza, z->tmov );
     movida_accion_mueve( z->mov_actual, z->pieza, ccc );
-    LOGPRINT( 6, "Juega %s en %s captura = %d", z->pieza->tpieza->nombre, ccc->nombre, con_captura );
+    LOGPRINT( 6, "Juega %s en %s captura = %d cont = %x", z->pieza->tpieza->nombre, ccc->nombre, con_captura, continua );
     if( TIPOJUEGO_CAPTURAIMPLICITA(z->pos.tj) || con_captura ){
         analizador_captura( z, ccc );
     }
+    if( continua ) movida_accion_continua( z->mov_actual, continua & 0xFF );
     list_agrega( z->movidas, z->mov_actual );
     z->mov_actual = NULL;
     return  STATUS_NORMAL;

@@ -670,22 +670,22 @@ instaction_crea:
 instaction_juega:
     TOK_JUEGA   {
             CHECK_TIPOJUEGO;
-            if( !tipojuego_code_juega( tipojuego, NULL, 0 ) ) YYERROR;
+            if( !tipojuego_code_juega( tipojuego, NULL, 0, 0, NULL ) ) YYERROR;
     }  | 
     TOK_CAPTURA_Y_JUEGA {
             CHECK_TIPOJUEGO;
-            if( !tipojuego_code_juega( tipojuego, NULL, 1 ) ) YYERROR;
+            if( !tipojuego_code_juega( tipojuego, NULL, 1, 0, NULL ) ) YYERROR;
     } |
     TOK_JUEGA_SI   instexpr {
             CHECK_TIPOJUEGO;
             tipojuego_code_start_condblock( tipojuego );
-            if( !tipojuego_code_juega( tipojuego, NULL, 0 ) ) YYERROR;
+            if( !tipojuego_code_juega( tipojuego, NULL, 0, 0, NULL ) ) YYERROR;
             tipojuego_code_end_condblock( tipojuego );
     } |
     TOK_CAPTURA_Y_JUEGA_SI  instexpr {
             CHECK_TIPOJUEGO;
             tipojuego_code_start_condblock( tipojuego );
-            if( !tipojuego_code_juega( tipojuego, NULL, 1 ) ) YYERROR;
+            if( !tipojuego_code_juega( tipojuego, NULL, 1, 0, NULL ) ) YYERROR;
             tipojuego_code_end_condblock( tipojuego );
     } |
     TOK_CAPTURA_SI  instexpr {
@@ -702,15 +702,17 @@ instaction_juega:
 instaction_keep:
     TOK_CONTINUA{
             CHECK_TIPOJUEGO;
-            NOT_IMPLEMENTED_WARN( "continua" );
+            if( !tipojuego_code_juega( tipojuego, NULL, 0, 1, NULL ) ) YYERROR;
     } |
     TOK_CONTINUA  word_or_string {
             CHECK_TIPOJUEGO;
-            NOT_IMPLEMENTED_WARN( "continua tmov" );
+            if( !tipojuego_code_juega( tipojuego, NULL, 0, 1, (char*)$2 ) ) YYERROR;
     } |
     TOK_CONTINUA_SI instexpr {
             CHECK_TIPOJUEGO;
-            NOT_IMPLEMENTED_WARN( "continua si" );
+            tipojuego_code_start_condblock( tipojuego );
+            if( !tipojuego_code_juega( tipojuego, NULL, 0, 1, NULL ) ) YYERROR;
+            tipojuego_code_end_condblock( tipojuego );
     } ;
  
 

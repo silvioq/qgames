@@ -41,13 +41,15 @@
 
 #include "log.h"
 
-static int   partida_mover_mov( Partida* par, Movida* mov );
+static  int   partida_mover_mov( Partida* par, Movida* mov );
+static  int   partida_siguiente_color( Partida* par );
+static  int   partida_analiza_final( Partida* par );
 
 /* 
  * Esta funcion devuelve la proxima secuencia, a partir
  * del estado de la partida y de la definicion misma de secuencia
  * */
-void    secuencia_actual   ( Partida* par, int* color, int* tmov ){
+static  void    secuencia_actual   ( Partida* par, int* color, int* tmov ){
     Secuencia* seq;
     if( par->tjuego->secuencias ){
         if( par->secuencia > par->tjuego->secuencias->entradas ){
@@ -64,7 +66,7 @@ void    secuencia_actual   ( Partida* par, int* color, int* tmov ){
 }
 
 
-void    secuencia_siguiente( Partida* par, int* color, int* tmov ){
+static  void    secuencia_siguiente( Partida* par, int* color, int* tmov ){
     par->secuencia ++;
     if( par->tjuego->secuencias ){
         if( par->secuencia >=  par->tjuego->secuencias->entradas ){
@@ -79,7 +81,7 @@ void    secuencia_siguiente( Partida* par, int* color, int* tmov ){
 }
 
 
-void    secuencia_anterior( Partida* par ){
+static  void    secuencia_anterior( Partida* par ){
     par->secuencia --;
     if( par->tjuego->secuencias ){
         if( par->secuencia < 0 ){
@@ -196,8 +198,14 @@ int       partida_analizar_movidas( Partida* par ){
     par->flags |= JUGANDO;
 
     if( PARTIDACONT( par ) ){
-        LOGPRINT( 1, "Hace falta agregar el pasar, aun no implementado", 0 );
-        return  0;
+        // En el caso que no haya encontrado movidas, fuerzo fin de partida
+        if( (!par->pos->movidas) || par->pos->movidas->entradas == 0 ){
+            if( !partida_siguiente_color( par ) ) return 0;
+            return partida_analizar_movidas( par );
+        }
+        // TODO: Agregar la opcion de pasar, la cual se presentara como alternativa
+        //       a las partidas
+        LOGPRINT( 3, "Hace falta agregar el pasar, aun no implementado", 0 );
     }
 
     if( PARTIDACONT( par ) ){
@@ -397,10 +405,12 @@ static  int   partida_mover_mov( Partida* par, Movida* mov ){
     Posicion* posnew;
     Movida* movant;
     int  ret;
+
+    /*
     if( PARTIDACONT( par ) ){
         LOGPRINT( 1, "Hace falta agregar las movidas continuadas a la lista de movimientos anterior (no implementado)", 0 );
         return 0;
-    }
+    } */
     if( !par->movimientos ) par->movimientos = list_nueva( NULL );
     movant = movida_dup( mov );
     list_agrega( par->movimientos, movant );
@@ -413,25 +423,52 @@ static  int   partida_mover_mov( Partida* par, Movida* mov ){
     par->pos = posnew;
     par->flags &= ~MOVCALC;
 
+    if( partida_analiza_final( par ) ) return 1;
+    if( POS_GETCONTINUA( posnew ) ){
+        par->tmov = posnew->tmov_continua;
+        par->pieza_continua = movida_pieza( mov, posnew );
+        par->flags |= CONTINUACION;
+        return 1;
+    } else {
+      return  partida_siguiente_color( par );
+    }
+
+}
+
+static  int  partida_analiza_final( Partida* par ){
+    if( PARTIDATERMINADA(par) ) return 0;
     int  color_actual = par->color;
     int  color_sig ;
     secuencia_siguiente( par, &color_sig, NULL );
     secuencia_anterior( par );
     char* resultado;
-    ret = posicion_analiza_final( par->pos, color_actual, color_sig, &resultado );
+    int  ret = posicion_analiza_final( par->pos, color_actual, color_sig, &resultado );
     if( ret == FINAL_EMPATE ){
         par->resultado = resultado;
         par->flags    |= ESTABLAS;
         par->flags    &= ~ANALIZANDO;
         par->flags    |= TERMINADA;
+        return 1;
     } else if ( ret > 0 ){
         par->resultado = resultado;
         par->color_ganador = ret;
         par->flags    &= ~ANALIZANDO;
         par->flags    |= TERMINADA;
-    } else {
-        secuencia_siguiente( par, &(par->color), &(par->tmov) );
+        return 1;
     }
+    return 0;
+}
+
+
+/*
+ * Dado el estado de la partida actual, encuentra la
+ * siguiente movida
+*/
+static  int  partida_siguiente_color( Partida* par ){
+    if( PARTIDATERMINADA(par) ) return 0;
+    secuencia_siguiente( par, &(par->color), &(par->tmov) );
+    par->flags &= ~CONTINUACION;
+    par->pieza_continua = NULL;
     return 1;
 }
 

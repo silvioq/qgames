@@ -1,0 +1,25 @@
+# [Event "Casual Game"]
+# [Annotator "26b7bff949e7@qgames.com.ar"]
+# [Variant "GranAvanceCaptura"]
+# [Result "1-0"]
+nuevo-juego  GranAvanceCaptura
+
+1. a2-b3 c7-c6 2. b3-b4 c6-c5 3. b4-d6 e7-c5 4. d2-d3 d8-c7 5. d3-d4 a7-a6
+6. d4-b6
+
+*
+         d4-b6-d8
+
+1-0
+
+check-piezas peon blanco  d8  1
+
+
+nuevo-juego  GranAvanceCaptura
+1. d2-d3 e7-e6 2. d3-d4 e6-e5 3. d4-f6 a7-a6 4. e2-d3 a6-a5 5. d3-d4 g7-e5
+6. g7-e5-c3 b2-d4
+
+*
+check-piezas peon blanco  d4  1
+check-piezas c3 0
+

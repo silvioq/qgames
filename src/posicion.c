@@ -66,6 +66,7 @@ char*  posicion_hash( Posicion* pos ){
     if( pos->flags & POSICION_HASH_CALCULADO ) return pos->hash;
     md5_state_t md5;
     md5_init( &md5 );
+    md5_append( &md5, (char*)  &(pos->tmov_continua), sizeof( int ) );
     for( i = 0; i < pos->piezas_count ; i ++ ){
         Pieza* p = &(pos->piezas[i]);
         char* hash_p = pieza_hash( p );
@@ -160,7 +161,7 @@ void        posicion_descartar_por_jaques( Posicion* pos, _list* movs, int color
         Posicion* pos2 = movida_ejecuta( mov );
         if( posicion_en_jaque( pos2, NULL, color ) ){
             LOGPRINT( 6, "Movida descartada %s => %s %p", 
-                    movida_pieza( mov )->tpieza->nombre, 
+                    movida_pieza( mov, NULL )->tpieza->nombre, 
                     movida_casillero_destino( mov )->nombre , mov->pos = pos) ;
             list_quita( movs, i );
             movida_free( mov );

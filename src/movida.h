@@ -64,7 +64,7 @@ Posicion*    movida_ejecuta( Movida* mov );
 
 Casillero*   movida_casillero_origen( Movida* mov );
 Casillero*   movida_casillero_destino( Movida* mov );
-Pieza*       movida_pieza( Movida* mov );
+Pieza*       movida_pieza( Movida* mov, Posicion* posref );
 const char*  movida_descripcion( Movida* mov );
 int          movida_es_captura( Movida* mov, Pieza** pie );
 int          movida_es_transformacion( Movida* mov, int* color, Tipopieza** tp );

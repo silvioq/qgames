@@ -373,8 +373,9 @@ int         tipojuego_code_transforma( Tipojuego* tj, int owner, char* color, ch
     return 1;
 }
 
-int         tipojuego_code_juega  ( Tipojuego* tj, char* casillero, int captura ){
+int         tipojuego_code_juega  ( Tipojuego* tj, char* casillero, int captura, int continua, char* continua_tmov ){
     long cas;
+    int  tmov;
     if( !TJVALIDO( tj ) ) return 0;
     if( tj->regla_actual->tregla == END ) return 0;
 
@@ -385,9 +386,21 @@ int         tipojuego_code_juega  ( Tipojuego* tj, char* casillero, int captura 
         cas = SINCASILLERO;
     }
 
+    if( continua ){
+        if( continua_tmov ){
+            tmov   = GETTIPOMOV( tj, continua_tmov );
+            if( tmov == NOT_FOUND ){
+              printf( "Tipo movimiento %s inexistente (File %s - linea %d)\n", continua_tmov, __FILE__, __LINE__ );
+              exit( EXIT_FAILURE );
+            }
+        } else tmov = 0;
+    }
+
+    qcode_op( tj->qcode, QCSTI, 1, continua ? 0x100 | tmov : 0 ); // r1 = continuacion
+    qcode_op( tj->qcode, QCPSH, 1, 0 );        // PSH r1
     qcode_op( tj->qcode, QCSTI, 1, captura );  // r1 = captura
     qcode_op( tj->qcode, QCPSH, 1, 0 );        // PSH r1
-    qcode_op( tj->qcode, QCSTI, 1, cas );      // r1 = cas     
+    qcode_op( tj->qcode, QCSTI, 1, cas );      // r1 = cas
     qcode_op( tj->qcode, QCPSH, 1, 0 );        // PSH r1
     qcode_op( tj->qcode, QCPSH, 3, 0 );        // PSH r3
     qcode_opnlab( tj->qcode, QCCLX, "juega" );

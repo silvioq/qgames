@@ -137,8 +137,9 @@ long  code_wrapper_captura( QCodeVM* vm ){
 long  code_wrapper_juega( QCodeVM* vm ){
     Analizador* z = (Analizador*)qcode_pop( vm );
     Casillero*  c = ZGETCASILLERO( z, qcode_pop( vm ) );
-    int  captura  = (int)qcode_pop(vm);
-    return (long)analizador_juega( z, c, captura );
+    int  captura   = (int)qcode_pop(vm);
+    int  continua  = (int)qcode_pop(vm);
+    return (long)analizador_juega( z, c, captura, continua );
 }
 
 long  code_wrapper_mueve( QCodeVM* vm ){

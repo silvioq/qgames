@@ -51,7 +51,7 @@
  * Esta funcion llena la estructura a partir de la movida pasada como parametro
  * */
 static   set_movdata( Partida* par, Movida* mmm, Movdata* movdata ){
-    Pieza*  pie = movida_pieza( mmm );
+    Pieza*  pie = movida_pieza( mmm, NULL );
     Casillero* ori = movida_casillero_origen( mmm );
     Casillero* des = movida_casillero_destino( mmm );
     int i;

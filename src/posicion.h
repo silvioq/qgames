@@ -9,11 +9,16 @@
 #define  POSICION_H  1
 
 #define  POSICION_HASH_CALCULADO  0x01
+#define  POSICION_CONTINUA        0x02
+#define  POS_SETCONTINUA(p)  p->flags |= POSICION_CONTINUA;
+#define  POS_GETCONTINUA(p)  ( p->flags & POSICION_CONTINUA )
 
 typedef  struct  StrPosicion {
     Tipojuego*  tjuego;
     _list*      movidas;
     int         flags;
+    int         tmov_continua;
+
     Posicion*   pos_anterior;
     Movida*     mov_anterior;
     char        hash[16];
@@ -86,6 +91,7 @@ static inline Pieza*      posicion_add_pieza( Posicion* pos ){
 static inline void     posicion_copy( Posicion* pos_dest, Posicion* pos_ori ){
     pos_dest->tjuego       = pos_ori->tjuego;
     pos_dest->flags        = pos_ori->flags;
+    pos_dest->tmov_continua = pos_ori->tmov_continua;
     pos_dest->pos_anterior = pos_ori->pos_anterior;
     pos_dest->mov_anterior = pos_ori->mov_anterior;
     pos_dest->piezas_count = pos_ori->piezas_count;

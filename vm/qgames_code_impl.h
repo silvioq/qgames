@@ -58,7 +58,7 @@ int         tipojuego_code_setmarca ( Tipojuego* tj, int marca, char* casillero 
 int         tipojuego_code_gotomarca ( Tipojuego* tj, int marca );
 int         tipojuego_code_asigna_att( Tipojuego* tj, char* att, int val );
 int         tipojuego_code_evalua_att( Tipojuego* tj, char* att );
-int         tipojuego_code_juega  ( Tipojuego* tj, char* casillero, int captura );
+int         tipojuego_code_juega  ( Tipojuego* tj, char* casillero, int captura, int continua, char* tmov );
 int         tipojuego_code_captura( Tipojuego* tj, char* casillero );
 int         tipojuego_code_crea   ( Tipojuego* tj, char* tpieza, int owner, char* color, char* casillero );
 

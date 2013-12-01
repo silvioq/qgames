@@ -52,7 +52,9 @@ int      analizador_evalua_final  ( Regla* regla, Posicion* pos, Pieza* pieza, C
 
 
 
-int    analizador_juega  ( Analizador* z, Casillero* cas, int con_captura );
+#define    CONTINUA(tmov)      ( 0x100 | tmov )
+#define    NOCONTINUA          0
+int    analizador_juega  ( Analizador* z, Casillero* cas, int con_captura, int continua );
 int    analizador_mueve  ( Analizador* z, char fromto_flags, void* from, void* to );
 int    analizador_captura( Analizador* z, Casillero* cas );
 int    analizador_crea   ( Analizador* z, int owner, Tipopieza* tp, Casillero* cas );

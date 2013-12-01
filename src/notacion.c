@@ -27,7 +27,7 @@ char     notacion_repetida[] = { NOTACION_ORIGEN, NOTACION_MARCA_IFORIGEN, NOTAC
 
 static  char*   notacion_resolver_tmov( Notacion* nott, int tmov );
 static  char*   notacion_resolver_tpieza( Notacion* nott, int color, Tipopieza* tpieza );
-static  char*   notacion_resolver_mov( Notacion* nott, Movida* mov, char* def );
+static  char*   notacion_resolver_mov( Notacion* nott, Movida* mov, char* def, int agregar_origen );
 
 /*
  * Notacion:
@@ -60,7 +60,7 @@ void    notacion_resolver_movidas( Tipojuego* tjuego, _list* movs, char* prefix 
     list_inicio( movs );
     while( mmm = list_siguiente( movs ) ){
         if( mmm->notacion ) continue;
-        char*  nom = notacion_resolver_mov( tjuego->notacion, mmm, def );
+        char*  nom = notacion_resolver_mov( tjuego->notacion, mmm, def, prefix ? 0 : 1 );
         if( !nom ){ 
             mmm->notacion = strdup( "error" ); 
             continue ; 
@@ -82,7 +82,7 @@ void    notacion_resolver_movidas( Tipojuego* tjuego, _list* movs, char* prefix 
             Movida* mmm2 = (Movida*) movs->data[j];
             if( strcmp( mmm->notacion, mmm2->notacion ) == 0 ){
                 tiene_iguales = 1;
-                char*  nom = notacion_resolver_mov( tjuego->notacion, mmm2, rep );
+                char*  nom = notacion_resolver_mov( tjuego->notacion, mmm2, rep, prefix ? 0 : 1 );
                 if( !nom ){ 
                     mmm->notacion = strdup( "error" ); 
                     continue ; 
@@ -94,7 +94,7 @@ void    notacion_resolver_movidas( Tipojuego* tjuego, _list* movs, char* prefix 
             }
         }
         if( tiene_iguales ){
-            char*  nom = notacion_resolver_mov( tjuego->notacion, mmm, rep );
+            char*  nom = notacion_resolver_mov( tjuego->notacion, mmm, rep, prefix ? 0 : 1 );
             if( !nom ){ 
                 mmm->notacion = strdup( "error" ); 
                 continue ; 
@@ -147,7 +147,7 @@ static  char*   notacion_resolver_tpieza( Notacion* nott, int color, Tipopieza* 
 #define  NOTACION_SPACE             's'
 */
 
-static  char*   notacion_resolver_mov( Notacion* nott, Movida* mov, char* def ){
+static  char*   notacion_resolver_mov( Notacion* nott, Movida* mov, char* def, int agregar_origen ){
     if( !def ) return NULL;
     if( mov->tmov > 0 ){
         char*  tmov = notacion_resolver_tmov( nott, mov->tmov );
@@ -162,10 +162,13 @@ static  char*   notacion_resolver_mov( Notacion* nott, Movida* mov, char* def ){
         Pieza*  pieza;
         switch( *defchar ){
             case  NOTACION_ORIGEN:
-                origen = movida_casillero_origen( mov );
-                if( CASILLERO_VALIDO( origen ) ) strcat( ret, origen->nombre );
+                if( agregar_origen ){
+                    origen = movida_casillero_origen( mov );
+                    if( CASILLERO_VALIDO( origen ) ) strcat( ret, origen->nombre );
+                }
                 break;
             case  NOTACION_MARCA_IFORIGEN:
+                if( !agregar_origen ) break;
                 origen = movida_casillero_origen( mov );
                 if( !CASILLERO_VALIDO( origen ) ) break;
             case  NOTACION_MARCA:
@@ -181,7 +184,7 @@ static  char*   notacion_resolver_mov( Notacion* nott, Movida* mov, char* def ){
                 if( destino ) strcat( ret, destino->nombre );
                 break;
             case  NOTACION_PIEZA:
-                pieza = movida_pieza( mov );
+                pieza = movida_pieza( mov, NULL );
                 if( pieza ){
                     char* p = notacion_resolver_tpieza( nott, pieza->color, pieza->tpieza );
                     if( !p ) p = pieza->tpieza->nombre;

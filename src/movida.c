@@ -215,6 +215,8 @@ Posicion*  movida_ejecuta( Movida* mov ){
     Posicion*  pos = posicion_dup( mov->pos );
     pos->pos_anterior = mov->pos;
     pos->mov_anterior = mov;
+    pos->flags = 0;
+    pos->tmov_continua = 0;
     int i;
     for( i = 0; i < mov->acciones->entradas; i ++ ){
         Accion* acc = (Accion*) mov->acciones->data[i];
@@ -237,6 +239,10 @@ Posicion*  movida_ejecuta( Movida* mov ){
             case ACCION_ASIGNA_ATT:
                 if( !pieza_set_att( p, acc->att_key, acc->att_val ) ) return NULL;
                 break;
+            case ACCION_CONTINUA:
+                POS_SETCONTINUA( pos );
+                pos->tmov_continua = acc->tmov_continua;
+                break;
             default:
                 LOGPRINT( 1, "Accion no implementada %d", acc->tipo );
                 exit( EXIT_FAILURE );
@@ -252,7 +258,7 @@ Posicion*  movida_ejecuta( Movida* mov ){
  * las acciones que la conforman. 
  * */
 Casillero*   movida_casillero_origen( Movida* mov ){
-    Pieza*  pieza = movida_pieza( mov );
+    Pieza*  pieza = movida_pieza( mov, NULL );
     return( pieza ? pieza->casillero : NULL );
 }
 
@@ -283,11 +289,16 @@ Casillero*   movida_casillero_destino( Movida* mov ){
 
 /*
  * Devuelve la pieza primaria de la movida, de acuerdo al analisis
- * las acciones que la conforman. De paso, se actualiza el elemento
- * pieza de la estructura, para posteriores usos
+ * las acciones que la conforman.
+ * Si la posicion de referencia esta seteada, se tomara 
+ * la dicha posicion. De lo contrario, si es nula, se toma
+ * la posicion actual de la movida
  * */
-Pieza*       movida_pieza( Movida* mov ){
-    return &(mov->pos->piezas[mov->piece_number]);
+Pieza*       movida_pieza( Movida* mov, Posicion* posref ){
+    if( posref ){
+        if( posref->piezas_count >= mov->piece_number ) return NULL;
+        return &(posref->piezas[mov->piece_number]);
+    } else return &(mov->pos->piezas[mov->piece_number]);
 }
 
 
@@ -359,7 +370,7 @@ const char*  movida_descripcion( Movida* mov ){
     }
     char* ret = malloc( aloc );
     ret[0] = 0;
-    Pieza* p = movida_pieza( mov );
+    Pieza* p = movida_pieza( mov, NULL );
     if( p ){
       char* pp = p->tpieza->nombre;
       len = strlen( pp );
