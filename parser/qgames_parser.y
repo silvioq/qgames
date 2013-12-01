@@ -188,6 +188,8 @@ void  qgzprintf( char* format, ... ){
 %token    TOK_STANDARD_QUEEN
 %token    TOK_STANDARD_RECT
 %token    TOK_STANDARD_ROOK
+%token    TOK_STANDARD_CHECKERS_PAWN
+%token    TOK_STANDARD_CHECKERS_KING
 
 
 %start    game_definition
@@ -1010,13 +1012,15 @@ instruction_graph_def:
     instruction_graph_def_prelude   instruction_graph_dimensions     instruction_graph_colors ;
 
 instruction_graph_standard:
-    TOK_STANDARD_GEM     { $$ = STANDARD_GEM; }  |
-    TOK_STANDARD_BISHOP  { $$ = STANDARD_BISHOP; }|
-    TOK_STANDARD_KING    { $$ = STANDARD_KING; }  |
-    TOK_STANDARD_KNIGHT  { $$ = STANDARD_KNIGHT; }  |
-    TOK_STANDARD_PAWN    { $$ = STANDARD_PAWN; }  |
-    TOK_STANDARD_QUEEN   { $$ = STANDARD_QUEEN ; }  |
-    TOK_STANDARD_ROOK    { $$ = STANDARD_ROOK; }  ;
+    TOK_STANDARD_GEM              { $$ = STANDARD_GEM; }  |
+    TOK_STANDARD_BISHOP           { $$ = STANDARD_BISHOP; }|
+    TOK_STANDARD_KING             { $$ = STANDARD_KING; }  |
+    TOK_STANDARD_KNIGHT           { $$ = STANDARD_KNIGHT; }  |
+    TOK_STANDARD_PAWN             { $$ = STANDARD_PAWN; }  |
+    TOK_STANDARD_CHECKERS_PAWN    { $$ = STANDARD_CHECKERS_PAWN; }  |
+    TOK_STANDARD_CHECKERS_KING    { $$ = STANDARD_CHECKERS_KING; }  |
+    TOK_STANDARD_QUEEN            { $$ = STANDARD_QUEEN ; }  |
+    TOK_STANDARD_ROOK             { $$ = STANDARD_ROOK; }  ;
 
 board_number:
     TOK_NUMBER  { $$ = $1; 

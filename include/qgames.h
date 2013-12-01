@@ -126,7 +126,9 @@ void   qg_tipojuego_set_notacion_marca( Tipojuego* tj, char* marca, char* captur
 #define   STANDARD_PAWN       5
 #define   STANDARD_QUEEN      6
 #define   STANDARD_ROOK       7
-#define   STANDARD_RECT       8
+#define   STANDARD_CHECKERS_PAWN  11
+#define   STANDARD_CHECKERS_KING  12
+#define   STANDARD_RECT       31
 #define   STANDARD_FROM_PGN   1
 
 #define   TYPE_CHECKERBOARD   1

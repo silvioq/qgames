@@ -177,6 +177,12 @@ gdImagePtr  graph_tpieza_get_gd( Tipopieza* tp, int color ){
         case  STANDARD_ROOK       :
             piece = "torre";
             break;
+        case  STANDARD_CHECKERS_PAWN:
+            piece = "peon-damas";
+            break;
+        case  STANDARD_CHECKERS_KING:
+            piece = "dama-damas";
+            break;
         case  STANDARD_RECT       :
             piece = NULL;
             break;

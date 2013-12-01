@@ -143,6 +143,8 @@ standard{BAR}bishop { return  TOK_STANDARD_BISHOP   ; }
 standard{BAR}king   { return  TOK_STANDARD_KING     ; }
 standard{BAR}knight { return  TOK_STANDARD_KNIGHT   ; }
 standard{BAR}pawn   { return  TOK_STANDARD_PAWN     ; }
+standard{BAR}checkers{BAR}pawn   { return  TOK_STANDARD_CHECKERS_PAWN     ; }
+standard{BAR}checkers{BAR}king   { return  TOK_STANDARD_CHECKERS_KING     ; }
 standard{BAR}queen  { return  TOK_STANDARD_QUEEN    ; }
 standard{BAR}rect(angle)?  { return  TOK_STANDARD_RECT; }
 standard{BAR}rook   { return  TOK_STANDARD_ROOK     ; }
