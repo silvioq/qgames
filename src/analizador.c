@@ -220,6 +220,17 @@ int    analizador_ocupado( Analizador* z, Casillero* cas, int owner, Tipopieza* 
     } else {
         return 0;
     }
+
+#if  CACHE_OCUPADO
+    // Si esta seteado el cache de ocupaciones
+    // controlo si hay algo
+    if( z->pos.casilleros_ocupados ){
+        if( z->pos.casilleros_ocupados[ccc->number] == 0 ) return 0;
+        if( owner == CUALQUIERA ) return 1;
+    }
+#endif
+
+
     int i;
     int count = z->pos.piezas_count;
     for( i = 0; i < count; i ++ ){

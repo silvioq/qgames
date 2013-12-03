@@ -13,6 +13,8 @@
 #define  POS_SETCONTINUA(p)  p->flags |= POSICION_CONTINUA;
 #define  POS_GETCONTINUA(p)  ( p->flags & POSICION_CONTINUA )
 
+#define  CACHE_OCUPADO    0
+
 typedef  struct  StrPosicion {
     Tipojuego*  tjuego;
     _list*      movidas;
@@ -26,6 +28,10 @@ typedef  struct  StrPosicion {
     Pieza*      piezas;
     int         piezas_count;
     int         piezas_alloc;
+
+#if  CACHE_OCUPADO
+    int*        casilleros_ocupados;
+#endif
 
 } _Posicion;
 
@@ -99,6 +105,15 @@ static inline void     posicion_copy( Posicion* pos_dest, Posicion* pos_ori ){
     pos_dest->piezas = malloc( sizeof( Pieza ) * pos_ori->piezas_alloc );
     memcpy( pos_dest->piezas, pos_ori->piezas, sizeof( Pieza ) * pos_ori->piezas_count );
     if( pos_ori->flags & POSICION_HASH_CALCULADO ) memcpy( pos_dest->hash, pos_ori->hash, 16 );
+#if  CACHE_OCUPADO
+    if( pos_ori->casilleros_ocupados ){
+        if( !pos_dest->casilleros_ocupados ) 
+            pos_dest->casilleros_ocupados = malloc( sizeof(int) * pos_dest->tjuego->casilleros->entradas );
+        memcpy( pos_dest->casilleros_ocupados, 
+                pos_ori->casilleros_ocupados, 
+                sizeof(int) * pos_dest->tjuego->casilleros->entradas );
+    } else pos_dest->casilleros_ocupados = NULL;
+#endif
 
 }
 
@@ -108,6 +123,12 @@ static  inline  void  posicion_free_data(Posicion* pos){
         list_free( pos->movidas );
     }
     if( pos->piezas ) free( pos->piezas );
+#if  CACHE_OCUPADO
+    if( pos->casilleros_ocupados ){
+        free( pos->casilleros_ocupados );
+        pos->casilleros_ocupados = NULL;
+    }
+#endif
 }
 
 #endif

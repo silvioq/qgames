@@ -483,12 +483,39 @@ int         posicion_equal( Posicion* pos1, Posicion* pos2 ){
     return memcmp( h1, h2, 16 ) == 0;
 }
 
+#if  CACHE_OCUPADO
+static  void  posicion_generar_array_casilleros( Posicion* pos ){
+    if( pos->casilleros_ocupados ) return;
+    pos->casilleros_ocupados = malloc( sizeof( int ) * pos->tjuego->casilleros->entradas );
+    memset(  pos->casilleros_ocupados, 0, sizeof( int ) * pos->tjuego->casilleros->entradas );
+    int i;
+    for( i = 0; i < pos->piezas_count; i ++ ){
+       Pieza* pieza = & pos->piezas[i];
+       if( CASILLERO_VALIDO( pieza->casillero ) ){
+           LOGPRINT( 7, "%s ==> %d ++", pieza->casillero->nombre, pieza->casillero->number  );
+           pos->casilleros_ocupados[pieza->casillero->number] ++;
+       }
+    }
+}
+#endif
+
 
 /*
  * Vamos a cambiar de lugar una pieza
  * */
 void       posicion_mueve_pieza( Posicion* pos, Pieza* pieza, Casillero* destino ){
-    int i;
+#if  CACHE_OCUPADO
+    posicion_generar_array_casilleros( pos );
+    if( CASILLERO_VALIDO( pieza->casillero ) ){
+        pos->casilleros_ocupados[pieza->casillero->number] --;
+        LOGPRINT( 7, "%s ==> %d --", pieza->casillero->nombre, pieza->casillero->number  );
+    }
+    if( CASILLERO_VALIDO( destino) ){
+        pos->casilleros_ocupados[destino->number] ++;
+        LOGPRINT( 7, "%s ==> %d ++ %s", destino->nombre, destino->number, pieza->tpieza->nombre  );
+    }
+#endif
+
     pos->flags &= (~POSICION_HASH_CALCULADO);
     pieza->casillero = destino;
     pieza->flags &= (~PIEZA_HASH_CALCULADO);
