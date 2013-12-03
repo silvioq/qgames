@@ -1,16 +1,17 @@
-Desarrollo corto plazo (version 2.9.5)
+Version 2.9.10
+* Armar una consola mas amigable, para mejor prueba de juegos
 
-* Hace falta controlar las funciones "visibles"
-  Visibilidad a las funciones. http://gcc.gnu.org/wiki/Visibility y 
-  http://www.gnu.org/software/hello/manual/gnulib/Exported-Symbols-of-Shared-Libraries.html
 
-Version 2.9.7
+Version 2.9.11
 
 * Documentar el lenguaje qgames
 * Rotular todos los fuentes con la licencia MIT
 * Benchmarking
 
 Motor de juegos
+
+* Armar un cache de "ocupados". Esto mejoraria sensiblemente la
+  funcion "ocupado" del analizador
 
 * Armar un cache de ataques. Se tratara de un vector que tenga
   los casilleros atacados de acuerdo al color. Hacer el Bench
