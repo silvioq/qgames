@@ -426,7 +426,7 @@ static  int   partida_mover_mov( Partida* par, Movida* mov ){
     if( partida_analiza_final( par ) ) return 1;
     if( POS_GETCONTINUA( posnew ) ){
         par->tmov = posnew->tmov_continua;
-        par->pieza_continua = movida_pieza( mov, posnew );
+        par->pieza_continua = movida_pieza( movant, posnew );
         par->flags |= CONTINUACION;
         return 1;
     } else {
