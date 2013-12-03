@@ -709,6 +709,7 @@ instaction_keep:
     TOK_CONTINUA  word_or_string {
             CHECK_TIPOJUEGO;
             if( !tipojuego_code_juega( tipojuego, NULL, 0, 1, (char*)$2 ) ) YYERROR;
+            free( $2 );
     } |
     TOK_CONTINUA_SI instexpr {
             CHECK_TIPOJUEGO;
