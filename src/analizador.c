@@ -106,14 +106,16 @@ int      analizador_evalua_final  ( Regla* regla, Posicion* pos, Pieza* pieza, C
  * */
 int    analizador_atacado( Analizador* z, Casillero* cas ){
     Casillero* ccc = cas ? cas : z->cas;
-    Pieza *p;
     int i;
     if( z->tipo_analisis == ANALISIS_ATAQUE ) return 0;
     CHECK_STATUS ;
     if( !CASILLERO_VALIDO(ccc) ) return 0;
+    Casillero* cant = z->pieza->casillero;
+    posicion_mueve_pieza( &z->pos, z->pieza, ccc );
     Posicion* pos = posicion_dup( &z->pos );
     if( TIPOJUEGO_CAPTURAIMPLICITA(z->pos.tjuego ) ){
         for( i = 0; i < pos->piezas_count; i ++ ){
+            Pieza *p;
             p = & pos->piezas[i];
             if( p->number != z->pieza->number && p->casillero == ccc ) p->casillero = OUTOFBOARD ;
         }
@@ -126,12 +128,15 @@ int    analizador_atacado( Analizador* z, Casillero* cas ){
         list_inicio( pos->movidas );
         while( mov = (Movida*) list_siguiente( pos->movidas ) ){
             if( movida_casillero_destino( mov ) == ccc ){
+                LOGPRINT( 6, "Atacado en %s", ccc->nombre );
                 posicion_free( pos );
+                posicion_mueve_pieza( &z->pos, z->pieza, cant );
                 return 1;
             }
         }
     }
     posicion_free( pos );
+    posicion_mueve_pieza( &z->pos, z->pieza, cant );
     return 0;
 }
 
@@ -493,7 +498,6 @@ int   analizador_direccion( Analizador* z, Direccion* dir ){
     LOGPRINT( 7, "Estoy en %s moviendome hacia %s ... mi destino es %s", 
               z->cas->nombre, dir2->nombre, v->destino->nombre );
     z->cas = v->destino;
-    if( z->pieza ) posicion_mueve_pieza( &z->pos, z->pieza, z->cas );
     return  STATUS_NORMAL;
 }
 
