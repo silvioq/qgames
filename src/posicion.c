@@ -335,7 +335,7 @@ static  int        posicion_analiza_movidas_int( Posicion* pos, char tipoanalisi
                 if( regla->tregla != MOVE ) continue;
                 if( tipomov && tipomov != regla->tmov ) continue;
                 _list*  movs;
-                LOGPRINT( 6, "Regla %d", r );
+                LOGPRINT( 7, "Regla %d", r );
                 movs =  analizador_evalua_movidas( regla, pos, pp, pp->casillero, tipoanalisis, 
                                 regla->tmov, color );
                 if( movs ){
@@ -343,7 +343,7 @@ static  int        posicion_analiza_movidas_int( Posicion* pos, char tipoanalisi
                     posicion_add_movidas( pos, movs );
                     list_free( movs );
                     if( pos->movidas && pos->movidas->entradas > 0 && tipoanalisis == ANALISIS_PRIMER_MOVIDA ) return 1;
-                    LOGPRINT( 6, "Regla %d %d entradas", r, movs->entradas );
+                    LOGPRINT( 7, "Regla %d %d entradas", r, movs->entradas );
                 }
             }
         }
