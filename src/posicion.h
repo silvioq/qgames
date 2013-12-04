@@ -13,7 +13,9 @@
 #define  POS_SETCONTINUA(p)  p->flags |= POSICION_CONTINUA;
 #define  POS_GETCONTINUA(p)  ( p->flags & POSICION_CONTINUA )
 
-#define  CACHE_OCUPADO    0
+#ifndef  CACHE_OCUPADO
+#define  CACHE_OCUPADO    1
+#endif
 
 typedef  struct  StrPosicion {
     Tipojuego*  tjuego;

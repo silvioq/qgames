@@ -230,7 +230,8 @@ Posicion*  movida_ejecuta( Movida* mov ){
                 break;
             case ACCION_CREA:
                 p = posicion_add_pieza( pos );
-                pieza_init( p, acc->tpieza, acc->destino, acc->color );
+                pieza_init( p, acc->tpieza, ENPOZO, acc->color );
+                posicion_mueve_pieza( pos, p, acc->destino );
                 break;
             case ACCION_TRANSFORMA:
                 if( acc->color  ) p->color = acc->color;

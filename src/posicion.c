@@ -12,6 +12,7 @@
 #include  <stdarg.h>
 #include  <qgames.h>
 
+#include  "config.h"
 #include  "list.h"
 #include  "tipojuego.h"
 #include  "pieza.h"
@@ -486,6 +487,7 @@ int         posicion_equal( Posicion* pos1, Posicion* pos2 ){
 #if  CACHE_OCUPADO
 static  void  posicion_generar_array_casilleros( Posicion* pos ){
     if( pos->casilleros_ocupados ) return;
+    LOGPRINT( 6, "Generando arreglo de casilleros ocupados"  );
     pos->casilleros_ocupados = malloc( sizeof( int ) * pos->tjuego->casilleros->entradas );
     memset(  pos->casilleros_ocupados, 0, sizeof( int ) * pos->tjuego->casilleros->entradas );
     int i;
