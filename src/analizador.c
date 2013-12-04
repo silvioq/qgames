@@ -33,8 +33,8 @@ _list*   analizador_evalua_movidas( Regla* regla, Posicion* pos, Pieza* pieza, C
 
     memset( z, 0, sizeof( Analizador ) );
     // z->pos     = posicion_dup(pos);   // OPTIMIZE: Dejar de utilizar el puntero para tenerlo estatico
-    posicion_copy( &z->pos, pos );
-    z->pieza   = posicion_get_pieza(&z->pos,pieza);
+    posicion_copy( ZPOSICION(z), pos );
+    z->pieza   = posicion_get_pieza(ZPOSICION(z),pieza);
     z->cas     = cas;
     z->cas_ori = cas;
     z->color   = color;
@@ -70,7 +70,7 @@ int      analizador_evalua_final  ( Regla* regla, Posicion* pos, Pieza* pieza, C
     Analizador* z = (Analizador*)malloc( sizeof( Analizador ) );
     int  ret;
     memset( z, 0, sizeof( Analizador ) );
-    posicion_copy( &z->pos, pos );
+    posicion_copy( ZPOSICION(z), pos );
     z->cas     = cas;
     z->cas_ori = cas;
     z->pieza = pieza;
@@ -111,8 +111,8 @@ int    analizador_atacado( Analizador* z, Casillero* cas ){
     CHECK_STATUS ;
     if( !CASILLERO_VALIDO(ccc) ) return 0;
     Casillero* cant = z->pieza->casillero;
-    posicion_mueve_pieza( &z->pos, z->pieza, ccc );
-    Posicion* pos = posicion_dup( &z->pos );
+    posicion_mueve_pieza( ZPOSICION(z), z->pieza, ccc );
+    Posicion* pos = posicion_dup( ZPOSICION(z) );
     if( TIPOJUEGO_CAPTURAIMPLICITA(z->pos.tjuego ) ){
         for( i = 0; i < pos->piezas_count; i ++ ){
             Pieza *p;
@@ -130,13 +130,13 @@ int    analizador_atacado( Analizador* z, Casillero* cas ){
             if( movida_casillero_destino( mov ) == ccc ){
                 LOGPRINT( 6, "Atacado en %s", ccc->nombre );
                 posicion_free( pos );
-                posicion_mueve_pieza( &z->pos, z->pieza, cant );
+                posicion_mueve_pieza( ZPOSICION(z), z->pieza, cant );
                 return 1;
             }
         }
     }
     posicion_free( pos );
-    posicion_mueve_pieza( &z->pos, z->pieza, cant );
+    posicion_mueve_pieza( ZPOSICION(z), z->pieza, cant );
     return 0;
 }
 
@@ -342,7 +342,7 @@ int    analizador_juega  ( Analizador* z, Casillero* cas, int con_captura, int c
     if( !CASILLERO_VALIDO( ccc ) ) return STATUS_NORMAL;
 #endif
     if( !z->movidas ) z->movidas = list_nueva( NULL );
-    if( !z->mov_actual ) z->mov_actual = movida_new( &z->pos, z->pieza, z->tmov );
+    if( !z->mov_actual ) z->mov_actual = movida_new( ZPOSICION(z), z->pieza, z->tmov );
     movida_accion_mueve( z->mov_actual, z->pieza, ccc );
     LOGPRINT( 6, "Juega %s en %s captura = %d cont = %x", z->pieza->tpieza->nombre, ccc->nombre, con_captura, continua );
     if( TIPOJUEGO_CAPTURAIMPLICITA(z->pos.tj) || con_captura ){
@@ -367,7 +367,7 @@ int    analizador_crea   ( Analizador* z, int owner, Tipopieza* tp, Casillero* c
     if( !CASILLERO_VALIDO( ccc ) ) return STATUS_NORMAL;
 #endif
     if( !z->movidas ) z->movidas = list_nueva( NULL );
-    if( !z->mov_actual ) z->mov_actual = movida_new( &z->pos, z->pieza, z->tmov );
+    if( !z->mov_actual ) z->mov_actual = movida_new( ZPOSICION(z), z->pieza, z->tmov );
     if( owner == ENEMIGO ){
          color = z->color + 1;
          if( color > z->pos.tjuego->colores ) color = 1;
@@ -436,7 +436,7 @@ int    analizador_mueve  ( Analizador* z, char fromto_flags, void* from, void* t
         if( !pp ) continue;
         if( pp == z->pieza ) continue;
         if( pp->casillero == cas_from ){
-            if( !z->mov_actual ) z->mov_actual = movida_new( &z->pos, z->pieza, z->tmov );
+            if( !z->mov_actual ) z->mov_actual = movida_new( ZPOSICION(z), z->pieza, z->tmov );
             LOGPRINT( 6, "Mueve %s a %s", pp->tpieza->nombre, cas_to->nombre );
             movida_accion_mueve( z->mov_actual, pp, cas_to );
             hay_piezas = 1;
@@ -458,7 +458,7 @@ int    analizador_captura  ( Analizador* z, Casillero* cas  ){
     if( !CASILLERO_VALIDO( ccc ) ) return STATUS_NORMAL;
 #endif
     if( !z->movidas ) z->movidas = list_nueva( NULL );
-    if( !z->mov_actual ) z->mov_actual = movida_new( &z->pos, z->pieza, z->tmov );
+    if( !z->mov_actual ) z->mov_actual = movida_new( ZPOSICION(z), z->pieza, z->tmov );
     int i;
     for( i = 0; i < z->pos.piezas_count; i ++ ){
         Pieza* pp = &(z->pos.piezas[i]);
@@ -510,7 +510,7 @@ int   analizador_casillero( Analizador* z, Casillero* cas ){
             (cas ? cas->nombre : z->cas_ori->nombre ),  
             (cas ? ""  : " (original)" ) );
     z->cas = cas ? cas : z->cas_ori;
-    if( z->pieza && CASILLERO_VALIDO( z->cas ) ) posicion_mueve_pieza( &z->pos, z->pieza, z->cas );
+    if( z->pieza && CASILLERO_VALIDO( z->cas ) ) posicion_mueve_pieza( ZPOSICION(z), z->pieza, z->cas );
     return  STATUS_NORMAL;
 }
 
@@ -521,7 +521,7 @@ int    analizador_jaquemate( Analizador* z, Tipopieza* tpieza ){
     LOGPRINT( 7, "jaquemate: esta ahogado %s", tpieza->nombre )
     for( i = 1; i <= z->pos.tjuego->colores ; i ++ ){
         if( i == z->color ) continue;
-        if( posicion_en_jaque( &z->pos, tpieza, i ) ){
+        if( posicion_en_jaque( ZPOSICION(z), tpieza, i ) ){
             LOGPRINT( 7, "jaquemate: la posicion esta en jaquemate para %s", tpieza->nombre );
             return 1;
         }
@@ -534,7 +534,7 @@ int    analizador_transforma( Analizador* z, int owner, Tipopieza* tpieza, int f
     CHECK_STATUS;
     int color;
 
-    if( !z->mov_actual ) z->mov_actual = movida_new( &z->pos, z->pieza, z->tmov );
+    if( !z->mov_actual ) z->mov_actual = movida_new( ZPOSICION(z), z->pieza, z->tmov );
     if( !flags ){
         if( owner == ENEMIGO ){
             color = z->color + 1;
@@ -584,7 +584,7 @@ int    analizador_transforma( Analizador* z, int owner, Tipopieza* tpieza, int f
 }
 
 int    analizador_asigna_att( Analizador* z, int att, int val ){
-    if( !z->mov_actual ) z->mov_actual = movida_new( &z->pos, z->pieza, z->tmov );
+    if( !z->mov_actual ) z->mov_actual = movida_new( ZPOSICION(z), z->pieza, z->tmov );
     movida_accion_asigna_att( z->mov_actual, z->pieza, att, val );
     return  STATUS_NORMAL;
 }
@@ -602,7 +602,7 @@ int    analizador_evalua_att( Analizador* z, int att ){
  * entonces NO es ahogado!
  * */
 int   analizador_ahogado( Analizador* z ){
-    Posicion* pos = posicion_dup( &z->pos );
+    Posicion* pos = posicion_dup( ZPOSICION(z) );
     int i;
     if( !z->color_siguiente ){
         LOGPRINT( 2, "Error, color siguiente no definido %p", z );
@@ -620,7 +620,7 @@ int   analizador_ahogado( Analizador* z ){
  * Controla cantidad de repeticiones a partir de la posicion actual
  */
 int   analizador_repeticiones( Analizador* z ){
-    Posicion* p = &z->pos;
+    Posicion* p = ZPOSICION(z);
 
     // Arranca el contador en uno, ya que es necesario contar la posicion
     // actual como primer posicion repetida. O sea, la posicion actual
